@@ -43,7 +43,8 @@
     "react/react-in-jsx-scope": "off", // import React from "react"가 필수였던 시기에 필요한 규칙
     "simple-import-sort/imports": "warn",
     "simple-import-sort/exports": "error",
-    "import/no-named-as-default": 0
+    "import/no-named-as-default": 0,
+    "no-unused-vars": "warn"
   },
   "parser": "@typescript-eslint/parser",
   "parserOptions": {
