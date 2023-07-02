@@ -1,5 +1,5 @@
 'use client';
-
+// 팀 블로그 헤더
 import { Inter } from 'next/font/google';
 import { ThemeProvider } from 'styled-components';
 

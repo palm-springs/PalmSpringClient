@@ -7,5 +7,5 @@ export const metadata: Metadata = {
 };
 
 export default function Home() {
-  return <div>메인입니다</div>;
+  return <div>메인입니다.</div>;
 }
