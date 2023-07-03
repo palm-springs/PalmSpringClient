@@ -1,31 +1,33 @@
 import { css, DefaultTheme } from 'styled-components';
 
-const PointColors = {
-  green: '#19DB7B',
-  'dark-green': '#1A9B6F',
-  blue: '#2F4CA9',
+type PickDefaultThemeProps<T extends keyof DefaultTheme> = Pick<DefaultTheme, T>[T];
+
+const PointColors: PickDefaultThemeProps<'PointColors'> = {
+  Green: '#19DB7B',
+  DarkGreen: '#1A9B6F',
+  Blue: '#2F4CA9',
 };
 
-const GreyStyle = {
-  0: '#FFFFFF',
+const GreyStyle: PickDefaultThemeProps<'GreyStyle'> = {
   White: '#FFFFFF',
-  50: '#FBFDFC',
-  100: '#F8F9FA',
-  200: '#F1F3F5',
-  300: '#E9ECEF',
-  400: '#DEE2E6',
-  500: '#CED4DA',
-  600: '#ADB5BD',
-  700: '#868E96',
-  800: '#495057',
-  900: '#343A40',
   Basic: '#343A40',
-  950: '#212529',
-  1000: '#000000',
   Black: '#000000',
+  Grey0: '#FFFFFF',
+  Grey50: '#FBFDFC',
+  Grey100: '#F8F9FA',
+  Grey200: '#F1F3F5',
+  Grey300: '#E9ECEF',
+  Grey400: '#DEE2E6',
+  Grey500: '#CED4DA',
+  Grey600: '#ADB5BD',
+  Grey700: '#868E96',
+  Grey800: '#495057',
+  Grey900: '#343A40',
+  Grey950: '#212529',
+  Grey1000: '#000000',
 };
 
-const TypeSystem = {
+const TypeSystem: PickDefaultThemeProps<'TypeSystem'> = {
   Title: css`
     font-weight: 700;
     font-size: 3rem;
