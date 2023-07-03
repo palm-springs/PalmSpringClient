@@ -76,14 +76,14 @@ const StyledDashBoardNav = styled.nav`
   margin: 0;
   padding-left: 0.5rem;
   padding-right: 0.5rem;
-  background-color: ${({ theme }) => theme.GreyStyle.Grey100};
+  background-color: ${({ theme }) => theme.colors.grey_100};
   display: flex;
   flex-direction: column;
   align-items: center;
 `;
 
 const StyledSideBarTitle = styled.div`
-  ${({ theme }) => theme.TypeSystem.Body1_semibold};
+  ${({ theme }) => theme.fonts.Body1_Semibold};
   display: flex;
   width: 100%;
   padding: 0.75rem 1rem;
@@ -92,7 +92,7 @@ const StyledSideBarTitle = styled.div`
 `;
 
 const StyledSideBarContent = styled.div`
-  ${({ theme }) => theme.TypeSystem.Body3};
+  ${({ theme }) => theme.fonts.Body3};
   display: flex;
   width: 100%;
   height: 2.5rem;
@@ -103,14 +103,14 @@ const StyledSideBarContent = styled.div`
 `;
 
 const Line = styled.div`
-  background: ${({ theme }) => theme.GreyStyle.Grey300};
+  background: ${({ theme }) => theme.colors.grey_300};
   width: 100%;
   height: 1px;
   margin-bottom: 0.5rem;
 `;
 
 const StyledBlogConfigBtn = styled.article`
-  ${({ theme }) => theme.TypeSystem.Body3};
+  ${({ theme }) => theme.fonts.Body3};
   display: flex;
   width: 16.875rem;
   height: 2.5rem;
@@ -118,5 +118,5 @@ const StyledBlogConfigBtn = styled.article`
   align-items: center;
   gap: 0.5rem;
   border-radius: 0.375rem;
-  background: ${({ theme }) => theme.GreyStyle.Grey300};
+  background: ${({ theme }) => theme.colors.grey_300};
 `;

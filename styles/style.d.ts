@@ -1,41 +1,36 @@
 import 'styled-components';
-
 declare module 'styled-components' {
   export interface DefaultTheme {
-    PointColors: {
-      Green: string;
-      DarkGreen: string;
-      Blue: string;
+    colors: {
+      grey_0: string;
+      grey_50: string;
+      grey_100: string;
+      grey_200: string;
+      grey_300: string;
+      grey_400: string;
+      grey_500: string;
+      grey_600: string;
+      grey_700: string;
+      grey_800: string;
+      grey_900: string;
+      grey_950: string;
+      grey_1000: string;
+
+      green: string;
+      darkGreen: string;
+      blue: string;
     };
-    GreyStyle: {
-      White: string;
-      Basic: string;
-      Black: string;
-      Grey0: string;
-      Grey50: string;
-      Grey100: string;
-      Grey200: string;
-      Grey300: string;
-      Grey400: string;
-      Grey500: string;
-      Grey600: string;
-      Grey700: string;
-      Grey800: string;
-      Grey900: string;
-      Grey950: string;
-      Grey1000: string;
-    };
-    TypeSystem: {
-      Title: RuleSet<object>;
-      Heading1: RuleSet<object>;
-      Heading2_semibold: RuleSet<object>;
-      Heading2_regular: RuleSet<object>;
-      Body1_semibold: RuleSet<object>;
-      Body1_regular: RuleSet<object>;
-      Body2_semibold: RuleSet<object>;
-      Body2_regular: RuleSet<object>;
-      Body3: RuleSet<object>;
-      Caption: RuleSet<object>;
+    fonts: {
+      Title: SerializedStyles;
+      Heading1: SerializedStyles;
+      Heading2_Semibold: SerializedStyles;
+      Heading2_Regular: SerializedStyles;
+      Body1_Semibold: SerializedStyles;
+      Body1_Regular: SerializedStyles;
+      Body2_Semibold: SerializedStyles;
+      Body2_Regular: SerializedStyles;
+      Body3: SerializedStyles;
+      Caption: SerializedStyles;
     };
   }
 }
