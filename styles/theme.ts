@@ -37,27 +37,50 @@ const fonts = {
     font-weight: bold;
     font-style: normal;
   `,
-  Heading2: css`
+  Heading2_Semibold: css`
     line-height: 140%;
     letter-spacing: -1%;
     font-family: 'Pretendard';
     font-size: 1.5rem;
-    font-weight: semibold, regular;
+    font-weight: semibold;
     font-style: normal;
   `,
-  Body1: css`
+  Heading2_Regular: css`
+    line-height: 140%;
+    letter-spacing: -1%;
+    font-family: 'Pretendard';
+    font-size: 1.5rem;
+    font-weight: regular;
+    font-style: normal;
+  `,
+  Body1_Semibold: css`
     line-height: 170%;
     letter-spacing: -0.3%;
     font-family: 'Pretendard';
     font-size: 1.125rem;
-    font-weight: semibold, regular;
+    font-weight: semibold;
     font-style: normal;
   `,
-  Body2: css`
+  Body1_Regular: css`
+    line-height: 170%;
+    letter-spacing: -0.3%;
+    font-family: 'Pretendard';
+    font-size: 1.125rem;
+    font-weight: regular;
+    font-style: normal;
+  `,
+  Body2_Semibold: css`
     letter-spacing: -0.3%;
     font-family: 'Pretendard';
     font-size: 1rem;
-    font-weight: semibold, regular;
+    font-weight: semibold;
+    font-style: normal;
+  `,
+  Body2_Regular: css`
+    letter-spacing: -0.3%;
+    font-family: 'Pretendard';
+    font-size: 1rem;
+    font-weight: regular;
     font-style: normal;
   `,
   Body3: css`

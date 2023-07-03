@@ -24,9 +24,12 @@ declare module 'styled-components' {
     fonts: {
       Title: SerializedStyles;
       Heading1: SerializedStyles;
-      Heading2: SerializedStyles;
-      Body1: SerializedStyles;
-      Body2: SerializedStyles;
+      Heading2_Semibold: SerializedStyles;
+      Heading2_Regular: SerializedStyles;
+      Body1_Semibold: SerializedStyles;
+      Body1_Regular: SerializedStyles;
+      Body2_Semibold: SerializedStyles;
+      Body2_Regular: SerializedStyles;
       Body3: SerializedStyles;
       Caption: SerializedStyles;
     };
