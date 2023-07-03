@@ -1,67 +1,74 @@
 import { css, DefaultTheme } from 'styled-components';
 
-const colors = {
-  pink_700: '#C56889',
-  pink_500: '#DB7499',
-  pink_300: '#E088A8',
-  pink_100: '#FF68AA',
-
-  gray_100_80: '#FFFFFFCC',
-  gray_100_25: '#FFFFFF40',
-  gray_900_60: '#00000099',
+const PointColors = {
+  green: '#19DB7B',
+  'dark-green': '#1A9B6F',
+  blue: '#2F4CA9',
 };
 
-const fonts = {
-  Title1: css`
-    line-height: 1.6rem;
-    letter-spacing: 0.02em;
-    font-family: 'Pretendard';
-    font-size: 1.4rem;
+const GreyStyle = {
+  0: '#FFFFFF',
+  White: '#FFFFFF',
+  50: '#FBFDFC',
+  100: '#F8F9FA',
+  200: '#F1F3F5',
+  300: '#E9ECEF',
+  400: '#DEE2E6',
+  500: '#CED4DA',
+  600: '#ADB5BD',
+  700: '#868E96',
+  800: '#495057',
+  900: '#343A40',
+  Basic: '#343A40',
+  950: '#212529',
+  1000: '#000000',
+  Black: '#000000',
+};
+
+const TypeSystem = {
+  Title: css`
     font-weight: 700;
-    font-style: normal;
+    font-size: 3rem;
+    line-height: 1.4;
+    letter-spacing: -1%;
   `,
-  Title2: css`
-    line-height: 2rem;
-    letter-spacing: -0.04em;
-    font-family: 'Pretendard';
-    font-size: 1.4rem;
-    font-weight: 400;
-    font-style: normal;
+  Heading1: css`
+    font-weight: 700;
+    font-size: 2rem;
+    line-height: 1.4;
+    letter-spacing: -1%;
+  `,
+  Heading2: css`
+    font-weight: 600;
+    font-size: 1.5rem;
+    line-height: 1.4;
+    letter-spacing: -1%;
   `,
   Body1: css`
-    line-height: 1.2rem;
-    font-family: 'Pretendard';
-    font-size: 1rem;
-    font-weight: 700;
-    font-style: normal;
+    font-weight: 600;
+    font-size: 1.125rem;
+    line-height: 1.7;
+    letter-spacing: -0.3%;
   `,
   Body2: css`
-    line-height: 1.4rem;
-    letter-spacing: 0.06em;
-    font-family: 'Pretendard';
+    font-weight: 600;
     font-size: 1rem;
-    font-weight: 400;
-    font-style: normal;
+    letter-spacing: -0.3%;
   `,
   Body3: css`
-    line-height: 1.2rem;
-    font-family: 'Pretendard';
-    font-size: 1rem;
     font-weight: 400;
-    font-style: normal;
+    font-size: 0.875rem;
+    letter-spacing: -0.3%;
   `,
-  Body4: css`
-    line-height: 1.2rem;
-    letter-spacing: -0.04em;
-    font-family: 'Pretendard';
-    font-size: 1rem;
-    font-weight: 400;
-    font-style: normal;
+  Caption: css`
+    font-weight: 500;
+    font-size: 0.75rem;
   `,
 };
 
 const theme: DefaultTheme = {
-  colors,
-  fonts,
+  PointColors,
+  GreyStyle,
+  TypeSystem,
 };
 export default theme;

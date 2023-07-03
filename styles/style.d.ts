@@ -1,24 +1,35 @@
 import 'styled-components';
 
+type PointColorsType = 'green' | 'dark-green' | 'blue';
+type GreyStyleType =
+  | 'White'
+  | 'Basic'
+  | 'Black'
+  | 0
+  | 50
+  | 100
+  | 200
+  | 300
+  | 400
+  | 500
+  | 600
+  | 700
+  | 800
+  | 900
+  | 950
+  | 1000;
+type TypeSystemType = 'Title' | 'Heading1' | 'Heading2' | 'Body1' | 'Body2' | 'Body3' | 'Caption';
+
 declare module 'styled-components' {
   export interface DefaultTheme {
-    colors: {
-      pink_700: string;
-      pink_500: string;
-      pink_300: string;
-      pink_100: string;
-
-      gray_100_80: string;
-      gray_100_25: string;
-      gray_900_60: string;
+    PointColors: {
+      [key: PointColorsType]: string;
     };
-    fonts: {
-      Title1: SerializedStyles;
-      Title2: SerializedStyles;
-      Body1: SerializedStyles;
-      Body2: SerializedStyles;
-      Body3: SerializedStyles;
-      Body4: SerializedStyles;
+    GreyStyle: {
+      [key: GreyStyleType]: string;
+    };
+    TypeSystem: {
+      [key: TypeSystemType]: SerializedStyles;
     };
   }
 }
