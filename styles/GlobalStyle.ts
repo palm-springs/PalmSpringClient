@@ -8,9 +8,7 @@ ${reset}
     width:100%;
     height: 100vh;
 }
-html {
-    font-size: 62.5%;
-}
+
 * {
     box-sizing: border-box;
 }`;
