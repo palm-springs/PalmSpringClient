@@ -84,10 +84,10 @@ const fonts = {
     font-style: normal;
   `,
   Body2_regular: css`
-    font-family: Pretendard;
-    font-weight: 400;
-    font-size: 1rem;
     letter-spacing: -0.3%;
+    font-family: Pretendard;
+    font-size: 1rem;
+    font-weight: 400;
   `,
   Body3: css`
     letter-spacing: -0.3%;

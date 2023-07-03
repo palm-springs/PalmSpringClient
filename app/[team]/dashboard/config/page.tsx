@@ -50,72 +50,74 @@ const Config = () => {
 export default Config;
 
 const StyledConfigWrapper = styled.section`
-  margin-left: 4.5rem;
-  margin-right: 4.5rem;
-  margin-top: 3.75rem;
   display: flex;
   flex-direction: column;
+  margin-top: 3.75rem;
+  margin-right: 4.5rem;
+  margin-left: 4.5rem;
   width: 100%;
   max-width: 501px;
 `;
 
 const StyledConfigTitle = styled.span`
-  ${({ theme }) => theme.TypeSystem.Heading1};
+  ${({ theme }) => theme.fonts.Heading1};
 `;
 
 const StyledConfigDetailWrapper = styled.section`
   display: flex;
-  padding: 1rem 0rem;
   flex-direction: column;
-  align-items: flex-start;
   gap: var(--dashboard-inputfield-gap, 2rem);
+  align-items: flex-start;
   margin-top: 1.5rem;
+  padding: 1rem 0rem;
 `;
 
 const StyledConfigDetailLabel = styled.span`
-  ${({ theme }) => theme.TypeSystem.Body2_semibold};
-  color: ${({ theme }) => theme.GreyStyle.Grey950};
+  ${({ theme }) => theme.fonts.Body2_Semibold};
+  color: ${({ theme }) => theme.colors.grey_950};
   margin-bottom: 0.5rem;
+
   display: flex;
   align-items: center;
 `;
 
 const StyledBlogUrl = styled.span`
-  color: ${({ theme }) => theme.GreyStyle.Grey700};
-  ${({ theme }) => theme.TypeSystem.Body2_regular};
+  color: ${({ theme }) => theme.colors.grey_700};
+  ${({ theme }) => theme.fonts.Body2_Regular};
 `;
 
 const StyledBlogNameInput = styled.input`
   display: inline-flex;
-  padding: 0.625rem 0.75rem;
-  align-items: flex-start;
   gap: 0.625rem;
-  width: 100%;
-  border-radius: 0.5rem;
+  align-items: flex-start;
   border: 1px solid var(--color-grey-400, #dee2e6);
+  border-radius: 0.5rem;
   background: #fff;
+  padding: 0.625rem 0.75rem;
+  width: 100%;
   &::placeholder {
-    ${({ theme }) => theme.TypeSystem.Body2_regular};
-    color: ${({ theme }) => theme.GreyStyle.Grey950};
+    ${({ theme }) => theme.fonts.Body2_Regular};
+    color: ${({ theme }) => theme.colors.grey_950};
   }
 `;
 
 const StyledLogoImgCaption = styled.span`
-  color: ${({ theme }) => theme.GreyStyle.Grey700};
-  ${({ theme }) => theme.TypeSystem.Caption};
+  color: ${({ theme }) => theme.colors.grey_700};
+  ${({ theme }) => theme.fonts.Caption};
   padding-left: 0.5rem;
 `;
 
 const StyledLogoImgInputLabel = styled.label`
-  width: 31.25rem;
-  height: ${({ type }) => (type === 'logo' ? '4.5625rem' : '8.75rem')};
+  display: flex;
   flex-shrink: 0;
+  align-items: center;
+  justify-content: center;
+  border: none;
   border-radius: 0.5rem;
   background: var(--color-grey-200, #f1f3f5);
-  border: none;
-  display: flex;
-  justify-content: center;
-  align-items: center;
+  width: 31.25rem;
+
+  height: ${({ type }) => (type === 'logo' ? '4.5625rem' : '8.75rem')};
   input {
     display: none;
     &::file-selector-button {
@@ -124,17 +126,17 @@ const StyledLogoImgInputLabel = styled.label`
   }
   span {
     margin-left: 0.38rem;
-    ${({ theme }) => theme.TypeSystem.Body2_semibold};
-    color: ${({ theme }) => theme.GreyStyle.Grey700};
+    ${({ theme }) => theme.fonts.Body2_Semibold};
+    color: ${({ theme }) => theme.colors.grey_700};
   }
 `;
 
 const StyledBlogDescription = styled.textarea`
   display: flex;
-  width: 31.25rem;
-  padding: 0.625rem 0.75rem 3.125rem 0.75rem;
-  align-items: flex-start;
   gap: 0.625rem;
+  align-items: flex-start;
+  border: 1px solid ${({ theme }) => theme.colors.grey_400};
   border-radius: 0.5rem;
-  border: 1px solid ${({ theme }) => theme.GreyStyle.Grey400};
+  padding: 0.625rem 0.75rem 3.125rem 0.75rem;
+  width: 31.25rem;
 `;
