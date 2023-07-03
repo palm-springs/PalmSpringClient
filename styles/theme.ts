@@ -29,40 +29,67 @@ const GreyStyle: PickDefaultThemeProps<'GreyStyle'> = {
 
 const TypeSystem: PickDefaultThemeProps<'TypeSystem'> = {
   Title: css`
+    font-family: Pretendard;
     font-weight: 700;
     font-size: 3rem;
     line-height: 1.4;
     letter-spacing: -1%;
   `,
   Heading1: css`
+    font-family: Pretendard;
     font-weight: 700;
     font-size: 2rem;
     line-height: 1.4;
     letter-spacing: -1%;
   `,
-  Heading2: css`
+  Heading2_semibold: css`
+    font-family: Pretendard;
     font-weight: 600;
     font-size: 1.5rem;
     line-height: 1.4;
     letter-spacing: -1%;
   `,
-  Body1: css`
+  Heading2_regular: css`
+    font-family: Pretendard;
+    font-weight: 400;
+    font-size: 1.5rem;
+    line-height: 1.4;
+    letter-spacing: -1%;
+  `,
+  Body1_semibold: css`
+    font-family: Pretendard;
     font-weight: 600;
     font-size: 1.125rem;
     line-height: 1.7;
     letter-spacing: -0.3%;
   `,
-  Body2: css`
+  Body1_regular: css`
+    font-family: Pretendard;
+    font-weight: 400;
+    font-size: 1.125rem;
+    line-height: 1.7;
+    letter-spacing: -0.3%;
+  `,
+  Body2_semibold: css`
+    font-family: Pretendard;
     font-weight: 600;
     font-size: 1rem;
     letter-spacing: -0.3%;
   `,
+  Body2_regular: css`
+    font-family: Pretendard;
+    font-weight: 400;
+    font-size: 1rem;
+    letter-spacing: -0.3%;
+  `,
   Body3: css`
+    font-family: Pretendard;
     font-weight: 400;
     font-size: 0.875rem;
     letter-spacing: -0.3%;
   `,
   Caption: css`
+    font-family: Pretendard;
     font-weight: 500;
     font-size: 0.75rem;
   `,

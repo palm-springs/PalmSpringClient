@@ -1,25 +1,5 @@
 import 'styled-components';
 
-type PointColorsType = 'green' | 'dark-green' | 'blue';
-type GreyStyleType =
-  | 'White'
-  | 'Basic'
-  | 'Black'
-  | 'grey0'
-  | 'grey50'
-  | 'grey100'
-  | 'grey200'
-  | 'grey300'
-  | 'grey400'
-  | 'grey500'
-  | 'grey600'
-  | 'grey700'
-  | 'grey800'
-  | 'grey900'
-  | 'grey950'
-  | 'grey1000';
-type TypeSystemType = 'Title' | 'Heading1' | 'Heading2' | 'Body1' | 'Body2' | 'Body3' | 'Caption';
-
 declare module 'styled-components' {
   export interface DefaultTheme {
     PointColors: {
@@ -48,9 +28,12 @@ declare module 'styled-components' {
     TypeSystem: {
       Title: RuleSet<object>;
       Heading1: RuleSet<object>;
-      Heading2: RuleSet<object>;
-      Body1: RuleSet<object>;
-      Body2: RuleSet<object>;
+      Heading2_semibold: RuleSet<object>;
+      Heading2_regular: RuleSet<object>;
+      Body1_semibold: RuleSet<object>;
+      Body1_regular: RuleSet<object>;
+      Body2_semibold: RuleSet<object>;
+      Body2_regular: RuleSet<object>;
       Body3: RuleSet<object>;
       Caption: RuleSet<object>;
     };
