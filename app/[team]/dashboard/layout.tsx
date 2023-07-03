@@ -58,6 +58,7 @@ const DashBoardLayout = ({ children }: { children: React.ReactNode }) => {
           <ArrowDownIcon style={{ transform: 'scale(0.8)' }} />
           유저 기본 정보
         </SideBarContent>
+        <DashBoardNavBtn>새 글 작성하기</DashBoardNavBtn>
       </DashBoardNav>
       {children}
     </DashBoardWrapper>
@@ -122,4 +123,17 @@ const BlogConfigBtn = styled.article`
   gap: 0.5rem;
   border-radius: 0.375rem;
   background: ${({ theme }) => theme.colors.grey_300};
+`;
+
+const DashBoardNavBtn = styled.button`
+  ${({ theme }) => theme.fonts.Body2_Regular};
+  color: ${({ theme }) => theme.colors.grey_0};
+  border: none;
+  width: 15.875rem;
+  height: 2.25rem;
+  flex-shrink: 0;
+  position: absolute;
+  bottom: 1.5rem;
+  border-radius: 1.125rem;
+  background: ${({ theme }) => theme.colors.green};
 `;
