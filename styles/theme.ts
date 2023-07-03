@@ -1,76 +1,106 @@
 import { css, DefaultTheme } from 'styled-components';
 
-type PickDefaultThemeProps<T extends keyof DefaultTheme> = Pick<DefaultTheme, T>[T];
+const colors = {
+  grey_0: '#FFFFFF',
+  grey_50: '#FBFDFC',
+  grey_100: '#F8F9FA',
+  grey_200: '#F1F3F5',
+  grey_300: '#E9ECEF',
+  grey_400: '#DEE2E6',
+  grey_500: '#CED4DA',
+  grey_600: '#ADB5BD',
+  grey_700: '#868E96',
+  grey_800: '#495057',
+  grey_900: '#343A40',
+  grey_950: '#212529',
+  grey_1000: '#000000',
 
-const PointColors: PickDefaultThemeProps<'PointColors'> = {
-  Green: '#19DB7B',
-  DarkGreen: '#1A9B6F',
-  Blue: '#2F4CA9',
+  green: '#19DB7B',
+  darkGreen: '#1A9B6F',
+  blue: '#2F4CA9',
 };
 
-const GreyStyle: PickDefaultThemeProps<'GreyStyle'> = {
-  White: '#FFFFFF',
-  Basic: '#343A40',
-  Black: '#000000',
-  Grey0: '#FFFFFF',
-  Grey50: '#FBFDFC',
-  Grey100: '#F8F9FA',
-  Grey200: '#F1F3F5',
-  Grey300: '#E9ECEF',
-  Grey400: '#DEE2E6',
-  Grey500: '#CED4DA',
-  Grey600: '#ADB5BD',
-  Grey700: '#868E96',
-  Grey800: '#495057',
-  Grey900: '#343A40',
-  Grey950: '#212529',
-  Grey1000: '#000000',
-};
-
-const TypeSystem: PickDefaultThemeProps<'TypeSystem'> = {
+const fonts = {
   Title: css`
-    font-weight: 700;
-    font-size: 3rem;
-    line-height: 1.4;
+    line-height: 140%;
     letter-spacing: -1%;
+    font-family: 'Pretendard';
+    font-size: 3rem;
+    font-weight: bold;
+    font-style: normal;
   `,
   Heading1: css`
-    font-weight: 700;
+    line-height: 140%;
+    letter-spacing: -1%;
+    font-family: 'Pretendard';
     font-size: 2rem;
-    line-height: 1.4;
-    letter-spacing: -1%;
+    font-weight: bold;
+    font-style: normal;
   `,
-  Heading2: css`
-    font-weight: 600;
+  Heading2_Semibold: css`
+    line-height: 140%;
+    letter-spacing: -1%;
+    font-family: 'Pretendard';
     font-size: 1.5rem;
-    line-height: 1.4;
+    font-weight: semibold;
+    font-style: normal;
+  `,
+  Heading2_Regular: css`
+    line-height: 140%;
     letter-spacing: -1%;
+    font-family: 'Pretendard';
+    font-size: 1.5rem;
+    font-weight: regular;
+    font-style: normal;
   `,
-  Body1: css`
-    font-weight: 600;
+  Body1_Semibold: css`
+    line-height: 170%;
+    letter-spacing: -0.3%;
+    font-family: 'Pretendard';
     font-size: 1.125rem;
-    line-height: 1.7;
-    letter-spacing: -0.3%;
+    font-weight: semibold;
+    font-style: normal;
   `,
-  Body2: css`
-    font-weight: 600;
-    font-size: 1rem;
+  Body1_Regular: css`
+    line-height: 170%;
     letter-spacing: -0.3%;
+    font-family: 'Pretendard';
+    font-size: 1.125rem;
+    font-weight: regular;
+    font-style: normal;
+  `,
+  Body2_Semibold: css`
+    letter-spacing: -0.3%;
+    font-family: 'Pretendard';
+    font-size: 1rem;
+    font-weight: semibold;
+    font-style: normal;
+  `,
+  Body2_Regular: css`
+    letter-spacing: -0.3%;
+    font-family: 'Pretendard';
+    font-size: 1rem;
+    font-weight: regular;
+    font-style: normal;
   `,
   Body3: css`
-    font-weight: 400;
-    font-size: 0.875rem;
     letter-spacing: -0.3%;
+    font-family: 'Pretendard';
+    font-size: 0.875;
+    font-weight: regular;
+    font-style: normal;
   `,
   Caption: css`
-    font-weight: 500;
+    letter-spacing: 0;
+    font-family: 'Pretendard';
     font-size: 0.75rem;
+    font-weight: medium;
+    font-style: normal;
   `,
 };
 
 const theme: DefaultTheme = {
-  PointColors,
-  GreyStyle,
-  TypeSystem,
+  colors,
+  fonts,
 };
 export default theme;

@@ -1,58 +1,36 @@
 import 'styled-components';
-
-type PointColorsType = 'green' | 'dark-green' | 'blue';
-type GreyStyleType =
-  | 'White'
-  | 'Basic'
-  | 'Black'
-  | 'grey0'
-  | 'grey50'
-  | 'grey100'
-  | 'grey200'
-  | 'grey300'
-  | 'grey400'
-  | 'grey500'
-  | 'grey600'
-  | 'grey700'
-  | 'grey800'
-  | 'grey900'
-  | 'grey950'
-  | 'grey1000';
-type TypeSystemType = 'Title' | 'Heading1' | 'Heading2' | 'Body1' | 'Body2' | 'Body3' | 'Caption';
-
 declare module 'styled-components' {
   export interface DefaultTheme {
-    PointColors: {
-      Green: string;
-      DarkGreen: string;
-      Blue: string;
+    colors: {
+      grey_0: string;
+      grey_50: string;
+      grey_100: string;
+      grey_200: string;
+      grey_300: string;
+      grey_400: string;
+      grey_500: string;
+      grey_600: string;
+      grey_700: string;
+      grey_800: string;
+      grey_900: string;
+      grey_950: string;
+      grey_1000: string;
+
+      green: string;
+      darkGreen: string;
+      blue: string;
     };
-    GreyStyle: {
-      White: string;
-      Basic: string;
-      Black: string;
-      Grey0: string;
-      Grey50: string;
-      Grey100: string;
-      Grey200: string;
-      Grey300: string;
-      Grey400: string;
-      Grey500: string;
-      Grey600: string;
-      Grey700: string;
-      Grey800: string;
-      Grey900: string;
-      Grey950: string;
-      Grey1000: string;
-    };
-    TypeSystem: {
-      Title: RuleSet<object>;
-      Heading1: RuleSet<object>;
-      Heading2: RuleSet<object>;
-      Body1: RuleSet<object>;
-      Body2: RuleSet<object>;
-      Body3: RuleSet<object>;
-      Caption: RuleSet<object>;
+    fonts: {
+      Title: SerializedStyles;
+      Heading1: SerializedStyles;
+      Heading2_Semibold: SerializedStyles;
+      Heading2_Regular: SerializedStyles;
+      Body1_Semibold: SerializedStyles;
+      Body1_Regular: SerializedStyles;
+      Body2_Semibold: SerializedStyles;
+      Body2_Regular: SerializedStyles;
+      Body3: SerializedStyles;
+      Caption: SerializedStyles;
     };
   }
 }
