@@ -1,7 +1,4 @@
-import React from 'react';
-
 import LoginLanding from '@/components/auth/LoginLanding';
-import RequestAccessToken from '@/components/auth/RequestAccessToken';
 
 const page = () => {
   return (
