@@ -9,6 +9,12 @@ ${reset}
     height: 100vh;
 }
 
+a {
+    text-decoration: none;
+    
+    color: inherit;
+}
+
 * {
     box-sizing: border-box;
 }`;
