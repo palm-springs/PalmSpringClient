@@ -1,9 +1,9 @@
 'use client';
 
+import styled from 'styled-components';
+
 import ArrowDownIcon from '@/public/icons/arrow_down.svg';
 import SettingIcon from '@/public/icons/settings.svg';
-
-import styled from 'styled-components';
 import SymbolIcon from '@/public/icons/symbol.svg';
 
 const DashBoardLayout = ({ children }: { children: React.ReactNode }) => {
@@ -87,17 +87,19 @@ const SideBarTitle = styled.div`
   ${({ theme }) => theme.fonts.Body1_Semibold};
   align-items: center;
   display: flex;
+
   width: 100%;
   padding: 0.75rem 1rem;
+
   justify-content: space-between;
 `;
 
 const SideBarContent = styled.div`
   ${({ theme }) => theme.fonts.Body3};
   display: flex;
+  padding: 0rem 1rem;
   width: 100%;
   height: 2.5rem;
-  padding: 0rem 1rem;
 
   margin-bottom: 0.5rem;
 
@@ -127,8 +129,8 @@ const BlogConfigBtn = styled.article`
 
 const DashBoardNavBtn = styled.button`
   ${({ theme }) => theme.fonts.Body2_Regular};
-  color: ${({ theme }) => theme.colors.grey_0};
   border: none;
+  color: ${({ theme }) => theme.colors.grey_0};
   width: 15.875rem;
   height: 2.25rem;
   flex-shrink: 0;

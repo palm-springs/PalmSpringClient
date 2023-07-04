@@ -97,6 +97,7 @@
       }
     },
     {
+      "files": ["*.js", "*.jsx", "*.ts", "*.tsx"],
       "rules": {
         "jsx-a11y/alt-text": "warn",
         "jsx-a11y/aria-role": "warn"
