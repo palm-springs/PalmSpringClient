@@ -42,7 +42,7 @@ const fonts = {
     letter-spacing: -1%;
     font-family: 'Pretendard';
     font-size: 1.5rem;
-    font-weight: semibold;
+    font-weight: 600;
     font-style: normal;
   `,
   Heading2_Regular: css`
@@ -50,7 +50,7 @@ const fonts = {
     letter-spacing: -1%;
     font-family: 'Pretendard';
     font-size: 1.5rem;
-    font-weight: regular;
+    font-weight: 400;
     font-style: normal;
   `,
   Body1_Semibold: css`
@@ -58,7 +58,7 @@ const fonts = {
     letter-spacing: -0.3%;
     font-family: 'Pretendard';
     font-size: 1.125rem;
-    font-weight: semibold;
+    font-weight: 600;
     font-style: normal;
   `,
   Body1_Regular: css`
@@ -66,34 +66,35 @@ const fonts = {
     letter-spacing: -0.3%;
     font-family: 'Pretendard';
     font-size: 1.125rem;
-    font-weight: regular;
+    font-weight: 400;
     font-style: normal;
   `,
   Body2_Semibold: css`
     letter-spacing: -0.3%;
     font-family: 'Pretendard';
     font-size: 1rem;
-    font-weight: semibold;
+    font-weight: 600;
     font-style: normal;
   `,
   Body2_Regular: css`
     letter-spacing: -0.3%;
     font-family: 'Pretendard';
     font-size: 1rem;
-    font-weight: regular;
+    font-weight: 400;
     font-style: normal;
   `,
-  Body2_regular: css`
-    letter-spacing: -0.3%;
-    font-family: Pretendard;
-    font-size: 1rem;
-    font-weight: 400;
-  `,
-  Body3: css`
+  Body3_Regular: css`
     letter-spacing: -0.3%;
     font-family: 'Pretendard';
     font-size: 0.875;
-    font-weight: regular;
+    font-weight: 400;
+    font-style: normal;
+  `,
+  Body3_Semibold: css`
+    letter-spacing: -0.3%;
+    font-family: 'Pretendard';
+    font-size: 0.875;
+    font-weight: 600;
     font-style: normal;
   `,
   Caption: css`
