@@ -29,7 +29,8 @@ declare module 'styled-components' {
       Body1_Regular: SerializedStyles;
       Body2_Semibold: SerializedStyles;
       Body2_Regular: SerializedStyles;
-      Body3: SerializedStyles;
+      Body3_Semibold: SerializedStyles;
+      Body3_Regular: SerializedStyles;
       Caption: SerializedStyles;
     };
   }
