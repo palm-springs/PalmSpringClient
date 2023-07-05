@@ -13,6 +13,8 @@
     "*.ts": "eslint --fix"
   },
   "dependencies": {
+    "@tanstack/react-query": "^4.29.19",
+    "axios": "^1.4.0",
     "eslint": "^8.43.0",
     "eslint-config-next": "13.4.7",
     "next": "13.4.7",
