@@ -56,8 +56,8 @@ const LoginContainer = styled.div`
 `;
 
 const LoginText = styled.h1`
-  margin-top: 1.5rem;
   ${({ theme }) => theme.fonts.Body1_Semibold};
+  margin-top: 1.5rem;
 `;
 
 const LoginButton = styled.a`
