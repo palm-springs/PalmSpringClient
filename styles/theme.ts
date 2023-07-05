@@ -23,78 +23,96 @@ const colors = {
 const fonts = {
   Title: css`
     line-height: 140%;
-    letter-spacing: -1%;
+    letter-spacing: 0.1em;
     font-family: 'Pretendard';
     font-size: 3rem;
-    font-weight: bold;
+    font-weight: 700;
     font-style: normal;
   `,
   Heading1: css`
     line-height: 140%;
-    letter-spacing: -1%;
+    letter-spacing: 0.1em;
     font-family: 'Pretendard';
     font-size: 2rem;
-    font-weight: bold;
+    font-weight: 700;
     font-style: normal;
   `,
-  Heading2_Semibold: css`
+  Heading2: css`
     line-height: 140%;
-    letter-spacing: -1%;
+    letter-spacing: 0.1em;
+    font-family: 'Pretendard';
+    font-size: 1.75rem;
+    font-weight: 700;
+    font-style: normal;
+  `,
+  Heading3_Semibold: css`
+    line-height: 140%;
+    letter-spacing: 0.1em;
     font-family: 'Pretendard';
     font-size: 1.5rem;
-    font-weight: semibold;
+    font-weight: 600;
     font-style: normal;
   `,
-  Heading2_Regular: css`
+  Heading3_Regular: css`
     line-height: 140%;
-    letter-spacing: -1%;
+    letter-spacing: 0.1em;
     font-family: 'Pretendard';
     font-size: 1.5rem;
-    font-weight: regular;
+    font-weight: 400;
     font-style: normal;
   `,
+
   Body1_Semibold: css`
     line-height: 170%;
-    letter-spacing: -0.3%;
+    letter-spacing: 0.03em;
     font-family: 'Pretendard';
     font-size: 1.125rem;
-    font-weight: semibold;
+    font-weight: 600;
     font-style: normal;
   `,
   Body1_Regular: css`
     line-height: 170%;
-    letter-spacing: -0.3%;
+    letter-spacing: 0.03em;
     font-family: 'Pretendard';
     font-size: 1.125rem;
-    font-weight: regular;
+    font-weight: 400;
     font-style: normal;
   `,
   Body2_Semibold: css`
-    letter-spacing: -0.3%;
+    line-height: 160%;
+    letter-spacing: 0.03em;
     font-family: 'Pretendard';
     font-size: 1rem;
-    font-weight: semibold;
+    font-weight: 600;
     font-style: normal;
   `,
   Body2_Regular: css`
-    letter-spacing: -0.3%;
+    line-height: 160%;
+    letter-spacing: 0.03em;
     font-family: 'Pretendard';
     font-size: 1rem;
-    font-weight: regular;
+    font-weight: 400;
     font-style: normal;
   `,
-  Body3: css`
-    letter-spacing: -0.3%;
+  Body3_Semibold: css`
+    letter-spacing: 0.03em;
     font-family: 'Pretendard';
     font-size: 0.875;
-    font-weight: regular;
+    font-weight: 600;
+    font-style: normal;
+  `,
+  Body3_Regular: css`
+    letter-spacing: 0.03em;
+    font-family: 'Pretendard';
+    font-size: 0.875;
+    font-weight: 400;
     font-style: normal;
   `,
   Caption: css`
-    letter-spacing: 0;
+    letter-spacing: 0em;
     font-family: 'Pretendard';
     font-size: 0.75rem;
-    font-weight: medium;
+    font-weight: 500;
     font-style: normal;
   `,
 };

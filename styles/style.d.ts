@@ -23,13 +23,15 @@ declare module 'styled-components' {
     fonts: {
       Title: SerializedStyles;
       Heading1: SerializedStyles;
-      Heading2_Semibold: SerializedStyles;
-      Heading2_Regular: SerializedStyles;
+      Heading2: SerializedStyles;
+      Heading3_Semibold: SerializedStyles;
+      Heading3_Regular: SerializedStyles;
       Body1_Semibold: SerializedStyles;
       Body1_Regular: SerializedStyles;
       Body2_Semibold: SerializedStyles;
       Body2_Regular: SerializedStyles;
-      Body3: SerializedStyles;
+      Body3_Semibold: SerializedStyles;
+      Body3_Regular: SerializedStyles;
       Caption: SerializedStyles;
     };
   }
