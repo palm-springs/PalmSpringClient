@@ -12,12 +12,12 @@ const MemberNavBtn = () => {
   const router = useRouter();
 
   return (
-    <div onClick={() => router.push(`member`)}>
+    <button onClick={() => router.push(`member`)}>
       <SideBarContent currentPage={pageType === 'member'}>
-        <Image src={UserProfile03Icon} alt="빈 파일" />
+        <UserProfile03Icon />
         팀원
       </SideBarContent>
-    </div>
+    </button>
   );
 };
 

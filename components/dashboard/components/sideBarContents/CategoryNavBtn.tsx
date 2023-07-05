@@ -12,12 +12,12 @@ const CategoryNavBtn = () => {
   const router = useRouter();
 
   return (
-    <div onClick={() => router.push(`category`)}>
+    <button onClick={() => router.push(`category`)}>
       <SideBarContent currentPage={pageType === 'category'}>
-        <Image src={Grid01Icon} alt="카테고리" />
+        <Grid01Icon />
         카테고리
       </SideBarContent>
-    </div>
+    </button>
   );
 };
 

@@ -1,5 +1,4 @@
 import React from 'react';
-import Image from 'next/image';
 import { useParams, useRouter } from 'next/navigation';
 
 import { File04Icon } from '@/public/icons';
@@ -12,12 +11,12 @@ const PageNavBtn = () => {
   const router = useRouter();
 
   return (
-    <div onClick={() => router.push(`page`)}>
+    <button onClick={() => router.push(`page`)}>
       <SideBarContent currentPage={pageType === 'page'}>
-        <Image src={File04Icon} alt="페이지" />
+        <File04Icon />
         페이지
       </SideBarContent>
-    </div>
+    </button>
   );
 };
 

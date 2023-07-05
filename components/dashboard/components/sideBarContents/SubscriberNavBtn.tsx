@@ -1,5 +1,4 @@
 import React from 'react';
-import Image from 'next/image';
 import { useParams, useRouter } from 'next/navigation';
 
 import { UserProfileCheckIcon } from '@/public/icons';
@@ -12,12 +11,12 @@ const SubscriberNavBtn = () => {
   const router = useRouter();
 
   return (
-    <div onClick={() => router.push(`subscriber`)}>
+    <button onClick={() => router.push(`subscriber`)}>
       <SideBarContent currentPage={pageType === 'subscriber'}>
-        <Image src={UserProfileCheckIcon} alt="구독자" />
+        <UserProfileCheckIcon />
         구독자
       </SideBarContent>
-    </div>
+    </button>
   );
 };
 
