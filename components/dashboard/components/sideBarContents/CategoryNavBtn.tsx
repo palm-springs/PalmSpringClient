@@ -1,5 +1,4 @@
 import React from 'react';
-import Image from 'next/image';
 import { useParams, useRouter } from 'next/navigation';
 
 import { Grid01Icon } from '@/public/icons';
