@@ -24,6 +24,7 @@
   },
   "devDependencies": {
     "@stylelint/postcss-css-in-js": "^0.38.0",
+    "@svgr/webpack": "^8.0.1",
     "@types/node": "20.3.2",
     "@types/react": "18.2.14",
     "@types/react-dom": "18.2.6",
