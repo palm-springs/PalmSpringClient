@@ -3,7 +3,7 @@ import { useParams, useRouter } from 'next/navigation';
 
 import { File02Icon } from '@/public/icons';
 
-import SideBarContent from '../../ui/SideBarContent';
+import SideBarContent from '../ui/SideBarContent';
 
 const TempSavedNavBtn = () => {
   const { pageType } = useParams();

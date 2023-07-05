@@ -4,7 +4,7 @@ import { useParams, useRouter } from 'next/navigation';
 
 import { Grid01Icon } from '@/public/icons';
 
-import SideBarContent from '../../ui/SideBarContent';
+import SideBarContent from '../ui/SideBarContent';
 
 const CategoryNavBtn = () => {
   const { pageType } = useParams();

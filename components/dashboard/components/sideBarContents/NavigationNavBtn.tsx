@@ -3,7 +3,7 @@ import { useParams, useRouter } from 'next/navigation';
 
 import { Menu01Icon } from '@/public/icons';
 
-import SideBarContent from '../../ui/SideBarContent';
+import SideBarContent from '../ui/SideBarContent';
 
 const NavigationNavBtn = () => {
   const { pageType } = useParams();

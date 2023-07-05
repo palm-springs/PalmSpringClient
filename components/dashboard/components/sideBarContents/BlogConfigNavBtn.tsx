@@ -3,7 +3,7 @@ import { useParams, useRouter } from 'next/navigation';
 
 import { SettingIcon } from '@/public/icons';
 
-import SideBarContent from '../../ui/SideBarContent';
+import SideBarContent from '../ui/SideBarContent';
 
 const BlogConfigNavBtn = () => {
   const { pageType } = useParams();

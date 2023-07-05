@@ -3,7 +3,7 @@ import { useParams, useRouter } from 'next/navigation';
 
 import { ArrowRightContained02Icon } from '@/public/icons';
 
-import SideBarContent from '../../ui/SideBarContent';
+import SideBarContent from '../ui/SideBarContent';
 
 const BlogDirectNavBtn = () => {
   const { pageType } = useParams();

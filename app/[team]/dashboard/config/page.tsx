@@ -1,6 +1,7 @@
 'use client';
 
 import { styled } from 'styled-components';
+
 import ImageDownIcon from '@/public/icons/image_down.svg';
 
 const Config = () => {

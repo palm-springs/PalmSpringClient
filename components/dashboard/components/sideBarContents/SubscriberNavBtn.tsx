@@ -3,7 +3,7 @@ import { useParams, useRouter } from 'next/navigation';
 
 import { UserProfileCheckIcon } from '@/public/icons';
 
-import SideBarContent from '../../ui/SideBarContent';
+import SideBarContent from '../ui/SideBarContent';
 
 const SubscriberNavBtn = () => {
   const { pageType } = useParams();

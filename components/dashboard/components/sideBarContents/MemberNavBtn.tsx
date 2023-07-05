@@ -4,7 +4,7 @@ import { useParams, useRouter } from 'next/navigation';
 
 import { UserProfile03Icon } from '@/public/icons';
 
-import SideBarContent from '../../ui/SideBarContent';
+import SideBarContent from '../ui/SideBarContent';
 
 const MemberNavBtn = () => {
   const { pageType } = useParams();
