@@ -48,7 +48,7 @@ const DashBoardNavContainer = styled.nav`
   padding-top: 2rem;
   padding-right: 0.5rem;
   padding-left: 0.5rem;
-  width: 286px;
+  width: 17.875rem;
   height: 100vh;
   & > :nth-child(1) {
     align-self: flex-start;
