@@ -16,7 +16,7 @@ const SideBarContent = (props: sideBarContetProps) => {
 
 export default SideBarContent;
 
-const SideBarContentContainer = styled.div`
+const SideBarContentContainer = styled.div<{ currentPage: boolean }>`
   ${({ theme, currentPage }) => (currentPage ? theme.fonts.Body3_Semibold : theme.fonts.Body3_Regular)};
   display: flex;
   gap: 0.5rem;
