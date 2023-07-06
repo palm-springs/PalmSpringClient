@@ -117,7 +117,7 @@ const fonts = {
   `,
 };
 
-const theme: DefaultTheme = {
+const theme: Pick<DefaultTheme, 'colors' | 'fonts'> = {
   colors,
   fonts,
 };
