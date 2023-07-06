@@ -16,7 +16,8 @@ const colors = {
   grey_1000: '#000000',
 
   green: '#19DB7B',
-  darkGreen: '#1A9B6F',
+  green_hover: '#17C56F',
+  dark_green: '#1A9B6F',
   blue: '#2F4CA9',
 };
 
@@ -25,7 +26,7 @@ const fonts = {
     line-height: 140%;
     letter-spacing: 0.1em;
     font-family: 'Pretendard';
-    font-size: 3rem;
+    font-size: 4.8rem;
     font-weight: 700;
     font-style: normal;
   `,
@@ -33,7 +34,7 @@ const fonts = {
     line-height: 140%;
     letter-spacing: 0.1em;
     font-family: 'Pretendard';
-    font-size: 2rem;
+    font-size: 3.2rem;
     font-weight: 700;
     font-style: normal;
   `,
@@ -41,7 +42,7 @@ const fonts = {
     line-height: 140%;
     letter-spacing: 0.1em;
     font-family: 'Pretendard';
-    font-size: 1.75rem;
+    font-size: 2.8rem;
     font-weight: 700;
     font-style: normal;
   `,
@@ -49,7 +50,7 @@ const fonts = {
     line-height: 140%;
     letter-spacing: 0.1em;
     font-family: 'Pretendard';
-    font-size: 1.5rem;
+    font-size: 2.4rem;
     font-weight: 600;
     font-style: normal;
   `,
@@ -57,7 +58,7 @@ const fonts = {
     line-height: 140%;
     letter-spacing: 0.1em;
     font-family: 'Pretendard';
-    font-size: 1.5rem;
+    font-size: 2.4rem;
     font-weight: 400;
     font-style: normal;
   `,
@@ -66,7 +67,7 @@ const fonts = {
     line-height: 170%;
     letter-spacing: 0.03em;
     font-family: 'Pretendard';
-    font-size: 1.125rem;
+    font-size: 1.8rem;
     font-weight: 600;
     font-style: normal;
   `,
@@ -74,7 +75,7 @@ const fonts = {
     line-height: 170%;
     letter-spacing: 0.03em;
     font-family: 'Pretendard';
-    font-size: 1.125rem;
+    font-size: 1.8rem;
     font-weight: 400;
     font-style: normal;
   `,
@@ -82,7 +83,7 @@ const fonts = {
     line-height: 160%;
     letter-spacing: 0.03em;
     font-family: 'Pretendard';
-    font-size: 1rem;
+    font-size: 1.6rem;
     font-weight: 600;
     font-style: normal;
   `,
@@ -90,34 +91,55 @@ const fonts = {
     line-height: 160%;
     letter-spacing: 0.03em;
     font-family: 'Pretendard';
-    font-size: 1rem;
+    font-size: 1.6rem;
     font-weight: 400;
     font-style: normal;
   `,
   Body3_Semibold: css`
     letter-spacing: 0.03em;
     font-family: 'Pretendard';
-    font-size: 0.875;
+    font-size: 1.4rem;
     font-weight: 600;
     font-style: normal;
   `,
   Body3_Regular: css`
     letter-spacing: 0.03em;
     font-family: 'Pretendard';
-    font-size: 0.875;
+    font-size: 1.4rem;
     font-weight: 400;
     font-style: normal;
   `,
   Caption: css`
     letter-spacing: 0em;
     font-family: 'Pretendard';
-    font-size: 0.75rem;
+    font-size: 1.2rem;
     font-weight: 500;
+    font-style: normal;
+  `,
+  Button_large: css`
+    letter-spacing: 0.03em;
+    font-family: 'Pretendard';
+    font-size: 1.8rem;
+    font-weight: 700;
+    font-style: normal;
+  `,
+  Button_medium: css`
+    letter-spacing: 0.03em;
+    font-family: 'Pretendard';
+    font-size: 1.6rem;
+    font-weight: 700;
+    font-style: normal;
+  `,
+  Button_small: css`
+    letter-spacing: 0.03em;
+    font-family: 'Pretendard';
+    font-size: 1.4rem;
+    font-weight: 700;
     font-style: normal;
   `,
 };
 
-const theme: DefaultTheme = {
+const theme: Pick<DefaultTheme, 'colors' | 'fonts'> = {
   colors,
   fonts,
 };
