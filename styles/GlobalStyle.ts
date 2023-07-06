@@ -9,6 +9,9 @@ ${reset}
     height: 100vh;
 }
 
+html {
+    font-size: 62.5%;
+}
 a {
     text-decoration: none;
     
