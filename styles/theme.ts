@@ -115,6 +115,27 @@ const fonts = {
     font-weight: 500;
     font-style: normal;
   `,
+  Button_large: css`
+    letter-spacing: 0.03em;
+    font-family: 'Pretendard';
+    font-size: 1.125rem;
+    font-weight: 700;
+    font-style: normal;
+  `,
+  Button_medium: css`
+    letter-spacing: 0.03em;
+    font-family: 'Pretendard';
+    font-size: 1rem;
+    font-weight: 700;
+    font-style: normal;
+  `,
+  Button_small: css`
+    letter-spacing: 0.03em;
+    font-family: 'Pretendard';
+    font-size: 0.875rem;
+    font-weight: 700;
+    font-style: normal;
+  `,
 };
 
 const theme: DefaultTheme = {

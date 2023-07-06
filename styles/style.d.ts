@@ -33,6 +33,9 @@ declare module 'styled-components' {
       Body3_Semibold: SerializedStyles;
       Body3_Regular: SerializedStyles;
       Caption: SerializedStyles;
+      Button_large: SerializedStyles;
+      Button_medium: SerializedStyles;
+      Button_small: SerializedStyles;
     };
   }
 }
