@@ -1,16 +1,9 @@
-const DashboardLayout = ({
-  children, // will be a page or nested layout
-}: {
-  children: React.ReactNode;
-}) => {
-  return (
-    <section>
-      {/* Include shared UI here e.g. a header or sidebar */}
-      <nav></nav>
+import React from 'react';
 
-      {children}
-    </section>
-  );
+import DashBoardTemplate from '@/components/dashboard/DashBoardTemplate';
+
+const DashBoardLayout = ({ children }: { children: React.ReactNode }) => {
+  return <DashBoardTemplate>{children}</DashBoardTemplate>;
 };
 
-export default DashboardLayout;
+export default DashBoardLayout;

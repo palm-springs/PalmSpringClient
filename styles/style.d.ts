@@ -17,7 +17,8 @@ declare module 'styled-components' {
       grey_1000: string;
 
       green: string;
-      darkGreen: string;
+      green_hover: string;
+      dark_green: string;
       blue: string;
     };
     fonts: {
@@ -33,6 +34,9 @@ declare module 'styled-components' {
       Body3_Semibold: SerializedStyles;
       Body3_Regular: SerializedStyles;
       Caption: SerializedStyles;
+      Button_large: SerializedStyles;
+      Button_medium: SerializedStyles;
+      Button_small: SerializedStyles;
     };
   }
 }
