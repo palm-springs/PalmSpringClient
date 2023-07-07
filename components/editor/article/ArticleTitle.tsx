@@ -18,18 +18,42 @@ import {
   OrderIcon,
   QuoteIcon,
   StrikeIcon,
+  UnderlineIcon,
 } from '@/public/icons';
 
 const ArticleTitle = () => {
   return (
     <div>
       <Input type="text" placeholder="제목을 입력해주세요" className="input-header" />
-      <div></div>
+      <IconContainer>
+        <H1Icon />
+        <H2Icon />
+        <H3Icon />
+        <BulletIcon />
+        <OrderIcon />
+        <GreyBar />
+        <UnderlineIcon />
+        <BoldIcon />
+        <ItalicIcon />
+        <StrikeIcon />
+        <CodeIcon />
+        <GreyBar />
+        <QuoteIcon />
+        <HorizonIcon />
+        <ImageIcon />
+        <LinkIcon />
+        <CodeBlockIcon />
+      </IconContainer>
     </div>
   );
 };
 
 export default ArticleTitle;
+
+const GreyBar = styled.div`
+  border-right: 0.1rem solid #d9d9d9;
+  height: 1.8rem;
+`;
 
 const Input = styled.input`
   border: none;
@@ -48,4 +72,14 @@ const Input = styled.input`
   &:focus::placeholder {
     color: transparent;
   }
+`;
+
+const IconContainer = styled.div`
+  display: flex;
+  align-items: center;
+  justify-content: space-evenly;
+  border-radius: 0.8rem;
+  background-color: ${({ theme }) => theme.colors.grey_100};
+  width: 72.2rem;
+  height: 4.8rem;
 `;
