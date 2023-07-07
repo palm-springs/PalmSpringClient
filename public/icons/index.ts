@@ -5,6 +5,7 @@ export { default as ArrowRightContained02Icon } from './arrow-right-contained-02
 export { default as File02Icon } from './file-02.svg';
 export { default as File04Icon } from './file-04.svg';
 export { default as Grid01Icon } from './grid-01.svg';
+export { default as ImageDownIcon } from './image_down.svg';
 export { default as LogoIcon } from './logo.svg';
 export { default as Menu01Icon } from './menu-01.svg';
 export { default as SettingIcon } from './settings.svg';
