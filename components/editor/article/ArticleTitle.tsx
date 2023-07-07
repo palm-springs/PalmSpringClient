@@ -74,7 +74,7 @@ const IconContainer = styled.div`
   display: flex;
   align-items: center;
   justify-content: space-evenly;
-  margin-top: 4.4rem;
+  margin: 4.4rem 0 2rem 0;
   border-radius: 0.8rem;
   background-color: ${({ theme }) => theme.colors.grey_100};
   width: 72.2rem;
