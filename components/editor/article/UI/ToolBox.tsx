@@ -21,11 +21,10 @@ import {
   UnderlineIcon,
 } from '@/public/icons';
 
-const ArticleTitle = () => {
+const ToolBox = () => {
   return (
-    <div>
-      <Input type="text" placeholder="제목을 입력해주세요" className="input-header" />
-      <IconContainer>
+    <IconContainer>
+      <IconWrapper>
         <H1Icon />
         <H2Icon />
         <H3Icon />
@@ -43,34 +42,19 @@ const ArticleTitle = () => {
         <ImageIcon />
         <LinkIcon />
         <CodeBlockIcon />
-      </IconContainer>
-    </div>
+      </IconWrapper>
+    </IconContainer>
   );
 };
 
-export default ArticleTitle;
+export default ToolBox;
 
 const GreyBar = styled.div`
   border-right: 0.1rem solid #d9d9d9;
   height: 1.8rem;
 `;
 
-const Input = styled.input`
-  border: none;
-  background: ${({ theme }) => theme.colors.grey_0};
-  width: 100%;
-  height: 100%;
-  color: ${({ theme }) => theme.colors.grey_900};
-  font-family: ${({ theme }) => theme.fonts.Title};
-  &::placeholder {
-    color: ${({ theme }) => theme.colors.grey_900};
-  }
-  &:focus {
-    outline: none;
-  }
-`;
-
-const IconContainer = styled.div`
+const IconWrapper = styled.div`
   display: flex;
   align-items: center;
   justify-content: space-evenly;
@@ -79,4 +63,8 @@ const IconContainer = styled.div`
   background-color: ${({ theme }) => theme.colors.grey_100};
   width: 72.2rem;
   height: 4.8rem;
+`;
+
+const IconContainer = styled.div`
+  margin-left: 35.9rem;
 `;

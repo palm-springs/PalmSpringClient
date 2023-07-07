@@ -17,13 +17,17 @@ const TextEditor = () => {
   });
 
   return (
-    <>
+    <EditorContainer>
       <TextEditorUI editor={editor} />
-    </>
+    </EditorContainer>
   );
 };
 
 export default TextEditor;
+
+const EditorContainer = styled.div`
+  margin-left: 35.9rem;
+`;
 
 const TextEditorUI = styled(EditorContent)`
   width: 72.2rem;
