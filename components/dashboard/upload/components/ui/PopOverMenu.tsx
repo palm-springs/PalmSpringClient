@@ -27,10 +27,10 @@ const PopOverMenuUI = styled.article`
   border-radius: 0.8rem;
   box-shadow: 0px 2px 5px 0px rgba(0, 0, 0, 0.1);
   background: ${({ theme }) => theme.colors.grey_0};
-  padding: 2rem 2.4rem;
+  padding: 2rem 2.2rem;
   width: 12.4rem;
   height: 13.1rem;
-  &:last-child {
+  :nth-child(3) {
     color: #ff5454;
   }
   div {
