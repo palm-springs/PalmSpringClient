@@ -68,16 +68,13 @@ const Input = styled.input`
   &:focus {
     outline: none;
   }
-  /* 포커스시 감출것인가 물어보기 */
-  &:focus::placeholder {
-    color: transparent;
-  }
 `;
 
 const IconContainer = styled.div`
   display: flex;
   align-items: center;
   justify-content: space-evenly;
+  margin-top: 4.4rem;
   border-radius: 0.8rem;
   background-color: ${({ theme }) => theme.colors.grey_100};
   width: 72.2rem;
