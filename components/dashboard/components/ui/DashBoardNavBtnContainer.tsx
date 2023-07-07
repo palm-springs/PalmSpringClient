@@ -12,13 +12,13 @@ export default DashBoardNavBtnContainer;
 const DashBoardNavBtnContainerUI = styled.button`
   ${({ theme }) => theme.fonts.Body2_Regular};
   position: absolute;
-  bottom: 1.5rem;
+  bottom: 2.4rem;
   flex-shrink: 0;
 
   border: none;
-  border-radius: 0.5rem;
-  background: ${({ theme }) => theme.colors.green};
-  width: 15.875rem;
-  height: 2.25rem;
+  border-radius: 0.8rem;
+  background: ${({ theme }) => theme.colors.grey_900};
+  width: 25.4rem;
+  height: 3.6rem;
   color: ${({ theme }) => theme.colors.grey_0};
 `;
