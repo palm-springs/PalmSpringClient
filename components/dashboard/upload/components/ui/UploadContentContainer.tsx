@@ -1,23 +1,21 @@
 'use client';
 
-import React from 'react';
+import React, { Dispatch, SetStateAction } from 'react';
 import { styled } from 'styled-components';
 
 import { CharmMenuMeatballIcon } from '@/public/icons';
 
-interface UploadContentProps {
-  content: string;
-  tabType?: string;
-  author: string;
-  position: string; // 아마 팀별 직무가 팀마다 다를 수 있으므로 나중에 서버에서 타입을 받아올 수 있다면 그거로 지정해줍시다.
-  createdAt: string;
-  onTitleClick: React.MouseEventHandler<HTMLButtonElement>;
-  onMeatBallClick: React.MouseEventHandler<HTMLButtonElement>;
+import { UploadContentProps } from '../UploadContent';
+
+import PopOverMenu from './PopOverMenu';
+
+interface UploadContentContainerProps extends UploadContentProps {
+  onMeatBallClick: Dispatch<SetStateAction<boolean>>;
+  isPopOverMenuOpen: boolean;
 }
 
-const UploadContentContainer = (props: UploadContentProps) => {
-  const { content, tabType, author, position, createdAt, onTitleClick, onMeatBallClick } = props;
-
+const UploadContentContainer = (props: UploadContentContainerProps) => {
+  const { content, tabType, author, position, createdAt, onTitleClick, onMeatBallClick, isPopOverMenuOpen } = props;
   // 날짜 포맷팅은 나중에 raw 데이터가 어떻게 날아오는지 확인하고 합시다!
   return (
     <UploadContentUI>
@@ -28,7 +26,12 @@ const UploadContentContainer = (props: UploadContentProps) => {
       <span id="author">{author}</span>
       <span id="position">{position}</span>
       <span id="createdAt">{createdAt}</span>
-      <MenuBtn onClick={onMeatBallClick} />
+      <MenuBtn
+        onClick={() => {
+          onMeatBallClick((prev) => !prev);
+        }}
+      />
+      {isPopOverMenuOpen ? <PopOverMenu /> : <></>}
     </UploadContentUI>
   );
 };
@@ -37,7 +40,6 @@ export default UploadContentContainer;
 
 const UploadContentUI = styled.article`
   display: flex;
-
   position: relative;
   align-items: center;
   border-bottom: 1px solid ${({ theme }) => theme.colors.grey_300};
@@ -66,6 +68,7 @@ const UploadContentUI = styled.article`
     gap: 1rem;
     align-items: center;
     margin-right: 2vw;
+    ${({ theme }) => theme.fonts.Body3_Regular};
     border: 1px solid ${({ theme }) => theme.colors.grey_400};
     border-radius: 2rem;
     padding: 0.4rem 0.8rem;
@@ -106,4 +109,5 @@ const UploadContentUI = styled.article`
 const MenuBtn = styled(CharmMenuMeatballIcon)`
   position: absolute;
   right: 0;
+  cursor: pointer;
 `;

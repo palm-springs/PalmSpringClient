@@ -2,7 +2,6 @@ import React from 'react';
 import { styled } from 'styled-components';
 
 import { dashBoardTabType } from '@/types/dashboard';
-
 interface UploadTabBarContainerProps {
   currentTab: dashBoardTabType;
   setCurrentTab: React.MouseEventHandler<HTMLButtonElement>;
