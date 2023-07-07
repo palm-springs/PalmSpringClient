@@ -4,26 +4,26 @@ import styled from 'styled-components';
 
 import InfoInputForm from './InfoInputForm';
 
-const CreateBlogInfoLanding = () => {
+const CreateInfoLanding = () => {
   return (
-    <CreateBlogInfoContainer>
+    <CreateInfoContainer>
       <InfoContainer>
         <Title>블로그 생성하기</Title>
         <InfoInputForm />
       </InfoContainer>
-    </CreateBlogInfoContainer>
+    </CreateInfoContainer>
   );
 };
 
-export default CreateBlogInfoLanding;
+export default CreateInfoLanding;
 
-const CreateBlogInfoContainer = styled.div`
+const CreateInfoContainer = styled.div`
   display: flex;
   justify-content: center;
 `;
 
 const InfoContainer = styled.div`
-  margin: 18.4rem 0 14.4rem;
+  margin: 14.4rem 0;
 
   width: 54rem;
 `;

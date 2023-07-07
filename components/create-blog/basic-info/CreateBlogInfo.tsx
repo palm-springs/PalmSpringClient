@@ -1,7 +1,7 @@
-import CreateBlogInfoLanding from './ui/CreateBlogLanding';
+import CreateInfoLanding from './ui/CreateInfoLanding';
 
 const CreateBlogInfo = () => {
-  return <CreateBlogInfoLanding />;
+  return <CreateInfoLanding />;
 };
 
 export default CreateBlogInfo;
