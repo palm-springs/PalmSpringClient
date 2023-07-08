@@ -7,6 +7,10 @@ import PageBtn from '@/components/blog/PageBtn';
 
 import SubscribeBtn from '../SubscribeBtn';
 
+// interface BlogNav {
+//   pageList: string[];
+// }
+
 const BlogNav = () => {
   return (
     <BlogNavContainer>

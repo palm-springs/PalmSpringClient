@@ -6,7 +6,12 @@ import styled from 'styled-components';
 import CategoryBtn from '../CategoryBtn';
 import CategorySelectedBtn from '../CategorySelectedBtn';
 
+// interface CategoryBtnBarProps {
+//   categoryList: string[];
+// }
+
 const CategoryBtnBar = () => {
+  // const categoryList = props;
   return (
     <CategoryBtnBarContainer>
       <CategorySelectedBtn>전체</CategorySelectedBtn>
