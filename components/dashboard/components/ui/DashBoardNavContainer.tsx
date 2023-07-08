@@ -11,6 +11,7 @@ export default DashBoardNavContainer;
 
 const DashBoardNavUI = styled.nav`
   display: flex;
+  position: fixed;
   flex-direction: column;
   align-items: center;
   margin: 0;

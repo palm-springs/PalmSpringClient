@@ -9,6 +9,6 @@ export default UploadTemplateContainer;
 
 const UploadTemplateUI = styled.section`
   flex-shrink: 0;
+  margin-left: 28.6rem;
   width: calc(100vw - 28.6rem);
-  height: 100vh;
 `;

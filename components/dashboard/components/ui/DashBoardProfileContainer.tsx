@@ -52,7 +52,4 @@ const DashBoardProfileContainerUI = styled.article`
       color: ${({ theme }) => theme.colors.grey_700};
     }
   }
-  #dashboard_navbar_profile_btn {
-    background: ${({ theme }) => theme.colors.grey_900};
-  }
 `;
