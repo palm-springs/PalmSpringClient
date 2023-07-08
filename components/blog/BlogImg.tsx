@@ -5,13 +5,13 @@ import React from 'react';
 import Image from 'next/image';
 import styled from 'styled-components';
 
-import { BlogImgExample } from '@/public/images';
+import { BlogImgExampleImg } from '@/public/images';
 
 const BlogImg = () => {
   return (
     <BlogImgContainer>
       <BlogImgWrapper>
-        <Image src={BlogImgExample} alt="blog image" fill></Image>
+        <Image src={BlogImgExampleImg} alt="blog image" fill></Image>
       </BlogImgWrapper>
       <BlogInfo>우리 팀 이야기를 세상에 전달하는 방법</BlogInfo>
     </BlogImgContainer>

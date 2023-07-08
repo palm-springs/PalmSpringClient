@@ -3,21 +3,58 @@
 import React from 'react';
 import styled from 'styled-components';
 
-const Article = () => {
+import ArticleImg from './UI/ArticleImg';
+
+interface ArticleProps {
+  title: string;
+  intro: string;
+  writer: string;
+  date: string;
+  // imgSrc: string;
+}
+
+const Article = (props: ArticleProps) => {
+  const { title, intro, writer, date } = props;
+
   return (
-    <div>
-      <ArticleTitle>리액트 API와 코드 재사용의 진화에 대한 글의 제목이 길다면 어떨까</ArticleTitle>
-      <ArticleIntro>리액트 API와 코드 재사용의 진화에 관한 글입니다.</ArticleIntro>
-      <DetailBox>
-        <ArticleDetail>김대덕 · 웹 프론트엔드 개발자</ArticleDetail>
-        <Bar>|</Bar>
-        <ArticleDetail>2023.06.25</ArticleDetail>
-      </DetailBox>
-    </div>
+    <ArticleContainer>
+      <ArticleInfo>
+        <ArticleTitle>
+          {title}
+          리액트 API와 코드 재사용의 진화
+        </ArticleTitle>
+        <ArticleIntro>
+          {intro}
+          리액트 API와 코드 재사용의 진화에 관한 글입니다.
+        </ArticleIntro>
+        <DetailBox>
+          <ArticleDetail>
+            {writer}
+            김대덕 · 웹 프론트엔드 개발자
+          </ArticleDetail>
+          <Bar>|</Bar>
+          <ArticleDetail>
+            {date}
+            2023.06.25
+          </ArticleDetail>
+        </DetailBox>
+      </ArticleInfo>
+      <ArticleImg />
+    </ArticleContainer>
   );
 };
 
 export default Article;
+
+const ArticleContainer = styled.section`
+  display: flex;
+  justify-content: space-between;
+`;
+
+const ArticleInfo = styled.article`
+  display: flex;
+  flex-direction: column;
+`;
 
 const ArticleTitle = styled.div`
   ${({ theme }) => theme.fonts.Heading2};
