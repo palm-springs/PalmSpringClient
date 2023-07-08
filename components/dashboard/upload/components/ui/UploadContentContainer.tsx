@@ -9,13 +9,18 @@ import { UploadContentProps } from '../UploadContent';
 
 import PopOverMenu from './PopOverMenu';
 
-interface UploadContentContainerProps extends UploadContentProps {
+interface UploadContentContainerProps {
+  contentObject: UploadContentProps;
   onMeatBallClick: Dispatch<SetStateAction<boolean>>;
   isPopOverMenuOpen: boolean;
 }
 
 const UploadContentContainer = (props: UploadContentContainerProps) => {
-  const { content, tabType, author, position, createdAt, onTitleClick, onMeatBallClick, isPopOverMenuOpen } = props;
+  const {
+    contentObject: { content, tabType, author, position, createdAt, onTitleClick },
+    onMeatBallClick,
+    isPopOverMenuOpen,
+  } = props;
   // 날짜 포맷팅은 나중에 raw 데이터가 어떻게 날아오는지 확인하고 합시다!
   return (
     <UploadContentUI>

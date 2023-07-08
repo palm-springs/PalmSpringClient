@@ -4,15 +4,13 @@ import React from 'react';
 import { styled } from 'styled-components';
 
 const DashBoardNavBtnContainer = ({ children }: { children: React.ReactNode }) => {
-  return <DashBoardNavBtnContainerUI>{children}</DashBoardNavBtnContainerUI>;
+  return <DashBoardNavBtnContainerUI id="dashboard_navbar_profile_btn">{children}</DashBoardNavBtnContainerUI>;
 };
 
 export default DashBoardNavBtnContainer;
 
 const DashBoardNavBtnContainerUI = styled.button`
   ${({ theme }) => theme.fonts.Body2_Regular};
-  position: absolute;
-  bottom: 2.4rem;
   flex-shrink: 0;
 
   border: none;

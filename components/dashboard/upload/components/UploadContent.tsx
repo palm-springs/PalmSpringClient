@@ -12,18 +12,11 @@ export interface UploadContentProps {
 }
 
 const UploadContent = (props: UploadContentProps) => {
-  const { content, tabType, author, position, createdAt, onTitleClick } = props;
-
   const [isPopOverMenuOpen, setIsPopOverMenuOpen] = useState<boolean>(false);
 
   return (
     <UploadContentContainer
-      content={content}
-      tabType={tabType}
-      author={author}
-      position={position}
-      createdAt={createdAt}
-      onTitleClick={onTitleClick}
+      contentObject={props}
       onMeatBallClick={setIsPopOverMenuOpen}
       isPopOverMenuOpen={isPopOverMenuOpen}
     />
