@@ -6,7 +6,7 @@ import styled from 'styled-components';
 const ArticleTitle = () => {
   return (
     <ArticleTitleContainer>
-      <Input type="text" placeholder="제목을 입력해주세요" className="input-header" />
+      <Input type="text" placeholder="제목을 입력해주세요" />
     </ArticleTitleContainer>
   );
 };

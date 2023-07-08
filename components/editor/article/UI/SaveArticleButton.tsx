@@ -7,8 +7,8 @@ const SaveArticleButton = () => {
   return (
     <ButtonContainer>
       <ExitButton type="button">나가기</ExitButton>
-      <TemporarySaveButton>임시저장</TemporarySaveButton>
-      <SaveButton>발행하기</SaveButton>
+      <TemporarySaveButton type="button">임시저장</TemporarySaveButton>
+      <SaveButton type="button">발행하기</SaveButton>
     </ButtonContainer>
   );
 };

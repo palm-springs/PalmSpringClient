@@ -33,7 +33,7 @@ const TextEditorUI = styled(EditorContent)`
   width: 72.2rem;
   height: 100vh;
   color: ${({ theme }) => theme.colors.grey_900};
-  font-family: ${({ theme }) => theme.fonts.Body1_Regular};
+  ${({ theme }) => theme.fonts.Body1_Regular};
   *:focus {
     outline: none;
   }
@@ -41,7 +41,7 @@ const TextEditorUI = styled(EditorContent)`
     float: left;
     height: 0;
     color: ${({ theme }) => theme.colors.grey_900};
-    font-family: ${({ theme }) => theme.fonts.Body1_Regular};
+    ${({ theme }) => theme.fonts.Body1_Regular};
     content: attr(data-placeholder);
     pointer-events: none;
   }
