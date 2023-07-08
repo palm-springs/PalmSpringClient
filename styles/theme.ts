@@ -24,7 +24,7 @@ const colors = {
 const fonts = {
   Title: css`
     line-height: 140%;
-    letter-spacing: 0.1em;
+    letter-spacing: -0.03125em;
     font-family: 'Pretendard';
     font-size: 4.8rem;
     font-weight: 700;
@@ -32,7 +32,7 @@ const fonts = {
   `,
   Heading1: css`
     line-height: 140%;
-    letter-spacing: 0.1em;
+    letter-spacing: -0.02em;
     font-family: 'Pretendard';
     font-size: 3.2rem;
     font-weight: 700;
@@ -40,7 +40,7 @@ const fonts = {
   `,
   Heading2: css`
     line-height: 140%;
-    letter-spacing: 0.1em;
+    letter-spacing: -0.0175em;
     font-family: 'Pretendard';
     font-size: 2.8rem;
     font-weight: 700;
@@ -48,7 +48,7 @@ const fonts = {
   `,
   Heading3_Semibold: css`
     line-height: 140%;
-    letter-spacing: 0.1em;
+    letter-spacing: -0.0175em;
     font-family: 'Pretendard';
     font-size: 2.4rem;
     font-weight: 600;
@@ -56,7 +56,7 @@ const fonts = {
   `,
   Heading3_Regular: css`
     line-height: 140%;
-    letter-spacing: 0.1em;
+    letter-spacing: -0.0175em;
     font-family: 'Pretendard';
     font-size: 2.4rem;
     font-weight: 400;
@@ -65,7 +65,7 @@ const fonts = {
 
   Body1_Semibold: css`
     line-height: 170%;
-    letter-spacing: 0.03em;
+    letter-spacing: -0.00375em;
     font-family: 'Pretendard';
     font-size: 1.8rem;
     font-weight: 600;
@@ -73,7 +73,7 @@ const fonts = {
   `,
   Body1_Regular: css`
     line-height: 170%;
-    letter-spacing: 0.03em;
+    letter-spacing: -0.00375em;
     font-family: 'Pretendard';
     font-size: 1.8rem;
     font-weight: 400;
@@ -81,7 +81,7 @@ const fonts = {
   `,
   Body2_Semibold: css`
     line-height: 160%;
-    letter-spacing: 0.03em;
+    letter-spacing: -0.003125em;
     font-family: 'Pretendard';
     font-size: 1.6rem;
     font-weight: 600;
@@ -89,21 +89,21 @@ const fonts = {
   `,
   Body2_Regular: css`
     line-height: 160%;
-    letter-spacing: 0.03em;
+    letter-spacing: -0.003125em;
     font-family: 'Pretendard';
     font-size: 1.6rem;
     font-weight: 400;
     font-style: normal;
   `,
   Body3_Semibold: css`
-    letter-spacing: 0.03em;
+    letter-spacing: -0.0025em;
     font-family: 'Pretendard';
     font-size: 1.4rem;
     font-weight: 600;
     font-style: normal;
   `,
   Body3_Regular: css`
-    letter-spacing: 0.03em;
+    letter-spacing: -0.0025em;
     font-family: 'Pretendard';
     font-size: 1.4rem;
     font-weight: 400;
@@ -117,28 +117,27 @@ const fonts = {
     font-style: normal;
   `,
   Button_large: css`
-    letter-spacing: 0.03em;
+    letter-spacing: -0.0025em;
     font-family: 'Pretendard';
     font-size: 1.8rem;
     font-weight: 700;
     font-style: normal;
   `,
   Button_medium: css`
-    letter-spacing: 0.03em;
+    letter-spacing: -0.003125em;
     font-family: 'Pretendard';
     font-size: 1.6rem;
     font-weight: 700;
     font-style: normal;
   `,
   Button_small: css`
-    letter-spacing: 0.03em;
+    letter-spacing: -0.00375em;
     font-family: 'Pretendard';
     font-size: 1.4rem;
     font-weight: 700;
     font-style: normal;
   `,
 };
-
 const theme: Pick<DefaultTheme, 'colors' | 'fonts'> = {
   colors,
   fonts,

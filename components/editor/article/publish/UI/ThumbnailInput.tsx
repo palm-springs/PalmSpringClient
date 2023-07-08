@@ -28,6 +28,7 @@ export default ThumbnailInput;
 
 const ThumbnailInputInfo = styled.p`
   margin-top: 1.2rem;
+  text-align: center;
   color: ${({ theme }) => theme.colors.grey_700};
   ${({ theme }) => theme.fonts.Body3_Regular};
 `;
