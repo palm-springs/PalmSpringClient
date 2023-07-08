@@ -11,4 +11,6 @@ export default DashBoardContainer;
 
 const DashBoardContainerUI = styled.section`
   display: flex;
+
+  padding-left: 28.6rem;
 `;
