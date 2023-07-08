@@ -7,20 +7,18 @@ import { ThumbnailIcon } from '@/public/icons';
 
 const ThumbnailInput = () => {
   return (
-    <PublishContainer>
-      <div>
-        <ThumbnailInputLabel>
-          <input type="file" id="logo_input" />
-          <ThumbnailIcon />
-          <ThumbnailInputTitle>썸네일 업로드</ThumbnailInputTitle>
-          <ThumbnailInputInfo>
-            커버 이미지 권장 너비는 1800 이상입니다.
-            <br />
-            파일당 최대 크기는 5MB입니다.
-          </ThumbnailInputInfo>
-        </ThumbnailInputLabel>
-      </div>
-    </PublishContainer>
+    <>
+      <ThumbnailInputLabel>
+        <input type="file" id="logo_input" />
+        <ThumbnailIcon />
+        <ThumbnailInputTitle>썸네일 업로드</ThumbnailInputTitle>
+        <ThumbnailInputInfo>
+          커버 이미지 권장 너비는 1800 이상입니다.
+          <br />
+          파일당 최대 크기는 5MB입니다.
+        </ThumbnailInputInfo>
+      </ThumbnailInputLabel>
+    </>
   );
 };
 
@@ -37,11 +35,6 @@ const ThumbnailInputTitle = styled.p`
   margin-top: 0.8rem;
   color: ${({ theme }) => theme.colors.grey_950};
   ${({ theme }) => theme.fonts.Body2_Semibold};
-`;
-
-const PublishContainer = styled.div`
-  width: 100vw;
-  height: 100vh;
 `;
 
 const ThumbnailInputLabel = styled.label`
