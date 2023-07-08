@@ -14,6 +14,7 @@ const FooterPopOverMenuContainer = (props: FooterPopOverMenuContainerProps) => {
 export default FooterPopOverMenuContainer;
 
 const FooterPopOverMenuUI = styled.article`
+  ${({ theme }) => theme.fonts.Body3_Regular};
   display: flex;
   position: absolute;
   flex-direction: column;
@@ -27,5 +28,4 @@ const FooterPopOverMenuUI = styled.article`
   box-shadow: 0px 2px 5px 0px rgba(0, 0, 0, 0.1);
   background: ${({ theme }) => theme.colors.grey_0};
   padding: 1.6rem 2.4rem;
-  ${({ theme }) => theme.fonts.Body3_Regular};
 `;
