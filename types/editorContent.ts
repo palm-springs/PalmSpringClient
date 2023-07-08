@@ -1,4 +1,4 @@
-export interface editorContentType {
+export interface EditorContentType {
   article: {
     title: string;
     content: string;
