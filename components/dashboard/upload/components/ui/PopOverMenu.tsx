@@ -3,7 +3,7 @@ import { styled } from 'styled-components';
 
 const PopOverMenu = () => {
   return (
-    <PopOverMenuUI id="popovermenu">
+    <PopOverMenuUI>
       <div>새창에서 보기</div>
       <div>수정하기</div>
       <div>삭제하기</div>
@@ -20,7 +20,6 @@ const PopOverMenuUI = styled.article`
   right: 0;
   flex-direction: column;
   gap: 1rem;
-  align-items: flex-start;
   justify-content: space-between;
   z-index: 100;
   border: 1px solid ${({ theme }) => theme.colors.grey_300};
