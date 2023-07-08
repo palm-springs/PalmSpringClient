@@ -33,8 +33,8 @@ export default UploadTabBarContainer;
 const UploadTabBarUI = styled.section`
   display: flex;
   gap: 2rem;
-  align-items: flex-start;
-  justify-content: center;
+  justify-content: flex-start;
+  margin-left: 4rem;
 
   height: 3.5rem;
 `;
