@@ -16,7 +16,7 @@ const DashBoardFooterUI = styled.section`
   padding: 0 1.6rem;
   width: 100%;
 
-  #dashboard_navbar_profile_btn {
+  & > button {
     background: ${({ theme }) => theme.colors.grey_900};
   }
 `;
