@@ -1,16 +1,28 @@
 'use client';
 
 import React from 'react';
+import Image from 'next/image';
 import styled from 'styled-components';
 
-import MemberInfo from './MemberInfo';
-import MemberProfile from './MemberProfile';
+import { MemberExample } from '@/public/images';
 
-const MemberAbout = () => {
+import MemberInfo from './MemberInfo';
+
+interface MemberAboutProps {
+  // profileSrc: string;
+  name: string;
+  status: string;
+  position: string;
+  email: string;
+}
+
+const MemberAbout = (props: MemberAboutProps) => {
+  const { name, status, position, email } = props;
+
   return (
     <MemberAboutContainer>
-      <MemberProfile />
-      <MemberInfo />
+      <Image src={MemberExample} alt="member profile photo" />
+      <MemberInfo name={name} status={status} position={position} email={email} />
     </MemberAboutContainer>
   );
 };
@@ -21,4 +33,5 @@ const MemberAboutContainer = styled.div`
   display: flex;
   gap: 1.2rem;
   align-items: center;
+  margin: 0 0.8rem 0 4.4rem;
 `;

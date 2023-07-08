@@ -12,6 +12,7 @@ export default MemberList;
 const MemberListContainer = styled.div`
   display: flex;
   flex-direction: column;
+  margin-bottom: 1.2rem;
   border-top: solid ${({ theme }) => theme.colors.grey_300} 1px;
-  width: 101.1rem;
+  width: 115.3rem;
 `;
