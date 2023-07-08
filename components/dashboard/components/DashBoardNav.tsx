@@ -5,7 +5,6 @@ import React from 'react';
 import DashBoardNavContainer from './ui/DashBoardNavContainer';
 import Line from './ui/Line';
 import DashBoardFooter from './DashBoardFooter';
-import DashBoardNavBtn from './DashBoardNavBtn';
 import DashBoardTitle from './DashBoardTitle';
 import NavButton from './NavButton';
 
