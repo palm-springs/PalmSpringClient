@@ -7,9 +7,9 @@ import { ArticleExampleImg } from '@/public/images';
 
 const ArticleImg = () => {
   return (
-    <div>
+    <>
       <Image src={ArticleExampleImg} alt="article image" />
-    </div>
+    </>
   );
 };
 

@@ -7,9 +7,9 @@ import ArticleContainer from '@/components/blog/UI/ArticleContainer';
 
 function BlogMainPage({ children }: { children: React.ReactNode }) {
   return (
-    <div>
+    <>
       <ArticleContainer>{children}</ArticleContainer>
-    </div>
+    </>
   );
 }
 

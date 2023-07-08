@@ -1,6 +1,7 @@
 'use client';
 
 import React from 'react';
+import Link from 'next/link';
 import styled from 'styled-components';
 
 import PageBtn from '@/components/blog/PageBtn';
@@ -14,8 +15,12 @@ import SubscribeBtn from '../SubscribeBtn';
 const BlogNav = () => {
   return (
     <BlogNavContainer>
-      <PageBtn>채용</PageBtn>
-      <PageBtn>인스타그램</PageBtn>
+      <PageBtn>
+        <Link href={''}>채용</Link>
+      </PageBtn>
+      <PageBtn>
+        <Link href={''}>인스타그램</Link>
+      </PageBtn>
       <SubscribeBtn />
     </BlogNavContainer>
   );

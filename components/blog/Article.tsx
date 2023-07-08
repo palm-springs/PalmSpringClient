@@ -7,36 +7,24 @@ import ArticleImg from './UI/ArticleImg';
 
 interface ArticleProps {
   title: string;
-  intro: string;
+  description: string;
   writer: string;
   date: string;
   // imgSrc: string;
 }
 
 const Article = (props: ArticleProps) => {
-  const { title, intro, writer, date } = props;
+  const { title, description, writer, date } = props;
 
   return (
     <ArticleContainer>
       <ArticleInfo>
-        <ArticleTitle>
-          {title}
-          리액트 API와 코드 재사용의 진화
-        </ArticleTitle>
-        <ArticleIntro>
-          {intro}
-          리액트 API와 코드 재사용의 진화에 관한 글입니다.
-        </ArticleIntro>
+        <ArticleTitle>{title}</ArticleTitle>
+        <ArticleDescription>{description}</ArticleDescription>
         <DetailBox>
-          <ArticleDetail>
-            {writer}
-            김대덕 · 웹 프론트엔드 개발자
-          </ArticleDetail>
+          <ArticleDetail>{writer}</ArticleDetail>
           <Bar>|</Bar>
-          <ArticleDetail>
-            {date}
-            2023.06.25
-          </ArticleDetail>
+          <ArticleDetail>{date}</ArticleDetail>
         </DetailBox>
       </ArticleInfo>
       <ArticleImg />
@@ -54,6 +42,7 @@ const ArticleContainer = styled.section`
 const ArticleInfo = styled.article`
   display: flex;
   flex-direction: column;
+  justify-content: center;
 `;
 
 const ArticleTitle = styled.div`
@@ -63,7 +52,7 @@ const ArticleTitle = styled.div`
   color: ${({ theme }) => theme.colors.grey_900};
 `;
 
-const ArticleIntro = styled.div`
+const ArticleDescription = styled.div`
   ${({ theme }) => theme.fonts.Body2_Regular};
   word-break: keep-all;
   color: ${({ theme }) => theme.colors.grey_900};

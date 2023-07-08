@@ -8,10 +8,30 @@ import Article from '../Article';
 const ArticleList = ({ children }: { children: React.ReactNode }) => {
   return (
     <ArticleListContainer>
-      <Article />
-      <Article />
-      <Article />
-      <Article />
+      <Article
+        title={'리액트 API와 코드 재사용의 진화에 대한 글의 제목이 길다면 어떨까'}
+        description={'리액트 API와 코드 재사용의 진화에 관한 글입니다.'}
+        writer={'김대덕 · 웹 프론트엔드 개발자'}
+        date={'2023.06.25'}
+      />
+      <Article
+        title={'리액트 API와 코드 재사용의 진화에 대한 글의 제목이 길다면 어떨까'}
+        description={'리액트 API와 코드 재사용의 진화에 관한 글입니다.'}
+        writer={'김대덕 · 웹 프론트엔드 개발자'}
+        date={'2023.06.25'}
+      />
+      <Article
+        title={'리액트 API와 코드 재사용의 진화에 대한 글의 제목이 길다면 어떨까'}
+        description={'리액트 API와 코드 재사용의 진화에 관한 글입니다.'}
+        writer={'김대덕 · 웹 프론트엔드 개발자'}
+        date={'2023.06.25'}
+      />
+      <Article
+        title={'리액트 API와 코드 재사용의 진화에 대한 글의 제목이 길다면 어떨까'}
+        description={'리액트 API와 코드 재사용의 진화에 관한 글입니다.'}
+        writer={'김대덕 · 웹 프론트엔드 개발자'}
+        date={'2023.06.25'}
+      />
       {children}
     </ArticleListContainer>
   );
