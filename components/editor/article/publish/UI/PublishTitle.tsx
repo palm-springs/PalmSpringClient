@@ -14,7 +14,7 @@ const PublishTitle = () => {
 export default PublishTitle;
 
 const ArticleTitle = styled.p`
-  margin: 2.4rem 0;
+  margin: 2.4rem 0 2.4rem 45rem;
   color: ${({ theme }) => theme.colors.grey_950};
   ${({ theme }) => theme.fonts.Heading1};
 `;

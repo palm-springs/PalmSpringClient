@@ -30,7 +30,7 @@ const UrlCustomTextarea = styled.textarea`
 `;
 
 const UrlContainer = styled.div`
-  margin-top: 2.4rem;
+  margin: 2.4rem 0 0 45rem;
 `;
 
 const UrlTitle = styled.p`

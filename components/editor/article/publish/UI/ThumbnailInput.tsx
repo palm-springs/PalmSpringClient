@@ -7,7 +7,7 @@ import { ThumbnailIcon } from '@/public/icons';
 
 const ThumbnailInput = () => {
   return (
-    <>
+    <ThumbnailContainer>
       <ThumbnailInputLabel>
         <input type="file" id="logo_input" />
         <ThumbnailIcon />
@@ -18,11 +18,15 @@ const ThumbnailInput = () => {
           파일당 최대 크기는 5MB입니다.
         </ThumbnailInputInfo>
       </ThumbnailInputLabel>
-    </>
+    </ThumbnailContainer>
   );
 };
 
 export default ThumbnailInput;
+
+const ThumbnailContainer = styled.div`
+  margin: 8.1rem 0 0 45rem;
+`;
 
 const ThumbnailInputInfo = styled.p`
   margin-top: 1.2rem;
