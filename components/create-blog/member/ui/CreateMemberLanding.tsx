@@ -1,12 +1,14 @@
 'use client';
 import styled from 'styled-components';
 
+import AddMemberForm from '@/components/common/ui/AddMemberForm';
+
 const CreateMemberLanding = () => {
   return (
     <CreateMemberContainer>
       <Title>이메일로 팀원을 초대하세요</Title>
       <SubTitle>쉼표, 엔터, 스페이스바로 메일 주소를 구분할 수 있습니다</SubTitle>
-      {/* <AddMemberForm /> */}
+      <AddMemberForm width={'54'} height={'17.2'} paddingUD={'2'} paddingLR={'2.4'} />
       <InviteButton type="button">초대하기</InviteButton>
       <SkipButton type="button">건너뛰기</SkipButton>
     </CreateMemberContainer>
