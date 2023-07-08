@@ -2,10 +2,10 @@
 import React from 'react';
 import styled from 'styled-components';
 
-import PublishBottomButtons from '@/components/editor/page/publish/UI/PublishBottom';
-import PublishTitle from '@/components/editor/page/publish/UI/PublishTitle';
-import ThumbnailInput from '@/components/editor/page/publish/UI/ThumbnailInput';
-import UrlCustom from '@/components/editor/page/publish/UI/UrlCustom';
+import PublishBottomButtons from '@/components/editor/article/publish/UI/PublishBottom';
+import PublishTitle from '@/components/editor/article/publish/UI/PublishTitle';
+import ThumbnailInput from '@/components/editor/article/publish/UI/ThumbnailInput';
+import UrlCustom from '@/components/editor/article/publish/UI/UrlCustom';
 
 const PagePublishPage = () => {
   return (
