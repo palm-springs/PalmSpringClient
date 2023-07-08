@@ -25,5 +25,5 @@ const CheckNewsLetterTitle = styled.p`
 
 const CheckNewsLetterContainer = styled.div`
   display: flex;
-  margin: 2.4rem 0 0 45rem;
+  margin-top: 2.4rem;
 `;

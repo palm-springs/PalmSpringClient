@@ -4,7 +4,7 @@ import styled from 'styled-components';
 
 const CategorySelect = () => {
   return (
-    <>
+    <CartegorySelectorContainer>
       <CategoryTitle>카테고리</CategoryTitle>
       <CategoryButtonContainer>
         <CategoryButton type="button">디자인</CategoryButton>
@@ -15,11 +15,15 @@ const CategorySelect = () => {
           팀문화
         </CategoryButton>
       </CategoryButtonContainer>
-    </>
+    </CartegorySelectorContainer>
   );
 };
 
 export default CategorySelect;
+
+const CartegorySelectorContainer = styled.div`
+  margin-left: 45rem;
+`;
 
 const CategoryButtonContainer = styled.div`
   display: flex;

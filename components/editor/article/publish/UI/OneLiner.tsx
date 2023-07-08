@@ -29,7 +29,7 @@ const OneLinerTextarea = styled.textarea`
 `;
 
 const OneLinerContainer = styled.div`
-  margin: 2.4rem 0 0 45rem;
+  margin-top: 2.4rem;
 `;
 
 const OneLineTitle = styled.p`
