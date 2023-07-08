@@ -1,19 +1,20 @@
 'use client';
 
 import React from 'react';
-import Link from 'next/link';
 import styled from 'styled-components';
 
-const Footer = () => {
+import FooterContact from './UI/FooterContact';
+
+const BlogFooter = () => {
   return (
     <FooterContainer>
-      <Link href="">Email</Link>
-      <Link href="">Instagram</Link>
+      <FooterContact />
+      <FooterName>Palmspring © 2023</FooterName>
     </FooterContainer>
   );
 };
 
-export default Footer;
+export default BlogFooter;
 
 const FooterContainer = styled.div`
   ${({ theme }) => theme.fonts.Body3_Regular};
@@ -23,4 +24,9 @@ const FooterContainer = styled.div`
   background-color: ${({ theme }) => theme.colors.grey_200};
   padding-top: 6rem;
   height: 30rem;
+`;
+
+const FooterName = styled.div`
+  ${({ theme }) => theme.fonts.Body3_Semibold};
+  color: ${({ theme }) => theme.colors.grey_700};
 `;
