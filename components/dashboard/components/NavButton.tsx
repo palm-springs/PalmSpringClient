@@ -1,8 +1,9 @@
 'use client';
 
 import React from 'react';
-import { useParams, useRouter } from 'next/navigation';
+import { useRouter } from 'next/navigation';
 
+import useGetLastPathName from '@/hooks/useGetLastPathName';
 import { dashBoardPageType } from '@/types/dashboard';
 
 import mapPageType2Component from '../../../constants/mapPageType2Component';
@@ -16,9 +17,9 @@ interface navButtomProps {
 const NavButton = (props: navButtomProps) => {
   const { currentPageType } = props;
 
-  const { pageType } = useParams();
-
   const router = useRouter();
+
+  const pageType = useGetLastPathName();
 
   const { innerText, icon } = mapPageType2Component[currentPageType];
 
