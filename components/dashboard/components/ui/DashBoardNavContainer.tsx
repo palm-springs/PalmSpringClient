@@ -22,4 +22,8 @@ const DashBoardNavUI = styled.nav`
     align-self: flex-start;
     margin-left: 2.4rem;
   }
+  button {
+    border: none;
+    background: none;
+  }
 `;

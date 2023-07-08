@@ -58,6 +58,7 @@ const HeaderContentWrapper = styled.div`
     align-items: center;
     justify-content: center;
     transition-duration: 0.3s;
+    border: none;
     border-radius: 0.8rem;
     background: ${({ theme }) => theme.colors.green};
     padding: 1rem 2.6rem;
