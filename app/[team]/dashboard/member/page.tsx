@@ -4,6 +4,7 @@
 import React from 'react';
 import styled from 'styled-components';
 
+import PopOver from '@/components/dashboard/member/PopOver';
 import Member from '@/components/dashboard/member/UI/Member';
 import MemberBoxHeader from '@/components/dashboard/member/UI/MemberBoxHeader';
 import MemberList from '@/components/dashboard/member/UI/MemberList';
@@ -20,7 +21,6 @@ function MemberPage() {
         <Member />
         <Member />
       </MemberList>
-      {/* <Test /> */}
     </MemberPageContainer>
   );
 }
