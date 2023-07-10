@@ -28,7 +28,7 @@ const InviteAcceptForm = () => {
       </TextInputForm>
 
       <TextInputForm type={'position'} text={'직책'}>
-        <TextInput />
+        <TextInput placeholder="직책을 입력해주세요" />
       </TextInputForm>
 
       <AcceptButton type="button">완료</AcceptButton>
