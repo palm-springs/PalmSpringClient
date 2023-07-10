@@ -3,6 +3,7 @@
 import React from 'react';
 import styled from 'styled-components';
 
+import BlogInfoDeleteButton from '@/components/dashboard/blogBasicInfo/BlogDeleteButton';
 import BlogDescribeText from '@/components/dashboard/blogBasicInfo/BlogDescribeText';
 import BlogLogoImage from '@/components/dashboard/blogBasicInfo/BlogLogoImage';
 import BlogMainImage from '@/components/dashboard/blogBasicInfo/BlogMainImge';
@@ -17,6 +18,7 @@ const BlogBasicInfoPage = () => {
       <BlogLogoImage />
       <BlogMainImage />
       <BlogDescribeText />
+      <BlogInfoDeleteButton />
     </BlogBasicInfoContainer>
   );
 };
@@ -24,5 +26,6 @@ const BlogBasicInfoPage = () => {
 export default BlogBasicInfoPage;
 
 const BlogBasicInfoContainer = styled.div`
-  margin-left: 28.6rem;
+  margin-left: 35.8rem;
+  /* margin-left: 7.2rem; */
 `;
