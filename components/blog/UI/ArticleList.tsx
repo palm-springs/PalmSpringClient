@@ -3,7 +3,7 @@
 import React from 'react';
 import styled from 'styled-components';
 
-import Article from '../Article';
+import Article from '../../common/Article';
 
 const ArticleList = ({ children }: { children: React.ReactNode }) => {
   return (

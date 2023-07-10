@@ -3,7 +3,7 @@
 import React from 'react';
 import styled from 'styled-components';
 
-import ArticleImg from './UI/ArticleImg';
+import ArticleImg from '../blog/UI/ArticleImg';
 
 interface ArticleProps {
   title: string;
