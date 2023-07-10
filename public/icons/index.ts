@@ -22,6 +22,7 @@ export { default as OrderIcon } from './icnOrder.svg';
 export { default as QuoteIcon } from './icnQuote.svg';
 export { default as UnderlineIcon } from './icnUnderline.svg';
 export { default as Menu01Icon } from './menu-01.svg';
+export { default as ProfilePhotoIcon } from './profilePhoto.svg';
 export { default as SettingIcon } from './settings.svg';
 export { default as SymbolIcon } from './symbol.svg';
 export { default as UserProfile03Icon } from './user-profile-03.svg';
