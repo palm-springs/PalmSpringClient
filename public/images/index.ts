@@ -2,3 +2,4 @@
 export { default as ArticleExampleImg } from './ArticleExample.png';
 export { default as BlogImgExampleImg } from './BlogImgExample.png';
 export { default as GoogleImg } from './google_icon.png';
+export { default as DuckDuckImg } from './Rectangle 65.png';
