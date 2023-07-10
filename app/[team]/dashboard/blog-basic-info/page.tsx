@@ -4,6 +4,7 @@ import React from 'react';
 import styled from 'styled-components';
 
 import BlogLogoImage from '@/components/dashboard/blogBasicInfo/BlogLogoImage';
+import BlogMainImage from '@/components/dashboard/blogBasicInfo/BlogMainImge';
 import BlogName from '@/components/dashboard/blogBasicInfo/BlogName';
 import BlogUrl from '@/components/dashboard/blogBasicInfo/BlogUrl';
 
@@ -13,6 +14,7 @@ const BlogBasicInfoPage = () => {
       <BlogUrl />
       <BlogName />
       <BlogLogoImage />
+      <BlogMainImage />
     </BlogBasicInfoContainer>
   );
 };
