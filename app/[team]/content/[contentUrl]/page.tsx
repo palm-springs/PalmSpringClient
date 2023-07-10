@@ -5,8 +5,8 @@ import React from 'react';
 import Image from 'next/image';
 import styled from 'styled-components';
 
+import Content from '@/components/content/Content';
 import Bar from '@/components/content/UI/Bar';
-import Content from '@/components/content/UI/Content';
 import ContentInfo from '@/components/content/UI/ContentInfo';
 import LinkBtn from '@/components/content/UI/LinkBtn';
 import Recommend from '@/components/content/UI/Recommend';

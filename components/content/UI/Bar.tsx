@@ -11,7 +11,7 @@ export default Bar;
 
 const BarContainer = styled.div`
   margin: 4.1rem 0 6rem;
-  background-color: #eee;
+  background-color: ${({ theme }) => theme.colors.grey_400};
   width: 100%;
   height: 1px;
 `;
