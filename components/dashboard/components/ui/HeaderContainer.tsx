@@ -3,9 +3,8 @@ import { styled } from 'styled-components';
 
 interface UploadHeaderContainerProps {
   title: string;
-  buttonInnerText: string;
-  onButtonClick: React.MouseEventHandler<HTMLButtonElement>;
-  children: React.ReactNode;
+  buttonInnerText?: string;
+  onButtonClick?: React.MouseEventHandler<HTMLButtonElement>;
 }
 
 /**
@@ -15,21 +14,20 @@ interface UploadHeaderContainerProps {
  * @param onButtonClick 버튼 눌렀을 때 작동할 함수
  * @returns
  */
-const UploadHeaderContainer = (props: UploadHeaderContainerProps) => {
-  const { title, buttonInnerText, onButtonClick, children } = props;
+const HeaderContainer = (props: UploadHeaderContainerProps) => {
+  const { title, buttonInnerText, onButtonClick } = props;
 
   return (
     <UploadHeaderUI>
       <HeaderContentWrapper>
         <span>{title}</span>
-        <button onClick={onButtonClick}>{buttonInnerText}</button>
+        {buttonInnerText ? <button onClick={onButtonClick}>{buttonInnerText}</button> : <div></div>}
       </HeaderContentWrapper>
-      {children}
     </UploadHeaderUI>
   );
 };
 
-export default UploadHeaderContainer;
+export default HeaderContainer;
 
 const UploadHeaderUI = styled.article`
   display: flex;
