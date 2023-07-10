@@ -9,7 +9,11 @@ interface NavButtonContainerProps {
 const NavButtonContainer = (props: NavButtonContainerProps) => {
   const { children, onNavButtonClick } = props;
 
-  return <NavButtonUI onClick={onNavButtonClick}>{children}</NavButtonUI>;
+  return (
+    <NavButtonUI type="button" onClick={onNavButtonClick}>
+      {children}
+    </NavButtonUI>
+  );
 };
 
 export default NavButtonContainer;
