@@ -6,32 +6,44 @@ import styled from 'styled-components';
 import Article from '../../common/Article';
 
 const ArticleList = ({ children }: { children: React.ReactNode }) => {
+  const ARTICLE_LIST = [
+    {
+      title: '리액트 API와 코드 재사용의 진화에 대한 글의 제목이 길다면 어떨까',
+      description: '리액트 API와 코드 재사용의 진화에 관한 글입니다.',
+      writer: '장묭지 · 웹 프론트엔드 개발자',
+      date: '2023.06.25',
+    },
+    {
+      title: '리액트 API와 코드 재사용의 진화',
+      description: '리액트 API와 코드 재사용의 진화에 관한 글입니다.',
+      writer: '오형근 · 웹 프론트엔드 개발자',
+      date: '2023.06.28',
+    },
+    {
+      title: '리액트 API와 코드 재사용의 진화에 대한 글의 제목이 길다면 어떨까',
+      description: '리액트 API와 코드 재사용의 진화에 관한 글입니다.',
+      writer: '길서현 · 웹 프론트엔드 개발자',
+      date: '2023.06.27',
+    },
+    {
+      title: '리액트 API와 코드 재사용의 진화에 대한 글의 제목이 길다면 어떨까',
+      description: '이렇게 글 설명이 보입니다.',
+      writer: '이시연 · 웹 프론트엔드 개발자',
+      date: '2023.07.25',
+    },
+  ];
+
   return (
     <ArticleListContainer>
-      <Article
-        title={'리액트 API와 코드 재사용의 진화에 대한 글의 제목이 길다면 어떨까'}
-        description={'리액트 API와 코드 재사용의 진화에 관한 글입니다.'}
-        writer={'김대덕 · 웹 프론트엔드 개발자'}
-        date={'2023.06.25'}
-      />
-      <Article
-        title={'리액트 API와 코드 재사용의 진화에 대한 글의 제목이 길다면 어떨까'}
-        description={'리액트 API와 코드 재사용의 진화에 관한 글입니다.'}
-        writer={'김대덕 · 웹 프론트엔드 개발자'}
-        date={'2023.06.25'}
-      />
-      <Article
-        title={'리액트 API와 코드 재사용의 진화에 대한 글의 제목이 길다면 어떨까'}
-        description={'리액트 API와 코드 재사용의 진화에 관한 글입니다.'}
-        writer={'김대덕 · 웹 프론트엔드 개발자'}
-        date={'2023.06.25'}
-      />
-      <Article
-        title={'리액트 API와 코드 재사용의 진화에 대한 글의 제목이 길다면 어떨까'}
-        description={'리액트 API와 코드 재사용의 진화에 관한 글입니다.'}
-        writer={'김대덕 · 웹 프론트엔드 개발자'}
-        date={'2023.06.25'}
-      />
+      {ARTICLE_LIST.map((eachItem) => (
+        <Article
+          key={eachItem.title}
+          title={eachItem.title}
+          description={eachItem.description}
+          writer={eachItem.writer}
+          date={eachItem.date}
+        />
+      ))}
       {children}
     </ArticleListContainer>
   );

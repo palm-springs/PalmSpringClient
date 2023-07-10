@@ -13,14 +13,17 @@ import SubscribeBtn from '../SubscribeBtn';
 // }
 
 const BlogNav = () => {
+  const PAGE_LIST: string[] = ['채용', '인스타그램'];
+
   return (
     <BlogNavContainer>
-      <PageBtn>
-        <Link href={''}>채용</Link>
-      </PageBtn>
-      <PageBtn>
-        <Link href={''}>인스타그램</Link>
-      </PageBtn>
+      <>
+        {PAGE_LIST.map((eachPage) => (
+          <PageBtn key={eachPage}>
+            <Link href={''}>{eachPage}</Link>
+          </PageBtn>
+        ))}
+      </>
       <SubscribeBtn />
     </BlogNavContainer>
   );
