@@ -2,13 +2,16 @@
 
 import React from 'react';
 
-//블로그 컴포넌트의 header import 해올 예정
+import BlogFooter from '@/components/common/BlogFooter';
+import BlogHeader from '@/components/common/BlogHeader';
 
 const AuthorPageLayout = ({ children }: { children: React.ReactNode }) => {
   return (
-    <div>
+    <>
+      <BlogHeader />
       <main>{children}</main>
-    </div>
+      <BlogFooter />
+    </>
   );
 };
 
