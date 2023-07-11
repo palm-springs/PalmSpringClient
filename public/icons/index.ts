@@ -23,6 +23,7 @@ export { default as OrderIcon } from './icnOrder.svg';
 export { default as QuoteIcon } from './icnQuote.svg';
 export { default as UnderlineIcon } from './icnUnderline.svg';
 export { default as ImageDownIcon } from './image_down.svg';
+export { default as InputProfileIcon } from './input-profile-icon.svg';
 export { default as LogoIcon } from './logo.svg';
 export { default as Menu01Icon } from './menu-01.svg';
 export { default as SettingIcon } from './settings.svg';
