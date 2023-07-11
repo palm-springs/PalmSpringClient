@@ -4,12 +4,10 @@ import styled from 'styled-components';
 
 const PublishBottomButtons = () => {
   return (
-    <div>
-      <PublishBottomButtonsContainer>
-        <BackButton type="button">뒤로가기</BackButton>
-        <PublishButton type="button">글 발행하기</PublishButton>
-      </PublishBottomButtonsContainer>
-    </div>
+    <PublishBottomButtonsContainer>
+      <BackButton type="button">뒤로가기</BackButton>
+      <PublishButton type="button">글 발행하기</PublishButton>
+    </PublishBottomButtonsContainer>
   );
 };
 

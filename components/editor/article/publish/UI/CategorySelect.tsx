@@ -46,12 +46,12 @@ const CategoryButton = styled.button`
   border-radius: 4rem;
   padding: 0.8rem 2rem;
   &:hover {
-    border: 0.1rem solid ${({ theme }) => theme.colors.green};
+    border: 1px solid ${({ theme }) => theme.colors.green};
     color: ${({ theme }) => theme.colors.green};
   }
 
   &.active {
-    border: 0.1rem solid ${({ theme }) => theme.colors.green};
+    border: 1px solid ${({ theme }) => theme.colors.green};
     color: ${({ theme }) => theme.colors.green};
   }
 `;

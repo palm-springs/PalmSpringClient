@@ -25,7 +25,8 @@ button {
     background: inherit ; 
     cursor:pointer; 
     padding:0; 
-    overflow:visible}
+    overflow:visible;
+}
 
 * {
     box-sizing: border-box;

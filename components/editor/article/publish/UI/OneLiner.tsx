@@ -15,13 +15,12 @@ const OneLiner = () => {
 export default OneLiner;
 
 const OneLinerTextarea = styled.textarea`
+  ${({ theme }) => theme.fonts.Body2_Regular};
   display: flex;
-  align-items: flex-start;
   margin-top: 0.8rem;
-  padding: 1rem 1.2rem 5rem 1.2rem;
+  padding: 1rem 1.2rem 5rem;
   width: 54rem;
   resize: none;
-  ${({ theme }) => theme.fonts.Body2_Regular};
   &::placeholder {
     ${({ theme }) => theme.colors.grey_600};
     ${({ theme }) => theme.fonts.Body2_Regular};
@@ -33,6 +32,6 @@ const OneLinerContainer = styled.div`
 `;
 
 const OneLineTitle = styled.p`
-  color: ${({ theme }) => theme.colors.grey_950};
   ${({ theme }) => theme.fonts.Body2_Semibold};
+  color: ${({ theme }) => theme.colors.grey_950};
 `;

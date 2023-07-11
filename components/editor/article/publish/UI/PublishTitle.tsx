@@ -4,11 +4,7 @@ import styled from 'styled-components';
 import ARTICLE_CONTENT from '@/constants/ArticleContent';
 
 const PublishTitle = () => {
-  return (
-    <>
-      <ArticleTitle>{ARTICLE_CONTENT.article.title}</ArticleTitle>
-    </>
-  );
+  return <ArticleTitle>{ARTICLE_CONTENT.article.title}</ArticleTitle>;
 };
 
 export default PublishTitle;
