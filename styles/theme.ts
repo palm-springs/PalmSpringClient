@@ -138,7 +138,6 @@ const fonts = {
     font-style: normal;
   `,
 };
-
 const theme: Pick<DefaultTheme, 'colors' | 'fonts'> = {
   colors,
   fonts,

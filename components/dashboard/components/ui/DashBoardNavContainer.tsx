@@ -11,20 +11,15 @@ export default DashBoardNavContainer;
 
 const DashBoardNavUI = styled.nav`
   display: flex;
-  position: fixed;
   flex-direction: column;
   align-items: center;
   margin: 0;
   background: ${({ theme }) => theme.colors.grey_100};
-  padding-top: 3.2rem;
-  width: 28.6rem;
+  padding: 2rem 0.5rem 0 0.5rem;
+  width: 17.875rem;
   height: 100vh;
   & > :nth-child(1) {
     align-self: flex-start;
-    margin-left: 2.4rem;
-  }
-  button {
-    border: none;
-    background: none;
+    margin-left: 1rem;
   }
 `;
