@@ -22,14 +22,13 @@ const BlogNameContainer = styled.div`
 
 const BlogNameTitle = styled.p`
   ${({ theme }) => theme.fonts.Body2_Semibold};
-  margin: 4rem 0 0.8rem 0;
+  margin: 4rem 0 0.8rem;
   color: ${({ theme }) => theme.colors.grey_950};
 `;
 
 const BlogNameText = styled.p`
   ${({ theme }) => theme.fonts.Body2_Regular};
   gap: 1rem;
-  align-items: flex-start;
   border: 1px solid ${({ theme }) => theme.colors.grey_400};
   border-radius: 0.8rem;
   padding: 1rem 1.2rem;
