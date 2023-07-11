@@ -12,6 +12,7 @@ const ArticleList = ({ children }: { children: React.ReactNode }) => {
       description: '리액트 API와 코드 재사용의 진화에 관한 글입니다.',
       writer: '장묭지 · 웹 프론트엔드 개발자',
       date: '2023.06.25',
+      thumbnailImgUrl: 'https://unsplash.com/s/photos/image',
     },
     {
       title: '리액트 API와 코드 재사용의 진화',
@@ -42,6 +43,7 @@ const ArticleList = ({ children }: { children: React.ReactNode }) => {
           description={eachItem.description}
           writer={eachItem.writer}
           date={eachItem.date}
+          thumbnailImgUrl={eachItem.thumbnailImgUrl}
         />
       ))}
       {children}
@@ -55,5 +57,8 @@ const ArticleListContainer = styled.section`
   display: flex;
   flex-direction: column;
   gap: 6rem;
+  justify-content: center;
+
   margin-top: 5.8rem;
+  width: 72rem;
 `;
