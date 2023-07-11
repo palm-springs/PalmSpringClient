@@ -5,16 +5,16 @@ import { CloseIcon } from '@/public/icons';
 
 interface EmailBoxProps {
   email: string;
-  onClick: (email: string) => void;
+  handleCloseClick: (email: string) => void;
 }
 
 const EmailBox = (props: EmailBoxProps) => {
-  const { email, onClick } = props;
+  const { email, handleCloseClick } = props;
 
   return (
     <EmailBoxContainer>
       {email}
-      <CloseButton type="button" onClick={() => onClick(email)}>
+      <CloseButton type="button" onClick={() => handleCloseClick(email)}>
         <CloseIcon />
       </CloseButton>
     </EmailBoxContainer>

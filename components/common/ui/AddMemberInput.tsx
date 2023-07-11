@@ -40,7 +40,7 @@ const AddMemberInput = () => {
   /** email 중복 입력이 안된다는 가정 하에 구현 */
   // 입력된 email 렌더링
   const EmailBoxList = emailList.map((email) => {
-    return <EmailBox key={email} email={email} onClick={handleCloseClick} />;
+    return <EmailBox key={email} email={email} handleCloseClick={handleCloseClick} />;
   });
 
   return (
