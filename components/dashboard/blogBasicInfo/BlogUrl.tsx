@@ -26,7 +26,7 @@ const BlogInfoTitle = styled.p`
 
 const BlogUrlTitle = styled.p`
   ${({ theme }) => theme.fonts.Body2_Semibold};
-  margin: 4rem 0 0.8rem 0;
+  margin: 4rem 0 0.8rem;
   color: ${({ theme }) => theme.colors.grey_950};
 `;
 
