@@ -11,6 +11,7 @@ import { DashBoardContentProps } from '../DashBoardContent';
 import Author from './Author';
 import Content from './Content';
 import CreatedAt from './CreatedAt';
+import Description from './Description';
 import Draft from './Draft';
 import Position from './Position';
 
@@ -22,7 +23,7 @@ interface DashBoardContentContainerProps {
 
 const DashBoardContentContainer = (props: DashBoardContentContainerProps) => {
   const {
-    contentObject: { content, url, tabType, draft, author, position, createdAt, onTitleClick },
+    contentObject: { content, url, tabType, draft, author, description, position, createdAt, onTitleClick },
     onMeatBallClick,
     isPopOverMenuOpen,
   } = props;
@@ -34,6 +35,7 @@ const DashBoardContentContainer = (props: DashBoardContentContainerProps) => {
       {tabType && <span id="tabType">{tabType}</span>}
       {author && <Author author={author} />}
       {position && <Position position={position} />}
+      {description && <Description description={description} />}
       {draft !== undefined ? <Draft draft={draft} /> : <></>}
       {createdAt && <CreatedAt createdAt={createdAt} />}
       <MenuBtn
@@ -63,6 +65,7 @@ const DashBoardContentUI = styled.article`
   }
 
   #url {
+    min-width: 16.4rem;
     ${({ theme }) => theme.fonts.Body3_Regular};
     color: ${({ theme }) => theme.colors.grey_700};
   }
