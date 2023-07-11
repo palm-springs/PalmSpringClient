@@ -11,4 +11,9 @@ export default DashBoardContainer;
 
 const DashBoardContainerUI = styled.section`
   display: flex;
+
+  button {
+    border: none;
+    background: none;
+  }
 `;
