@@ -25,7 +25,7 @@ const LoginLanding = (props: authClientInfo) => {
   return (
     <LoginLandingContainer>
       <LoginContainer>
-        <LogoIcon />
+        <Image src={LogoIcon} alt="로고" />
         <LoginText>팜스프링으로 최고의 팀 블로그를 운영해보세요</LoginText>
         <LoginButton
           href={`${GOOGLE_END_POINT}?client_id=${clientId}&redirect_uri=${GOOGLE_REDIRECT_URI}&response_type=code&scope=email profile`}>
@@ -52,17 +52,17 @@ const LoginContainer = styled.div`
   flex-direction: column;
   align-items: center;
 
-  width: 34.8rem;
+  width: 21.75rem;
 `;
 
 const LoginText = styled.h1`
   ${({ theme }) => theme.fonts.Body1_Semibold};
-  margin-top: 2.4rem;
+  margin-top: 1.5rem;
 `;
 
 const LoginButton = styled.a`
   display: flex;
-  gap: 0.8rem;
+  gap: 0.5rem;
   align-items: center;
   justify-content: center;
 
@@ -70,11 +70,11 @@ const LoginButton = styled.a`
 
   border: 1px solid ${({ theme }) => theme.colors.grey_400};
 
-  border-radius: 1.6rem;
+  border-radius: 1rem;
 
   background-color: ${({ theme }) => theme.colors.grey_0};
-  width: 34.8rem;
-  height: 5.6rem;
+  width: 21.75rem;
+  height: 3.5rem;
 
   & > span {
     ${({ theme }) => theme.fonts.Body1_Semibold};

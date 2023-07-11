@@ -8,8 +8,8 @@ const Line = () => <LineUI />;
 export default Line;
 
 const LineUI = styled.div`
-  margin-bottom: 0.5rem;
+  margin-bottom: 0.8rem;
   background: ${({ theme }) => theme.colors.grey_300};
-  width: 100%;
+  width: calc(100% - 1.6rem);
   height: 1px;
 `;
