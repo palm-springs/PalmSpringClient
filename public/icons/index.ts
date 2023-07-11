@@ -6,8 +6,8 @@ export { default as CheckboxIcon } from './checkbox.svg';
 export { default as File02Icon } from './file-02.svg';
 export { default as File04Icon } from './file-04.svg';
 export { default as Grid01Icon } from './grid-01.svg';
-<<<<<<< HEAD
 export { default as BoldIcon } from './ic_Bold.svg';
+export { default as CloseIcon } from './ic_close.svg';
 export { default as H1Icon } from './ic_H1.svg';
 export { default as H2Icon } from './ic_H2.svg';
 export { default as H3Icon } from './ic_H3.svg';
@@ -22,9 +22,9 @@ export { default as LinkIcon } from './icnLink.svg';
 export { default as OrderIcon } from './icnOrder.svg';
 export { default as QuoteIcon } from './icnQuote.svg';
 export { default as UnderlineIcon } from './icnUnderline.svg';
+export { default as ImageDownIcon } from './image_down.svg';
 export { default as InputProfileIcon } from './input-profile-icon.svg';
-=======
->>>>>>> 5c3006422dce9883640ea7204461093684deece0
+export { default as LogoIcon } from './logo.svg';
 export { default as Menu01Icon } from './menu-01.svg';
 export { default as SettingIcon } from './settings.svg';
 export { default as SymbolIcon } from './symbol.svg';
