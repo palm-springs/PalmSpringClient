@@ -44,7 +44,7 @@ const BlogMainUpload = styled.div`
 const ImageGuideContainer = styled.div`
   display: flex;
   align-items: center;
-  margin: 2.4rem 0 0.8rem 0;
+  margin: 2.4rem 0 0.8rem;
 `;
 
 const ImageGuideContent = styled.p`

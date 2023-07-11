@@ -26,7 +26,7 @@ const BlogDescribeTextarea = styled.textarea`
   margin-top: 0.8rem;
   border: 1px solid ${({ theme }) => theme.colors.grey_400};
   border-radius: 0.8rem;
-  padding: 1rem 1.2rem 5rem 1.2rem;
+  padding: 1rem 1.2rem 5rem;
   width: 50rem;
   height: 7.9rem;
   resize: none;
