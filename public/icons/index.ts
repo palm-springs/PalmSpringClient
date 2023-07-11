@@ -26,7 +26,6 @@ export { default as ImageDownIcon } from './image_down.svg';
 export { default as InputProfileIcon } from './input-profile-icon.svg';
 export { default as LogoIcon } from './logo.svg';
 export { default as Menu01Icon } from './menu-01.svg';
-export { default as ProfilePhotoIcon } from './profilePhoto.svg';
 export { default as SettingIcon } from './settings.svg';
 export { default as SymbolIcon } from './symbol.svg';
 export { default as ThumbnailIcon } from './thumnail-icon.svg';
