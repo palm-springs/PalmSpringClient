@@ -1,19 +1,30 @@
 'use client';
-import React from 'react';
+import React, { useState } from 'react';
 import styled from 'styled-components';
 
 const CategorySelect = () => {
+  const CATEGORY_TITLE_LIST = ['디자인', '개발', '팀문화'];
+
+  const [activeButton, setActiveButton] = useState('');
+
+  const clickActive = (e: React.MouseEvent<HTMLButtonElement>) => {
+    const value = e.currentTarget.value;
+    setActiveButton(value === activeButton ? '' : value);
+  };
+
   return (
     <>
       <CategoryTitle>카테고리</CategoryTitle>
       <CategoryButtonContainer>
-        <CategoryButton type="button">디자인</CategoryButton>
-        <CategoryButton type="button" className="development">
-          개발
-        </CategoryButton>
-        <CategoryButton type="button" className="teamCulture">
-          팀문화
-        </CategoryButton>
+        {CATEGORY_TITLE_LIST.map((title, index) => (
+          <CategoryButton
+            key={title}
+            value={index}
+            className={activeButton === String(index) ? 'active' : ''}
+            onClick={clickActive}>
+            {title}
+          </CategoryButton>
+        ))}
       </CategoryButtonContainer>
     </>
   );
@@ -23,23 +34,23 @@ export default CategorySelect;
 
 const CategoryButtonContainer = styled.div`
   display: flex;
-  .development {
-    margin-left: 0.8rem;
-  }
-  .teamCulture {
-    margin-left: 0.8rem;
-  }
+  gap: 0.8rem;
 `;
 
 const CategoryButton = styled.button`
   display: flex;
-  gap: 1rem;
   align-items: center;
   justify-content: center;
-  border: 0.1rem solid ${({ theme }) => theme.colors.grey_400};
+  margin-top: 0.8rem;
+  border: 1px solid ${({ theme }) => theme.colors.grey_400};
   border-radius: 4rem;
   padding: 0.8rem 2rem;
   &:hover {
+    border: 0.1rem solid ${({ theme }) => theme.colors.green};
+    color: ${({ theme }) => theme.colors.green};
+  }
+
+  &.active {
     border: 0.1rem solid ${({ theme }) => theme.colors.green};
     color: ${({ theme }) => theme.colors.green};
   }
