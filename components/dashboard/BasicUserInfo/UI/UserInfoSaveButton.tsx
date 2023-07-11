@@ -2,13 +2,7 @@
 import React from 'react';
 import styled from 'styled-components';
 
-const UserInfoSaveButton = () => {
-  return (
-    <>
-      <SaveButton type="button">저장하기</SaveButton>
-    </>
-  );
-};
+const UserInfoSaveButton = () => <SaveButton type="button">저장하기</SaveButton>;
 
 export default UserInfoSaveButton;
 

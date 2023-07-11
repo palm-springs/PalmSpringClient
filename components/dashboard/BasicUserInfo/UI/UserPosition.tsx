@@ -14,15 +14,15 @@ const UserPosition = () => {
 export default UserPosition;
 
 const UserPositionTextarea = styled.textarea`
+  ${({ theme }) => theme.fonts.Body2_Regular};
   gap: 1rem;
   align-items: flex-start;
-  border: 0.1rem solid ${({ theme }) => theme.colors.grey_600};
+  border: 1px solid ${({ theme }) => theme.colors.grey_600};
   border-radius: 0.8rem;
   padding: 1rem 1.2rem;
   width: 50rem;
   height: 4.6rem;
   resize: none;
-  ${({ theme }) => theme.fonts.Body2_Regular};
   color: ${({ theme }) => theme.colors.grey_600};
 `;
 
@@ -31,7 +31,7 @@ const UserPositionContainer = styled.div`
 `;
 
 const UserPositionTitle = styled.p`
+  ${({ theme }) => theme.fonts.Body2_Semibold};
   margin-bottom: 0.8rem;
   color: ${({ theme }) => theme.colors.grey_950};
-  ${({ theme }) => theme.fonts.Body2_Semibold};
 `;
