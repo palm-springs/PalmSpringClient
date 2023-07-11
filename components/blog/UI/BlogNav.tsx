@@ -8,22 +8,16 @@ import PageBtn from '@/components/blog/PageBtn';
 
 import SubscribeBtn from '../SubscribeBtn';
 
-// interface BlogNav {
-//   pageList: string[];
-// }
-
 const BlogNav = () => {
   const PAGE_LIST: string[] = ['채용', '인스타그램'];
 
   return (
     <BlogNavContainer>
-      <>
-        {PAGE_LIST.map((eachPage) => (
-          <PageBtn key={eachPage}>
-            <Link href={''}>{eachPage}</Link>
-          </PageBtn>
-        ))}
-      </>
+      {PAGE_LIST.map((eachPage) => (
+        <PageBtn key={eachPage}>
+          <Link href={''}>{eachPage}</Link>
+        </PageBtn>
+      ))}
       <SubscribeBtn />
     </BlogNavContainer>
   );

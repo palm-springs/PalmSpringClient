@@ -36,14 +36,14 @@ const ArticleList = ({ children }: { children: React.ReactNode }) => {
 
   return (
     <ArticleListContainer>
-      {ARTICLE_LIST.map((eachItem) => (
+      {ARTICLE_LIST.map(({ title, description, writer, date, thumbnailImgUrl }) => (
         <Article
-          key={eachItem.title}
-          title={eachItem.title}
-          description={eachItem.description}
-          writer={eachItem.writer}
-          date={eachItem.date}
-          thumbnailImgUrl={eachItem.thumbnailImgUrl}
+          key={thumbnailImgUrl}
+          title={title}
+          description={description}
+          writer={writer}
+          date={date}
+          thumbnailImgUrl={thumbnailImgUrl}
         />
       ))}
       {children}

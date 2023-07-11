@@ -3,10 +3,6 @@
 import React from 'react';
 import styled from 'styled-components';
 
-// interface CategoryBtnBarProps {
-//   categoryList: string[];
-// }
-
 const CategoryBtnBar = () => {
   return (
     <CategoryBtnBarContainer>
