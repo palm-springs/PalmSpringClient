@@ -1,17 +1,23 @@
 'use client';
 
 import React from 'react';
+import styled from 'styled-components';
 
 import ArticleList from './ArticleList';
-import ArticleListHeader from './ArticleListHeader';
 
 const ArticleBox = () => {
   return (
-    <div>
-      <ArticleListHeader />
+    <>
+      <ArticleListHeader>작성한 아티클</ArticleListHeader>
       <ArticleList />
-    </div>
+    </>
   );
 };
 
 export default ArticleBox;
+
+const ArticleListHeader = styled.div`
+  ${({ theme }) => theme.fonts.Heading3_Semibold};
+  margin-bottom: 2.4rem;
+  color: ${({ theme }) => theme.colors.grey_900};
+`;
