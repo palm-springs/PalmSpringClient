@@ -18,7 +18,5 @@ const BlogInfoDeleteButtonContainer = styled.div`
 
 const BlogDeleteButton = styled.p`
   ${({ theme }) => theme.fonts.Body2_Regular};
-  text-decoration-line: underline;
-  letter-spacing: -0.0048rem;
   color: ${({ theme }) => theme.colors.grey_700};
 `;
