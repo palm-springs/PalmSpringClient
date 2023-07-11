@@ -21,6 +21,7 @@ export default BlogImg;
 
 const BlogImgContainer = styled.div`
   position: relative;
+  min-width: 105.6rem;
   height: 50rem;
 `;
 
