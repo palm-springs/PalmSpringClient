@@ -5,27 +5,29 @@ import Image from 'next/image';
 import styled from 'styled-components';
 
 import { MemberExampleImg } from '@/public/images';
+import { ContentProps } from '@/types/content';
 
 interface ContentInfoProps {
-  title: string;
-  description: string;
-  writer: string;
-  date: string;
+  content: ContentProps;
 }
 
 const ContentInfo = (props: ContentInfoProps) => {
-  const { title, description, writer, date } = props;
+  const {
+    content: { title, description, writer, date },
+  } = props;
   return (
     <>
       <TitleBox>{title}</TitleBox>
-      <DescriptionBox>{description}</DescriptionBox>
-      <WriterInfo>
-        <Image src={MemberExampleImg} alt="writer profile pic" />
-        <WriterDetailBox>
-          <WriterDetail>{writer}</WriterDetail>
-          <WriterDetail className="date">{date}</WriterDetail>
-        </WriterDetailBox>
-      </WriterInfo>
+      {description && <DescriptionBox>{description}</DescriptionBox>}
+      {writer && (
+        <WriterInfo>
+          <Image src={MemberExampleImg} alt="writer profile pic" />
+          <WriterDetailBox>
+            <WriterDetail>{writer}</WriterDetail>
+            <WriterDetail className="date">{date}</WriterDetail>
+          </WriterDetailBox>
+        </WriterInfo>
+      )}
     </>
   );
 };

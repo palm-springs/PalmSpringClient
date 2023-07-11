@@ -13,15 +13,17 @@ import Recommend from '@/components/content/UI/Recommend';
 import { BlogSampleImg } from '@/public/images';
 
 const ContentPage = () => {
+  const CONTENT_INFO = {
+    title: '리액트 API와 코드 재사용의 진화',
+    // description: '이렇게 글 설명이 보입니다.',
+    // writer: '김대덕 · TL',
+    date: '2023년 5월 12일',
+  };
+
   return (
     <ContentPageContainer>
       <Image src={BlogSampleImg} alt="blog img sample" />
-      <ContentInfo
-        title={'리액트 API와 코드 재사용의 진화'}
-        description={'이렇게 글 설명이 보입니다.'}
-        writer={'김대덕 · TL'}
-        date={'2023년 5월 12일'}
-      />
+      <ContentInfo content={CONTENT_INFO} />
       <Content />
       <LinkBtn />
       <Bar />
