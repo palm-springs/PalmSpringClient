@@ -4,19 +4,21 @@ import React from 'react';
 import { styled } from 'styled-components';
 
 const DashBoardNavBtnContainer = ({ children }: { children: React.ReactNode }) => {
-  return <DashBoardNavBtnContainerUI id="dashboard_navbar_profile_btn">{children}</DashBoardNavBtnContainerUI>;
+  return <DashBoardNavBtnContainerUI>{children}</DashBoardNavBtnContainerUI>;
 };
 
 export default DashBoardNavBtnContainer;
 
 const DashBoardNavBtnContainerUI = styled.button`
   ${({ theme }) => theme.fonts.Body2_Regular};
+  position: absolute;
+  bottom: 1.5rem;
   flex-shrink: 0;
 
   border: none;
-  border-radius: 0.8rem;
-  background: ${({ theme }) => theme.colors.grey_900};
-  width: 25.4rem;
-  height: 3.6rem;
+  border-radius: 0.5rem;
+  background: ${({ theme }) => theme.colors.green};
+  width: 15.875rem;
+  height: 2.25rem;
   color: ${({ theme }) => theme.colors.grey_0};
 `;
