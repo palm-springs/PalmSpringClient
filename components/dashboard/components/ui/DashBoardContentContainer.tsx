@@ -8,7 +8,11 @@ import { CharmMenuMeatballIcon } from '@/public/icons';
 import PopOverMenu from '../../upload/components/ui/PopOverMenu';
 import { DashBoardContentProps } from '../DashBoardContent';
 
+import Author from './Author';
+import Content from './Content';
+import CreatedAt from './CreatedAt';
 import Draft from './Draft';
+import Position from './Position';
 
 interface DashBoardContentContainerProps {
   contentObject: DashBoardContentProps;
@@ -18,21 +22,20 @@ interface DashBoardContentContainerProps {
 
 const DashBoardContentContainer = (props: DashBoardContentContainerProps) => {
   const {
-    contentObject: { content, tabType, draft, author, position, createdAt, onTitleClick },
+    contentObject: { content, url, tabType, draft, author, position, createdAt, onTitleClick },
     onMeatBallClick,
     isPopOverMenuOpen,
   } = props;
   // 날짜 포맷팅은 나중에 raw 데이터가 어떻게 날아오는지 확인하고 합시다!
   return (
     <DashBoardContentUI>
-      <button id="content" onClick={onTitleClick}>
-        {content}
-      </button>
-      {tabType ? <span id="tabType">{tabType}</span> : <></>}
-      <span id="author">{author ?? ''}</span>
-      <span id="position">{position ?? ''}</span>
+      <Content onTitleClick={onTitleClick} content={content} />
+      {url && <span id="url">{url}</span>}
+      {tabType && <span id="tabType">{tabType}</span>}
+      {author && <Author author={author} />}
+      {position && <Position position={position} />}
       {draft !== undefined ? <Draft draft={draft} /> : <></>}
-      <span id="createdAt">{createdAt ?? ''}</span>
+      {createdAt && <CreatedAt createdAt={createdAt} />}
       <MenuBtn
         onClick={() => {
           onMeatBallClick((prev) => !prev);
@@ -59,15 +62,9 @@ const DashBoardContentUI = styled.article`
     cursor: pointer;
   }
 
-  #content {
-    margin-right: 5vw;
-    width: 40vw;
-    overflow: hidden;
-    text-align: left;
-    text-overflow: ellipsis;
-    white-space: nowrap;
-    ${({ theme }) => theme.fonts.Body3_Semibold};
-    color: ${({ theme }) => theme.colors.grey_900};
+  #url {
+    ${({ theme }) => theme.fonts.Body3_Regular};
+    color: ${({ theme }) => theme.colors.grey_700};
   }
 
   #tabType {
@@ -82,15 +79,6 @@ const DashBoardContentUI = styled.article`
     overflow: hidden;
     text-overflow: ellipsis;
     white-space: nowrap;
-  }
-
-  #author {
-    margin-right: 2vw;
-    overflow: hidden;
-    text-overflow: ellipsis;
-    white-space: nowrap;
-    ${({ theme }) => theme.fonts.Body3_Regular};
-    color: ${({ theme }) => theme.colors.grey_900};
   }
 
   #position {
