@@ -3,6 +3,7 @@
 import React, { Dispatch, SetStateAction } from 'react';
 import { styled } from 'styled-components';
 
+import useGetLastPathName from '@/hooks/useGetLastPathName';
 import { CharmMenuMeatballIcon } from '@/public/icons';
 
 import PopOverMenu from '../../upload/components/ui/PopOverMenu';
@@ -27,6 +28,8 @@ const DashBoardContentContainer = (props: DashBoardContentContainerProps) => {
     onMeatBallClick,
     isPopOverMenuOpen,
   } = props;
+
+  const pathName = useGetLastPathName();
   // 날짜 포맷팅은 나중에 raw 데이터가 어떻게 날아오는지 확인하고 합시다!
   return (
     <DashBoardContentUI>
@@ -43,7 +46,7 @@ const DashBoardContentContainer = (props: DashBoardContentContainerProps) => {
           onMeatBallClick((prev) => !prev);
         }}
       />
-      {isPopOverMenuOpen ? <PopOverMenu /> : <></>}
+      {isPopOverMenuOpen ? <PopOverMenu pathName={pathName} /> : <></>}
     </DashBoardContentUI>
   );
 };

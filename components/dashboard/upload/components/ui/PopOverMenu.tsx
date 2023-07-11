@@ -3,10 +3,30 @@
 import React from 'react';
 import { styled } from 'styled-components';
 
-const PopOverMenu = () => {
+import { dashBoardPageType } from '@/types/dashboard';
+
+interface PopOverMenuProps {
+  pathName: dashBoardPageType;
+}
+
+const PopOverMenu = (props: PopOverMenuProps) => {
+  const { pathName } = props;
+  console.log(pathName);
+
+  const navigateContent = () => {
+    switch (pathName) {
+      case 'category':
+        return '카테고리글 보러가기';
+      case 'nav':
+        return '해당 URL로 이동하기';
+      default:
+        return '새창에서 보기';
+    }
+  };
+
   return (
     <PopOverMenuUI>
-      <div>새창에서 보기</div>
+      <div>{navigateContent()}</div>
       <div>수정하기</div>
       <div>삭제하기</div>
     </PopOverMenuUI>
@@ -28,15 +48,27 @@ const PopOverMenuUI = styled.article`
   border-radius: 0.8rem;
   box-shadow: 0px 2px 5px 0px rgba(0, 0, 0, 0.1);
   background: ${({ theme }) => theme.colors.grey_0};
-  padding: 2rem 2.2rem;
-  width: 12.4rem;
+  padding: 0.8rem;
+  width: fit-content;
   height: 13.1rem;
   :nth-child(3) {
     color: #ff5454;
   }
   div {
+    display: flex;
+    align-items: center;
     ${({ theme }) => theme.fonts.Body3_Regular};
+    transition-duration: 0.3s ease-out;
     border: none;
+    border-radius: 0.8rem;
     background: none;
+    cursor: pointer;
+    padding-right: 1rem;
+    padding-left: 1rem;
+    width: 100%;
+    height: 4.2rem;
+    &:hover {
+      background: ${({ theme }) => theme.colors.grey_100};
+    }
   }
 `;
