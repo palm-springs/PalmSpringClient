@@ -1,13 +1,7 @@
-import CreateBasicInfoLanding from './ui/CreateBasicInfoLanding';
-import CreateOptionInfoLanding from './ui/CreateOptionInfoLanding';
+import CreateBlogLanding from './ui/CreateBlogLanding';
 
 const CreateBlogBasicInfo = () => {
-  return (
-    <>
-      <CreateBasicInfoLanding />
-      <CreateOptionInfoLanding />
-    </>
-  );
+  return <CreateBlogLanding />;
 };
 
 export default CreateBlogBasicInfo;

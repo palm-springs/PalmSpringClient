@@ -1,13 +1,18 @@
 'use client';
 import React from 'react';
+import { useRouter } from 'next/navigation';
 import styled from 'styled-components';
+
+import { ProgressStateProps } from '@/types/progress';
 
 import ProgressDot from './ProgressDot';
 import TextInputForm from './TextInputForm';
 
-const CreateBasicInfoLanding = () => {
+const CreateBasicInfoLanding = (props: ProgressStateProps) => {
+  const { progressState, setProgressState } = props;
+  const router = useRouter();
   return (
-    <CreateBasicInfoContainer>
+    <CreateBasicInfoContainer className={progressState === 2 ? 'fadeout' : progressState === 3 ? 'hidden' : ''}>
       <ProgressDot progress={1} />
       <InfoContainer>
         <Title>블로그 생성하기</Title>
@@ -20,7 +25,7 @@ const CreateBasicInfoLanding = () => {
         </TextInputForm>
         <ButtonContainer>
           <PreviousButton>이전으로</PreviousButton>
-          <NextButton>다음으로</NextButton>
+          <NextButton onClick={() => setProgressState(2)}>다음으로</NextButton>
         </ButtonContainer>
       </InfoContainer>
     </CreateBasicInfoContainer>
@@ -31,12 +36,27 @@ export default CreateBasicInfoLanding;
 
 const CreateBasicInfoContainer = styled.div`
   display: flex;
+  position: fixed;
+  top: 0;
 
   gap: 4rem;
   align-items: center;
   justify-content: center;
 
+  z-index: 3;
+
+  width: 100%;
   height: 100vh;
+
+  &.fadeout {
+    transform: translateY(-30rem);
+    transition: 1s;
+    opacity: 0;
+  }
+
+  &.hidden {
+    display: none;
+  }
 `;
 
 const InfoContainer = styled.div`

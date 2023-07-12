@@ -1,13 +1,16 @@
 'use client';
 import styled from 'styled-components';
 
+import { ProgressStateProps } from '@/types/progress';
+
 import ImageInputForm from './ImageInputForm';
 import ProgressDot from './ProgressDot';
 import TextInputForm from './TextInputForm';
 
-const CreateOptionInfoLanding = () => {
+const CreateOptionInfoLanding = (props: ProgressStateProps) => {
+  const { progressState, setProgressState } = props;
   return (
-    <CreateBasicInfoContainer>
+    <CreateBasicInfoContainer className={progressState === 2 ? 'fadein' : progressState === 3 ? 'fadeout' : 'hidden'}>
       <ProgressDot progress={2} />
       <InfoContainer>
         <Title>블로그 생성하기</Title>
@@ -19,10 +22,10 @@ const CreateOptionInfoLanding = () => {
           <TextAreaInput placeholder="블로그 설명을 입력해주세요" />
         </TextInputForm>
         <ButtonContainer>
-          <PreviousButton>이전으로</PreviousButton>
+          <PreviousButton onClick={() => setProgressState(2)}>이전으로</PreviousButton>
           <div>
-            <SkipButton>건너뛰기</SkipButton>
-            <NextButton>다음으로</NextButton>
+            <SkipButton onClick={() => setProgressState(3)}>건너뛰기</SkipButton>
+            <NextButton onClick={() => setProgressState(3)}>다음으로</NextButton>
           </div>
         </ButtonContainer>
       </InfoContainer>
@@ -34,12 +37,32 @@ export default CreateOptionInfoLanding;
 
 const CreateBasicInfoContainer = styled.div`
   display: flex;
+  position: fixed;
+  top: 30rem;
 
   gap: 4rem;
   align-items: center;
   justify-content: center;
+  z-index: 2;
 
+  width: 100%;
   height: 100vh;
+
+  &.hidden {
+    opacity: 0;
+  }
+
+  &.fadein {
+    transform: translateY(-30rem);
+    transition: 1s;
+    opacity: 1;
+  }
+
+  &.fadeout {
+    transform: translateY(-60rem);
+    transition: 1s;
+    opacity: 0;
+  }
 `;
 
 const InfoContainer = styled.div`
