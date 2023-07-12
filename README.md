@@ -7,6 +7,9 @@
 > 팜스프링, 우리팀 이야기를 세상에 전달하는 방법
 >
 > palmspring | 팜스프링은 세상의 모든 성장하는 조직을 위한 팀 블로그 빌더로, 기능적 측면에서 팀 운영과 브랜딩 및 홍보에 특화된 블로그 웹서비스입니다.
+<br />
+
+![ezgif com-video-to-gif (5)](https://github.com/palm-springs/PalmSpringClient/assets/108226647/b31e92a8-5196-415b-a9fe-5efa5a6d1c6a)
 
 <br />
 <hr/>
