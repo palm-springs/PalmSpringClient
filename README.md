@@ -6,7 +6,10 @@
 ### 🔉 프로젝트 소개 
 > 팜스프링, 우리팀 이야기를 세상에 전달하는 방법
 >
-> palmspring은 000~
+> palmspring | 팜스프링은 세상의 모든 성장하는 조직을 위한 팀 블로그 빌더로, 기능적 측면에서 팀 운영과 브랜딩 및 홍보에 특화된 블로그 웹서비스입니다.
+<br />
+
+![ezgif com-video-to-gif (5)](https://github.com/palm-springs/PalmSpringClient/assets/108226647/b31e92a8-5196-415b-a9fe-5efa5a6d1c6a)
 
 <br />
 <hr/>
@@ -16,7 +19,7 @@
 ## 👩🏻‍💻 팀원 소개
 |김서현|오형근|이시연|장명지|
 |:-:|:-:|:-:|:-:|
-|<img src="https://github.com/palm-springs/PalmSpringClient/assets/108226647/bc1e7ef6-ebf9-4e90-84f1-bc9503c9de34" width="200px"/>|<img src="https://github.com/palm-springs/PalmSpringClient/assets/108226647/42de72df-0d9d-4064-abb2-c7270602f63a" width="200px" />|<img src="https://github.com/palm-springs/PalmSpringClient/assets/108226647/cfc5b43d-344f-4965-8290-ba642e243e8b" width="200px"/>|<img src="https://github.com/palm-springs/PalmSpringClient/assets/108226647/f673bd0d-7879-40f3-ac6d-f7fcc8bbd03a" width="200px">|
+|<img src="https://github.com/palm-springs/PalmSpringClient/assets/108226647/bc1e7ef6-ebf9-4e90-84f1-bc9503c9de34" width="200px"/>|<img src="https://github.com/palm-springs/PalmSpringClient/assets/108226647/d84048a3-1028-4793-ae8c-e89da4ed9236" width="200px" />|<img src="https://github.com/palm-springs/PalmSpringClient/assets/108226647/cfc5b43d-344f-4965-8290-ba642e243e8b" width="200px"/>|<img src="https://github.com/palm-springs/PalmSpringClient/assets/108226647/f673bd0d-7879-40f3-ac6d-f7fcc8bbd03a" width="200px">|
 |[@seobbang](https://github.com/seobbang)|[@Geun-Oh](https://github.com/Geun-Oh)|[@SynthiaLee](https://github.com/SynthiaLee)|[@Dangpy](https://github.com/Dangpy)|
 <br />
 
@@ -30,7 +33,9 @@
 |Data Fetching|![React Query](https://img.shields.io/badge/-React%20Query-FF4154?style=for-the-badge&logo=react%20query&logoColor=white)|
 |Formatting|![ESLint](https://img.shields.io/badge/ESLint-4B3263?style=for-the-badge&logo=eslint&logoColor=white) ![Prettier](https://img.shields.io/badge/Prettier-F7B93E?style=for-the-badge&logo=prettier&logoColor=white)|
 |Package Manager|![Yarn](https://img.shields.io/badge/yarn-%232C8EBB.svg?style=for-the-badge&logo=yarn&logoColor=white)|                                             
-|Version Control|![Git](https://img.shields.io/badge/git-%23F05033.svg?style=for-the-badge&logo=git&logoColor=white) ![GitHub](https://img.shields.io/badge/github-%23121011.svg?style=for-the-badge&logo=github&logoColor=white) |
+|Text editor|<img width="145" alt="스크린샷 2023-07-12 오후 4 13 18" src="https://github.com/palm-springs/PalmSpringClient/assets/108226647/e6777b1d-3a16-43c2-9e22-2f7676105eb5">|
+|Parsing|<img width="217" alt="스크린샷 2023-07-12 오후 4 16 01" src="https://github.com/palm-springs/PalmSpringClient/assets/108226647/530553fd-1871-4d40-a392-fe19fa375517">
+|
 <br />
 
 ## 📂 폴더 구조
@@ -38,27 +43,68 @@
 |-- 📁 node_modules
 |-- 📁 public
 |-- 📁 app
-	|-- 📁 login // 로그인
-	|-- 📁 register // 회원가입
-	|-- 📁 [team] // ex. @sopt, @airTaxi
-		|-- 📁 home
-			|-- 📁 [category] // 선택 카테고리별 페이지
-			|-- layout.tsx // 대문이미지 + 카테고리바
-			|-- page.tsx // all 카테고리 페이지
-		|-- 📁 content
-			|-- 📁 [contentUrl] // 글/페이지 상세
-		|-- 📁 author
-			|-- 📁 [authorId] // 글쓴이 별 페이지
-		|-- layout.tsx // team 블로그 헤더
-		|-- 📁 dashboard //대시보드
-				|-- 📁 category
-				|-- 📁 navigation
-				|-- layout.tsx
-		|-- 📁 editor //텍스트 에디터
-			|-- 📁 page //페이지 텍스트 에디터
-				|-- 📁 publish //페이지 발행
-			|-- 📁 article //아티클 텍스트 에디터
-				|-- 📁 publish //아티클 발행
+ 	┣ 📂[team]
+ 	┃ ┣ 📂author
+ 	┃ ┃ ┗ 📂[authorId]
+ 	┃ ┃ ┃ ┣ 📜layout.tsx
+ 	┃ ┃ ┃ ┗ 📜page.tsx
+ 	┃ ┣ 📂content
+ 	┃ ┃ ┗ 📂[contentUrl]
+ 	┃ ┃ ┃ ┣ 📜layout.tsx
+ 	┃ ┃ ┃ ┗ 📜page.tsx
+ 	┃ ┣ 📂dashboard
+ 	┃ ┃ ┣ 📂[pageType]
+ 	┃ ┃ ┃ ┗ 📜page.tsx
+ 	┃ ┃ ┣ 📂basic-user-info
+ 	┃ ┃ ┃ ┗ 📜page.tsx
+ 	┃ ┃ ┣ 📂blog-basic-info
+ 	┃ ┃ ┃ ┗ 📜page.tsx
+ 	┃ ┃ ┣ 📂blogconfignav
+ 	┃ ┃ ┃ ┗ 📜page.tsx
+ 	┃ ┃ ┣ 📂category
+ 	┃ ┃ ┃ ┗ 📜page.tsx
+ 	┃ ┃ ┣ 📂member
+ 	┃ ┃ ┃ ┗ 📜page.tsx
+ 	┃ ┃ ┣ 📂nav
+ 	┃ ┃ ┃ ┗ 📜page.tsx
+ 	┃ ┃ ┣ 📂navigation
+ 	┃ ┃ ┃ ┗ 📜page.tsx
+ 	┃ ┃ ┣ 📂page
+ 	┃ ┃ ┃ ┗ 📜page.tsx
+ 	┃ ┃ ┣ 📂subscriber
+ 	┃ ┃ ┃ ┗ 📜page.tsx
+ 	┃ ┃ ┣ 📂tempsaved
+ 	┃ ┃ ┃ ┗ 📜page.tsx
+ 	┃ ┃ ┣ 📂upload
+ 	┃ ┃ ┃ ┗ 📜page.tsx
+ 	┃ ┃ ┣ 📜layout.tsx
+ 	┃ ┃ ┗ 📜page.tsx
+ 	┃ ┣ 📂editor
+ 	┃ ┃ ┣ 📂article
+ 	┃ ┃ ┃ ┣ 📂publish
+ 	┃ ┃ ┃ ┃ ┗ 📜page.tsx
+ 	┃ ┃ ┃ ┗ 📜page.tsx
+ 	┃ ┃ ┗ 📂page
+ 	┃ ┃ ┃ ┗ 📂publish
+ 	┃ ┃ ┃ ┃ ┗ 📜page.tsx
+ 	┃ ┣ 📂home
+ 	┃ ┃ ┣ 📂[category]
+ 	┃ ┃ ┃ ┗ 📜page.tsx
+ 	┃ ┃ ┣ 📜layout.tsx
+ 	┃ ┃ ┗ 📜page.tsx
+ 	┃ ┗ 📜page.tsx
+ 	┣ 📂auth
+ 	┃ ┗ 📜page.tsx
+ 	┣ 📂create-blog
+ 	┃ ┣ 📂info
+ 	┃ ┃ ┗ 📜page.tsx
+ 	┃ ┗ 📂member
+ 	┃ ┃ ┗ 📜page.tsx
+ 	┣ 📂invite
+ 	┃ ┗ 📜page.tsx
+ 	┣ 📜favicon.ico
+ 	┣ 📜layout.tsx
+ 	┗ 📜page.tsx
 |-- 📁 components
 |-- 📁 styles
 |-- 📁 utils
