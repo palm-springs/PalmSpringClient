@@ -11,7 +11,6 @@ interface PopOverMenuProps {
 
 const PopOverMenu = (props: PopOverMenuProps) => {
   const { pathName } = props;
-  console.log(pathName);
 
   const navigateContent = () => {
     switch (pathName) {
