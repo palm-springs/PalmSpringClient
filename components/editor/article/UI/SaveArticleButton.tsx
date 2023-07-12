@@ -6,24 +6,29 @@ import styled from 'styled-components';
 const SaveArticleButton = () => {
   return (
     <ButtonContainer>
-      <ExitButton type="button">나가기</ExitButton>
-      <TemporarySaveButton type="button">임시저장</TemporarySaveButton>
-      <SaveButton type="button">발행하기</SaveButton>
+      <BottomWrapper>
+        <ExitButton type="button">나가기</ExitButton>
+        <TemporarySaveButton type="button">임시저장</TemporarySaveButton>
+        <SaveButton type="button">발행하기</SaveButton>
+      </BottomWrapper>
     </ButtonContainer>
   );
 };
 
 export default SaveArticleButton;
 
+const BottomWrapper = styled.div`
+  margin-left: 35.9rem;
+`;
+
 const ButtonContainer = styled.div`
   display: flex;
   position: fixed;
   bottom: 0;
   align-items: center;
-  margin-left: 35.9rem;
-  border-top: 0.1rem solid #eee;
+  border-top: 1px solid #eee;
   background: ${({ theme }) => theme.colors.grey_0};
-  width: 144rem;
+  width: 100vw;
   height: 6.4rem;
 `;
 

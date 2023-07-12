@@ -36,6 +36,7 @@ export default function RootLayout({ children }: { children: React.ReactNode }) 
             <ThemeProvider theme={theme}>
               <GlobalStyle />
               {children}
+              <div id="portal"></div>
             </ThemeProvider>
           </StyledComponentsRegistry>
         </QueryClientProvider>
