@@ -1,7 +1,9 @@
 import React from 'react';
 
+import SubscriberTemplate from '@/components/dashboard/subscriber/SubscriberTemplate';
+
 const page = () => {
-  return <div>구독자</div>;
+  return <SubscriberTemplate />;
 };
 
 export default page;

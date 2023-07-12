@@ -5,17 +5,15 @@ import React from 'react';
 import DashBoardTemplateContainer from '../components/ui/DashBoardTemplateContainer';
 import Line from '../components/ui/Line';
 
-import UploadContentList from './components/UploadContentList';
-import UploadTabBar from './components/UploadTabBar';
+import SubscriberContentList from './SubscriberContentList';
 
-const UploadTemplate = () => {
+const SubscriberTemplate = () => {
   return (
     <DashBoardTemplateContainer>
-      <UploadTabBar />
       <Line />
-      <UploadContentList />
+      <SubscriberContentList />
     </DashBoardTemplateContainer>
   );
 };
 
-export default UploadTemplate;
+export default SubscriberTemplate;
