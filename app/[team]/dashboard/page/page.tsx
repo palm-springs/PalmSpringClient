@@ -1,7 +1,9 @@
 import React from 'react';
 
+import PageTemplate from '@/components/dashboard/page/PageTemplate';
+
 const page = () => {
-  return <div>페이지</div>;
+  return <PageTemplate />;
 };
 
 export default page;

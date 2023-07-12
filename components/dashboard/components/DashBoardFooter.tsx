@@ -1,3 +1,5 @@
+'use client';
+
 import React from 'react';
 
 import DashBoardFooterContainer from './ui/DashBoardFooterContainer';
