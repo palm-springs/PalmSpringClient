@@ -17,6 +17,7 @@ import Draft from './Draft';
 import Email from './Email';
 import NewsLetter from './NewsLetter';
 import Position from './Position';
+import TabType from './TabType';
 import Url from './Url';
 
 interface DashBoardContentContainerProps {
@@ -51,7 +52,7 @@ const DashBoardContentContainer = (props: DashBoardContentContainerProps) => {
       {email && <Email email={email} />}
       {content && <Content onTitleClick={onTitleClick} content={content} />}
       {url && <Url url={url} />}
-      {tabType && <span id="tabType">{tabType}</span>}
+      {tabType && <TabType tabType={tabType} />}
       {author && <Author author={author} />}
       {position && <Position position={position} />}
       {description && <Description description={description} />}
@@ -94,6 +95,20 @@ const DashBoardContentUI = styled.article`
     border: none;
     background: none;
     cursor: pointer;
+  }
+
+  #tabType {
+    display: inline-flex;
+    gap: 1rem;
+    align-items: center;
+    margin-right: 2vw;
+    ${({ theme }) => theme.fonts.Body3_Regular};
+    border: 1px solid ${({ theme }) => theme.colors.grey_400};
+    border-radius: 2rem;
+    padding: 0.4rem 0.8rem;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    white-space: nowrap;
   }
 `;
 
