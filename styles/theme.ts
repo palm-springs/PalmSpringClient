@@ -15,10 +15,18 @@ const colors = {
   grey_950: '#212529',
   grey_1000: '#000000',
 
+  dimmed: '#40474F',
+  navItem_hover: '#rgba(173, 181, 189, 0.20)',
+
   green: '#19DB7B',
   green_hover: '#17C56F',
   dark_green: '#1A9B6F',
   blue: '#2F4CA9',
+  background_green: 'rgba(25, 219, 123, 0.30)',
+
+  red: '#FF5454',
+  red_hover: '#D45858',
+  background_red: 'rgba(255, 84, 84, 0.30)',
 };
 
 const fonts = {
