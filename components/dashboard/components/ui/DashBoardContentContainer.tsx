@@ -3,7 +3,8 @@
 import React, { Dispatch, SetStateAction } from 'react';
 import { styled } from 'styled-components';
 
-import { CharmMenuMeatballIcon } from '@/public/icons';
+import useGetLastPathName from '@/hooks/useGetLastPathName';
+import { CharmMenuMeatballIcon, IcClose24Icon } from '@/public/icons';
 
 import PopOverMenu from '../../upload/components/ui/PopOverMenu';
 import { DashBoardContentProps } from '../DashBoardContent';
@@ -11,8 +12,12 @@ import { DashBoardContentProps } from '../DashBoardContent';
 import Author from './Author';
 import Content from './Content';
 import CreatedAt from './CreatedAt';
+import Description from './Description';
 import Draft from './Draft';
+import Email from './Email';
+import NewsLetter from './NewsLetter';
 import Position from './Position';
+import Url from './Url';
 
 interface DashBoardContentContainerProps {
   contentObject: DashBoardContentProps;
@@ -22,26 +27,47 @@ interface DashBoardContentContainerProps {
 
 const DashBoardContentContainer = (props: DashBoardContentContainerProps) => {
   const {
-    contentObject: { content, url, tabType, draft, author, position, createdAt, onTitleClick },
+    contentObject: {
+      email,
+      content,
+      url,
+      tabType,
+      draft,
+      author,
+      description,
+      position,
+      createdAt,
+      onTitleClick,
+      newsLetter,
+    },
     onMeatBallClick,
     isPopOverMenuOpen,
   } = props;
+
+  const pathName = useGetLastPathName();
   // 날짜 포맷팅은 나중에 raw 데이터가 어떻게 날아오는지 확인하고 합시다!
   return (
     <DashBoardContentUI>
-      <Content onTitleClick={onTitleClick} content={content} />
-      {url && <span id="url">{url}</span>}
+      {email && <Email email={email} />}
+      {content && <Content onTitleClick={onTitleClick} content={content} />}
+      {url && <Url url={url} />}
       {tabType && <span id="tabType">{tabType}</span>}
       {author && <Author author={author} />}
       {position && <Position position={position} />}
+      {description && <Description description={description} />}
       {draft !== undefined ? <Draft draft={draft} /> : <></>}
       {createdAt && <CreatedAt createdAt={createdAt} />}
-      <MenuBtn
-        onClick={() => {
-          onMeatBallClick((prev) => !prev);
-        }}
-      />
-      {isPopOverMenuOpen ? <PopOverMenu /> : <></>}
+      {newsLetter && <NewsLetter newsLetter={newsLetter} />}
+      {pathName === 'subscriber' ? (
+        <DeleteBtn />
+      ) : (
+        <MenuBtn
+          onClick={() => {
+            onMeatBallClick((prev) => !prev);
+          }}
+        />
+      )}
+      {isPopOverMenuOpen ? <PopOverMenu pathName={pathName} /> : <></>}
     </DashBoardContentUI>
   );
 };
@@ -60,11 +86,6 @@ const DashBoardContentUI = styled.article`
     border: none;
     background: none;
     cursor: pointer;
-  }
-
-  #url {
-    ${({ theme }) => theme.fonts.Body3_Regular};
-    color: ${({ theme }) => theme.colors.grey_700};
   }
 
   #tabType {
@@ -102,6 +123,12 @@ const DashBoardContentUI = styled.article`
 `;
 
 const MenuBtn = styled(CharmMenuMeatballIcon)`
+  position: absolute;
+  right: 0;
+  cursor: pointer;
+`;
+
+const DeleteBtn = styled(IcClose24Icon)`
   position: absolute;
   right: 0;
   cursor: pointer;

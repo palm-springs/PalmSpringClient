@@ -1,5 +1,7 @@
 import { usePathname } from 'next/navigation';
 
-const useGetLastPathName = () => usePathname().split('/').pop();
+import { dashBoardPageType } from '@/types/dashboard';
+
+const useGetLastPathName = (): dashBoardPageType => usePathname().split('/').pop() as dashBoardPageType;
 
 export default useGetLastPathName;

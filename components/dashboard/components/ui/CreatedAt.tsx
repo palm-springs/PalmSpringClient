@@ -15,7 +15,7 @@ export default CreatedAt;
 
 const CreatedAtUI = styled.span`
   ${({ theme }) => theme.fonts.Body3_Regular};
-  width: 10rem;
+  width: 13rem;
   overflow: hidden;
   text-overflow: ellipsis;
   white-space: nowrap;

@@ -31,7 +31,7 @@ const mapPageType2HeaderInfo: mapPageType2HeaderInfoBluePrint = {
   },
   nav: {
     title: '네비게이션',
-    buttonInnerText: '새 카테고리 만들기',
+    buttonInnerText: '새 네비게이션 만들기',
     onButtonClick: () => 1, // 나중에 api 나오면 수정하기
   },
   member: {
