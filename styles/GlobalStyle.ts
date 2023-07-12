@@ -18,15 +18,14 @@ a {
     color: inherit;
 }
 
-button {
-    border: none;
+button { 
+    border:none; 
     border-radius:0; 
     box-shadow:none;
-    background: inherit ; 
+    background: inherit ;
     cursor:pointer; 
     padding:0; 
-    overflow:visible;
-}
+    overflow:visible}
 
 * {
     box-sizing: border-box;

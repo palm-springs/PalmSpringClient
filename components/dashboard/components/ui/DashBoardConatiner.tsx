@@ -11,9 +11,7 @@ export default DashBoardContainer;
 
 const DashBoardContainerUI = styled.section`
   display: flex;
+  flex-direction: column;
 
-  button {
-    border: none;
-    background: none;
-  }
+  padding-left: 28.6rem;
 `;
