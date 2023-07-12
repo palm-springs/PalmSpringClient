@@ -28,5 +28,4 @@ export default BlogBasicInfoPage;
 const BlogBasicInfoContainer = styled.div`
   padding-left: 4rem;
   width: 100%;
-  /* margin-left: 7.2rem; */
 `;

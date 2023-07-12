@@ -15,12 +15,6 @@ const BlogUrl = () => {
 
 export default BlogUrl;
 
-// const BlogInfoTitle = styled.p`
-//   ${({ theme }) => theme.fonts.Heading1};
-//   margin-top: 6rem;
-//   color: ${({ theme }) => theme.colors.grey_900};
-// `;
-
 const BlogUrlTitle = styled.p`
   ${({ theme }) => theme.fonts.Body2_Semibold};
   margin: 4rem 0 0.8rem;
