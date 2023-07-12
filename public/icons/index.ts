@@ -7,6 +7,7 @@ export { default as File02Icon } from './file-02.svg';
 export { default as File04Icon } from './file-04.svg';
 export { default as Grid01Icon } from './grid-01.svg';
 export { default as BoldIcon } from './ic_Bold.svg';
+export { default as IcClose24Icon } from './ic_close_24.svg';
 export { default as H1Icon } from './ic_H1.svg';
 export { default as H2Icon } from './ic_H2.svg';
 export { default as H3Icon } from './ic_H3.svg';
