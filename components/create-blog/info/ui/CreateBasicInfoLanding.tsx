@@ -1,6 +1,5 @@
 'use client';
 import React, { useState } from 'react';
-import { useRouter } from 'next/navigation';
 import styled from 'styled-components';
 
 import { ProgressStateProps } from '@/types/progress';
@@ -11,7 +10,7 @@ const CreateBasicInfoLanding = (props: ProgressStateProps) => {
   const { progressState, setProgressState } = props;
   const [isNameFocus, setIsNameFocus] = useState(false);
   const [isAddressFocus, setIsAddressFocus] = useState(false);
-  const router = useRouter();
+
   return (
     <CreateBasicInfoContainer className={progressState === 2 ? 'fadeout' : progressState === 3 ? 'hidden' : ''}>
       <InfoContainer>
