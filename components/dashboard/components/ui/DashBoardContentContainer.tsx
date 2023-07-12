@@ -46,7 +46,7 @@ const DashBoardContentContainer = (props: DashBoardContentContainerProps) => {
           onMeatBallClick((prev) => !prev);
         }}
       />
-      {isPopOverMenuOpen ? <PopOverMenu pathName={pathName} /> : <></>}
+      {isPopOverMenuOpen && <PopOverMenu pathName={pathName} />}
     </DashBoardContentUI>
   );
 };
