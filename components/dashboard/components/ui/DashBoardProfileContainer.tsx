@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { Dispatch, SetStateAction } from 'react';
 import Image from 'next/image';
 import { styled } from 'styled-components';
 
@@ -8,13 +8,14 @@ interface DashBoardProfileContainerProps {
   userName: string;
   email: string;
   profileImgUrl?: string;
+  setIsPopOverMenuOpen: Dispatch<SetStateAction<boolean>>;
 }
 
 const DashBoardProfileContainer = (props: DashBoardProfileContainerProps) => {
-  const { userName, email, profileImgUrl } = props;
+  const { userName, email, profileImgUrl, setIsPopOverMenuOpen } = props;
 
   return (
-    <DashBoardProfileContainerUI>
+    <DashBoardProfileContainerUI onClick={() => setIsPopOverMenuOpen((prev) => !prev)}>
       <Image src={profileImgUrl ?? DuckDuckImg} alt="프로필 이미지" />
       <div>
         <span>{userName}</span>
@@ -29,8 +30,17 @@ export default DashBoardProfileContainer;
 const DashBoardProfileContainerUI = styled.article`
   display: flex;
   align-items: center;
+
+  transition-duration: 0.3s ease-out;
+
+  margin-bottom: 0.8rem;
+  cursor: pointer;
   width: 25.4rem;
   height: 5.6rem;
+
+  &:hover {
+    background: ${({ theme }) => theme.colors.grey_200};
+  }
 
   & > img {
     margin: 0.8rem;
