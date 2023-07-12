@@ -15,7 +15,7 @@ export default function RootLayout({ children }: { children: React.ReactNode }) 
     new QueryClient({
       defaultOptions: {
         queries: {
-          retry: 0,
+          retry: 3,
         },
       },
     }),
