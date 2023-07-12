@@ -33,6 +33,6 @@ const PopOverText = styled.div`
   ${({ theme }) => theme.fonts.Body3_Regular};
   color: ${({ theme }) => theme.colors.grey_900};
   &.red {
-    color: #ff5454;
+    color: ${({ theme }) => theme.colors.red};
   }
 `;
