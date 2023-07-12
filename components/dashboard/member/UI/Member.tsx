@@ -1,6 +1,6 @@
 'use client';
 
-import React from 'react';
+import React, { useState } from 'react';
 import Image from 'next/image';
 import styled from 'styled-components';
 
@@ -8,19 +8,28 @@ import { CharmMenuMeatballIcon, IcUserIcon } from '@/public/icons';
 import { MemberExampleImg } from '@/public/images';
 import { MemberProps } from '@/types/member';
 
+import PopOver from '../PopOver';
+
 import Manager from './Manager';
 import Pending from './Pending';
-// import Manager from './Manager';
-// import Pending from './Pending';
 
 const Member = (props: MemberProps) => {
   const { profilePicUrl, name, status, position, email } = props;
+
+  const [showPopOver, setShowPopOver] = useState(false);
+
   return (
-    <>
-      {status === '관리자' ? (
-        <MemberContainer>
-          <MemberInnerContent>
-            <Test>
+    <MemberContainer>
+      <MemberInnerContent>
+        <MemberInfoBox>
+          {status === '수락대기중' ? (
+            <NameBox>
+              <IcUserIcon />
+              <Email>{email} </Email>
+              <Pending />
+            </NameBox>
+          ) : (
+            <>
               <NameBox className="manager">
                 {profilePicUrl ? (
                   // <Image src={profilePicUrl} alt="member profile photo" width={36} height={36} />
@@ -30,67 +39,32 @@ const Member = (props: MemberProps) => {
                   <Image src={MemberExampleImg} alt="member profile photo" width={36} height={36} />
                 )}
                 <Name> {name} </Name>
-                <Manager />
+                {status === '관리자' && <Manager />}
               </NameBox>
               <Position> {position} </Position>
               <Email> {email} </Email>
-            </Test>
-            <MenuBtn>
-              <CharmMenuMeatballIcon />
-            </MenuBtn>
-          </MemberInnerContent>
-        </MemberContainer>
-      ) : status === '수락대기중' ? (
-        <MemberContainer>
-          <MemberInnerContent>
-            <Test>
-              <NameBox>
-                <IcUserIcon />
-                <Email>{email} </Email>
-                <Pending />
-              </NameBox>
-            </Test>
-            <MenuBtn>
-              <CharmMenuMeatballIcon />
-            </MenuBtn>
-          </MemberInnerContent>
-        </MemberContainer>
-      ) : (
-        <MemberContainer>
-          <MemberInnerContent>
-            <Test>
-              <NameBox className="manager">
-                {profilePicUrl ? (
-                  // <Image src={profilePicUrl} alt="member profile photo" width={36} height={36} />
-                  //후에 멤버 프로필 이미지의 url이 생기면 사용할 예정
-                  <Image src={MemberExampleImg} alt="member profile photo" width={36} height={36} />
-                ) : (
-                  <Image src={MemberExampleImg} alt="member profile photo" width={36} height={36} />
-                )}
-                <Name> {name} </Name>
-              </NameBox>
-              <Position> {position} </Position>
-              <Email> {email} </Email>
-            </Test>
-            <MenuBtn>
-              <CharmMenuMeatballIcon />
-            </MenuBtn>
-          </MemberInnerContent>
-        </MemberContainer>
-      )}
-    </>
+            </>
+          )}
+        </MemberInfoBox>
+        <MenuBtn onClick={() => setShowPopOver(!showPopOver)}>
+          <CharmMenuMeatballIcon />
+        </MenuBtn>
+        {showPopOver && <PopOver />}
+      </MemberInnerContent>
+    </MemberContainer>
   );
 };
 
 export default Member;
 
-const Test = styled.div`
+const MemberInfoBox = styled.div`
   display: flex;
   align-items: center;
 `;
 
 const MemberContainer = styled.div`
   display: flex;
+  position: relative;
   align-items: center;
 
   border-bottom: 1px solid ${({ theme }) => theme.colors.grey_400};

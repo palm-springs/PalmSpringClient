@@ -5,8 +5,6 @@ import styled from 'styled-components';
 
 import MemberList from './MemberList';
 import MemberListHeader from './MemberListHeader';
-// import MemberList from './MemberList';
-// import MemberListHeader from './MemberListHeader';
 
 const MemberTemplate = () => {
   return (
