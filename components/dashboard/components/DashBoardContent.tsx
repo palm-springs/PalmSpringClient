@@ -5,6 +5,7 @@ import React, { useState } from 'react';
 import DashBoardContentContainer from './ui/DashBoardContentContainer';
 
 export interface DashBoardContentProps {
+  id: string;
   email?: string;
   content?: string;
   url?: string;

@@ -28,6 +28,7 @@ interface DashBoardContentContainerProps {
 const DashBoardContentContainer = (props: DashBoardContentContainerProps) => {
   const {
     contentObject: {
+      id,
       email,
       content,
       url,
@@ -88,37 +89,8 @@ const DashBoardContentUI = styled.article`
     cursor: pointer;
   }
 
-  #tabType {
-    display: inline-flex;
-    gap: 1rem;
-    align-items: center;
-    margin-right: 2vw;
-    ${({ theme }) => theme.fonts.Body3_Regular};
-    border: 1px solid ${({ theme }) => theme.colors.grey_400};
-    border-radius: 2rem;
-    padding: 0.4rem 0.8rem;
-    overflow: hidden;
-    text-overflow: ellipsis;
+  span {
     white-space: nowrap;
-  }
-
-  #position {
-    margin-right: 3vw;
-    width: 8.4rem;
-    overflow: hidden;
-    text-overflow: ellipsis;
-    white-space: nowrap;
-    ${({ theme }) => theme.fonts.Body3_Regular};
-    color: ${({ theme }) => theme.colors.grey_700};
-  }
-
-  #createdAt {
-    width: 10rem;
-    overflow: hidden;
-    text-overflow: ellipsis;
-    white-space: nowrap;
-    ${({ theme }) => theme.fonts.Body3_Regular};
-    color: ${({ theme }) => theme.colors.grey_900};
   }
 `;
 
