@@ -1,6 +1,5 @@
 'use client';
-import React, { useEffect, useState } from 'react';
-import { createPortal } from 'react-dom';
+import React from 'react';
 import styled from 'styled-components';
 
 interface DashboardDeleteProps {
@@ -9,7 +8,8 @@ interface DashboardDeleteProps {
   lineBreaking?: string;
   leftButtonText: string;
   rightButtonText: string;
-  handler?: () => void;
+  leftHandler?: () => void;
+  righthHandler?: () => void;
 }
 
 const DashboardDeleteModal = ({
@@ -18,7 +18,8 @@ const DashboardDeleteModal = ({
   leftButtonText,
   rightButtonText,
   lineBreaking,
-  handler,
+  leftHandler,
+  righthHandler,
 }: DashboardDeleteProps) => {
   return (
     <ModalContainer>
@@ -27,8 +28,8 @@ const DashboardDeleteModal = ({
         <SubText>{subText}</SubText>
         <LineBreakingText>{lineBreaking}</LineBreakingText>
         <ButtonContainer>
-          <LeftBottomButton onClick={handler}>{leftButtonText}</LeftBottomButton>
-          <RightBottomButton onClick={handler}>{rightButtonText}</RightBottomButton>
+          <LeftBottomButton onClick={leftHandler}>{leftButtonText}</LeftBottomButton>
+          <RightBottomButton onClick={righthHandler}>{rightButtonText}</RightBottomButton>
         </ButtonContainer>
       </ModalWrapper>
     </ModalContainer>
@@ -93,7 +94,9 @@ const ModalWrapper = styled.div`
 
 const ModalContainer = styled.div`
   display: flex;
-  position: absolute;
+  position: fixed;
+  top: 0;
+  left: 0;
   align-items: center;
   justify-content: center;
   z-index: 5;

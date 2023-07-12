@@ -1,17 +1,48 @@
 'use client';
 
-import React from 'react';
+import React, { useState } from 'react';
 import styled from 'styled-components';
 
+import ModalPortal from '@/components/common/ModalPotal';
+import DashboardDeleteModal from '@/components/common/UI/DashboardDeleteModal';
+
 const SaveArticleButton = () => {
+  const [isModal, setIsModal] = useState(false);
+
+  const modalOpenHandler = () => {
+    setIsModal(!isModal);
+    document.body.style.overflow = 'hidden';
+  };
+
+  const modalCloseHandler = () => {
+    setIsModal(false);
+    document.body.style.overflow = 'visible';
+  };
+
   return (
-    <ButtonContainer>
-      <BottomWrapper>
-        <ExitButton type="button">나가기</ExitButton>
-        <TemporarySaveButton type="button">임시저장</TemporarySaveButton>
-        <SaveButton type="button">발행하기</SaveButton>
-      </BottomWrapper>
-    </ButtonContainer>
+    <>
+      <ButtonContainer>
+        <BottomWrapper>
+          <ExitButton type="button" onClick={modalOpenHandler}>
+            나가기
+          </ExitButton>
+          <TemporarySaveButton type="button">임시저장</TemporarySaveButton>
+          <SaveButton type="button">발행하기</SaveButton>
+        </BottomWrapper>
+      </ButtonContainer>
+      {isModal && (
+        <ModalPortal>
+          <DashboardDeleteModal
+            text={'저장하지 않고 나가시겠어요?'}
+            subText={'저장하지 않고 페이지를 벗어나는 경우,'}
+            lineBreaking={'지금까지 작성한 내용이 모두 사라집니다.'}
+            leftButtonText={'돌아가기'}
+            rightButtonText={'나가기'}
+            leftHandler={modalCloseHandler}
+          />
+        </ModalPortal>
+      )}
+    </>
   );
 };
 

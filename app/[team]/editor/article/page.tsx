@@ -1,3 +1,4 @@
+'use client';
 import React from 'react';
 
 import ArticleTitle from '@/components/editor/article/UI/ArticleTitle';
