@@ -59,13 +59,16 @@ const DashBoardContentContainer = (props: DashBoardContentContainerProps) => {
       {createdAt && <CreatedAt createdAt={createdAt} />}
       {newsLetter && <NewsLetter newsLetter={newsLetter} />}
       {pathName === 'subscriber' ? (
-        <DeleteBtn />
+        <BtnContainer>
+          <IcClose24Icon />
+        </BtnContainer>
       ) : (
-        <MenuBtn
+        <BtnContainer
           onClick={() => {
             onMeatBallClick((prev) => !prev);
-          }}
-        />
+          }}>
+          <CharmMenuMeatballIcon />
+        </BtnContainer>
       )}
       {isPopOverMenuOpen ? <PopOverMenu pathName={pathName} /> : <></>}
     </DashBoardContentUI>
@@ -78,58 +81,35 @@ const DashBoardContentUI = styled.article`
   display: flex;
   position: relative;
   align-items: center;
+  transition-duration: 0.3s ease-out;
   border-bottom: 1px solid ${({ theme }) => theme.colors.grey_300};
   width: 100%;
   height: 5.2rem;
+
+  &:hover {
+    background: ${({ theme }) => theme.colors.grey_100};
+  }
 
   button {
     border: none;
     background: none;
     cursor: pointer;
   }
-
-  #tabType {
-    display: inline-flex;
-    gap: 1rem;
-    align-items: center;
-    margin-right: 2vw;
-    ${({ theme }) => theme.fonts.Body3_Regular};
-    border: 1px solid ${({ theme }) => theme.colors.grey_400};
-    border-radius: 2rem;
-    padding: 0.4rem 0.8rem;
-    overflow: hidden;
-    text-overflow: ellipsis;
-    white-space: nowrap;
-  }
-
-  #position {
-    margin-right: 3vw;
-    width: 8.4rem;
-    overflow: hidden;
-    text-overflow: ellipsis;
-    white-space: nowrap;
-    ${({ theme }) => theme.fonts.Body3_Regular};
-    color: ${({ theme }) => theme.colors.grey_700};
-  }
-
-  #createdAt {
-    width: 10rem;
-    overflow: hidden;
-    text-overflow: ellipsis;
-    white-space: nowrap;
-    ${({ theme }) => theme.fonts.Body3_Regular};
-    color: ${({ theme }) => theme.colors.grey_900};
-  }
 `;
 
-const MenuBtn = styled(CharmMenuMeatballIcon)`
+const BtnContainer = styled.div`
+  display: flex;
   position: absolute;
   right: 0;
+  align-items: center;
+  justify-content: center;
+  transition-duration: 0.3s ease-out;
+  margin-right: 0.6rem;
+  border-radius: 0.4rem;
   cursor: pointer;
-`;
-
-const DeleteBtn = styled(IcClose24Icon)`
-  position: absolute;
-  right: 0;
-  cursor: pointer;
+  width: 2.4rem;
+  height: 2.4rem;
+  &:hover {
+    background: ${({ theme }) => theme.colors.grey_300};
+  }
 `;
