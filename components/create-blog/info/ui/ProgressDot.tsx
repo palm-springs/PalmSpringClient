@@ -40,7 +40,7 @@ export default ProgressDot;
 const ProgressDotContainer = styled.div`
   display: flex;
   align-items: center;
-  justify-content: center;
+  margin: 0 auto;
 
   width: 54rem;
   height: 100vh;
@@ -67,7 +67,7 @@ const CheckBox = styled.div<{ $width: string; $height: string }>`
 const Dot = styled.div`
   border-radius: 1.5rem;
 
-  background-color: ${({ theme }) => theme.colors.green};
+  background-color: ${({ theme }) => theme.colors.background_green};
   width: 2.2rem;
   height: 2.2rem;
 
