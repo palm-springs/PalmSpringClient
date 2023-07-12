@@ -4,14 +4,12 @@ import styled from 'styled-components';
 import { ProgressStateProps } from '@/types/progress';
 
 import ImageInputForm from './ImageInputForm';
-import ProgressDot from './ProgressDot';
 import TextInputForm from './TextInputForm';
 
 const CreateOptionInfoLanding = (props: ProgressStateProps) => {
   const { progressState, setProgressState } = props;
   return (
     <CreateBasicInfoContainer className={progressState === 2 ? 'fadein' : progressState === 3 ? 'fadeout' : 'hidden'}>
-      <ProgressDot progress={2} />
       <InfoContainer>
         <Title>블로그 생성하기</Title>
         <ImageInputForm type="logo" />
@@ -72,7 +70,7 @@ const InfoContainer = styled.div`
   gap: 3.2rem;
   align-items: center;
 
-  margin: 14.4rem 7rem 14.4rem 0;
+  margin: 14.4rem 0;
 
   width: 40rem;
 `;

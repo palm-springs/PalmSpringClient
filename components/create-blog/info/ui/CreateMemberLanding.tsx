@@ -3,8 +3,6 @@ import styled from 'styled-components';
 
 import AddMemberForm from '@/components/common/ui/AddMemberForm';
 
-import ProgressDot from './ProgressDot';
-
 interface CreateMemberLandingProps {
   progressState: number;
 }
@@ -13,7 +11,6 @@ const CreateMemberLanding = (props: CreateMemberLandingProps) => {
   const { progressState } = props;
   return (
     <CreateMemberContainer className={progressState === 3 ? 'fadein' : ''}>
-      <ProgressDot progress={3} />
       <AddMemberContainer>
         <Title>이메일로 팀원을 초대하세요</Title>
         <SubTitle>쉼표, 엔터, 스페이스바로 메일 주소를 구분할 수 있습니다</SubTitle>
@@ -55,8 +52,6 @@ const AddMemberContainer = styled.div`
   flex-direction: column;
   align-items: center;
   justify-content: center;
-
-  margin-right: 7rem;
 
   height: 100vh;
 `;

@@ -5,7 +5,6 @@ import styled from 'styled-components';
 
 import { ProgressStateProps } from '@/types/progress';
 
-import ProgressDot from './ProgressDot';
 import TextInputForm from './TextInputForm';
 
 const CreateBasicInfoLanding = (props: ProgressStateProps) => {
@@ -13,7 +12,6 @@ const CreateBasicInfoLanding = (props: ProgressStateProps) => {
   const router = useRouter();
   return (
     <CreateBasicInfoContainer className={progressState === 2 ? 'fadeout' : progressState === 3 ? 'hidden' : ''}>
-      <ProgressDot progress={1} />
       <InfoContainer>
         <Title>블로그 생성하기</Title>
         <TextInputForm type="이름">
@@ -66,7 +64,7 @@ const InfoContainer = styled.div`
   gap: 3.2rem;
   align-items: center;
 
-  margin: 14.4rem 7rem 14.4rem 0;
+  margin: 14.4rem 0;
 
   width: 40.2rem;
 `;
