@@ -8,7 +8,7 @@ import { ArticleProps } from '@/types/article';
 import ArticleImg from '../blog/UI/ArticleImg';
 
 const Article = (props: ArticleProps) => {
-  const { title, description, writer, date } = props;
+  const { title, description, writer, date, thumbnailImgUrl } = props;
 
   return (
     <ArticleContainer>
@@ -21,7 +21,7 @@ const Article = (props: ArticleProps) => {
           <ArticleDetail>{date}</ArticleDetail>
         </DetailBox>
       </ArticleInfo>
-      <ArticleImg />
+      {thumbnailImgUrl && <ArticleImg />}
     </ArticleContainer>
   );
 };
@@ -30,13 +30,16 @@ export default Article;
 
 const ArticleContainer = styled.section`
   display: flex;
+  gap: 3.2rem;
   justify-content: space-between;
+  width: 100%;
 `;
 
 const ArticleInfo = styled.article`
   display: flex;
   flex-direction: column;
   justify-content: center;
+  width: 100%;
 `;
 
 const ArticleTitle = styled.div`
@@ -67,4 +70,5 @@ const DetailBox = styled.div`
   display: flex;
   gap: 0.4rem;
   margin-top: 1.7rem;
+  width: 100%;
 `;

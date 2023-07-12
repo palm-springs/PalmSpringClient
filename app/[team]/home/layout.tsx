@@ -4,7 +4,7 @@
 import React from 'react';
 
 import BlogImg from '@/components/blog/BlogImg';
-import Footer from '@/components/common/BlogFooter';
+import BlogFooter from '@/components/common/BlogFooter';
 import BlogHeader from '@/components/common/BlogHeader';
 
 const BlogHomeLayout = ({ children }: { children: React.ReactNode }) => {
@@ -13,7 +13,7 @@ const BlogHomeLayout = ({ children }: { children: React.ReactNode }) => {
       <BlogHeader />
       <BlogImg />
       <main>{children}</main>
-      <Footer />
+      <BlogFooter />
     </>
   );
 };

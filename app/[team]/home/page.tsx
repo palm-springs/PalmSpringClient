@@ -6,11 +6,7 @@ import React from 'react';
 import ArticleContainer from '@/components/blog/UI/ArticleContainer';
 
 function BlogMainPage({ children }: { children: React.ReactNode }) {
-  return (
-    <>
-      <ArticleContainer>{children}</ArticleContainer>
-    </>
-  );
+  return <ArticleContainer>{children}</ArticleContainer>;
 }
 
 export default BlogMainPage;

@@ -8,15 +8,29 @@ import CategoryBtnBar from './CategoryBtnBar';
 
 const ArticleContainer = ({ children }: { children: React.ReactNode }) => {
   return (
-    <ArticleWrapper>
-      <CategoryBtnBar />
-      <ArticleList>{children}</ArticleList>
-    </ArticleWrapper>
+    <>
+      <CategoryBtnWrapper>
+        <CategoryBtnBar />
+      </CategoryBtnWrapper>
+      <ArticleWrapper>
+        <ArticleList>{children}</ArticleList>
+      </ArticleWrapper>
+    </>
   );
 };
 
 export default ArticleContainer;
 
 const ArticleWrapper = styled.section`
-  margin: 6rem 36rem;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+
+  margin-bottom: 6rem;
+  min-width: 105.6rem;
+`;
+const CategoryBtnWrapper = styled.div`
+  display: flex;
+  justify-content: center;
+  min-width: 105.6rem;
 `;

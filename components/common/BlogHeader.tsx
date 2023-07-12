@@ -21,5 +21,7 @@ const BlogHeaderContainer = styled.div`
   display: flex;
   align-items: center;
   justify-content: space-between;
+  border-bottom: 1px solid ${({ theme }) => theme.colors.grey_300};
   padding: 1.2rem 19.2rem;
+  min-width: 105.6rem;
 `;
