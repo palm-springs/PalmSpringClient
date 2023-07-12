@@ -6,6 +6,7 @@ import { styled } from 'styled-components';
 import useGetLastPathName from '@/hooks/useGetLastPathName';
 import { CharmMenuMeatballIcon, IcClose24Icon } from '@/public/icons';
 
+import { PickContextPropsType } from '../../context/dashboardContext';
 import PopOverMenu from '../../upload/components/ui/PopOverMenu';
 import { DashBoardContentProps } from '../DashBoardContent';
 
@@ -23,6 +24,8 @@ interface DashBoardContentContainerProps {
   contentObject: DashBoardContentProps;
   onMeatBallClick: Dispatch<SetStateAction<boolean>>;
   isPopOverMenuOpen: boolean;
+  modalOpenContentId: PickContextPropsType<'modalOpenContentId'>;
+  setModalOpenContentId: (value: PickContextPropsType<'modalOpenContentId'>) => void;
 }
 
 const DashBoardContentContainer = (props: DashBoardContentContainerProps) => {
@@ -42,8 +45,11 @@ const DashBoardContentContainer = (props: DashBoardContentContainerProps) => {
       newsLetter,
     },
     onMeatBallClick,
-    isPopOverMenuOpen,
+    modalOpenContentId,
+    setModalOpenContentId,
   } = props;
+
+  const isModalOpen = modalOpenContentId === id;
 
   const pathName = useGetLastPathName();
   // 날짜 포맷팅은 나중에 raw 데이터가 어떻게 날아오는지 확인하고 합시다!
@@ -65,10 +71,15 @@ const DashBoardContentContainer = (props: DashBoardContentContainerProps) => {
         <MenuBtn
           onClick={() => {
             onMeatBallClick((prev) => !prev);
+            if (modalOpenContentId === id) {
+              setModalOpenContentId('');
+            } else {
+              setModalOpenContentId(id);
+            }
           }}
         />
       )}
-      {isPopOverMenuOpen ? <PopOverMenu pathName={pathName} /> : <></>}
+      {isModalOpen ? <PopOverMenu pathName={pathName} /> : <></>}
     </DashBoardContentUI>
   );
 };

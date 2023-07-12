@@ -2,6 +2,8 @@
 
 import React, { useState } from 'react';
 
+import { useDashboardContext } from '../context/dashboardContext';
+
 import DashBoardContentContainer from './ui/DashBoardContentContainer';
 
 export interface DashBoardContentProps {
@@ -22,11 +24,15 @@ export interface DashBoardContentProps {
 const DashBoardContent = (props: DashBoardContentProps) => {
   const [isPopOverMenuOpen, setIsPopOverMenuOpen] = useState<boolean>(false);
 
+  const { modalOpenContentId, setModalOpenContentId } = useDashboardContext();
+
   return (
     <DashBoardContentContainer
       contentObject={props}
       onMeatBallClick={setIsPopOverMenuOpen}
       isPopOverMenuOpen={isPopOverMenuOpen}
+      modalOpenContentId={modalOpenContentId}
+      setModalOpenContentId={setModalOpenContentId}
     />
   );
 };

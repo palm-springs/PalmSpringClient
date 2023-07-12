@@ -1,13 +1,13 @@
 import { createContext, useContext, useReducer } from 'react';
 
 interface DashboardContextProps {
-  id: string;
-  setId: (value: PickContextPropsType<'id'>) => void;
+  modalOpenContentId: string;
+  setModalOpenContentId: (value: PickContextPropsType<'modalOpenContentId'>) => void;
 }
 
 const initialDashboardContext: DashboardContextProps = {
-  id: '',
-  setId: () => {
+  modalOpenContentId: '',
+  setModalOpenContentId: () => {
     return;
   },
 };
@@ -25,11 +25,11 @@ export const useDashboardContext = () => {
   return context;
 };
 
-type PickContextPropsType<T extends keyof DashboardContextProps> = Pick<DashboardContextProps, T>[T];
+export type PickContextPropsType<T extends keyof DashboardContextProps> = Pick<DashboardContextProps, T>[T];
 
 type ActionType = {
   type: 'SETID';
-  value: PickContextPropsType<'id'>;
+  value: PickContextPropsType<'modalOpenContentId'>;
 };
 
 export const reducer = (state: DashboardContextProps, action: ActionType) => {
@@ -37,7 +37,7 @@ export const reducer = (state: DashboardContextProps, action: ActionType) => {
     case 'SETID':
       return {
         ...state,
-        id: action.value,
+        modalOpenContentId: action.value,
       };
     default:
       return state;
@@ -49,7 +49,11 @@ export const DashboardContextProvider = ({ children }: { children: React.ReactNo
 
   return (
     <DashboardContext.Provider
-      value={{ ...state, setId: (value: PickContextPropsType<'id'>) => dispatch({ type: 'SETID', value }) }}>
+      value={{
+        ...state,
+        setModalOpenContentId: (value: PickContextPropsType<'modalOpenContentId'>) =>
+          dispatch({ type: 'SETID', value }),
+      }}>
       {children}
     </DashboardContext.Provider>
   );
