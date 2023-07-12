@@ -63,8 +63,7 @@ const PopOverMenuUI = styled.article`
     border-radius: 0.8rem;
     background: none;
     cursor: pointer;
-    padding-right: 1rem;
-    padding-left: 1rem;
+    padding: 0 1rem;
     width: 100%;
     height: 4.2rem;
     &:hover {
