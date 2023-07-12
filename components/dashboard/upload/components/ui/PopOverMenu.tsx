@@ -51,7 +51,7 @@ const PopOverMenuUI = styled.article`
   width: fit-content;
   height: 13.1rem;
   :nth-child(3) {
-    color: #ff5454;
+    color: ${({ theme }) => theme.colors.red};
   }
   div {
     display: flex;

@@ -59,6 +59,7 @@ const HeaderContentWrapper = styled.div`
     border: none;
     border-radius: 0.8rem;
     background: ${({ theme }) => theme.colors.green};
+    ${({ theme }) => theme.fonts.Body1_Semibold};
     padding: 1rem 2.6rem;
     height: 4.2rem;
     color: ${({ theme }) => theme.colors.grey_0};
