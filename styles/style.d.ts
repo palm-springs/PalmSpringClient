@@ -16,10 +16,18 @@ declare module 'styled-components' {
       grey_950: string;
       grey_1000: string;
 
+      dimmed: string;
+      navItem_hover: string;
+
       green: string;
       green_hover: string;
       dark_green: string;
       blue: string;
+      background_green: string;
+
+      red: string;
+      red_hover: string;
+      background_red: string;
     };
     fonts: {
       Title: SerializedStyles;
