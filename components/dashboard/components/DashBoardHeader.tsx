@@ -1,3 +1,5 @@
+'use client';
+
 import React from 'react';
 
 import mapPageType2HeaderInfo from '@/constants/mapPageType2HeaderInfo';

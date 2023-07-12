@@ -1,7 +1,9 @@
 import React from 'react';
 
+import TempsavedTemplate from '@/components/dashboard/tempsaved/TempsavedTemplate';
+
 const page = () => {
-  return <div>임시저장한 글</div>;
+  return <TempsavedTemplate />;
 };
 
 export default page;

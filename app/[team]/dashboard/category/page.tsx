@@ -1,7 +1,9 @@
 import React from 'react';
 
+import CategoryTemplate from '@/components/dashboard/category/CategoryTemplate';
+
 const page = () => {
-  return <div>카테고리</div>;
+  return <CategoryTemplate />;
 };
 
 export default page;
