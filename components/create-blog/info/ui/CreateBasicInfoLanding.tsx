@@ -1,5 +1,5 @@
 'use client';
-import React from 'react';
+import React, { useState } from 'react';
 import { useRouter } from 'next/navigation';
 import styled from 'styled-components';
 
@@ -9,17 +9,23 @@ import TextInputForm from './TextInputForm';
 
 const CreateBasicInfoLanding = (props: ProgressStateProps) => {
   const { progressState, setProgressState } = props;
+  const [isNameFocus, setIsNameFocus] = useState(false);
+  const [isAddressFocus, setIsAddressFocus] = useState(false);
   const router = useRouter();
   return (
     <CreateBasicInfoContainer className={progressState === 2 ? 'fadeout' : progressState === 3 ? 'hidden' : ''}>
       <InfoContainer>
         <Title>블로그 생성하기</Title>
-        <TextInputForm type="이름">
-          <TextInput placeholder="이름을 입력해주세요" />
+        <TextInputForm type="이름" isFocus={isNameFocus}>
+          <TextInput
+            placeholder="이름을 입력해주세요"
+            onFocus={() => setIsNameFocus(true)}
+            onBlur={() => setIsNameFocus(false)}
+          />
         </TextInputForm>
-        <TextInputForm type="주소">
+        <TextInputForm type="주소" isFocus={isAddressFocus}>
           <div>palmspring.io/@</div>
-          <TextInput />
+          <TextInput onFocus={() => setIsAddressFocus(true)} onBlur={() => setIsAddressFocus(false)} />
         </TextInputForm>
         <ButtonContainer>
           <PreviousButton>이전으로</PreviousButton>
