@@ -6,12 +6,12 @@ import Line from '../components/ui/Line';
 
 import UploadTemplateContainer from './components/ui/UploadTemplateContainer';
 import UploadContentList from './components/UploadContentList';
-import UploadHeader from './components/UploadHeader';
+import UploadTabBar from './components/UploadTabBar';
 
 const UploadTemplate = () => {
   return (
     <UploadTemplateContainer>
-      <UploadHeader />
+      <UploadTabBar />
       <Line />
       <UploadContentList />
     </UploadTemplateContainer>
