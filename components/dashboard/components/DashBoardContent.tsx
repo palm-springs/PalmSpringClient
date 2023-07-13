@@ -29,7 +29,7 @@ const DashBoardContent = (props: DashBoardContentProps) => {
   return (
     <DashBoardContentContainer
       contentObject={props}
-      onMeatBallClick={setIsPopOverMenuOpen}
+      onMenuButtonClick={setIsPopOverMenuOpen}
       isPopOverMenuOpen={isPopOverMenuOpen}
       modalOpenContentId={modalOpenContentId}
       setModalOpenContentId={setModalOpenContentId}

@@ -22,7 +22,7 @@ import Url from './Url';
 
 interface DashBoardContentContainerProps {
   contentObject: DashBoardContentProps;
-  onMeatBallClick: Dispatch<SetStateAction<boolean>>;
+  onMenuButtonClick: Dispatch<SetStateAction<boolean>>;
   isPopOverMenuOpen: boolean;
   modalOpenContentId: PickContextPropsType<'modalOpenContentId'>;
   setModalOpenContentId: (value: PickContextPropsType<'modalOpenContentId'>) => void;
@@ -44,7 +44,7 @@ const DashBoardContentContainer = (props: DashBoardContentContainerProps) => {
       onTitleClick,
       newsLetter,
     },
-    onMeatBallClick,
+    onMenuButtonClick,
     modalOpenContentId,
     setModalOpenContentId,
   } = props;
@@ -70,7 +70,7 @@ const DashBoardContentContainer = (props: DashBoardContentContainerProps) => {
       ) : (
         <MenuBtn
           onClick={() => {
-            onMeatBallClick((prev) => !prev);
+            onMenuButtonClick((prev) => !prev);
             if (modalOpenContentId === id) {
               setModalOpenContentId('');
             } else {
