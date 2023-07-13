@@ -1,15 +1,17 @@
 'use client';
 import styled from 'styled-components';
 
+import InputMessage from './basicInfo/InputMessage';
 import InputTitle from './InputTitle';
 interface TextInputFormProps {
   type: string;
   children: React.ReactNode;
   isFocus: boolean;
+  isAddressDuplicate?: boolean;
 }
 
 const TextInputForm = (props: TextInputFormProps) => {
-  const { type, children, isFocus } = props;
+  const { type, children, isFocus, isAddressDuplicate } = props;
 
   return (
     <Label>
@@ -17,9 +19,10 @@ const TextInputForm = (props: TextInputFormProps) => {
         <InputTitle>블로그 {type}</InputTitle>
         {type === '주소' && <span>영어문자와 숫자, 언더바(_)만 사용할 수 있어요</span>}
       </TitleContainer>
-      <InputContainer className={type} $isFocus={isFocus}>
+      <InputContainer className={type} $isFocus={isFocus} $isAddressDuplicate={isAddressDuplicate}>
         {children}
       </InputContainer>
+      {isAddressDuplicate !== undefined && <InputMessage isAddressDuplicate={isAddressDuplicate} />}
     </Label>
   );
 };
@@ -28,6 +31,7 @@ export default TextInputForm;
 
 const Label = styled.label`
   display: flex;
+  position: relative;
   flex-direction: column;
 
   width: 100%;
@@ -48,10 +52,12 @@ const TitleContainer = styled.div`
 `;
 
 // text input 입력  컨테이너
-const InputContainer = styled.div<{ $isFocus: boolean }>`
-  border: 1px solid ${({ theme, $isFocus }) => ($isFocus ? theme.colors.grey_700 : theme.colors.grey_400)};
+const InputContainer = styled.div<{ $isFocus: boolean; $isAddressDuplicate?: boolean }>`
+  border: 1px solid;
 
   border-radius: 0.8rem;
+  border-color: ${({ theme, $isFocus }) => ($isFocus ? theme.colors.grey_700 : theme.colors.grey_400)};
+
   padding: 1rem 1.2rem;
   width: 100%;
   height: 4.6rem;

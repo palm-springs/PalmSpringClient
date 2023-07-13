@@ -3,32 +3,72 @@ import React, { useState } from 'react';
 import styled from 'styled-components';
 
 import { ProgressStateProps } from '@/types/progress';
+import CheckDuplication from '@/utils/checkUrlDuplication';
 
-import TextInputForm from './TextInputForm';
+import TextInputForm from '../TextInputForm';
 
 const CreateBasicInfoLanding = (props: ProgressStateProps) => {
   const { progressState, setProgressState } = props;
+
+  // focus state
   const [isNameFocus, setIsNameFocus] = useState(false);
   const [isAddressFocus, setIsAddressFocus] = useState(false);
+
+  // input value state
+  const [nameValue, setNameValue] = useState('');
+  const [addressValue, setAddressValue] = useState('');
+
+  // input value state
+  const [isAddressDuplicate, setIsAddressDuplicate] = useState<boolean | null>(null);
+
+  const handleOnNameChange = (e: React.ChangeEvent<HTMLInputElement>) => {
+    const { value } = e.currentTarget;
+    setNameValue(value);
+  };
+
+  const handleOnAddressChange = (e: React.ChangeEvent<HTMLInputElement>) => {
+    const { value } = e.currentTarget;
+    setAddressValue(value);
+    // url 중복 체크
+    CheckDuplication(value, setIsAddressDuplicate);
+  };
 
   return (
     <CreateBasicInfoContainer className={progressState === 2 ? 'fadeout' : progressState === 3 ? 'hidden' : ''}>
       <InfoContainer>
         <Title>블로그 생성하기</Title>
+
         <TextInputForm type="이름" isFocus={isNameFocus}>
           <TextInput
             placeholder="이름을 입력해주세요"
             onFocus={() => setIsNameFocus(true)}
             onBlur={() => setIsNameFocus(false)}
+            value={nameValue}
+            onChange={handleOnNameChange}
           />
         </TextInputForm>
-        <TextInputForm type="주소" isFocus={isAddressFocus}>
+
+        <TextInputForm
+          type="주소"
+          isFocus={isAddressFocus}
+          isAddressDuplicate={isAddressDuplicate === null ? undefined : isAddressDuplicate}>
           <div>palmspring.io/@</div>
-          <TextInput onFocus={() => setIsAddressFocus(true)} onBlur={() => setIsAddressFocus(false)} />
+          <TextInput
+            onFocus={() => setIsAddressFocus(true)}
+            onBlur={() => setIsAddressFocus(false)}
+            value={addressValue}
+            onChange={handleOnAddressChange}
+          />
         </TextInputForm>
+
         <ButtonContainer>
           <PreviousButton>이전으로</PreviousButton>
-          <NextButton type="button" onClick={() => setProgressState(2)}>다음으로</NextButton>
+          <NextButton
+            type="button"
+            onClick={() => setProgressState(2)}
+            disabled={isAddressDuplicate === null || !!isAddressDuplicate || nameValue === '' || addressValue === ''}>
+            다음으로
+          </NextButton>
         </ButtonContainer>
       </InfoContainer>
     </CreateBasicInfoContainer>
@@ -108,10 +148,12 @@ const PreviousButton = styled.button`
   color: ${({ theme }) => theme.colors.grey_700};
 `;
 
-const NextButton = styled.button`
+const NextButton = styled.button<{ disabled: boolean }>`
   ${({ theme }) => theme.fonts.Button_medium};
   border-radius: 0.8rem;
-  background-color: ${({ theme }) => theme.colors.green};
+  background-color: ${({ theme, disabled }) => (disabled ? theme.colors.background_green : theme.colors.green)};
+
+  cursor: ${({ disabled }) => (disabled ? 'default' : 'pointer')};
 
   width: 10.3rem;
   height: 3.6rem;
