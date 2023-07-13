@@ -4,7 +4,7 @@ import React from 'react';
 import styled from 'styled-components';
 
 import HeaderLogo from '../blog/HeaderLogo';
-import BlogNav from '../blog/UI/BlogNav';
+import BlogNav from '../blog/ui/BlogNav';
 
 const BlogHeader = () => {
   return (

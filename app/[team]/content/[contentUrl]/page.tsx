@@ -6,10 +6,10 @@ import Image from 'next/image';
 import styled from 'styled-components';
 
 import Content from '@/components/content/Content';
-import Bar from '@/components/content/UI/Bar';
-import ContentInfo from '@/components/content/UI/ContentInfo';
-import LinkBtn from '@/components/content/UI/LinkBtn';
-import Recommend from '@/components/content/UI/Recommend';
+import Bar from '@/components/content/ui/Bar';
+import ContentInfo from '@/components/content/ui/ContentInfo';
+import LinkBtn from '@/components/content/ui/LinkBtn';
+import Recommend from '@/components/content/ui/Recommend';
 import { BlogSampleImg } from '@/public/images';
 
 const ContentPage = () => {
