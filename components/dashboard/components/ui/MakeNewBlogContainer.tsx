@@ -19,6 +19,7 @@ const MakeNewBlogUI = styled.article`
   gap: 1rem;
   align-items: center;
   transition-duration: 0.3s ease-out;
+  cursor: pointer;
   padding: 1.2rem 1.6rem 1.2rem 1.2rem;
   width: 100%;
   &:hover {

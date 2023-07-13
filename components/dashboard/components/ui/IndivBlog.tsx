@@ -16,6 +16,7 @@ export default IndivBlog;
 
 const IndivBlogUI = styled.span<{ $isCurrentBlog: boolean }>`
   transition-duration: 0.3s ease-out;
+  cursor: pointer;
   padding: 1.2rem 1.6rem 1.2rem 1.2rem;
   width: 100%;
   ${({ theme, $isCurrentBlog }) => ($isCurrentBlog ? theme.fonts.Body3_Semibold : theme.fonts.Body3_Regular)};

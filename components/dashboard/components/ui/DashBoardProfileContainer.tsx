@@ -34,6 +34,7 @@ const DashBoardProfileContainerUI = styled.article`
   transition-duration: 0.3s ease-out;
 
   margin-bottom: 0.8rem;
+  border-radius: 0.8rem;
   cursor: pointer;
   width: 25.4rem;
   height: 5.6rem;

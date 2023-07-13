@@ -53,6 +53,7 @@ const DashBoardContentContainer = (props: DashBoardContentContainerProps) => {
   const isModalOpen = modalOpenContentId === id;
 
   const pathName = useGetLastPathName();
+
   // 날짜 포맷팅은 나중에 raw 데이터가 어떻게 날아오는지 확인하고 합시다!
   return (
     <DashBoardContentUI>
@@ -67,11 +68,12 @@ const DashBoardContentContainer = (props: DashBoardContentContainerProps) => {
       {createdAt && <CreatedAt createdAt={createdAt} />}
       {newsLetter && <NewsLetter newsLetter={newsLetter} />}
       {pathName === 'subscriber' ? (
-        <BtnContainer>
+        <BtnContainer onBlur={() => setModalOpenContentId('')}>
           <IcClose24Icon />
         </BtnContainer>
       ) : (
         <BtnContainer
+          onBlur={() => setModalOpenContentId('')}
           onClick={() => {
             onMenuButtonClick((prev) => !prev);
             if (modalOpenContentId === id) {
@@ -79,8 +81,9 @@ const DashBoardContentContainer = (props: DashBoardContentContainerProps) => {
             } else {
               setModalOpenContentId(id);
             }
-          }}
-        />
+          }}>
+          <CharmMenuMeatballIcon />
+        </BtnContainer>
       )}
       {isModalOpen && <PopOverMenu pathName={pathName} />}
     </DashBoardContentUI>
@@ -113,7 +116,7 @@ const DashBoardContentUI = styled.article`
   }
 `;
 
-const BtnContainer = styled.div`
+const BtnContainer = styled.button`
   display: flex;
   position: absolute;
   right: 0;
