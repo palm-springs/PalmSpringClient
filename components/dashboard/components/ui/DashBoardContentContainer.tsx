@@ -79,7 +79,7 @@ const DashBoardContentContainer = (props: DashBoardContentContainerProps) => {
           }}
         />
       )}
-      {isModalOpen ? <PopOverMenu pathName={pathName} /> : <></>}
+      {isModalOpen && <PopOverMenu pathName={pathName} />}
     </DashBoardContentUI>
   );
 };
