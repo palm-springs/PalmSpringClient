@@ -3,7 +3,7 @@
 import React, { useState } from 'react';
 import styled from 'styled-components';
 
-import ModalPortal from '@/components/common/ModalPotal';
+import ModalPortal from '@/components/common/ModalPortal';
 import DashboardDeleteModal from '@/components/common/UI/DashboardDeleteModal';
 
 const SaveArticleButton = () => {
