@@ -21,13 +21,13 @@ const ArticleList = () => {
       date: '2023.06.28',
     },
     {
-      title: '리액트 API와 코드 재사용의 진화에 대한 글의 제목이 길다면 어떨까',
+      title: '리액트 API와 코드 재사용의 진화에 대한 글의 제목이 길다면 어떨까아',
       description: '리액트 API와 코드 재사용의 진화에 관한 글입니다.',
       writer: '길서현 · 웹 프론트엔드 개발자',
       date: '2023.06.27',
     },
     {
-      title: '리액트 API와 코드 재사용의 진화에 대한 글의 제목이 길다면 어떨까',
+      title: '리액트 API와 코드 재사용의 진화에 대한 글의 제목이 길다면 어떨까아아',
       description: '이렇게 글 설명이 보입니다.',
       writer: '이시연 · 웹 프론트엔드 개발자',
       date: '2023.07.25',
@@ -38,7 +38,7 @@ const ArticleList = () => {
     <ArticleListContainer>
       {ARTICLE_LIST.map(({ title, description, writer, date, thumbnailImgUrl }) => (
         <Article
-          key={thumbnailImgUrl}
+          key={title}
           title={title}
           description={description}
           writer={writer}
