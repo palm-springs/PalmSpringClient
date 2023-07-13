@@ -11,11 +11,11 @@ import mapPageType2Component from '../../../constants/mapPageType2Component';
 import NavButtonContainer from './ui/NavButtonContainer';
 import SideBarContent from './ui/SideBarContent';
 
-interface navButtomProps {
+interface NavButtonProps {
   currentPageType: dashBoardPageType;
 }
 
-const NavButton = (props: navButtomProps) => {
+const NavButton = (props: NavButtonProps) => {
   const { currentPageType } = props;
 
   const router = useRouter();

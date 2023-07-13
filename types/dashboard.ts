@@ -9,4 +9,4 @@ export type dashBoardPageType =
   | 'tempsaved'
   | 'upload';
 
-export type dashBoardTabType = 'all' | 'dev' | 'design' | 'plan';
+export type dashBoardTabType = 'all' | 'dev' | 'design' | 'plan' | 'culture';

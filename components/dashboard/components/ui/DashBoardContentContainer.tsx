@@ -6,6 +6,7 @@ import { styled } from 'styled-components';
 import useGetLastPathName from '@/hooks/useGetLastPathName';
 import { CharmMenuMeatballIcon, IcClose24Icon } from '@/public/icons';
 
+import { PickContextPropsType } from '../../context/dashboardContext';
 import PopOverMenu from '../../upload/components/ui/PopOverMenu';
 import { DashBoardContentProps } from '../DashBoardContent';
 
@@ -21,13 +22,16 @@ import Url from './Url';
 
 interface DashBoardContentContainerProps {
   contentObject: DashBoardContentProps;
-  onMeatBallClick: Dispatch<SetStateAction<boolean>>;
+  onMenuButtonClick: Dispatch<SetStateAction<boolean>>;
   isPopOverMenuOpen: boolean;
+  modalOpenContentId: PickContextPropsType<'modalOpenContentId'>;
+  setModalOpenContentId: (value: PickContextPropsType<'modalOpenContentId'>) => void;
 }
 
 const DashBoardContentContainer = (props: DashBoardContentContainerProps) => {
   const {
     contentObject: {
+      id,
       email,
       content,
       url,
@@ -40,9 +44,12 @@ const DashBoardContentContainer = (props: DashBoardContentContainerProps) => {
       onTitleClick,
       newsLetter,
     },
-    onMeatBallClick,
-    isPopOverMenuOpen,
+    onMenuButtonClick,
+    modalOpenContentId,
+    setModalOpenContentId,
   } = props;
+
+  const isModalOpen = modalOpenContentId === id;
 
   const pathName = useGetLastPathName();
   // 날짜 포맷팅은 나중에 raw 데이터가 어떻게 날아오는지 확인하고 합시다!
@@ -63,11 +70,16 @@ const DashBoardContentContainer = (props: DashBoardContentContainerProps) => {
       ) : (
         <MenuBtn
           onClick={() => {
-            onMeatBallClick((prev) => !prev);
+            onMenuButtonClick((prev) => !prev);
+            if (modalOpenContentId === id) {
+              setModalOpenContentId('');
+            } else {
+              setModalOpenContentId(id);
+            }
           }}
         />
       )}
-      {isPopOverMenuOpen ? <PopOverMenu pathName={pathName} /> : <></>}
+      {isModalOpen && <PopOverMenu pathName={pathName} />}
     </DashBoardContentUI>
   );
 };
@@ -88,37 +100,8 @@ const DashBoardContentUI = styled.article`
     cursor: pointer;
   }
 
-  #tabType {
-    display: inline-flex;
-    gap: 1rem;
-    align-items: center;
-    margin-right: 2vw;
-    ${({ theme }) => theme.fonts.Body3_Regular};
-    border: 1px solid ${({ theme }) => theme.colors.grey_400};
-    border-radius: 2rem;
-    padding: 0.4rem 0.8rem;
-    overflow: hidden;
-    text-overflow: ellipsis;
+  span {
     white-space: nowrap;
-  }
-
-  #position {
-    margin-right: 3vw;
-    width: 8.4rem;
-    overflow: hidden;
-    text-overflow: ellipsis;
-    white-space: nowrap;
-    ${({ theme }) => theme.fonts.Body3_Regular};
-    color: ${({ theme }) => theme.colors.grey_700};
-  }
-
-  #createdAt {
-    width: 10rem;
-    overflow: hidden;
-    text-overflow: ellipsis;
-    white-space: nowrap;
-    ${({ theme }) => theme.fonts.Body3_Regular};
-    color: ${({ theme }) => theme.colors.grey_900};
   }
 `;
 
