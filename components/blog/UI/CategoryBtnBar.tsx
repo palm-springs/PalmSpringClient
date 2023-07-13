@@ -9,14 +9,12 @@ import useGetCategory from '@/hooks/useGetCategory';
 const CategoryBtnBar = () => {
   const SELECTED = useGetCategory();
 
-  console.log(decodeURI(SELECTED));
-
   const CATEGORY_EXAMPLE: string[] = ['개발', '디자인', '팀문화'];
 
   const CATEGORY_LIST = CATEGORY_EXAMPLE.map((eachCategory, index) => {
     return (
       <CategoryBtn key={index} type="button" className={eachCategory === decodeURI(SELECTED) ? 'selected' : ''}>
-        <Link href={`/blog/home/${eachCategory}`}>{eachCategory}</Link>
+        <Link href={`/blogNameHere/home/${eachCategory}`}>{eachCategory}</Link>
       </CategoryBtn>
     );
   });
@@ -24,7 +22,7 @@ const CategoryBtnBar = () => {
   return (
     <CategoryBtnBarContainer>
       <CategoryBtn type="button" className={SELECTED === 'home' ? 'selected' : ''}>
-        <Link href={'/blog/home'}>전체</Link>
+        <Link href={'../home'}>전체</Link>
       </CategoryBtn>
       {CATEGORY_LIST}
     </CategoryBtnBarContainer>
