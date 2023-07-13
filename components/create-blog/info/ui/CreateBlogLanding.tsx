@@ -2,8 +2,8 @@
 import { useState } from 'react';
 
 import CreateBasicInfoLanding from './basicInfo/CreateBasicInfoLanding';
+import CreateOptionInfoLanding from './optionInfo/CreateOptionInfoLanding';
 import CreateMemberLanding from './CreateMemberLanding';
-import CreateOptionInfoLanding from './CreateOptionInfoLanding';
 import ProgressDot from './ProgressDot';
 
 const CreateBlogLanding = () => {

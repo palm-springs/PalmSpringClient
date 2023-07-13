@@ -1,5 +1,5 @@
 'use client';
-import React, { useState } from 'react';
+import { useEffect, useState } from 'react';
 import styled from 'styled-components';
 
 import { ProgressStateProps } from '@/types/progress';
@@ -10,6 +10,7 @@ import TextInputForm from '../TextInputForm';
 const CreateBasicInfoLanding = (props: ProgressStateProps) => {
   const { progressState, setProgressState } = props;
 
+  const [containerState, setContainerState] = useState('');
   // focus state
   const [isNameFocus, setIsNameFocus] = useState(false);
   const [isAddressFocus, setIsAddressFocus] = useState(false);
@@ -33,8 +34,16 @@ const CreateBasicInfoLanding = (props: ProgressStateProps) => {
     CheckDuplication(value, setIsAddressDuplicate);
   };
 
+  useEffect(() => {
+    if (progressState === -1) {
+      setContainerState('fadeDownIn');
+    } else if (progressState === 2) {
+      setContainerState('fadeOut');
+    }
+  }, [progressState]);
+
   return (
-    <CreateBasicInfoContainer className={progressState === 2 ? 'fadeout' : progressState === 3 ? 'hidden' : ''}>
+    <CreateBasicInfoContainer className={containerState}>
       <InfoContainer>
         <Title>블로그 생성하기</Title>
 
@@ -86,19 +95,23 @@ const CreateBasicInfoContainer = styled.div`
   align-items: center;
   justify-content: center;
 
-  z-index: 3;
+  z-index: 100;
 
   width: 100%;
   height: 100vh;
 
-  &.fadeout {
+  &.fadeDownIn {
+    transform: translateY(0);
+    transition: 1s;
+    opacity: 1;
+    z-index: 100;
+  }
+
+  &.fadeOut {
     transform: translateY(-30rem);
     transition: 1s;
     opacity: 0;
-  }
-
-  &.hidden {
-    display: none;
+    z-index: 0;
   }
 `;
 

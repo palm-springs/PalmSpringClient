@@ -1,26 +1,45 @@
 'use client';
+import { useEffect, useState } from 'react';
 import styled from 'styled-components';
 
 import { ProgressStateProps } from '@/types/progress';
 
-import ImageInputForm from './ImageInputForm';
-import TextInputForm from './TextInputForm';
+import ImageInputForm from '../ImageInputForm';
+import TextInputForm from '../TextInputForm';
 
 const CreateOptionInfoLanding = (props: ProgressStateProps) => {
   const { progressState, setProgressState } = props;
+
+  const [isDescriptionFocus, setIsDescriptionFocus] = useState(false);
+  const [containerState, setContainerState] = useState('');
+
+  useEffect(() => {
+    if (progressState === -1) {
+      setContainerState('fadeDownOut');
+    } else if (progressState === 2) {
+      setContainerState('fadeIn');
+    } else if (progressState === 3) {
+      setContainerState('fadeUpOut');
+    }
+  }, [progressState]);
+
   return (
-    <CreateBasicInfoContainer className={progressState === 2 ? 'fadein' : progressState === 3 ? 'fadeout' : 'hidden'}>
+    <CreateBasicInfoContainer className={containerState}>
       <InfoContainer>
         <Title>블로그 생성하기</Title>
         <ImageInputForm type="logo" />
 
         <ImageInputForm type="gate" />
 
-        <TextInputForm type="설명">
-          <TextAreaInput placeholder="블로그 설명을 입력해주세요" />
+        <TextInputForm type="설명" isFocus={isDescriptionFocus}>
+          <TextAreaInput
+            placeholder="블로그 설명을 입력해주세요"
+            onFocus={() => setIsDescriptionFocus(true)}
+            onBlur={() => setIsDescriptionFocus(false)}
+          />
         </TextInputForm>
         <ButtonContainer>
-          <PreviousButton type="button" onClick={() => setProgressState(2)}>
+          <PreviousButton type="button" onClick={() => setProgressState(-1)}>
             이전으로
           </PreviousButton>
           <div>
@@ -47,25 +66,32 @@ const CreateBasicInfoContainer = styled.div`
   gap: 4rem;
   align-items: center;
   justify-content: center;
+
+  opacity: 0;
   z-index: 2;
 
   width: 100%;
   height: 100vh;
 
-  &.hidden {
-    opacity: 0;
-  }
-
-  &.fadein {
+  &.fadeIn {
     transform: translateY(-30rem);
     transition: 1s;
     opacity: 1;
+    z-index: 100;
   }
 
-  &.fadeout {
+  &.fadeDownOut {
+    transform: translateY(30rem);
+    transition: 1s;
+    opacity: 0;
+    z-index: 0;
+  }
+
+  &.fadeUpOut {
     transform: translateY(-60rem);
     transition: 1s;
     opacity: 0;
+    z-index: 0;
   }
 `;
 
