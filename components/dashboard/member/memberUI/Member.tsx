@@ -4,7 +4,7 @@ import React, { useState } from 'react';
 import Image from 'next/image';
 import styled from 'styled-components';
 
-import { CharmMenuMeatballIcon, IcUserIcon } from '@/public/icons';
+import { CharmMenuMeatballIcon, IcClose24Icon, IcUserIcon } from '@/public/icons';
 import { MemberExampleImg } from '@/public/images';
 import { MemberProps } from '@/types/member';
 
@@ -21,15 +21,21 @@ const Member = (props: MemberProps) => {
   return (
     <MemberContainer>
       <MemberInnerContent>
-        <MemberInfoBox>
-          {status === '수락대기중' ? (
-            <NameBox>
-              <IcUserIcon />
-              <Email>{email} </Email>
-              <Pending />
-            </NameBox>
-          ) : (
-            <>
+        {status === '수락대기중' ? (
+          <>
+            <MemberInfoBox>
+              <NameBox>
+                <IcUserIcon />
+                <Email>{email} </Email>
+                <Pending />
+              </NameBox>
+            </MemberInfoBox>
+            <IcClose24Icon onClick={() => setShowPopOver(!showPopOver)} />
+            {showPopOver && <PopOver />}
+          </>
+        ) : (
+          <>
+            <MemberInfoBox>
               <NameBox className="manager">
                 {profilePicUrl ? (
                   // <Image src={profilePicUrl} alt="member profile photo" width={36} height={36} />
@@ -43,13 +49,16 @@ const Member = (props: MemberProps) => {
               </NameBox>
               <Position> {position} </Position>
               <Email> {email} </Email>
-            </>
-          )}
-        </MemberInfoBox>
+            </MemberInfoBox>
+            <MenuBtn onClick={() => setShowPopOver(!showPopOver)} />
+            {showPopOver && <PopOver />}
+          </>
+        )}
+        {/* </MemberInfoBox>
         <MenuBtn onClick={() => setShowPopOver(!showPopOver)}>
           <CharmMenuMeatballIcon />
         </MenuBtn>
-        {showPopOver && <PopOver />}
+        {showPopOver && <PopOver />} */}
       </MemberInnerContent>
     </MemberContainer>
   );
@@ -116,4 +125,6 @@ const Email = styled.div`
   color: ${({ theme }) => theme.colors.grey_700};
 `;
 
-const MenuBtn = styled.button``;
+const MenuBtn = styled(CharmMenuMeatballIcon)`
+  width: 2.4rem;
+`;
