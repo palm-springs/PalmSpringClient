@@ -19,7 +19,10 @@ const TextInputForm = (props: TextInputFormProps) => {
         <InputTitle>블로그 {type}</InputTitle>
         {type === '주소' && <span>영어문자와 숫자, 언더바(_)만 사용할 수 있어요</span>}
       </TitleContainer>
-      <InputContainer className={type} $isFocus={isFocus} $isAddressDuplicate={isAddressDuplicate}>
+      <InputContainer
+        className={type}
+        id={isAddressDuplicate !== undefined ? (isAddressDuplicate ? 'failed' : 'success') : ''}
+        $isFocus={isFocus}>
         {children}
       </InputContainer>
       {isAddressDuplicate !== undefined && <InputMessage isAddressDuplicate={isAddressDuplicate} />}
@@ -52,10 +55,11 @@ const TitleContainer = styled.div`
 `;
 
 // text input 입력  컨테이너
-const InputContainer = styled.div<{ $isFocus: boolean; $isAddressDuplicate?: boolean }>`
+const InputContainer = styled.div<{ $isFocus: boolean }>`
   border: 1px solid;
 
   border-radius: 0.8rem;
+
   border-color: ${({ theme, $isFocus }) => ($isFocus ? theme.colors.grey_700 : theme.colors.grey_400)};
 
   padding: 1rem 1.2rem;
@@ -69,6 +73,14 @@ const InputContainer = styled.div<{ $isFocus: boolean; $isAddressDuplicate?: boo
 
   &.설명 {
     height: 7.9rem;
+  }
+
+  &#failed {
+    border-color: ${({ theme }) => theme.colors.red};
+  }
+
+  &#success {
+    border-color: ${({ theme }) => theme.colors.green};
   }
 
   & > div {
