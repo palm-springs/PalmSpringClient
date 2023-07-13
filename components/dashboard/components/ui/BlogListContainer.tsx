@@ -11,12 +11,12 @@ const BlogListUI = styled.section`
   display: flex;
   position: absolute;
   top: 12.3rem;
-  left: 1.6;
+  left: 1.6rem;
   flex-direction: column;
   gap: 0.4rem;
   align-items: center;
   justify-content: space-between;
-  z-index: 999;
+  z-index: 10;
   border: 1px solid ${({ theme }) => theme.colors.grey_300};
   border-radius: 0.8rem;
   box-shadow: 0px 2px 5px 0px rgba(0, 0, 0, 0.1);
