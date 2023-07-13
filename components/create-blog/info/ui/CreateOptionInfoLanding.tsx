@@ -20,10 +20,16 @@ const CreateOptionInfoLanding = (props: ProgressStateProps) => {
           <TextAreaInput placeholder="블로그 설명을 입력해주세요" />
         </TextInputForm>
         <ButtonContainer>
-          <PreviousButton onClick={() => setProgressState(2)}>이전으로</PreviousButton>
+          <PreviousButton type="button" onClick={() => setProgressState(2)}>
+            이전으로
+          </PreviousButton>
           <div>
-            <SkipButton onClick={() => setProgressState(3)}>건너뛰기</SkipButton>
-            <NextButton onClick={() => setProgressState(3)}>다음으로</NextButton>
+            <SkipButton type="button" onClick={() => setProgressState(3)}>
+              건너뛰기
+            </SkipButton>
+            <NextButton type="button" onClick={() => setProgressState(3)}>
+              다음으로
+            </NextButton>
           </div>
         </ButtonContainer>
       </InfoContainer>
