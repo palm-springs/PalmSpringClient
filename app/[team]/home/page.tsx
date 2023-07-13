@@ -5,7 +5,7 @@ import React from 'react';
 
 import ArticleContainer from '@/components/blog/UI/ArticleContainer';
 
-function BlogMainPage({ children }: { children: React.ReactNode }) {
+function BlogMainPage({ children }: { children: React.ReactElement }) {
   return <ArticleContainer>{children}</ArticleContainer>;
 }
 
