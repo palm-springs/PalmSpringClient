@@ -11,9 +11,9 @@ const CategoryBtnBar = () => {
 
   const CATEGORY_EXAMPLE: string[] = ['개발', '디자인', '팀문화'];
 
-  const CATEGORY_LIST = CATEGORY_EXAMPLE.map((eachCategory, index) => {
+  const CATEGORY_LIST = CATEGORY_EXAMPLE.map((eachCategory) => {
     return (
-      <CategoryBtn key={index} type="button" className={eachCategory === decodeURI(SELECTED) ? 'selected' : ''}>
+      <CategoryBtn key={eachCategory} type="button" className={eachCategory === decodeURI(SELECTED) ? 'selected' : ''}>
         <Link href={`/blogNameHere/home/${eachCategory}`}>{eachCategory}</Link>
       </CategoryBtn>
     );
