@@ -1,10 +1,10 @@
 'use client';
 
-import { useState } from 'react';
+import { ChangeEvent, useState } from 'react';
 import Image from 'next/image';
 import styled from 'styled-components';
 
-import { UploadIcon } from '@/public/icons';
+import { IcClose24Icon, UploadIcon } from '@/public/icons';
 
 import InputTitle from './InputTitle';
 
@@ -15,7 +15,16 @@ interface ImageInputFormProps {
 const ImageInputForm = (props: ImageInputFormProps) => {
   const { type } = props;
   // 임시 state
-  const [imgState] = useState(null);
+  const [imgSrc, setImgSrc] = useState('');
+
+  const handleOnFileChange = (e: ChangeEvent<HTMLInputElement>) => {
+    const { files } = e.currentTarget;
+    const reader = new FileReader();
+    reader.readAsDataURL(files[0] as FileList);
+    reader.onloadend = () => {
+      setImgSrc(reader.result as string);
+    };
+  };
 
   return (
     <ImageInputFormContainer>
@@ -25,13 +34,18 @@ const ImageInputForm = (props: ImageInputFormProps) => {
       </InputTitle>
 
       <ImageContainer className={type}>
-        {imgState ? (
-          <Image src={''} alt="" />
+        {imgSrc ? (
+          <>
+            <Image src={imgSrc} alt="" width={400} height={type === 'logo' ? 116 : 139} />
+            <button onClick={() => setImgSrc('')}>
+              <IcClose24Icon />
+            </button>
+          </>
         ) : (
           <Label>
             <UploadIcon />
             업로드하기
-            <input type="file" />
+            <input type="file" onChange={handleOnFileChange} />
           </Label>
         )}
       </ImageContainer>
@@ -47,6 +61,7 @@ const ImageInputFormContainer = styled.div`
 
 // img input 입력  컨테이너
 const ImageContainer = styled.div`
+  position: relative;
   margin-top: 0.8rem;
   &.logo {
     height: 11.6rem;
@@ -59,6 +74,14 @@ const ImageContainer = styled.div`
     border-radius: 0.8rem;
     width: 100%;
     height: 100%;
+  }
+
+  & > button {
+    position: absolute;
+    top: 1.2rem;
+    right: 1.2rem;
+    width: 2.4rem;
+    height: 2.4rem;
   }
 `;
 
