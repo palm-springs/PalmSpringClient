@@ -4,12 +4,14 @@ import React, { useState } from 'react';
 import Image from 'next/image';
 import styled from 'styled-components';
 
+import ModalPortal from '@/components/common/ModalPortal';
 import { CharmMenuMeatballIcon, IcClose24Icon, IcUserIcon } from '@/public/icons';
 import { MemberExampleImg } from '@/public/images';
 import { MemberProps } from '@/types/member';
 
 import PopOver from '../PopOver';
 
+import CancelInviteModal from './CancelInviteModal';
 import Manager from './Manager';
 import Pending from './Pending';
 
@@ -17,6 +19,11 @@ const Member = (props: MemberProps) => {
   const { profilePicUrl, name, status, position, email } = props;
 
   const [showPopOver, setShowPopOver] = useState(false);
+  const [showCancelInviteModal, setShowCancelInviteModal] = useState(false);
+
+  const modalCloseHandler = () => {
+    setShowCancelInviteModal(false);
+  };
 
   return (
     <MemberContainer>
@@ -30,8 +37,17 @@ const Member = (props: MemberProps) => {
                 <Pending />
               </NameBox>
             </MemberInfoBox>
-            <IcClose24Icon onClick={() => setShowPopOver(!showPopOver)} />
-            {showPopOver && <PopOver />}
+            <IcClose24Icon onClick={() => setShowCancelInviteModal(!showCancelInviteModal)} />
+            {showCancelInviteModal && (
+              <ModalPortal>
+                <CancelInviteModal
+                  text={'초대를 취소하시겠어요?'}
+                  subText={`${email}`}
+                  leftButtonText={'유지하기'}
+                  rightButtonText={'초대 취소'}
+                  leftHandler={modalCloseHandler}></CancelInviteModal>
+              </ModalPortal>
+            )}
           </>
         ) : (
           <>
@@ -51,7 +67,7 @@ const Member = (props: MemberProps) => {
               <Email> {email} </Email>
             </MemberInfoBox>
             <MenuBtn onClick={() => setShowPopOver(!showPopOver)} />
-            {showPopOver && <PopOver />}
+            {showPopOver && <PopOver name={name} />}
           </>
         )}
         {/* </MemberInfoBox>
@@ -127,4 +143,5 @@ const Email = styled.div`
 
 const MenuBtn = styled(CharmMenuMeatballIcon)`
   width: 2.4rem;
+  height: 2.2286rem;
 `;

@@ -29,8 +29,8 @@ const MemberList = () => {
       email: 'baek789@naver.com',
     },
     {
-      name: '이이이',
-      status: '',
+      name: '김김김',
+      status: '수락대기중',
       position: 'Product Manager',
       email: 'baek789@naver.com',
     },
@@ -38,7 +38,7 @@ const MemberList = () => {
       name: '김김김',
       status: '수락대기중',
       position: 'Product Manager',
-      email: 'baek789@naver.com',
+      email: 'sian0803@naver.com',
     },
   ];
 
