@@ -2,7 +2,7 @@
 import React from 'react';
 
 const CategoryPage = () => {
-  return <div>page입니다.</div>;
+  return <div></div>;
 };
 
 export default CategoryPage;

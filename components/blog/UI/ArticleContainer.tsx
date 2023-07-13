@@ -6,14 +6,14 @@ import styled from 'styled-components';
 import ArticleList from './ArticleList';
 import CategoryBtnBar from './CategoryBtnBar';
 
-const ArticleContainer = ({ children }: { children: React.ReactElement }) => {
+const ArticleContainer = () => {
   return (
     <>
       <CategoryBtnWrapper>
         <CategoryBtnBar />
       </CategoryBtnWrapper>
       <ArticleWrapper>
-        <ArticleList>{children}</ArticleList>
+        <ArticleList />
       </ArticleWrapper>
     </>
   );
