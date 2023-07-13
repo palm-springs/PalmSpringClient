@@ -4,11 +4,16 @@ import React, { useState } from 'react';
 import Link from 'next/link';
 import styled from 'styled-components';
 
-import ModalPortal from '@/components/common/ModalPotal';
-import DeleteMemberModal from '@/components/common/UI/DeleteMemberModal';
+import ModalPortal from '@/components/common/ModalPortal';
 
-const PopOver = () => {
-  // const NAME = popOverName;
+import DeleteMemberModal from './ui/DeleteMemberModal';
+
+interface PopOverProp {
+  name: string;
+}
+
+const PopOver = (prop: PopOverProp) => {
+  const { name } = prop;
   const [showModal, setShowModal] = useState(false);
 
   const modalOpenHandle = () => {
@@ -29,7 +34,7 @@ const PopOver = () => {
       {showModal && (
         <ModalPortal>
           <DeleteMemberModal
-            text={'ooo님을 팀에서'}
+            text={`${name}님을 팀에서`}
             lineBreaking={'제외하시겠어요?'}
             subText={'팀원을 제외할 시, 복구할 수 없습니다'}
             leftButtonText={'유지하기'}
