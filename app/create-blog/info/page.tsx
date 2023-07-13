@@ -1,7 +1,7 @@
-import CreateBlogInfo from '@/components/create-blog/basic-info/CreateBlogInfo';
+import CreateBlogBasicInfo from '@/components/create-blog/info/CreateBlogBasicInfo';
 
 const CreateBlogInfoPage = () => {
-  return <CreateBlogInfo />;
+  return <CreateBlogBasicInfo />;
 };
 
 export default CreateBlogInfoPage;

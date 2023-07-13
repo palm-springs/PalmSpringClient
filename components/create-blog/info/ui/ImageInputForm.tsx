@@ -4,7 +4,7 @@ import { useState } from 'react';
 import Image from 'next/image';
 import styled from 'styled-components';
 
-import { ImageDownIcon } from '@/public/icons';
+import { UploadIcon } from '@/public/icons';
 
 import InputTitle from './InputTitle';
 
@@ -18,9 +18,10 @@ const ImageInputForm = (props: ImageInputFormProps) => {
   const [imgState] = useState(null);
 
   return (
-    <div>
+    <ImageInputFormContainer>
       <InputTitle>
-        블로그 {type === 'logo' ? '로고' : '대문'} 이미지<span>000*000 JPEG (이미지 규격 가이드)</span>
+        블로그 {type === 'logo' ? '로고' : '대문'} 이미지
+        {type === 'gate' && <span>대문 이미지 권장 크기는 1440*500 입니다</span>}
       </InputTitle>
 
       <ImageContainer className={type}>
@@ -28,25 +29,30 @@ const ImageInputForm = (props: ImageInputFormProps) => {
           <Image src={''} alt="" />
         ) : (
           <Label>
-            <ImageDownIcon />
+            <UploadIcon />
             업로드하기
             <input type="file" />
           </Label>
         )}
       </ImageContainer>
-    </div>
+    </ImageInputFormContainer>
   );
 };
 
 export default ImageInputForm;
 
+const ImageInputFormContainer = styled.div`
+  width: 100%;
+`;
+
 // img input 입력  컨테이너
 const ImageContainer = styled.div`
+  margin-top: 0.8rem;
   &.logo {
     height: 11.6rem;
   }
   &.gate {
-    height: 7.3rem;
+    height: 13.9rem;
   }
 
   & > img {
