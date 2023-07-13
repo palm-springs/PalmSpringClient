@@ -10,7 +10,7 @@ const InputMessage = (props: InputMessageProps) => {
 
   return (
     <Message $isAddressDuplicate={isAddressDuplicate}>
-      {isAddressDuplicate ? '이미 사용 중인 주소입니다.' : '사용 가능한 주소입니다.'}
+      {isAddressDuplicate ? '이미 사용 중인 주소입니다. 다른 주소를 입력해주세요.' : '사용 가능한 주소입니다.'}
     </Message>
   );
 };
