@@ -3,7 +3,7 @@
 import React from 'react';
 import styled from 'styled-components';
 
-import FooterContact from './UI/FooterContact';
+import FooterContact from './ui/FooterContact';
 
 const BlogFooter = () => {
   return (
