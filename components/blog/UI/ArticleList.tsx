@@ -5,7 +5,7 @@ import styled from 'styled-components';
 
 import Article from '../../common/Article';
 
-const ArticleList = ({ children }: { children: React.ReactNode }) => {
+const ArticleList = () => {
   const ARTICLE_LIST = [
     {
       title: '리액트 API와 코드 재사용의 진화에 대한 글의 제목이 길다면 어떨까',
@@ -46,7 +46,6 @@ const ArticleList = ({ children }: { children: React.ReactNode }) => {
           thumbnailImgUrl={thumbnailImgUrl}
         />
       ))}
-      {children}
     </ArticleListContainer>
   );
 };
