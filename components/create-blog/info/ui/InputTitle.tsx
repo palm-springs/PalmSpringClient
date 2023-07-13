@@ -10,7 +10,6 @@ export default InputTitle;
 
 const Title = styled.h2`
   ${({ theme }) => theme.fonts.Body2_Semibold};
-  margin-bottom: 0.8rem;
   color: ${({ theme }) => theme.colors.grey_950};
 
   & > span {

@@ -3,6 +3,7 @@
 export { default as ArrowDownIcon } from './arrow_down.svg';
 export { default as ArrowRightContained02Icon } from './arrow-right-contained-02.svg';
 export { default as CharmMenuMeatballIcon } from './charm_menu-meatball.svg';
+export { default as CheckBoxIcon } from './checkbox.svg';
 export { default as File02Icon } from './file-02.svg';
 export { default as File04Icon } from './file-04.svg';
 export { default as Grid01Icon } from './grid-01.svg';
@@ -15,6 +16,7 @@ export { default as H3Icon } from './ic_H3.svg';
 export { default as ImageUploadIcon } from './ic_img_upload.svg';
 export { default as ItalicIcon } from './ic_Italic.svg';
 export { default as StrikeIcon } from './ic_Strike.svg';
+export { default as UploadIcon } from './ic_upload.svg';
 export { default as BulletIcon } from './icnBullet.svg';
 export { default as CodeIcon } from './icnCode.svg';
 export { default as CodeBlockIcon } from './icnCodeblock.svg';
