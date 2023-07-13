@@ -36,6 +36,7 @@ export default function RootLayout({ children }: { children: React.ReactNode }) 
             <ThemeProvider theme={theme}>
               <GlobalStyle />
               {children}
+              <div id="modal-root"></div>
             </ThemeProvider>
           </StyledComponentsRegistry>
         </QueryClientProvider>
