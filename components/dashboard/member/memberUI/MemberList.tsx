@@ -8,7 +8,7 @@ import { MemberProps } from '@/types/member';
 import Member from './Member';
 
 const MemberList = () => {
-  const MEMBER_LIST: MemberProps[] = [
+  const MEMBERS: MemberProps[] = [
     {
       profilePicUrl: 'MemberExampleImg',
       name: '김서홍윤',
@@ -42,7 +42,7 @@ const MemberList = () => {
     },
   ];
 
-  const TEST = MEMBER_LIST.map((eachItem) => {
+  const MEMBER_LIST = MEMBERS.map((eachItem) => {
     return (
       <Member
         key={eachItem.email}
@@ -55,7 +55,7 @@ const MemberList = () => {
     );
   });
 
-  return <MemberListContainer>{TEST}</MemberListContainer>;
+  return <MemberListContainer>{MEMBER_LIST}</MemberListContainer>;
 };
 
 export default MemberList;

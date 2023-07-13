@@ -19,7 +19,9 @@ const MemberListHeaderContainer = styled.div`
   display: flex;
   align-items: center;
   justify-content: flex-start;
+
   border-bottom: 1px solid ${({ theme }) => theme.colors.grey_400};
+
   width: 100%;
   height: 4rem;
 `;
