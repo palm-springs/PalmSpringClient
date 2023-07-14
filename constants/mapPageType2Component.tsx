@@ -8,7 +8,6 @@ import {
   UserProfile03Icon,
   UserProfileCheckIcon,
 } from '@/public/icons';
-import { dashBoardPageType } from '@/types/dashboard';
 
 type mapPageType2ComponentBluePrint = {
   [pageType in dashBoardPageType]: {

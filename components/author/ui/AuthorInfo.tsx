@@ -3,8 +3,6 @@
 import React from 'react';
 import styled from 'styled-components';
 
-import { AuthorInfoProps } from '@/types/author';
-
 import AuthorProfile from './AuthorProfile';
 
 const AuthorInfo = (props: AuthorInfoProps) => {

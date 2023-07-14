@@ -6,7 +6,6 @@ import React from 'react';
 import styled from 'styled-components';
 
 import Article from '@/components/common/Article';
-import { ArticleListProps } from '@/types/articleList';
 
 const ArticleBox = () => {
   const ARTICLE_LIST = [
