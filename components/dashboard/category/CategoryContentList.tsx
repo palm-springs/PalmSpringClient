@@ -1,9 +1,8 @@
 'use client';
 
 import React from 'react';
-import { useQuery } from '@tanstack/react-query';
 
-import { getCategoryList } from '@/api/dashboard';
+import { useGetCategoryList } from '@/hooks/dashboard';
 
 import DashBoardContent from '../components/DashBoardContent';
 import DashBoardContentListContainer from '../components/ui/DashBoardContentListContainer';
@@ -11,10 +10,7 @@ import DashBoardContentListContainer from '../components/ui/DashBoardContentList
 const CategoryContentList = () => {
   const blogUrl = 'Palms';
 
-  const { data } = useQuery({
-    queryKey: ['getCategoryList', blogUrl],
-    queryFn: () => getCategoryList(blogUrl),
-  });
+  const data = useGetCategoryList(blogUrl);
 
   if (!data) return <div>로더가 들어갈 자리입니다.</div>;
 
