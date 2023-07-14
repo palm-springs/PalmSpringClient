@@ -75,7 +75,7 @@ const Title = styled.h1`
 `;
 
 // input (text)
-const TextInput = styled.input`
+export const TextInput = styled.input`
   ${({ theme }) => theme.fonts.Body2_Regular};
   border: none;
 
