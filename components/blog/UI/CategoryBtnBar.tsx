@@ -13,16 +13,20 @@ const CategoryBtnBar = () => {
 
   const CATEGORY_LIST = CATEGORY_EXAMPLE.map((eachCategory) => {
     return (
-      <CategoryBtn key={eachCategory} type="button" className={eachCategory === decodeURI(SELECTED) ? 'selected' : ''}>
-        <Link href={`/blogNameHere/home/${eachCategory}`}>{eachCategory}</Link>
+      <CategoryBtn
+        href={`/blogNameHere/home/${eachCategory}`}
+        key={eachCategory}
+        type="button"
+        className={eachCategory === decodeURI(SELECTED) ? 'selected' : ''}>
+        {eachCategory}
       </CategoryBtn>
     );
   });
 
   return (
     <CategoryBtnBarContainer>
-      <CategoryBtn type="button" className={SELECTED === 'home' ? 'selected' : ''}>
-        <Link href={'../home'}>전체</Link>
+      <CategoryBtn href={'../home'} type="button" className={SELECTED === 'home' ? 'selected' : ''}>
+        전체
       </CategoryBtn>
       {CATEGORY_LIST}
     </CategoryBtnBarContainer>
@@ -40,7 +44,7 @@ const CategoryBtnBarContainer = styled.div`
   width: 72rem;
 `;
 
-const CategoryBtn = styled.button`
+const CategoryBtn = styled(Link)`
   ${({ theme }) => theme.fonts.Body1_Regular};
 
   display: flex;
