@@ -4,7 +4,7 @@ import React, { useState } from 'react';
 import styled from 'styled-components';
 
 import ModalPortal from '@/components/common/ModalPortal';
-import DashboardDeleteModal from '@/components/common/UI/DashboardDeleteModal';
+import DashboardDeleteModal from '@/components/common/ui/DashboardDeleteModal';
 
 const SaveArticleButton = () => {
   const [isModal, setIsModal] = useState(false);

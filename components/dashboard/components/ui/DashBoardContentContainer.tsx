@@ -18,6 +18,7 @@ import Draft from './Draft';
 import Email from './Email';
 import NewsLetter from './NewsLetter';
 import Position from './Position';
+import TabType from './TabType';
 import Url from './Url';
 
 interface DashBoardContentContainerProps {
@@ -52,13 +53,14 @@ const DashBoardContentContainer = (props: DashBoardContentContainerProps) => {
   const isModalOpen = modalOpenContentId === id;
 
   const pathName = useGetLastPathName();
+
   // 날짜 포맷팅은 나중에 raw 데이터가 어떻게 날아오는지 확인하고 합시다!
   return (
     <DashBoardContentUI>
       {email && <Email email={email} />}
       {content && <Content onTitleClick={onTitleClick} content={content} />}
       {url && <Url url={url} />}
-      {tabType && <span id="tabType">{tabType}</span>}
+      {tabType && <TabType tabType={tabType} />}
       {author && <Author author={author} />}
       {position && <Position position={position} />}
       {description && <Description description={description} />}
@@ -66,9 +68,12 @@ const DashBoardContentContainer = (props: DashBoardContentContainerProps) => {
       {createdAt && <CreatedAt createdAt={createdAt} />}
       {newsLetter && <NewsLetter newsLetter={newsLetter} />}
       {pathName === 'subscriber' ? (
-        <DeleteBtn />
+        <BtnContainer onBlur={() => setModalOpenContentId('')}>
+          <IcClose24Icon />
+        </BtnContainer>
       ) : (
-        <MenuBtn
+        <BtnContainer
+          onBlur={() => setModalOpenContentId('')}
           onClick={() => {
             onMenuButtonClick((prev) => !prev);
             if (modalOpenContentId === id) {
@@ -76,8 +81,9 @@ const DashBoardContentContainer = (props: DashBoardContentContainerProps) => {
             } else {
               setModalOpenContentId(id);
             }
-          }}
-        />
+          }}>
+          <CharmMenuMeatballIcon />
+        </BtnContainer>
       )}
       {isModalOpen && <PopOverMenu pathName={pathName} />}
     </DashBoardContentUI>
@@ -90,9 +96,14 @@ const DashBoardContentUI = styled.article`
   display: flex;
   position: relative;
   align-items: center;
+  transition-duration: 0.3s ease-out;
   border-bottom: 1px solid ${({ theme }) => theme.colors.grey_300};
   width: 100%;
   height: 5.2rem;
+
+  &:hover {
+    background: ${({ theme }) => theme.colors.grey_100};
+  }
 
   button {
     border: none;
@@ -105,14 +116,19 @@ const DashBoardContentUI = styled.article`
   }
 `;
 
-const MenuBtn = styled(CharmMenuMeatballIcon)`
+const BtnContainer = styled.button`
+  display: flex;
   position: absolute;
   right: 0;
+  align-items: center;
+  justify-content: center;
+  transition-duration: 0.3s ease-out;
+  margin-right: 0.6rem;
+  border-radius: 0.4rem;
   cursor: pointer;
-`;
-
-const DeleteBtn = styled(IcClose24Icon)`
-  position: absolute;
-  right: 0;
-  cursor: pointer;
+  width: 2.4rem;
+  height: 2.4rem;
+  &:hover {
+    background: ${({ theme }) => theme.colors.grey_300};
+  }
 `;

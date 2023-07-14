@@ -3,28 +3,32 @@
 import React from 'react';
 import { styled } from 'styled-components';
 
-import { dashBoardTabType } from '@/types/dashboard';
+import { UploadTabBarProps } from '../UploadTabBar';
 interface UploadTabBarContainerProps {
-  currentTab: dashBoardTabType;
-  setCurrentTab: React.MouseEventHandler<HTMLButtonElement>;
+  categoryProps: UploadTabBarProps;
 }
 
 const UploadTabBarContainer = (props: UploadTabBarContainerProps) => {
-  const { currentTab, setCurrentTab } = props;
+  const {
+    categoryProps: { category, setCategory },
+  } = props;
 
   return (
     <UploadTabBarUI>
-      <UploadTabBarTextUI $currentTab={currentTab === 'all'} onClick={setCurrentTab}>
+      <UploadTabBarTextUI $currentTab={category === 'all'} onClick={() => setCategory('all')}>
         전체
       </UploadTabBarTextUI>
-      <UploadTabBarTextUI $currentTab={currentTab === 'dev'} onClick={setCurrentTab}>
+      <UploadTabBarTextUI $currentTab={category === 'dev'} onClick={() => setCategory('dev')}>
         개발
       </UploadTabBarTextUI>
-      <UploadTabBarTextUI $currentTab={currentTab === 'design'} onClick={setCurrentTab}>
+      <UploadTabBarTextUI $currentTab={category === 'design'} onClick={() => setCategory('design')}>
         디자인
       </UploadTabBarTextUI>
-      <UploadTabBarTextUI $currentTab={currentTab === 'plan'} onClick={setCurrentTab}>
+      <UploadTabBarTextUI $currentTab={category === 'plan'} onClick={() => setCategory('plan')}>
         기획
+      </UploadTabBarTextUI>
+      <UploadTabBarTextUI $currentTab={category === 'culture'} onClick={() => setCategory('culture')}>
+        문화
       </UploadTabBarTextUI>
     </UploadTabBarUI>
   );
@@ -41,8 +45,13 @@ const UploadTabBarUI = styled.section`
 `;
 
 const UploadTabBarTextUI = styled.span<{ $currentTab: boolean }>`
+  transition-duration: 0.3s ease-out;
   border-bottom: ${({ theme, $currentTab }) => ($currentTab ? `2px solid ${theme.colors.grey_950}` : 0)};
-  height: 3.5rem;
   ${({ theme }) => theme.fonts.Body1_Semibold};
+  cursor: pointer;
+  height: 3.5rem;
   color: ${({ theme, $currentTab }) => ($currentTab ? theme.colors.grey_900 : theme.colors.grey_600)};
+  &:hover {
+    color: ${({ theme, $currentTab }) => ($currentTab ? theme.colors.grey_800 : theme.colors.grey_700)};
+  }
 `;

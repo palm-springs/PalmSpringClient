@@ -2,12 +2,12 @@
 import React from 'react';
 import styled from 'styled-components';
 
-import CategorySelect from '@/components/editor/article/publish/UI/CategorySelect';
-import OneLiner from '@/components/editor/article/publish/UI/OneLiner';
-import PublishBottomButtons from '@/components/editor/article/publish/UI/PublishBottom';
-import PublishTitle from '@/components/editor/article/publish/UI/PublishTitle';
-import ThumbnailInput from '@/components/editor/article/publish/UI/ThumbnailInput';
-import UrlCustom from '@/components/editor/article/publish/UI/UrlCustom';
+import CategorySelect from '@/components/editor/article/publish/ui/CategorySelect';
+import OneLiner from '@/components/editor/article/publish/ui/OneLiner';
+import PublishBottomButtons from '@/components/editor/article/publish/ui/PublishBottom';
+import PublishTitle from '@/components/editor/article/publish/ui/PublishTitle';
+import ThumbnailInput from '@/components/editor/article/publish/ui/ThumbnailInput';
+import UrlCustom from '@/components/editor/article/publish/ui/UrlCustom';
 
 const ArticlePublishPage = () => {
   return (

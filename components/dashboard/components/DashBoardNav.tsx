@@ -1,17 +1,20 @@
 'use client';
 
-import React from 'react';
+import React, { useState } from 'react';
 
 import DashBoardNavContainer from './ui/DashBoardNavContainer';
 import Line from './ui/Line';
+import BlogList from './BlogList';
 import DashBoardFooter from './DashBoardFooter';
 import DashBoardTitle from './DashBoardTitle';
 import NavButton from './NavButton';
 
 const DashBoardNav = () => {
+  const [isBlogListOpen, setIsBlogListOpen] = useState<boolean>(false);
+
   return (
     <DashBoardNavContainer>
-      <DashBoardTitle />
+      <DashBoardTitle setIsBlogListOpen={setIsBlogListOpen} />
       <NavButton currentPageType="upload" />
       <NavButton currentPageType="tempsaved" />
       <Line />
@@ -24,6 +27,7 @@ const DashBoardNav = () => {
       <Line />
       <NavButton currentPageType="blogdirectnav" />
       <NavButton currentPageType="blogconfignav" />
+      {isBlogListOpen && <BlogList />}
       <DashBoardFooter />
     </DashBoardNavContainer>
   );
