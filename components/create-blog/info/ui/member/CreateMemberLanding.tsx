@@ -56,14 +56,16 @@ const CreateMemberContainer = styled.div`
 
   &.fadeIn {
     transform: translateY(-30rem);
-    transition: 1s;
+
+    transition: transform 1s, opacity 0.3s;
     opacity: 1;
     z-index: 100;
   }
 
   &.fadeDownOut {
     transform: translateY(30rem);
-    transition: 1s;
+
+    transition: transform 1s, opacity 0.3s;
     opacity: 0;
     z-index: 0;
   }

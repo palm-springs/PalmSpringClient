@@ -14,7 +14,7 @@ const ProgressDot = (props: ProgressDotProps) => {
 
   const [currentStep, setCurrentStep] = useState('first');
 
-  const [firstCheckBoxAnimation, setFirstCheckBoxAnimation] = useState('');
+  const [firstCheckBoxAnimation, setFirstCheckBoxAnimation] = useState('shown');
   const [secondCheckBoxAnimation, setSecondCheckBoxAnimation] = useState('');
   const [thirdCheckBoxAnimation, setThirdCheckBoxAnimation] = useState('');
 
@@ -50,21 +50,21 @@ const ProgressDot = (props: ProgressDotProps) => {
           <CheckDot className={firstCheckBoxAnimation}>
             <CheckBoxIcon />
           </CheckDot>
-          <Dot className={'green'} />
+          <Dot className={'green'} $isShown={currentStep === 'first'} />
         </CheckBox>
 
         <CheckBox $width={currentStep === 'second' ? '3' : '2.2'} $height={currentStep === 'second' ? '3' : '2.2'}>
           <CheckDot className={secondCheckBoxAnimation}>
             <CheckBoxIcon />
           </CheckDot>
-          <Dot className={currentStep === 'first' ? 'grey' : 'green'} />
+          <Dot className={currentStep === 'first' ? 'grey' : 'green'} $isShown={currentStep === 'second'} />
         </CheckBox>
 
         <CheckBox $width={currentStep === 'third' ? '3' : '2.2'} $height={currentStep === 'third' ? '3' : '2.2'}>
           <CheckDot className={thirdCheckBoxAnimation}>
             <CheckBoxIcon />
           </CheckDot>
-          <Dot className={currentStep === 'third' ? 'green' : 'grey'} />
+          <Dot className={currentStep === 'third' ? 'green' : 'grey'} $isShown={currentStep === 'third'} />
         </CheckBox>
       </DotContainer>
     </ProgressDotContainer>
@@ -100,12 +100,15 @@ const CheckBox = styled.div<{ $width: string; $height: string }>`
   height: ${({ $height }) => `${$height}rem`};
 `;
 
-const Dot = styled.div`
+const Dot = styled.div<{ $isShown: boolean }>`
+  transition: opacity 0.6s;
+  opacity: ${({ $isShown }) => ($isShown ? 0 : 1)};
   border-radius: 1.5rem;
 
   background-color: ${({ theme }) => theme.colors.background_green};
-  width: 2.2rem;
-  height: 2.2rem;
+
+  width: ${({ $isShown }) => ($isShown ? '3rem' : '2.2rem')};
+  height: ${({ $isShown }) => ($isShown ? '3rem' : '2.2rem')};
 
   &.grey {
     background-color: ${({ theme }) => theme.colors.grey_200};
@@ -131,12 +134,12 @@ const CheckDot = styled.div`
   }
 
   &.fadeIn {
-    transition: 1s;
+    transition: 0.6s;
     opacity: 1;
   }
 
   &.fadeOut {
-    transition: 1s;
+    transition: 0.6s;
     opacity: 0;
   }
 `;

@@ -19,10 +19,12 @@ const ImageInputForm = (props: ImageInputFormProps) => {
   const handleOnFileChange = (e: ChangeEvent<HTMLInputElement>) => {
     const { files } = e.currentTarget;
     const reader = new FileReader();
-    reader.readAsDataURL(files[0] as FileList);
-    reader.onloadend = () => {
-      setImgSrc(reader.result as string);
-    };
+    if (files) {
+      reader.readAsDataURL(files[0] as Blob);
+      reader.onloadend = () => {
+        setImgSrc(reader.result as string);
+      };
+    }
   };
 
   return (
@@ -102,7 +104,9 @@ const Label = styled.label`
 
   background-color: ${({ theme }) => theme.colors.grey_200};
 
+  cursor: pointer;
   height: 100%;
+
   color: ${({ theme }) => theme.colors.grey_700};
 
   & > input {
