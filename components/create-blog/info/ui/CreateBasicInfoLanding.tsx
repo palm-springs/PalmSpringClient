@@ -22,7 +22,9 @@ const CreateBasicInfoLanding = (props: ProgressStateProps) => {
         </TextInputForm>
         <ButtonContainer>
           <PreviousButton>이전으로</PreviousButton>
-          <NextButton type="button" onClick={() => setProgressState(2)}>다음으로</NextButton>
+          <NextButton type="button" onClick={() => setProgressState(2)}>
+            다음으로
+          </NextButton>
         </ButtonContainer>
       </InfoContainer>
     </CreateBasicInfoContainer>

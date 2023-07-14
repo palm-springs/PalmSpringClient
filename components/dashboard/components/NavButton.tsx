@@ -4,7 +4,6 @@ import React from 'react';
 import { useParams, useRouter } from 'next/navigation';
 
 import useGetLastPathName from '@/hooks/useGetLastPathName';
-import { dashBoardPageType } from '@/types/dashboard';
 
 import mapPageType2Component from '../../../constants/mapPageType2Component';
 
