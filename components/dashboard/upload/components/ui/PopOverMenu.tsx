@@ -3,8 +3,6 @@
 import React from 'react';
 import { styled } from 'styled-components';
 
-import { dashBoardPageType } from '@/types/dashboard';
-
 interface PopOverMenuProps {
   pathName: dashBoardPageType;
 }
@@ -24,7 +22,7 @@ const PopOverMenu = (props: PopOverMenuProps) => {
   };
 
   return (
-    <PopOverMenuUI>
+    <PopOverMenuUI className="pop_over_menu">
       <div>{navigateContent()}</div>
       <div>수정하기</div>
       <div>삭제하기</div>
@@ -51,7 +49,7 @@ const PopOverMenuUI = styled.article`
   width: fit-content;
   height: 13.1rem;
   :nth-child(3) {
-    color: #ff5454;
+    color: ${({ theme }) => theme.colors.red};
   }
   div {
     display: flex;

@@ -5,7 +5,6 @@ import Image from 'next/image';
 import styled from 'styled-components';
 
 import { MemberExampleImg } from '@/public/images';
-import { ContentProps } from '@/types/content';
 
 interface ContentInfoProps {
   content: ContentProps;

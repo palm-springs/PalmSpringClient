@@ -1,15 +1,34 @@
 'use client';
 
 import React from 'react';
+import Link from 'next/link';
 import styled from 'styled-components';
 
+import useGetCategory from '@/hooks/useGetCategory';
+
 const CategoryBtnBar = () => {
+  const SELECTED = useGetCategory();
+
+  const CATEGORY_EXAMPLE: string[] = ['개발', '디자인', '팀문화'];
+
+  const CATEGORY_LIST = CATEGORY_EXAMPLE.map((eachCategory) => {
+    return (
+      <CategoryBtn
+        href={`/blogNameHere/home/${eachCategory}`}
+        key={eachCategory}
+        type="button"
+        className={eachCategory === decodeURI(SELECTED) ? 'selected' : ''}>
+        {eachCategory}
+      </CategoryBtn>
+    );
+  });
+
   return (
     <CategoryBtnBarContainer>
-      <CategoryBtn className="selected">전체</CategoryBtn>
-      <CategoryBtn>개발</CategoryBtn>
-      <CategoryBtn>디자인</CategoryBtn>
-      <CategoryBtn>팀문화</CategoryBtn>
+      <CategoryBtn href={'../home'} type="button" className={SELECTED === 'home' ? 'selected' : ''}>
+        전체
+      </CategoryBtn>
+      {CATEGORY_LIST}
     </CategoryBtnBarContainer>
   );
 };
@@ -25,7 +44,7 @@ const CategoryBtnBarContainer = styled.div`
   width: 72rem;
 `;
 
-const CategoryBtn = styled.button`
+const CategoryBtn = styled(Link)`
   ${({ theme }) => theme.fonts.Body1_Regular};
 
   display: flex;

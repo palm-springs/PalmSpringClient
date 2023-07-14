@@ -6,3 +6,9 @@
 //   image: string; // 이미지 url
 //   likeTF: boolean; //상품 좋아요 여부
 // }
+
+interface Response<T> {
+  message: string;
+  code: number;
+  data: T[];
+}

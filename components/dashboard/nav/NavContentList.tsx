@@ -2,33 +2,33 @@
 
 import React from 'react';
 
+import { useGetNavList } from '@/hooks/dashboard';
+
 import DashBoardContent from '../components/DashBoardContent';
 import DashBoardContentListContainer from '../components/ui/DashBoardContentListContainer';
 
 const NavContentList = () => {
+  const blogUrl = 'Palms';
+
+  const data = useGetNavList(blogUrl);
+
+  if (!data) return <div>로더가 들어갈 자리입니다.</div>;
+
   return (
     <DashBoardContentListContainer>
-      <DashBoardContent
-        content="팀 소개"
-        url="https://우리도메인.com/about"
-        onTitleClick={() => {
-          console.log('김서윤');
-        }}
-      />
-      <DashBoardContent
-        content="팀 문화"
-        url="https://우리도메인.com/culture"
-        onTitleClick={() => {
-          console.log('김서윤');
-        }}
-      />
-      <DashBoardContent
-        content="인스타그램"
-        url="https://instagram.com/_9911120"
-        onTitleClick={() => {
-          console.log('김서윤');
-        }}
-      />
+      {data.data.map(({ id, name, navUrl }) => {
+        return (
+          <DashBoardContent
+            key={id}
+            id={id}
+            content={name}
+            url={navUrl}
+            onTitleClick={() => {
+              console.log('김서윤');
+            }}
+          />
+        );
+      })}
     </DashBoardContentListContainer>
   );
 };

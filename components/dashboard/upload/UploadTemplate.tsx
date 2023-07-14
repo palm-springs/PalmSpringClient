@@ -1,6 +1,6 @@
 'use client';
 
-import React from 'react';
+import React, { useState } from 'react';
 
 import DashBoardTemplateContainer from '../components/ui/DashBoardTemplateContainer';
 import Line from '../components/ui/Line';
@@ -9,11 +9,13 @@ import UploadContentList from './components/UploadContentList';
 import UploadTabBar from './components/UploadTabBar';
 
 const UploadTemplate = () => {
+  const [category, setCategory] = useState<dashBoardTabType>('all');
+
   return (
     <DashBoardTemplateContainer>
-      <UploadTabBar />
+      <UploadTabBar category={category} setCategory={setCategory} />
       <Line />
-      <UploadContentList />
+      <UploadContentList category={category} />
     </DashBoardTemplateContainer>
   );
 };

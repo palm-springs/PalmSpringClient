@@ -1,4 +1,4 @@
-export interface BlogBasicInfoType {
+interface BlogBasicInfoType {
   myBlog: {
     blogUrl: string;
     blogName: string;

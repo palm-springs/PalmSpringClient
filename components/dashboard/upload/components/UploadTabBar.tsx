@@ -1,14 +1,16 @@
 'use client';
 
-import React from 'react';
+import React, { Dispatch, SetStateAction } from 'react';
 
 import UploadTabBarContainer from './ui/UploadTabBarContainer';
 
-const UploadTabBar = () => {
-  const setCurrentTab = (e: any): void => {
-    return;
-  };
-  return <UploadTabBarContainer currentTab="all" setCurrentTab={setCurrentTab} />;
+export interface UploadTabBarProps {
+  category: dashBoardTabType;
+  setCategory: Dispatch<SetStateAction<dashBoardTabType>>;
+}
+
+const UploadTabBar = (props: UploadTabBarProps) => {
+  return <UploadTabBarContainer categoryProps={props} />;
 };
 
 export default UploadTabBar;

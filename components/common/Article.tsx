@@ -3,11 +3,9 @@
 import React from 'react';
 import styled from 'styled-components';
 
-import { ArticleProps } from '@/types/article';
+import ArticleImg from '../blog/ui/ArticleImg';
 
-import ArticleImg from '../blog/UI/ArticleImg';
-
-const Article = (props: ArticleProps) => {
+const Article = (props: ArticleListProps) => {
   const { title, description, writer, date, thumbnailImgUrl } = props;
 
   return (
