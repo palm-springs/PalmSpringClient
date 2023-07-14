@@ -22,7 +22,11 @@ import {
   UnderlineIcon,
 } from '@/public/icons';
 
-const ToolBox = ({ editor }: { editor: Editor }) => {
+interface editorProps {
+  editor: Editor;
+}
+
+const ToolBox = ({ editor }: editorProps) => {
   return (
     <IconContainer>
       <IconWrapper>

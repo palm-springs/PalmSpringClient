@@ -19,7 +19,6 @@ import js from 'highlight.js/lib/languages/javascript';
 import ts from 'highlight.js/lib/languages/typescript';
 import html from 'highlight.js/lib/languages/xml';
 import { lowlight } from 'lowlight';
-import styled from 'styled-components';
 
 import css from 'highlight.js/lib/languages/css';
 
@@ -62,6 +61,11 @@ const TextEditorBuild = () => {
     ],
     content: '',
   });
+
+  if (!editor) {
+    return null;
+  }
+
   return (
     <>
       <ToolBox editor={editor} />
