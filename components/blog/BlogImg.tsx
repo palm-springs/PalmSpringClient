@@ -5,14 +5,23 @@ import Image from 'next/image';
 import styled from 'styled-components';
 
 import { BlogImgExampleImg } from '@/public/images';
+import { BlogImgProps } from '@/types/blogImg';
 
-const BlogImg = () => {
+const BlogImg = (props: BlogImgProps) => {
+  const { blogImgUrl, blogInfo } = props;
+
   return (
+    //블로그 대문 이미지가 있는 경우에만 블로그 소개글이 같이 나타납니다
     <BlogImgContainer>
-      <BlogImgWrapper>
-        <Image src={BlogImgExampleImg} alt="blog image" fill></Image>
-      </BlogImgWrapper>
-      <BlogInfo>우리 팀 이야기를 세상에 전달하는 방법</BlogInfo>
+      {blogImgUrl && (
+        <>
+          <BlogImgWrapper>
+            {/* //image src 에 blogImgUrl 넣을 예정 */}
+            <Image src={BlogImgExampleImg} alt="blog image" fill></Image>
+            {blogInfo && <BlogInfo>{blogInfo}</BlogInfo>}
+          </BlogImgWrapper>
+        </>
+      )}
     </BlogImgContainer>
   );
 };
@@ -21,6 +30,7 @@ export default BlogImg;
 
 const BlogImgContainer = styled.div`
   position: relative;
+  margin-top: 6rem;
   min-width: 105.6rem;
   height: 50rem;
 `;
