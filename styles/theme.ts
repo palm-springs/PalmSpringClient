@@ -16,7 +16,7 @@ const colors = {
   grey_1000: '#000000',
 
   dimmed: '#40474F',
-  navItem_hover: '#rgba(173, 181, 189, 0.20)',
+  navItem_hover: 'rgba(173, 181, 189, 0.20)',
 
   green: '#19DB7B',
   green_hover: '#17C56F',
