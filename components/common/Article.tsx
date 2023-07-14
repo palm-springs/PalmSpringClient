@@ -1,14 +1,17 @@
 'use client';
 
 import React from 'react';
+import Link from 'next/link';
 import styled from 'styled-components';
 
+import useGetCategory from '@/hooks/useGetCategory';
 import { ArticleProps } from '@/types/article';
 
 import ArticleImg from '../blog/ui/ArticleImg';
 
 const Article = (props: ArticleProps) => {
-  const { title, description, writer, date, thumbnailImgUrl } = props;
+  const SELECTED = useGetCategory();
+  const { title, description, writer, date, thumbnailImgUrl, category } = props;
 
   return (
     <ArticleContainer>
@@ -16,6 +19,11 @@ const Article = (props: ArticleProps) => {
         <ArticleTitle>{title}</ArticleTitle>
         <ArticleDescription>{description}</ArticleDescription>
         <DetailBox>
+          {SELECTED === 'home' && (
+            <CategoryBtn href={`/blogNameHere/home/${category}`} type="button">
+              {category}
+            </CategoryBtn>
+          )}
           <ArticleDetail>{writer}</ArticleDetail>
           <Bar>|</Bar>
           <ArticleDetail>{date}</ArticleDetail>
@@ -69,6 +77,27 @@ const Bar = styled.div`
 const DetailBox = styled.div`
   display: flex;
   gap: 0.4rem;
+  align-items: center;
   margin-top: 1.7rem;
   width: 100%;
+`;
+const CategoryBtn = styled(Link)`
+  ${({ theme }) => theme.fonts.Body3_Regular};
+
+  display: flex;
+  align-items: center;
+  justify-content: center;
+
+  border: none;
+  border-radius: 1.2rem;
+
+  background-color: ${({ theme }) => theme.colors.grey_300};
+  padding: 0.4rem 1rem;
+  height: 2.4rem;
+
+  color: ${({ theme }) => theme.colors.grey_700};
+
+  &:hover {
+    background-color: ${({ theme }) => theme.colors.grey_400};
+  }
 `;

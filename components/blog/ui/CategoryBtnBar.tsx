@@ -25,7 +25,7 @@ const CategoryBtnBar = () => {
 
   return (
     <CategoryBtnBarContainer>
-      <CategoryBtn href={'../home'} type="button" className={SELECTED === 'home' ? 'selected' : ''}>
+      <CategoryBtn href={'./home'} type="button" className={SELECTED === 'home' ? 'selected' : ''}>
         전체
       </CategoryBtn>
       {CATEGORY_LIST}
@@ -39,8 +39,8 @@ const CategoryBtnBarContainer = styled.div`
   display: flex;
   gap: 1.2rem;
   justify-content: flex-start;
-  margin-top: 6rem;
-  margin-bottom: 5.8rem;
+  margin-top: 7.2rem;
+  margin-bottom: 4.8rem;
   width: 72rem;
 `;
 
@@ -59,6 +59,9 @@ const CategoryBtn = styled(Link)`
   height: 4.2rem;
 
   color: ${({ theme }) => theme.colors.grey_700};
+  &:hover {
+    background-color: ${({ theme }) => theme.colors.grey_400};
+  }
   &.selected {
     ${({ theme }) => theme.fonts.Body1_Regular};
     background-color: ${({ theme }) => theme.colors.grey_900};
