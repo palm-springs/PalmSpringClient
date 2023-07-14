@@ -5,31 +5,37 @@ import Link from 'next/link';
 import styled from 'styled-components';
 
 import useGetCategory from '@/hooks/useGetCategory';
-import { ArticleProps } from '@/types/article';
 
 import ArticleImg from '../blog/ui/ArticleImg';
 
 const Article = (props: ArticleProps) => {
   const SELECTED = useGetCategory();
-  const { title, description, writer, date, thumbnailImgUrl, category } = props;
+  const {
+    title,
+    description,
+    memberName,
+    createdAt,
+    thumbnail,
+    categoryArticleResponseDto: { categoryName },
+  } = props;
 
   return (
     <ArticleContainer>
       <ArticleInfo>
-        <ArticleTitle>{title}</ArticleTitle>
-        <ArticleDescription>{description}</ArticleDescription>
+        <ArticleTitle className="title">{title}</ArticleTitle>
+        <ArticleDescription className="description">{description}</ArticleDescription>
         <DetailBox>
           {SELECTED === 'home' && (
-            <CategoryBtn href={`/blogNameHere/home/${category}`} type="button">
-              {category}
+            <CategoryBtn href={`/blogNameHere/home/${categoryName}`} type="button">
+              {categoryName}
             </CategoryBtn>
           )}
-          <ArticleDetail>{writer}</ArticleDetail>
+          <ArticleDetail>{memberName}</ArticleDetail>
           <Bar>|</Bar>
-          <ArticleDetail>{date}</ArticleDetail>
+          <ArticleDetail>{createdAt}</ArticleDetail>
         </DetailBox>
       </ArticleInfo>
-      {thumbnailImgUrl && <ArticleImg />}
+      {thumbnail && <ArticleImg />}
     </ArticleContainer>
   );
 };
@@ -41,25 +47,56 @@ const ArticleContainer = styled.section`
   gap: 3.2rem;
   justify-content: space-between;
   width: 100%;
+  height: 17rem;
+  &:hover {
+    transform: translateY(-0.8rem);
+    transition: 0.3s ease-in-out;
+    .title,
+    .description {
+      opacity: 0.8;
+    }
+  }
 `;
 
 const ArticleInfo = styled.article`
   display: flex;
   flex-direction: column;
   justify-content: center;
-  width: 100%;
+  width: 72rem;
 `;
 
-const ArticleTitle = styled.div`
+const ArticleTitle = styled.article`
   ${({ theme }) => theme.fonts.Heading2};
+  /* stylelint-disable-next-line value-no-vendor-prefix */
+  display: -webkit-box;
+
   margin-bottom: 0.4rem;
-  word-break: keep-all;
+  width: 100%;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: wrap;
+  word-break: break-all;
+
+  -webkit-line-clamp: 2;
+  -webkit-box-orient: vertical;
+
   color: ${({ theme }) => theme.colors.grey_900};
 `;
 
 const ArticleDescription = styled.div`
   ${({ theme }) => theme.fonts.Body2_Regular};
-  word-break: keep-all;
+  /* stylelint-disable-next-line value-no-vendor-prefix */
+  display: -webkit-box;
+
+  width: 100%;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: wrap;
+  word-break: break-all;
+
+  -webkit-line-clamp: 2;
+  -webkit-box-orient: vertical;
+
   color: ${({ theme }) => theme.colors.grey_900};
 `;
 
