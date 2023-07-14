@@ -1,7 +1,8 @@
+//대시보드 팀원 페이지
 import React from 'react';
 
-const page = () => {
-  return <div>팀원</div>;
-};
+import MemberTemplate from '@/components/dashboard/member/ui/MemberTemplate';
 
-export default page;
+export default function Page() {
+  return <MemberTemplate />;
+}

@@ -14,15 +14,15 @@ const AddMemberForm = (props: AddMemberFormProps) => {
   const { width, height, paddingUD, paddingLR } = props;
 
   return (
-    <AddMemberFormContianer $width={width} $height={height} $paddingUD={paddingUD} $paddingLR={paddingLR}>
+    <AddMemberFormContainer $width={width} $height={height} $paddingUD={paddingUD} $paddingLR={paddingLR}>
       <AddMemberInput />
-    </AddMemberFormContianer>
+    </AddMemberFormContainer>
   );
 };
 
 export default AddMemberForm;
 
-const AddMemberFormContianer = styled.div<{
+const AddMemberFormContainer = styled.div<{
   $width: string;
   $height: string;
   $paddingUD: string;
