@@ -18,6 +18,7 @@ export { default as ItalicIcon } from './ic_Italic.svg';
 export { default as IcPlusIcon } from './ic_plus.svg';
 export { default as StrikeIcon } from './ic_Strike.svg';
 export { default as UploadIcon } from './ic_upload.svg';
+export { default as IcUserIcon } from './ic_user.svg';
 export { default as BulletIcon } from './icnBullet.svg';
 export { default as CodeIcon } from './icnCode.svg';
 export { default as CodeBlockIcon } from './icnCodeblock.svg';
