@@ -1,5 +1,7 @@
 'use client';
+import { useEffect, useState } from 'react';
 import styled from 'styled-components';
+import { isJSDocReturnTag } from 'typescript';
 
 import { CheckBoxIcon } from '@/public/icons';
 
@@ -9,26 +11,60 @@ interface ProgressDotProps {
 
 const ProgressDot = (props: ProgressDotProps) => {
   const { progress } = props;
+
+  const [currentStep, setCurrentStep] = useState('first');
+
+  const [firstCheckBoxAnimation, setFirstCheckBoxAnimation] = useState('');
+  const [secondCheckBoxAnimation, setSecondCheckBoxAnimation] = useState('');
+  const [thirdCheckBoxAnimation, setThirdCheckBoxAnimation] = useState('');
+
+  useEffect(() => {
+    switch (progress) {
+      case -1:
+        setFirstCheckBoxAnimation('fadeIn');
+        setSecondCheckBoxAnimation('fadeOut');
+        setCurrentStep('first');
+        return;
+      case 2:
+        setFirstCheckBoxAnimation('fadeOut');
+        setSecondCheckBoxAnimation('fadeIn');
+        setCurrentStep('second');
+        return;
+      case 3:
+        setSecondCheckBoxAnimation('fadeOut');
+        setThirdCheckBoxAnimation('fadeIn');
+        setCurrentStep('third');
+        return;
+      case -2:
+        setSecondCheckBoxAnimation('fadeIn');
+        setThirdCheckBoxAnimation('fadeOut');
+        setCurrentStep('second');
+        return;
+    }
+  });
+
   return (
     <ProgressDotContainer>
       <DotContainer>
-        <CheckBox $width={progress === 1 ? '3' : '2.2'} $height={progress === 1 ? '3' : '2.2'}>
-          <CheckDot className={progress === 1 ? 'shown' : progress === 2 ? 'fadeout' : 'hidden'}>
+        <CheckBox $width={currentStep === 'first' ? '3' : '2.2'} $height={currentStep === 'first' ? '3' : '2.2'}>
+          <CheckDot className={firstCheckBoxAnimation}>
             <CheckBoxIcon />
           </CheckDot>
           <Dot className={'green'} />
         </CheckBox>
-        <CheckBox $width={progress === 2 ? '3' : '2.2'} $height={progress === 2 ? '3' : '2.2'}>
-          <CheckDot className={progress === 2 ? 'fadein' : progress === 3 ? 'fadeout' : 'hidden'}>
+
+        <CheckBox $width={currentStep === 'second' ? '3' : '2.2'} $height={currentStep === 'second' ? '3' : '2.2'}>
+          <CheckDot className={secondCheckBoxAnimation}>
             <CheckBoxIcon />
           </CheckDot>
-          <Dot className={progress === 1 ? 'grey' : 'green'} />
+          <Dot className={currentStep === 'first' ? 'grey' : 'green'} />
         </CheckBox>
-        <CheckBox $width={progress === 3 ? '3' : '2.2'} $height={progress === 3 ? '3' : '2.2'}>
-          <CheckDot className={progress === 3 ? 'fadein' : 'hidden'}>
+
+        <CheckBox $width={currentStep === 'third' ? '3' : '2.2'} $height={currentStep === 'third' ? '3' : '2.2'}>
+          <CheckDot className={thirdCheckBoxAnimation}>
             <CheckBoxIcon />
           </CheckDot>
-          <Dot className={progress === 3 ? 'green' : 'grey'} />
+          <Dot className={currentStep === 'third' ? 'green' : 'grey'} />
         </CheckBox>
       </DotContainer>
     </ProgressDotContainer>
@@ -94,12 +130,12 @@ const CheckDot = styled.div`
     opacity: 1;
   }
 
-  &.fadein {
+  &.fadeIn {
     transition: 1s;
     opacity: 1;
   }
 
-  &.fadeout {
+  &.fadeOut {
     transition: 1s;
     opacity: 0;
   }
