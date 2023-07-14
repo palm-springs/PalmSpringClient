@@ -1,10 +1,38 @@
 'use client';
+import { ChangeEvent, useState } from 'react';
 import styled from 'styled-components';
 
 import { ProfilePhotoIcon } from '@/public/icons';
 
 import TextInputForm from './TextInputForm';
 const InviteAcceptForm = () => {
+  const [nameValue, setNameValue] = useState('');
+  const [idValue, setIdValue] = useState('');
+  const [descriptionValue, setDescriptionValue] = useState('');
+  const [positionValue, setPositionValue] = useState('');
+
+  const [isNameFocus, setIsNameFocus] = useState(false);
+  const [isIdFocus, setIsIdFocus] = useState(false);
+  const [isDescriptionFocus, setIsDescriptionFocus] = useState(false);
+  const [isPositionFocus, setIsPositionFocus] = useState(false);
+
+  const handleOnNameChange = (e: ChangeEvent<HTMLInputElement>) => {
+    const { value } = e.currentTarget;
+    setNameValue(value);
+  };
+  const handleOnIdChange = (e: ChangeEvent<HTMLInputElement>) => {
+    const { value } = e.currentTarget;
+    setIdValue(value);
+  };
+  const handleOnDescriptionChange = (e: ChangeEvent<HTMLTextAreaElement>) => {
+    const { value } = e.currentTarget;
+    setDescriptionValue(value);
+  };
+  const handleOnPositionChange = (e: ChangeEvent<HTMLInputElement>) => {
+    const { value } = e.currentTarget;
+    setPositionValue(value);
+  };
+
   return (
     <InviteAcceptFormContainer>
       <TeamName>햇살티미단 기술블로그</TeamName>
@@ -14,24 +42,49 @@ const InviteAcceptForm = () => {
         <input type="file" />
       </Label>
 
-      <TextInputForm type={'name'} text={'이름'}>
-        <TextInput placeholder="이름을 입력해주세요" />
+      <TextInputForm type={'name'} text={'이름'} isFocus={isNameFocus}>
+        <TextInput
+          placeholder="이름을 입력해주세요"
+          value={nameValue}
+          onChange={handleOnNameChange}
+          onFocus={() => setIsNameFocus(true)}
+          onBlur={() => setIsNameFocus(false)}
+        />
       </TextInputForm>
 
-      <TextInputForm type={'id'} text={'ID'}>
+      <TextInputForm type={'id'} text={'ID'} isFocus={isIdFocus}>
         <div>/@timi/author/</div>
-        <TextInput />
+        <TextInput
+          value={idValue}
+          onChange={handleOnIdChange}
+          onFocus={() => setIsIdFocus(true)}
+          onBlur={() => setIsIdFocus(false)}
+        />
       </TextInputForm>
 
-      <TextInputForm type={'description'} text={'한 줄 소개'}>
-        <TextAreaInput placeholder="한 줄 소개를 입력해주세요" />
+      <TextInputForm type={'description'} text={'한 줄 소개'} isFocus={isDescriptionFocus}>
+        <TextAreaInput
+          placeholder="한 줄 소개를 입력해주세요"
+          value={descriptionValue}
+          onChange={handleOnDescriptionChange}
+          onFocus={() => setIsDescriptionFocus(true)}
+          onBlur={() => setIsDescriptionFocus(false)}
+        />
       </TextInputForm>
 
-      <TextInputForm type={'position'} text={'직책'}>
-        <TextInput placeholder="직책을 입력해주세요" />
+      <TextInputForm type={'position'} text={'직책'} isFocus={isPositionFocus}>
+        <TextInput
+          placeholder="직책을 입력해주세요"
+          value={positionValue}
+          onChange={handleOnPositionChange}
+          onFocus={() => setIsPositionFocus(true)}
+          onBlur={() => setIsPositionFocus(false)}
+        />
       </TextInputForm>
 
-      <AcceptButton type="button">완료</AcceptButton>
+      <AcceptButton type="button" disabled={nameValue === '' || idValue === ''}>
+        수락하기
+      </AcceptButton>
     </InviteAcceptFormContainer>
   );
 };
@@ -100,14 +153,14 @@ const TextAreaInput = styled.textarea`
   }
 `;
 
-const AcceptButton = styled.button`
+const AcceptButton = styled.button<{ disabled: boolean }>`
   ${({ theme }) => theme.fonts.Button_medium};
   margin: 3.2rem 0 11.4rem;
 
   border: none;
   border-radius: 0.8rem;
 
-  background-color: ${({ theme }) => theme.colors.green};
+  background-color: ${({ theme, disabled }) => (disabled ? theme.colors.background_green : theme.colors.green)};
   width: 100%;
   height: 3.6rem;
 

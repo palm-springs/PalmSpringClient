@@ -6,15 +6,21 @@ interface TextInputFormProps {
   type: string;
   text: string;
   children: React.ReactNode;
+  isFocus: boolean;
 }
 
 const TextInputForm = (props: TextInputFormProps) => {
-  const { type, text, children } = props;
+  const { type, text, children, isFocus } = props;
 
   return (
     <Label>
-      <InputTitle>{text}</InputTitle>
-      <InputContainer className={type}>{children}</InputContainer>
+      <InputTitle>
+        {text}
+        {(type === 'name' || type === 'id') && <div className={type} />}
+      </InputTitle>
+      <InputContainer className={type} $isFocus={isFocus}>
+        {children}
+      </InputContainer>
     </Label>
   );
 };
@@ -30,9 +36,10 @@ const Label = styled.label`
 `;
 
 // text input 입력  컨테이너
-const InputContainer = styled.div`
-  border: 1px solid ${({ theme }) => theme.colors.grey_400};
+const InputContainer = styled.div<{ isFocus: boolean }>`
+  border: 1px solid;
   border-radius: 0.8rem;
+  border-color: ${({ theme, $isFocus }) => ($isFocus ? theme.colors.grey_700 : theme.colors.grey_400)};
   padding: 1rem 1.2rem;
   width: 100%;
   height: 4.6rem;
