@@ -1,7 +1,6 @@
 'use client';
 
 import { ChangeEvent, useState } from 'react';
-import Image from 'next/image';
 import styled from 'styled-components';
 
 import { IcClose24Icon, UploadIcon } from '@/public/icons';
@@ -27,7 +26,7 @@ const ImageInputForm = (props: ImageInputFormProps) => {
   };
 
   return (
-    <ImageInputFormContainer>
+    <div>
       <InputTitle>
         블로그 {type === 'logo' ? '로고' : '대문'} 이미지
         {type === 'gate' && <span>대문 이미지 권장 크기는 1440*500 입니다</span>}
@@ -36,10 +35,10 @@ const ImageInputForm = (props: ImageInputFormProps) => {
       <ImageContainer className={type}>
         {imgSrc ? (
           <>
-            <Image src={imgSrc} alt="" width={400} height={type === 'logo' ? 116 : 139} />
-            <button onClick={() => setImgSrc('')}>
+            <img src={imgSrc} alt={`${type} 이미지`} />
+            <CloseButton onClick={() => setImgSrc('')} className={type}>
               <IcClose24Icon />
-            </button>
+            </CloseButton>
           </>
         ) : (
           <Label>
@@ -49,19 +48,14 @@ const ImageInputForm = (props: ImageInputFormProps) => {
           </Label>
         )}
       </ImageContainer>
-    </ImageInputFormContainer>
+    </div>
   );
 };
 
 export default ImageInputForm;
 
-const ImageInputFormContainer = styled.div`
-  width: 100%;
-`;
-
 // img input 입력  컨테이너
 const ImageContainer = styled.div`
-  position: relative;
   margin-top: 0.8rem;
   &.logo {
     height: 11.6rem;
@@ -70,18 +64,29 @@ const ImageContainer = styled.div`
     height: 13.9rem;
   }
 
-  & > img {
-    border-radius: 0.8rem;
+  & > div {
     width: 100%;
     height: 100%;
   }
 
-  & > button {
-    position: absolute;
-    top: 1.2rem;
-    right: 1.2rem;
-    width: 2.4rem;
-    height: 2.4rem;
+  & > img {
+    border-radius: 0.8rem;
+    height: 100%;
+
+    object-fit: contain;
+  }
+`;
+
+const CloseButton = styled.button`
+  position: relative;
+  right: 3.6rem;
+  width: 2.4rem;
+  height: 2.4rem;
+  &.logo {
+    bottom: 8rem;
+  }
+  &.gate {
+    bottom: 10.3rem;
   }
 `;
 
@@ -97,8 +102,6 @@ const Label = styled.label`
 
   background-color: ${({ theme }) => theme.colors.grey_200};
 
-  cursor: pointer;
-  width: 100%;
   height: 100%;
   color: ${({ theme }) => theme.colors.grey_700};
 

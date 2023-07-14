@@ -112,7 +112,6 @@ const InfoContainer = styled.div`
   flex-direction: column;
 
   gap: 3.2rem;
-  align-items: center;
 
   margin: 14.4rem 0;
 
@@ -121,6 +120,7 @@ const InfoContainer = styled.div`
 
 const Title = styled.h1`
   ${({ theme }) => theme.fonts.Heading1};
+  margin: 0 auto;
 `;
 
 // input (textarea)
