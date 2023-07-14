@@ -7,7 +7,6 @@ import styled from 'styled-components';
 import { GOOGLE_REDIRECT_URI } from '@/constants/auth';
 import { LogoIcon } from '@/public/icons';
 import { GoogleImg } from '@/public/images';
-import { authClientInfo } from '@/types/auth';
 
 import RequestAccessToken from './RequestAccessToken';
 

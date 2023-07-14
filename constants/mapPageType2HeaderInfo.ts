@@ -1,5 +1,3 @@
-import { dashBoardPageType } from '@/types/dashboard';
-
 type mapPageType2HeaderInfoBluePrint = {
   [pageType in dashBoardPageType]: {
     title: string;

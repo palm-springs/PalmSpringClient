@@ -4,7 +4,6 @@ import React from 'react';
 
 import mapPageType2HeaderInfo from '@/constants/mapPageType2HeaderInfo';
 import useGetLastPathName from '@/hooks/useGetLastPathName';
-import { dashBoardPageType } from '@/types/dashboard';
 
 import DashBoardHeaderContainer from './ui/DashBoardHeaderContainer';
 import HeaderContainer from './ui/HeaderContainer';
