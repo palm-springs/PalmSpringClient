@@ -45,7 +45,8 @@ const Member = (props: MemberProps) => {
                   subText={`${email}`}
                   leftButtonText={'유지하기'}
                   rightButtonText={'초대 취소'}
-                  leftHandler={modalCloseHandler}></CancelInviteModal>
+                  leftHandler={modalCloseHandler}
+                />
               </ModalPortal>
             )}
           </>
@@ -56,7 +57,10 @@ const Member = (props: MemberProps) => {
                 {profilePicUrl ? (
                   // <Image src={profilePicUrl} alt="member profile photo" width={36} height={36} />
                   //후에 멤버 프로필 이미지의 url이 생기면 사용할 예정
-                  <Image src={MemberExampleImg} alt="member profile photo" width={36} height={36} />
+                  <div>
+                    <Image src={MemberExampleImg} alt="member profile pic example" width={36} height={36} />
+                    이건 나중에 위에 주석을 사용하면 지울 텍스트입니다!
+                  </div>
                 ) : (
                   <Image src={MemberExampleImg} alt="member profile photo" width={36} height={36} />
                 )}
@@ -70,11 +74,6 @@ const Member = (props: MemberProps) => {
             {showPopOver && <PopOver name={name} />}
           </>
         )}
-        {/* </MemberInfoBox>
-        <MenuBtn onClick={() => setShowPopOver(!showPopOver)}>
-          <CharmMenuMeatballIcon />
-        </MenuBtn>
-        {showPopOver && <PopOver />} */}
       </MemberInnerContent>
     </MemberContainer>
   );
