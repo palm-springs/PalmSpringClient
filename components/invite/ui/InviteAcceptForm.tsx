@@ -2,7 +2,7 @@
 import { ChangeEvent, useState } from 'react';
 import styled from 'styled-components';
 
-import { ProfilePhotoIcon } from '@/public/icons';
+import { DeleteImageIcon, ProfilePhotoIcon, UploadProfileImageIcon } from '@/public/icons';
 
 import TextInputForm from './TextInputForm';
 const InviteAcceptForm = () => {
@@ -15,6 +15,19 @@ const InviteAcceptForm = () => {
   const [isIdFocus, setIsIdFocus] = useState(false);
   const [isDescriptionFocus, setIsDescriptionFocus] = useState(false);
   const [isPositionFocus, setIsPositionFocus] = useState(false);
+
+  const [imgSrc, setImgSrc] = useState('');
+
+  const handleOnFileChange = (e: ChangeEvent<HTMLInputElement>) => {
+    const { files } = e.currentTarget;
+    const reader = new FileReader();
+    if (files) {
+      reader.readAsDataURL(files[0] as Blob);
+      reader.onloadend = () => {
+        setImgSrc(reader.result as string);
+      };
+    }
+  };
 
   const handleOnNameChange = (e: ChangeEvent<HTMLInputElement>) => {
     const { value } = e.currentTarget;
@@ -37,10 +50,21 @@ const InviteAcceptForm = () => {
     <InviteAcceptFormContainer>
       <TeamName>햇살티미단 기술블로그</TeamName>
       <Title>초대 수락하기</Title>
-      <Label>
-        <ProfilePhotoIcon />
-        <input type="file" />
-      </Label>
+
+      {imgSrc ? (
+        <ImageContainer>
+          <img src={imgSrc} alt={'프로필 사진'} />
+          <button type="button" onClick={() => setImgSrc('')}>
+            <DeleteImageIcon />
+          </button>
+        </ImageContainer>
+      ) : (
+        <Label>
+          <ProfilePhotoIcon />
+          <UploadProfileImageIcon />
+          <input type="file" onChange={handleOnFileChange} />
+        </Label>
+      )}
 
       <TextInputForm type={'name'} text={'이름'} isFocus={isNameFocus}>
         <TextInput
@@ -114,10 +138,40 @@ const Title = styled.h2`
   color: ${({ theme }) => theme.colors.grey_900};
 `;
 
+const ImageContainer = styled.div`
+  position: relative;
+
+  margin-top: 3.2rem;
+  width: 14.2rem;
+  height: 14.2rem;
+
+  & > img {
+    border-radius: 14.2rem;
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+  }
+
+  & > button {
+    position: absolute;
+    right: 0;
+    bottom: 0;
+  }
+`;
+
 const Label = styled.label`
+  position: relative;
   margin-top: 3.2rem;
 
   cursor: pointer;
+  width: 14.2rem;
+  height: 14.2rem;
+
+  & > :nth-child(2) {
+    position: absolute;
+    right: 0;
+    bottom: 0;
+  }
 
   & > input {
     display: none;
