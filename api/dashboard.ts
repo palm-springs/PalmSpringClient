@@ -14,3 +14,8 @@ export const getCategoryList = async (blogUrl: string) => {
   const { data } = await client.get<Response<CategoryListProps>>(`/api/v1/category/${blogUrl}`);
   return data;
 };
+
+export const getTempSavedList = async (blogUrl: string) => {
+  const { data } = await client.get<Response<TempSavedListProps>>(`/api/v1/article/${blogUrl}/draftList`);
+  return data;
+};

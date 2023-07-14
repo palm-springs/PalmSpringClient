@@ -9,8 +9,6 @@ type dashBoardPageType =
   | 'tempsaved'
   | 'upload';
 
-type dashBoardTabType = 'all' | 'dev' | 'design' | 'plan' | 'culture';
-
 interface NavListProps {
   id: string;
   name: string;
@@ -30,4 +28,15 @@ interface CategoryListProps {
   name: string;
   categoryUrl: string;
   description: string;
+}
+
+interface TempSavedListProps {
+  id: number;
+  title: string;
+  teamMemberResponseDto: {
+    id: number;
+    name: string;
+    job: string;
+    createdAt: string;
+  };
 }

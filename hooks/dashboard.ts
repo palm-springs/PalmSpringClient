@@ -1,11 +1,12 @@
 import { useQuery } from '@tanstack/react-query';
 
-import { getCategoryList, getNavList, getPageList } from '@/api/dashboard';
+import { getCategoryList, getNavList, getPageList, getTempSavedList } from '@/api/dashboard';
 
 const QUERY_KEY_DASHBOARD = {
   getNavList: 'getNavList',
   getCategoryList: 'getCategoryList',
   getPageList: 'getPageList',
+  getTempSavedList: 'getTempSavedList',
 };
 
 export const useGetNavList = (blogUrl: string) => {
@@ -20,5 +21,10 @@ export const useGetCategoryList = (blogUrl: string) => {
 
 export const useGetPageList = (blogUrl: string) => {
   const { data } = useQuery([QUERY_KEY_DASHBOARD.getPageList], () => getPageList(blogUrl));
+  return data;
+};
+
+export const useGetTempSavedList = (blogUrl: string) => {
+  const { data } = useQuery([QUERY_KEY_DASHBOARD.getTempSavedList], () => getTempSavedList(blogUrl));
   return data;
 };
