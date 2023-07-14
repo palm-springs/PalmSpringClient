@@ -3,8 +3,6 @@
 import React from 'react';
 import styled from 'styled-components';
 
-import { ArticleListProps } from '@/types/articleList';
-
 import Article from '../../common/Article';
 
 const ArticleList = () => {

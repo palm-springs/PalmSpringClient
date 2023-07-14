@@ -3,7 +3,6 @@
 import React from 'react';
 
 import mockUploadContentList from '@/constants/mockUploadList';
-import { dashBoardTabType } from '@/types/dashboard';
 
 import DashBoardContent from '../../components/DashBoardContent';
 import DashBoardContentListContainer from '../../components/ui/DashBoardContentListContainer';

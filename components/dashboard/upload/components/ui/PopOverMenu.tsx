@@ -3,9 +3,6 @@
 import React from 'react';
 import { styled } from 'styled-components';
 
-import { PickContextPropsType } from '@/components/dashboard/context/dashboardContext';
-import { dashBoardPageType } from '@/types/dashboard';
-
 interface PopOverMenuProps {
   pathName: dashBoardPageType;
 }

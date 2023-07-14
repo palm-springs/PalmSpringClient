@@ -1,7 +1,6 @@
 import axios from 'axios';
 
 import { GOOGLE_REDIRECT_URI } from '@/constants/auth';
-import { getAccessTokenProps, getAccessTokenResponse } from '@/types/auth';
 
 // login 관련 api 호출 함수
 export const getAccessToken = async (props: getAccessTokenProps) => {
