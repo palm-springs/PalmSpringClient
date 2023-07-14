@@ -30,25 +30,53 @@ const ToolBox = ({ editor }: editorProps) => {
   return (
     <IconContainer>
       <IconWrapper>
-        <button onClick={() => editor.chain().focus().toggleCodeBlock().run()}>
+        <button onClick={() => editor.chain().focus().toggleHeading({ level: 1 }).run()}>
           <H1Icon />
         </button>
-        <H2Icon />
-        <H3Icon />
-        <BulletIcon />
-        <OrderIcon />
+        <button onClick={() => editor.chain().focus().toggleHeading({ level: 2 }).run()}>
+          <H2Icon />
+        </button>
+        <button onClick={() => editor.chain().focus().toggleHeading({ level: 3 }).run()}>
+          <H3Icon />
+        </button>
+        <button onClick={() => editor.chain().focus().toggleBulletList().run()}>
+          <BulletIcon />
+        </button>
+        <button onClick={() => editor.chain().focus().toggleOrderedList().run()}>
+          <OrderIcon />
+        </button>
         <GreyBar />
-        <UnderlineIcon />
-        <BoldIcon />
-        <ItalicIcon />
-        <StrikeIcon />
-        <CodeIcon />
+        <button onClick={() => editor.chain().focus().toggleUnderline().run()}>
+          <UnderlineIcon />
+        </button>
+        <button onClick={() => editor.chain().focus().toggleBold().run()}>
+          <BoldIcon />
+        </button>
+        <button onClick={() => editor.chain().focus().toggleItalic().run()}>
+          <ItalicIcon />
+        </button>
+        <button onClick={() => editor.chain().focus().toggleStrike().run()}>
+          <StrikeIcon />
+        </button>
+        <button onClick={() => editor.chain().focus().toggleCode().run()}>
+          <CodeIcon />
+        </button>
         <GreyBar />
-        <QuoteIcon />
-        <HorizonIcon />
-        <ImageIcon />
-        <LinkIcon />
-        <CodeBlockIcon />
+        <button onClick={() => editor.chain().focus().toggleBlockquote().run()}>
+          <QuoteIcon />
+        </button>
+        <button onClick={() => editor.chain().focus().setHorizontalRule().run()}>
+          <HorizonIcon />
+        </button>
+        <button>
+          <ImageIcon />
+        </button>
+        <button>
+          <LinkIcon />
+        </button>
+        <button onClick={() => editor.chain().focus().toggleCodeBlock().run()}>
+          <CodeBlockIcon />
+        </button>
       </IconWrapper>
     </IconContainer>
   );
