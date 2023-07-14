@@ -87,4 +87,18 @@ const InputContainer = styled.div<{ $isFocus: boolean }>`
     ${({ theme }) => theme.fonts.Body2_Regular};
     color: ${({ theme }) => theme.colors.grey_600};
   }
+
+  & > svg {
+    position: absolute;
+    right: 1.2rem;
+    transform-origin: 50% 50%;
+
+    animation: rotate_image 5s linear infinite;
+
+    @keyframes rotate_image {
+      100% {
+        transform: rotate(360deg);
+      }
+    }
+  }
 `;

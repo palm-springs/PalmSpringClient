@@ -2,6 +2,7 @@
 import { useEffect, useState } from 'react';
 import styled from 'styled-components';
 
+import { Loader01Icon } from '@/public/icons';
 import { ProgressStateProps } from '@/types/progress';
 import CheckDuplication from '@/utils/checkUrlDuplication';
 
@@ -68,6 +69,7 @@ const CreateBasicInfoLanding = (props: ProgressStateProps) => {
             value={addressValue}
             onChange={handleOnAddressChange}
           />
+          {isAddressDuplicate === null && addressValue !== '' && <Loader01Icon />}
         </TextInputForm>
 
         <ButtonContainer>
@@ -102,14 +104,14 @@ const CreateBasicInfoContainer = styled.div`
 
   &.fadeDownIn {
     transform: translateY(0);
-    transition: 1s;
+    transition: transform 1s, opacity 0.3s;
     opacity: 1;
     z-index: 100;
   }
 
   &.fadeOut {
     transform: translateY(-30rem);
-    transition: 1s;
+    transition: transform 1s, opacity 0.3s;
     opacity: 0;
     z-index: 0;
   }
