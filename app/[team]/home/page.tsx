@@ -3,7 +3,7 @@
 
 import React from 'react';
 
-import ArticleContainer from '@/components/blog/UI/ArticleContainer';
+import ArticleContainer from '@/components/blog/ui/ArticleContainer';
 
 function BlogMainPage() {
   return <ArticleContainer />;

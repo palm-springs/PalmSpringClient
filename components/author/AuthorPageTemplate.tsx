@@ -3,8 +3,8 @@
 import React from 'react';
 import styled from 'styled-components';
 
-import ArticleList from './UI/ArticleList';
-import AuthorInfo from './UI/AuthorInfo';
+import ArticleList from './ui/ArticleList';
+import AuthorInfo from './ui/AuthorInfo';
 
 const AuthorPageTemplate = () => {
   const AUTHOR_INFO = {
