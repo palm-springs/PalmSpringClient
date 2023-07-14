@@ -1,6 +1,7 @@
 'use client';
 
 import React from 'react';
+import { Editor } from '@tiptap/react';
 import styled from 'styled-components';
 
 import {
@@ -21,11 +22,13 @@ import {
   UnderlineIcon,
 } from '@/public/icons';
 
-const ToolBox = () => {
+const ToolBox = ({ editor }: { editor: Editor }) => {
   return (
     <IconContainer>
       <IconWrapper>
-        <H1Icon />
+        <button onClick={() => editor.chain().focus().toggleCodeBlock().run()}>
+          <H1Icon />
+        </button>
         <H2Icon />
         <H3Icon />
         <BulletIcon />
@@ -58,7 +61,7 @@ const IconWrapper = styled.div`
   display: flex;
   align-items: center;
   justify-content: space-evenly;
-  margin: 4.4rem 0 2rem 0;
+  margin: 4rem 0 2rem 0;
   border-radius: 0.8rem;
   background-color: ${({ theme }) => theme.colors.grey_100};
   width: 72.2rem;

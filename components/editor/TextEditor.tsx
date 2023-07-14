@@ -1,21 +1,9 @@
 'use client';
 
-import Placeholder from '@tiptap/extension-placeholder';
-import { EditorContent, useEditor } from '@tiptap/react';
-import StarterKit from '@tiptap/starter-kit';
+import { Editor, EditorContent } from '@tiptap/react';
 import styled from 'styled-components';
 
-const TextEditor = () => {
-  const editor = useEditor({
-    extensions: [
-      StarterKit,
-      Placeholder.configure({
-        placeholder: '내용을 입력해주세요',
-      }),
-    ],
-    content: '',
-  });
-
+const TextEditor = ({ editor }: { editor: Editor | null }) => {
   return (
     <EditorContainer>
       <TextEditorUI editor={editor} />
