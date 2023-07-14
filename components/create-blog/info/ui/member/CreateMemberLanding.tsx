@@ -1,23 +1,37 @@
 'use client';
+import { useEffect, useState } from 'react';
 import styled from 'styled-components';
 
 import AddMemberForm from '@/components/common/ui/AddMemberForm';
+import { ProgressStateProps } from '@/types/progress';
 
-interface CreateMemberLandingProps {
-  progressState: number;
-}
+const CreateMemberLanding = (props: ProgressStateProps) => {
+  const { progressState, setProgressState } = props;
 
-const CreateMemberLanding = (props: CreateMemberLandingProps) => {
-  const { progressState } = props;
+  const [containerState, setContainerState] = useState('');
+
+  useEffect(() => {
+    if (progressState === -2) {
+      setContainerState('fadeDownOut');
+    } else if (progressState === 3) {
+      setContainerState('fadeIn');
+    }
+  }, [progressState]);
+
   return (
-    <CreateMemberContainer className={progressState === 3 ? 'fadein' : ''}>
+    <CreateMemberContainer className={containerState}>
       <AddMemberContainer>
         <Title>이메일로 팀원을 초대하세요</Title>
         <SubTitle>쉼표, 엔터, 스페이스바로 메일 주소를 구분할 수 있습니다</SubTitle>
         <AddMemberForm width={'40'} height={'17.2'} paddingUD={'2'} paddingLR={'2.4'} />
         <ButtonContainer>
-          <SkipButton type="button">건너뛰기</SkipButton>
-          <InviteButton type="button">초대하기</InviteButton>
+          <PreviousButton type="button" onClick={() => setProgressState(-2)}>
+            이전으로
+          </PreviousButton>
+          <div>
+            <SkipButton type="button">건너뛰기</SkipButton>
+            <InviteButton type="button">다음으로</InviteButton>
+          </div>
         </ButtonContainer>
       </AddMemberContainer>
     </CreateMemberContainer>
@@ -40,11 +54,18 @@ const CreateMemberContainer = styled.div`
   width: 100%;
   height: 100vh;
 
-  &.fadein {
+  &.fadeIn {
     transform: translateY(-30rem);
     transition: 1s;
     opacity: 1;
     z-index: 100;
+  }
+
+  &.fadeDownOut {
+    transform: translateY(30rem);
+    transition: 1s;
+    opacity: 0;
+    z-index: 0;
   }
 `;
 
@@ -84,6 +105,12 @@ const InviteButton = styled.button`
   color: ${({ theme }) => theme.colors.grey_0};
 `;
 
+const PreviousButton = styled.button`
+  ${({ theme }) => theme.fonts.Body1_Regular};
+  margin-left: 0.3rem;
+  color: ${({ theme }) => theme.colors.grey_700};
+`;
+
 const SkipButton = styled.button`
   ${({ theme }) => theme.fonts.Button_medium};
 
@@ -101,6 +128,13 @@ const SkipButton = styled.button`
 
 const ButtonContainer = styled.div`
   display: flex;
-  gap: 1.2rem;
+  justify-content: space-between;
+
   margin-top: 3.2rem;
+  width: 100%;
+
+  & > div {
+    display: flex;
+    gap: 0.8rem;
+  }
 `;

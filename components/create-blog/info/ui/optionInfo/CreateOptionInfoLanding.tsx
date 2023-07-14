@@ -17,9 +17,11 @@ const CreateOptionInfoLanding = (props: ProgressStateProps) => {
     if (progressState === -1) {
       setContainerState('fadeDownOut');
     } else if (progressState === 2) {
-      setContainerState('fadeIn');
+      setContainerState('fadeUpIn');
     } else if (progressState === 3) {
       setContainerState('fadeUpOut');
+    } else if (progressState === -2) {
+      setContainerState('fadeDownIn');
     }
   }, [progressState]);
 
@@ -73,13 +75,19 @@ const CreateBasicInfoContainer = styled.div`
   width: 100%;
   height: 100vh;
 
-  &.fadeIn {
+  &.fadeUpIn {
     transform: translateY(-30rem);
     transition: 1s;
     opacity: 1;
     z-index: 100;
   }
 
+  &.fadeDownIn {
+    transform: translateY(-30rem);
+    transition: 1s;
+    opacity: 1;
+    z-index: 100;
+  }
   &.fadeDownOut {
     transform: translateY(30rem);
     transition: 1s;
