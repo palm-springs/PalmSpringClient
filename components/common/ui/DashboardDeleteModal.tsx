@@ -9,7 +9,7 @@ interface DashboardDeleteProps {
   leftButtonText: string;
   rightButtonText: string;
   leftHandler?: () => void;
-  righthHandler?: () => void;
+  rightHandler?: () => void;
 }
 
 const DashboardDeleteModal = ({
@@ -19,7 +19,7 @@ const DashboardDeleteModal = ({
   rightButtonText,
   lineBreaking,
   leftHandler,
-  righthHandler,
+  rightHandler,
 }: DashboardDeleteProps) => {
   return (
     <ModalContainer>
@@ -29,7 +29,7 @@ const DashboardDeleteModal = ({
         <LineBreakingText>{lineBreaking}</LineBreakingText>
         <ButtonContainer>
           <LeftBottomButton onClick={leftHandler}>{leftButtonText}</LeftBottomButton>
-          <RightBottomButton onClick={righthHandler}>{rightButtonText}</RightBottomButton>
+          <RightBottomButton onClick={rightHandler}>{rightButtonText}</RightBottomButton>
         </ButtonContainer>
       </ModalWrapper>
     </ModalContainer>
