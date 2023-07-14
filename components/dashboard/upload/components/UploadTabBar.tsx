@@ -1,16 +1,29 @@
 'use client';
 
-import React, { Dispatch, SetStateAction } from 'react';
+import React, { Dispatch, SetStateAction, useState } from 'react';
 
 import UploadTabBarContainer from './ui/UploadTabBarContainer';
 
+type ArrayLiteral<T extends ReadonlyArray<any>> = T[number];
 export interface UploadTabBarProps {
-  category: dashBoardTabType;
-  setCategory: Dispatch<SetStateAction<dashBoardTabType>>;
+  categoryListData: CategoryListProps[];
+  currentCategory: string[];
+  setCategory: Dispatch<SetStateAction<string>>;
 }
 
 const UploadTabBar = (props: UploadTabBarProps) => {
-  return <UploadTabBarContainer categoryProps={props} />;
+  const category = [...props.currentCategory] as const;
+
+  const [currentCategory, setCurrentCategory] = useState<ArrayLiteral<typeof category> | '전체'>('전체');
+
+  return (
+    <UploadTabBarContainer
+      categoryDataList={props.categoryListData}
+      currentCategory={currentCategory}
+      setCurrentCategory={setCurrentCategory}
+      setCategory={props.setCategory}
+    />
+  );
 };
 
 export default UploadTabBar;

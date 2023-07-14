@@ -1,35 +1,43 @@
 'use client';
 
-import React from 'react';
+import React, { Dispatch, SetStateAction } from 'react';
 import { styled } from 'styled-components';
-
-import { UploadTabBarProps } from '../UploadTabBar';
 interface UploadTabBarContainerProps {
-  categoryProps: UploadTabBarProps;
+  categoryDataList: CategoryListProps[];
+  currentCategory: string;
+  setCurrentCategory: Dispatch<SetStateAction<string>>;
+  setCategory: Dispatch<SetStateAction<string>>;
 }
 
 const UploadTabBarContainer = (props: UploadTabBarContainerProps) => {
-  const {
-    categoryProps: { category, setCategory },
-  } = props;
+  const { categoryDataList, currentCategory, setCurrentCategory, setCategory } = props;
 
   return (
     <UploadTabBarUI>
-      <UploadTabBarTextUI $currentTab={category === 'all'} onClick={() => setCategory('all')}>
-        전체
-      </UploadTabBarTextUI>
-      <UploadTabBarTextUI $currentTab={category === 'dev'} onClick={() => setCategory('dev')}>
-        개발
-      </UploadTabBarTextUI>
-      <UploadTabBarTextUI $currentTab={category === 'design'} onClick={() => setCategory('design')}>
-        디자인
-      </UploadTabBarTextUI>
-      <UploadTabBarTextUI $currentTab={category === 'plan'} onClick={() => setCategory('plan')}>
-        기획
-      </UploadTabBarTextUI>
-      <UploadTabBarTextUI $currentTab={category === 'culture'} onClick={() => setCategory('culture')}>
-        문화
-      </UploadTabBarTextUI>
+      <>
+        <UploadTabBarTextUI
+          key={0}
+          $currentTab={currentCategory === '전체'}
+          onClick={() => {
+            setCurrentCategory('전체');
+            setCategory('전체');
+          }}>
+          전체
+        </UploadTabBarTextUI>
+        {categoryDataList.map(({ id, name }) => {
+          return (
+            <UploadTabBarTextUI
+              key={id}
+              $currentTab={currentCategory === name}
+              onClick={() => {
+                setCurrentCategory(name);
+                setCategory(name);
+              }}>
+              {name}
+            </UploadTabBarTextUI>
+          );
+        })}
+      </>
     </UploadTabBarUI>
   );
 };
