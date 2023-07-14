@@ -5,7 +5,7 @@ import styled from 'styled-components';
 
 import { ArticleProps } from '@/types/article';
 
-import ArticleImg from '../blog/UI/ArticleImg';
+import ArticleImg from '../blog/ui/ArticleImg';
 
 const Article = (props: ArticleProps) => {
   const { title, description, writer, date, thumbnailImgUrl } = props;
