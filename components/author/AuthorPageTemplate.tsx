@@ -3,7 +3,8 @@
 import React from 'react';
 import styled from 'styled-components';
 
-import ArticleList from './ui/ArticleList';
+import ArticleList from '../common/ArticleList';
+
 import AuthorInfo from './ui/AuthorInfo';
 
 const AuthorPageTemplate = () => {
@@ -29,8 +30,8 @@ const AuthorPageTemplateContainer = styled.section`
   flex-direction: column;
   align-items: center;
 
-  margin-top: 5.7rem;
-  margin-bottom: 15.2rem;
+  margin-top: 6rem;
+  margin-bottom: 12rem;
   min-width: 72rem;
 `;
 

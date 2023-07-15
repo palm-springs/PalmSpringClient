@@ -3,7 +3,8 @@
 import React from 'react';
 import styled from 'styled-components';
 
-import ArticleList from './ArticleList';
+import ArticleList from '@/components/common/ArticleList';
+
 import CategoryBtnBar from './CategoryBtnBar';
 
 const ArticleContainer = () => {
@@ -26,7 +27,7 @@ const ArticleWrapper = styled.section`
   flex-direction: column;
   align-items: center;
 
-  margin-bottom: 6rem;
+  margin-bottom: 11rem;
   min-width: 105.6rem;
 `;
 const CategoryBtnWrapper = styled.div`
