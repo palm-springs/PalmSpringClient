@@ -21,17 +21,19 @@ const CreateMemberLanding = (props: ProgressStateProps) => {
   return (
     <CreateMemberContainer className={containerState}>
       <AddMemberContainer>
-        <Title>이메일로 팀원을 초대하세요</Title>
-        <SubTitle>쉼표, 엔터, 스페이스바로 메일 주소를 구분할 수 있습니다</SubTitle>
+        <Title>
+          팀원과 함께 시작하기<div>(선택)</div>
+        </Title>
+        <SubTitleContainer>
+          <span>팀원의 이메일을 입력하세요 </span>
+          <span>쉼표, 엔터, 스페이스바로 메일 주소를 구분할 수 있습니다</span>
+        </SubTitleContainer>
         <AddMemberForm width={'40'} height={'17.2'} paddingUD={'2'} paddingLR={'2.4'} />
         <ButtonContainer>
           <PreviousButton type="button" onClick={() => setProgressState(-2)}>
             이전으로
           </PreviousButton>
-          <div>
-            <SkipButton type="button">건너뛰기</SkipButton>
-            <InviteButton type="button">다음으로</InviteButton>
-          </div>
+          <InviteButton type="button">시작하기</InviteButton>
         </ButtonContainer>
       </AddMemberContainer>
     </CreateMemberContainer>
@@ -81,12 +83,28 @@ const AddMemberContainer = styled.div`
 `;
 
 const Title = styled.h1`
+  position: relative;
   ${({ theme }) => theme.fonts.Heading1};
+
+  & > div {
+    ${({ theme }) => theme.fonts.Body2_Regular};
+    position: absolute;
+    right: -4.3rem;
+    bottom: 0.4rem;
+    color: ${({ theme }) => theme.colors.grey_700};
+  }
 `;
 
-const SubTitle = styled.h2`
-  ${({ theme }) => theme.fonts.Body2_Regular};
+const SubTitleContainer = styled.div`
+  display: flex;
+  flex-direction: column;
+  align-items: center;
   margin-bottom: 3.2rem;
+
+  & > span {
+    ${({ theme }) => theme.fonts.Body2_Regular};
+    color: ${({ theme }) => theme.colors.grey_900};
+  }
 `;
 
 const InviteButton = styled.button`
@@ -113,30 +131,10 @@ const PreviousButton = styled.button`
   color: ${({ theme }) => theme.colors.grey_700};
 `;
 
-const SkipButton = styled.button`
-  ${({ theme }) => theme.fonts.Button_medium};
-
-  border: 1px solid ${({ theme }) => theme.colors.grey_700};
-  border-radius: 0.8rem;
-  background: none;
-
-  cursor: pointer;
-
-  width: 9.6rem;
-  height: 3.6rem;
-
-  color: ${({ theme }) => theme.colors.grey_700};
-`;
-
 const ButtonContainer = styled.div`
   display: flex;
   justify-content: space-between;
 
   margin-top: 3.2rem;
   width: 100%;
-
-  & > div {
-    display: flex;
-    gap: 0.8rem;
-  }
 `;

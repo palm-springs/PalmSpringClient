@@ -169,13 +169,3 @@ const NextButton = styled.button`
   height: 3.6rem;
   color: ${({ theme }) => theme.colors.grey_0};
 `;
-
-const SkipButton = styled.button`
-  ${({ theme }) => theme.fonts.Button_medium};
-  border: 1px solid ${({ theme }) => theme.colors.grey_700};
-  border-radius: 0.8rem;
-  width: 9.6rem;
-  height: 3.6rem;
-
-  color: ${({ theme }) => theme.colors.grey_700};
-`;
