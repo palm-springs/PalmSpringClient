@@ -147,7 +147,7 @@ ${reset}
   .ProseMirror {
   img {
     margin-top: 2.4rem 0 0.8rem 0;
-    max-width: 100%;
+    width: 72.2rem;
     height: auto;
 
     &.ProseMirror-selectednode {

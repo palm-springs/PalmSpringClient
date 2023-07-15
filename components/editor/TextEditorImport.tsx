@@ -1,5 +1,5 @@
 'use client';
-import React, { DragEvent, DragEventHandler, useCallback, useState } from 'react';
+import React, { ChangeEvent, DragEvent, DragEventHandler, useCallback, useState } from 'react';
 import Blockquote from '@tiptap/extension-blockquote';
 import Bold from '@tiptap/extension-bold';
 import BulletList from '@tiptap/extension-bullet-list';
@@ -79,52 +79,52 @@ const TextEditorBuild = () => {
     content: '',
   });
 
-  const addImage = useCallback(
-    ({ editor }: { editor: Editor }) => {
-      const url = window.prompt('URL');
+  // const addImage = useCallback(
+  //   ({ editor }: { editor: Editor }) => {
+  //     const url = window.prompt('URL');
 
-      if (url) {
-        editor.chain().focus().setImage({ src: url }).run();
-      }
-    },
-    [editor],
-  );
+  //     if (url) {
+  //       editor.chain().focus().setImage({ src: url }).run();
+  //     }
+  //   },
+  //   [editor],
+  // );
 
-  // const encodeFileToBase64 = (
-  //   event: { target: { files: FileList } },
-  //   { editor }: { editor: Editor },
-  // ): Promise<string> => {
-  //   return new Promise((resolve) => {
-  //     const reader = new FileReader();
-  //     const file = event.target.files[0];
-  //     reader.onload = () => {
-  //       const base64Data = reader.result as string;
-  //       setImageSrc(base64Data); // 이미지 상태 업데이트
-  //       editor.chain().focus().setImage({ src: base64Data }).run(); // 이미지 에디터 안으로 추가
-  //       resolve(base64Data);
-  //     };
-  //     reader.readAsDataURL(file);
-  //   });
-  // };
+  const encodeFileToBase64 = ({
+    event,
+    editor,
+  }: {
+    event: ChangeEvent<HTMLInputElement>;
+    editor: Editor;
+  }): Promise<string> => {
+    return new Promise((resolve) => {
+      const reader = new FileReader();
+      const file = event.target.files && event.target.files[0];
+      reader.onload = () => {
+        const base64Data = reader.result as string;
+        setImageSrc(base64Data); // 이미지 상태 업데이트
+        editor.chain().focus().setImage({ src: base64Data }).run(); // 이미지 에디터 안으로 추가
+        resolve(base64Data);
+      };
+      reader.readAsDataURL(file!);
+    });
+  };
 
   const setLink = useCallback(
     ({ editor }: { editor: Editor }) => {
       const previousUrl = editor.getAttributes('link').href;
       const url = window.prompt('URL', previousUrl);
 
-      // cancelled
       if (url === null) {
         return;
       }
 
-      // empty
       if (url === '') {
         editor.chain().focus().extendMarkRange('link').unsetLink().run();
 
         return;
       }
 
-      // update link
       editor.chain().focus().extendMarkRange('link').setLink({ href: url }).run();
     },
     [editor],
@@ -165,7 +165,7 @@ const TextEditorBuild = () => {
 
   return (
     <>
-      <ToolBox editor={editor} addImage={addImage} setLink={setLink} />
+      <ToolBox editor={editor} encodeFileToBase64={encodeFileToBase64} setLink={setLink} />
       {/* <ScrollTopToolbar /> */}
       <TextEditor editor={editor} handleDrop={handleDrop} handleDragOver={handleDragOver} />
     </>
