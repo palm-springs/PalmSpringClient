@@ -8,16 +8,27 @@ import PageBtn from '@/components/blog/PageBtn';
 
 import SubscribeBtn from '../SubscribeBtn';
 
-const BlogNav = () => {
-  const PAGE_LIST: string[] = ['채용', '인스타그램'];
+interface navProps {
+  navList: {
+    name: string;
+    navUrl: string;
+  }[];
+}
+
+const BlogNav = (prop: navProps) => {
+  const { navList } = prop;
+
+  //유효성 검사
+  // if (!navList) return <div>로더</div>;
 
   return (
     <BlogNavContainer>
-      {PAGE_LIST.map((eachPage) => (
-        <PageBtn key={eachPage}>
-          <Link href={''}>{eachPage}</Link>
-        </PageBtn>
-      ))}
+      {navList &&
+        navList.map((eachPage) => (
+          <PageBtn key={eachPage.navUrl}>
+            <Link href={`../content/${eachPage.navUrl}`}>{eachPage.name}</Link>
+          </PageBtn>
+        ))}
       <SubscribeBtn />
     </BlogNavContainer>
   );
