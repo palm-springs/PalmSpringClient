@@ -1,6 +1,6 @@
 'use client';
 
-import React, { useCallback } from 'react';
+import React from 'react';
 import { Editor } from '@tiptap/react';
 import styled from 'styled-components';
 
@@ -25,9 +25,10 @@ import {
 interface editorProps {
   editor: Editor;
   addImage: ({ editor }: { editor: Editor }) => void;
+  setLink: ({ editor }: { editor: Editor }) => void;
 }
 
-const ToolBox = ({ editor, addImage }: editorProps) => {
+const ToolBox = ({ editor, addImage, setLink }: editorProps) => {
   return (
     <IconContainer>
       <IconWrapper>
@@ -72,7 +73,7 @@ const ToolBox = ({ editor, addImage }: editorProps) => {
         <button onClick={() => addImage({ editor })}>
           <ImageIcon />
         </button>
-        <button>
+        <button onClick={() => setLink({ editor })} className={editor.isActive('link') ? 'is-active' : ''}>
           <LinkIcon />
         </button>
         <button onClick={() => editor.chain().focus().toggleCodeBlock().run()}>

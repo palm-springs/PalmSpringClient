@@ -146,6 +146,7 @@ ${reset}
 
   .ProseMirror {
   img {
+    margin-top: 2.4rem 0 0.8rem 0;
     max-width: 100%;
     height: auto;
 
@@ -153,6 +154,12 @@ ${reset}
       outline: 3px solid #68cef8; 
       /* 클릭시 선 */
     }
+  }
+  a {
+
+    border-bottom: 0.8px solid ${({ theme }) => theme.colors.grey_700};
+    text-decoration: none;;
+    color: ${({ theme }) => theme.colors.grey_700};
   }
 }
 
@@ -166,11 +173,12 @@ ${reset}
 html {
     font-size: 62.5%;
 }
-a {
+
+/* a {
     text-decoration: none;
     
     color: inherit;
-}
+} */
 
 button { 
     border:none; 

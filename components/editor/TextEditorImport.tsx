@@ -9,6 +9,7 @@ import Dropcursor from '@tiptap/extension-dropcursor';
 import Heading from '@tiptap/extension-heading';
 import Image from '@tiptap/extension-image';
 import Italic from '@tiptap/extension-italic';
+import Link from '@tiptap/extension-link';
 import ListItem from '@tiptap/extension-list-item';
 import OrderedList from '@tiptap/extension-ordered-list';
 import Placeholder from '@tiptap/extension-placeholder';
@@ -68,6 +69,12 @@ const TextEditorBuild = () => {
         },
       }),
       Dropcursor,
+      Link.configure({
+        protocols: ['ftp', 'mailto'],
+        autolink: true,
+        openOnClick: true,
+        linkOnPaste: true,
+      }),
     ],
     content: '',
   });
@@ -99,6 +106,29 @@ const TextEditorBuild = () => {
   //     reader.readAsDataURL(file);
   //   });
   // };
+
+  const setLink = useCallback(
+    ({ editor }: { editor: Editor }) => {
+      const previousUrl = editor.getAttributes('link').href;
+      const url = window.prompt('URL', previousUrl);
+
+      // cancelled
+      if (url === null) {
+        return;
+      }
+
+      // empty
+      if (url === '') {
+        editor.chain().focus().extendMarkRange('link').unsetLink().run();
+
+        return;
+      }
+
+      // update link
+      editor.chain().focus().extendMarkRange('link').setLink({ href: url }).run();
+    },
+    [editor],
+  );
 
   const handleDrop: DragEventHandler<HTMLDivElement> = useCallback(
     (event) => {
@@ -135,7 +165,7 @@ const TextEditorBuild = () => {
 
   return (
     <>
-      <ToolBox editor={editor} addImage={addImage} />
+      <ToolBox editor={editor} addImage={addImage} setLink={setLink} />
       {/* <ScrollTopToolbar /> */}
       <TextEditor editor={editor} handleDrop={handleDrop} handleDragOver={handleDragOver} />
     </>
