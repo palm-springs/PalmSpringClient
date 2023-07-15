@@ -32,15 +32,15 @@ const AddMemberInput = () => {
   };
 
   // 삭제 버튼 클릭시
-  const handleCloseClick = (targetEmail: string) => {
-    const newEmailList = emailList.filter((email) => email !== targetEmail);
+  const handleCloseClick = (targetIdx: number) => {
+    const newEmailList = emailList.filter((_, idx) => idx !== targetIdx);
     setEmailList(newEmailList);
   };
 
   /** email 중복 입력이 안된다는 가정 하에 구현 */
   // 입력된 email 렌더링
-  const EmailBoxList = emailList.map((email) => {
-    return <EmailBox key={email} email={email} handleCloseClick={handleCloseClick} />;
+  const EmailBoxList = emailList.map((email, idx) => {
+    return <EmailBox key={`${email}_${idx}`} email={email} handleCloseClick={() => handleCloseClick(idx)} />;
   });
 
   return (
