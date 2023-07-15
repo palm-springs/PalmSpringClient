@@ -28,7 +28,10 @@ const CreateOptionInfoLanding = (props: ProgressStateProps) => {
   return (
     <CreateBasicInfoContainer className={containerState}>
       <InfoContainer>
-        <Title>블로그 생성하기</Title>
+        <Title>
+          블로그 생성하기
+          <div>(선택)</div>
+        </Title>
         <ImageInputForm type="logo" />
 
         <ImageInputForm type="gate" />
@@ -114,8 +117,17 @@ const InfoContainer = styled.div`
 `;
 
 const Title = styled.h1`
+  position: relative;
   ${({ theme }) => theme.fonts.Heading1};
   margin: 0 auto;
+
+  & > div {
+    ${({ theme }) => theme.fonts.Body2_Regular};
+    position: absolute;
+    right: -4.3rem;
+    bottom: 0.4rem;
+    color: ${({ theme }) => theme.colors.grey_700};
+  }
 `;
 
 // input (textarea)
