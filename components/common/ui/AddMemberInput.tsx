@@ -62,7 +62,7 @@ const AddMemberInputContainer = styled.div`
 `;
 
 const Input = styled.input`
-  ${({ theme }) => theme.fonts.Body1_Regular};
+  ${({ theme }) => theme.fonts.Body3_Regular};
   border: none;
 
   &:focus {
