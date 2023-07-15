@@ -144,6 +144,18 @@ ${reset}
     }
   }
 
+  .ProseMirror {
+  img {
+    max-width: 100%;
+    height: auto;
+
+    &.ProseMirror-selectednode {
+      outline: 3px solid #68cef8; 
+      /* 클릭시 선 */
+    }
+  }
+}
+
 
 #root, body, html {
     margin: 0 auto;

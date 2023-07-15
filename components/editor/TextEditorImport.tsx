@@ -32,12 +32,8 @@ lowlight.registerLanguage('ts', ts);
 import ToolBox from '@/components/editor/article/ui/ToolBox';
 import TextEditor from '@/components/editor/TextEditor';
 
-interface editorProps {
-  editor: Editor;
-  addImage: () => void;
-}
 const TextEditorBuild = () => {
-  const [imageSrc, setImageSrc] = useState('');
+  const [, setImageSrc] = useState('');
 
   const editor = useEditor({
     extensions: [

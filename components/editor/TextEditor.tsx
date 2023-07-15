@@ -1,6 +1,6 @@
 'use client';
 
-import { ChangeEvent, DragEventHandler } from 'react';
+import { DragEventHandler } from 'react';
 import { Editor, EditorContent } from '@tiptap/react';
 import styled from 'styled-components';
 
