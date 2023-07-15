@@ -13,7 +13,7 @@ const EmailBox = (props: EmailBoxProps) => {
 
   return (
     <EmailBoxContainer>
-      {email}
+      <span>{email}</span>
       <CloseButton type="button" onClick={() => handleCloseClick(email)}>
         <CloseIcon />
       </CloseButton>
@@ -24,18 +24,18 @@ const EmailBox = (props: EmailBoxProps) => {
 export default EmailBox;
 
 const EmailBoxContainer = styled.div`
-  ${({ theme }) => theme.fonts.Body1_Regular};
-
   display: flex;
-  gap: 0.4rem;
-  align-items: center;
-  justify-content: center;
+
+  ${({ theme }) => theme.fonts.Body1_Regular};
 
   border-radius: 0.8rem;
   background-color: ${({ theme }) => theme.colors.grey_300};
 
-  padding: 0 0.8rem 0 1.2rem;
-  height: 3.6rem;
+  padding-left: 1rem;
+
+  max-width: 100%;
+
+  word-break: break-all;
 
   color: ${({ theme }) => theme.colors.grey_900};
 `;
@@ -45,6 +45,9 @@ const CloseButton = styled.button`
   align-items: center;
   justify-content: center;
 
+  margin-top: 0.4rem;
+  margin-right: 0.5rem;
+
   border: none;
   background: none;
 
@@ -52,6 +55,7 @@ const CloseButton = styled.button`
   padding: 0;
 
   width: 2rem;
+  height: 2rem;
 
   svg {
     pointer-events: none;
