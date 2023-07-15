@@ -12,6 +12,7 @@ interface navProps {
   navList: {
     name: string;
     navUrl: string;
+    isPage: boolean;
   }[];
 }
 
@@ -26,7 +27,11 @@ const BlogNav = (prop: navProps) => {
       {navList &&
         navList.map((eachPage) => (
           <PageBtn key={eachPage.navUrl}>
-            <Link href={`../content/${eachPage.navUrl}`}>{eachPage.name}</Link>
+            {eachPage.isPage === true ? (
+              <Link href={`../content/${eachPage.navUrl}`}>{eachPage.name}</Link>
+            ) : (
+              <Link href={`${eachPage.navUrl}`}>{eachPage.name}</Link>
+            )}
           </PageBtn>
         ))}
       <SubscribeBtn />
