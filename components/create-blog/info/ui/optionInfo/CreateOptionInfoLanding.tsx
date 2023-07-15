@@ -44,14 +44,9 @@ const CreateOptionInfoLanding = (props: ProgressStateProps) => {
           <PreviousButton type="button" onClick={() => setProgressState(-1)}>
             이전으로
           </PreviousButton>
-          <div>
-            <SkipButton type="button" onClick={() => setProgressState(3)}>
-              건너뛰기
-            </SkipButton>
-            <NextButton type="button" onClick={() => setProgressState(3)}>
-              다음으로
-            </NextButton>
-          </div>
+          <NextButton type="button" onClick={() => setProgressState(3)}>
+            다음으로
+          </NextButton>
         </ButtonContainer>
       </InfoContainer>
     </CreateBasicInfoContainer>
@@ -145,11 +140,6 @@ const ButtonContainer = styled.div`
   display: flex;
   justify-content: space-between;
   width: 100%;
-
-  & > div {
-    display: flex;
-    gap: 0.8rem;
-  }
 `;
 
 const PreviousButton = styled.button`
