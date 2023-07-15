@@ -6,7 +6,7 @@ import styled from 'styled-components';
 
 import PageBtn from '@/components/blog/PageBtn';
 
-import SubscribeBtn from '../SubscribeBtn';
+import SubscribeBtn from '../blog/SubscribeBtn';
 
 interface navProps {
   navList: {
@@ -28,7 +28,7 @@ const BlogNav = (prop: navProps) => {
         navList.map((eachPage) => (
           <PageBtn key={eachPage.navUrl}>
             {eachPage.isPage === true ? (
-              <Link href={`../content/${eachPage.navUrl}`}>{eachPage.name}</Link>
+              <Link href={`/blogNameHere/content/${eachPage.navUrl}`}>{eachPage.name}</Link>
             ) : (
               <Link href={`${eachPage.navUrl}`}>{eachPage.name}</Link>
             )}

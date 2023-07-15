@@ -3,8 +3,8 @@
 import React from 'react';
 import styled from 'styled-components';
 
-import HeaderLogo from '../blog/HeaderLogo';
-import BlogNav from '../blog/ui/BlogNav';
+import BlogNav from './BlogNav';
+import HeaderLogo from './HeaderLogo';
 
 const BlogHeader = () => {
   const BLOG_HEADER_EXAMPLE = {
