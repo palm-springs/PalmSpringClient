@@ -25,6 +25,7 @@
     "next": "13.4.7",
     "react": "18.2.0",
     "react-dom": "18.2.0",
+    "recoil": "^0.7.7",
     "styled-components": "^6.0.1",
     "styled-reset": "^4.4.7",
     "tiptap": "^1.32.2",
