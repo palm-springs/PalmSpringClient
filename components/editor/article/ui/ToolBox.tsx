@@ -1,6 +1,6 @@
 'use client';
 
-import React from 'react';
+import React, { useCallback } from 'react';
 import { Editor } from '@tiptap/react';
 import styled from 'styled-components';
 
@@ -24,9 +24,10 @@ import {
 
 interface editorProps {
   editor: Editor;
+  addImage: ({ editor }: { editor: Editor }) => void;
 }
 
-const ToolBox = ({ editor }: editorProps) => {
+const ToolBox = ({ editor, addImage }: editorProps) => {
   return (
     <IconContainer>
       <IconWrapper>
@@ -68,7 +69,7 @@ const ToolBox = ({ editor }: editorProps) => {
         <button onClick={() => editor.chain().focus().setHorizontalRule().run()}>
           <HorizonIcon />
         </button>
-        <button>
+        <button onClick={() => addImage({ editor })}>
           <ImageIcon />
         </button>
         <button>

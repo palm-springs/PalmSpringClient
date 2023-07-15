@@ -1,15 +1,24 @@
 'use client';
 
+import { ChangeEvent, DragEventHandler } from 'react';
 import { Editor, EditorContent } from '@tiptap/react';
 import styled from 'styled-components';
 
-const TextEditor = ({ editor }: { editor: Editor | null }) => {
-  return (
+const TextEditor = ({
+  editor,
+  handleDragOver,
+  handleDrop,
+}: {
+  editor: Editor | null;
+  handleDragOver: DragEventHandler<HTMLDivElement> | undefined;
+  handleDrop: DragEventHandler<HTMLDivElement> | undefined;
+}) => (
+  <div id="dropzone" onDrop={handleDrop} onDragOver={handleDragOver}>
     <EditorContainer>
       <TextEditorUI editor={editor} />
     </EditorContainer>
-  );
-};
+  </div>
+);
 
 export default TextEditor;
 
