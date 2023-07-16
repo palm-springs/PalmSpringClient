@@ -1,7 +1,6 @@
 'use client';
 
 import React, { useState } from 'react';
-import { Editor } from '@tiptap/react';
 import styled from 'styled-components';
 
 import ModalPortal from '@/components/common/ModalPortal';
