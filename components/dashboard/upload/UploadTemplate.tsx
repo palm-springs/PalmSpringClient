@@ -4,7 +4,6 @@ import React, { useEffect, useState } from 'react';
 
 import { useGetArticleList } from '@/hooks/article';
 import { useGetCategoryList } from '@/hooks/dashboard';
-import { dashBoardTabType } from '@/types/dashboard';
 import { getLiteralCategoryList } from '@/utils/getLiteralCategoryList';
 
 import DashBoardTemplateContainer from '../components/ui/DashBoardTemplateContainer';

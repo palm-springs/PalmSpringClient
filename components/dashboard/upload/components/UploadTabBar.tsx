@@ -2,7 +2,7 @@
 
 import React, { Dispatch, SetStateAction, useState } from 'react';
 
-import { dashBoardTabType } from '@/types/dashboard';
+import { CategoryListProps } from '@/types/dashboard';
 
 import UploadTabBarContainer from './ui/UploadTabBarContainer';
 
