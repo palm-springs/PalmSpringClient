@@ -1,3 +1,5 @@
+import { EditorContentType } from '@/types/editorContent';
+
 const articleContent: EditorContentType = {
   article: {
     title: '팜스프링은 이렇게 만들어졌습니다',
