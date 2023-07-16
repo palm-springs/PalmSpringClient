@@ -1,4 +1,4 @@
-export interface ArticleProps {
+export interface ArticleData {
   id: number;
   thumbnail: string;
   title: string;

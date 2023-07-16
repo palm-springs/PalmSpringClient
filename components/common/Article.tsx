@@ -5,7 +5,7 @@ import Link from 'next/link';
 import styled from 'styled-components';
 
 import useGetCategory from '@/hooks/useGetCategory';
-import { ArticleListProps } from '@/types/articleList';
+import { ArticleData } from '@/types/article';
 
 import ArticleImg from '../blog/ui/ArticleImg';
 

@@ -1,4 +1,4 @@
-import { ArticleProps } from '@/types/article';
+import { ArticleData } from '@/types/article';
 import { Response } from '@/types/common';
 
 import { client } from '.';
