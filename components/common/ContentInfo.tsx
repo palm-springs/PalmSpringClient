@@ -1,34 +1,42 @@
 'use client';
 
 import React from 'react';
-import Image from 'next/image';
 import Link from 'next/link';
 import styled from 'styled-components';
 
-import { MemberExampleImg } from '@/public/images';
+import useGetIfContentPage from '@/hooks/useGetIfContentPage';
+import { NoUserProfileIcon } from '@/public/icons';
 
 interface ContentInfoProps {
   content: ContentProps;
 }
 
 const ContentInfo = (props: ContentInfoProps) => {
+  const ifContent: string = useGetIfContentPage();
   const {
     content: {
       title,
       description,
-      teamMember: { name, job, createdAt },
+      teamMember: { thumbnail, name, job, createdAt },
     },
   } = props;
 
-  //작성자 프로필 이미지 필요 - 유진이에게 요청 완
-
   return (
-    <ContentInfoContainer>
-      <TitleBox>{title}</TitleBox>
-      {description && <DescriptionBox>{description}</DescriptionBox>}
+    <ContentInfoContainer className={ifContent === 'content' ? 'noHover' : ''}>
+      {ifContent === 'content' ? (
+        <>
+          <TitleBox>{title}</TitleBox>
+          {description && <DescriptionBox>{description}</DescriptionBox>}
+        </>
+      ) : (
+        <Link href={`/blogNameHere/content/contentNameHere`}>
+          <TitleBox>{title}</TitleBox>
+          {description && <DescriptionBox>{description}</DescriptionBox>}
+        </Link>
+      )}
       {name && (
         <WriterInfo href={`/blogNameHere/author/authorNameHere`}>
-          <Image src={MemberExampleImg} alt="writer profile pic" />
+          {thumbnail ? <WriterProfilePic src={thumbnail} alt="writer profile pic" /> : <NoUserProfileIcon />}
           <WriterDetailBox>
             <WriterNameBox>
               <WriterDetail>{name}</WriterDetail>&nbsp;·&nbsp;<WriterDetail>{job}</WriterDetail>
@@ -43,11 +51,27 @@ const ContentInfo = (props: ContentInfoProps) => {
 
 export default ContentInfo;
 
+const WriterProfilePic = styled.img`
+  border-radius: 50%;
+  width: 5rem;
+  height: 5rem;
+`;
+
 const ContentInfoContainer = styled.section`
   display: flex;
   flex-direction: column;
   justify-content: flex-start;
   width: 72rem;
+
+  &:hover {
+    article,
+    div {
+      opacity: 0.8;
+    }
+  }
+  &.noHover {
+    pointer-events: none;
+  }
 `;
 
 const WriterNameBox = styled.div`
@@ -92,6 +116,7 @@ const WriterDetailBox = styled.div`
 const WriterDetail = styled.div`
   ${({ theme }) => theme.fonts.Body2_Regular};
   color: ${({ theme }) => theme.colors.grey_950};
+
   &.date {
     ${({ theme }) => theme.fonts.Body3_Regular};
     color: ${({ theme }) => theme.colors.grey_700};

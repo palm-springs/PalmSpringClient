@@ -7,9 +7,9 @@ import parse from 'html-react-parser';
 import styled from 'styled-components';
 
 const Content = () => {
-  const htmlString = `<h1>안녕하세요</h1><h2>이것은 이시연에게 전달하는 내용입니다.</h2><p><em>하하하하하하하하</em> <strong>메롱</strong> 메에에에롱 <s>얍얍!!!!!!!!</s></p><p><em>하이이이이이이이이이잉</em></p><p>호로로로로로로로로로<strong>롤</strong>롤😊</p><h3>하하</h3><h4>히히히히히히히히히히히히히히히ㅛ</h4><p>
-  <a target="_blank" rel="noopener noreferrer" class="my-custom-class my-custom-class" href="https://www.google.com/search?rlz=1C5CHFA_enKR1048KR1048&amp;sxsrf=AB5stBh8jcuMMGP9X3yhGg19wCm5BNMAdg:1688467939731&amp;q=%EB%A9%94%EB%A1%B1&amp;tbm=isch&amp;sa=X&amp;sqi=2&amp;ved=2ahUKEwj_5Yue8fT_AhUWMd4KHfiIAqMQ0pQJegQIDBAB&amp;biw=1440&amp;bih=789&amp;dpr=2">메롱</a></p><p></p><p></p><p></p><p></p>`;
+  const htmlString = `<h1>H1입니다<img class="my-custom-class" src="https://tests-bucketss.s3.ap-northeast-2.amazonaws.com/Palms/image/2d21aa52-659a-4679-84df-fd0bdae94301.jpg"></h1><p>그냥 텍스트</p><p><s>스트라이크</s></p><p><em>이텔릭</em></p><p><strong>볼드</strong></p><ul><li><p>리스트</p></li><li><p>리스트</p><ul><li><p>위치바꿈</p></li></ul></li></ul><ol><li><p>오더 리스트</p></li><li><p>오더리스트</p><ol><li><p>오더리스트 위치바꿈</p></li></ol></li></ol><blockquote><p>아ㅓㄹ아너라ㅣㄴ어ㅏㅣㄹㄴ아ㅓㄹㄴ아ㅣㅓ라ㅣㄴ얼</p></blockquote><p><a target="_blank" rel="noopener noreferrer nofollow" href="https://github.com/palm-springs/PalmSpringClient">https://github.com/palm-springs/PalmSpringClient</a></p><p>좀 지리는데?</p><h2>와 및니</h2><p><a target="_blank" rel="noopener noreferrer nofollow" href="https://github.com/palm-springs/PalmSpringClient">링크 텍스트</a>에 넣기</p><pre><code>let palm = truenfunction(){n}n</code></pre><p></p><p></p>`;
 
+  // return <ContentContainer dangerouslySetInnerHTML={{ __html: htmlString }}></ContentContainer>;
   return <ContentContainer>{parse(htmlString)}</ContentContainer>;
 };
 

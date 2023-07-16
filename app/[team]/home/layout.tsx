@@ -18,7 +18,7 @@ const BlogHomeLayout = ({ children }: { children: React.ReactElement }) => {
     blogInfo: '우리 팀 이야기를 세상에 전달하는 방법 테스트',
   };
   const CONTENT_INFO: ContentProps = {
-    // thumbnail: 'string',
+    thumbnail: 'string',
     title:
       '리액트 API와 코드 재사용의 진화이렇게 글 설명이 보입니다.이렇게 글 설명이 보입니다.이렇게 글 설명이 보입니다.이렇게 글 설명이 보입니다.이렇게 글 설명이 보입니다.이렇게 글 설명이 보입니다.이렇게 글 설명이 보입니다.이렇게 글 설명이 보입니다.이렇게 글 설명이 보입니다.이렇게 글 설명이 보입니다.',
     description:
@@ -32,21 +32,22 @@ const BlogHomeLayout = ({ children }: { children: React.ReactElement }) => {
     content: 'string',
     images: 'string',
   };
+
   return (
     <>
       <BlogHeader />
       {BLOG_INFO_EXAMPLE.blogImgUrl ? (
         <BlogImg blogImgUrl={BLOG_INFO_EXAMPLE.blogImgUrl} blogInfo={BLOG_INFO_EXAMPLE.blogInfo} />
       ) : (
-        <ContentInfoContainer href={`./content/contentNameHere`}>
+        <ContentInfoContainer>
           {CONTENT_INFO.thumbnail && (
-            <Image src={BlogSampleImg} alt="blog thumbnail" />
+            <Link href={`./content/contentNameHere`}>
+              <Image src={BlogSampleImg} alt="blog thumbnail" />
+            </Link>
             //실제 썸네일 url이 들어오면 위의 코드는 삭제 후 밑의 코드를 사용할 예정입니다!
             // <Image src={CONTENT_INFO.thumbnail} alt="blog thumbnail" width={720} height={450} />
           )}
-          <Link href={`./content/contentNameHere`}>
-            <ContentInfo content={CONTENT_INFO} />
-          </Link>
+          <ContentInfo content={CONTENT_INFO} />
         </ContentInfoContainer>
       )}
       <main>{children}</main>
@@ -57,7 +58,7 @@ const BlogHomeLayout = ({ children }: { children: React.ReactElement }) => {
 
 export default BlogHomeLayout;
 
-const ContentInfoContainer = styled(Link)`
+const ContentInfoContainer = styled.div`
   display: flex;
   flex-direction: column;
   align-items: center;

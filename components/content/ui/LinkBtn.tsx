@@ -18,4 +18,7 @@ const LinkBtnContainer = styled.button`
   padding: 0 1.4rem;
   height: 3.2rem;
   color: ${({ theme }) => theme.colors.grey_900};
+  &:hover {
+    background-color: ${({ theme }) => theme.colors.grey_400};
+  }
 `;

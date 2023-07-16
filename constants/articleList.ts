@@ -1,4 +1,4 @@
-export const ARTICLE_LIST: ArticleProps[] = [
+export const ARTICLE_LIST: ArticleData[] = [
   {
     categoryArticleResponseDto: {
       categoryId: 1,

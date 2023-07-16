@@ -3,7 +3,7 @@
 import React from 'react';
 import styled from 'styled-components';
 
-import ArticleList from './ArticleList';
+import ArticleList from '@/components/common/ArticleList';
 
 const ArticleBox = () => {
   return (

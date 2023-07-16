@@ -25,7 +25,7 @@ const CategoryBtnBar = () => {
 
   return (
     <CategoryBtnBarContainer>
-      <CategoryBtn href={'./home'} type="button" className={SELECTED === 'home' ? 'selected' : ''}>
+      <CategoryBtn href={'/blogNameHere/home'} type="button" className={SELECTED === 'home' ? 'selected' : ''}>
         전체
       </CategoryBtn>
       {CATEGORY_LIST}

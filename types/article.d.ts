@@ -1,4 +1,4 @@
-interface ArticleProps {
+interface ArticleData {
   id?: number;
   thumbnail?: string;
   title: string;

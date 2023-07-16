@@ -4,6 +4,7 @@ interface ContentProps {
   description: string;
   teamMember: {
     id: number;
+    thumbnail?: string;
     name: string;
     job: string;
     createdAt: string;

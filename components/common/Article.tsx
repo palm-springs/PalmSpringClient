@@ -8,9 +8,14 @@ import useGetCategory from '@/hooks/useGetCategory';
 
 import ArticleImg from '../blog/ui/ArticleImg';
 
+interface ArticleProps extends ArticleData {
+  noHover?: boolean;
+}
+
 const Article = (props: ArticleProps) => {
   const SELECTED = useGetCategory();
   const {
+    noHover,
     title,
     description,
     memberName,
@@ -20,16 +25,12 @@ const Article = (props: ArticleProps) => {
   } = props;
 
   return (
-    <ArticleContainer>
+    <ArticleContainer href={`/blogNameHere/content/contentNameHere`} className={noHover ? '' : 'hover'}>
       <ArticleInfo>
         <ArticleTitle className="title">{title}</ArticleTitle>
         <ArticleDescription className="description">{description}</ArticleDescription>
         <DetailBox>
-          {SELECTED === 'home' && (
-            <CategoryBtn href={`/blogNameHere/home/${categoryName}`} type="button">
-              {categoryName}
-            </CategoryBtn>
-          )}
+          {SELECTED === 'home' && <CategoryBtn>{categoryName}</CategoryBtn>}
           <ArticleDetail>{memberName}</ArticleDetail>
           <Bar>|</Bar>
           <ArticleDetail>{createdAt}</ArticleDetail>
@@ -42,13 +43,13 @@ const Article = (props: ArticleProps) => {
 
 export default Article;
 
-const ArticleContainer = styled.section`
+const ArticleContainer = styled(Link)`
   display: flex;
   gap: 3.2rem;
   justify-content: space-between;
   width: 100%;
   height: 17rem;
-  &:hover {
+  &.hover:hover {
     transform: translateY(-0.8rem);
     transition: 0.3s ease-in-out;
     .title,
@@ -118,7 +119,7 @@ const DetailBox = styled.div`
   margin-top: 1.7rem;
   width: 100%;
 `;
-const CategoryBtn = styled(Link)`
+const CategoryBtn = styled.div`
   ${({ theme }) => theme.fonts.Body3_Regular};
 
   display: flex;
@@ -133,8 +134,4 @@ const CategoryBtn = styled(Link)`
   height: 2.4rem;
 
   color: ${({ theme }) => theme.colors.grey_700};
-
-  &:hover {
-    background-color: ${({ theme }) => theme.colors.grey_400};
-  }
 `;

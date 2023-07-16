@@ -7,11 +7,12 @@ import Article from '@/components/common/Article';
 import { ARTICLE_LIST } from '@/constants/articleList';
 
 const ArticleBox = () => {
-  const RECOMMEND_ARTICLE_LIST: ArticleProps[] = ARTICLE_LIST.slice(0, 3);
+  const RECOMMEND_ARTICLE_LIST: ArticleData[] = ARTICLE_LIST.slice(0, 3);
 
   const ArticleList = RECOMMEND_ARTICLE_LIST.map((eachItem, index) => {
     return (
       <Article
+        noHover
         key={index}
         categoryArticleResponseDto={eachItem.categoryArticleResponseDto}
         title={eachItem.title}

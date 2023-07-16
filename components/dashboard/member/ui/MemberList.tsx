@@ -14,19 +14,19 @@ const MemberList = () => {
       name: '김서홍윤',
       status: '관리자',
       position: 'Product Manager',
-      email: 'baek789@naver.com',
+      email: 'maerong@naver.com',
     },
     {
       name: '김서윤',
       status: '',
       position: 'UX Designer',
-      email: 'baek789@naver.com',
+      email: 'baek7890@naver.com',
     },
     {
       name: '김김김',
       status: '',
       position: 'Product Manager',
-      email: 'baek789@naver.com',
+      email: 'baek78349@naver.com',
     },
     {
       name: '김김김',
