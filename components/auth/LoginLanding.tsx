@@ -4,20 +4,17 @@ import Image from 'next/image';
 import { useSearchParams } from 'next/navigation';
 import styled from 'styled-components';
 
-import { GOOGLE_REDIRECT_URI } from '@/constants/auth';
 import { LogoIcon } from '@/public/icons';
 import { GoogleImg } from '@/public/images';
-import { authClientInfo } from '@/types/auth';
 
 import RequestAccessToken from './RequestAccessToken';
 
-const LoginLanding = (props: authClientInfo) => {
-  const { clientId } = props;
+const LoginLanding = () => {
   const searchParams = useSearchParams();
   const code = searchParams.get('code');
 
   if (code) {
-    RequestAccessToken({ ...props, code });
+    RequestAccessToken(code);
   }
 
   // 구글 로그인창 호출
@@ -28,7 +25,7 @@ const LoginLanding = (props: authClientInfo) => {
         <LogoIcon />
         <LoginText>팜스프링으로 최고의 팀 블로그를 운영해보세요</LoginText>
         <LoginButton
-          href={`${GOOGLE_END_POINT}?client_id=${clientId}&redirect_uri=${GOOGLE_REDIRECT_URI}&response_type=code&scope=email profile`}>
+          href={`${GOOGLE_END_POINT}?client_id=${process.env.NEXT_PUBLIC_GOOGLE_CLIENT_ID}&redirect_uri=${process.env.NEXT_PUBLIC_GOOGLE_REDIRECT_URI}&response_type=code&scope=email profile`}>
           <Image src={GoogleImg} alt="구글 로고" />
           <span>구글로 시작하기</span>
         </LoginButton>
