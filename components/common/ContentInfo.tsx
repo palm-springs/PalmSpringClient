@@ -6,6 +6,7 @@ import styled from 'styled-components';
 
 import useGetIfContentPage from '@/hooks/useGetIfContentPage';
 import { NoUserProfileIcon } from '@/public/icons';
+import { ContentProps } from '@/types/content';
 
 interface ContentInfoProps {
   content: ContentProps;
