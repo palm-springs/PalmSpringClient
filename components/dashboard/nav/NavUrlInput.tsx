@@ -8,6 +8,8 @@ import TextInput from './ui/TextInput';
 import UrlInputContainer from './ui/UrlInputContainer';
 
 interface NavUrlInputProps {
+  newNavigationSelector: string;
+  setNewNavigationSelector: Dispatch<SetStateAction<string>>;
   newNavigationUrl: string;
   setNewNavigationUrl: Dispatch<SetStateAction<string>>;
 }
@@ -15,7 +17,7 @@ interface NavUrlInputProps {
 const NavUrlInput = (props: NavUrlInputProps) => {
   const blogUrl = 'Palms';
 
-  const { newNavigationUrl, setNewNavigationUrl } = props;
+  const { newNavigationSelector, setNewNavigationSelector, newNavigationUrl, setNewNavigationUrl } = props;
 
   const [isSelectorOpen, setIsSelectorOpen] = useState<boolean>(false);
 
@@ -27,12 +29,14 @@ const NavUrlInput = (props: NavUrlInputProps) => {
     <NavUrlInputContainer>
       <UrlInputContainer
         setIsSelectorOpen={setIsSelectorOpen}
-        state={newNavigationUrl}
-        setState={setNewNavigationUrl}
+        state={newNavigationSelector}
+        // setState={setNewNavigationSelector}
       />
-      {newNavigationUrl === '직접 입력' && <TextInput state={newNavigationUrl} setState={setNewNavigationUrl} />}
+      {newNavigationSelector === '직접 입력' && <TextInput state={newNavigationUrl} setState={setNewNavigationUrl} />}
       {isSelectorOpen && (
         <NavSelectorContainer
+          newNavigationSelector={newNavigationSelector}
+          setNewNavigationSelector={setNewNavigationSelector}
           navSelectorContent={navList.data}
           newNavigationUrl={newNavigationUrl}
           setNewNavigationUrl={setNewNavigationUrl}

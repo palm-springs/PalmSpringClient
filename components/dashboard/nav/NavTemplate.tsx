@@ -19,6 +19,8 @@ const NavTemplate = () => {
 
   const [newNavigationName, setNewNavigationName] = useState<string>('');
 
+  const [newNavigationSelector, setNewNavigationSelector] = useState<string>('');
+
   const [newNavigationUrl, setNewNavigationUrl] = useState<string>('');
 
   return (
@@ -35,8 +37,14 @@ const NavTemplate = () => {
             buttonHandler={() => {
               console.log(newNavigationName, newNavigationUrl);
               setModalState('');
+              setNewNavigationName('');
+              setNewNavigationSelector('');
             }}
-            onModalCloseBtnClick={() => setModalState('')}
+            onModalCloseBtnClick={() => {
+              setModalState('');
+              setNewNavigationName('');
+              setNewNavigationSelector('');
+            }}
             disabled={newNavigationName === '' && newNavigationUrl === ''}>
             <ModalPortalContainer
               title="네비게이션 이름"
@@ -44,7 +52,12 @@ const NavTemplate = () => {
               state={newNavigationName}
               setState={setNewNavigationName}
             />
-            <NavUrlInput newNavigationUrl={newNavigationUrl} setNewNavigationUrl={setNewNavigationUrl} />
+            <NavUrlInput
+              newNavigationSelector={newNavigationSelector}
+              setNewNavigationSelector={setNewNavigationSelector}
+              newNavigationUrl={newNavigationUrl}
+              setNewNavigationUrl={setNewNavigationUrl}
+            />
           </DashboardCreateModal>
         </ModalPortal>
       )}

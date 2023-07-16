@@ -3,12 +3,15 @@ import { styled } from 'styled-components';
 
 interface NavSelectorContainerProps {
   navSelectorContent: NavListProps[];
+  newNavigationSelector: string;
+  setNewNavigationSelector: Dispatch<SetStateAction<string>>;
   newNavigationUrl: string;
   setNewNavigationUrl: Dispatch<SetStateAction<string>>;
 }
 
 const NavSelectorContainer = (props: NavSelectorContainerProps) => {
-  const { navSelectorContent, newNavigationUrl, setNewNavigationUrl } = props;
+  const { navSelectorContent, newNavigationSelector, setNewNavigationSelector, newNavigationUrl, setNewNavigationUrl } =
+    props;
 
   const filteredPageList = navSelectorContent.filter(({ isPage }) => isPage);
 
@@ -16,16 +19,33 @@ const NavSelectorContainer = (props: NavSelectorContainerProps) => {
 
   return (
     <NavSelectorUI>
-      <IndivContentUI type="button" onClick={() => setNewNavigationUrl('직접 입력')}>
+      <IndivContentUI
+        type="button"
+        onClick={() => {
+          setNewNavigationUrl('');
+          setNewNavigationSelector('직접 입력');
+        }}>
         직접 입력
       </IndivContentUI>
       {filteredPageList.map(({ id, name, navUrl }) => (
-        <IndivContentUI type="button" key={id} onClick={() => setNewNavigationUrl(navUrl)}>
+        <IndivContentUI
+          type="button"
+          key={id}
+          onClick={() => {
+            setNewNavigationUrl(navUrl);
+            setNewNavigationSelector(name);
+          }}>
           {name}
         </IndivContentUI>
       ))}
       {nonFilteredPageList.map(({ id, name, navUrl }) => (
-        <IndivContentUI type="button" key={id} onClick={() => setNewNavigationUrl(navUrl)}>
+        <IndivContentUI
+          type="button"
+          key={id}
+          onClick={() => {
+            setNewNavigationUrl(navUrl);
+            setNewNavigationSelector(name);
+          }}>
           {name}
         </IndivContentUI>
       ))}

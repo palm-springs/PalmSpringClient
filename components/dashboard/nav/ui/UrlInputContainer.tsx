@@ -5,12 +5,14 @@ import { ArrowDownIcon } from '@/public/icons';
 
 interface ModalPortalContainerProps {
   setIsSelectorOpen: Dispatch<SetStateAction<boolean>>;
+  // newNavigationSelector: string;
+  // setNewNavigationSelector: Dispatch<SetStateAction<string>>;
   state: string;
-  setState: Dispatch<SetStateAction<string>>;
+  // setState: Dispatch<SetStateAction<string>>;
 }
 
 const UrlInputContainer = (props: ModalPortalContainerProps) => {
-  const { setIsSelectorOpen, state, setState } = props;
+  const { setIsSelectorOpen, state } = props;
 
   return (
     <UrlInputUI>
@@ -18,16 +20,7 @@ const UrlInputContainer = (props: ModalPortalContainerProps) => {
         <span>연결 Url</span>
         <span>페이지 또는 외부 웹사이트를 연결할 수 있습니다.</span>
       </div>
-      <input
-        type="text"
-        placeholder="연결 URL"
-        onChange={(e) => {
-          if (state !== '직접 입력') {
-            setState(e.target.value);
-          }
-        }}
-        value={state}
-      />
+      <input type="text" placeholder="연결 URL" value={state} readOnly />
       <ArrowDown onClick={() => setIsSelectorOpen((prev) => !prev)} />
     </UrlInputUI>
   );
