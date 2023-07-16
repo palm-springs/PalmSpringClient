@@ -1,6 +1,7 @@
 'use client';
 
 import React from 'react';
+import { RecoilRoot } from 'recoil';
 
 import DashBoardHeader from './components/DashBoardHeader';
 import DashBoardNav from './components/DashBoardNav';

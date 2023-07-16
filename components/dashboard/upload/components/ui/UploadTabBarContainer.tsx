@@ -2,6 +2,8 @@
 
 import React, { Dispatch, SetStateAction } from 'react';
 import { styled } from 'styled-components';
+
+import { CategoryListProps } from '@/types/dashboard';
 interface UploadTabBarContainerProps {
   categoryDataList: CategoryListProps[];
   currentCategory: string;

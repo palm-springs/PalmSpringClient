@@ -22,3 +22,20 @@ export const getTempSavedList = async (blogUrl: string) => {
   const { data } = await client.get<Response<TempSavedListProps>>(`/api/v1/article/${blogUrl}/draftList`);
   return data;
 };
+
+export const postCategory = async (blogUrl: string, name: string, description: string) => {
+  const { data } = await client.post<Response<null>>(`/api/v1/category/${blogUrl}/create`, {
+    name,
+    description,
+  });
+  return data;
+};
+
+export const postNavigation = async (blogUrl: string, name: string, isPage: boolean, navUrl: string) => {
+  const { data } = await client.post<Response<null>>(`/api/v1/nav/${blogUrl}/admin/create`, {
+    name,
+    isPage,
+    navUrl,
+  });
+  return data;
+};
