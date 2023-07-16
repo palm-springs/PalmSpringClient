@@ -192,24 +192,8 @@ export const GlobalStyle = createGlobalStyle`
     padding: 0;
     overflow: visible;
   }
-}
 
-a {
-    text-decoration: none;
-    color: inherit;
-}
-
-button { 
-    border: none; 
-    border-radius: 0; 
-    box-shadow: none;
-    background: inherit ;
-    cursor: pointer; 
-    padding: 0; 
-    overflow: visible;
-}
-
-* {
+  * {
     box-sizing: border-box;
 }
 
