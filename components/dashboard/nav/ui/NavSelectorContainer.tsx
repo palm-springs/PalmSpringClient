@@ -4,6 +4,7 @@ import { styled } from 'styled-components';
 import { NavListProps } from '@/types/dashboard';
 
 interface NavSelectorContainerProps {
+  setIsSelectorOpen: Dispatch<SetStateAction<boolean>>;
   navSelectorContent: NavListProps[];
   newNavigationSelector: string;
   setNewNavigationSelector: Dispatch<SetStateAction<string>>;
@@ -12,8 +13,7 @@ interface NavSelectorContainerProps {
 }
 
 const NavSelectorContainer = (props: NavSelectorContainerProps) => {
-  const { navSelectorContent, newNavigationSelector, setNewNavigationSelector, newNavigationUrl, setNewNavigationUrl } =
-    props;
+  const { setIsSelectorOpen, navSelectorContent, setNewNavigationSelector, setNewNavigationUrl } = props;
 
   const filteredPageList = navSelectorContent.filter(({ isPage }) => isPage);
 
@@ -26,6 +26,7 @@ const NavSelectorContainer = (props: NavSelectorContainerProps) => {
         onClick={() => {
           setNewNavigationUrl('');
           setNewNavigationSelector('직접 입력');
+          setIsSelectorOpen((prev) => !prev);
         }}>
         직접 입력
       </IndivContentUI>
@@ -36,6 +37,7 @@ const NavSelectorContainer = (props: NavSelectorContainerProps) => {
           onClick={() => {
             setNewNavigationUrl(navUrl);
             setNewNavigationSelector(name);
+            setIsSelectorOpen((prev) => !prev);
           }}>
           {name}
         </IndivContentUI>
@@ -47,6 +49,7 @@ const NavSelectorContainer = (props: NavSelectorContainerProps) => {
           onClick={() => {
             setNewNavigationUrl(navUrl);
             setNewNavigationSelector(name);
+            setIsSelectorOpen((prev) => !prev);
           }}>
           {name}
         </IndivContentUI>
@@ -76,10 +79,15 @@ const NavSelectorUI = styled.section`
 
 const IndivContentUI = styled.button`
   display: flex;
+  transition-duration: 0.3s ease-out;
   border: none;
+  border-radius: 0.8rem;
   background: none;
   padding: 1.2rem 1.2rem 1.6rem 1.2rem;
   width: 100%;
   ${({ theme }) => theme.fonts.Body3_Regular};
   color: ${({ theme }) => theme.colors.grey_900};
+  &:hover {
+    background: ${({ theme }) => theme.colors.grey_200};
+  }
 `;

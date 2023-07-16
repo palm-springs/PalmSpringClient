@@ -14,7 +14,15 @@ const ModalPortalContainer = (props: ModalPortalContainerProps) => {
   return (
     <ModalPortalUI>
       <span>{title}</span>
-      <input type="text" placeholder={placeholder} onChange={(e) => setState(e.target.value)} value={state} />
+      <input
+        type="text"
+        placeholder={placeholder}
+        onChange={(e) => {
+          setState(e.target.value);
+          console.log(e.target.value);
+        }}
+        value={state}
+      />
     </ModalPortalUI>
   );
 };

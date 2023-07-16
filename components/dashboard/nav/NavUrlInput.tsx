@@ -35,6 +35,7 @@ const NavUrlInput = (props: NavUrlInputProps) => {
       {newNavigationSelector === '직접 입력' && <TextInput state={newNavigationUrl} setState={setNewNavigationUrl} />}
       {isSelectorOpen && (
         <NavSelectorContainer
+          setIsSelectorOpen={setIsSelectorOpen}
           newNavigationSelector={newNavigationSelector}
           setNewNavigationSelector={setNewNavigationSelector}
           navSelectorContent={navList.data}
