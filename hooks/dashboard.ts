@@ -41,12 +41,11 @@ export const useGetTempSavedList = (blogUrl: string) => {
 export const usePostCategory = (blogUrl: string, name: string, description: string) => {
   const queryClient = useQueryClient();
 
-  const mutation = useMutation([QUERY_KEY_DASHBOARD.postCategory], () => postCategory(blogUrl, name, description), {
+  return useMutation([QUERY_KEY_DASHBOARD.postCategory], () => postCategory(blogUrl, name, description), {
     onSuccess: () => {
       queryClient.invalidateQueries([QUERY_KEY_DASHBOARD.getCategoryList]);
     },
   });
-  return mutation;
 };
 
 export const usePostNavigation = (blogUrl: string, name: string, isPage: boolean, navUrl: string) => {
