@@ -2,6 +2,7 @@
 import { useState } from 'react';
 import { QueryClient, QueryClientProvider } from '@tanstack/react-query';
 import { Inter } from 'next/font/google';
+import { RecoilRoot } from 'recoil';
 import { ThemeProvider } from 'styled-components';
 
 import { GlobalStyle } from '@/styles/GlobalStyle';
@@ -32,13 +33,15 @@ export default function RootLayout({ children }: { children: React.ReactNode }) 
       </head>
       <body className={inter.className}>
         <QueryClientProvider client={queryClient}>
-          <StyledComponentsRegistry>
-            <ThemeProvider theme={theme}>
-              <GlobalStyle />
-              {children}
-              <div id="modal-root"></div>
-            </ThemeProvider>
-          </StyledComponentsRegistry>
+          <RecoilRoot>
+            <StyledComponentsRegistry>
+              <ThemeProvider theme={theme}>
+                <GlobalStyle />
+                {children}
+                <div id="modal-root"></div>
+              </ThemeProvider>
+            </StyledComponentsRegistry>
+          </RecoilRoot>
         </QueryClientProvider>
       </body>
     </html>
