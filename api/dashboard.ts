@@ -30,3 +30,12 @@ export const postCategory = async (blogUrl: string, name: string, description: s
   });
   return data;
 };
+
+export const postNavigation = async (blogUrl: string, name: string, isPage: boolean, navUrl: string) => {
+  const { data } = await client.post<Response<null>>(`/api/v1/nav/${blogUrl}/admin/create`, {
+    name,
+    isPage,
+    navUrl,
+  });
+  return data;
+};

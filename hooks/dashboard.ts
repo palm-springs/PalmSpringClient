@@ -1,6 +1,13 @@
 import { useMutation, useQuery, useQueryClient } from '@tanstack/react-query';
 
-import { getCategoryList, getNavList, getPageList, getTempSavedList, postCategory } from '@/api/dashboard';
+import {
+  getCategoryList,
+  getNavList,
+  getPageList,
+  getTempSavedList,
+  postCategory,
+  postNavigation,
+} from '@/api/dashboard';
 
 const QUERY_KEY_DASHBOARD = {
   getNavList: 'getNavList',
@@ -8,6 +15,7 @@ const QUERY_KEY_DASHBOARD = {
   getPageList: 'getPageList',
   getTempSavedList: 'getTempSavedList',
   postCategory: 'postCategory',
+  postNavigation: 'postNavigation',
 };
 
 export const useGetNavList = (blogUrl: string) => {
@@ -38,5 +46,20 @@ export const usePostCategory = (blogUrl: string, name: string, description: stri
       queryClient.invalidateQueries([QUERY_KEY_DASHBOARD.getCategoryList]);
     },
   });
+  return mutation;
+};
+
+export const usePostNavigation = (blogUrl: string, name: string, isPage: boolean, navUrl: string) => {
+  const queryClient = useQueryClient();
+
+  const mutation = useMutation(
+    [QUERY_KEY_DASHBOARD.postNavigation],
+    () => postNavigation(blogUrl, name, isPage, navUrl),
+    {
+      onSuccess: () => {
+        queryClient.invalidateQueries([QUERY_KEY_DASHBOARD.getNavList]);
+      },
+    },
+  );
   return mutation;
 };
