@@ -7,7 +7,7 @@ import { useDashboardContext } from '../context/dashboardContext';
 import DashBoardContentContainer from './ui/DashBoardContentContainer';
 
 export interface DashBoardContentProps {
-  id: string | number;
+  id: string;
   email?: string;
   content?: string;
   url?: string;
