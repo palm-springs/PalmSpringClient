@@ -24,7 +24,7 @@ const UploadContentList = (props: UploadContentListProps) => {
         return (
           <DashBoardContent
             key={id}
-            id={id}
+            id={String(id)}
             content={title}
             tabType={categoryArticleResponseDto && categoryArticleResponseDto.categoryName}
             author={memberName}

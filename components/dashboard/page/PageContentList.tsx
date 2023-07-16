@@ -20,7 +20,7 @@ const PageContentList = () => {
         return (
           <DashBoardContent
             key={id}
-            id={id}
+            id={String(id)}
             content={title}
             draft={isDraft}
             createdAt={createdAt}

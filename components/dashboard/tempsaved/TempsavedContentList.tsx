@@ -20,7 +20,7 @@ const TempsavedContentList = () => {
         return (
           <DashBoardContent
             key={id}
-            id={id}
+            id={String(id)}
             content={title}
             author={name}
             position={job}
