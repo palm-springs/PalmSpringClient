@@ -6,7 +6,11 @@ import styled from 'styled-components';
 import ModalPortal from '@/components/common/ModalPortal';
 import DashboardDeleteModal from '@/components/common/ui/DashboardDeleteModal';
 
-const SaveArticleButton = () => {
+interface editorProps {
+  handleExtractHTML: () => void;
+}
+
+const SaveArticleButton = ({ handleExtractHTML }: editorProps) => {
   const [isModal, setIsModal] = useState(false);
 
   const modalOpenHandler = () => {
@@ -26,7 +30,9 @@ const SaveArticleButton = () => {
           <ExitButton type="button" onClick={modalOpenHandler}>
             나가기
           </ExitButton>
-          <TemporarySaveButton type="button">임시저장</TemporarySaveButton>
+          <TemporarySaveButton type="button" onClick={handleExtractHTML}>
+            임시저장
+          </TemporarySaveButton>
           <SaveButton type="button">발행하기</SaveButton>
         </BottomWrapper>
       </ButtonContainer>

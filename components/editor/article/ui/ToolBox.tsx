@@ -1,6 +1,6 @@
 'use client';
 
-import React from 'react';
+import React, { ChangeEvent } from 'react';
 import { Editor } from '@tiptap/react';
 import styled from 'styled-components';
 
@@ -24,9 +24,11 @@ import {
 
 interface editorProps {
   editor: Editor;
+  encodeFileToBase64: ({ event, editor }: { event: ChangeEvent<HTMLInputElement>; editor: Editor }) => Promise<string>;
+  setLink: ({ editor }: { editor: Editor }) => void;
 }
 
-const ToolBox = ({ editor }: editorProps) => {
+const ToolBox = ({ editor, encodeFileToBase64, setLink }: editorProps) => {
   return (
     <IconContainer>
       <IconWrapper>
@@ -68,10 +70,11 @@ const ToolBox = ({ editor }: editorProps) => {
         <button onClick={() => editor.chain().focus().setHorizontalRule().run()}>
           <HorizonIcon />
         </button>
-        <button>
+        <ImageInputLabel>
+          <input type="file" onChange={(event) => encodeFileToBase64({ event, editor })}></input>
           <ImageIcon />
-        </button>
-        <button>
+        </ImageInputLabel>
+        <button onClick={() => setLink({ editor })} className={editor.isActive('link') ? 'is-active' : ''}>
           <LinkIcon />
         </button>
         <button onClick={() => editor.chain().focus().toggleCodeBlock().run()}>
@@ -102,4 +105,19 @@ const IconWrapper = styled.div`
 
 const IconContainer = styled.div`
   margin-left: 35.9rem;
+`;
+
+const ImageInputLabel = styled.label`
+  border: none;
+  border-radius: 0.5rem;
+  input[type='file'] {
+    position: absolute;
+    margin: -1px;
+    border: 0;
+    padding: 0;
+    width: 0;
+    height: 0;
+    overflow: hidden;
+    clip: rect(0, 0, 0, 0);
+  }
 `;
