@@ -1,6 +1,8 @@
 import React, { Dispatch, SetStateAction } from 'react';
 import { styled } from 'styled-components';
 
+import { NavListProps } from '@/types/dashboard';
+
 interface NavSelectorContainerProps {
   navSelectorContent: NavListProps[];
   newNavigationSelector: string;
