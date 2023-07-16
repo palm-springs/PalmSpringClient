@@ -10,7 +10,7 @@ import Line from '../components/ui/Line';
 import { dashBoardModalState } from '../state/modalState';
 
 import NavContentList from './NavContentList';
-import NewNavigationModal from './newNavigationModal';
+import NewNavigationModal from './NewNavigationModal';
 
 const NavTemplate = () => {
   const [modalState, setModalState] = useRecoilState(dashBoardModalState);
