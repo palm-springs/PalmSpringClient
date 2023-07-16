@@ -1,36 +1,55 @@
 'use client';
+import { useEffect, useState } from 'react';
 import styled from 'styled-components';
 
 import { ProgressStateProps } from '@/types/progress';
 
-import ImageInputForm from './ImageInputForm';
-import TextInputForm from './TextInputForm';
+import ImageInputForm from '../ImageInputForm';
+import TextInputForm from '../TextInputForm';
 
 const CreateOptionInfoLanding = (props: ProgressStateProps) => {
   const { progressState, setProgressState } = props;
+
+  const [isDescriptionFocus, setIsDescriptionFocus] = useState(false);
+  const [containerState, setContainerState] = useState('');
+
+  useEffect(() => {
+    if (progressState === -1) {
+      setContainerState('fadeDownOut');
+    } else if (progressState === 2) {
+      setContainerState('fadeUpIn');
+    } else if (progressState === 3) {
+      setContainerState('fadeUpOut');
+    } else if (progressState === -2) {
+      setContainerState('fadeDownIn');
+    }
+  }, [progressState]);
+
   return (
-    <CreateBasicInfoContainer className={progressState === 2 ? 'fadein' : progressState === 3 ? 'fadeout' : 'hidden'}>
+    <CreateBasicInfoContainer className={containerState}>
       <InfoContainer>
-        <Title>블로그 생성하기</Title>
+        <Title>
+          블로그 생성하기
+          <div>(선택)</div>
+        </Title>
         <ImageInputForm type="logo" />
 
         <ImageInputForm type="gate" />
 
-        <TextInputForm type="설명">
-          <TextAreaInput placeholder="블로그 설명을 입력해주세요" />
+        <TextInputForm type="설명" isFocus={isDescriptionFocus}>
+          <TextAreaInput
+            placeholder="블로그 설명을 입력해주세요"
+            onFocus={() => setIsDescriptionFocus(true)}
+            onBlur={() => setIsDescriptionFocus(false)}
+          />
         </TextInputForm>
         <ButtonContainer>
-          <PreviousButton type="button" onClick={() => setProgressState(2)}>
+          <PreviousButton type="button" onClick={() => setProgressState(-1)}>
             이전으로
           </PreviousButton>
-          <div>
-            <SkipButton type="button" onClick={() => setProgressState(3)}>
-              건너뛰기
-            </SkipButton>
-            <NextButton type="button" onClick={() => setProgressState(3)}>
-              다음으로
-            </NextButton>
-          </div>
+          <NextButton type="button" onClick={() => setProgressState(3)}>
+            다음으로
+          </NextButton>
         </ButtonContainer>
       </InfoContainer>
     </CreateBasicInfoContainer>
@@ -47,25 +66,42 @@ const CreateBasicInfoContainer = styled.div`
   gap: 4rem;
   align-items: center;
   justify-content: center;
+
+  opacity: 0;
   z-index: 2;
 
   width: 100%;
   height: 100vh;
 
-  &.hidden {
-    opacity: 0;
-  }
-
-  &.fadein {
+  &.fadeUpIn {
     transform: translateY(-30rem);
-    transition: 1s;
+
+    transition: transform 1s, opacity 0.3s;
     opacity: 1;
+    z-index: 100;
   }
 
-  &.fadeout {
-    transform: translateY(-60rem);
-    transition: 1s;
+  &.fadeDownIn {
+    transform: translateY(-30rem);
+
+    transition: transform 1s, opacity 0.3s;
+    opacity: 1;
+    z-index: 100;
+  }
+  &.fadeDownOut {
+    transform: translateY(30rem);
+
+    transition: transform 1s, opacity 0.3s;
     opacity: 0;
+    z-index: 0;
+  }
+
+  &.fadeUpOut {
+    transform: translateY(-60rem);
+
+    transition: transform 1s, opacity 0.3s;
+    opacity: 0;
+    z-index: 0;
   }
 `;
 
@@ -74,7 +110,6 @@ const InfoContainer = styled.div`
   flex-direction: column;
 
   gap: 3.2rem;
-  align-items: center;
 
   margin: 14.4rem 0;
 
@@ -82,7 +117,17 @@ const InfoContainer = styled.div`
 `;
 
 const Title = styled.h1`
+  position: relative;
   ${({ theme }) => theme.fonts.Heading1};
+  margin: 0 auto;
+
+  & > div {
+    ${({ theme }) => theme.fonts.Body2_Regular};
+    position: absolute;
+    right: -4.3rem;
+    bottom: 0.4rem;
+    color: ${({ theme }) => theme.colors.grey_700};
+  }
 `;
 
 // input (textarea)
@@ -107,11 +152,6 @@ const ButtonContainer = styled.div`
   display: flex;
   justify-content: space-between;
   width: 100%;
-
-  & > div {
-    display: flex;
-    gap: 0.8rem;
-  }
 `;
 
 const PreviousButton = styled.button`
@@ -128,14 +168,4 @@ const NextButton = styled.button`
   width: 9.6rem;
   height: 3.6rem;
   color: ${({ theme }) => theme.colors.grey_0};
-`;
-
-const SkipButton = styled.button`
-  ${({ theme }) => theme.fonts.Button_medium};
-  border: 1px solid ${({ theme }) => theme.colors.grey_700};
-  border-radius: 0.8rem;
-  width: 9.6rem;
-  height: 3.6rem;
-
-  color: ${({ theme }) => theme.colors.grey_700};
 `;

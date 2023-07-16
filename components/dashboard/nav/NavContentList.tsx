@@ -20,7 +20,7 @@ const NavContentList = () => {
         return (
           <DashBoardContent
             key={id}
-            id={id}
+            id={String(id)}
             content={name}
             url={navUrl}
             onTitleClick={() => {

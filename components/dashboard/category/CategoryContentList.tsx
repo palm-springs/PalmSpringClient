@@ -20,7 +20,7 @@ const CategoryContentList = () => {
         return (
           <DashBoardContent
             key={id}
-            id={id}
+            id={String(id)}
             content={name}
             url={`/category/${categoryUrl}`}
             description={description}

@@ -1,4 +1,4 @@
-interface ArticleProps {
+export interface ArticleProps {
   id: number;
   thumbnail: string;
   title: string;

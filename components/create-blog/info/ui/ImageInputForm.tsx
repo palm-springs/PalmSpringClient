@@ -1,10 +1,9 @@
 'use client';
 
-import { useState } from 'react';
-import Image from 'next/image';
+import { ChangeEvent, useState } from 'react';
 import styled from 'styled-components';
 
-import { UploadIcon } from '@/public/icons';
+import { IcClose24Icon, UploadIcon } from '@/public/icons';
 
 import InputTitle from './InputTitle';
 
@@ -15,35 +14,47 @@ interface ImageInputFormProps {
 const ImageInputForm = (props: ImageInputFormProps) => {
   const { type } = props;
   // 임시 state
-  const [imgState] = useState(null);
+  const [imgSrc, setImgSrc] = useState('');
+
+  const handleOnFileChange = (e: ChangeEvent<HTMLInputElement>) => {
+    const { files } = e.currentTarget;
+    const reader = new FileReader();
+    if (files) {
+      reader.readAsDataURL(files[0] as Blob);
+      reader.onloadend = () => {
+        setImgSrc(reader.result as string);
+      };
+    }
+  };
 
   return (
-    <ImageInputFormContainer>
+    <div>
       <InputTitle>
         블로그 {type === 'logo' ? '로고' : '대문'} 이미지
         {type === 'gate' && <span>대문 이미지 권장 크기는 1440*500 입니다</span>}
       </InputTitle>
 
       <ImageContainer className={type}>
-        {imgState ? (
-          <Image src={''} alt="" />
+        {imgSrc ? (
+          <>
+            <img src={imgSrc} alt={`${type} 이미지`} />
+            <CloseButton onClick={() => setImgSrc('')} className={type}>
+              <IcClose24Icon />
+            </CloseButton>
+          </>
         ) : (
           <Label>
             <UploadIcon />
             업로드하기
-            <input type="file" />
+            <input type="file" onChange={handleOnFileChange} />
           </Label>
         )}
       </ImageContainer>
-    </ImageInputFormContainer>
+    </div>
   );
 };
 
 export default ImageInputForm;
-
-const ImageInputFormContainer = styled.div`
-  width: 100%;
-`;
 
 // img input 입력  컨테이너
 const ImageContainer = styled.div`
@@ -55,10 +66,29 @@ const ImageContainer = styled.div`
     height: 13.9rem;
   }
 
-  & > img {
-    border-radius: 0.8rem;
+  & > div {
     width: 100%;
     height: 100%;
+  }
+
+  & > img {
+    border-radius: 0.8rem;
+    height: 100%;
+
+    object-fit: contain;
+  }
+`;
+
+const CloseButton = styled.button`
+  position: relative;
+  right: 3.6rem;
+  width: 2.4rem;
+  height: 2.4rem;
+  &.logo {
+    bottom: 8rem;
+  }
+  &.gate {
+    bottom: 10.3rem;
   }
 `;
 
@@ -75,8 +105,8 @@ const Label = styled.label`
   background-color: ${({ theme }) => theme.colors.grey_200};
 
   cursor: pointer;
-  width: 100%;
   height: 100%;
+
   color: ${({ theme }) => theme.colors.grey_700};
 
   & > input {

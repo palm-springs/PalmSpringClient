@@ -1,4 +1,4 @@
-interface AuthorInfoProps {
+export interface AuthorInfoProps {
   name: string;
   position: string;
   description: string;

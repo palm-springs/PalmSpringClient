@@ -2,52 +2,35 @@
 
 import React from 'react';
 
+import { useGetTempSavedList } from '@/hooks/dashboard';
+
 import DashBoardContent from '../components/DashBoardContent';
 import DashBoardContentListContainer from '../components/ui/DashBoardContentListContainer';
 
 const TempsavedContentList = () => {
+  const blogUrl = 'Palms';
+
+  const data = useGetTempSavedList(blogUrl);
+
+  if (!data) return <div>로더가 들어갈 자리입니다...</div>;
+
   return (
     <DashBoardContentListContainer>
-      <DashBoardContent
-        id="tempsaved_1"
-        content="전 세계에서 폭발적으로 인기를 끈 가상 현실 게임,'넥서스' 출시!"
-        author="김서윤"
-        position="TL"
-        createdAt="2023.07.06"
-        onTitleClick={() => {
-          console.log('김서윤');
-        }}
-      />
-      <DashBoardContent
-        id="tempsaved_2"
-        content="로봇 의료진의 시대,인공지능 로봇 수술로 성공률 급증"
-        author="최수빈"
-        position="Product Designer"
-        createdAt="2023.07.06"
-        onTitleClick={() => {
-          console.log('김서윤');
-        }}
-      />
-      <DashBoardContent
-        id="tempsaved_3"
-        content="심장 건강을 책임지는 스마트 워치,심박수 감시와 예방 기능 탑재"
-        author="이서준"
-        position="PO"
-        createdAt="2023.07.06"
-        onTitleClick={() => {
-          console.log('김서윤');
-        }}
-      />
-      <DashBoardContent
-        id="tempsaved_4"
-        content="실감나는 가상현실 컨텐츠,엔터테인먼트 산업의 혁신 동력"
-        author="이수아"
-        position="CEO"
-        createdAt="2023.07.06"
-        onTitleClick={() => {
-          console.log('김서윤');
-        }}
-      />
+      {data.map(({ id, title, teamMemberResponseDto: { id: memberId, name, job, createdAt } }) => {
+        return (
+          <DashBoardContent
+            key={id}
+            id={String(id)}
+            content={title}
+            author={name}
+            position={job}
+            createdAt={createdAt}
+            onTitleClick={() => {
+              console.log(name);
+            }}
+          />
+        );
+      })}
     </DashBoardContentListContainer>
   );
 };

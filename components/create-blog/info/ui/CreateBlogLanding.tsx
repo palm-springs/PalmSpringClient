@@ -1,9 +1,9 @@
 'use client';
 import { useState } from 'react';
 
-import CreateBasicInfoLanding from './CreateBasicInfoLanding';
-import CreateMemberLanding from './CreateMemberLanding';
-import CreateOptionInfoLanding from './CreateOptionInfoLanding';
+import CreateBasicInfoLanding from './basicInfo/CreateBasicInfoLanding';
+import CreateMemberLanding from './member/CreateMemberLanding';
+import CreateOptionInfoLanding from './optionInfo/CreateOptionInfoLanding';
 import ProgressDot from './ProgressDot';
 
 const CreateBlogLanding = () => {
@@ -13,7 +13,7 @@ const CreateBlogLanding = () => {
       <ProgressDot progress={progressState} />
       <CreateBasicInfoLanding progressState={progressState} setProgressState={setProgressState} />
       <CreateOptionInfoLanding progressState={progressState} setProgressState={setProgressState} />
-      <CreateMemberLanding progressState={progressState} />
+      <CreateMemberLanding progressState={progressState} setProgressState={setProgressState} />
     </>
   );
 };

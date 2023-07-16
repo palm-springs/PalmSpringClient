@@ -1,4 +1,4 @@
-interface ArticleListProps {
+export interface ArticleListProps {
   title: string;
   description: string;
   writer: string;

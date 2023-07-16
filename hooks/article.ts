@@ -6,7 +6,9 @@ const QUERY_KEY_ARTICLE = {
   getArticleList: 'getArticleList',
 };
 
-export const useGetArticleList = (blogUrl: string, categoryId: string | null) => {
-  const { data } = useQuery([QUERY_KEY_ARTICLE.getArticleList], () => getArticleList(blogUrl, categoryId));
+export const useGetArticleList = (blogUrl: string, categoryId: string) => {
+  const { data } = useQuery([QUERY_KEY_ARTICLE.getArticleList, blogUrl, categoryId], () =>
+    getArticleList(blogUrl, categoryId),
+  );
   return data;
 };
