@@ -34,8 +34,11 @@ export const useGetPageList = (blogUrl: string) => {
 };
 
 export const useGetTempSavedList = (blogUrl: string) => {
-  const { data : {data} } = useQuery([QUERY_KEY_DASHBOARD.getTempSavedList], () => getTempSavedList(blogUrl));
-  return data;
+  const { data } = useQuery([QUERY_KEY_DASHBOARD.getTempSavedList], () => getTempSavedList(blogUrl));
+
+  if (!data || !data.data) return;
+
+  return data.data;
 };
 
 export const usePostCategory = (blogUrl: string, name: string, description: string) => {

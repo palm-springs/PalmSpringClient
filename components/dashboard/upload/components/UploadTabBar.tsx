@@ -14,9 +14,11 @@ export interface UploadTabBarProps {
 }
 
 const UploadTabBar = (props: UploadTabBarProps) => {
-  const {currentCategory : [category]} = props;
+  const {
+    currentCategory: [category],
+  } = props;
 
-  const [currentCategory, setCurrentCategory] = useState<ArrayLiteral<typeof category> | '전체'>('전체');
+  const [currentCategory, setCurrentCategory] = useState<string>('전체');
 
   return (
     <UploadTabBarContainer
