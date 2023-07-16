@@ -5,6 +5,7 @@ import { useRecoilState } from 'recoil';
 
 import mapPageType2HeaderInfo from '@/constants/mapPageType2HeaderInfo';
 import useGetLastPathName from '@/hooks/useGetLastPathName';
+import { dashBoardPageType } from '@/types/dashboard';
 
 import { dashBoardModalState } from '../state/modalState';
 

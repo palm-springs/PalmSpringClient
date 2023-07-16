@@ -1,6 +1,6 @@
 import { Dispatch, SetStateAction } from 'react';
 
-interface ProgressStateProps {
+export interface ProgressStateProps {
   progressState: number;
   setProgressState: Dispatch<SetStateAction<number>>;
 }

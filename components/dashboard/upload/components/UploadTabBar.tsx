@@ -2,6 +2,8 @@
 
 import React, { Dispatch, SetStateAction, useState } from 'react';
 
+import { dashBoardTabType } from '@/types/dashboard';
+
 import UploadTabBarContainer from './ui/UploadTabBarContainer';
 
 type ArrayLiteral<T extends ReadonlyArray<any>> = T[number];

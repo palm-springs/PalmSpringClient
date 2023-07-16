@@ -1,4 +1,4 @@
-type dashBoardPageType =
+export type dashBoardPageType =
   | 'blogconfignav'
   | 'blogdirectnav'
   | 'category'
@@ -9,21 +9,21 @@ type dashBoardPageType =
   | 'tempsaved'
   | 'upload';
 
-interface NavListProps {
+export interface NavListProps {
   id: string;
   name: string;
   navUrl: string;
   isPage: boolean;
 }
 
-interface PageListProps {
+export interface PageListProps {
   id: string;
   title: string;
   createdAt: string;
   isDraft: boolean;
 }
 
-interface CategoryListProps {
+export interface CategoryListProps {
   id: string;
   name: string;
   categoryUrl: string;

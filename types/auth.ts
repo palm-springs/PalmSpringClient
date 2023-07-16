@@ -1,13 +1,13 @@
-interface getAccessTokenProps extends authClientInfo {
+export interface getAccessTokenProps extends authClientInfo {
   code: string;
 }
 
-interface authClientInfo {
+export interface authClientInfo {
   clientId: string;
   clientSecret: string;
 }
 
-interface getAccessTokenResponse {
+export interface getAccessTokenResponse {
   access_token: string;
   expires_in: number;
   token_type: string;
