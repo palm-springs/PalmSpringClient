@@ -8,14 +8,16 @@ const TextEditor = ({
   editor,
   handleDragOver,
   handleDrop,
+  handleEditorReady,
 }: {
   editor: Editor | null;
   handleDragOver: DragEventHandler<HTMLDivElement> | undefined;
   handleDrop: DragEventHandler<HTMLDivElement> | undefined;
+  handleEditorReady: any;
 }) => (
   <div id="dropzone" onDrop={handleDrop} onDragOver={handleDragOver}>
     <EditorContainer>
-      <TextEditorUI editor={editor} />
+      <TextEditorUI editor={editor} onChange={() => handleEditorReady} />
     </EditorContainer>
   </div>
 );

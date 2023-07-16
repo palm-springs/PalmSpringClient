@@ -22,6 +22,8 @@ import ts from 'highlight.js/lib/languages/typescript';
 import html from 'highlight.js/lib/languages/xml';
 import { lowlight } from 'lowlight';
 
+import SaveArticleButton from '@/components/editor/article/ui/SaveArticleButton';
+
 import css from 'highlight.js/lib/languages/css';
 
 lowlight.registerLanguage('html', html);
@@ -30,11 +32,15 @@ lowlight.registerLanguage('js', js);
 lowlight.registerLanguage('ts', ts);
 
 // import ScrollTopToolbar from '@/components/editor/article/publish/ScrollTopToolbar';
+import { Content } from 'next/font/google';
+
 import ToolBox from '@/components/editor/article/ui/ToolBox';
 import TextEditor from '@/components/editor/TextEditor';
 
 const TextEditorBuild = () => {
   const [, setImageSrc] = useState('');
+  const [textEditor, setTextEditor] = useState<Editor | null>(null);
+  const [extractedHTML, setExtractedHTML] = useState<string>('');
 
   const editor = useEditor({
     extensions: [
@@ -78,18 +84,6 @@ const TextEditorBuild = () => {
     ],
     content: '',
   });
-
-  // const addImage = useCallback(
-  //   ({ editor }: { editor: Editor }) => {
-  //     const url = window.prompt('URL');
-
-  //     if (url) {
-  //       editor.chain().focus().setImage({ src: url }).run();
-  //     }
-  //   },
-  //   [editor],
-  // );
-
   const encodeFileToBase64 = ({
     event,
     editor,
@@ -163,11 +157,29 @@ const TextEditorBuild = () => {
     return null;
   }
 
+  const handleEditorReady = (instance: Editor) => {
+    setTextEditor(instance);
+  };
+
+  const handleExtractHTML = () => {
+    if (editor) {
+      const content = editor.getHTML();
+      setExtractedHTML(content);
+      console.log(content);
+    }
+  };
+
   return (
     <>
       <ToolBox editor={editor} encodeFileToBase64={encodeFileToBase64} setLink={setLink} />
       {/* <ScrollTopToolbar /> */}
-      <TextEditor editor={editor} handleDrop={handleDrop} handleDragOver={handleDragOver} />
+      <TextEditor
+        editor={editor}
+        handleDrop={handleDrop}
+        handleDragOver={handleDragOver}
+        handleEditorReady={handleEditorReady}
+      />
+      <SaveArticleButton handleExtractHTML={handleExtractHTML} />
     </>
   );
 };
