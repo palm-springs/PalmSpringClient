@@ -10,5 +10,5 @@ export interface ContentProps {
     createdAt: string;
   };
   content: string;
-  images?: string[];
+  images: string[] | null;
 }

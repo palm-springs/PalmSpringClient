@@ -26,6 +26,7 @@ const ContentPage = () => {
       createdAt: '2023년 5월 12일',
     },
     content: 'string',
+    images: null,
   };
 
   const notify = () =>

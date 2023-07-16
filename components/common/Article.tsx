@@ -9,20 +9,24 @@ import { ArticleData } from '@/types/article';
 
 import ArticleImg from '../blog/ui/ArticleImg';
 
-interface ArticleProps extends ArticleData {
+interface ArticleProps {
   noHover?: boolean;
+  article: ArticleData;
 }
 
 const Article = (props: ArticleProps) => {
   const SELECTED = useGetCategory();
   const {
     noHover,
-    title,
-    description,
-    memberName,
-    createdAt,
-    thumbnail,
-    categoryArticleResponseDto: { categoryName },
+    article: {
+      title,
+      description,
+      memberName,
+      job,
+      createdAt,
+      thumbnail,
+      categoryArticleResponseDto: { categoryName },
+    },
   } = props;
 
   return (
@@ -32,7 +36,8 @@ const Article = (props: ArticleProps) => {
         <ArticleDescription className="description">{description}</ArticleDescription>
         <DetailBox>
           {SELECTED === 'home' && <CategoryBtn>{categoryName}</CategoryBtn>}
-          <ArticleDetail>{memberName}</ArticleDetail>
+          <ArticleDetail>{memberName}</ArticleDetail>&nbsp;·&nbsp;
+          <ArticleDetail>{job}</ArticleDetail>
           <Bar>|</Bar>
           <ArticleDetail>{createdAt}</ArticleDetail>
         </DetailBox>

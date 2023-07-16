@@ -10,16 +10,8 @@ import Article from './Article';
 const ArticleList = () => {
   return (
     <ArticleListContainer>
-      {ARTICLE_LIST.map((eachItem, index) => (
-        <Article
-          key={index}
-          categoryArticleResponseDto={eachItem.categoryArticleResponseDto}
-          title={eachItem.title}
-          description={eachItem.description}
-          memberName={eachItem.memberName}
-          createdAt={eachItem.createdAt}
-          thumbnail={eachItem.thumbnail}
-        />
+      {ARTICLE_LIST.map((article) => (
+        <Article key={article.id} article={article} />
       ))}
     </ArticleListContainer>
   );
