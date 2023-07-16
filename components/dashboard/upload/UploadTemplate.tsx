@@ -1,8 +1,10 @@
 'use client';
 
-import React, { useState } from 'react';
+import React, { useEffect, useState } from 'react';
 
-import { dashBoardTabType } from '@/types/dashboard';
+import { useGetArticleList } from '@/hooks/article';
+import { useGetCategoryList } from '@/hooks/dashboard';
+import { getLiteralCategoryList } from '@/utils/getLiteralCategoryList';
 
 import DashBoardTemplateContainer from '../components/ui/DashBoardTemplateContainer';
 import Line from '../components/ui/Line';
@@ -11,14 +13,34 @@ import UploadContentList from './components/UploadContentList';
 import UploadTabBar from './components/UploadTabBar';
 
 const UploadTemplate = () => {
-  const [category, setCategory] = useState<dashBoardTabType>('all');
+  const blogUrl = 'Palms';
+
+  const [category, setCategory] = useState<string>('전체');
+
+  const categoryData = useGetCategoryList(blogUrl);
+
+  const articleData = useGetArticleList(blogUrl, category === '전체' ? '' : category);
+
+  useEffect(() => {
+    console.log(category, categoryData);
+  }, [articleData]);
+
+  if (!categoryData) return <div>로더</div>;
+
+  const filteredCategory = getLiteralCategoryList(categoryData);
 
   return (
-    <DashBoardTemplateContainer>
-      <UploadTabBar category={category} setCategory={setCategory} />
-      <Line />
-      <UploadContentList category={category} />
-    </DashBoardTemplateContainer>
+    <>
+      <DashBoardTemplateContainer>
+        <UploadTabBar
+          setCategory={setCategory}
+          currentCategory={[...filteredCategory]}
+          categoryListData={categoryData.data}
+        />
+        <Line />
+        <UploadContentList category={filteredCategory} articleData={articleData} />
+      </DashBoardTemplateContainer>
+    </>
   );
 };
 

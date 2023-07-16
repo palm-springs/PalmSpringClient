@@ -21,7 +21,7 @@ const HeaderContainer = (props: UploadHeaderContainerProps) => {
     <UploadHeaderUI>
       <HeaderContentWrapper>
         <span>{title}</span>
-        {buttonInnerText ? <button onClick={onButtonClick}>{buttonInnerText}</button> : <div></div>}
+        {buttonInnerText && <button onClick={onButtonClick}>{buttonInnerText}</button>}
       </HeaderContentWrapper>
     </UploadHeaderUI>
   );

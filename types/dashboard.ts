@@ -9,8 +9,6 @@ export type dashBoardPageType =
   | 'tempsaved'
   | 'upload';
 
-export type dashBoardTabType = 'all' | 'dev' | 'design' | 'plan' | 'culture';
-
 export interface NavListProps {
   id: string;
   name: string;
@@ -30,4 +28,15 @@ export interface CategoryListProps {
   name: string;
   categoryUrl: string;
   description: string;
+}
+
+export interface TempSavedListProps {
+  id: number;
+  title: string;
+  teamMemberResponseDto: {
+    id: number;
+    name: string;
+    job: string;
+    createdAt: string;
+  };
 }
