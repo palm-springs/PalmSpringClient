@@ -2,6 +2,8 @@
 
 import React, { useState } from 'react';
 
+import { dashBoardTabType } from '@/types/dashboard';
+
 import DashBoardTemplateContainer from '../components/ui/DashBoardTemplateContainer';
 import Line from '../components/ui/Line';
 

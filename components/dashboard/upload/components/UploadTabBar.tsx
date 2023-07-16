@@ -2,6 +2,8 @@
 
 import React, { Dispatch, SetStateAction } from 'react';
 
+import { dashBoardTabType } from '@/types/dashboard';
+
 import UploadTabBarContainer from './ui/UploadTabBarContainer';
 
 export interface UploadTabBarProps {

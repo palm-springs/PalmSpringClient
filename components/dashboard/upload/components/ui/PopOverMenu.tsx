@@ -3,6 +3,8 @@
 import React from 'react';
 import { styled } from 'styled-components';
 
+import { dashBoardPageType } from '@/types/dashboard';
+
 interface PopOverMenuProps {
   pathName: dashBoardPageType;
 }
