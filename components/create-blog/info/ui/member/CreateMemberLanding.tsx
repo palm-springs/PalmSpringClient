@@ -1,14 +1,20 @@
 'use client';
 import { useEffect, useState } from 'react';
+import { useRecoilState } from 'recoil';
 import styled from 'styled-components';
 
+import { postCreateBlog } from '@/api/blog';
 import AddMemberForm from '@/components/common/ui/AddMemberForm';
 import { ProgressStateProps } from '@/types/progress';
+
+import { createBlogDataState } from '../../states/atom';
 
 const CreateMemberLanding = (props: ProgressStateProps) => {
   const { progressState, setProgressState } = props;
 
   const [containerState, setContainerState] = useState('');
+
+  const [blogData, setBlogData] = useRecoilState(createBlogDataState);
 
   useEffect(() => {
     if (progressState === -2) {
@@ -17,6 +23,14 @@ const CreateMemberLanding = (props: ProgressStateProps) => {
       setContainerState('fadeIn');
     }
   }, [progressState]);
+
+  const handleOnCreateClick = () => {
+    const { description } = blogData;
+    if (description === '') {
+      setBlogData((prev) => ({ ...prev, description: null }));
+    }
+    postCreateBlog(blogData);
+  };
 
   return (
     <CreateMemberContainer className={containerState}>
@@ -33,7 +47,9 @@ const CreateMemberLanding = (props: ProgressStateProps) => {
           <PreviousButton type="button" onClick={() => setProgressState(-2)}>
             이전으로
           </PreviousButton>
-          <InviteButton type="button">시작하기</InviteButton>
+          <InviteButton type="button" onClick={handleOnCreateClick}>
+            시작하기
+          </InviteButton>
         </ButtonContainer>
       </AddMemberContainer>
     </CreateMemberContainer>

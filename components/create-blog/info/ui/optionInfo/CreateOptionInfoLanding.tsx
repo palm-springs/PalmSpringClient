@@ -1,14 +1,19 @@
 'use client';
-import { useEffect, useState } from 'react';
+import { ChangeEvent, useEffect, useState } from 'react';
+import { useRecoilState } from 'recoil';
 import styled from 'styled-components';
 
+import { createBlogData } from '@/types/blogInfo';
 import { ProgressStateProps } from '@/types/progress';
 
+import { createBlogDataState } from '../../states/atom';
 import ImageInputForm from '../ImageInputForm';
 import TextInputForm from '../TextInputForm';
 
 const CreateOptionInfoLanding = (props: ProgressStateProps) => {
   const { progressState, setProgressState } = props;
+
+  const [{ thumbnail, logo, description }, setBlogData] = useRecoilState(createBlogDataState);
 
   const [isDescriptionFocus, setIsDescriptionFocus] = useState(false);
   const [containerState, setContainerState] = useState('');
@@ -25,6 +30,11 @@ const CreateOptionInfoLanding = (props: ProgressStateProps) => {
     }
   }, [progressState]);
 
+  const handleOnTextChange = (e: ChangeEvent<HTMLTextAreaElement>) => {
+    const { value } = e.currentTarget;
+    setBlogData((prev: createBlogData) => ({ ...prev, description: value }));
+  };
+
   return (
     <CreateBasicInfoContainer className={containerState}>
       <InfoContainer>
@@ -38,9 +48,11 @@ const CreateOptionInfoLanding = (props: ProgressStateProps) => {
 
         <TextInputForm type="설명" isFocus={isDescriptionFocus}>
           <TextAreaInput
+            value={description as string}
             placeholder="블로그 설명을 입력해주세요"
             onFocus={() => setIsDescriptionFocus(true)}
             onBlur={() => setIsDescriptionFocus(false)}
+            onChange={handleOnTextChange}
           />
         </TextInputForm>
         <ButtonContainer>

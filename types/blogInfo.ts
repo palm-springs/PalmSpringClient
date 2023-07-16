@@ -8,7 +8,7 @@ export interface BlogBasicInfoType {
 export interface createBlogData {
   url: string;
   name: string;
-  thumbnail?: string;
-  logo?: string;
-  description?: string;
+  thumbnail: string | null;
+  logo: string | null;
+  description: string | null;
 }
