@@ -9,4 +9,5 @@ export default NavUrlInputContainer;
 
 const NavUrlInputUI = styled.article`
   position: relative;
+  margin-top: 2rem;
 `;
