@@ -2,6 +2,8 @@
 
 import React from 'react';
 
+import { ArticleProps } from '../../../../types/article';
+import { Response } from '../../../../types/common';
 import DashBoardContent from '../../components/DashBoardContent';
 import DashBoardContentListContainer from '../../components/ui/DashBoardContentListContainer';
 

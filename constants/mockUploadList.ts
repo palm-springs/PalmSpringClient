@@ -1,3 +1,5 @@
+import { dashBoardTabType } from '@/types/dashboard';
+
 interface mockUploadContentBluePrint {
   id: string;
   content: string;

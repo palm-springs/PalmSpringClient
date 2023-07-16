@@ -1,3 +1,6 @@
+import { Response } from '@/types/common';
+import { CategoryListProps, NavListProps, PageListProps } from '@/types/dashboard';
+
 import { client } from '.';
 
 export const getPageList = async (blogUrl: string) => {

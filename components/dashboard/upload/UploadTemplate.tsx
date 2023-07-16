@@ -8,6 +8,7 @@ import { TextInput } from '@/components/create-blog/info/ui/CreateBasicInfoLandi
 import TextInputForm from '@/components/create-blog/info/ui/TextInputForm';
 import { useGetArticleList } from '@/hooks/article';
 import { useGetCategoryList } from '@/hooks/dashboard';
+import { dashBoardTabType } from '@/types/dashboard';
 import { getLiteralCategoryList } from '@/utils/getLiteralCategoryList';
 
 import DashBoardTemplateContainer from '../components/ui/DashBoardTemplateContainer';

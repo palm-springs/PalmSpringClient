@@ -1,5 +1,7 @@
 'use client';
+import { useEffect, useState } from 'react';
 import styled from 'styled-components';
+import { isJSDocReturnTag } from 'typescript';
 
 import { CheckBoxIcon } from '@/public/icons';
 
@@ -9,26 +11,60 @@ interface ProgressDotProps {
 
 const ProgressDot = (props: ProgressDotProps) => {
   const { progress } = props;
+
+  const [currentStep, setCurrentStep] = useState('first');
+
+  const [firstCheckBoxAnimation, setFirstCheckBoxAnimation] = useState('shown');
+  const [secondCheckBoxAnimation, setSecondCheckBoxAnimation] = useState('');
+  const [thirdCheckBoxAnimation, setThirdCheckBoxAnimation] = useState('');
+
+  useEffect(() => {
+    switch (progress) {
+      case -1:
+        setFirstCheckBoxAnimation('fadeIn');
+        setSecondCheckBoxAnimation('fadeOut');
+        setCurrentStep('first');
+        return;
+      case 2:
+        setFirstCheckBoxAnimation('fadeOut');
+        setSecondCheckBoxAnimation('fadeIn');
+        setCurrentStep('second');
+        return;
+      case 3:
+        setSecondCheckBoxAnimation('fadeOut');
+        setThirdCheckBoxAnimation('fadeIn');
+        setCurrentStep('third');
+        return;
+      case -2:
+        setSecondCheckBoxAnimation('fadeIn');
+        setThirdCheckBoxAnimation('fadeOut');
+        setCurrentStep('second');
+        return;
+    }
+  });
+
   return (
     <ProgressDotContainer>
       <DotContainer>
-        <CheckBox $width={progress === 1 ? '3' : '2.2'} $height={progress === 1 ? '3' : '2.2'}>
-          <CheckDot className={progress === 1 ? 'shown' : progress === 2 ? 'fadeout' : 'hidden'}>
+        <CheckBox $width={currentStep === 'first' ? '3' : '2.2'} $height={currentStep === 'first' ? '3' : '2.2'}>
+          <CheckDot className={firstCheckBoxAnimation}>
             <CheckBoxIcon />
           </CheckDot>
-          <Dot className={'green'} />
+          <Dot className={'green'} $isShown={currentStep === 'first'} />
         </CheckBox>
-        <CheckBox $width={progress === 2 ? '3' : '2.2'} $height={progress === 2 ? '3' : '2.2'}>
-          <CheckDot className={progress === 2 ? 'fadein' : progress === 3 ? 'fadeout' : 'hidden'}>
+
+        <CheckBox $width={currentStep === 'second' ? '3' : '2.2'} $height={currentStep === 'second' ? '3' : '2.2'}>
+          <CheckDot className={secondCheckBoxAnimation}>
             <CheckBoxIcon />
           </CheckDot>
-          <Dot className={progress === 1 ? 'grey' : 'green'} />
+          <Dot className={currentStep === 'first' ? 'grey' : 'green'} $isShown={currentStep === 'second'} />
         </CheckBox>
-        <CheckBox $width={progress === 3 ? '3' : '2.2'} $height={progress === 3 ? '3' : '2.2'}>
-          <CheckDot className={progress === 3 ? 'fadein' : 'hidden'}>
+
+        <CheckBox $width={currentStep === 'third' ? '3' : '2.2'} $height={currentStep === 'third' ? '3' : '2.2'}>
+          <CheckDot className={thirdCheckBoxAnimation}>
             <CheckBoxIcon />
           </CheckDot>
-          <Dot className={progress === 3 ? 'green' : 'grey'} />
+          <Dot className={currentStep === 'third' ? 'green' : 'grey'} $isShown={currentStep === 'third'} />
         </CheckBox>
       </DotContainer>
     </ProgressDotContainer>
@@ -64,12 +100,15 @@ const CheckBox = styled.div<{ $width: string; $height: string }>`
   height: ${({ $height }) => `${$height}rem`};
 `;
 
-const Dot = styled.div`
+const Dot = styled.div<{ $isShown: boolean }>`
+  transition: opacity 0.6s;
+  opacity: ${({ $isShown }) => ($isShown ? 0 : 1)};
   border-radius: 1.5rem;
 
   background-color: ${({ theme }) => theme.colors.background_green};
-  width: 2.2rem;
-  height: 2.2rem;
+
+  width: ${({ $isShown }) => ($isShown ? '3rem' : '2.2rem')};
+  height: ${({ $isShown }) => ($isShown ? '3rem' : '2.2rem')};
 
   &.grey {
     background-color: ${({ theme }) => theme.colors.grey_200};
@@ -94,13 +133,13 @@ const CheckDot = styled.div`
     opacity: 1;
   }
 
-  &.fadein {
-    transition: 1s;
+  &.fadeIn {
+    transition: 0.6s;
     opacity: 1;
   }
 
-  &.fadeout {
-    transition: 1s;
+  &.fadeOut {
+    transition: 0.6s;
     opacity: 0;
   }
 `;
