@@ -12,21 +12,27 @@ ${reset}
 html {
     font-size: 62.5%;
 }
+
 a {
     text-decoration: none;
-    
     color: inherit;
 }
 
 button { 
-    border:none; 
-    border-radius:0; 
-    box-shadow:none;
+    border: none; 
+    border-radius: 0; 
+    box-shadow: none;
     background: inherit ;
-    cursor:pointer; 
-    padding:0; 
-    overflow:visible}
+    cursor: pointer; 
+    padding: 0; 
+    overflow: visible;
+}
 
 * {
     box-sizing: border-box;
-}`;
+}
+
+*::-webkit-scrollbar {
+    display: none;
+}
+`;
