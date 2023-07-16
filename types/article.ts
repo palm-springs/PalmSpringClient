@@ -1,13 +1,13 @@
-interface ArticleData {
-  id?: number;
-  thumbnail?: string;
+export interface ArticleProps {
+  id: number;
+  thumbnail: string;
   title: string;
   description: string;
   memberName: string;
-  job?: string;
+  job: string;
   createdAt: string;
   categoryArticleResponseDto: {
-    categoryId?: number;
+    categoryId: number;
     categoryName: string;
   };
 }

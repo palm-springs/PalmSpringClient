@@ -5,6 +5,7 @@ import Link from 'next/link';
 import styled from 'styled-components';
 
 import useGetCategory from '@/hooks/useGetCategory';
+import { ArticleListProps } from '@/types/articleList';
 
 import ArticleImg from '../blog/ui/ArticleImg';
 

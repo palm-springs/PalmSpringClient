@@ -1,3 +1,6 @@
+import { ArticleProps } from '@/types/article';
+import { Response } from '@/types/common';
+
 import { client } from '.';
 
 export const getArticleList = async (blogUrl: string, categoryId: string | null) => {

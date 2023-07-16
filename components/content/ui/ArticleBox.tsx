@@ -5,6 +5,7 @@ import styled from 'styled-components';
 
 import Article from '@/components/common/Article';
 import { ARTICLE_LIST } from '@/constants/articleList';
+import { ArticleListProps } from '@/types/articleList';
 
 const ArticleBox = () => {
   const RECOMMEND_ARTICLE_LIST: ArticleData[] = ARTICLE_LIST.slice(0, 3);

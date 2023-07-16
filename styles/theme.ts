@@ -147,8 +147,36 @@ const fonts = {
   `,
 };
 
-const theme: Pick<DefaultTheme, 'colors' | 'fonts'> = {
+const editor = {
+  Edit_h1: css`
+    line-height: 140%;
+    letter-spacing: -0.032rem;
+    font-family: 'Pretendard';
+    font-size: 4rem;
+    font-weight: 700;
+    font-style: normal;
+  `,
+  Edit_h2: css`
+    line-height: 155%;
+    letter-spacing: -0.028rem;
+    font-family: 'Pretendard';
+    font-size: 3.2rem;
+    font-weight: 700;
+    font-style: normal;
+  `,
+  Edit_h3: css`
+    line-height: 160%;
+    letter-spacing: -0.028rem;
+    font-family: 'Pretendard';
+    font-size: 2.4rem;
+    font-weight: 700;
+    font-style: normal;
+  `,
+};
+
+const theme: Pick<DefaultTheme, 'colors' | 'fonts' | 'editor'> = {
   colors,
   fonts,
+  editor,
 };
 export default theme;
