@@ -30,7 +30,7 @@ export interface CategoryListProps {
   description: string;
 }
 
-interface TempSavedListProps {
+export interface TempSavedListProps {
   id: number;
   title: string;
   teamMemberResponseDto: {
