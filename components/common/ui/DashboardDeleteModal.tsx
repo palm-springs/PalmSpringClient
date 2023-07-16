@@ -43,7 +43,7 @@ const RightBottomButton = styled.button`
   margin-left: 1.6rem;
   border: 1px solid ${({ theme }) => theme.colors.grey_500};
   border-radius: 0.8rem;
-  background-color: #ff5454;
+  background-color: ${({ theme }) => theme.colors.red};
   padding: 1rem 2.6rem;
   height: 4.2rem;
   color: ${({ theme }) => theme.colors.grey_0};
