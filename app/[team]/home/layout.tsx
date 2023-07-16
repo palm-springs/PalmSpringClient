@@ -11,6 +11,7 @@ import BlogHeader from '@/components/common/BlogHeader';
 import ContentInfo from '@/components/common/ContentInfo';
 import { BlogSampleImg } from '@/public/images';
 import { BlogImgProps } from '@/types/blogImg';
+import { ContentProps } from '@/types/content';
 
 const BlogHomeLayout = ({ children }: { children: React.ReactElement }) => {
   const BLOG_INFO_EXAMPLE: BlogImgProps = {
@@ -25,12 +26,13 @@ const BlogHomeLayout = ({ children }: { children: React.ReactElement }) => {
       '이렇게 글 설명이 보입니다.이렇게 글 설명이 보입니다.이렇게 글 설명이 보입니다.이렇게 글 설명이 보입니다.이렇게 글 설명이 보입니다.이렇게 글 설명이 보입니다.이렇게 글 설명이 보입니다.이렇게 글 설명이 보입니다.',
     teamMember: {
       id: 1,
+      // thumbnail: 'string',
       name: '김대덕',
       job: 'TL',
       createdAt: '2023년 5월 12일',
     },
     content: 'string',
-    images: 'string',
+    images: null,
   };
 
   return (

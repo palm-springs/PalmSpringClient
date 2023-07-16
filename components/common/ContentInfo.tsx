@@ -25,26 +25,30 @@ const ContentInfo = (props: ContentInfoProps) => {
   return (
     <ContentInfoContainer className={ifContent === 'content' ? 'noHover' : ''}>
       {ifContent === 'content' ? (
-        <>
+        <TestBox>
           <TitleBox>{title}</TitleBox>
           {description && <DescriptionBox>{description}</DescriptionBox>}
-        </>
+        </TestBox>
       ) : (
-        <Link href={`/blogNameHere/content/contentNameHere`}>
-          <TitleBox>{title}</TitleBox>
-          {description && <DescriptionBox>{description}</DescriptionBox>}
-        </Link>
+        <TestBox>
+          <Link href={`/blogNameHere/content/contentNameHere`}>
+            <TitleBox>{title}</TitleBox>
+            {description && <DescriptionBox>{description}</DescriptionBox>}
+          </Link>
+        </TestBox>
       )}
       {name && (
-        <WriterInfo href={`/blogNameHere/author/authorNameHere`}>
-          {thumbnail ? <WriterProfilePic src={thumbnail} alt="writer profile pic" /> : <NoUserProfileIcon />}
-          <WriterDetailBox>
-            <WriterNameBox>
-              <WriterDetail>{name}</WriterDetail>&nbsp;·&nbsp;<WriterDetail>{job}</WriterDetail>
-            </WriterNameBox>
-            <WriterDetail className="date">{createdAt}</WriterDetail>
-          </WriterDetailBox>
-        </WriterInfo>
+        <Writer>
+          <WriterInfo href={`/blogNameHere/author/authorNameHere`}>
+            {thumbnail ? <WriterProfilePic src={thumbnail} alt="writer profile pic" /> : <NoUserProfileIcon />}
+            <WriterDetailBox>
+              <WriterNameBox>
+                <WriterDetail>{name}</WriterDetail>&nbsp;·&nbsp;<WriterDetail>{job}</WriterDetail>
+              </WriterNameBox>
+              <WriterDetail className="date">{createdAt}</WriterDetail>
+            </WriterDetailBox>
+          </WriterInfo>
+        </Writer>
       )}
     </ContentInfoContainer>
   );
@@ -52,10 +56,30 @@ const ContentInfo = (props: ContentInfoProps) => {
 
 export default ContentInfo;
 
+const Writer = styled.article`
+  display: flex;
+  align-items: center;
+  &:hover {
+    opacity: 0.8;
+  }
+`;
+
 const WriterProfilePic = styled.img`
   border-radius: 50%;
   width: 5rem;
   height: 5rem;
+`;
+
+const TestBox = styled.section`
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+  &:hover {
+    opacity: 0.8;
+  }
+  &.noHover {
+    pointer-events: none;
+  }
 `;
 
 const ContentInfoContainer = styled.section`
@@ -63,16 +87,6 @@ const ContentInfoContainer = styled.section`
   flex-direction: column;
   justify-content: flex-start;
   width: 72rem;
-
-  &:hover {
-    article,
-    div {
-      opacity: 0.8;
-    }
-  }
-  &.noHover {
-    pointer-events: none;
-  }
 `;
 
 const WriterNameBox = styled.div`
