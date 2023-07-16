@@ -4,20 +4,16 @@ import { DragEventHandler } from 'react';
 import { Editor, EditorContent } from '@tiptap/react';
 import styled from 'styled-components';
 
-const TextEditor = ({
-  editor,
-  handleDragOver,
-  handleDrop,
-  handleEditorReady,
-}: {
+interface editorProps {
   editor: Editor | null;
   handleDragOver: DragEventHandler<HTMLDivElement> | undefined;
   handleDrop: DragEventHandler<HTMLDivElement> | undefined;
-  handleEditorReady: any;
-}) => (
+}
+
+const TextEditor = ({ editor, handleDragOver, handleDrop }: editorProps) => (
   <div id="dropzone" onDrop={handleDrop} onDragOver={handleDragOver}>
     <EditorContainer>
-      <TextEditorUI editor={editor} onChange={() => handleEditorReady} />
+      <TextEditorUI editor={editor} />
     </EditorContainer>
   </div>
 );

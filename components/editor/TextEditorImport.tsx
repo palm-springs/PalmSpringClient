@@ -32,14 +32,12 @@ lowlight.registerLanguage('js', js);
 lowlight.registerLanguage('ts', ts);
 
 // import ScrollTopToolbar from '@/components/editor/article/publish/ScrollTopToolbar';
-import { Content } from 'next/font/google';
 
 import ToolBox from '@/components/editor/article/ui/ToolBox';
 import TextEditor from '@/components/editor/TextEditor';
 
 const TextEditorBuild = () => {
   const [, setImageSrc] = useState('');
-  const [textEditor, setTextEditor] = useState<Editor | null>(null);
   const [extractedHTML, setExtractedHTML] = useState<string>('');
 
   const editor = useEditor({
@@ -157,10 +155,6 @@ const TextEditorBuild = () => {
     return null;
   }
 
-  const handleEditorReady = (instance: Editor) => {
-    setTextEditor(instance);
-  };
-
   const handleExtractHTML = () => {
     if (editor) {
       const content = editor.getHTML();
@@ -173,12 +167,7 @@ const TextEditorBuild = () => {
     <>
       <ToolBox editor={editor} encodeFileToBase64={encodeFileToBase64} setLink={setLink} />
       {/* <ScrollTopToolbar /> */}
-      <TextEditor
-        editor={editor}
-        handleDrop={handleDrop}
-        handleDragOver={handleDragOver}
-        handleEditorReady={handleEditorReady}
-      />
+      <TextEditor editor={editor} handleDrop={handleDrop} handleDragOver={handleDragOver} />
       <SaveArticleButton handleExtractHTML={handleExtractHTML} />
     </>
   );
