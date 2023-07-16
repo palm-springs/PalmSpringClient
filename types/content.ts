@@ -1,4 +1,4 @@
-interface ContentProps {
+export interface ContentProps {
   title: string;
   description?: string;
   writer?: string;

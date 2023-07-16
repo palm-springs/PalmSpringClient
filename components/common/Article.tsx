@@ -3,6 +3,8 @@
 import React from 'react';
 import styled from 'styled-components';
 
+import { ArticleListProps } from '@/types/articleList';
+
 import ArticleImg from '../blog/ui/ArticleImg';
 
 const Article = (props: ArticleListProps) => {
