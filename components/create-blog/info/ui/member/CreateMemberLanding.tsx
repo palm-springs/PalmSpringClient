@@ -5,24 +5,21 @@ import styled from 'styled-components';
 
 import { postCreateBlog } from '@/api/blog';
 import AddMemberForm from '@/components/common/ui/AddMemberForm';
-import { ProgressStateProps } from '@/types/progress';
 
-import { createBlogDataState } from '../../states/atom';
+import { createBlogDataState, progressState } from '../../states/atom';
 
-const CreateMemberLanding = (props: ProgressStateProps) => {
-  const { progressState, setProgressState } = props;
-
+const CreateMemberLanding = () => {
   const [containerState, setContainerState] = useState('');
-
+  const [progress, setProgress] = useRecoilState(progressState);
   const [blogData, setBlogData] = useRecoilState(createBlogDataState);
 
   useEffect(() => {
-    if (progressState === -2) {
+    if (progress === -2) {
       setContainerState('fadeDownOut');
-    } else if (progressState === 3) {
+    } else if (progress === 3) {
       setContainerState('fadeIn');
     }
-  }, [progressState]);
+  }, [progress]);
 
   const handleOnCreateClick = () => {
     const { description } = blogData;
@@ -45,7 +42,7 @@ const CreateMemberLanding = (props: ProgressStateProps) => {
         </SubTitleContainer>
         <AddMemberForm width={'40'} height={'17.2'} paddingUD={'2'} paddingLR={'2.4'} />
         <ButtonContainer>
-          <PreviousButton type="button" onClick={() => setProgressState(-2)}>
+          <PreviousButton type="button" onClick={() => setProgress(-2)}>
             이전으로
           </PreviousButton>
           <InviteButton type="button" onClick={handleOnCreateClick}>

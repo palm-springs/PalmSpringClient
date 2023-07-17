@@ -5,14 +5,13 @@ import styled from 'styled-components';
 
 import { Loader01Icon } from '@/public/icons';
 import { createBlogData } from '@/types/blogInfo';
-import { ProgressStateProps } from '@/types/progress';
 import CheckDuplication from '@/utils/checkUrlDuplication';
 
-import { createBlogDataState } from '../../states/atom';
+import { createBlogDataState, progressState } from '../../states/atom';
 import TextInputForm from '../TextInputForm';
 
-const CreateBasicInfoLanding = (props: ProgressStateProps) => {
-  const { progressState, setProgressState } = props;
+const CreateBasicInfoLanding = () => {
+  const [progress, setProgress] = useRecoilState(progressState);
 
   const [containerState, setContainerState] = useState('');
 
@@ -34,12 +33,12 @@ const CreateBasicInfoLanding = (props: ProgressStateProps) => {
   };
 
   useEffect(() => {
-    if (progressState === -1) {
+    if (progress === -1) {
       setContainerState('fadeDownIn');
-    } else if (progressState === 2) {
+    } else if (progress === 2) {
       setContainerState('fadeOut');
     }
-  }, [progressState]);
+  }, [progress]);
 
   return (
     <CreateBasicInfoContainer className={containerState}>
@@ -76,7 +75,7 @@ const CreateBasicInfoLanding = (props: ProgressStateProps) => {
           <PreviousButton>이전으로</PreviousButton>
           <NextButton
             type="button"
-            onClick={() => setProgressState(2)}
+            onClick={() => setProgress(2)}
             disabled={isAddressDuplicate === null || !!isAddressDuplicate || name === '' || url === ''}>
             다음으로
           </NextButton>

@@ -21,6 +21,11 @@ const ImageInputForm = (props: ImageInputFormProps) => {
   const [imgSrc, setImgSrc] = useState('');
   const setBlogData = useSetRecoilState(createBlogDataState);
 
+  const handleOnDeleteImg = () => {
+    setImgSrc('');
+    setBlogData((prev) => ({ ...prev, [type]: null }));
+  };
+
   const handleOnFileChange = async (e: ChangeEvent<HTMLInputElement>) => {
     const { files } = e.currentTarget;
 
@@ -40,14 +45,14 @@ const ImageInputForm = (props: ImageInputFormProps) => {
     <div>
       <InputTitle>
         블로그 {type === 'logo' ? '로고' : '대문'} 이미지
-        {type === 'thubmnail' && <span>대문 이미지 권장 크기는 1440*500 입니다</span>}
+        {type === 'thumbnail' && <span>대문 이미지 권장 크기는 1440*500 입니다</span>}
       </InputTitle>
 
       <ImageContainer className={type}>
         {imgSrc ? (
           <>
             <img src={imgSrc} alt={`${type} 이미지`} />
-            <CloseButton onClick={() => setImgSrc('')} className={type}>
+            <CloseButton onClick={handleOnDeleteImg} className={type}>
               <IcClose24Icon />
             </CloseButton>
           </>

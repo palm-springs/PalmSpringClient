@@ -4,31 +4,29 @@ import { useRecoilState } from 'recoil';
 import styled from 'styled-components';
 
 import { createBlogData } from '@/types/blogInfo';
-import { ProgressStateProps } from '@/types/progress';
 
-import { createBlogDataState } from '../../states/atom';
+import { createBlogDataState, progressState } from '../../states/atom';
 import ImageInputForm from '../ImageInputForm';
 import TextInputForm from '../TextInputForm';
 
-const CreateOptionInfoLanding = (props: ProgressStateProps) => {
-  const { progressState, setProgressState } = props;
-
+const CreateOptionInfoLanding = () => {
+  const [progress, setProgress] = useRecoilState(progressState);
   const [{ thumbnail, logo, description }, setBlogData] = useRecoilState(createBlogDataState);
 
   const [isDescriptionFocus, setIsDescriptionFocus] = useState(false);
   const [containerState, setContainerState] = useState('');
 
   useEffect(() => {
-    if (progressState === -1) {
+    if (progress === -1) {
       setContainerState('fadeDownOut');
-    } else if (progressState === 2) {
+    } else if (progress === 2) {
       setContainerState('fadeUpIn');
-    } else if (progressState === 3) {
+    } else if (progress === 3) {
       setContainerState('fadeUpOut');
-    } else if (progressState === -2) {
+    } else if (progress === -2) {
       setContainerState('fadeDownIn');
     }
-  }, [progressState]);
+  }, [progress]);
 
   const handleOnTextChange = (e: ChangeEvent<HTMLTextAreaElement>) => {
     const { value } = e.currentTarget;
@@ -56,10 +54,10 @@ const CreateOptionInfoLanding = (props: ProgressStateProps) => {
           />
         </TextInputForm>
         <ButtonContainer>
-          <PreviousButton type="button" onClick={() => setProgressState(-1)}>
+          <PreviousButton type="button" onClick={() => setProgress(-1)}>
             이전으로
           </PreviousButton>
-          <NextButton type="button" onClick={() => setProgressState(3)}>
+          <NextButton type="button" onClick={() => setProgress(3)}>
             다음으로
           </NextButton>
         </ButtonContainer>
