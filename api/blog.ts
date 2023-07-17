@@ -1,9 +1,9 @@
+import { createBlogData } from '@/types/blogInfo';
+
 import { client } from '.';
 
 export const getBlogInfo = async (blogUrl: string) => {
-  const {
-    data: { data },
-  } = await client.get(`/api/v1/blog?url=${blogUrl}`);
+  const { data } = await client.get(`/api/v1/blog?url=${blogUrl}`);
   return data;
 };
 
@@ -12,5 +12,11 @@ export const getCheckBlogUrlDuplication = async (blogUrl: string) => {
   const {
     data: { data },
   } = await client.get(`/blog/check?url=${blogUrl}`);
+  return data;
+};
+
+// 블로그 생성
+export const postCreateBlog = async (requestBody: createBlogData) => {
+  const { data } = await client.post(`/api/v1/blog/create`, requestBody);
   return data;
 };
