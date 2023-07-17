@@ -12,8 +12,3 @@ export interface createBlogData {
   logo: string | null;
   description: string | null;
 }
-
-export interface createBlogImgFile {
-  logo: File | null;
-  thumbnail: File | null;
-}

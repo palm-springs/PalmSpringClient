@@ -1,6 +1,6 @@
 import { atom } from 'recoil';
 
-import { createBlogData, createBlogImgFile } from '@/types/blogInfo';
+import { createBlogData } from '@/types/blogInfo';
 
 export const createBlogDataState = atom<createBlogData>({
   key: 'CreateBlogDataState',
@@ -10,9 +10,4 @@ export const createBlogDataState = atom<createBlogData>({
 export const progressState = atom<number>({
   key: 'progressState',
   default: 1,
-});
-
-export const createBlogImgFileState = atom<createBlogImgFile>({
-  key: 'createBlogImgFileState',
-  default: { logo: null, thumbnail: null },
 });

@@ -11,7 +11,7 @@ import TextInputForm from '../TextInputForm';
 
 const CreateOptionInfoLanding = () => {
   const [progress, setProgress] = useRecoilState(progressState);
-  const [{ thumbnail, logo, description }, setBlogData] = useRecoilState(createBlogDataState);
+  const [{ description }, setBlogData] = useRecoilState(createBlogDataState);
 
   const [isDescriptionFocus, setIsDescriptionFocus] = useState(false);
   const [containerState, setContainerState] = useState('');
