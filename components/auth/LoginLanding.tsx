@@ -3,8 +3,6 @@
 import Image from 'next/image';
 import styled from 'styled-components';
 
-import { getRefreshToken } from '@/api/auth';
-import { postCreateBlog } from '@/api/blog';
 import { GOOGLE_REDIRECT_URI } from '@/constants/auth';
 import { LogoIcon } from '@/public/icons';
 import { GoogleImg } from '@/public/images';
@@ -12,20 +10,13 @@ import { authClientInfo } from '@/types/auth';
 
 const LoginLanding = (props: authClientInfo) => {
   const { clientId } = props;
-
-  const handleText = () => {
-    postCreateBlog();
-  };
-
   // 구글 로그인창 호출
   const GOOGLE_END_POINT = 'https://accounts.google.com/o/oauth2/v2/auth';
   return (
     <LoginLandingContainer>
       <LoginContainer>
         <LogoIcon />
-        <LoginText>팜스프링으로 최고의 팀 블로그를 운영해보세요</LoginText>
-        <button onClick={handleText}>테스트</button>
-        <button onClick={() => getRefreshToken()}>테테테테스트</button>
+        <LoginText>우리 팀 이야기를 세상에 전달하는 방법</LoginText>
         <LoginButton
           href={`${GOOGLE_END_POINT}?client_id=${clientId}&redirect_uri=${GOOGLE_REDIRECT_URI}&response_type=code&scope=email profile`}>
           <Image src={GoogleImg} alt="구글 로고" />
@@ -56,7 +47,7 @@ const LoginContainer = styled.div`
 
 const LoginText = styled.h1`
   ${({ theme }) => theme.fonts.Body1_Semibold};
-  margin-top: 2.4rem;
+  margin-top: 1.6rem;
 `;
 
 const LoginButton = styled.a`

@@ -41,41 +41,41 @@ const AuthRequired = ({ children }: { children: React.ReactNode }) => {
   }, []);
 
   useEffect(() => {
-    console.log('seconde effect');
+    console.log('second effect');
     const responseInterceptor = client.interceptors.response.use(
       (response) => {
         return response;
       },
       async (err) => {
-        const { code, msg } = err.response;
+        console.log(err);
+        const { status, statusText } = err.response;
         const config = err.config;
 
         console.log('err here');
+        console.log(status);
 
-        if (code === 401) {
+        if (status === 401) {
           // 액세스 토큰 만료
-          if (msg === 'Access Token is expired.') {
-            console.log('err msg:', msg);
+          if (statusText === 'Access Token is expired.') {
+            console.log('err msg:', statusText);
             refresh();
-            console.log('come here');
             return client(config);
           }
           // 리프레시 토큰 만료
-          else if (msg === 'Refresh Token is expired.') {
-            console.log('err msg:', msg);
+          else if (statusText === 'Refresh Token is expired.') {
+            console.log('err msg:', statusText);
             resetAccessToken();
             router.push('/auth');
           } else {
-            console.log(msg);
+            console.log(statusText);
           }
           return Promise.reject(err);
         }
 
         // authorization 값 없을 때
-        else if (code === 400) {
-          refresh();
-          console.log('come here 2');
-          return client(config);
+        else if (status === 400) {
+          console.log('400 err');
+          router.push('/auth');
         }
       },
     );
