@@ -31,6 +31,7 @@ const ContentPage = () => {
 
   const notify = () =>
     toast.success('링크가 복사되었습니다', {
+      id: 'clipboard',
       style: {
         padding: '1.6rem 2rem',
         borderRadius: '3.2rem',
