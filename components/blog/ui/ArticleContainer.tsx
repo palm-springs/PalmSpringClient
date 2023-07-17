@@ -20,7 +20,7 @@ const ArticleContainer = () => {
   return (
     <>
       {/* //article list가 있을 때 - 블로그 대문이미지가 있을 때와 없을 때로 나뉨 */}
-      {ARTICLE_LIST.length > 1 ? (
+      {ARTICLE_LIST.length !== 0 ? (
         BLOG_INFO.thumbnail ? (
           <>
             <BlogImg blogImgUrl={BLOG_INFO.thumbnail} blogInfo={BLOG_INFO.description} />
@@ -81,6 +81,7 @@ const ContentInfoContainer = styled.div`
   display: flex;
   flex-direction: column;
   align-items: center;
+
   margin-top: 12rem;
 `;
 
@@ -107,7 +108,7 @@ const DefaultTextContainer = styled.div`
   display: flex;
   flex-direction: column;
   align-items: center;
-  padding-top: 34rem;
-  padding-bottom: 25.6rem;
+
+  padding: 34rem 0 25.6rem;
   height: 70.8rem;
 `;

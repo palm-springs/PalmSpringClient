@@ -15,7 +15,7 @@ interface ArticleProps {
 }
 
 const Article = (props: ArticleProps) => {
-  const SELECTED = useGetCategory();
+  const Selected = useGetCategory();
   const {
     noHover,
     article: {
@@ -35,7 +35,7 @@ const Article = (props: ArticleProps) => {
         <ArticleTitle className="title">{title}</ArticleTitle>
         <ArticleDescription className="description">{description}</ArticleDescription>
         <DetailBox>
-          {SELECTED === 'home' && <CategoryBtn>{categoryName}</CategoryBtn>}
+          {Selected === 'home' && <CategoryBtn>{categoryName}</CategoryBtn>}
           <ArticleDetail>{memberName}</ArticleDetail>&nbsp;·&nbsp;
           <ArticleDetail>{job}</ArticleDetail>
           <Bar>|</Bar>
@@ -53,11 +53,14 @@ const ArticleContainer = styled(Link)`
   display: flex;
   gap: 3.2rem;
   justify-content: space-between;
+
   width: 100%;
   height: 17rem;
+
   &.hover:hover {
     transform: translateY(-0.8rem);
     transition: 0.3s ease-in-out;
+
     .title,
     .description {
       opacity: 0.8;
@@ -69,6 +72,7 @@ const ArticleInfo = styled.article`
   display: flex;
   flex-direction: column;
   justify-content: center;
+
   width: 72rem;
 `;
 

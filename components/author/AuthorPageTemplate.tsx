@@ -32,8 +32,7 @@ const AuthorPageTemplateContainer = styled.section`
   flex-direction: column;
   align-items: center;
 
-  margin-top: 6rem;
-  margin-bottom: 12rem;
+  margin: 6rem 0 12rem;
   min-width: 72rem;
 `;
 

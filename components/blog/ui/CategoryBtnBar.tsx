@@ -39,8 +39,8 @@ const CategoryBtnBarContainer = styled.div`
   display: flex;
   gap: 1.2rem;
   justify-content: flex-start;
-  margin-top: 7.2rem;
-  margin-bottom: 4.8rem;
+
+  margin: 7.2rem 0 4.8rem;
   width: 72rem;
 `;
 
@@ -59,9 +59,11 @@ const CategoryBtn = styled(Link)`
   height: 4.2rem;
 
   color: ${({ theme }) => theme.colors.grey_700};
+
   &:hover {
     background-color: ${({ theme }) => theme.colors.grey_400};
   }
+
   &.selected {
     ${({ theme }) => theme.fonts.Body1_Regular};
     background-color: ${({ theme }) => theme.colors.grey_900};

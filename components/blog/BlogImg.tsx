@@ -17,7 +17,7 @@ const BlogImg = (props: BlogImgProps) => {
         <>
           <BlogImgWrapper>
             {/* //image src 에 blogImgUrl 넣을 예정 */}
-            <Image src={BlogImgExampleImg} alt="blog image" fill></Image>
+            <Image src={BlogImgExampleImg} alt="blog image" fill />
             {blogInfo && <BlogInfo>{blogInfo}</BlogInfo>}
           </BlogImgWrapper>
         </>

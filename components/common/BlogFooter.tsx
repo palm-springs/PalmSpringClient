@@ -25,8 +25,8 @@ const FooterContainer = styled.div`
   align-items: center;
 
   background-color: ${({ theme }) => theme.colors.grey_200};
-  padding-top: 7.2rem;
-  padding-bottom: 7.2rem;
+
+  padding: 7.2rem 0;
   min-width: 105.6rem;
 `;
 

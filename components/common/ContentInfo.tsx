@@ -13,7 +13,7 @@ interface ContentInfoProps {
 }
 
 const ContentInfo = (props: ContentInfoProps) => {
-  const ifContent: string = useGetIfContentPage();
+  const ifContent = useGetIfContentPage();
   const {
     content: {
       title,
@@ -23,7 +23,7 @@ const ContentInfo = (props: ContentInfoProps) => {
   } = props;
 
   return (
-    <ContentInfoContainer className={ifContent === 'content' ? 'noHover' : ''}>
+    <ContentInfoContainer className={ifContent === 'content' ? 'noHover' : 'hover'}>
       {ifContent === 'content' ? (
         <TestBox>
           <TitleBox>{title}</TitleBox>
@@ -38,7 +38,7 @@ const ContentInfo = (props: ContentInfoProps) => {
         </TestBox>
       )}
       {name && (
-        <Writer>
+        <WriterBox>
           <WriterInfo href={`/blogNameHere/author/authorNameHere`}>
             {thumbnail ? <WriterProfilePic src={thumbnail} alt="writer profile pic" /> : <NoUserProfileIcon />}
             <WriterDetailBox>
@@ -48,7 +48,7 @@ const ContentInfo = (props: ContentInfoProps) => {
               <WriterDetail className="date">{createdAt}</WriterDetail>
             </WriterDetailBox>
           </WriterInfo>
-        </Writer>
+        </WriterBox>
       )}
     </ContentInfoContainer>
   );
@@ -56,9 +56,10 @@ const ContentInfo = (props: ContentInfoProps) => {
 
 export default ContentInfo;
 
-const Writer = styled.article`
+const WriterBox = styled.article`
   display: flex;
   align-items: center;
+
   &:hover {
     opacity: 0.8;
   }
@@ -66,6 +67,7 @@ const Writer = styled.article`
 
 const WriterProfilePic = styled.img`
   border-radius: 50%;
+
   width: 5rem;
   height: 5rem;
 `;
@@ -74,11 +76,13 @@ const TestBox = styled.section`
   display: flex;
   flex-direction: column;
   align-items: flex-start;
-  &:hover {
+
+  &.hover:hover {
     opacity: 0.8;
   }
-  &.noHover {
-    pointer-events: none;
+
+  &.noHover:hover {
+    opacity: 1;
   }
 `;
 
@@ -86,6 +90,7 @@ const ContentInfoContainer = styled.section`
   display: flex;
   flex-direction: column;
   justify-content: flex-start;
+
   width: 72rem;
 `;
 
@@ -97,10 +102,13 @@ const WriterNameBox = styled.div`
 
 const TitleBox = styled.article`
   ${({ theme }) => theme.fonts.Title};
+
   display: flex;
   justify-content: flex-start;
-  margin: 3.2rem 0 1.2rem 0;
+
+  margin: 3.2rem 0 1.2rem;
   width: 100%;
+
   color: ${({ theme }) => theme.colors.grey_950};
 `;
 
@@ -108,8 +116,10 @@ const DescriptionBox = styled.article`
   ${({ theme }) => theme.fonts.Body1_Regular};
   display: flex;
   justify-content: flex-start;
+
   margin-bottom: 2.8rem;
   width: 100%;
+
   color: ${({ theme }) => theme.colors.grey_950};
 `;
 
@@ -118,6 +128,7 @@ const WriterInfo = styled(Link)`
   gap: 2rem;
   align-items: center;
   justify-content: flex-start;
+
   width: 100%;
 `;
 

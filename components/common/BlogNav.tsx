@@ -25,12 +25,12 @@ const BlogNav = (prop: navProps) => {
   return (
     <BlogNavContainer>
       {navList &&
-        navList.map((eachPage) => (
-          <PageBtn key={eachPage.navUrl}>
-            {eachPage.isPage === true ? (
-              <Link href={`/blogNameHere/content/${eachPage.navUrl}`}>{eachPage.name}</Link>
+        navList.map(({ navUrl, name, isPage }) => (
+          <PageBtn key={navUrl}>
+            {isPage === true ? (
+              <Link href={`/blogNameHere/content/${navUrl}`}>{name}</Link>
             ) : (
-              <Link href={`${eachPage.navUrl}`}>{eachPage.name}</Link>
+              <Link href={`${navUrl}`}>{name}</Link>
             )}
           </PageBtn>
         ))}
