@@ -3,14 +3,19 @@
 import React from 'react';
 import styled from 'styled-components';
 
-import { ARTICLE_LIST } from '@/constants/articleList';
+import { ArticleData } from '@/types/article';
 
 import Article from './Article';
 
-const ArticleList = () => {
+interface ArticleListProp {
+  articleList: ArticleData[];
+}
+
+const ArticleList = (prop: ArticleListProp) => {
+  const { articleList } = prop;
   return (
     <ArticleListContainer>
-      {ARTICLE_LIST.map((article) => (
+      {articleList.map((article) => (
         <Article key={article.id} article={article} />
       ))}
     </ArticleListContainer>
