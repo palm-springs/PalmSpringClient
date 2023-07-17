@@ -44,7 +44,7 @@ const CreateOptionInfoLanding = (props: ProgressStateProps) => {
         </Title>
         <ImageInputForm type="logo" />
 
-        <ImageInputForm type="gate" />
+        <ImageInputForm type="thumbnail" />
 
         <TextInputForm type="설명" isFocus={isDescriptionFocus}>
           <TextAreaInput

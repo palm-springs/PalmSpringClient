@@ -29,6 +29,7 @@ const CreateMemberLanding = (props: ProgressStateProps) => {
     if (description === '') {
       setBlogData((prev) => ({ ...prev, description: null }));
     }
+    console.log(blogData);
     postCreateBlog(blogData);
   };
 

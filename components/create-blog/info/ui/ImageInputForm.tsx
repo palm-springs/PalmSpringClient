@@ -1,9 +1,13 @@
 'use client';
 
-import { ChangeEvent, useState } from 'react';
+import { ChangeEvent, Dispatch, useState } from 'react';
+import { useSetRecoilState } from 'recoil';
 import styled from 'styled-components';
 
 import { IcClose24Icon, UploadIcon } from '@/public/icons';
+import { getImageMultipartData } from '@/utils/getImageMultipartData';
+
+import { createBlogDataState } from '../states/atom';
 
 import InputTitle from './InputTitle';
 
@@ -15,11 +19,16 @@ const ImageInputForm = (props: ImageInputFormProps) => {
   const { type } = props;
   // 임시 state
   const [imgSrc, setImgSrc] = useState('');
+  const setBlogData = useSetRecoilState(createBlogDataState);
 
-  const handleOnFileChange = (e: ChangeEvent<HTMLInputElement>) => {
+  const handleOnFileChange = async (e: ChangeEvent<HTMLInputElement>) => {
     const { files } = e.currentTarget;
+
     const reader = new FileReader();
     if (files) {
+      const remoteImgUrl = await getImageMultipartData(files[0]);
+      setBlogData((prev) => ({ ...prev, [type]: remoteImgUrl }));
+
       reader.readAsDataURL(files[0] as Blob);
       reader.onloadend = () => {
         setImgSrc(reader.result as string);
@@ -31,7 +40,7 @@ const ImageInputForm = (props: ImageInputFormProps) => {
     <div>
       <InputTitle>
         블로그 {type === 'logo' ? '로고' : '대문'} 이미지
-        {type === 'gate' && <span>대문 이미지 권장 크기는 1440*500 입니다</span>}
+        {type === 'thubmnail' && <span>대문 이미지 권장 크기는 1440*500 입니다</span>}
       </InputTitle>
 
       <ImageContainer className={type}>
@@ -62,7 +71,7 @@ const ImageContainer = styled.div`
   &.logo {
     height: 11.6rem;
   }
-  &.gate {
+  &.thumbnail {
     height: 13.9rem;
   }
 
@@ -87,7 +96,7 @@ const CloseButton = styled.button`
   &.logo {
     bottom: 8rem;
   }
-  &.gate {
+  &.thumbnail {
     bottom: 10.3rem;
   }
 `;
