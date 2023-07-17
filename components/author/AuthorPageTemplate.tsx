@@ -3,6 +3,8 @@
 import React from 'react';
 import styled from 'styled-components';
 
+import { ARTICLE_LIST } from '@/constants/articleList';
+
 import ArticleList from '../common/ArticleList';
 
 import AuthorInfo from './ui/AuthorInfo';
@@ -18,7 +20,7 @@ const AuthorPageTemplate = () => {
     <AuthorPageTemplateContainer>
       <AuthorInfo name={AUTHOR_INFO.name} position={AUTHOR_INFO.position} description={AUTHOR_INFO.description} />
       <Line />
-      <ArticleList />
+      <ArticleList articleList={ARTICLE_LIST} />
     </AuthorPageTemplateContainer>
   );
 };

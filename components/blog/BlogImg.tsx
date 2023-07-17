@@ -48,4 +48,5 @@ const BlogInfo = styled.div`
   transform: translate(-50%, -50%);
   text-align: center;
   color: ${({ theme }) => theme.colors.grey_0};
+  pointer-events: none;
 `;
