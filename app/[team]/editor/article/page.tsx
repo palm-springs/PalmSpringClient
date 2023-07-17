@@ -10,7 +10,7 @@ const CreateArticlePage = () => {
   return (
     <>
       <ArticleTitle title={title} setTitle={setTitle} />
-      <TextEditorBuild />
+      <TextEditorBuild title={title} />
     </>
   );
 };

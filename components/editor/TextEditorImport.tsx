@@ -34,6 +34,7 @@ lowlight.registerLanguage('ts', ts);
 // import ScrollTopToolbar from '@/components/editor/article/publish/ScrollTopToolbar';
 
 // import { postArticleList } from '@/api/article';
+import { postArticleList } from '@/api/article';
 import ToolBox from '@/components/editor/article/ui/ToolBox';
 import TextEditor from '@/components/editor/TextEditor';
 import { getImageMultipartData } from '@/utils/getImageMultipartData';
@@ -44,9 +45,15 @@ import { getImageMultipartData } from '@/utils/getImageMultipartData';
 //   articleImage?: string[];
 // }
 
-const TextEditorBuild = () => {
+interface TextEditorBuildProps {
+  title: string;
+}
+
+const TextEditorBuild = (props: TextEditorBuildProps) => {
+  const { title } = props;
   const [, setImageSrc] = useState('');
   const [extractedHTML, setExtractedHTML] = useState<string>('');
+  const imageArr: string[] = [];
 
   const editor = useEditor({
     extensions: [
@@ -143,15 +150,10 @@ const TextEditorBuild = () => {
       if (files.length > 0) {
         const file = files[0];
         const imgUrl = await getImageMultipartData(file);
-        console.log(imgUrl.data);
+        console.log(imgUrl);
+        imageArr.push(imgUrl);
 
-        // 미리보기 함수
-        const reader = new FileReader();
-        reader.onload = () => {
-          const base64Data = reader.result as string;
-          editor.chain().focus().setImage({ src: base64Data }).run(); // 이미지를 에디터에 삽입
-        };
-        reader.readAsDataURL(file);
+        editor.chain().focus().setImage({ src: imgUrl }).run(); // 이미지를 에디터에 삽입
       }
     },
     [editor, setImageSrc],
@@ -166,28 +168,12 @@ const TextEditorBuild = () => {
     return null;
   }
 
-  // const handleExtractHTML = () => {
-  //   if (editor) {
-  //     const content = editor.getHTML();
-  //     setExtractedHTML(content);
-  //     console.log(content);
-  //   }
-  // };
-
-  const handleExtractHTML = async () => {
+  const handleExtractHTML = () => {
     if (editor) {
       const content = editor.getHTML();
       setExtractedHTML(content);
       console.log(content);
-
-      const selectedImage = articleImage && articleImage.length > 0 ? articleImage[0] : '';
-
-      try {
-        const response = await postArticleList(articleUrl, title, content, selectedImage);
-        console.log(response);
-      } catch (error) {
-        console.error(error); // 전송 실패 또는 에러 처리
-      }
+      postArticleList('Palms', { title, content, image: imageArr });
     }
   };
 
@@ -196,7 +182,7 @@ const TextEditorBuild = () => {
       <ToolBox editor={editor} encodeFileToBase64={encodeFileToBase64} setLink={setLink} />
       {/* <ScrollTopToolbar /> */}
       <TextEditor editor={editor} handleDrop={handleDrop} handleDragOver={handleDragOver} />
-      <SaveArticleButton />
+      <SaveArticleButton handleExtractHTML={handleExtractHTML} />
     </>
   );
 };
