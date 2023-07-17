@@ -3,7 +3,7 @@
 import React from 'react';
 import styled from 'styled-components';
 
-import { ImageUploadIcon } from '@/public/icons';
+import { CloseIcon, UploadIcon } from '@/public/icons';
 
 const BlogLogoImage = () => {
   return (
@@ -12,11 +12,11 @@ const BlogLogoImage = () => {
         <input type="file" />
         <ImageGuideContainer>
           <ImageGuideTitle>블로그 로고 이미지</ImageGuideTitle>
-          <ImageGuideContent>000*000 JPEG (이미지 규격 가이드)</ImageGuideContent>
         </ImageGuideContainer>
         <BlogLogoUpload>
-          <ImageUploadIcon />
+          <UploadIcon />
           <UploadText>업로그하기</UploadText>
+          <ImageCloseIcon />
         </BlogLogoUpload>
       </BlogLogoUploadLabel>
     </BlogLogoImageContainer>
@@ -24,6 +24,12 @@ const BlogLogoImage = () => {
 };
 
 export default BlogLogoImage;
+
+const ImageCloseIcon = styled(CloseIcon)`
+  position: absolute;
+  top: 1.2rem;
+  right: 1.2rem;
+`;
 
 const UploadText = styled.p`
   ${({ theme }) => theme.fonts.Body2_Semibold};
@@ -33,24 +39,19 @@ const UploadText = styled.p`
 
 const BlogLogoUpload = styled.div`
   display: flex;
+  position: relative;
   align-items: center;
   justify-content: center;
+  margin-left: 4.8rem;
   border-radius: 0.8rem;
   background-color: ${({ theme }) => theme.colors.grey_200};
-  width: 50rem;
-  height: 7.3rem;
+  width: 15.6rem;
+  height: 14.6rem;
 `;
 
 const ImageGuideContainer = styled.div`
   display: flex;
-  align-items: center;
-  margin: 2.4rem 0 0.8rem 0;
-`;
-
-const ImageGuideContent = styled.p`
-  ${({ theme }) => theme.fonts.Caption};
-  margin-left: 0.8rem;
-  color: ${({ theme }) => theme.colors.grey_700};
+  margin-bottom: 0.8rem;
 `;
 
 const ImageGuideTitle = styled.p`
@@ -59,6 +60,7 @@ const ImageGuideTitle = styled.p`
 `;
 
 const BlogLogoUploadLabel = styled.label`
+  display: flex;
   border: none;
   border-radius: 0.5rem;
   input[type='file'] {
