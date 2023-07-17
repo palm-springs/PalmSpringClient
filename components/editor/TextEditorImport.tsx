@@ -33,8 +33,16 @@ lowlight.registerLanguage('ts', ts);
 
 // import ScrollTopToolbar from '@/components/editor/article/publish/ScrollTopToolbar';
 
+// import { postArticleList } from '@/api/article';
 import ToolBox from '@/components/editor/article/ui/ToolBox';
 import TextEditor from '@/components/editor/TextEditor';
+import { getImageMultipartData } from '@/utils/getImageMultipartData';
+
+// interface TextEditorBuildProps {
+//   title: string;
+//   articleUrl: string;
+//   articleImage?: string[];
+// }
 
 const TextEditorBuild = () => {
   const [, setImageSrc] = useState('');
@@ -123,7 +131,7 @@ const TextEditorBuild = () => {
   );
 
   const handleDrop: DragEventHandler<HTMLDivElement> = useCallback(
-    (event) => {
+    async (event) => {
       event.preventDefault();
       event.stopPropagation();
 
@@ -134,10 +142,13 @@ const TextEditorBuild = () => {
       const files = event.dataTransfer.files;
       if (files.length > 0) {
         const file = files[0];
+        const imgUrl = await getImageMultipartData(file);
+        console.log(imgUrl.data);
+
+        // 미리보기 함수
         const reader = new FileReader();
         reader.onload = () => {
           const base64Data = reader.result as string;
-          setImageSrc(base64Data); // 이미지 소스 상태 업데이트
           editor.chain().focus().setImage({ src: base64Data }).run(); // 이미지를 에디터에 삽입
         };
         reader.readAsDataURL(file);
@@ -155,11 +166,28 @@ const TextEditorBuild = () => {
     return null;
   }
 
-  const handleExtractHTML = () => {
+  // const handleExtractHTML = () => {
+  //   if (editor) {
+  //     const content = editor.getHTML();
+  //     setExtractedHTML(content);
+  //     console.log(content);
+  //   }
+  // };
+
+  const handleExtractHTML = async () => {
     if (editor) {
       const content = editor.getHTML();
       setExtractedHTML(content);
       console.log(content);
+
+      const selectedImage = articleImage && articleImage.length > 0 ? articleImage[0] : '';
+
+      try {
+        const response = await postArticleList(articleUrl, title, content, selectedImage);
+        console.log(response);
+      } catch (error) {
+        console.error(error); // 전송 실패 또는 에러 처리
+      }
     }
   };
 
@@ -168,7 +196,7 @@ const TextEditorBuild = () => {
       <ToolBox editor={editor} encodeFileToBase64={encodeFileToBase64} setLink={setLink} />
       {/* <ScrollTopToolbar /> */}
       <TextEditor editor={editor} handleDrop={handleDrop} handleDragOver={handleDragOver} />
-      <SaveArticleButton handleExtractHTML={handleExtractHTML} />
+      <SaveArticleButton />
     </>
   );
 };

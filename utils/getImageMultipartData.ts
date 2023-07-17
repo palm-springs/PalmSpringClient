@@ -5,5 +5,6 @@ export const getImageMultipartData = (value: File) => {
   const formData = new FormData();
   formData.append('image', value);
 
+  // const { data } = uploadImage(formData);
   return uploadImage(formData);
 };

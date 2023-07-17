@@ -1,12 +1,21 @@
 'use client';
 
-import React from 'react';
+import React, { ChangeEvent, Dispatch, SetStateAction } from 'react';
 import styled from 'styled-components';
 
-const ArticleTitle = () => {
+interface ArticleTitleProps {
+  title: string;
+  setTitle: Dispatch<SetStateAction<string>>;
+}
+const ArticleTitle = (props: ArticleTitleProps) => {
+  const { title, setTitle } = props;
+
+  const handleTitleChange = (e: ChangeEvent<HTMLInputElement>) => {
+    setTitle(e.target.value);
+  };
   return (
     <ArticleTitleContainer>
-      <Input type="text" placeholder="제목을 입력해주세요" />
+      <Input value={title} onChange={handleTitleChange} type="text" placeholder="제목을 입력해주세요" />
     </ArticleTitleContainer>
   );
 };

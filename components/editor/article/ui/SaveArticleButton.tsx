@@ -10,7 +10,7 @@ interface editorProps {
   handleExtractHTML: () => void;
 }
 
-const SaveArticleButton = ({ handleExtractHTML }: editorProps) => {
+const SaveArticleButton = () => {
   const [isModal, setIsModal] = useState(false);
 
   const modalOpenHandler = () => {
@@ -30,9 +30,7 @@ const SaveArticleButton = ({ handleExtractHTML }: editorProps) => {
           <ExitButton type="button" onClick={modalOpenHandler}>
             나가기
           </ExitButton>
-          <TemporarySaveButton type="button" onClick={handleExtractHTML}>
-            임시저장
-          </TemporarySaveButton>
+          <TemporarySaveButton type="button">임시저장</TemporarySaveButton>
           <SaveButton type="button">발행하기</SaveButton>
         </BottomWrapper>
       </ButtonContainer>
