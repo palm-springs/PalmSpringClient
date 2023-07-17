@@ -2,9 +2,9 @@ import { atom } from 'recoil';
 
 import { client } from '@/api';
 
-export const accessTokenState = atom<string>({
+export const accessTokenState = atom<string | null>({
   key: 'accessTokenState',
-  default: '',
+  default: null,
   effects: [
     ({ onSet }) => {
       onSet((newAccessToken) => {

@@ -21,15 +21,13 @@ grant_type=authorization_code`,
 
 // JWT 토큰 발급
 export const postSocialLogin = async (platform: string, AccessToken: string) => {
-  const { data } = await client.post<Response<jwtAccessTokenResponse>>(
-    `/api/v1/user/login/social/${platform}`,
-    {
-      accessToken: AccessToken,
-    },
-    {
-      headers: { 'content-type': 'application/json' },
-      withCredentials: true,
-    },
-  );
+  const { data } = await client.post<Response<jwtAccessTokenResponse>>(`/api/v1/user/login/social/${platform}`, {
+    accessToken: AccessToken,
+  });
+  return data;
+};
+
+export const getRefreshToken = async () => {
+  const { data } = await client.get(`/api/v1/auth/reissue`);
   return data;
 };

@@ -1,3 +1,4 @@
+import { useRouter } from 'next/navigation';
 import { useSetRecoilState } from 'recoil';
 
 import { postSocialLogin } from '@/api/auth';
@@ -10,11 +11,15 @@ const RequestAccessToken = async (props: getAccessTokenProps) => {
   const setAccessToken = useSetRecoilState(accessTokenState);
   const platformData = useGetAccessToken(props);
 
+  const router = useRouter();
+
   if (platformData) {
     const {
       data: { accessToken },
     } = await postSocialLogin('google', platformData?.access_token);
     setAccessToken(accessToken);
+
+    router.push('/create-blog/info');
   }
 };
 
