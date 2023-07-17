@@ -4,7 +4,9 @@ import { GOOGLE_REDIRECT_URI } from '@/constants/auth';
 import { getAccessTokenProps, googleAccessTokenResponse, jwtAccessTokenResponse } from '@/types/auth';
 import { Response } from '@/types/common';
 
-// login 관련 api 호출 함수
+import { client } from '.';
+
+// 구글 액세스 토큰 발급
 export const getAccessToken = async (props: getAccessTokenProps) => {
   const { clientId, clientSecret, code } = props;
   const { data } = await axios.post<googleAccessTokenResponse>(
@@ -17,9 +19,10 @@ grant_type=authorization_code`,
   return data;
 };
 
+// JWT 토큰 발급
 export const postSocialLogin = async (platform: string, AccessToken: string) => {
-  const { data } = await axios.post<Response<jwtAccessTokenResponse>>(
-    `${process.env.NEXT_PUBLIC_BASE_URL}/api/v1/user/login/social/${platform}`,
+  const { data } = await client.post<Response<jwtAccessTokenResponse>>(
+    `/api/v1/user/login/social/${platform}`,
     {
       accessToken: AccessToken,
     },
