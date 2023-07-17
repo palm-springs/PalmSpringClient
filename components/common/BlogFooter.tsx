@@ -21,12 +21,13 @@ const FooterContainer = styled.div`
 
   display: flex;
   flex-direction: column;
+  gap: 3.6rem;
   align-items: center;
 
   background-color: ${({ theme }) => theme.colors.grey_200};
-  padding-top: 6rem;
+
+  padding: 7.2rem 0;
   min-width: 105.6rem;
-  height: 30rem;
 `;
 
 const FooterName = styled.div`
