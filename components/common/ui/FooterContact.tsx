@@ -10,7 +10,7 @@ const FooterContact = () => {
       <FooterTitle>Contact</FooterTitle>
       <FooterLinkContainer>
         <Link href="">Email</Link>
-        <Link href="">Instagram</Link>
+        <Link href="https://www.instagram.com/palm_michyeoddai/">Instagram</Link>
       </FooterLinkContainer>
     </FooterContactContainer>
   );

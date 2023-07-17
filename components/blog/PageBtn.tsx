@@ -13,6 +13,14 @@ const PageBtnContainer = styled.button`
   ${({ theme }) => theme.fonts.Body2_Semibold};
   display: flex;
   align-items: center;
+  justify-content: center;
+  border-radius: 0.8rem;
+  padding: 1rem;
+  height: 3.6rem;
   text-align: center;
   color: ${({ theme }) => theme.colors.grey_900};
+
+  &:hover {
+    background-color: ${({ theme }) => theme.colors.navItem_hover};
+  }
 `;
