@@ -24,9 +24,10 @@ const FooterContainer = styled.div`
   align-items: center;
 
   background-color: ${({ theme }) => theme.colors.grey_200};
-  padding-top: 6rem;
+  padding-top: 7.2rem;
+  padding-bottom: 7.2rem;
   min-width: 105.6rem;
-  height: 30rem;
+  gap: 3.6rem;
 `;
 
 const FooterName = styled.div`
