@@ -79,6 +79,7 @@ const ArticleTitle = styled.article`
 
   margin-bottom: 0.4rem;
   width: 100%;
+
   overflow: hidden;
   text-overflow: ellipsis;
   white-space: wrap;
@@ -96,6 +97,7 @@ const ArticleDescription = styled.div`
   display: -webkit-box;
 
   width: 100%;
+
   overflow: hidden;
   text-overflow: ellipsis;
   white-space: wrap;
@@ -109,7 +111,9 @@ const ArticleDescription = styled.div`
 
 const ArticleDetail = styled.div`
   ${({ theme }) => theme.fonts.Body3_Regular};
+
   word-break: keep-all;
+
   color: ${({ theme }) => theme.colors.grey_700};
 `;
 
@@ -122,6 +126,7 @@ const DetailBox = styled.div`
   display: flex;
   gap: 0.4rem;
   align-items: center;
+
   margin-top: 1.7rem;
   width: 100%;
 `;

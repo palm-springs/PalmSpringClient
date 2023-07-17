@@ -9,26 +9,10 @@ import ContentInfo from '@/components/common/ContentInfo';
 import Content from '@/components/content/Content';
 import Bar from '@/components/content/ui/Bar';
 import Recommend from '@/components/content/ui/Recommend';
+import { CONTENT_INFO } from '@/constants/ContentInfo';
 import { BlogSampleImg } from '@/public/images';
-import { ContentProps } from '@/types/content';
 
 const ContentPage = () => {
-  const CONTENT_INFO: ContentProps = {
-    thumbnail: 'kjn',
-    title: '리액트 API와 코드 재사용의 진화',
-    description:
-      '이렇게 글 설명이 보입니다이렇게 글 설명이 보입니다이렇게 글 설명이 보입니다이렇게 글 설명이 보입니다이렇게 글 설명이 보입니다이렇게 글 설명이 보입니다이렇게 글 설명이 보입니다이렇게 글 설명이 보입니다이렇게 글 설명이 보입니다이렇게 글 설명이 보입니다이렇게 글 설명이 보입니다이렇게 글 설명이 보입니다.',
-    teamMember: {
-      id: 1,
-      thumbnail: '',
-      name: '김대덕',
-      job: 'TL',
-      createdAt: '2023년 5월 12일',
-    },
-    content: 'string',
-    images: null,
-  };
-
   const notify = () =>
     toast.success('링크가 복사되었습니다', {
       id: 'clipboard',
