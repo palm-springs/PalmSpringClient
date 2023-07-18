@@ -1,47 +1,44 @@
 'use client';
 import { useEffect, useState } from 'react';
+import { useRecoilState } from 'recoil';
 import styled from 'styled-components';
 
 import { Loader01Icon } from '@/public/icons';
-import { ProgressStateProps } from '@/types/progress';
+import { createBlogData } from '@/types/blogInfo';
 import CheckDuplication from '@/utils/checkUrlDuplication';
 
+import { createBlogDataState, progressState } from '../../states/atom';
 import TextInputForm from '../TextInputForm';
 
-const CreateBasicInfoLanding = (props: ProgressStateProps) => {
-  const { progressState, setProgressState } = props;
+const CreateBasicInfoLanding = () => {
+  const [progress, setProgress] = useRecoilState(progressState);
 
   const [containerState, setContainerState] = useState('');
+
   // focus state
   const [isNameFocus, setIsNameFocus] = useState(false);
   const [isAddressFocus, setIsAddressFocus] = useState(false);
 
   // input value state
-  const [nameValue, setNameValue] = useState('');
-  const [addressValue, setAddressValue] = useState('');
-
-  // input value state
+  const [{ url, name }, setBlogData] = useRecoilState(createBlogDataState);
   const [isAddressDuplicate, setIsAddressDuplicate] = useState<boolean | null>(null);
 
-  const handleOnNameChange = (e: React.ChangeEvent<HTMLInputElement>) => {
-    const { value } = e.currentTarget;
-    setNameValue(value);
-  };
+  const handleOnChange = (e: React.ChangeEvent<HTMLInputElement>) => {
+    const { value, id } = e.currentTarget;
+    setBlogData((prev: createBlogData) => ({ ...prev, [id]: value }));
 
-  const handleOnAddressChange = (e: React.ChangeEvent<HTMLInputElement>) => {
-    const { value } = e.currentTarget;
-    setAddressValue(value);
-    // url 중복 체크
-    CheckDuplication(value, setIsAddressDuplicate);
+    if (id === 'url') {
+      CheckDuplication(value, setIsAddressDuplicate);
+    }
   };
 
   useEffect(() => {
-    if (progressState === -1) {
+    if (progress === -1) {
       setContainerState('fadeDownIn');
-    } else if (progressState === 2) {
+    } else if (progress === 2) {
       setContainerState('fadeOut');
     }
-  }, [progressState]);
+  }, [progress]);
 
   return (
     <CreateBasicInfoContainer className={containerState}>
@@ -50,11 +47,12 @@ const CreateBasicInfoLanding = (props: ProgressStateProps) => {
 
         <TextInputForm type="이름" isFocus={isNameFocus}>
           <TextInput
+            id={'name'}
             placeholder="이름을 입력해주세요"
             onFocus={() => setIsNameFocus(true)}
             onBlur={() => setIsNameFocus(false)}
-            value={nameValue}
-            onChange={handleOnNameChange}
+            value={name}
+            onChange={handleOnChange}
           />
         </TextInputForm>
 
@@ -64,20 +62,21 @@ const CreateBasicInfoLanding = (props: ProgressStateProps) => {
           isAddressDuplicate={isAddressDuplicate === null ? undefined : isAddressDuplicate}>
           <div>palmspring.io/@</div>
           <TextInput
+            id={'url'}
             onFocus={() => setIsAddressFocus(true)}
             onBlur={() => setIsAddressFocus(false)}
-            value={addressValue}
-            onChange={handleOnAddressChange}
+            value={url}
+            onChange={handleOnChange}
           />
-          {isAddressDuplicate === null && addressValue !== '' && <Loader01Icon />}
+          {isAddressDuplicate === null && url !== '' && <Loader01Icon />}
         </TextInputForm>
 
         <ButtonContainer>
           <PreviousButton>이전으로</PreviousButton>
           <NextButton
             type="button"
-            onClick={() => setProgressState(2)}
-            disabled={isAddressDuplicate === null || !!isAddressDuplicate || nameValue === '' || addressValue === ''}>
+            onClick={() => setProgress(2)}
+            disabled={isAddressDuplicate === null || !!isAddressDuplicate || name === '' || url === ''}>
             다음으로
           </NextButton>
         </ButtonContainer>

@@ -1,29 +1,37 @@
 'use client';
-import { useEffect, useState } from 'react';
+import { ChangeEvent, useEffect, useState } from 'react';
+import { useRecoilState } from 'recoil';
 import styled from 'styled-components';
 
-import { ProgressStateProps } from '@/types/progress';
+import { createBlogData } from '@/types/blogInfo';
 
+import { createBlogDataState, progressState } from '../../states/atom';
 import ImageInputForm from '../ImageInputForm';
 import TextInputForm from '../TextInputForm';
 
-const CreateOptionInfoLanding = (props: ProgressStateProps) => {
-  const { progressState, setProgressState } = props;
+const CreateOptionInfoLanding = () => {
+  const [progress, setProgress] = useRecoilState(progressState);
+  const [{ description }, setBlogData] = useRecoilState(createBlogDataState);
 
   const [isDescriptionFocus, setIsDescriptionFocus] = useState(false);
   const [containerState, setContainerState] = useState('');
 
   useEffect(() => {
-    if (progressState === -1) {
+    if (progress === -1) {
       setContainerState('fadeDownOut');
-    } else if (progressState === 2) {
+    } else if (progress === 2) {
       setContainerState('fadeUpIn');
-    } else if (progressState === 3) {
+    } else if (progress === 3) {
       setContainerState('fadeUpOut');
-    } else if (progressState === -2) {
+    } else if (progress === -2) {
       setContainerState('fadeDownIn');
     }
-  }, [progressState]);
+  }, [progress]);
+
+  const handleOnTextChange = (e: ChangeEvent<HTMLTextAreaElement>) => {
+    const { value } = e.currentTarget;
+    setBlogData((prev: createBlogData) => ({ ...prev, description: value }));
+  };
 
   return (
     <CreateBasicInfoContainer className={containerState}>
@@ -34,20 +42,22 @@ const CreateOptionInfoLanding = (props: ProgressStateProps) => {
         </Title>
         <ImageInputForm type="logo" />
 
-        <ImageInputForm type="gate" />
+        <ImageInputForm type="thumbnail" />
 
         <TextInputForm type="설명" isFocus={isDescriptionFocus}>
           <TextAreaInput
+            value={description as string}
             placeholder="블로그 설명을 입력해주세요"
             onFocus={() => setIsDescriptionFocus(true)}
             onBlur={() => setIsDescriptionFocus(false)}
+            onChange={handleOnTextChange}
           />
         </TextInputForm>
         <ButtonContainer>
-          <PreviousButton type="button" onClick={() => setProgressState(-1)}>
+          <PreviousButton type="button" onClick={() => setProgress(-1)}>
             이전으로
           </PreviousButton>
-          <NextButton type="button" onClick={() => setProgressState(3)}>
+          <NextButton type="button" onClick={() => setProgress(3)}>
             다음으로
           </NextButton>
         </ButtonContainer>

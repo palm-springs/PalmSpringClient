@@ -1,4 +1,5 @@
 import { HeaderProps } from '@/types/blogHeader';
+import { createBlogData } from '@/types/blogInfo';
 import { BlogImgProps } from '@/types/blogMainImg';
 import { Response } from '@/types/common';
 import { PageListProps } from '@/types/dashboard';
@@ -6,7 +7,7 @@ import { PageListProps } from '@/types/dashboard';
 import { client } from '.';
 
 export const getBlogInfo = async (blogUrl: string) => {
-  const { data } = await client.get<Response<PageListProps>>(`/api/v1/blog?url=${blogUrl}`);
+  const { data } = await client.get(`/api/v1/blog?url=${blogUrl}`);
   return data;
 };
 
@@ -25,6 +26,12 @@ export const getBlogHeaderInfo = async (blogUrl: string) => {
 //blog 대문 이미지와 한 줄 소개 가져오기
 export const getBlogMainImg = async (blogUrl: string) => {
   const { data } = await client.get<Response<BlogImgProps>>(`/api/v1/blog/${blogUrl}/thumbnail`);
+  return data;
+};
+
+// 블로그 생성
+export const postCreateBlog = async (requestBody: createBlogData) => {
+  const { data } = await client.post(`/api/v1/blog/create`, requestBody);
   return data;
 };
 
