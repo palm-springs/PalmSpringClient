@@ -33,17 +33,10 @@ lowlight.registerLanguage('ts', ts);
 
 // import ScrollTopToolbar from '@/components/editor/article/publish/ScrollTopToolbar';
 
-// import { postArticleList } from '@/api/article';
 import { postArticleList } from '@/api/article';
 import ToolBox from '@/components/editor/article/ui/ToolBox';
 import TextEditor from '@/components/editor/TextEditor';
 import { getImageMultipartData } from '@/utils/getImageMultipartData';
-
-// interface TextEditorBuildProps {
-//   title: string;
-//   articleUrl: string;
-//   articleImage?: string[];
-// }
 
 interface TextEditorBuildProps {
   title: string;
@@ -97,6 +90,7 @@ const TextEditorBuild = (props: TextEditorBuildProps) => {
     ],
     content: '',
   });
+
   const encodeFileToBase64 = ({
     event,
     editor,
@@ -107,7 +101,7 @@ const TextEditorBuild = (props: TextEditorBuildProps) => {
     return new Promise((resolve) => {
       const reader = new FileReader();
       const file = event.target.files && event.target.files[0];
-      reader.onload = () => {
+      reader.onload = async () => {
         const base64Data = reader.result as string;
         setImageSrc(base64Data); // 이미지 상태 업데이트
         editor.chain().focus().setImage({ src: base64Data }).run(); // 이미지 에디터 안으로 추가
@@ -116,6 +110,28 @@ const TextEditorBuild = (props: TextEditorBuildProps) => {
       reader.readAsDataURL(file!);
     });
   };
+
+  // const encodeFileToBase64 = async (file: File, editor: Editor): Promise<string | void> => {
+  //   try {
+  //     const base64Data = await new Promise<string>((resolve, reject) => {
+  //       const reader = new FileReader();
+  //       reader.onload = () => resolve(reader.result as string);
+  //       reader.onerror = (error) => reject(error);
+  //       reader.readAsDataURL(file);
+  //     });
+
+  //     setImageSrc(base64Data);
+  //     editor.chain().focus().setImage({ src: base64Data }).run();
+
+  //     const imgUrl = await getImageMultipartData(file);
+  //     console.log(imgUrl);
+  //     imageArr.push(imgUrl);
+
+  //     // 추가적인 작업 수행
+  //   } catch (error) {
+  //     console.error('에러오');
+  //   }
+  // };
 
   const setLink = useCallback(
     ({ editor }: { editor: Editor }) => {

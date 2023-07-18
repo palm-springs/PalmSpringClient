@@ -34,7 +34,7 @@ interface editorProps {
   setLink: ({ editor }: { editor: Editor }) => void;
 }
 
-const ToolBox = ({ editor, encodeFileToBase64, setLink }: editorProps) => {
+const TopToolBox = ({ editor, encodeFileToBase64, setLink }: editorProps) => {
   return (
     <IconContainer>
       <IconWrapper>
@@ -91,7 +91,7 @@ const ToolBox = ({ editor, encodeFileToBase64, setLink }: editorProps) => {
   );
 };
 
-export default ToolBox;
+export default TopToolBox;
 
 const GreyBar = styled.div`
   border-right: 0.1rem solid #d9d9d9;
@@ -100,17 +100,18 @@ const GreyBar = styled.div`
 
 const IconWrapper = styled.div`
   display: flex;
+  position: fixed;
+  top: 0;
   align-items: center;
   justify-content: space-evenly;
-  margin: 4rem 0 2rem 0;
   border-radius: 0.8rem;
   background-color: ${({ theme }) => theme.colors.grey_100};
-  width: 72.2rem;
+  width: 144rem;
   height: 4.8rem;
 `;
 
 const IconContainer = styled.div`
-  margin-left: 35.9rem;
+  z-index: 999;
 `;
 
 const ImageInputLabel = styled.label`
