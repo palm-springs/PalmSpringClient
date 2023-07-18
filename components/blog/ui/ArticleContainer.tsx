@@ -5,28 +5,37 @@ import Image from 'next/image';
 import Link from 'next/link';
 import styled from 'styled-components';
 
+import { getBlogMainImg } from '@/api/blog';
+// import { getCategoryList } from '@/api/dashboard';
 import ArticleList from '@/components/common/ArticleList';
 import ContentInfo from '@/components/common/ContentInfo';
 import { ARTICLE_LIST } from '@/constants/articleList';
 import { BLOG_INFO } from '@/constants/blogInfo';
 import { CONTENT_INFO } from '@/constants/ContentInfo';
+// import { useGetCategoryList } from '@/hooks/dashboard';
 import { BlogSampleImg } from '@/public/images';
 
+// import { getLiteralCategoryList } from '@/utils/getLiteralCategoryList';
 import BlogImg from '../BlogImg';
 
-import CategoryBtnBar from './CategoryBtnBar';
+// import CategoryBtnBar from './CategoryBtnBar';
 
-const ArticleContainer = () => {
+const ArticleContainer = async () => {
+  const {
+    data: { thumbnail, description },
+  } = await getBlogMainImg('Palms');
+
+  // const FilteredCategoryList = useGetCategoryList('Palms');
+  // const LiteralList = getLiteralCategoryList(FilteredCategoryList);
+
   return (
     <>
       {/* //article list가 있을 때 - 블로그 대문이미지가 있을 때와 없을 때로 나뉨 */}
       {ARTICLE_LIST.length !== 0 ? (
-        BLOG_INFO.thumbnail ? (
+        thumbnail ? (
           <>
-            <BlogImg blogImgUrl={BLOG_INFO.thumbnail} blogInfo={BLOG_INFO.description} />
-            <CategoryBtnWrapper>
-              <CategoryBtnBar />
-            </CategoryBtnWrapper>
+            <BlogImg thumbnail={thumbnail} description={description} />
+            <CategoryBtnWrapper>{/* <CategoryBtnBar LiteralList={LiteralList} /> */}</CategoryBtnWrapper>
             <ArticleWrapper>
               <ArticleList articleList={ARTICLE_LIST} />
             </ArticleWrapper>
@@ -43,9 +52,7 @@ const ArticleContainer = () => {
               )}
               <ContentInfo content={CONTENT_INFO} />
             </ContentInfoContainer>
-            <CategoryBtnWrapper>
-              <CategoryBtnBar />
-            </CategoryBtnWrapper>
+            <CategoryBtnWrapper>{/* <CategoryBtnBar name={name} /> */}</CategoryBtnWrapper>
             <ArticleWrapper>
               <ArticleList articleList={ARTICLE_LIST} />
             </ArticleWrapper>
@@ -54,7 +61,7 @@ const ArticleContainer = () => {
       ) : BLOG_INFO.thumbnail ? (
         <BlogImgContainer>
           {/* //article list가 없을 때 - 블로그 대문이미지가 있을 때와 없을 때로 나뉨 */}
-          <BlogImg blogImgUrl={BLOG_INFO.thumbnail} blogInfo={BLOG_INFO.description} />
+          <BlogImg thumbnail={thumbnail} description={description} />
         </BlogImgContainer>
       ) : (
         <DefaultTextContainer>

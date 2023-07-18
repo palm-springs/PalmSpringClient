@@ -5,20 +5,24 @@ import Image from 'next/image';
 import styled from 'styled-components';
 
 import { BlogImgExampleImg } from '@/public/images';
-import { BlogImgProps } from '@/types/blogImg';
 
-const BlogImg = (props: BlogImgProps) => {
-  const { blogImgUrl, blogInfo } = props;
+interface BlogMainImgProps {
+  thumbnail: string | null;
+  description: string | null;
+}
+
+const BlogImg = (props: BlogMainImgProps) => {
+  const { thumbnail, description } = props;
 
   return (
     //블로그 대문 이미지가 있는 경우에만 블로그 소개글이 같이 나타납니다
     <BlogImgContainer>
-      {blogImgUrl && (
+      {thumbnail && (
         <>
           <BlogImgWrapper>
-            {/* //image src 에 blogImgUrl 넣을 예정 */}
+            {/* //image src 에 thumbnail 넣을 예정 아직 s3 버킷 오류 발생 */}
             <Image src={BlogImgExampleImg} alt="blog image" fill />
-            {blogInfo && <BlogInfo>{blogInfo}</BlogInfo>}
+            {description && <BlogInfo>{description}</BlogInfo>}
           </BlogImgWrapper>
         </>
       )}
