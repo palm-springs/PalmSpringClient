@@ -19,4 +19,8 @@ const SubscribeBtnContainer = styled.button`
   padding: 1rem 2rem;
   height: 3.6rem;
   color: ${({ theme }) => theme.colors.grey_0};
+
+  &:hover {
+    background-color: ${({ theme }) => theme.colors.grey_800};
+  }
 `;

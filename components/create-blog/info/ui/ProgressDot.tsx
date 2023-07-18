@@ -1,16 +1,14 @@
 'use client';
 import { useEffect, useState } from 'react';
+import { useRecoilValue } from 'recoil';
 import styled from 'styled-components';
-import { isJSDocReturnTag } from 'typescript';
 
 import { CheckBoxIcon } from '@/public/icons';
 
-interface ProgressDotProps {
-  progress: number;
-}
+import { progressState } from '../states/atom';
 
-const ProgressDot = (props: ProgressDotProps) => {
-  const { progress } = props;
+const ProgressDot = () => {
+  const progress = useRecoilValue(progressState);
 
   const [currentStep, setCurrentStep] = useState('first');
 
