@@ -1,4 +1,5 @@
 import React, { Dispatch, SetStateAction, useState } from 'react';
+import { useParams } from 'next/navigation';
 
 import { useGetNavList } from '@/hooks/dashboard';
 
@@ -15,7 +16,7 @@ interface NavUrlInputProps {
 }
 
 const NavUrlInput = (props: NavUrlInputProps) => {
-  const blogUrl = 'helloworld';
+  const { team: blogUrl } = useParams();
 
   const { newNavigationSelector, setNewNavigationSelector, newNavigationUrl, setNewNavigationUrl } = props;
 
