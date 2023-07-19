@@ -2,16 +2,21 @@
 
 import React from 'react';
 import Link from 'next/link';
+import { useParams } from 'next/navigation';
 import styled from 'styled-components';
 
 import useGetCategory from '@/hooks/useGetCategory';
 
-const CategoryBtnBar = () => {
+interface CategoryBtnBarProps {
+  LiteralList: string[];
+}
+const CategoryBtnBar = (props: CategoryBtnBarProps) => {
+  const blogUrl = useParams;
+  console.log(blogUrl);
+  const { LiteralList } = props;
   const SELECTED = useGetCategory();
 
-  const CATEGORY_EXAMPLE: string[] = ['개발', '디자인', '팀문화'];
-
-  const CATEGORY_LIST = CATEGORY_EXAMPLE.map((eachCategory) => {
+  const CATEGORY_LIST = LiteralList.map((eachCategory) => {
     return (
       <CategoryBtn
         href={`/blogNameHere/home/${eachCategory}`}
@@ -37,9 +42,9 @@ export default CategoryBtnBar;
 
 const CategoryBtnBarContainer = styled.div`
   display: flex;
+  flex-wrap: wrap;
   gap: 1.2rem;
   justify-content: flex-start;
-
   margin: 7.2rem 0 4.8rem;
   width: 72rem;
 `;
@@ -50,13 +55,14 @@ const CategoryBtn = styled(Link)`
   display: flex;
   align-items: center;
   justify-content: center;
-
   border: none;
   border-radius: 4rem;
 
   background-color: ${({ theme }) => theme.colors.grey_300};
   padding: 0.8rem 2rem;
   height: 4.2rem;
+
+  white-space: nowrap;
 
   color: ${({ theme }) => theme.colors.grey_700};
 
