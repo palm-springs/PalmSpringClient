@@ -14,6 +14,7 @@ interface DashBoardTemplateProps {
 
 const DashBoardTemplate = (props: DashBoardTemplateProps) => {
   const { children, noHeader } = props;
+
   return (
     <DashboardContextProvider>
       <DashBoardContainer>

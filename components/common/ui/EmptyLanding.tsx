@@ -1,7 +1,10 @@
 'use client';
+import { useEffect } from 'react';
 import { useRouter } from 'next/navigation';
+import { useRecoilState, useSetRecoilState } from 'recoil';
 import styled from 'styled-components';
 
+import { dashBoardHeaderButtonVisibleState } from '@/components/dashboard/state/modalState';
 import { EmptyLogoIcon } from '@/public/icons';
 
 interface EmptyLandingProps {
@@ -25,6 +28,15 @@ interface EmptyLandingProps {
 const EmptyLanding = (props: EmptyLandingProps) => {
   const { message1, message2, buttonText, noIcon, buttonLink, header } = props;
   const router = useRouter();
+
+  const setHeaderButtonState = useSetRecoilState(dashBoardHeaderButtonVisibleState);
+
+  useEffect(() => {
+    setHeaderButtonState(false);
+    return () => {
+      setHeaderButtonState(true);
+    };
+  }, []);
 
   return (
     <EmptyLandingContainer $header={header}>

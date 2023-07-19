@@ -3,6 +3,7 @@
 import React from 'react';
 import { useParams } from 'next/navigation';
 
+import EmptyLanding from '@/components/common/ui/EmptyLanding';
 import { useGetNavList } from '@/hooks/dashboard';
 
 import DashBoardContent from '../components/DashBoardContent';
@@ -13,7 +14,15 @@ const NavContentList = () => {
 
   const data = useGetNavList(blogUrl);
 
-  if (!data) return <div>로더가 들어갈 자리입니다.</div>;
+  if (!data)
+    return (
+      <EmptyLanding
+        header={true}
+        message1="네비게이션이 없어요."
+        message2="새 네비게이션을 만들어보세요."
+        buttonText="새 네비게이션 만들기"
+      />
+    );
 
   return (
     <DashBoardContentListContainer>
