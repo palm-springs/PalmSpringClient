@@ -74,17 +74,16 @@ export const GlobalStyle = createGlobalStyle`
         background: none;
         padding: 0;
         color: inherit;
-        font-size: 0.8rem;
+        font-size: 1.4rem;
       }
-
+     
+      .hljs-quote,
       .hljs-variable {
         color: #383A41;
       }
 
-      .hljs-comment,
-      .hljs-quote {
+      .hljs-comment{
         color: #a0a1a7;
-        font-style: italic;
       }
 
       .hljs-attribute,
