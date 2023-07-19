@@ -25,7 +25,7 @@ const UploadTemplate = () => {
     console.log(category, categoryData);
   }, [articleData]);
 
-  if (!categoryData) return <div>로더</div>;
+  if (!categoryData || !articleData) return <div>로더</div>;
 
   const filteredCategory = getLiteralCategoryList(categoryData);
 
@@ -38,7 +38,7 @@ const UploadTemplate = () => {
           categoryListData={categoryData.data}
         />
         <Line />
-        <UploadContentList category={filteredCategory} articleData={articleData} />
+        <UploadContentList category={filteredCategory} articleData={articleData.data} />
       </DashBoardTemplateContainer>
     </>
   );

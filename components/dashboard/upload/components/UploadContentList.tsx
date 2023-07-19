@@ -10,7 +10,7 @@ import DashBoardContentListContainer from '../../components/ui/DashBoardContentL
 
 interface UploadContentListProps {
   category: string[];
-  articleData?: Response<ArticleData[]>;
+  articleData?: ArticleData[];
 }
 
 const UploadContentList = (props: UploadContentListProps) => {
@@ -20,7 +20,7 @@ const UploadContentList = (props: UploadContentListProps) => {
 
   return (
     <DashBoardContentListContainer>
-      {articleData.data.map(({ id, title, memberName, job, createdAt, categoryArticleResponseDto }) => {
+      {articleData.map(({ id, title, memberName, job, createdAt, categoryArticleResponseDto }) => {
         return (
           <DashBoardContent
             key={id}
