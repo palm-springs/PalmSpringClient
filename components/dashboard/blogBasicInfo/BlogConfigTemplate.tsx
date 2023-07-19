@@ -31,21 +31,20 @@ const BlogConfigTemplate = () => {
   });
 
   const postBlogConfig = async () => {
-    const logoS3 = blogConfig.blogLogoImage && (await getImageMultipartData(blogConfig.blogLogoImage));
-
-    const imageArray = new FormData();
+    const logoS3 = blogConfig.blogLogoImage && ((await getImageMultipartData(blogConfig.blogLogoImage)) as string);
 
     // imageArray.append(logoS3);
 
-    const mainS3 = blogConfig.blogMainImage && (await getImageMultipartData(blogConfig.blogMainImage));
+    const mainS3 = blogConfig.blogMainImage && ((await getImageMultipartData(blogConfig.blogMainImage)) as string);
 
     try {
       // axios를 이용한 post 요청. 헤더를 multipart/form-data 로 한다.
+      if (!logoS3 || !mainS3) return;
       await putBlogConfig('helloworld', {
         name: blogConfig.blogName,
-        // description: blogConfig.blogDescribeText,
-        // logo: logoS3,
-        // thumbnail: mainS3,
+        description: blogConfig.blogDescribeText,
+        logo: logoS3,
+        thumbnail: mainS3,
       });
       alert('게시글이 등록되었습니다');
     } catch (err) {

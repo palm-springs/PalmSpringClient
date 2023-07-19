@@ -2,6 +2,13 @@ import { createBlogData } from '@/types/blogInfo';
 
 import { client } from '.';
 
+interface BlogConfigRequestBodyProps {
+  name: string;
+  description: string;
+  thumbnail: string;
+  logo: string;
+}
+
 export const getBlogInfo = async (blogUrl: string) => {
   const { data } = await client.get(`/api/v1/blog?url=${blogUrl}`);
   return data;
@@ -21,8 +28,8 @@ export const postCreateBlog = async (requestBody: createBlogData) => {
   return data;
 };
 
-export const putBlogConfig = async (blogUrl: string, requestBody: any) => {
-  const { data } = await client.put(`/api/v1/blog/${blogUrl}/modify`, requestBody, {
+export const putBlogConfig = async (blogUrl: string, requestBody: BlogConfigRequestBodyProps) => {
+  const { data } = await client.put(`/api/v1/blog/${blogUrl}/admin/modify`, requestBody, {
     headers: {
       'Content-Type': 'multipart/form-data',
     },
