@@ -1,5 +1,6 @@
 'use client';
 import { useEffect, useState } from 'react';
+import { useRouter } from 'next/navigation';
 import { useRecoilState } from 'recoil';
 import styled from 'styled-components';
 
@@ -13,6 +14,8 @@ const CreateMemberLanding = () => {
   const [progress, setProgress] = useRecoilState(progressState);
   const [blogData, setBlogData] = useRecoilState(createBlogDataState);
 
+  const router = useRouter();
+
   useEffect(() => {
     if (progress === -2) {
       setContainerState('fadeDownOut');
@@ -21,13 +24,15 @@ const CreateMemberLanding = () => {
     }
   }, [progress]);
 
-  const handleOnCreateClick = () => {
+  const handleOnCreateClick = async () => {
     const { description } = blogData;
     if (description === '') {
       setBlogData((prev) => ({ ...prev, description: null }));
     }
-    console.log(blogData);
-    postCreateBlog(blogData);
+    const { code } = await postCreateBlog(blogData);
+    if (code === 201) {
+      router.replace('/create-blog/success');
+    }
   };
 
   return (
