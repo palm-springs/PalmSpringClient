@@ -1,6 +1,7 @@
 'use client';
 
 import React from 'react';
+import { useParams } from 'next/navigation';
 
 import { useGetPageList } from '@/hooks/dashboard';
 
@@ -8,7 +9,7 @@ import DashBoardContent from '../components/DashBoardContent';
 import DashBoardContentListContainer from '../components/ui/DashBoardContentListContainer';
 
 const PageContentList = () => {
-  const blogUrl = 'helloworld';
+  const { team: blogUrl } = useParams();
 
   const data = useGetPageList(blogUrl);
 
