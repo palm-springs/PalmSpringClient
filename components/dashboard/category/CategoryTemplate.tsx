@@ -16,7 +16,7 @@ import { dashBoardModalState } from '../state/modalState';
 import CategoryContentList from './CategoryContentList';
 
 const CategoryTemplate = () => {
-  const blogUrl = 'Palms';
+  const blogUrl = 'helloworld';
 
   const [modalState, setModalState] = useRecoilState(dashBoardModalState);
 

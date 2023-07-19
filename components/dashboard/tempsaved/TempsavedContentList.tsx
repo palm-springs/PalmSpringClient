@@ -8,7 +8,7 @@ import DashBoardContent from '../components/DashBoardContent';
 import DashBoardContentListContainer from '../components/ui/DashBoardContentListContainer';
 
 const TempsavedContentList = () => {
-  const blogUrl = 'Palms';
+  const blogUrl = 'helloworld';
 
   const data = useGetTempSavedList(blogUrl);
 
