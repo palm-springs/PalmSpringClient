@@ -2,21 +2,29 @@
 import React, { useState } from 'react';
 import styled from 'styled-components';
 
-const CategorySelect = () => {
-  const CATEGORY_TITLE_LIST = ['디자인', '개발', '팀문화'];
+import { useGetCategoryList } from '@/hooks/dashboard';
+import { getLiteralCategoryList } from '@/utils/getLiteralCategoryList';
 
+const CategorySelect = () => {
   const [activeButton, setActiveButton] = useState('');
 
   const clickActive = (e: React.MouseEvent<HTMLButtonElement>) => {
     const value = e.currentTarget.value;
     setActiveButton(value === activeButton ? '' : value);
   };
+  const getCategoryList = useGetCategoryList('helloworld');
+
+  if (!getCategoryList) {
+    return <>로딩</>;
+  }
+
+  const CATEGORY_LIST = getLiteralCategoryList(getCategoryList);
 
   return (
     <>
       <CategoryTitle>카테고리</CategoryTitle>
       <CategoryButtonContainer>
-        {CATEGORY_TITLE_LIST.map((title, index) => (
+        {CATEGORY_LIST.map((title, index) => (
           <CategoryButton
             key={title}
             value={index}

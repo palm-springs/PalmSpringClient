@@ -13,7 +13,7 @@ const BlogInfoDeleteButton = () => {
 export default BlogInfoDeleteButton;
 
 const BlogInfoDeleteButtonContainer = styled.div`
-  margin-top: 2.2rem;
+  margin: 14.9rem 0 6.9rem;
 `;
 
 const BlogDeleteButton = styled.p`

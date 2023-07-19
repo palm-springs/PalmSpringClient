@@ -1,6 +1,7 @@
 'use client';
 
 import React from 'react';
+import { useParams } from 'next/navigation';
 
 import { useGetTempSavedList } from '@/hooks/dashboard';
 
@@ -8,7 +9,7 @@ import DashBoardContent from '../components/DashBoardContent';
 import DashBoardContentListContainer from '../components/ui/DashBoardContentListContainer';
 
 const TempsavedContentList = () => {
-  const blogUrl = 'Palms';
+  const { team: blogUrl } = useParams();
 
   const data = useGetTempSavedList(blogUrl);
 

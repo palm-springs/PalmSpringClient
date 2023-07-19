@@ -11,3 +11,13 @@ export interface ArticleData {
     categoryName: string;
   };
 }
+
+export interface CreateArticleProps {
+  title: string;
+  content: string;
+  images: string[];
+  thumbnail: string;
+  categoryId: number;
+  description: string;
+  articleUrl: string;
+}

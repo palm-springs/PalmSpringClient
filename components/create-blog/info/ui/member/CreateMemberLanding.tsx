@@ -13,6 +13,7 @@ const CreateMemberLanding = () => {
   const [containerState, setContainerState] = useState('');
   const [progress, setProgress] = useRecoilState(progressState);
   const [blogData, setBlogData] = useRecoilState(createBlogDataState);
+  const [emailList, setEmailList] = useState<string[]>([]);
 
   const router = useRouter();
 
@@ -45,7 +46,14 @@ const CreateMemberLanding = () => {
           <span>팀원의 이메일을 입력하세요 </span>
           <span>쉼표, 엔터, 스페이스바로 메일 주소를 구분할 수 있습니다</span>
         </SubTitleContainer>
-        <AddMemberForm width={'40'} height={'17.2'} paddingUD={'2'} paddingLR={'2.4'} />
+        <AddMemberForm
+          emailBox={emailList}
+          setEmailBox={setEmailList}
+          width={'40'}
+          height={'17.2'}
+          paddingUD={'2'}
+          paddingLR={'2.4'}
+        />
         <ButtonContainer>
           <PreviousButton type="button" onClick={() => setProgress(-2)}>
             이전으로
