@@ -4,7 +4,6 @@ import React from 'react';
 import Link from 'next/link';
 import styled from 'styled-components';
 
-import useGetCategory from '@/hooks/useGetCategory';
 import { ArticleData } from '@/types/article';
 
 import ArticleImg from '../blog/ui/ArticleImg';
@@ -15,18 +14,9 @@ interface ArticleProps {
 }
 
 const Article = (props: ArticleProps) => {
-  const Selected = useGetCategory();
   const {
     noHover,
-    article: {
-      title,
-      description,
-      memberName,
-      job,
-      createdAt,
-      thumbnail,
-      categoryArticleResponseDto: { categoryName },
-    },
+    article: { title, description, memberName, job, createdAt, thumbnail, categoryArticleResponseDto },
   } = props;
 
   return (
@@ -35,7 +25,7 @@ const Article = (props: ArticleProps) => {
         <ArticleTitle className="title">{title}</ArticleTitle>
         <ArticleDescription className="description">{description}</ArticleDescription>
         <DetailBox>
-          {Selected === 'home' && <CategoryBtn>{categoryName}</CategoryBtn>}
+          {categoryArticleResponseDto !== null && <CategoryBtn>{categoryArticleResponseDto.categoryName}</CategoryBtn>}
           <ArticleDetail>{memberName}</ArticleDetail>&nbsp;·&nbsp;
           <ArticleDetail>{job}</ArticleDetail>
           <Bar>|</Bar>

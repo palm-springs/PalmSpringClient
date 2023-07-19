@@ -5,60 +5,71 @@ import Image from 'next/image';
 import Link from 'next/link';
 import styled from 'styled-components';
 
-import { getBlogMainImg } from '@/api/blog';
-// import { getCategoryList } from '@/api/dashboard';
 import ArticleList from '@/components/common/ArticleList';
 import ContentInfo from '@/components/common/ContentInfo';
-import { ARTICLE_LIST } from '@/constants/articleList';
-import { BLOG_INFO } from '@/constants/blogInfo';
 import { CONTENT_INFO } from '@/constants/ContentInfo';
-// import { useGetCategoryList } from '@/hooks/dashboard';
+import { useGetCategoryList } from '@/hooks/dashboard';
 import { BlogSampleImg } from '@/public/images';
+import { ArticleData } from '@/types/article';
+import { ContentProps } from '@/types/content';
+import { getLiteralCategoryList } from '@/utils/getLiteralCategoryList';
 
-// import { getLiteralCategoryList } from '@/utils/getLiteralCategoryList';
 import BlogImg from '../BlogImg';
 
-// import CategoryBtnBar from './CategoryBtnBar';
+import CategoryBtnBar from './CategoryBtnBar';
 
-const ArticleContainer = async () => {
-  const {
-    data: { thumbnail, description },
-  } = await getBlogMainImg('Palms');
+interface ArticleContainerProps {
+  articleListData: ArticleData[];
+  thumbnail: string | null;
+  description: string | null;
+  contentInfoData: ContentProps;
+}
 
-  // const FilteredCategoryList = useGetCategoryList('Palms');
-  // const LiteralList = getLiteralCategoryList(FilteredCategoryList);
+const ArticleContainer = (props: ArticleContainerProps) => {
+  const { articleListData, thumbnail, description, contentInfoData } = props;
+
+  const FilteredCategoryList = useGetCategoryList('helloworld');
+  console.log(FilteredCategoryList);
+
+  if (!FilteredCategoryList) return <div>로더</div>;
+
+  const LiteralList = getLiteralCategoryList(FilteredCategoryList);
 
   return (
     <>
       {/* //article list가 있을 때 - 블로그 대문이미지가 있을 때와 없을 때로 나뉨 */}
-      {ARTICLE_LIST.length !== 0 ? (
+      {articleListData.length == 0 ? (
         thumbnail ? (
           <>
             <BlogImg thumbnail={thumbnail} description={description} />
-            <CategoryBtnWrapper>{/* <CategoryBtnBar LiteralList={LiteralList} /> */}</CategoryBtnWrapper>
+            <CategoryBtnWrapper>
+              <CategoryBtnBar LiteralList={LiteralList} />
+            </CategoryBtnWrapper>
             <ArticleWrapper>
-              <ArticleList articleList={ARTICLE_LIST} />
+              <ArticleList articleList={articleListData} />
             </ArticleWrapper>
           </>
         ) : (
           <>
             <ContentInfoContainer>
-              {CONTENT_INFO.thumbnail && (
+              {contentInfoData.thumbnail && (
                 <Link href={`./content/contentNameHere`}>
                   <Image src={BlogSampleImg} alt="blog thumbnail" />
                 </Link>
                 //실제 썸네일 url이 들어오면 위의 코드는 삭제 후 밑의 코드를 사용할 예정입니다!
                 // <Image src={CONTENT_INFO.thumbnail} alt="blog thumbnail" width={720} height={450} />
               )}
-              <ContentInfo content={CONTENT_INFO} />
+              <ContentInfo contentInfoData={contentInfoData} />
             </ContentInfoContainer>
-            <CategoryBtnWrapper>{/* <CategoryBtnBar name={name} /> */}</CategoryBtnWrapper>
+            <CategoryBtnWrapper>
+              <CategoryBtnBar LiteralList={LiteralList} />
+            </CategoryBtnWrapper>
             <ArticleWrapper>
-              <ArticleList articleList={ARTICLE_LIST} />
+              <ArticleList articleList={articleListData} />
             </ArticleWrapper>
           </>
         )
-      ) : BLOG_INFO.thumbnail ? (
+      ) : thumbnail ? (
         <BlogImgContainer>
           {/* //article list가 없을 때 - 블로그 대문이미지가 있을 때와 없을 때로 나뉨 */}
           <BlogImg thumbnail={thumbnail} description={description} />
