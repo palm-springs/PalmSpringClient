@@ -6,8 +6,8 @@ const CreateArticlePage = () => {
     <>
       {/* <ArticleTitle title={title} setTitle={setTitle} />
       <TextEditorBuild title={title} /> */}
-      <ArticleTitle title={title} setTitle={setTitle} />
-      <TextEditorBuild title={title} />
+      <ArticleTitle />
+      <TextEditorBuild />
     </>
   );
 };
