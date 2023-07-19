@@ -14,7 +14,7 @@ export const getNavList = async (blogUrl: string) => {
 };
 
 export const getCategoryList = async (blogUrl: string) => {
-  const { data } = await client.get<Response<CategoryListProps>>(`/api/v1/category/${blogUrl}`);
+  const { data } = await client.get<Response<CategoryListProps[]>>(`/api/v1/category/${blogUrl}`);
   return data;
 };
 
