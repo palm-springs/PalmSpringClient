@@ -1,19 +1,20 @@
 'use client';
 import { useEffect, useState } from 'react';
-import { useRecoilState } from 'recoil';
+import { useRecoilState, useSetRecoilState } from 'recoil';
 import styled from 'styled-components';
 
 import { Loader01Icon } from '@/public/icons';
 import { createBlogData } from '@/types/blogInfo';
 import CheckDuplication from '@/utils/checkUrlDuplication';
 
-import { createBlogDataState, progressState } from '../../states/atom';
+import { createBlogDataState, invalidTextState, progressState } from '../../states/atom';
 import TextInputForm from '../TextInputForm';
 
 const CreateBasicInfoLanding = () => {
   const [progress, setProgress] = useRecoilState(progressState);
 
   const [containerState, setContainerState] = useState('');
+  const setInvalidText = useSetRecoilState(invalidTextState);
 
   // focus state
   const [isNameFocus, setIsNameFocus] = useState(false);
@@ -25,17 +26,16 @@ const CreateBasicInfoLanding = () => {
 
   const handleOnChange = (e: React.ChangeEvent<HTMLInputElement>) => {
     const { value, id } = e.currentTarget;
+    setBlogData((prev: createBlogData) => ({ ...prev, [id]: value }));
 
     if (id === 'url') {
       const checkAddressRule = /^[a-z0-9_]*$/.test(value);
       if (checkAddressRule) {
-        setBlogData((prev: createBlogData) => ({ ...prev, [id]: value }));
+        setInvalidText(false);
         CheckDuplication(value, setIsAddressDuplicate);
       } else {
-        alert('이것만 쓰세요');
+        setInvalidText(true);
       }
-    } else {
-      setBlogData((prev: createBlogData) => ({ ...prev, [id]: value }));
     }
   };
 

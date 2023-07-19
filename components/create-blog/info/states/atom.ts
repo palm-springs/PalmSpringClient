@@ -11,3 +11,8 @@ export const progressState = atom<number>({
   key: 'progressState',
   default: 1,
 });
+
+export const invalidTextState = atom<boolean>({
+  key: 'invalidTextState',
+  default: false,
+});
