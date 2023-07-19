@@ -1,13 +1,17 @@
 'use client';
 
 import React, { ChangeEvent, useState } from 'react';
+import { useSetRecoilState } from 'recoil';
 import styled from 'styled-components';
 
 import { ThumbnailIcon } from '@/public/icons';
 import { getImageMultipartData } from '@/utils/getImageMultipartData';
 
+import { articleDataState } from '../../states/atom';
+
 const ThumbnailInput = () => {
   const [imageSrc, setImageSrc] = useState('');
+  const setArticleData = useSetRecoilState(articleDataState);
 
   const encodeFileToBase64 = async (event: ChangeEvent<HTMLInputElement>) => {
     const files = event.target.files;
@@ -15,13 +19,14 @@ const ThumbnailInput = () => {
       return null;
     }
     const file = files[0];
-    const imgUrl = await getImageMultipartData(file);
-    console.log(imgUrl);
+    const thumbnail = await getImageMultipartData(file);
+    console.log(thumbnail);
 
     const reader = new FileReader();
     reader.onload = () => {
-      const base64Data = reader.result as string;
-      setImageSrc(base64Data); // 이미지 데이터 업데이트
+      setArticleData((prev) => ({ ...prev, thumbnail }));
+      // const base64Data = reader.result as string;
+      setImageSrc(thumbnail); // 이미지 데이터 업데이트
     };
     reader.readAsDataURL(file);
   };

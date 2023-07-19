@@ -1,6 +1,6 @@
 'use client';
 
-import React, { ChangeEvent } from 'react';
+import React, { ChangeEvent, useEffect, useState } from 'react';
 import { Editor } from '@tiptap/react';
 import styled from 'styled-components';
 
@@ -29,8 +29,26 @@ interface editorProps {
 }
 
 const ToolBox = ({ editor, encodeFileToBase64, setLink }: editorProps) => {
+  const [isAtTop, setIsAtTop] = useState(true);
+  const [visible, setVisible] = useState(false);
+
+  //스크롤바 높이에 따라 visible 조건부 설정, 높이 인식 설정
+  useEffect(() => {
+    const handleScroll = () => {
+      setIsAtTop(window.scrollY >= 143);
+
+      setVisible(window.scrollY >= 143);
+    };
+
+    window.addEventListener('scroll', handleScroll);
+    return () => {
+      window.removeEventListener('scroll', handleScroll);
+    };
+  }, []);
+
   return (
-    <IconContainer>
+    <IconContainer isAtTop={isAtTop}>
+      {visible && <Wrapper isVisible={visible ? true : undefined} />}
       <IconWrapper>
         <button onClick={() => editor.chain().focus().toggleHeading({ level: 1 }).run()}>
           <H1Icon />
@@ -87,6 +105,17 @@ const ToolBox = ({ editor, encodeFileToBase64, setLink }: editorProps) => {
 
 export default ToolBox;
 
+const Wrapper = styled.div<{ isVisible?: boolean }>`
+  position: absolute;
+  transition: width 0.3s ease;
+  opacity: ${({ isVisible }) => (isVisible ? 1 : 0)};
+  z-index: 0;
+  margin-left: -35.9rem;
+  background-color: ${({ theme }) => theme.colors.grey_100};
+  width: 100vw;
+  height: 4.8rem;
+`;
+
 const GreyBar = styled.div`
   border-right: 0.1rem solid #d9d9d9;
   height: 1.8rem;
@@ -94,8 +123,11 @@ const GreyBar = styled.div`
 
 const IconWrapper = styled.div`
   display: flex;
+  position: relative;
   align-items: center;
   justify-content: space-evenly;
+  transition: width 0.7s ease;
+  z-index: 1;
   margin: 4rem 0 2rem 0;
   border-radius: 0.8rem;
   background-color: ${({ theme }) => theme.colors.grey_100};
@@ -103,8 +135,11 @@ const IconWrapper = styled.div`
   height: 4.8rem;
 `;
 
-const IconContainer = styled.div`
+const IconContainer = styled.div<{ isAtTop: boolean }>`
+  position: ${({ isAtTop }) => (isAtTop ? 'sticky' : 'sticky')};
+  top: 0;
   margin-left: 35.9rem;
+  width: ${({ isAtTop }) => (isAtTop ? '100vw' : '72.2rem')};
 `;
 
 const ImageInputLabel = styled.label`

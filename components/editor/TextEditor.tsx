@@ -29,6 +29,7 @@ const TextEditorUI = styled(EditorContent)`
   height: 100vh;
   color: ${({ theme }) => theme.colors.grey_900};
   ${({ theme }) => theme.fonts.Body1_Regular};
+
   *:focus {
     outline: none;
   }

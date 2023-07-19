@@ -1,26 +1,33 @@
 'use client';
 import React, { useState } from 'react';
+import { useRecoilState } from 'recoil';
 import styled from 'styled-components';
 
 import TextInputForm from '@/components/create-blog/info/ui/TextInputForm';
-import { Loader01Icon } from '@/public/icons';
+import { EssentialCircleIcon, Loader01Icon } from '@/public/icons';
+
+import { articleDataState } from '../../states/atom';
 
 import PublishInputForm from './PublishInputForm';
 
 const UrlCustom = () => {
-  const [url, setUrl] = useState('');
+  const [{ articleUrl }, setArticleData] = useRecoilState(articleDataState);
   const [isAddressFocus, setIsAddressFocus] = useState(false);
   const [isAddressDuplicate, setIsAddressDuplicate] = useState<boolean | null>(null);
 
   const handleOnChange = (e: React.ChangeEvent<HTMLInputElement>) => {
     const { value } = e.currentTarget;
-    setUrl(value);
+    setArticleData((prev) => ({ ...prev, articleUrl: value }));
 
     // url 중복 쳌 :  CheckDuplication(value, setIsAddressDuplicate);
   };
   return (
     <UrlContainer>
-      <UrlTitle>URL</UrlTitle>
+      <UrlTitleContainer>
+        <UrlTitle>URL</UrlTitle>
+        <EssentialPointerIcon />
+      </UrlTitleContainer>
+
       <PublishInputForm
         isFocus={isAddressFocus}
         isAddressDuplicate={isAddressDuplicate === null ? undefined : isAddressDuplicate}>
@@ -28,10 +35,10 @@ const UrlCustom = () => {
         <TextInput
           onFocus={() => setIsAddressFocus(true)}
           onBlur={() => setIsAddressFocus(false)}
-          value={url}
+          value={articleUrl}
           onChange={handleOnChange}
         />
-        {isAddressDuplicate === null && url !== '' && <Loader01Icon />}
+        {isAddressDuplicate === null && articleUrl !== '' && <Loader01Icon />}
       </PublishInputForm>
       {/* <TextInputForm type={''} children={undefined} isFocus={false} /> */}
       {/* <UrlCustomTextarea defaultValue="/@sopt/content/"></UrlCustomTextarea> */}
@@ -41,21 +48,29 @@ const UrlCustom = () => {
 
 export default UrlCustom;
 
-const UrlCustomTextarea = styled.textarea`
-  display: inline-flex;
-  align-items: flex-start;
-  margin-top: 0.8rem;
-  padding: 1rem 1.2rem;
-  width: 54rem;
-  height: 4.6rem;
-  resize: none;
-  ${({ theme }) => theme.fonts.Body2_Regular};
-  color: ${({ theme }) => theme.colors.grey_600};
-  /* 기능넣을때 수정할 예정입니당. */
-  &:focus {
-    color: ${({ theme }) => theme.colors.grey_900};
-  }
+const EssentialPointerIcon = styled(EssentialCircleIcon)`
+  margin: 0.5rem 0 0 0.8rem;
 `;
+
+const UrlTitleContainer = styled.div`
+  display: flex;
+`;
+
+// const UrlCustomTextarea = styled.textarea`
+//   display: inline-flex;
+//   align-items: flex-start;
+//   margin-top: 0.8rem;
+//   padding: 1rem 1.2rem;
+//   width: 54rem;
+//   height: 4.6rem;
+//   resize: none;
+//   ${({ theme }) => theme.fonts.Body2_Regular};
+//   color: ${({ theme }) => theme.colors.grey_600};
+//   /* 기능넣을때 수정할 예정입니당. */
+//   &:focus {
+//     color: ${({ theme }) => theme.colors.grey_900};
+//   }
+// `;
 
 const UrlContainer = styled.div`
   margin-top: 2.4rem;

@@ -1,12 +1,24 @@
 'use client';
 import React from 'react';
+import { useRecoilValue } from 'recoil';
 import styled from 'styled-components';
 
+import { postArticleCreateList } from '@/api/article';
+
+import { articleDataState } from '../../states/atom';
+
 const PublishBottomButtons = () => {
+  const articleData = useRecoilValue(articleDataState);
+  const handleOnClickLastPublish = () => {
+    postArticleCreateList('helloworld', articleData);
+  };
+
   return (
     <PublishBottomButtonsContainer>
       <BackButton type="button">뒤로가기</BackButton>
-      <PublishButton type="button">글 발행하기</PublishButton>
+      <PublishButton type="button" onClick={handleOnClickLastPublish}>
+        글 발행하기
+      </PublishButton>
     </PublishBottomButtonsContainer>
   );
 };

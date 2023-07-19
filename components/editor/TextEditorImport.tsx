@@ -1,5 +1,5 @@
 'use client';
-import React, { ChangeEvent, DragEvent, DragEventHandler, useCallback, useState } from 'react';
+import React, { ChangeEvent, DragEvent, DragEventHandler, useCallback, useEffect, useState } from 'react';
 import Blockquote from '@tiptap/extension-blockquote';
 import Bold from '@tiptap/extension-bold';
 import BulletList from '@tiptap/extension-bullet-list';
@@ -33,6 +33,7 @@ lowlight.registerLanguage('ts', ts);
 
 // import ScrollTopToolbar from '@/components/editor/article/publish/ScrollTopToolbar';
 
+import { useRouter } from 'next/navigation';
 import { useRecoilState } from 'recoil';
 
 import { postArticleList } from '@/api/article';
@@ -44,10 +45,16 @@ import { articleDataState } from './article/states/atom';
 import TopToolBox from './article/ui/TopToolBox';
 
 const TextEditorBuild = () => {
-  const [{ title }, setArtitleData] = useRecoilState(articleDataState);
+  const [{ title }, setArticleData] = useRecoilState(articleDataState);
   const [, setImageSrc] = useState('');
   const [extractedHTML, setExtractedHTML] = useState<string>('');
-  const imageArr: string[] = [];
+  // const imageArr: string[] = [];
+  const [imageArr, setImageArr] = useState<string[]>([]);
+  const router = useRouter();
+
+  useEffect(() => {
+    console.log(imageArr);
+  }, [imageArr]);
 
   const editor = useEditor({
     extensions: [
@@ -98,13 +105,14 @@ const TextEditorBuild = () => {
       return null;
     }
     const file = files[0];
-    const imgUrl = await getImageMultipartData(file);
+    const imgUrl = (await getImageMultipartData(file)) as string;
     console.log(imgUrl);
+    setImageArr((prev) => [...prev, imgUrl]);
+    console.log(imageArr);
 
     const reader = new FileReader();
     reader.onload = () => {
-      const base64Data = reader.result as string;
-      editor.chain().focus().setImage({ src: base64Data }).run(); // 이미지 데이터 업데이트
+      editor.chain().focus().setImage({ src: imgUrl }).run(); // 이미지 데이터 업데이트
     };
     reader.readAsDataURL(file);
   };
@@ -144,6 +152,7 @@ const TextEditorBuild = () => {
         const imgUrl = await getImageMultipartData(file);
         console.log(imgUrl);
         imageArr.push(imgUrl);
+        console.log(imageArr);
 
         editor.chain().focus().setImage({ src: imgUrl }).run(); // 이미지를 에디터에 삽입
       }
@@ -165,10 +174,13 @@ const TextEditorBuild = () => {
       const content = editor.getHTML();
       setExtractedHTML(content);
 
+      console.log(imageArr);
+      console.log(imageArr.length);
+
       if (imageArr.length === 0) {
-        postArticleList('synthiablog', { title, content, image: null });
+        postArticleList('helloworld', { title, content, images: null });
       } else {
-        postArticleList('synthiablog', { title, content, image: imageArr });
+        postArticleList('helloworld', { title, content, images: imageArr });
       }
     }
   };
@@ -179,36 +191,19 @@ const TextEditorBuild = () => {
       setExtractedHTML(content);
 
       if (imageArr.length === 0) {
-        setArtitleData((prev) => ({ ...prev, title, content, image: null }));
+        setArticleData((prev) => ({ ...prev, title, content, image: null }));
       } else {
-        setArtitleData((prev) => ({ ...prev, title, content, image: imageArr }));
+        setArticleData((prev) => ({ ...prev, title, content, image: imageArr }));
       }
+      router.push('/blogNameHere/editor/article/publish');
     }
   };
 
   return (
-    //   <>
-    //     <div className={`toolbar ${isToolbarExpanded ? 'expanded' : ''}`}>
-    //       {isToolbarExpanded ? (
-    //         <>
-    //           <ToolBox editor={editor} encodeFileToBase64={encodeFileToBase64} setLink={setLink} />
-    //         </>
-    //       ) : (
-    //         <>
-    //           <TopToolBox editor={editor} encodeFileToBase64={encodeFileToBase64} setLink={setLink} />
-    //         </>
-    //       )}
-    //     </div>
-    //     {/* <ScrollTopToolbar /> */}
-    //     <TextEditor editor={editor} handleDrop={handleDrop} handleDragOver={handleDragOver} />
-    //     <SaveArticleButton handleExtractHTML={handleExtractHTML} />
-    //   </>
-    // );
     <>
       <ToolBox editor={editor} encodeFileToBase64={encodeFileToBase64} setLink={setLink} />
-      {/* <ScrollTopToolbar /> */}
       <TextEditor editor={editor} handleDrop={handleDrop} handleDragOver={handleDragOver} />
-      <SaveArticleButton handleOnClickDraft={handleOnClickDraft} handleOnClickPublish={handleOnClickPublish} /> */
+      <SaveArticleButton handleOnClickDraft={handleOnClickDraft} handleOnClickPublish={handleOnClickPublish} />
     </>
   );
 };

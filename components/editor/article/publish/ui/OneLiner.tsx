@@ -1,16 +1,25 @@
 'use-client';
 
 import React from 'react';
+import { useRecoilState } from 'recoil';
 import styled from 'styled-components';
 
 import { EssentialCircleIcon } from '@/public/icons';
 
+import { articleDataState } from '../../states/atom';
+
 const OneLiner = () => {
+  const [{ description }, setArticleData] = useRecoilState(articleDataState);
+  const handleOnChange = (e: React.ChangeEvent<HTMLInputElement>) => {
+    const { value } = e.currentTarget;
+    setArticleData((prev) => ({ ...prev, description: value }));
+  };
+
   return (
     <OneLinerContainer>
       <OneLineTitleContainer>
-        <OneLineTitle>한 줄 소개</OneLineTitle>
-        <EssentialCircleIcon />
+        <OneLineTitle onChange={handleOnChange}>한 줄 소개</OneLineTitle>
+        <EssentialPointerIcon />
       </OneLineTitleContainer>
 
       <OneLinerTextarea placeholder="한 줄 소개를 입력해주세요"></OneLinerTextarea>
@@ -19,6 +28,10 @@ const OneLiner = () => {
 };
 
 export default OneLiner;
+
+const EssentialPointerIcon = styled(EssentialCircleIcon)`
+  margin: 0.5rem 0 0 0.8rem;
+`;
 
 const OneLineTitleContainer = styled.div`
   display: flex;

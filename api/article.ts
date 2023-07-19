@@ -1,9 +1,9 @@
-import { url } from 'inspector';
+// import { url } from 'inspector';
 
 import { ArticleData } from '@/types/article';
 import { Response } from '@/types/common';
-import { getImageMultipartData } from '@/utils/getImageMultipartData';
 
+// import { getImageMultipartData } from '@/utils/getImageMultipartData';
 import { client } from '.';
 
 export const getArticleList = async (blogUrl: string, categoryId: string | null) => {
@@ -11,30 +11,10 @@ export const getArticleList = async (blogUrl: string, categoryId: string | null)
   return data;
 };
 
-// export const postArticleList = async (articleUrl: string, title: string, content: string, image: string) => {
-//   const { data } = await client.post<Response<null>>(`/api/v1/article/${articleUrl}/draft`, {
-//     title,
-//     content,
-//     image,
-//   });
-//   return data;
-// };
-
 interface postArticleListRequest {
   title: string;
   content: string;
-  image: string[] | null;
-}
-
-export const postArticleList = async (url: string, requestBody: postArticleListRequest) => {
-  const { data } = await client.post<Response<null>>(`/api/v1/article/${url}/draft`, requestBody);
-  return data;
-};
-
-interface postArticleListRequest {
-  title: string;
-  content: string;
-  image: string[];
+  images: string[] | null;
 }
 
 export const postArticleList = async (url: string, requestBody: postArticleListRequest) => {
@@ -45,9 +25,9 @@ export const postArticleList = async (url: string, requestBody: postArticleListR
 interface postArticleCreateListRequest {
   title: string;
   content: string;
-  images: string[];
+  images: string[] | null;
   thumbnail: string;
-  categoryId: number; //long 이라고 써져있는데 number 맞져..?
+  categoryId: number;
   description: string;
   articleUrl: string;
 }
