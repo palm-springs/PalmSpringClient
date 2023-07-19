@@ -10,7 +10,7 @@ import DashBoardContentListContainer from '../../components/ui/DashBoardContentL
 
 interface UploadContentListProps {
   category: string[];
-  articleData?: Response<ArticleData>;
+  articleData?: Response<ArticleData[]>;
 }
 
 const UploadContentList = (props: UploadContentListProps) => {
