@@ -1,12 +1,19 @@
 'use client';
-import { ChangeEvent, KeyboardEvent, useRef, useState } from 'react';
+import { ChangeEvent, Dispatch, KeyboardEvent, SetStateAction, useRef, useState } from 'react';
 import styled from 'styled-components';
 
 import EmailBox from './EmailBox';
 
-const AddMemberInput = () => {
+interface AddMemberInputProps {
+  emailBox: string[];
+  setEmailBox: Dispatch<SetStateAction<string[]>>;
+}
+
+const AddMemberInput = (props: AddMemberInputProps) => {
+  const { emailBox: emailList, setEmailBox: setEmailList } = props;
+
   const [emailValue, setEmailValue] = useState('');
-  const [emailList, setEmailList] = useState<string[]>([]);
+  // const [emailList, setEmailList] = useState<string[]>([]);
 
   // 입력된 값의 구분 key 여부
   const isDivisionKey = useRef(false);

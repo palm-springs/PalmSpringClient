@@ -47,7 +47,6 @@ const RightBottomButton = styled.button<{ disabled: boolean }>`
   margin-top: 2.4rem;
   ${({ theme }) => theme.fonts.Button_large};
   margin-left: 1.6rem;
-  border: 1px solid ${({ theme }) => theme.colors.grey_500};
   border-radius: 0.8rem;
   background-color: ${({ theme, disabled }) => (disabled ? theme.colors.background_green : theme.colors.green)};
   width: 11.5rem;
