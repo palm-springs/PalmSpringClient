@@ -1,5 +1,6 @@
 import React, { useState } from 'react';
 import axios from 'axios';
+import { useParams } from 'next/navigation';
 import { styled } from 'styled-components';
 
 import { putBlogConfig } from '@/api/blog';
@@ -30,6 +31,8 @@ const BlogConfigTemplate = () => {
     blogDescribeText: '',
   });
 
+  const { team: blogUrl } = useParams();
+
   const postBlogConfig = async () => {
     const logoS3 = blogConfig.blogLogoImage && ((await getImageMultipartData(blogConfig.blogLogoImage)) as string);
 
@@ -40,7 +43,7 @@ const BlogConfigTemplate = () => {
     try {
       // axios를 이용한 post 요청. 헤더를 multipart/form-data 로 한다.
       if (!logoS3 || !mainS3) return;
-      await putBlogConfig('helloworld', {
+      await putBlogConfig(blogUrl, {
         name: blogConfig.blogName,
         description: blogConfig.blogDescribeText,
         logo: logoS3,

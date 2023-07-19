@@ -1,6 +1,7 @@
 'use client';
 
 import React, { useState } from 'react';
+import { useParams } from 'next/navigation';
 import { useRecoilState } from 'recoil';
 
 import ModalPortal from '@/components/common/ModalPortal';
@@ -16,7 +17,7 @@ import { dashBoardModalState } from '../state/modalState';
 import CategoryContentList from './CategoryContentList';
 
 const CategoryTemplate = () => {
-  const blogUrl = 'helloworld';
+  const { team: blogUrl } = useParams();
 
   const [modalState, setModalState] = useRecoilState(dashBoardModalState);
 
