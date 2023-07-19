@@ -13,12 +13,12 @@ interface LogoProp {
 const HeaderLogo = (prop: LogoProp) => {
   const { logo, blogName } = prop;
   return (
-    <Link href={'/blogNameHere/home'}>
+    <Link href={'/synthiablog/home'}>
       {logo ? (
         <>
-          <SymbolIcon />
+          {/* <SymbolIcon /> */}
           {/* {실제 아이콘 src가 오면 밑의 코드로 대체예정입니다} */}
-          {/* <img src={logo} alt="team logo icon" height={24} /> */}
+          <img src={logo} alt="team logo icon" height={24} />
         </>
       ) : (
         <BlogName>{blogName}</BlogName>
