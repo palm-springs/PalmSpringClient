@@ -107,7 +107,7 @@ export default ToolBox;
 
 const Wrapper = styled.div<{ isVisible?: boolean }>`
   position: absolute;
-  transition: width 0.3s ease;
+  transition: width 1s ease;
   opacity: ${({ isVisible }) => (isVisible ? 1 : 0)};
   z-index: 0;
   margin-left: -35.9rem;
@@ -136,10 +136,10 @@ const IconWrapper = styled.div`
 `;
 
 const IconContainer = styled.div<{ isAtTop: boolean }>`
-  position: ${({ isAtTop }) => (isAtTop ? 'sticky' : 'sticky')};
+  position: ${({ isAtTop }) => isAtTop && 'sticky'};
   top: 0;
   margin-left: 35.9rem;
-  width: ${({ isAtTop }) => (isAtTop ? '100vw' : '72.2rem')};
+  width: ${({ isAtTop }) => isAtTop && '72.2rem'};
 `;
 
 const ImageInputLabel = styled.label`

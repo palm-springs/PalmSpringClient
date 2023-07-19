@@ -25,16 +25,16 @@ const EditorContainer = styled.div`
 `;
 
 const TextEditorUI = styled(EditorContent)`
+  ${({ theme }) => theme.fonts.Body1_Regular};
   width: 72.2rem;
   height: 100vh;
   color: ${({ theme }) => theme.colors.grey_900};
-  ${({ theme }) => theme.fonts.Body1_Regular};
 
   *:focus {
     outline: none;
   }
   .ProseMirror p.is-editor-empty:first-child::before {
-    float: left;
+    /* float: left; */
     height: 0;
     color: ${({ theme }) => theme.colors.grey_900};
     ${({ theme }) => theme.fonts.Body1_Regular};
