@@ -20,7 +20,7 @@ const SaveButton = styled.button`
   gap: 1rem;
   align-items: center;
   justify-content: center;
-  margin-left: 90rem;
+  margin-left: 104.1rem;
   border-radius: 0.8rem;
   background-color: ${({ theme }) => theme.colors.green};
   padding: 1rem 2rem;

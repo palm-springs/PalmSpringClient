@@ -1,23 +1,47 @@
 'use client';
 
-import React from 'react';
+import React, { ChangeEvent, useState } from 'react';
 import styled from 'styled-components';
 
 import { CloseIcon, UploadIcon } from '@/public/icons';
 
-const BlogLogoImage = () => {
+interface BlogLogoImageProps {
+  setFile: (v: File) => void;
+}
+
+const BlogLogoImage = (props: BlogLogoImageProps) => {
+  const { setFile } = props;
+
+  const [preLoadImg, setPreLoadImg] = useState<string>('');
+
   return (
     <BlogLogoImageContainer>
       <BlogLogoUploadLabel>
-        <input type="file" />
+        <input
+          type="file"
+          onChange={(e: ChangeEvent<HTMLInputElement>) => {
+            const file = e.target?.files![0];
+            if (!file) return;
+            const reader = new FileReader();
+            reader.readAsDataURL(file);
+            reader.onloadend = () => {
+              setPreLoadImg(reader.result as string);
+            };
+            setFile(file);
+          }}
+        />
         <ImageGuideContainer>
           <ImageGuideTitle>블로그 로고 이미지</ImageGuideTitle>
         </ImageGuideContainer>
-        <BlogLogoUpload>
-          <UploadIcon />
-          <UploadText>업로그하기</UploadText>
-          <ImageCloseIcon />
-        </BlogLogoUpload>
+        {preLoadImg ? (
+          <PreLoadImg src={preLoadImg} alt="블로그 로고 이미지" />
+        ) : (
+          <BlogLogoUpload>
+            <UploadIcon />
+            <UploadText>업로드하기</UploadText>
+            <ImageCloseIcon />
+          </BlogLogoUpload>
+        )}
       </BlogLogoUploadLabel>
     </BlogLogoImageContainer>
   );
@@ -45,7 +69,7 @@ const BlogLogoUpload = styled.div`
   margin-left: 4.8rem;
   border-radius: 0.8rem;
   background-color: ${({ theme }) => theme.colors.grey_200};
-  width: 15.6rem;
+  width: 64.5rem;
   height: 14.6rem;
 `;
 
@@ -77,4 +101,11 @@ const BlogLogoUploadLabel = styled.label`
 
 const BlogLogoImageContainer = styled.div`
   margin-top: 3.2rem;
+`;
+
+const PreLoadImg = styled.img`
+  margin-left: 4.8rem;
+  border-radius: 0.8rem;
+  width: auto;
+  height: 14.6rem;
 `;
