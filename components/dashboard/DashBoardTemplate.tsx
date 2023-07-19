@@ -7,12 +7,12 @@ import DashBoardNav from './components/DashBoardNav';
 import DashBoardContainer from './components/ui/DashBoardConatiner';
 import { DashboardContextProvider } from './context/dashboardContext';
 
-interface DashBoardTemplateprops {
+interface DashBoardTemplateProps {
   children: React.ReactNode;
   noHeader?: boolean;
 }
 
-const DashBoardTemplate = (props: DashBoardTemplateprops) => {
+const DashBoardTemplate = (props: DashBoardTemplateProps) => {
   const { children, noHeader } = props;
   return (
     <DashboardContextProvider>

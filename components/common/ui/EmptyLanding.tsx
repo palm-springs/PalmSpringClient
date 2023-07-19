@@ -10,14 +10,15 @@ interface EmptyLandingProps {
   message2?: string;
   buttonText?: string;
   buttonLink?: string;
+  header: boolean;
 }
 
 const EmptyLanding = (props: EmptyLandingProps) => {
-  const { message1, message2, buttonText, noIcon, buttonLink } = props;
+  const { message1, message2, buttonText, noIcon, buttonLink, header } = props;
   const router = useRouter();
 
   return (
-    <EmptyLandingContainer>
+    <EmptyLandingContainer $header={header}>
       {!noIcon && <EmptyLogoIcon />}
       <Message>{message1}</Message>
       {message2 && <Message>{message2}</Message>}
@@ -32,13 +33,13 @@ const EmptyLanding = (props: EmptyLandingProps) => {
 
 export default EmptyLanding;
 
-const EmptyLandingContainer = styled.div`
+const EmptyLandingContainer = styled.div<{ $header: boolean }>`
   display: flex;
   flex-direction: column;
   align-items: center;
   justify-content: center;
   width: 100%;
-  height: 100vh;
+  height: ${({ $header }) => ($header ? 'calc(100vh - 13.6rem)' : '100vh')};
 
   & > svg {
     margin-bottom: 2.9rem;
