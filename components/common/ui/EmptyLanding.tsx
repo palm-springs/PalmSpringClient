@@ -63,4 +63,8 @@ const Button = styled.button`
   padding: 0 2.6rem;
   height: 4.2rem;
   color: ${({ theme }) => theme.colors.grey_0};
+
+  &:hover {
+    background-color: ${({ theme }) => theme.colors.green_hover};
+  }
 `;
