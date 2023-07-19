@@ -19,7 +19,7 @@ interface NewNavigationModalProps {
 }
 
 const NewNavigationModal = (props: NewNavigationModalProps) => {
-  const blogUrl = 'Palms';
+  const blogUrl = 'helloworld';
   const {
     setModalState,
     newNavigationName,

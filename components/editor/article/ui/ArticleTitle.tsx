@@ -1,12 +1,21 @@
 'use client';
 
-import React from 'react';
+import React, { ChangeEvent, Dispatch, SetStateAction } from 'react';
+import { useRecoilState } from 'recoil';
 import styled from 'styled-components';
 
+import { articleDataState } from '../states/atom';
+
 const ArticleTitle = () => {
+  const [{ title }, setArticleData] = useRecoilState(articleDataState);
+
+  const handleTitleChange = (e: ChangeEvent<HTMLInputElement>) => {
+    const { value } = e.target;
+    setArticleData((prev) => ({ ...prev, title: value }));
+  };
   return (
     <ArticleTitleContainer>
-      <Input type="text" placeholder="제목을 입력해주세요" />
+      <Input value={title} onChange={handleTitleChange} type="text" placeholder="제목을 입력해주세요" />
     </ArticleTitleContainer>
   );
 };
