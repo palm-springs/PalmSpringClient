@@ -33,17 +33,18 @@ lowlight.registerLanguage('ts', ts);
 
 // import ScrollTopToolbar from '@/components/editor/article/publish/ScrollTopToolbar';
 
+import { useRecoilState } from 'recoil';
+
 import { postArticleList } from '@/api/article';
 import ToolBox from '@/components/editor/article/ui/ToolBox';
 import TextEditor from '@/components/editor/TextEditor';
 import { getImageMultipartData } from '@/utils/getImageMultipartData';
 
-interface TextEditorBuildProps {
-  title: string;
-}
+import { articleDataState } from './article/states/atom';
+import TopToolBox from './article/ui/TopToolBox';
 
-const TextEditorBuild = (props: TextEditorBuildProps) => {
-  const { title } = props;
+const TextEditorBuild = () => {
+  const [{ title }, setArtitleData] = useRecoilState(articleDataState);
   const [, setImageSrc] = useState('');
   const [extractedHTML, setExtractedHTML] = useState<string>('');
   const imageArr: string[] = [];
@@ -91,47 +92,22 @@ const TextEditorBuild = (props: TextEditorBuildProps) => {
     content: '',
   });
 
-  const encodeFileToBase64 = ({
-    event,
-    editor,
-  }: {
-    event: ChangeEvent<HTMLInputElement>;
-    editor: Editor;
-  }): Promise<string> => {
-    return new Promise((resolve) => {
-      const reader = new FileReader();
-      const file = event.target.files && event.target.files[0];
-      reader.onload = async () => {
-        const base64Data = reader.result as string;
-        setImageSrc(base64Data); // 이미지 상태 업데이트
-        editor.chain().focus().setImage({ src: base64Data }).run(); // 이미지 에디터 안으로 추가
-        resolve(base64Data);
-      };
-      reader.readAsDataURL(file!);
-    });
+  const encodeFileToBase64 = async (event: ChangeEvent<HTMLInputElement>, editor: Editor) => {
+    const files = event.target.files;
+    if (!files || files.length === 0) {
+      return null;
+    }
+    const file = files[0];
+    const imgUrl = await getImageMultipartData(file);
+    console.log(imgUrl);
+
+    const reader = new FileReader();
+    reader.onload = () => {
+      const base64Data = reader.result as string;
+      editor.chain().focus().setImage({ src: base64Data }).run(); // 이미지 데이터 업데이트
+    };
+    reader.readAsDataURL(file);
   };
-
-  // const encodeFileToBase64 = async (file: File, editor: Editor): Promise<string | void> => {
-  //   try {
-  //     const base64Data = await new Promise<string>((resolve, reject) => {
-  //       const reader = new FileReader();
-  //       reader.onload = () => resolve(reader.result as string);
-  //       reader.onerror = (error) => reject(error);
-  //       reader.readAsDataURL(file);
-  //     });
-
-  //     setImageSrc(base64Data);
-  //     editor.chain().focus().setImage({ src: base64Data }).run();
-
-  //     const imgUrl = await getImageMultipartData(file);
-  //     console.log(imgUrl);
-  //     imageArr.push(imgUrl);
-
-  //     // 추가적인 작업 수행
-  //   } catch (error) {
-  //     console.error('에러오');
-  //   }
-  // };
 
   const setLink = useCallback(
     ({ editor }: { editor: Editor }) => {
@@ -184,23 +160,56 @@ const TextEditorBuild = (props: TextEditorBuildProps) => {
     return null;
   }
 
-  const handleExtractHTML = () => {
+  const handleOnClickDraft = () => {
     if (editor) {
       const content = editor.getHTML();
       setExtractedHTML(content);
-      console.log(content);
-      postArticleList('Palms', { title, content, image: imageArr });
+
+      if (imageArr.length === 0) {
+        postArticleList('synthiablog', { title, content, image: null });
+      } else {
+        postArticleList('synthiablog', { title, content, image: imageArr });
+      }
+    }
+  };
+
+  const handleOnClickPublish = () => {
+    if (editor) {
+      const content = editor.getHTML();
+      setExtractedHTML(content);
+
+      if (imageArr.length === 0) {
+        setArtitleData((prev) => ({ ...prev, title, content, image: null }));
+      } else {
+        setArtitleData((prev) => ({ ...prev, title, content, image: imageArr }));
+      }
     }
   };
 
   return (
+    //   <>
+    //     <div className={`toolbar ${isToolbarExpanded ? 'expanded' : ''}`}>
+    //       {isToolbarExpanded ? (
+    //         <>
+    //           <ToolBox editor={editor} encodeFileToBase64={encodeFileToBase64} setLink={setLink} />
+    //         </>
+    //       ) : (
+    //         <>
+    //           <TopToolBox editor={editor} encodeFileToBase64={encodeFileToBase64} setLink={setLink} />
+    //         </>
+    //       )}
+    //     </div>
+    //     {/* <ScrollTopToolbar /> */}
+    //     <TextEditor editor={editor} handleDrop={handleDrop} handleDragOver={handleDragOver} />
+    //     <SaveArticleButton handleExtractHTML={handleExtractHTML} />
+    //   </>
+    // );
     <>
       <ToolBox editor={editor} encodeFileToBase64={encodeFileToBase64} setLink={setLink} />
       {/* <ScrollTopToolbar /> */}
       <TextEditor editor={editor} handleDrop={handleDrop} handleDragOver={handleDragOver} />
-      <SaveArticleButton handleExtractHTML={handleExtractHTML} />
+      <SaveArticleButton handleOnClickDraft={handleOnClickDraft} handleOnClickPublish={handleOnClickPublish} /> */
     </>
   );
 };
-
 export default TextEditorBuild;

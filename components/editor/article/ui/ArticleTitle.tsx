@@ -1,17 +1,17 @@
 'use client';
 
 import React, { ChangeEvent, Dispatch, SetStateAction } from 'react';
+import { useRecoilState } from 'recoil';
 import styled from 'styled-components';
 
-interface ArticleTitleProps {
-  title: string;
-  setTitle: Dispatch<SetStateAction<string>>;
-}
-const ArticleTitle = (props: ArticleTitleProps) => {
-  const { title, setTitle } = props;
+import { articleDataState } from '../states/atom';
+
+const ArticleTitle = () => {
+  const [{ title }, setArticleData] = useRecoilState(articleDataState);
 
   const handleTitleChange = (e: ChangeEvent<HTMLInputElement>) => {
-    setTitle(e.target.value);
+    const { value } = e.target;
+    setArticleData((prev) => ({ ...prev, title: value }));
   };
   return (
     <ArticleTitleContainer>

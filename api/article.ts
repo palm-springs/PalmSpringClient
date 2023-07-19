@@ -23,7 +23,7 @@ export const getArticleList = async (blogUrl: string, categoryId: string | null)
 interface postArticleListRequest {
   title: string;
   content: string;
-  image: string[];
+  image: string[] | null;
 }
 
 export const postArticleList = async (url: string, requestBody: postArticleListRequest) => {

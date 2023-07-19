@@ -24,13 +24,7 @@ import {
 
 interface editorProps {
   editor: Editor;
-  encodeFileToBase64: ({
-    event,
-    editor,
-  }: {
-    event: ChangeEvent<HTMLInputElement>;
-    editor: Editor;
-  }) => Promise<string | void>;
+  encodeFileToBase64: (event: ChangeEvent<HTMLInputElement>, editor: Editor) => void;
   setLink: ({ editor }: { editor: Editor }) => void;
 }
 
@@ -77,7 +71,7 @@ const TopToolBox = ({ editor, encodeFileToBase64, setLink }: editorProps) => {
           <HorizonIcon />
         </button>
         <ImageInputLabel>
-          <input type="file" onChange={(event) => encodeFileToBase64({ event, editor })}></input>
+          <input type="file" onChange={(event) => encodeFileToBase64(event, editor)}></input>
           <ImageIcon />
         </ImageInputLabel>
         <button onClick={() => setLink({ editor })} className={editor.isActive('link') ? 'is-active' : ''}>

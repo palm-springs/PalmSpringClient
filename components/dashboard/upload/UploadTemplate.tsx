@@ -13,7 +13,7 @@ import UploadContentList from './components/UploadContentList';
 import UploadTabBar from './components/UploadTabBar';
 
 const UploadTemplate = () => {
-  const blogUrl = 'Palms';
+  const blogUrl = 'helloworld';
 
   const [category, setCategory] = useState<string>('전체');
 
