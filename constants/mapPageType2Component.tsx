@@ -5,6 +5,7 @@ import {
   Grid01Icon,
   Menu01Icon,
   SettingIcon,
+  TempsavedIcon,
   UserProfile03Icon,
   UserProfileCheckIcon,
 } from '@/public/icons';
@@ -62,7 +63,7 @@ const mapPageType2Component: mapPageType2ComponentBluePrint = {
   tempsaved: {
     path: 'tempsaved',
     innerText: '임시저장한 글',
-    icon: <File02Icon />,
+    icon: <TempsavedIcon />,
   },
 };
 
