@@ -29,10 +29,6 @@ export const postCreateBlog = async (requestBody: createBlogData) => {
 };
 
 export const putBlogConfig = async (blogUrl: string, requestBody: BlogConfigRequestBodyProps) => {
-  const { data } = await client.put(`/api/v1/blog/${blogUrl}/admin/modify`, requestBody, {
-    headers: {
-      'Content-Type': 'application/json',
-    },
-  });
+  const { data } = await client.put(`/api/v1/blog/${blogUrl}/admin/modify`, requestBody);
   return data;
 };

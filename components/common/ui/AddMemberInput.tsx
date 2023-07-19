@@ -13,7 +13,6 @@ const AddMemberInput = (props: AddMemberInputProps) => {
   const { emailBox: emailList, setEmailBox: setEmailList } = props;
 
   const [emailValue, setEmailValue] = useState('');
-  // const [emailList, setEmailList] = useState<string[]>([]);
 
   // 입력된 값의 구분 key 여부
   const isDivisionKey = useRef(false);
@@ -31,6 +30,7 @@ const AddMemberInput = (props: AddMemberInputProps) => {
   // 이메일 구분 key가 눌렸을 때
   const handleInputKeyDown = (e: KeyboardEvent<HTMLInputElement>) => {
     const { key } = e;
+
     if (key === 'Enter' || key === ' ' || key === ',') {
       setEmailList([...emailList, emailValue]);
       setEmailValue('');
