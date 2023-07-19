@@ -8,7 +8,7 @@ import DashBoardContent from '../components/DashBoardContent';
 import DashBoardContentListContainer from '../components/ui/DashBoardContentListContainer';
 
 const CategoryContentList = () => {
-  const blogUrl = 'Palms';
+  const blogUrl = 'helloworld';
 
   const data = useGetCategoryList(blogUrl);
 

@@ -15,7 +15,7 @@ interface NavUrlInputProps {
 }
 
 const NavUrlInput = (props: NavUrlInputProps) => {
-  const blogUrl = 'Palms';
+  const blogUrl = 'helloworld';
 
   const { newNavigationSelector, setNewNavigationSelector, newNavigationUrl, setNewNavigationUrl } = props;
 
