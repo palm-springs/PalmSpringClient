@@ -13,6 +13,15 @@ interface EmptyLandingProps {
   header: boolean;
 }
 
+/**
+ * @param header boolean 대시보드 헤더가 있으면 true 없으면 false (required)
+ * @param noIcon boolean 빈 로고 아이콘이 필요 없으면 noIcon 넣어주기 (optional)
+ * @param message1 string 첫번째 줄 메시지 (required)
+ * @param message2 string 두번째 줄 메시지 (optional)
+ * @param buttonText string 버튼이 있다면 텍스트 (optional)
+ * @param buttonLink string 버튼 누르면 이동할 링크 (optional)
+ * @returns
+ */
 const EmptyLanding = (props: EmptyLandingProps) => {
   const { message1, message2, buttonText, noIcon, buttonLink, header } = props;
   const router = useRouter();

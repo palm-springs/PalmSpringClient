@@ -10,6 +10,7 @@ const page = () => {
         message2="지금 하나 만들어보세요."
         buttonText="블로그 만들기"
         buttonLink="/create-blog"
+        header={false}
       />
     </DashBoardTemplate>
   );
