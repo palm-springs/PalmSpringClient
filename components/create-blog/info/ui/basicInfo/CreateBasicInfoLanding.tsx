@@ -25,10 +25,17 @@ const CreateBasicInfoLanding = () => {
 
   const handleOnChange = (e: React.ChangeEvent<HTMLInputElement>) => {
     const { value, id } = e.currentTarget;
-    setBlogData((prev: createBlogData) => ({ ...prev, [id]: value }));
 
     if (id === 'url') {
-      CheckDuplication(value, setIsAddressDuplicate);
+      const checkAddressRule = /^[a-z0-9_]*$/.test(value);
+      if (checkAddressRule) {
+        setBlogData((prev: createBlogData) => ({ ...prev, [id]: value }));
+        CheckDuplication(value, setIsAddressDuplicate);
+      } else {
+        alert('이것만 쓰세요');
+      }
+    } else {
+      setBlogData((prev: createBlogData) => ({ ...prev, [id]: value }));
     }
   };
 

@@ -17,7 +17,7 @@ const TextInputForm = (props: TextInputFormProps) => {
     <Label>
       <TitleContainer>
         <InputTitle>블로그 {type}</InputTitle>
-        {type === '주소' && <span>영어문자와 숫자, 언더바(_)만 사용할 수 있어요</span>}
+        {type === '주소' && <span>영어 소문자와 숫자, 언더바(_)만 사용할 수 있어요</span>}
       </TitleContainer>
       <InputContainer
         className={type}
