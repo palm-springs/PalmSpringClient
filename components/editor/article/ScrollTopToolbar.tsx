@@ -2,8 +2,8 @@ import React, { useEffect, useState } from 'react';
 import { Editor } from '@tiptap/react';
 import styled from 'styled-components';
 
-import ArticleTitle from '../ui/ArticleTitle';
-import ToolBox from '../ui/ToolBox';
+import ArticleTitle from './ui/ArticleTitle';
+import ToolBox from './ui/ToolBox';
 
 const ScrollTopToolbar = () => {
   const [isToolbarExpanded, setIsToolbarExpanded] = useState(false);
@@ -29,13 +29,7 @@ const ScrollTopToolbar = () => {
       <TopToolbarContainer isToolbarExpanded={isToolbarExpanded}>
         <ToolBox
           editor={new Editor()}
-          encodeFileToBase64={function ({
-            event,
-            editor,
-          }: {
-            event: React.ChangeEvent<HTMLInputElement>;
-            editor: Editor;
-          }): Promise<string> {
+          encodeFileToBase64={function (event: React.ChangeEvent<HTMLInputElement>, editor: Editor): void {
             throw new Error('Function not implemented.');
           }}
           setLink={function ({ editor }: { editor: Editor }): void {

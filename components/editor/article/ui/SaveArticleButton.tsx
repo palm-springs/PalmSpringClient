@@ -7,11 +7,13 @@ import ModalPortal from '@/components/common/ModalPortal';
 import DashboardDeleteModal from '@/components/common/ui/DashboardDeleteModal';
 
 interface editorProps {
-  handleExtractHTML: () => void;
+  handleOnClickDraft: () => void;
+  handleOnClickPublish: () => void;
 }
 
-const SaveArticleButton = ({ handleExtractHTML }: editorProps) => {
+const SaveArticleButton = (props: editorProps) => {
   const [isModal, setIsModal] = useState(false);
+  const { handleOnClickDraft, handleOnClickPublish } = props;
 
   const modalOpenHandler = () => {
     setIsModal(!isModal);
@@ -30,10 +32,12 @@ const SaveArticleButton = ({ handleExtractHTML }: editorProps) => {
           <ExitButton type="button" onClick={modalOpenHandler}>
             나가기
           </ExitButton>
-          <TemporarySaveButton type="button" onClick={handleExtractHTML}>
+          <TemporarySaveButton type="button" onClick={handleOnClickDraft}>
             임시저장
           </TemporarySaveButton>
-          <SaveButton type="button">발행하기</SaveButton>
+          <SaveButton type="button" onClick={handleOnClickPublish}>
+            발행하기
+          </SaveButton>
         </BottomWrapper>
       </ButtonContainer>
       {isModal && (
