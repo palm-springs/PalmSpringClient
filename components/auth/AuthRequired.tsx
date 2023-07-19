@@ -10,33 +10,33 @@ import { accessTokenState } from './states/atom';
 
 const AuthRequired = ({ children }: { children: React.ReactNode }) => {
   const router = useRouter();
-  console.log('here');
 
   const [accessToken, setAccessToken] = useRecoilState(accessTokenState);
   const resetAccessToken = useResetRecoilState(accessTokenState);
-  console.log(accessToken);
+  // console.log(accessToken);
   // access token 재발급 요청 함수
-  const refresh = async () => {
-    const newAccessToken = await getRefreshToken();
-    console.log('refresh');
-    switch (newAccessToken.code) {
-      case 401:
-        router.push('/auth');
-        break;
-      case 200:
-        setAccessToken(`Bearer ${newAccessToken}`);
-        break;
-      default:
-        console.log(newAccessToken.message);
-        break;
-    }
-  };
+  // const refresh = async () => {
+  //   const newAccessToken = await getRefreshToken();
+  //   console.log('refresh');
+  //   switch (newAccessToken.code) {
+  //     case 401:
+  //       router.push('/auth');
+  //       break;
+  //     case 200:
+  //       setAccessToken(`Bearer ${newAccessToken}`);
+  //       break;
+  //     default:
+  //       console.log(newAccessToken.message);
+  //       break;
+  //   }
+  // };
 
   useEffect(() => {
     console.log('first effect');
     if (accessToken === null) {
+      router.push('/auth');
       console.log('no accessToken');
-      refresh();
+      // refresh();
     }
   }, []);
 
@@ -47,29 +47,25 @@ const AuthRequired = ({ children }: { children: React.ReactNode }) => {
         return response;
       },
       async (err) => {
-        console.log(err);
         const { status, statusText } = err.response;
-        const config = err.config;
-
-        console.log('err here');
-        console.log(status);
-
         if (status === 401) {
           // 액세스 토큰 만료
-          if (statusText === 'Access Token is expired.') {
-            console.log('err msg:', statusText);
-            refresh();
-            return client(config);
-          }
+          // if (statusText === 'Access Token is expired.') {
+          // console.log('err msg:', statusText);
+          resetAccessToken();
+          router.push('/auth');
+          // refresh();
+          // return client(config);
+          // }
           // 리프레시 토큰 만료
-          else if (statusText === 'Refresh Token is expired.') {
-            console.log('err msg:', statusText);
-            resetAccessToken();
-            router.push('/auth');
-          } else {
-            console.log(statusText);
-          }
-          return Promise.reject(err);
+          // else if (statusText === 'Refresh Token is expired.') {
+          //   console.log('err msg:', statusText);
+          //   resetAccessToken();
+          //   router.push('/auth');
+          // } else {
+          //   console.log(statusText);
+          // }
+          // return Promise.reject(err);
         }
 
         // authorization 값 없을 때

@@ -19,7 +19,7 @@ const RequestAccessToken = async (props: getAccessTokenProps) => {
     } = await postSocialLogin('google', platformData?.access_token);
     setAccessToken(accessToken);
 
-    router.push('/create-blog/info');
+    router.push('/create-blog');
   }
 };
 

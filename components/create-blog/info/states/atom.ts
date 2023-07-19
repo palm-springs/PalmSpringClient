@@ -16,3 +16,8 @@ export const invalidTextState = atom<boolean>({
   key: 'invalidTextState',
   default: false,
 });
+
+export const addressDuplicateState = atom<boolean | null>({
+  key: 'addressDuplicateState',
+  default: null,
+});
