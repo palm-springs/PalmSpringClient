@@ -1,12 +1,40 @@
 'use client';
-import React from 'react';
+import React, { useState } from 'react';
 import styled from 'styled-components';
 
+import TextInputForm from '@/components/create-blog/info/ui/TextInputForm';
+import { Loader01Icon } from '@/public/icons';
+
+import PublishInputForm from './PublishInputForm';
+
 const UrlCustom = () => {
+  const [url, setUrl] = useState('');
+  const [isAddressFocus, setIsAddressFocus] = useState(false);
+  const [isAddressDuplicate, setIsAddressDuplicate] = useState<boolean | null>(null);
+
+  const handleOnChange = (e: React.ChangeEvent<HTMLInputElement>) => {
+    const { value } = e.currentTarget;
+    setUrl(value);
+
+    // url 중복 쳌 :  CheckDuplication(value, setIsAddressDuplicate);
+  };
   return (
     <UrlContainer>
       <UrlTitle>URL</UrlTitle>
-      <UrlCustomTextarea defaultValue="/@sopt/content/"></UrlCustomTextarea>
+      <PublishInputForm
+        isFocus={isAddressFocus}
+        isAddressDuplicate={isAddressDuplicate === null ? undefined : isAddressDuplicate}>
+        <div>/@sopt/content/</div>
+        <TextInput
+          onFocus={() => setIsAddressFocus(true)}
+          onBlur={() => setIsAddressFocus(false)}
+          value={url}
+          onChange={handleOnChange}
+        />
+        {isAddressDuplicate === null && url !== '' && <Loader01Icon />}
+      </PublishInputForm>
+      {/* <TextInputForm type={''} children={undefined} isFocus={false} /> */}
+      {/* <UrlCustomTextarea defaultValue="/@sopt/content/"></UrlCustomTextarea> */}
     </UrlContainer>
   );
 };
@@ -36,4 +64,21 @@ const UrlContainer = styled.div`
 const UrlTitle = styled.p`
   color: ${({ theme }) => theme.colors.grey_950};
   ${({ theme }) => theme.fonts.Body2_Semibold};
+`;
+
+const TextInput = styled.input`
+  ${({ theme }) => theme.fonts.Body2_Regular};
+  border: none;
+
+  padding: 0;
+  width: 100%;
+  height: 100%;
+
+  &::placeholder {
+    color: ${({ theme }) => theme.colors.grey_600};
+  }
+
+  &:focus {
+    outline: none;
+  }
 `;
