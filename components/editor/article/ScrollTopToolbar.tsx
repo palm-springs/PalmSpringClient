@@ -25,22 +25,11 @@ const ScrollTopToolbar = () => {
 
   return (
     <>
-      <ArticleTitle
-        title={''}
-        setTitle={function (value: React.SetStateAction<string>): void {
-          throw new Error('Function not implemented.');
-        }}
-      />
+      <ArticleTitle />
       <TopToolbarContainer isToolbarExpanded={isToolbarExpanded}>
         <ToolBox
           editor={new Editor()}
-          encodeFileToBase64={function ({
-            event,
-            editor,
-          }: {
-            event: React.ChangeEvent<HTMLInputElement>;
-            editor: Editor;
-          }): Promise<string | void> {
+          encodeFileToBase64={function (event: React.ChangeEvent<HTMLInputElement>, editor: Editor): void {
             throw new Error('Function not implemented.');
           }}
           setLink={function ({ editor }: { editor: Editor }): void {
