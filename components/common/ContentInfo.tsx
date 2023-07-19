@@ -6,21 +6,34 @@ import styled from 'styled-components';
 
 import useGetIfContentPage from '@/hooks/useGetIfContentPage';
 import { NoUserProfileIcon } from '@/public/icons';
-import { ContentProps } from '@/types/content';
 
 interface ContentInfoProps {
-  content: ContentProps;
+  contentInfoData: {
+    title: string;
+    description: string | null;
+    teamMember: {
+      id: number;
+      thumbnail: string | null;
+      name: string;
+      job: string;
+      createdAt: string;
+    };
+  };
 }
 
+// @params teamMember id 이건 나중에 author 페이지로 이동하는데 필요할수도 있을거 같아서 일단 받아왔습니당
+// @params teamMember thumbnail 글쓴이 프로필 사진 없을 시 기본 프로필 아이콘으로 보여줌
+
 const ContentInfo = (props: ContentInfoProps) => {
-  const ifContent = useGetIfContentPage();
   const {
-    content: {
+    contentInfoData: {
       title,
       description,
-      teamMember: { thumbnail, name, job, createdAt },
+      teamMember: { id, thumbnail, name, job, createdAt },
     },
   } = props;
+  console.log(id);
+  const ifContent = useGetIfContentPage();
 
   return (
     <ContentInfoContainer className={ifContent === 'content' ? 'noHover' : 'hover'}>
@@ -97,6 +110,7 @@ const ContentInfoContainer = styled.section`
 const WriterNameBox = styled.div`
   display: flex;
   align-items: center;
+
   ${({ theme }) => theme.fonts.Body2_Regular};
 `;
 
