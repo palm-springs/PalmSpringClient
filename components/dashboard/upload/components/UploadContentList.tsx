@@ -5,13 +5,14 @@ import { useParams } from 'next/navigation';
 
 import EmptyLanding from '@/components/common/ui/EmptyLanding';
 import { ArticleData } from '@/types/article';
+import { Response } from '@/types/common';
 
 import DashBoardContent from '../../components/DashBoardContent';
 import DashBoardContentListContainer from '../../components/ui/DashBoardContentListContainer';
 
 interface UploadContentListProps {
   category: string[];
-  articleData?: ArticleData[];
+  articleData?: Response<ArticleData[]>;
 }
 
 const UploadContentList = (props: UploadContentListProps) => {
@@ -19,7 +20,7 @@ const UploadContentList = (props: UploadContentListProps) => {
 
   const { team } = useParams();
 
-  if (!articleData || articleData.length === 0)
+  if (!articleData || articleData.data.length === 0)
     return (
       <EmptyLanding
         header={true}
@@ -32,7 +33,7 @@ const UploadContentList = (props: UploadContentListProps) => {
 
   return (
     <DashBoardContentListContainer>
-      {articleData.map(({ id, title, memberName, job, createdAt, categoryArticleResponseDto }) => {
+      {articleData.data.map(({ id, title, memberName, job, createdAt, categoryArticleResponseDto }) => {
         return (
           <DashBoardContent
             key={id}
