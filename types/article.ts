@@ -1,6 +1,6 @@
-export interface ArticleProps {
+export interface ArticleData {
   id: number;
-  thumbnail: string;
+  thumbnail?: string;
   title: string;
   description: string;
   memberName: string;

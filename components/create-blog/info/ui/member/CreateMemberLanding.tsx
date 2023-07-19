@@ -1,22 +1,34 @@
 'use client';
 import { useEffect, useState } from 'react';
+import { useRecoilState } from 'recoil';
 import styled from 'styled-components';
 
+import { postCreateBlog } from '@/api/blog';
 import AddMemberForm from '@/components/common/ui/AddMemberForm';
-import { ProgressStateProps } from '@/types/progress';
 
-const CreateMemberLanding = (props: ProgressStateProps) => {
-  const { progressState, setProgressState } = props;
+import { createBlogDataState, progressState } from '../../states/atom';
 
+const CreateMemberLanding = () => {
   const [containerState, setContainerState] = useState('');
+  const [progress, setProgress] = useRecoilState(progressState);
+  const [blogData, setBlogData] = useRecoilState(createBlogDataState);
 
   useEffect(() => {
-    if (progressState === -2) {
+    if (progress === -2) {
       setContainerState('fadeDownOut');
-    } else if (progressState === 3) {
+    } else if (progress === 3) {
       setContainerState('fadeIn');
     }
-  }, [progressState]);
+  }, [progress]);
+
+  const handleOnCreateClick = () => {
+    const { description } = blogData;
+    if (description === '') {
+      setBlogData((prev) => ({ ...prev, description: null }));
+    }
+    console.log(blogData);
+    postCreateBlog(blogData);
+  };
 
   return (
     <CreateMemberContainer className={containerState}>
@@ -30,10 +42,12 @@ const CreateMemberLanding = (props: ProgressStateProps) => {
         </SubTitleContainer>
         <AddMemberForm width={'40'} height={'17.2'} paddingUD={'2'} paddingLR={'2.4'} />
         <ButtonContainer>
-          <PreviousButton type="button" onClick={() => setProgressState(-2)}>
+          <PreviousButton type="button" onClick={() => setProgress(-2)}>
             이전으로
           </PreviousButton>
-          <InviteButton type="button">시작하기</InviteButton>
+          <InviteButton type="button" onClick={handleOnCreateClick}>
+            시작하기
+          </InviteButton>
         </ButtonContainer>
       </AddMemberContainer>
     </CreateMemberContainer>
