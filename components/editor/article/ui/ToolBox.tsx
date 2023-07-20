@@ -28,7 +28,7 @@ interface editorProps {
   setLink: ({ editor }: { editor: Editor }) => void;
 }
 
-const ToolBox = ({ editor, encodeFileToBase64, setLink }: editorProps) => {
+const EditorMenuBar = ({ editor, encodeFileToBase64, setLink }: editorProps) => {
   const [isAtTop, setIsAtTop] = useState(true);
   const [visible, setVisible] = useState(false);
 
@@ -103,13 +103,13 @@ const ToolBox = ({ editor, encodeFileToBase64, setLink }: editorProps) => {
   );
 };
 
-export default ToolBox;
+export default EditorMenuBar;
 
 const Wrapper = styled.div<{ isVisible?: boolean }>`
   position: absolute;
   transition: width 1s ease;
   opacity: ${({ isVisible }) => (isVisible ? 1 : 0)};
-  z-index: 0;
+  z-index: 10;
   margin-left: -35.9rem;
   background-color: ${({ theme }) => theme.colors.grey_100};
   width: 100vw;
@@ -127,7 +127,7 @@ const IconWrapper = styled.div`
   align-items: center;
   justify-content: space-evenly;
   transition: width 0.7s ease;
-  z-index: 1;
+  z-index: 20;
   margin: 4rem 0 2rem 0;
   border-radius: 0.8rem;
   background-color: ${({ theme }) => theme.colors.grey_100};
@@ -138,6 +138,7 @@ const IconWrapper = styled.div`
 const IconContainer = styled.div<{ isAtTop: boolean }>`
   position: ${({ isAtTop }) => isAtTop && 'sticky'};
   top: 0;
+  z-index: 30;
   margin-left: 35.9rem;
   width: ${({ isAtTop }) => isAtTop && '72.2rem'};
 `;
