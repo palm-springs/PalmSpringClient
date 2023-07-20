@@ -7,12 +7,10 @@ import { InputProfileIcon } from '@/public/icons';
 const UserProfile = () => {
   return (
     <UserProfileContainer>
-      <UserInfoTitle>내정보</UserInfoTitle>
       <ProfileInputLabel>
         <input type="file" />
         <ImageGuideContainer>
           <ImageGuideTitle>프로필 사진</ImageGuideTitle>
-          <ImageGuideContent>000*000 JPEG (이미지 규격 가이드)</ImageGuideContent>
         </ImageGuideContainer>
         <InputProfileIcon />
       </ProfileInputLabel>
@@ -28,24 +26,13 @@ const ImageGuideContainer = styled.div`
   margin: 2.4rem 0 0.8rem 0;
 `;
 
-const ImageGuideContent = styled.p`
-  margin-left: 0.8rem;
-  ${({ theme }) => theme.fonts.Caption};
-  color: ${({ theme }) => theme.colors.grey_700};
-`;
-
 const ImageGuideTitle = styled.p`
   ${({ theme }) => theme.fonts.Body2_Semibold};
   color: ${({ theme }) => theme.colors.grey_950};
 `;
 
-const UserInfoTitle = styled.p`
-  margin-top: 6rem;
-  ${({ theme }) => theme.fonts.Heading1};
-  color: ${({ theme }) => theme.colors.grey_900};
-`;
-
 const ProfileInputLabel = styled.label`
+  display: flex;
   border: none;
   border-radius: 0.5rem;
   input[type='file'] {
