@@ -1,1 +1,1 @@
-export const GOOGLE_REDIRECT_URI = 'http://localhost:3000/loading';
+export const GOOGLE_REDIRECT_URI = 'https://test.palmsummer.site/loading';
