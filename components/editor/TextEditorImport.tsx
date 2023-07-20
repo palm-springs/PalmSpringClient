@@ -187,26 +187,8 @@ const TextEditorBuild = () => {
   };
 
   return (
-    //   <>
-    //     <div className={`toolbar ${isToolbarExpanded ? 'expanded' : ''}`}>
-    //       {isToolbarExpanded ? (
-    //         <>
-    //           <ToolBox editor={editor} encodeFileToBase64={encodeFileToBase64} setLink={setLink} />
-    //         </>
-    //       ) : (
-    //         <>
-    //           <TopToolBox editor={editor} encodeFileToBase64={encodeFileToBase64} setLink={setLink} />
-    //         </>
-    //       )}
-    //     </div>
-    //     {/* <ScrollTopToolbar /> */}
-    //     <TextEditor editor={editor} handleDrop={handleDrop} handleDragOver={handleDragOver} />
-    //     <SaveArticleButton handleExtractHTML={handleExtractHTML} />
-    //   </>
-    // );
     <>
       <ToolBox editor={editor} encodeFileToBase64={encodeFileToBase64} setLink={setLink} />
-      {/* <ScrollTopToolbar /> */}
       <TextEditor editor={editor} handleDrop={handleDrop} handleDragOver={handleDragOver} />
       <SaveArticleButton handleOnClickDraft={handleOnClickDraft} handleOnClickPublish={handleOnClickPublish} /> */
     </>

@@ -3,6 +3,7 @@
 import React, { useEffect, useState } from 'react';
 import { useParams } from 'next/navigation';
 
+import EmptyLanding from '@/components/common/ui/EmptyLanding';
 import { useGetArticleList } from '@/hooks/article';
 import { useGetCategoryList } from '@/hooks/dashboard';
 import { getLiteralCategoryList } from '@/utils/getLiteralCategoryList';
@@ -28,7 +29,16 @@ const UploadTemplate = () => {
     console.log(category, currentCategoryId);
   }, [articleData]);
 
-  if (!categoryData || !articleData) return <div>로더</div>;
+  if (!categoryData)
+    return (
+      <EmptyLanding
+        header={true}
+        message1="업로드된 글이 없어요."
+        message2="새 글을 작성해보세요."
+        buttonText="새 글 작성하기"
+        buttonLink={`/${blogUrl}/editor/article`}
+      />
+    );
 
   const filteredCategory = getLiteralCategoryList(categoryData);
 
@@ -41,7 +51,7 @@ const UploadTemplate = () => {
           categoryListData={categoryData.data}
         />
         <Line />
-        <UploadContentList category={filteredCategory} articleData={articleData.data} />
+        <UploadContentList category={filteredCategory} articleData={articleData} />
       </DashBoardTemplateContainer>
     </>
   );

@@ -3,7 +3,6 @@
 import Image from 'next/image';
 import styled from 'styled-components';
 
-import { GOOGLE_REDIRECT_URI } from '@/constants/auth';
 import { LogoIcon } from '@/public/icons';
 import { GoogleImg } from '@/public/images';
 import { authClientInfo } from '@/types/auth';
@@ -18,7 +17,7 @@ const LoginLanding = (props: authClientInfo) => {
         <LogoIcon />
         <LoginText>우리 팀 이야기를 세상에 전달하는 방법</LoginText>
         <LoginButton
-          href={`${GOOGLE_END_POINT}?client_id=${clientId}&redirect_uri=${GOOGLE_REDIRECT_URI}&response_type=code&scope=email profile`}>
+          href={`${GOOGLE_END_POINT}?client_id=${clientId}&redirect_uri=${process.env.NEXT_PUBLIC_GOOGLE_REDIRECT_URI}&response_type=code&scope=email profile`}>
           <Image src={GoogleImg} alt="구글 로고" />
           <span>구글로 시작하기</span>
         </LoginButton>

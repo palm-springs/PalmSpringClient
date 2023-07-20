@@ -1,15 +1,20 @@
-import React from 'react';
+import React, { Dispatch, MouseEventHandler, SetStateAction } from 'react';
 import { styled } from 'styled-components';
 
 interface IndivBlogProps {
   isCurrentBlog: boolean;
   innerText: string;
+  handleChange: () => void;
 }
 
 const IndivBlog = (props: IndivBlogProps) => {
-  const { isCurrentBlog, innerText } = props;
+  const { isCurrentBlog, innerText, handleChange } = props;
 
-  return <IndivBlogUI $isCurrentBlog={isCurrentBlog}>{innerText}</IndivBlogUI>;
+  return (
+    <IndivBlogUI $isCurrentBlog={isCurrentBlog} onClick={handleChange}>
+      {innerText}
+    </IndivBlogUI>
+  );
 };
 
 export default IndivBlog;

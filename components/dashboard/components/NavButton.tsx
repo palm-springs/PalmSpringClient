@@ -1,6 +1,6 @@
 'use client';
 
-import React from 'react';
+import React, { useEffect } from 'react';
 import { useParams, useRouter } from 'next/navigation';
 
 import useGetLastPathName from '@/hooks/useGetLastPathName';
@@ -24,6 +24,12 @@ const NavButton = (props: NavButtonProps) => {
 
   const { team } = useParams();
 
+  useEffect(() => {
+    if (team === 'no-team') {
+      router.push('/no-team/dashboard');
+    }
+  }, []);
+
   const { innerText, icon } = mapPageType2Component[currentPageType];
 
   return (
@@ -34,7 +40,8 @@ const NavButton = (props: NavButtonProps) => {
         } else {
           router.push(currentPageType);
         }
-      }}>
+      }}
+      disabled={pageType === 'dashboard'}>
       <SideBarContent currentPage={pageType === currentPageType}>
         {icon}
         {innerText}

@@ -1,7 +1,7 @@
 import { HeaderProps } from '@/types/blogHeader';
 import { createBlogData } from '@/types/blogInfo';
 import { BlogImgProps } from '@/types/blogMainImg';
-import { Response } from '@/types/common';
+import { Response, Response } from '@/types/common';
 import { PageListProps } from '@/types/dashboard';
 
 import { client } from '.';

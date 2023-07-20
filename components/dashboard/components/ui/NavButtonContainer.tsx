@@ -4,13 +4,14 @@ import { styled } from 'styled-components';
 interface NavButtonContainerProps {
   children: React.ReactNode;
   onNavButtonClick: React.MouseEventHandler<HTMLButtonElement>;
+  disabled?: boolean;
 }
 
 const NavButtonContainer = (props: NavButtonContainerProps) => {
-  const { children, onNavButtonClick } = props;
+  const { children, onNavButtonClick, disabled } = props;
 
   return (
-    <NavButtonUI type="button" onClick={onNavButtonClick}>
+    <NavButtonUI type="button" onClick={onNavButtonClick} disabled={disabled}>
       {children}
     </NavButtonUI>
   );
