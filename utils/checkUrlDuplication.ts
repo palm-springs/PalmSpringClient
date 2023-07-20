@@ -8,7 +8,7 @@ const CheckDuplication = debounce(async (addressValue: string, setState: Dispatc
   if (addressValue === '') {
     return;
   } else {
-    const data = await getCheckBlogUrlDuplication(addressValue);
+    const { data } = await getCheckBlogUrlDuplication(addressValue);
     setState(data);
   }
 }, 500);

@@ -7,7 +7,8 @@ export type dashBoardPageType =
   | 'page'
   | 'subscriber'
   | 'tempsaved'
-  | 'upload';
+  | 'upload'
+  | 'basicuserinfo';
 
 export interface NavListProps {
   id: string;

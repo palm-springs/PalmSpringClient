@@ -50,6 +50,10 @@ const mapPageType2HeaderInfo: mapPageType2HeaderInfoBluePrint = {
   blogdirectnav: {
     title: '블로그 바로 가기',
   },
+  basicuserinfo: {
+    title: '내 정보',
+    buttonInnerText: '저장하기',
+  },
 };
 
 export default mapPageType2HeaderInfo;
