@@ -20,6 +20,7 @@ const ContentTemplate = (props: ContentTemplateProps) => {
   const {
     data: { thumbnail, title, description, teamMember, content },
   } = props;
+
   const notify = () =>
     toast.success('링크가 복사되었습니다', {
       id: 'link copied',
@@ -36,6 +37,11 @@ const ContentTemplate = (props: ContentTemplateProps) => {
       },
     });
 
+  const copyCurrentUrl = () => {
+    navigator.clipboard.writeText(window.location.href);
+    notify();
+  };
+
   return (
     <>
       <Toaster
@@ -51,9 +57,9 @@ const ContentTemplate = (props: ContentTemplateProps) => {
         {thumbnail && <Image src={BlogSampleImg} alt="blog thumbnail" />}
         {/* 위의 image 태그의 src는 실제 사진 url 이 넘어오면 바꿔줄 예정입니다 */}
         {/* {thumbnail && <Image src={thumbnail} alt="blog thumbnail" />} */}
-        <ContentInfo title={title} description={description} teamMember={teamMember} />
+        <ContentInfo contentInfoData={{ title, description, teamMember }} />
         <Content content={content} />
-        <LinkBtn onClick={notify}>아티클 링크 복사하기</LinkBtn>
+        <LinkBtn onClick={copyCurrentUrl}>아티클 링크 복사하기</LinkBtn>
         <Bar />
         <Recommend />
       </ContentPageContainer>
