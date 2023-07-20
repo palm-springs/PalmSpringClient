@@ -3,18 +3,21 @@
 import React from 'react';
 import styled from 'styled-components';
 
-import { AuthorInfoProps } from '@/types/author';
+interface AuthorInfoComponentProps {
+  thumbnail: string;
+  nickname: string;
+  job: string;
+  description: string;
+}
 
-import AuthorProfile from './AuthorProfile';
-
-const AuthorInfo = (props: AuthorInfoProps) => {
-  const { name, position, description } = props;
+const AuthorInfo = (props: AuthorInfoComponentProps) => {
+  const { thumbnail, nickname, job, description } = props;
 
   return (
     <AuthorInfoContainer>
-      <AuthorProfile />
-      <AuthorName>{name}</AuthorName>
-      <AuthorPosition>{position}</AuthorPosition>
+      <AuthorProfile src={thumbnail} alt="author profile pic" />
+      <AuthorName>{nickname}</AuthorName>
+      <AuthorPosition>{job}</AuthorPosition>
       <AuthorDescription>{description}</AuthorDescription>
     </AuthorInfoContainer>
   );
@@ -28,6 +31,13 @@ const AuthorInfoContainer = styled.div`
   align-items: center;
   width: 100%;
 `;
+
+const AuthorProfile = styled.img`
+  border-radius: 50%;
+  width: 16rem;
+  height: 16rem;
+`;
+
 const AuthorName = styled.div`
   ${({ theme }) => theme.fonts.Heading1};
   margin-top: 2.4rem;

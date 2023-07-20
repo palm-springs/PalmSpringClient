@@ -1,6 +1,7 @@
 export interface AuthorInfoProps {
-  name: string;
-  position: string;
+  thumbnail: string;
+  nickname: string;
+  job: string;
   description: string;
-  // profileImgSrc: string;
+  articles: [];
 }
