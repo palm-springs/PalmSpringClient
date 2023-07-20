@@ -1,9 +1,11 @@
+'use client';
 import React from 'react';
 import { useParams, useRouter } from 'next/navigation';
+import router from 'next/router';
 import styled from 'styled-components';
 
-import ARTICLE_CONTENT from '@/constants/ArticleContent';
-import { useGetSingleArticleData, useGetSinglePageleData } from '@/hooks/article';
+// import ARTICLE_CONTENT from '@/constants/ArticleContent';
+import { useGetSingleArticleData, useGetSinglePageData } from '@/hooks/article';
 
 interface PublishTitleprops {
   pageType: string;
@@ -17,11 +19,26 @@ const PublishTitle = (props: PublishTitleprops) => {
   const { team } = useParams();
   const { pageType, blogUrl, articleId } = props;
   const singleArticleData = useGetSingleArticleData(team, 1);
-  const singlePageleData = useGetSinglePageleData(team, 0);
-  console.log(singleArticleData?.code);
+  const singlePageData = useGetSinglePageData(team, '');
   if (!singleArticleData) return;
+  if (!singlePageData) return;
 
-  return <ArticleTitle>{singleArticleData.data.title}</ArticleTitle>;
+  switch (pageType) {
+    case `article`:
+      return (
+        <>
+          <ArticleTitle>{singleArticleData.data.title}</ArticleTitle>;
+        </>
+      );
+    case `page`:
+      return (
+        <>
+          <ArticleTitle>{singlePageData.data.title}</ArticleTitle>;
+        </>
+      );
+    default:
+      router.push('/not-found');
+  }
 };
 
 export default PublishTitle;

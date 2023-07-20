@@ -11,7 +11,7 @@ const PagePublishPage = () => {
   return (
     <PagePublishContainer>
       <ThumbnailInput pageType="page" />
-      <PublishTitle pageType="page" />
+      <PublishTitle pageType="page" blogUrl={'helloworld'} articleId={1} />
       <UrlCustom pageType="page" />
       <PublishBottomButtons pageType="page" />
     </PagePublishContainer>

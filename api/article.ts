@@ -31,7 +31,7 @@ export const postArticleList = async (url: string, requestBody: postArticleListR
 };
 
 export const getSinglePageData = async (blogUrl: string, pageUrl: string) => {
-  const { data } = await client.get<Response<PageData>>(`/api/v1/article/${blogUrl}/detail?articleUrl=${pageUrl}`);
+  const { data } = await client.get<Response<PageData>>(`/api/v1/page/${blogUrl}/detail?pageUrl=${pageUrl}}`);
   return data;
 };
 

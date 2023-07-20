@@ -13,7 +13,7 @@ const ArticlePublishPage = () => {
   return (
     <ArticlePublishContainer>
       <ThumbnailInput pageType="article" />
-      <PublishTitle pageType="article" />
+      <PublishTitle pageType="article" blogUrl={'team'} articleId={1} />
       <CategorySelect />
       <OneLiner />
       <UrlCustom pageType="article" />
