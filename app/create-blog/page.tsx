@@ -1,6 +1,7 @@
+import AuthRequired from '@/components/auth/AuthRequired';
 import CreateBlogBasicInfo from '@/components/create-blog/info/CreateBlogBasicInfo';
 
-const CreateBlogInfoPage = () => {
+const CreateBlogInfoPage = async () => {
   return <CreateBlogBasicInfo />;
 };
 

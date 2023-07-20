@@ -1,5 +1,8 @@
 'use client';
+import { useRecoilValue } from 'recoil';
 import styled from 'styled-components';
+
+import { addressDuplicateState, createBlogDataState, invalidTextState } from '../states/atom';
 
 import InputMessage from './basicInfo/InputMessage';
 import InputTitle from './InputTitle';
@@ -7,25 +10,37 @@ interface TextInputFormProps {
   type: string;
   children: React.ReactNode;
   isFocus: boolean;
-  isAddressDuplicate?: boolean;
 }
 
 const TextInputForm = (props: TextInputFormProps) => {
-  const { type, children, isFocus, isAddressDuplicate } = props;
+  const { type, children, isFocus } = props;
+  const isAddressDuplicate = useRecoilValue(addressDuplicateState);
+  const isInvalidText = useRecoilValue(invalidTextState);
+  const { url } = useRecoilValue(createBlogDataState);
+
+  let id = '';
+  if (url === '' || type !== '주소') {
+    id = '';
+  } else if (isInvalidText) {
+    id = 'failed';
+  } else if (isAddressDuplicate === null) {
+    id = '';
+  } else if (isAddressDuplicate) {
+    id = 'failed';
+  } else {
+    id = 'success';
+  }
 
   return (
     <Label>
       <TitleContainer>
         <InputTitle>블로그 {type}</InputTitle>
-        {type === '주소' && <span>영어문자와 숫자, 언더바(_)만 사용할 수 있어요</span>}
+        {type === '주소' && <span>영어 소문자와 숫자, 언더바(_)만 사용할 수 있어요</span>}
       </TitleContainer>
-      <InputContainer
-        className={type}
-        id={isAddressDuplicate !== undefined ? (isAddressDuplicate ? 'failed' : 'success') : ''}
-        $isFocus={isFocus}>
+      <InputContainer className={type} id={id} $isFocus={isFocus}>
         {children}
       </InputContainer>
-      {isAddressDuplicate !== undefined && <InputMessage isAddressDuplicate={isAddressDuplicate} />}
+      {type === '주소' && (isInvalidText || isAddressDuplicate !== undefined) && <InputMessage />}
     </Label>
   );
 };
