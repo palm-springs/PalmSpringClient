@@ -1,20 +1,37 @@
 'use client';
-import React from 'react';
+import React, { useState } from 'react';
 import styled from 'styled-components';
 
-import { InputProfileIcon } from '@/public/icons';
+import { InputPlusButtonIcon, UserProfileDeleteIcon, UsersProfilesInputIcon } from '@/public/icons';
 
 const UserProfile = () => {
+  const [inputImage, setInputImage] = useState(true);
+
+  const handleGetUserInfo = () => {
+    setInputImage(false);
+  };
+
   return (
     <UserProfileContainer>
-      <UserInfoTitle>내정보</UserInfoTitle>
       <ProfileInputLabel>
         <input type="file" />
         <ImageGuideContainer>
           <ImageGuideTitle>프로필 사진</ImageGuideTitle>
-          <ImageGuideContent>000*000 JPEG (이미지 규격 가이드)</ImageGuideContent>
         </ImageGuideContainer>
-        <InputProfileIcon />
+
+        {inputImage ? (
+          <>
+            <UsersProfilesInputBackground />
+            {/* 실제 유저 이미지 url이 오면 밑의 코드로 대체할 예정
+            <ImageUserBox src='' alt='user profile'/> */}
+            <UsersProfilesDelete />
+          </>
+        ) : (
+          <>
+            <UsersProfilesInputBackground />
+            <UsersProfilesInput />
+          </>
+        )}
       </ProfileInputLabel>
     </UserProfileContainer>
   );
@@ -22,30 +39,42 @@ const UserProfile = () => {
 
 export default UserProfile;
 
+const ImageUserBox = styled.img`
+  border-radius: 50%;
+  width: 15.6rem;
+  height: 15.6rem;
+`;
+
+const UsersProfilesDelete = styled(UserProfileDeleteIcon)`
+  position: absolute;
+  top: 25rem;
+  left: 64.5rem;
+`;
+
+const UsersProfilesInputBackground = styled(UsersProfilesInputIcon)`
+  position: relative;
+`;
+
+const UsersProfilesInput = styled(InputPlusButtonIcon)`
+  position: absolute;
+  top: 25rem;
+  left: 64.5rem;
+`;
+
 const ImageGuideContainer = styled.div`
   display: flex;
   align-items: center;
   margin: 2.4rem 0 0.8rem 0;
 `;
 
-const ImageGuideContent = styled.p`
-  margin-left: 0.8rem;
-  ${({ theme }) => theme.fonts.Caption};
-  color: ${({ theme }) => theme.colors.grey_700};
-`;
-
-const ImageGuideTitle = styled.p`
+const ImageGuideTitle = styled.h1`
+  margin: -9rem 9.3rem 0 0;
   ${({ theme }) => theme.fonts.Body2_Semibold};
   color: ${({ theme }) => theme.colors.grey_950};
 `;
 
-const UserInfoTitle = styled.p`
-  margin-top: 6rem;
-  ${({ theme }) => theme.fonts.Heading1};
-  color: ${({ theme }) => theme.colors.grey_900};
-`;
-
 const ProfileInputLabel = styled.label`
+  display: flex;
   border: none;
   border-radius: 0.5rem;
   input[type='file'] {
