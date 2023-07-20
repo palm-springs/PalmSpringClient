@@ -5,7 +5,7 @@ const CreatePagePage = () => {
   return (
     <>
       <ArticleTitle />
-      <TextEditorBuild />
+      <TextEditorBuild pageType="page" />
     </>
   );
 };

@@ -2,19 +2,21 @@
 
 import React from 'react';
 import Link from 'next/link';
+import { useParams, useRouter } from 'next/navigation';
 import styled from 'styled-components';
 
 import useGetCategory from '@/hooks/useGetCategory';
 
 const CategoryBtnBar = () => {
   const SELECTED = useGetCategory();
+  const { team } = useParams();
 
   const CATEGORY_EXAMPLE: string[] = ['개발', '디자인', '팀문화'];
 
   const CATEGORY_LIST = CATEGORY_EXAMPLE.map((eachCategory) => {
     return (
       <CategoryBtn
-        href={`/blogNameHere/home/${eachCategory}`}
+        href={`/${team}/home/${eachCategory}`}
         key={eachCategory}
         type="button"
         className={eachCategory === decodeURI(SELECTED) ? 'selected' : ''}>
@@ -25,7 +27,7 @@ const CategoryBtnBar = () => {
 
   return (
     <CategoryBtnBarContainer>
-      <CategoryBtn href={'/blogNameHere/home'} type="button" className={SELECTED === 'home' ? 'selected' : ''}>
+      <CategoryBtn href={'/${team}/home'} type="button" className={SELECTED === 'home' ? 'selected' : ''}>
         전체
       </CategoryBtn>
       {CATEGORY_LIST}

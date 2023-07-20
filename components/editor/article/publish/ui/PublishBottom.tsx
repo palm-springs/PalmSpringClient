@@ -1,26 +1,57 @@
 'use client';
 import React from 'react';
+import router from 'next/router';
 import { useRecoilValue } from 'recoil';
 import styled from 'styled-components';
 
 import { postArticleCreateList } from '@/api/article';
+import { postPageCreate } from '@/api/page';
 
-import { articleDataState } from '../../states/atom';
+import { articleDataState, pageDataState } from '../../states/atom';
 
-const PublishBottomButtons = () => {
+interface PublishBottomButtons {
+  pageType: string;
+}
+
+const PublishBottomButtons = (props: PublishBottomButtons) => {
+  const { pageType } = props;
   const articleData = useRecoilValue(articleDataState);
+  const pageData = useRecoilValue(pageDataState);
+
   const handleOnClickLastPublish = () => {
     postArticleCreateList('helloworld', articleData);
   };
 
-  return (
-    <PublishBottomButtonsContainer>
-      <BackButton type="button">뒤로가기</BackButton>
-      <PublishButton type="button" onClick={handleOnClickLastPublish}>
-        글 발행하기
-      </PublishButton>
-    </PublishBottomButtonsContainer>
-  );
+  const handleOnClickPublish = () => {
+    postPageCreate('helloworld', pageData);
+  };
+
+  switch (pageType) {
+    case `article`:
+      return (
+        <>
+          <PublishBottomButtonsContainer>
+            <BackButton type="button">뒤로가기</BackButton>
+            <PublishButton type="button" onClick={handleOnClickLastPublish}>
+              글 발행하기
+            </PublishButton>
+          </PublishBottomButtonsContainer>
+        </>
+      );
+    case `page`:
+      return (
+        <>
+          <PublishBottomButtonsContainer>
+            <BackButton type="button">뒤로가기</BackButton>
+            <PublishButton type="button" onClick={handleOnClickPublish}>
+              글 발행하기
+            </PublishButton>
+          </PublishBottomButtonsContainer>
+        </>
+      );
+    default:
+      router.push('/not-found');
+  }
 };
 
 export default PublishBottomButtons;

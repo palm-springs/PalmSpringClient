@@ -10,10 +10,10 @@ import UrlCustom from '@/components/editor/article/publish/ui/UrlCustom';
 const PagePublishPage = () => {
   return (
     <PagePublishContainer>
-      <ThumbnailInput />
-      <PublishTitle />
-      <UrlCustom />
-      <PublishBottomButtons />
+      <ThumbnailInput pageType="page" />
+      <PublishTitle pageType="page" />
+      <UrlCustom pageType="page" />
+      <PublishBottomButtons pageType="page" />
     </PagePublishContainer>
   );
 };

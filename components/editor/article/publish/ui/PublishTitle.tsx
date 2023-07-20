@@ -1,9 +1,18 @@
 import React from 'react';
+import { useRouter } from 'next/navigation';
 import styled from 'styled-components';
 
 import ARTICLE_CONTENT from '@/constants/ArticleContent';
 
-const PublishTitle = () => {
+interface PublishTitleprops {
+  pageType: string;
+}
+
+//정보 get 해야함
+
+const PublishTitle = (props: PublishTitleprops) => {
+  const { pageType } = props;
+  const router = useRouter();
   return <ArticleTitle>{ARTICLE_CONTENT.article.title}</ArticleTitle>;
 };
 

@@ -24,9 +24,7 @@ interface postPageCreateRequest {
   content: string;
   images: string[] | null;
   thumbnail: string;
-  categoryId: number;
-  description: string;
-  articleUrl: string;
+  pageUrl: string;
 }
 
 export const postPageCreate = async (url: string, requestBody: postPageCreateRequest) => {
