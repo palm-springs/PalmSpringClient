@@ -27,6 +27,7 @@ const DashBoardNav = () => {
       <Line />
       <NavButton currentPageType="blogdirectnav" />
       <NavButton currentPageType="blogconfignav" />
+      <NavButton currentPageType="basicuserinfo" />
       {isBlogListOpen && <BlogList />}
       <DashBoardFooter />
     </DashBoardNavContainer>

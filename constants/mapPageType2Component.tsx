@@ -64,6 +64,11 @@ const mapPageType2Component: mapPageType2ComponentBluePrint = {
     innerText: '임시저장한 글',
     icon: <File02Icon />,
   },
+  basicuserinfo: {
+    path: 'basicuserinfo',
+    innerText: '유저 기본 정보',
+    icon: <UserProfile03Icon />,
+  },
 };
 
 export default mapPageType2Component;
