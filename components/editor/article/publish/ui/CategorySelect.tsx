@@ -13,7 +13,7 @@ const CategorySelect = () => {
   const [{ categoryId }, setArticleData] = useRecoilState(articleDataState);
   const [activeCategory, setActiveCategory] = useState('');
 
-  const getCategoryList = useGetCategoryList('helloworld');
+  const getCategoryList = useGetCategoryList('team');
 
   const clickActive = (e: React.MouseEvent<HTMLButtonElement>) => {
     if (!getCategoryList) return;

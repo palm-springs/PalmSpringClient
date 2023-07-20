@@ -1,5 +1,6 @@
 'use client';
 import React from 'react';
+import { useParams } from 'next/navigation';
 import router from 'next/router';
 import { useRecoilValue } from 'recoil';
 import styled from 'styled-components';
@@ -17,13 +18,14 @@ const PublishBottomButtons = (props: PublishBottomButtons) => {
   const { pageType } = props;
   const articleData = useRecoilValue(articleDataState);
   const pageData = useRecoilValue(pageDataState);
+  const { team } = useParams();
 
   const handleOnClickLastPublish = () => {
-    postArticleCreateList('helloworld', articleData);
+    postArticleCreateList(team, articleData);
   };
 
   const handleOnClickPublish = () => {
-    postPageCreate('helloworld', pageData);
+    postPageCreate(team, pageData);
   };
 
   switch (pageType) {

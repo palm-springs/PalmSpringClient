@@ -181,9 +181,9 @@ const TextEditorBuild = (props: TextEditorBuildprops) => {
       setExtractedHTML(content);
 
       if (imageArr.length === 0) {
-        postArticleList('helloworld', { title, content, images: null });
+        postArticleList(team, { title, content, images: null });
       } else {
-        postArticleList('helloworld', { title, content, images: imageArr });
+        postArticleList(team, { title, content, images: imageArr });
       }
     }
   };
@@ -197,9 +197,9 @@ const TextEditorBuild = (props: TextEditorBuildprops) => {
       console.log(imageArr.length);
 
       if (imageArr.length === 0) {
-        postPageDraft('helloworld', { title: pageTitle, content, images: null });
+        postPageDraft('team', { title: pageTitle, content, images: null });
       } else {
-        postPageDraft('helloworld', {
+        postPageDraft('team', {
           title: pageTitle,
           content,
           images: imageArr,

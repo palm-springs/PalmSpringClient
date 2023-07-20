@@ -1,3 +1,15 @@
+export interface SingleArticleData {
+  id: number;
+  thumbnail?: string;
+  title: string;
+  description: string;
+  content: string;
+  job: string;
+  name: string;
+  createdAt: string;
+  images: string;
+}
+
 export interface ArticleData {
   id: number;
   thumbnail?: string;
