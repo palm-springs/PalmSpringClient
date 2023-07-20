@@ -9,13 +9,18 @@ import ModalPortal from '@/components/common/ModalPortal';
 import AddMemberForm from '@/components/common/ui/AddMemberForm';
 import DashboardCreateModal from '@/components/common/ui/DashboardCreateModal';
 import { useGetMemberInfo } from '@/hooks/dashboard';
+import { MemberProps } from '@/types/member';
 
 import { dashBoardModalState } from '../../state/modalState';
 
 import MemberList from './MemberList';
 import MemberListHeader from './MemberListHeader';
 
-const MemberTemplate = () => {
+interface MemberTemplateProps {
+  memberListData: MemberProps[];
+}
+const MemberTemplate = (props: MemberTemplateProps) => {
+  const { memberListData } = props;
   const [modalState, setModalState] = useRecoilState(dashBoardModalState);
 
   const [emailBox, setEmailBox] = useState<string[]>([]);
@@ -31,7 +36,7 @@ const MemberTemplate = () => {
   return (
     <MemberTemplateContainer>
       <MemberListHeader />
-      <MemberList />
+      <MemberList memberListData={memberListData} />
       {modalState === 'createMember' && (
         <ModalPortal>
           <DashboardCreateModal
