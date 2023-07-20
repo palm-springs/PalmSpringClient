@@ -1,4 +1,5 @@
 import { createBlogData } from '@/types/blogInfo';
+import { Response } from '@/types/common';
 
 import { client } from '.';
 
@@ -17,6 +18,11 @@ export const getBlogInfo = async (blogUrl: string) => {
 // 블로그 url 중복 검사
 export const getCheckBlogUrlDuplication = async (blogUrl: string) => {
   const { data } = await client.get(`/api/v1/blog/check?url=${blogUrl}`);
+  return data;
+};
+
+export const getBlogHeaderInfo = async (blogUrl: string) => {
+  const { data } = await client.get<Response<HeaderProps>>(`/api/v1/blog/${blogUrl}/header`);
   return data;
 };
 

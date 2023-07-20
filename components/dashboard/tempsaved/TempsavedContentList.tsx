@@ -3,6 +3,7 @@
 import React from 'react';
 import { useParams } from 'next/navigation';
 
+import EmptyLanding from '@/components/common/ui/EmptyLanding';
 import { useGetTempSavedList } from '@/hooks/dashboard';
 
 import DashBoardContent from '../components/DashBoardContent';
@@ -13,7 +14,16 @@ const TempsavedContentList = () => {
 
   const data = useGetTempSavedList(blogUrl);
 
-  if (!data) return <div>로더가 들어갈 자리입니다...</div>;
+  if (!data || data.length === 0)
+    return (
+      <EmptyLanding
+        header={true}
+        message1="임시저장된 글이 없어요."
+        message2="새 글을 작성해보세요."
+        buttonText="새 글 작성하기"
+        buttonLink={`/${blogUrl}/editor/article`}
+      />
+    );
 
   return (
     <DashBoardContentListContainer>
