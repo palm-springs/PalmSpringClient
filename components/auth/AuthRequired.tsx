@@ -33,6 +33,9 @@ const AuthRequired = ({ children }: { children: React.ReactNode }) => {
 
   useEffect(() => {
     console.log('first effect');
+    if (accessToken) {
+      client.defaults.headers.common['Authorization'] = `Bearer ${accessToken}`;
+    }
     if (accessToken === null) {
       router.push('/auth');
       console.log('no accessToken');
@@ -44,6 +47,10 @@ const AuthRequired = ({ children }: { children: React.ReactNode }) => {
     console.log('second effect');
     const responseInterceptor = client.interceptors.response.use(
       (response) => {
+        // if (response.status === 200) {
+        //   console.log(response.data.data.accessToken);
+        //   setAccessToken(response.data.data.accessToken);
+        // }
         return response;
       },
       async (err) => {

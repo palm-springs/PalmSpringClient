@@ -44,6 +44,7 @@
     "react-dom": "18.2.0",
     "react-hot-toast": "^2.4.1",
     "recoil": "^0.7.7",
+    "recoil-persist": "^5.1.0",
     "styled-components": "^6.0.1",
     "styled-reset": "^4.4.7",
     "tiptap": "^1.32.2",
