@@ -15,6 +15,7 @@ export default DeleteButton;
 const DeleteButtonContainer = styled.div`
   display: flex;
   margin-top: 19.9rem;
+  padding-bottom: 6.3rem;
 `;
 
 const LeavingPalms = styled.p`

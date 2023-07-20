@@ -4,7 +4,6 @@ import styled from 'styled-components';
 
 import DeleteButton from '@/components/dashboard/BasicUserInfo/ui/DeleteButton';
 import UserId from '@/components/dashboard/BasicUserInfo/ui/UserId';
-import UserInfoSaveButton from '@/components/dashboard/BasicUserInfo/ui/UserInfoSaveButton';
 import UserName from '@/components/dashboard/BasicUserInfo/ui/UserName';
 import UserOneLiner from '@/components/dashboard/BasicUserInfo/ui/UserOneLiner';
 import UserPosition from '@/components/dashboard/BasicUserInfo/ui/UserPosition';
@@ -15,10 +14,9 @@ const BasicUserInfoPage = () => {
     <BasicUserInfoContainer>
       <UserProfile />
       <UserName />
-      <UserOneLiner />
       <UserId />
+      <UserOneLiner />
       <UserPosition />
-      <UserInfoSaveButton />
       <DeleteButton />
     </BasicUserInfoContainer>
   );
