@@ -37,7 +37,6 @@ const AuthRequired = ({ children }: { children: React.ReactNode }) => {
       client.defaults.headers.common['Authorization'] = `Bearer ${accessToken}`;
     }
     if (accessToken === null) {
-      router.push('/auth');
       console.log('no accessToken');
       // refresh();
     }
