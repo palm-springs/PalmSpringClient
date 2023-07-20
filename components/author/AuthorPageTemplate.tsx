@@ -26,7 +26,7 @@ const AuthorPageTemplate = (props: AuthorPageTemplateProps) => {
     <AuthorPageTemplateContainer>
       <AuthorInfo thumbnail={thumbnail} nickname={nickname} job={job} description={description} />
       <Line />
-      <ArticleList articles={articles} />
+      <ArticleList articleList={articles} />
     </AuthorPageTemplateContainer>
   );
 };
