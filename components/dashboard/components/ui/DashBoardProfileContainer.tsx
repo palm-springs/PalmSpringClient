@@ -16,7 +16,7 @@ const DashBoardProfileContainer = (props: DashBoardProfileContainerProps) => {
 
   return (
     <DashBoardProfileContainerUI onClick={() => setIsPopOverMenuOpen((prev) => !prev)}>
-      {profileImgUrl && <img src={profileImgUrl} alt="프로필 이미지" />}
+      {profileImgUrl && <ProfileImg src={profileImgUrl} alt="프로필 이미지" />}
       <div>
         <span>{userName}</span>
         <span>{email}</span>
@@ -63,4 +63,10 @@ const DashBoardProfileContainerUI = styled.article`
       color: ${({ theme }) => theme.colors.grey_700};
     }
   }
+`;
+
+const ProfileImg = styled.img`
+  border-radius: 50%;
+  width: 4rem;
+  overflow: hidden;
 `;
