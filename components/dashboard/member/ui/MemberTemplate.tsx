@@ -1,12 +1,14 @@
 'use client';
 
-import React, { useState } from 'react';
+import React, { useEffect, useState } from 'react';
+import { useParams } from 'next/navigation';
 import { useRecoilState } from 'recoil';
 import styled from 'styled-components';
 
 import ModalPortal from '@/components/common/ModalPortal';
 import AddMemberForm from '@/components/common/ui/AddMemberForm';
 import DashboardCreateModal from '@/components/common/ui/DashboardCreateModal';
+import { useGetMemberInfo } from '@/hooks/dashboard';
 
 import { dashBoardModalState } from '../../state/modalState';
 
@@ -17,6 +19,14 @@ const MemberTemplate = () => {
   const [modalState, setModalState] = useRecoilState(dashBoardModalState);
 
   const [emailBox, setEmailBox] = useState<string[]>([]);
+
+  const { team } = useParams();
+
+  const res = useGetMemberInfo(team);
+
+  useEffect(() => {
+    res && console.log(res.data);
+  }, [res]);
 
   return (
     <MemberTemplateContainer>

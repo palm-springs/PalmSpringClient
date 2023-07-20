@@ -1,7 +1,9 @@
 import { useMutation, useQuery, useQueryClient } from '@tanstack/react-query';
 
+import { getBlogHeaderInfo } from '@/api/blog';
 import {
   getCategoryList,
+  getMemberList,
   getNavList,
   getPageList,
   getTempSavedList,
@@ -13,11 +15,13 @@ import {
 const QUERY_KEY_DASHBOARD = {
   getNavList: 'getNavList',
   getCategoryList: 'getCategoryList',
+  getBlogHeader: 'getBlogHeader',
   getPageList: 'getPageList',
   getTempSavedList: 'getTempSavedList',
   postCategory: 'postCategory',
   postNavigation: 'postNavigation',
   getUserInfo: 'getUserInfo',
+  getMemberInfo: 'getMemberInfo',
 };
 
 export const useGetNavList = (blogUrl: string) => {
@@ -27,6 +31,11 @@ export const useGetNavList = (blogUrl: string) => {
 
 export const useGetCategoryList = (blogUrl: string) => {
   const { data } = useQuery([QUERY_KEY_DASHBOARD.getCategoryList], () => getCategoryList(blogUrl));
+  return data;
+};
+
+export const useGerBlogHeader = (blogUrl: string) => {
+  const { data } = useQuery([QUERY_KEY_DASHBOARD.getBlogHeader], () => getBlogHeaderInfo(blogUrl));
   return data;
 };
 
@@ -45,6 +54,11 @@ export const useGetTempSavedList = (blogUrl: string) => {
 
 export const useGetUserInfo = (blogUrl: string) => {
   const { data } = useQuery([QUERY_KEY_DASHBOARD.getUserInfo], () => getUserInfo(blogUrl));
+  return data;
+};
+
+export const useGetMemberInfo = (blogUrl: string) => {
+  const { data } = useQuery([QUERY_KEY_DASHBOARD.getMemberInfo], () => getMemberList(blogUrl));
   return data;
 };
 
