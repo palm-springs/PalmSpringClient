@@ -24,7 +24,7 @@ const DashBoardFooter = () => {
     <DashBoardFooterContainer>
       <DashBoardProfileContainer
         setIsPopOverMenuOpen={setIsPopOverMenuOpen}
-        profileImgUrl={res.data.thumbnail && res.data.thumbnail}
+        profileImgUrl={res.data.thumbnail}
         userName={res.data.name}
         email={res.data.email}
       />

@@ -21,8 +21,6 @@ const BlogList = (props: BlogListProps) => {
 
   const router = useRouter();
 
-  // const [currentBlog, setCurrentBlog] = useState<number>(0);
-
   if (!res) return <div>로더</div>;
 
   const { data } = res;
