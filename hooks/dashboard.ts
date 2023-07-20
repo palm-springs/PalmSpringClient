@@ -5,6 +5,7 @@ import {
   getNavList,
   getPageList,
   getTempSavedList,
+  getUserInfo,
   postCategory,
   postNavigation,
 } from '@/api/dashboard';
@@ -16,6 +17,7 @@ const QUERY_KEY_DASHBOARD = {
   getTempSavedList: 'getTempSavedList',
   postCategory: 'postCategory',
   postNavigation: 'postNavigation',
+  getUserInfo: 'getUserInfo',
 };
 
 export const useGetNavList = (blogUrl: string) => {
@@ -39,6 +41,11 @@ export const useGetTempSavedList = (blogUrl: string) => {
   if (!data || !data.data) return;
 
   return data.data;
+};
+
+export const useGetUserInfo = (blogUrl: string) => {
+  const { data } = useQuery([QUERY_KEY_DASHBOARD.getUserInfo], () => getUserInfo(blogUrl));
+  return data;
 };
 
 export const usePostCategory = (blogUrl: string, name: string, description: string) => {

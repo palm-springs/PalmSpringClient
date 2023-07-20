@@ -23,6 +23,16 @@ export const getTempSavedList = async (blogUrl: string) => {
   return data;
 };
 
+export const getUserInfo = async (blogUrl: string) => {
+  const accessToken = sessionStorage.getItem('accessTokenState');
+  const { data } = await client.get(`/api/v1/user/info/simple/${blogUrl}`, {
+    headers: {
+      accessToken,
+    },
+  });
+  return data;
+};
+
 export const postCategory = async (blogUrl: string, name: string, description: string) => {
   const { data } = await client.post<Response<null>>(`/api/v1/category/${blogUrl}/create`, {
     name,

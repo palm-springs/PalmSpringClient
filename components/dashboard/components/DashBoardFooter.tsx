@@ -1,6 +1,9 @@
 'use client';
 
 import React, { useState } from 'react';
+import { useParams } from 'next/navigation';
+
+import { useGetUserInfo } from '@/hooks/dashboard';
 
 import DashBoardFooterContainer from './ui/DashBoardFooterContainer';
 import DashBoardProfileContainer from './ui/DashBoardProfileContainer';
@@ -10,12 +13,19 @@ import DashBoardNavBtn from './DashBoardNavBtn';
 const DashBoardFooter = () => {
   const [isPopOverMenuOpen, setIsPopOverMenuOpen] = useState<boolean>(false);
 
+  const { team } = useParams();
+
+  const res = useGetUserInfo(team);
+
+  if (!res) return <div>로더</div>;
+
   return (
     <DashBoardFooterContainer>
       <DashBoardProfileContainer
         setIsPopOverMenuOpen={setIsPopOverMenuOpen}
-        userName="정동규"
-        email="kandy1002@naver.com"
+        profileImgUrl={res.data.thumbnail}
+        userName={res.data.name}
+        email={res.data.email}
       />
       <DashBoardNavBtn />
       {isPopOverMenuOpen && <FooterPopOverMenuContainer innerText="팜스프링 로그아웃" />}

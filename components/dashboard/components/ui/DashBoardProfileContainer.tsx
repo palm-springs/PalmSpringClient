@@ -16,7 +16,7 @@ const DashBoardProfileContainer = (props: DashBoardProfileContainerProps) => {
 
   return (
     <DashBoardProfileContainerUI onClick={() => setIsPopOverMenuOpen((prev) => !prev)}>
-      <Image src={profileImgUrl ?? DuckDuckImg} alt="프로필 이미지" />
+      {profileImgUrl && <img src={profileImgUrl} alt="프로필 이미지" />}
       <div>
         <span>{userName}</span>
         <span>{email}</span>
