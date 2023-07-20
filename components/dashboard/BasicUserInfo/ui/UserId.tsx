@@ -21,7 +21,6 @@ const UserId = () => {
   return (
     <UserIdContainer>
       <UserIdTitle>ID</UserIdTitle>
-      {/* <UserIdCustomTextarea defaultValue="/@sopt/author/"></UserIdCustomTextarea> */}
       <InputWidthContainer>
         <IdInputForm
           isFocus={isAddressFocus}
@@ -36,7 +35,7 @@ const UserId = () => {
           {isAddressDuplicate === null && url !== '' && <Loader01Icon />}
         </IdInputForm>
       </InputWidthContainer>
-
+      {/* 중복제거 주석 */}
       {/* <TextInputForm type={''} children={undefined} isFocus={false} /> */}
       {/* <UrlCustomTextarea defaultValue="/@sopt/content/"></UrlCustomTextarea> */}
     </UserIdContainer>

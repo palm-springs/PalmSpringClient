@@ -3,9 +3,6 @@ import React, { useState } from 'react';
 import styled from 'styled-components';
 
 import { InputPlusButtonIcon, UserProfileDeleteIcon, UsersProfilesInputIcon } from '@/public/icons';
-interface handleGetUserInfoProps {
-  handleGetUserInfo: void;
-}
 
 const UserProfile = () => {
   const [inputImage, setInputImage] = useState(true);
@@ -21,9 +18,7 @@ const UserProfile = () => {
         <ImageGuideContainer>
           <ImageGuideTitle>프로필 사진</ImageGuideTitle>
         </ImageGuideContainer>
-        {/* <UsersProfilesInputBackground />
-        <UsersProfilesInput />
-        <UsersProfilesDelete /> */}
+
         {inputImage ? (
           <>
             <UsersProfilesInputBackground />
