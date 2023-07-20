@@ -6,7 +6,7 @@ import { styled } from 'styled-components';
 import { dashBoardPageType } from '@/types/dashboard';
 
 interface PopOverMenuProps {
-  pathName: dashBoardPageType;
+  pathName: dashBoardPageType | 'dashboard';
 }
 
 const PopOverMenu = (props: PopOverMenuProps) => {
