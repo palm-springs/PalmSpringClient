@@ -1,7 +1,10 @@
 'use client';
+import { MouseEventHandler, useEffect } from 'react';
 import { useRouter } from 'next/navigation';
+import { useSetRecoilState } from 'recoil';
 import styled from 'styled-components';
 
+import { dashBoardHeaderButtonVisibleState } from '@/components/dashboard/state/modalState';
 import { EmptyLogoIcon } from '@/public/icons';
 
 interface EmptyLandingProps {
@@ -10,6 +13,7 @@ interface EmptyLandingProps {
   message2?: string;
   buttonText?: string;
   buttonLink?: string;
+  buttonClick?: MouseEventHandler<HTMLButtonElement>;
   header: boolean;
 }
 
@@ -23,16 +27,25 @@ interface EmptyLandingProps {
  * @returns
  */
 const EmptyLanding = (props: EmptyLandingProps) => {
-  const { message1, message2, buttonText, noIcon, buttonLink, header } = props;
+  const { message1, message2, buttonText, noIcon, buttonLink, header, buttonClick } = props;
   const router = useRouter();
+
+  const setHeaderButtonState = useSetRecoilState(dashBoardHeaderButtonVisibleState);
+
+  useEffect(() => {
+    setHeaderButtonState(false);
+    return () => {
+      setHeaderButtonState(true);
+    };
+  }, []);
 
   return (
     <EmptyLandingContainer $header={header}>
       {!noIcon && <EmptyLogoIcon />}
       <Message>{message1}</Message>
       {message2 && <Message>{message2}</Message>}
-      {buttonText && buttonLink && (
-        <Button type="button" onClick={() => router.push(buttonLink)}>
+      {buttonText && (buttonLink || buttonClick) && (
+        <Button type="button" onClick={buttonLink ? () => router.push(buttonLink) : buttonClick}>
           {buttonText}
         </Button>
       )}
