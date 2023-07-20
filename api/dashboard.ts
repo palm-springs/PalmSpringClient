@@ -34,22 +34,12 @@ export const getTempSavedList = async (blogUrl: string) => {
 };
 
 export const getUserInfo = async (blogUrl: string) => {
-  const accessToken = sessionStorage.getItem('accessTokenState');
-  const { data } = await client.get<Response<UserInfoProps>>(`/api/v1/user/info/simple/${blogUrl}`, {
-    headers: {
-      accessToken,
-    },
-  });
+  const { data } = await client.get<Response<UserInfoProps>>(`/api/v1/user/info/simple/${blogUrl}`);
   return data;
 };
 
 export const getMemberList = async (blogUrl: string) => {
-  const accessToken = sessionStorage.getItem('accessTokenState');
-  const { data } = await client.get(`/api/v1/user/members/${blogUrl}`, {
-    headers: {
-      accessToken,
-    },
-  });
+  const { data } = await client.get(`/api/v1/user/members/${blogUrl}`);
   return data;
 };
 
