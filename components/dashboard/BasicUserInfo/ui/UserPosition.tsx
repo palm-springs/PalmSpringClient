@@ -27,11 +27,12 @@ const UserPositionTextarea = styled.textarea`
 `;
 
 const UserPositionContainer = styled.div`
+  display: flex;
   margin: 3.2rem 0;
 `;
 
 const UserPositionTitle = styled.p`
   ${({ theme }) => theme.fonts.Body2_Semibold};
-  margin-bottom: 0.8rem;
+  margin: 1rem 13.8rem 0.8rem 0;
   color: ${({ theme }) => theme.colors.grey_950};
 `;

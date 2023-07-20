@@ -26,11 +26,12 @@ const UserOneLinerTextarea = styled.textarea`
 `;
 
 const UserOneLinerContainer = styled.div`
+  display: flex;
   margin-top: 3.2rem;
 `;
 
 const UserNameTitle = styled.p`
   ${({ theme }) => theme.fonts.Body2_Semibold};
-  margin-bottom: 0.8rem;
+  margin: 1rem 10.3rem 0.8rem 0;
   color: ${({ theme }) => theme.colors.grey_950};
 `;

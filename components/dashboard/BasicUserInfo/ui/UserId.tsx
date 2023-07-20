@@ -32,10 +32,13 @@ const UserIdCustomTextarea = styled.textarea`
 `;
 
 const UserIdContainer = styled.div`
+  display: flex;
+  align-items: center;
   margin-top: 3.2rem;
 `;
 
 const UserIdTitle = styled.p`
-  color: ${({ theme }) => theme.colors.grey_950};
   ${({ theme }) => theme.fonts.Body2_Semibold};
+  margin: 1rem 15rem 0.8rem 0;
+  color: ${({ theme }) => theme.colors.grey_950};
 `;
