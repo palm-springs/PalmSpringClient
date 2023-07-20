@@ -23,7 +23,7 @@ const UserNameTextarea = styled.textarea`
   width: 64.5rem;
   height: 4.6rem;
   resize: none;
-  color: ${({ theme }) => theme.colors.grey_600};
+  color: ${({ theme }) => theme.colors.grey_900};
   &:focus {
     outline: 1px solid ${({ theme }) => theme.colors.grey_700};
   }

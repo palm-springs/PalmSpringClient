@@ -26,14 +26,6 @@ const PublishInputForm = (props: PublishInputFormProps) => {
 
 export default PublishInputForm;
 
-// const Label = styled.label`
-//   display: flex;
-//   position: relative;
-//   flex-direction: column;
-
-//   width: 100%;
-// `;
-
 // text input 입력  컨테이너
 const InputContainer = styled.div<{ $isFocus: boolean }>`
   display: flex;
@@ -63,7 +55,7 @@ const InputContainer = styled.div<{ $isFocus: boolean }>`
 
   & > svg {
     position: absolute;
-    right: 1.2rem;
+    right: 28.4rem;
     transform-origin: 50% 50%;
 
     animation: rotate_image 5s linear infinite;
