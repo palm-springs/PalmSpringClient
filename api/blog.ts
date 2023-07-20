@@ -6,6 +6,13 @@ import { PageListProps } from '@/types/dashboard';
 
 import { client } from '.';
 
+interface BlogConfigRequestBodyProps {
+  name: string;
+  description: string;
+  thumbnail: string;
+  logo: string;
+}
+
 export const getBlogInfo = async (blogUrl: string) => {
   const { data } = await client.get(`/api/v1/blog?url=${blogUrl}`);
   return data;
@@ -13,6 +20,9 @@ export const getBlogInfo = async (blogUrl: string) => {
 
 // 블로그 url 중복 검사
 export const getCheckBlogUrlDuplication = async (blogUrl: string) => {
+  const {
+    data: { data },
+  } = await client.get(`/api/v1/blog/check?url=${blogUrl}`);
   const { data } = await client.get(`/blog/check?url=${blogUrl}`);
   return data;
 };
@@ -35,8 +45,7 @@ export const postCreateBlog = async (requestBody: createBlogData) => {
   return data;
 };
 
-//blog home 페이지의 아티클 카테고리 가져오기 - 대시보드의 것과 같아서 그거 사용중
-// export const getCategoryList = async (blogUrl: string) => {
-//   const { data } = await client.get<Response<CategoryProps>>(`/api/v1/category/${blogUrl}`);
-//   return data;
-// };
+export const putBlogConfig = async (blogUrl: string, requestBody: BlogConfigRequestBodyProps) => {
+  const { data } = await client.put(`/api/v1/blog/${blogUrl}/admin/modify`, requestBody);
+  return data;
+};
