@@ -14,12 +14,13 @@ const RequestAccessToken = async (props: getAccessTokenProps) => {
   const router = useRouter();
 
   if (platformData) {
-    const {
-      data: { accessToken },
-    } = await postSocialLogin('google', platformData?.access_token);
-    setAccessToken(accessToken);
+    const data = await postSocialLogin('google', platformData?.access_token);
+    const { accessToken } = data.data;
 
-    router.push('/create-blog');
+    setAccessToken(accessToken);
+    if (data.code === 200) {
+      router.push('/create-blog');
+    }
   }
 };
 
