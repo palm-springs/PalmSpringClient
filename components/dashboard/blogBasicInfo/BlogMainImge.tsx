@@ -1,29 +1,62 @@
 'use client';
 
-import React from 'react';
+import React, { ChangeEvent, useState } from 'react';
 import styled from 'styled-components';
 
-import { ImageUploadIcon } from '@/public/icons';
+import { CloseIcon, UploadIcon } from '@/public/icons';
 
-const BlogMainImage = () => {
+interface BlogMainImageProps {
+  setFile: (v: File) => void;
+}
+
+const BlogMainImage = (props: BlogMainImageProps) => {
+  const { setFile } = props;
+
+  const [preLoadImg, setPreLoadImg] = useState<string>('');
+
   return (
     <BlogMainImageContainer>
       <BlogMainUploadLabel>
-        <input type="file" />
+        <input
+          type="file"
+          onChange={(e: ChangeEvent<HTMLInputElement>) => {
+            const file = e.target?.files![0];
+            if (!file) return;
+            const reader = new FileReader();
+            reader.readAsDataURL(file);
+            reader.onloadend = () => {
+              setPreLoadImg(reader.result as string);
+            };
+            setFile(file);
+          }}
+        />
         <ImageGuideContainer>
           <ImageGuideTitle>블로그 대문 이미지</ImageGuideTitle>
-          <ImageGuideContent>000*000 JPEG (이미지 규격 가이드)</ImageGuideContent>
+          <ImageGuideContent>
+            대문 이미지 권장 크기는 <p>1920*1080 입니다</p>
+          </ImageGuideContent>
         </ImageGuideContainer>
-        <BlogMainUpload>
-          <ImageUploadIcon />
-          <UploadText>업로그하기</UploadText>
-        </BlogMainUpload>
+        {preLoadImg ? (
+          <PreLoadImg src={preLoadImg} alt="블로그 메인 이미지" />
+        ) : (
+          <BlogMainUpload>
+            <UploadIcon />
+            <UploadText>업로드하기</UploadText>
+            <ImageCloseIcon />
+          </BlogMainUpload>
+        )}
       </BlogMainUploadLabel>
     </BlogMainImageContainer>
   );
 };
 
 export default BlogMainImage;
+
+const ImageCloseIcon = styled(CloseIcon)`
+  position: absolute;
+  top: 1.2rem;
+  right: 1.2rem;
+`;
 
 const UploadText = styled.p`
   ${({ theme }) => theme.fonts.Body2_Semibold};
@@ -33,23 +66,24 @@ const UploadText = styled.p`
 
 const BlogMainUpload = styled.div`
   display: flex;
+  position: relative;
   align-items: center;
   justify-content: center;
+  margin-left: 4.8rem;
   border-radius: 0.8rem;
   background-color: ${({ theme }) => theme.colors.grey_200};
-  width: 50rem;
-  height: 14rem;
+  width: 64.5rem;
+  height: 22.4rem;
 `;
 
 const ImageGuideContainer = styled.div`
   display: flex;
-  align-items: center;
-  margin: 2.4rem 0 0.8rem;
+  flex-direction: column;
+  margin-bottom: 0.8rem;
 `;
 
 const ImageGuideContent = styled.p`
   ${({ theme }) => theme.fonts.Caption};
-  margin-left: 0.8rem;
   color: ${({ theme }) => theme.colors.grey_700};
 `;
 
@@ -59,6 +93,7 @@ const ImageGuideTitle = styled.p`
 `;
 
 const BlogMainUploadLabel = styled.label`
+  display: flex;
   border: none;
   border-radius: 0.5rem;
   input[type='file'] {
@@ -75,4 +110,11 @@ const BlogMainUploadLabel = styled.label`
 
 const BlogMainImageContainer = styled.div`
   margin-top: 3.2rem;
+`;
+
+const PreLoadImg = styled.img`
+  margin-left: 4.8rem;
+  border-radius: 0.8rem;
+  width: auto;
+  height: 22.4rem;
 `;

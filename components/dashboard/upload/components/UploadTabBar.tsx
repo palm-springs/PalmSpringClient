@@ -18,7 +18,7 @@ const UploadTabBar = (props: UploadTabBarProps) => {
     currentCategory: [category],
   } = props;
 
-  const [currentCategory, setCurrentCategory] = useState<string>('전체');
+  const [currentCategory, setCurrentCategory] = useState<string>(category);
 
   return (
     <UploadTabBarContainer

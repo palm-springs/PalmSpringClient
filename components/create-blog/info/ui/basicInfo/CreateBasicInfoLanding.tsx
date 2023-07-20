@@ -7,13 +7,14 @@ import { Loader01Icon } from '@/public/icons';
 import { createBlogData } from '@/types/blogInfo';
 import CheckDuplication from '@/utils/checkUrlDuplication';
 
-import { createBlogDataState, progressState } from '../../states/atom';
+import { addressDuplicateState, createBlogDataState, invalidTextState, progressState } from '../../states/atom';
 import TextInputForm from '../TextInputForm';
 
 const CreateBasicInfoLanding = () => {
   const [progress, setProgress] = useRecoilState(progressState);
 
   const [containerState, setContainerState] = useState('');
+  const [isInvalidText, setInvalidText] = useRecoilState(invalidTextState);
 
   // focus state
   const [isNameFocus, setIsNameFocus] = useState(false);
@@ -21,14 +22,20 @@ const CreateBasicInfoLanding = () => {
 
   // input value state
   const [{ url, name }, setBlogData] = useRecoilState(createBlogDataState);
-  const [isAddressDuplicate, setIsAddressDuplicate] = useState<boolean | null>(null);
+  const [isAddressDuplicate, setIsAddressDuplicate] = useRecoilState<boolean | null>(addressDuplicateState);
 
   const handleOnChange = (e: React.ChangeEvent<HTMLInputElement>) => {
     const { value, id } = e.currentTarget;
     setBlogData((prev: createBlogData) => ({ ...prev, [id]: value }));
 
     if (id === 'url') {
-      CheckDuplication(value, setIsAddressDuplicate);
+      const checkAddressRule = /^[a-z0-9_]*$/.test(value);
+      if (checkAddressRule) {
+        setInvalidText(false);
+        CheckDuplication(value, setIsAddressDuplicate);
+      } else {
+        setInvalidText(true);
+      }
     }
   };
 
@@ -56,10 +63,7 @@ const CreateBasicInfoLanding = () => {
           />
         </TextInputForm>
 
-        <TextInputForm
-          type="주소"
-          isFocus={isAddressFocus}
-          isAddressDuplicate={isAddressDuplicate === null ? undefined : isAddressDuplicate}>
+        <TextInputForm type="주소" isFocus={isAddressFocus}>
           <div>palmspring.io/@</div>
           <TextInput
             id={'url'}
@@ -68,7 +72,7 @@ const CreateBasicInfoLanding = () => {
             value={url}
             onChange={handleOnChange}
           />
-          {isAddressDuplicate === null && url !== '' && <Loader01Icon />}
+          {!isInvalidText && isAddressDuplicate === null && url !== '' && <Loader01Icon />}
         </TextInputForm>
 
         <ButtonContainer>

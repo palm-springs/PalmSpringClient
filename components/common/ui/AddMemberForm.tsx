@@ -1,4 +1,5 @@
 'use client';
+import { Dispatch, SetStateAction } from 'react';
 import styled from 'styled-components';
 
 import AddMemberInput from './AddMemberInput';
@@ -8,14 +9,16 @@ interface AddMemberFormProps {
   height: string;
   paddingUD: string;
   paddingLR: string;
+  emailBox: string[];
+  setEmailBox: Dispatch<SetStateAction<string[]>>;
 }
 
 const AddMemberForm = (props: AddMemberFormProps) => {
-  const { width, height, paddingUD, paddingLR } = props;
+  const { width, height, paddingUD, paddingLR, emailBox, setEmailBox } = props;
 
   return (
     <AddMemberFormContainer $width={width} $height={height} $paddingUD={paddingUD} $paddingLR={paddingLR}>
-      <AddMemberInput />
+      <AddMemberInput emailBox={emailBox} setEmailBox={setEmailBox} />
     </AddMemberFormContainer>
   );
 };

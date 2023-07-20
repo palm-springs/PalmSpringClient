@@ -1,4 +1,5 @@
 import React, { Dispatch, SetStateAction } from 'react';
+import { useParams } from 'next/navigation';
 import { SetterOrUpdater } from 'recoil';
 
 import DashboardCreateModal from '@/components/common/ui/DashboardCreateModal';
@@ -19,7 +20,7 @@ interface NewNavigationModalProps {
 }
 
 const NewNavigationModal = (props: NewNavigationModalProps) => {
-  const blogUrl = 'helloworld';
+  const { team: blogUrl } = useParams();
   const {
     setModalState,
     newNavigationName,
@@ -32,7 +33,7 @@ const NewNavigationModal = (props: NewNavigationModalProps) => {
 
   const isPage = newNavigationName === '직접 입력' ? false : true;
 
-  const { mutate } = usePostNavigation(blogUrl, newNavigationName, isPage, newNavigationUrl);
+  const { mutate } = usePostNavigation(blogUrl, newNavigationName, false, newNavigationUrl);
 
   return (
     <DashboardCreateModal

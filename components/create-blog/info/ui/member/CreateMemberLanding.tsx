@@ -1,5 +1,6 @@
 'use client';
 import { useEffect, useState } from 'react';
+import { useRouter } from 'next/navigation';
 import { useRecoilState } from 'recoil';
 import styled from 'styled-components';
 
@@ -12,6 +13,9 @@ const CreateMemberLanding = () => {
   const [containerState, setContainerState] = useState('');
   const [progress, setProgress] = useRecoilState(progressState);
   const [blogData, setBlogData] = useRecoilState(createBlogDataState);
+  const [emailList, setEmailList] = useState<string[]>([]);
+
+  const router = useRouter();
 
   useEffect(() => {
     if (progress === -2) {
@@ -21,13 +25,15 @@ const CreateMemberLanding = () => {
     }
   }, [progress]);
 
-  const handleOnCreateClick = () => {
+  const handleOnCreateClick = async () => {
     const { description } = blogData;
     if (description === '') {
       setBlogData((prev) => ({ ...prev, description: null }));
     }
-    console.log(blogData);
-    postCreateBlog(blogData);
+    const { code } = await postCreateBlog(blogData);
+    if (code === 201) {
+      router.replace('/create-blog/success');
+    }
   };
 
   return (
@@ -40,7 +46,14 @@ const CreateMemberLanding = () => {
           <span>팀원의 이메일을 입력하세요 </span>
           <span>쉼표, 엔터, 스페이스바로 메일 주소를 구분할 수 있습니다</span>
         </SubTitleContainer>
-        <AddMemberForm width={'40'} height={'17.2'} paddingUD={'2'} paddingLR={'2.4'} />
+        <AddMemberForm
+          emailBox={emailList}
+          setEmailBox={setEmailList}
+          width={'40'}
+          height={'17.2'}
+          paddingUD={'2'}
+          paddingLR={'2.4'}
+        />
         <ButtonContainer>
           <PreviousButton type="button" onClick={() => setProgress(-2)}>
             이전으로

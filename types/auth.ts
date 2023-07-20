@@ -7,10 +7,16 @@ export interface authClientInfo {
   clientSecret: string;
 }
 
-export interface getAccessTokenResponse {
+export interface googleAccessTokenResponse {
   access_token: string;
   expires_in: number;
   token_type: string;
   scope: string;
   refresh_token: string;
+}
+
+export interface jwtAccessTokenResponse {
+  accessToken: string;
+  grantType: string;
+  refreshToken: string;
 }
