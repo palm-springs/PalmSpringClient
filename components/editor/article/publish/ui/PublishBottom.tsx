@@ -46,5 +46,5 @@ const BackButton = styled.button`
 const PublishBottomButtonsContainer = styled.div`
   display: flex;
   margin-top: 3.2rem;
-  padding-bottom: 6.6rem;
+  padding-bottom: 17.75rem;
 `;
