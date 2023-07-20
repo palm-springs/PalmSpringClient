@@ -12,9 +12,11 @@ import NavButton from './NavButton';
 const DashBoardNav = () => {
   const [isBlogListOpen, setIsBlogListOpen] = useState<boolean>(false);
 
+  const [currentBlog, setCurrentBlog] = useState<number>(0);
+
   return (
     <DashBoardNavContainer>
-      <DashBoardTitle setIsBlogListOpen={setIsBlogListOpen} />
+      <DashBoardTitle setIsBlogListOpen={setIsBlogListOpen} currentBlog={currentBlog} setCurrentBlog={setCurrentBlog} />
       <NavButton currentPageType="upload" />
       <NavButton currentPageType="tempsaved" />
       <Line />
@@ -28,7 +30,7 @@ const DashBoardNav = () => {
       <NavButton currentPageType="blogdirectnav" />
       <NavButton currentPageType="blogconfignav" />
       <NavButton currentPageType="basicuserinfo" />
-      {isBlogListOpen && <BlogList />}
+      {isBlogListOpen && <BlogList currentBlog={currentBlog} setCurrentBlog={setCurrentBlog} />}
       <DashBoardFooter />
     </DashBoardNavContainer>
   );

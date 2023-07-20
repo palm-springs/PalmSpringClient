@@ -4,6 +4,7 @@ import React, { useState } from 'react';
 import { useParams } from 'next/navigation';
 
 import { useGetUserInfo } from '@/hooks/dashboard';
+import { DuckDuckImg } from '@/public/images';
 
 import DashBoardFooterContainer from './ui/DashBoardFooterContainer';
 import DashBoardProfileContainer from './ui/DashBoardProfileContainer';
@@ -23,7 +24,7 @@ const DashBoardFooter = () => {
     <DashBoardFooterContainer>
       <DashBoardProfileContainer
         setIsPopOverMenuOpen={setIsPopOverMenuOpen}
-        profileImgUrl={res.data.thumbnail}
+        profileImgUrl={res.data.thumbnail && res.data.thumbnail}
         userName={res.data.name}
         email={res.data.email}
       />

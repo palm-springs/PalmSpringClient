@@ -1,13 +1,10 @@
 import React, { Dispatch, SetStateAction } from 'react';
-import Image from 'next/image';
 import { styled } from 'styled-components';
-
-import { DuckDuckImg } from '@/public/images';
 
 interface DashBoardProfileContainerProps {
   userName: string;
   email: string;
-  profileImgUrl?: string;
+  profileImgUrl: string;
   setIsPopOverMenuOpen: Dispatch<SetStateAction<boolean>>;
 }
 

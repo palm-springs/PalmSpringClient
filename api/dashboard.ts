@@ -3,6 +3,16 @@ import { CategoryListProps, NavListProps, PageListProps, TempSavedListProps } fr
 
 import { client } from '.';
 
+interface UserInfoProps {
+  name: string;
+  email: string;
+  thumbnail: string;
+  joinBlogList: Array<{
+    name: string;
+    url: string;
+  }>;
+}
+
 export const getPageList = async (blogUrl: string) => {
   const { data } = await client.get<Response<PageListProps[]>>(`/api/v1/page/${blogUrl}`);
   return data;
@@ -25,7 +35,17 @@ export const getTempSavedList = async (blogUrl: string) => {
 
 export const getUserInfo = async (blogUrl: string) => {
   const accessToken = sessionStorage.getItem('accessTokenState');
-  const { data } = await client.get(`/api/v1/user/info/simple/${blogUrl}`, {
+  const { data } = await client.get<Response<UserInfoProps>>(`/api/v1/user/info/simple/${blogUrl}`, {
+    headers: {
+      accessToken,
+    },
+  });
+  return data;
+};
+
+export const getMemberList = async (blogUrl: string) => {
+  const accessToken = sessionStorage.getItem('accessTokenState');
+  const { data } = await client.get(`/api/v1/user/members/${blogUrl}`, {
     headers: {
       accessToken,
     },

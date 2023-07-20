@@ -18,12 +18,6 @@ interface DashBoardTemplateProps {
 const DashBoardTemplate = (props: DashBoardTemplateProps) => {
   const { children, noHeader } = props;
 
-  const { team } = useParams();
-
-  const res = useGetUserInfo(team);
-
-  console.log(res);
-
   return (
     <DashboardContextProvider>
       <DashBoardContainer>
