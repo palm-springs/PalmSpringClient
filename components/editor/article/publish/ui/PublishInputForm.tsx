@@ -45,7 +45,7 @@ const InputContainer = styled.div<{ $isFocus: boolean }>`
   border-color: ${({ theme, $isFocus }) => ($isFocus ? theme.colors.grey_700 : theme.colors.grey_400)};
 
   padding: 1rem 1.2rem;
-  width: 100%;
+  width: 54rem;
   height: 4.6rem;
 
   &#failed {

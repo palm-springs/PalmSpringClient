@@ -31,7 +31,7 @@ const DashBoardTitle = (props: DashBoardTitleProps) => {
 
   return (
     <>
-      {logo ? <BlogLogo src={logo} /> : <SymbolIcon />}
+      <SymbolIcon />
       <SideBarTitle>
         {name}
         <button type="button" onClick={() => setIsBlogListOpen((prev) => !prev)}>

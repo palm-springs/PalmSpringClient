@@ -20,7 +20,7 @@ const CategoryContentList = () => {
         header={true}
         message1="카테고리가 없어요."
         message2="새 카테고리를 작성해보세요."
-        buttonText="새 글 작성하기"
+        buttonText="새 카테고리 작성하기"
         buttonLink={`/${blogUrl}/editor/article`}
       />
     );

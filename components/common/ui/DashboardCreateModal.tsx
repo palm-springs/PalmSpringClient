@@ -53,7 +53,7 @@ const RightBottomButton = styled.button<{ disabled: boolean }>`
   height: 4.2rem;
   color: ${({ theme }) => theme.colors.grey_0};
   &:hover {
-    background-color: ${({ theme }) => theme.colors.green_hover};
+    background-color: ${({ theme, disabled }) => !disabled && theme.colors.green_hover};
   }
 `;
 
