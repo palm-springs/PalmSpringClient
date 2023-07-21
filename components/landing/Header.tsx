@@ -94,7 +94,7 @@ const Header = () => {
             gap: 12px;
             align-items: center;
             @media (max-width: 1200px) {
-              display: block;
+              display: flex;
             }
           `}>
           <Link
