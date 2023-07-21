@@ -5,7 +5,6 @@ import { Inter } from 'next/font/google';
 import { RecoilRoot } from 'recoil';
 import { ThemeProvider } from 'styled-components';
 
-import AuthRequired from '@/components/auth/AuthRequired';
 import { GlobalStyle } from '@/styles/GlobalStyle';
 import theme from '@/styles/theme';
 import StyledComponentsRegistry from '@/utils/lib/registry';
@@ -38,10 +37,8 @@ export default function RootLayout({ children }: { children: React.ReactNode }) 
             <StyledComponentsRegistry>
               <ThemeProvider theme={theme}>
                 <GlobalStyle />
-                <AuthRequired>
-                  {children}
-                  <div id="modal-root"></div>
-                </AuthRequired>
+                {children}
+                <div id="modal-root"></div>
               </ThemeProvider>
             </StyledComponentsRegistry>
           </RecoilRoot>
