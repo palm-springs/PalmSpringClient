@@ -27,7 +27,7 @@ export interface ArticleData {
 export interface CreateArticleProps {
   title: string;
   content: string;
-  images: string[];
+  images: string[] | null;
   thumbnail: string;
   categoryId: number;
   description: string;
