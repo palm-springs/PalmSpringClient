@@ -1,7 +1,7 @@
 import { createBlogData } from '@/types/blogInfo';
 import { Response } from '@/types/common';
 
-import { client } from '.';
+import client from '.';
 
 interface BlogConfigRequestBodyProps {
   name: string;

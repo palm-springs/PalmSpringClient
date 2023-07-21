@@ -1,9 +1,9 @@
-import React from 'react';
 import { useSearchParams } from 'next/navigation';
 
 import { authClientInfo } from '@/types/auth';
 
 import RequestAccessToken from '../auth/RequestAccessToken';
+import LoadingLottie from '../common/ui/LoadingLottie';
 
 const LoadingLanding = (props: authClientInfo) => {
   const searchParams = useSearchParams();
@@ -13,7 +13,7 @@ const LoadingLanding = (props: authClientInfo) => {
     RequestAccessToken({ ...props, code });
   }
 
-  return <div>로딩중입니다...</div>;
+  return <LoadingLottie width={10} height={10} />;
 };
 
 export default LoadingLanding;

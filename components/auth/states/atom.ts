@@ -1,7 +1,7 @@
 import { atom } from 'recoil';
 import { recoilPersist } from 'recoil-persist';
 
-import { client } from '@/api';
+import client from '@/api';
 
 const sessionStorage = typeof window !== 'undefined' ? window.sessionStorage : undefined;
 const { persistAtom } = recoilPersist({
@@ -12,7 +12,7 @@ const { persistAtom } = recoilPersist({
 export const accessTokenState = atom<string | null>({
   key: 'accessTokenState',
   default: null,
-  effects: [
+  effects_UNSTABLE: [
     persistAtom,
     ({ onSet }) => {
       onSet((newAccessToken) => {

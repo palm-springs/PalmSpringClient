@@ -1,91 +1,101 @@
 'use client';
 import { useEffect } from 'react';
+import axios from 'axios';
 import { useRouter } from 'next/navigation';
-import { useRecoilState, useResetRecoilState } from 'recoil';
+import { useResetRecoilState, useSetRecoilState } from 'recoil';
 
-import { client } from '@/api';
+import client from '@/api';
 import { getRefreshToken } from '@/api/auth';
 
 import { accessTokenState } from './states/atom';
 
 const AuthRequired = ({ children }: { children: React.ReactNode }) => {
   const router = useRouter();
-
-  const [accessToken, setAccessToken] = useRecoilState(accessTokenState);
+  const sessionStorage = typeof window !== 'undefined' ? window.sessionStorage : undefined;
+  const setAccessToken = useSetRecoilState(accessTokenState);
   const resetAccessToken = useResetRecoilState(accessTokenState);
-  // console.log(accessToken);
-  // access token 재발급 요청 함수
-  // const refresh = async () => {
-  //   const newAccessToken = await getRefreshToken();
-  //   console.log('refresh');
-  //   switch (newAccessToken.code) {
-  //     case 401:
-  //       router.push('/auth');
-  //       break;
-  //     case 200:
-  //       setAccessToken(`Bearer ${newAccessToken}`);
-  //       break;
-  //     default:
-  //       console.log(newAccessToken.message);
-  //       break;
-  //   }
-  // };
 
   useEffect(() => {
-    console.log('first effect');
+    const accessToken = sessionStorage?.getItem('userToken');
     if (accessToken) {
-      client.defaults.headers.common['Authorization'] = `Bearer ${accessToken}`;
-    }
-    if (accessToken === null) {
-      console.log('no accessToken');
-      // refresh();
+      const { accessTokenState } = JSON.parse(accessToken);
+      console.log(accessTokenState);
+      axios.defaults.headers.Authorization = `Bearer ${accessTokenState}`;
     }
   }, []);
 
-  useEffect(() => {
-    console.log('second effect');
-    const responseInterceptor = client.interceptors.response.use(
-      (response) => {
-        // if (response.status === 200) {
-        //   console.log(response.data.data.accessToken);
-        //   setAccessToken(response.data.data.accessToken);
-        // }
-        return response;
-      },
-      async (err) => {
-        const { status, statusText } = err.response;
-        if (status === 401) {
-          // 액세스 토큰 만료
-          // if (statusText === 'Access Token is expired.') {
-          // console.log('err msg:', statusText);
-          resetAccessToken();
-          router.push('/auth');
-          // refresh();
-          // return client(config);
-          // }
-          // 리프레시 토큰 만료
-          // else if (statusText === 'Refresh Token is expired.') {
-          //   console.log('err msg:', statusText);
-          //   resetAccessToken();
-          //   router.push('/auth');
-          // } else {
-          //   console.log(statusText);
-          // }
-          // return Promise.reject(err);
-        }
+  // access token 재발급 요청 함수
+  const refresh = async () => {
+    const {
+      code,
+      message,
+      data: { accessToken },
+    } = await getRefreshToken();
 
-        // authorization 값 없을 때
-        else if (status === 400) {
-          console.log('400 err');
+    console.log(accessToken);
+    console.log('refresh');
+
+    console.log(code);
+    switch (code) {
+      // refresh token 만료
+      case 401:
+        router.push('/auth');
+        break;
+      // access token 재발급 성공
+      case 200:
+        setAccessToken(accessToken);
+        break;
+      default:
+        router.push('/auth');
+        break;
+    }
+  };
+
+  useEffect(() => {
+    const requestInterceptor = client.interceptors.request.use(async (config) => {
+      const accessToken = sessionStorage?.getItem('userToken');
+      if (accessToken) {
+        const { accessTokenState } = JSON.parse(accessToken);
+        console.log(accessTokenState);
+        config.headers.Authorization = `Bearer ${accessTokenState}`;
+      } else {
+        router.push('/auth');
+      }
+
+      return config;
+    });
+    const responseInterceptor = client.interceptors.response.use(async (response) => {
+      const { config } = response;
+      const { code, message } = response.data;
+
+      // access token 만료
+      if (code === 401) {
+        router.push('/auth');
+        if (message === 'Access Token is expired.') {
+          // await refresh();
+          // console.log('여기까지 오지롱');
+          // return client(config);
+        } else if (message === 'Refresh Token is expired.') {
+          resetAccessToken();
+          console.log('heeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeere');
           router.push('/auth');
         }
-      },
-    );
+      } else if (code === 400) {
+        sessionStorage?.removeItem('userToken');
+        router.push('/auth');
+      } else if (code === 403) {
+        sessionStorage?.removeItem('userToken');
+        router.push('/auth');
+      }
+
+      return response;
+    });
 
     return () => {
+      client.interceptors.request.eject(requestInterceptor);
       client.interceptors.response.eject(responseInterceptor);
     };
-  }, [router, accessToken, resetAccessToken]);
+  }, [router, resetAccessToken]);
 
   return <div>{children}</div>;
 };

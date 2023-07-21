@@ -16,8 +16,8 @@ const RequestAccessToken = async (props: getAccessTokenProps) => {
   if (platformData) {
     const data = await postSocialLogin('google', platformData?.access_token);
     const { accessToken } = data.data;
-
     setAccessToken(accessToken);
+
     if (data.code === 200) {
       router.push('/create-blog');
     }
