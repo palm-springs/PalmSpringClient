@@ -1,7 +1,7 @@
 import { Response } from '@/types/common';
 import { PageData } from '@/types/page';
 
-import { client } from '.';
+import client from '.';
 
 export const getPageDetail = async (blogUrl: string, pageUrl: string) => {
   const { data } = await client.get<Response<PageData[]>>(`/api/v1/page/${blogUrl}/detail?pageUrl=${pageUrl}`);
