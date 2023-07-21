@@ -28,8 +28,8 @@ const Article = (props: ArticleProps) => {
         <ArticleDescription className="description">{description}</ArticleDescription>
         <DetailBox>
           {articleCategory && <CategoryBtn>{articleCategory.categoryName}</CategoryBtn>}
-          <ArticleDetail>{memberName}</ArticleDetail>&nbsp;·&nbsp;
-          <ArticleDetail>{job}</ArticleDetail>
+          <ArticleDetail>{memberName}</ArticleDetail>
+          <ArticleDetail>&nbsp;·&nbsp;{job}</ArticleDetail>
           <Bar>|</Bar>
           <ArticleDetail>{createdAt}</ArticleDetail>
         </DetailBox>
