@@ -44,7 +44,8 @@
     "simple-import-sort/exports": "error",
     "import/no-named-as-default": 0,
     "no-unused-vars": "warn",
-    "import/no-unresolved": "off"
+    "import/no-unresolved": "off",
+    "react/no-unknown-property": ["error", { "ignore": ["css"] }]
   },
   "parser": "@typescript-eslint/parser",
   "parserOptions": {
