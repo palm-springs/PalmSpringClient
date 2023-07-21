@@ -18,9 +18,11 @@ const DashBoardFooter = () => {
 
   const res = useGetUserInfo(team);
 
+  if (!res) return <LoadingLottie height={4} width={4} fit={false} />;
+
   return (
     <DashBoardFooterContainer>
-      {res ? (
+      {res?.data ? (
         <>
           <DashBoardProfileContainer
             setIsPopOverMenuOpen={setIsPopOverMenuOpen}

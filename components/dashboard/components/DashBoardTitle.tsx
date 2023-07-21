@@ -3,6 +3,7 @@
 import React, { Dispatch, SetStateAction } from 'react';
 import { useParams } from 'next/navigation';
 
+import LoadingLottie from '@/components/common/ui/LoadingLottie';
 import { useGetBlogInfo } from '@/hooks/blog';
 import { ArrowDownIcon, LogoIcon, SymbolIcon } from '@/public/icons';
 
@@ -22,7 +23,7 @@ const DashBoardTitle = (props: DashBoardTitleProps) => {
 
   const res = useGetBlogInfo(team);
 
-  if (!res) return <div>로더</div>;
+  if (!res) return <LoadingLottie width={4} height={4} fit={false} />;
 
   const {
     data: { name, logo },
