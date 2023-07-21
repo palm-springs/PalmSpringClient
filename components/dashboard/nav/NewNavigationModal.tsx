@@ -34,7 +34,8 @@ const NewNavigationModal = (props: NewNavigationModalProps) => {
   const { mutate } = usePostNavigation(
     blogUrl,
     newNavigationName,
-    newNavigationName === '직접 입력' ? false : true,
+    // newNavigationName === '직접 입력' ? false : true,
+    false,
     newNavigationUrl,
   );
 

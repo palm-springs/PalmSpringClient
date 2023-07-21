@@ -18,7 +18,6 @@ const BlogImg = (props: BlogMainImgProps) => {
         <>
           <BlogImgWrapper>
             <img src={thumbnail} alt="blog main" />
-            {/* <Image src={BlogImgExampleImg} alt="blog image" fill /> */}
             {description && <BlogInfo>{description}</BlogInfo>}
           </BlogImgWrapper>
         </>
