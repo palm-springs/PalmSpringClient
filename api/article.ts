@@ -60,9 +60,7 @@ export const postArticleCreateList = async (url: string, requestBody: postArticl
   return data;
 };
 
-export const getCheckDuplicateUrl = async (teamUrl: string, articleUrl: string) => {
-  const {
-    data: { data },
-  } = await client.get(`/api/v1/article/${teamUrl}/check?articleUrl=${articleUrl}`);
+export const getCheckArticleUrlDuplication = async (teamUrl: string, articleUrl: string) => {
+  const { data } = await client.get(`/api/v1/article/${teamUrl}/check?articleUrl=${articleUrl}`);
   return data;
 };

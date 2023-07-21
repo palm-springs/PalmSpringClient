@@ -31,3 +31,10 @@ export const postPageCreate = async (url: string, requestBody: postPageCreateReq
   const { data } = await client.post<Response<null>>(`/api/v1/page/${url}/admin/create`, requestBody);
   return data;
 };
+
+export const getCheckPageUrlDuplication = async (teamUrl: string, pageUrl: string) => {
+  const {
+    data: { data },
+  } = await client.get(`/api/v1/article/${teamUrl}/check?articleUrl=${pageUrl}`);
+  return data;
+};

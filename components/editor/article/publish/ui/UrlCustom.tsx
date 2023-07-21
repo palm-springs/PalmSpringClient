@@ -1,11 +1,13 @@
 'use client';
 import React, { useState } from 'react';
+import { useParams } from 'next/navigation';
 import router from 'next/router';
 import { useRecoilState } from 'recoil';
 import styled from 'styled-components';
 
-import TextInputForm from '@/components/create-blog/info/ui/TextInputForm';
 import { EssentialCircleIcon, Loader01Icon } from '@/public/icons';
+import CheckArticleDuplication from '@/utils/checkArticleUrlDuplication';
+import CheckPageDuplication from '@/utils/checkPageUrlDuplication';
 
 import { articleDataState, pageDataState } from '../../states/atom';
 
@@ -17,24 +19,32 @@ interface UrlCustomProps {
 
 const UrlCustom = (props: UrlCustomProps) => {
   const { pageType } = props;
+  const { team } = useParams();
+
   const [{ articleUrl }, setArticleData] = useRecoilState(articleDataState);
   const [{ pageUrl }, setPageData] = useRecoilState(pageDataState);
 
   const [isAddressFocus, setIsAddressFocus] = useState(false);
-  const [isAddressDuplicate, setIsAddressDuplicate] = useState<boolean | null>(null);
+  const [isDuplicate, setIsDuplicate] = useState<boolean | null>(false);
+
+  const checkDuplication = (value: string) => {
+    if (pageType === 'page') {
+      CheckPageDuplication(team, value, setIsDuplicate);
+    } else if (pageType === 'article') {
+      CheckArticleDuplication(team, value, setIsDuplicate);
+    }
+  };
 
   const handleOnChange = (e: React.ChangeEvent<HTMLInputElement>) => {
     const { value } = e.currentTarget;
     setArticleData((prev) => ({ ...prev, articleUrl: value }));
-
-    // url 중복 쳌 :  CheckDuplication(value, setIsAddressDuplicate);
+    checkDuplication(value);
   };
 
   const handleOnPageChange = (e: React.ChangeEvent<HTMLInputElement>) => {
     const { value } = e.currentTarget;
-    setPageData((prev) => ({ ...prev, articleUrl: value }));
-
-    // url 중복 쳌 :  CheckDuplication(value, setIsAddressDuplicate);
+    setPageData((prev) => ({ ...prev, pageUrl: value }));
+    checkDuplication(value);
   };
 
   switch (pageType) {
@@ -46,20 +56,16 @@ const UrlCustom = (props: UrlCustomProps) => {
             <EssentialPointerIcon />
           </UrlTitleContainer>
 
-          <PublishInputForm
-            isFocus={isAddressFocus}
-            isAddressDuplicate={isAddressDuplicate === null ? undefined : isAddressDuplicate}>
-            <div>/@sopt/content/</div>
+          <PublishInputForm isFocus={isAddressFocus} isDuplicate={isDuplicate}>
+            <div>/@{team}/content/</div>
             <TextInput
               onFocus={() => setIsAddressFocus(true)}
               onBlur={() => setIsAddressFocus(false)}
               value={articleUrl}
               onChange={handleOnChange}
             />
-            {isAddressDuplicate === null && articleUrl !== '' && <Loader01Icon />}
+            {isDuplicate === null && articleUrl !== '' && <Loader01Icon />}
           </PublishInputForm>
-          {/* <TextInputForm type={''} children={undefined} isFocus={false} /> */}
-          {/* <UrlCustomTextarea defaultValue="/@sopt/content/"></UrlCustomTextarea> */}
         </UrlContainer>
       );
     case `page`:
@@ -70,20 +76,16 @@ const UrlCustom = (props: UrlCustomProps) => {
             <EssentialPointerIcon />
           </UrlTitleContainer>
 
-          <PublishInputForm
-            isFocus={isAddressFocus}
-            isAddressDuplicate={isAddressDuplicate === null ? undefined : isAddressDuplicate}>
-            <div>/@sopt/content/</div>
+          <PublishInputForm isFocus={isAddressFocus} isDuplicate={isDuplicate}>
+            <div>/@{team}/content/</div>
             <TextInput
               onFocus={() => setIsAddressFocus(true)}
               onBlur={() => setIsAddressFocus(false)}
-              value={articleUrl}
+              value={pageUrl}
               onChange={handleOnPageChange}
             />
-            {isAddressDuplicate === null && articleUrl !== '' && <Loader01Icon />}
+            {isDuplicate === null && pageUrl !== '' && <Loader01Icon />}
           </PublishInputForm>
-          {/* <TextInputForm type={''} children={undefined} isFocus={false} /> */}
-          {/* <UrlCustomTextarea defaultValue="/@sopt/content/"></UrlCustomTextarea> */}
         </UrlContainer>
       );
     default:
@@ -100,22 +102,6 @@ const EssentialPointerIcon = styled(EssentialCircleIcon)`
 const UrlTitleContainer = styled.div`
   display: flex;
 `;
-
-// const UrlCustomTextarea = styled.textarea`
-//   display: inline-flex;
-//   align-items: flex-start;
-//   margin-top: 0.8rem;
-//   padding: 1rem 1.2rem;
-//   width: 54rem;
-//   height: 4.6rem;
-//   resize: none;
-//   ${({ theme }) => theme.fonts.Body2_Regular};
-//   color: ${({ theme }) => theme.colors.grey_600};
-//   /* 기능넣을때 수정할 예정입니당. */
-//   &:focus {
-//     color: ${({ theme }) => theme.colors.grey_900};
-//   }
-// `;
 
 const UrlContainer = styled.div`
   margin-top: 2.4rem;

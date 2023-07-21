@@ -17,6 +17,7 @@ const AuthRequired = ({ children }: { children: React.ReactNode }) => {
 
   useEffect(() => {
     const accessToken = sessionStorage?.getItem('userToken');
+    console.log(accessToken);
     if (accessToken) {
       const { accessTokenState } = JSON.parse(accessToken);
       console.log(accessTokenState);
