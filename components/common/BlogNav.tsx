@@ -19,9 +19,6 @@ interface navProps {
 const BlogNav = (prop: navProps) => {
   const { navList } = prop;
 
-  //유효성 검사
-  // if (!navList) return <div>로더</div>;
-
   return (
     <BlogNavContainer>
       {navList &&

@@ -1,7 +1,7 @@
 import React from 'react';
 import { styled } from 'styled-components';
 
-const BlogListContainer = ({ children }: { children: React.ReactNode[] }) => {
+const BlogListContainer = ({ children }: { children: React.ReactNode }) => {
   return <BlogListUI>{children}</BlogListUI>;
 };
 
