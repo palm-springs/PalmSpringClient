@@ -18,7 +18,7 @@ const Article = (props: ArticleProps) => {
   const { team } = useParams();
   const {
     noHover,
-    article: { id, title, description, memberName, job, createdAt, thumbnail, categoryArticleResponseDto },
+    article: { id, title, description, memberName, job, createdAt, thumbnail, articleCategory },
   } = props;
 
   return (
@@ -27,7 +27,7 @@ const Article = (props: ArticleProps) => {
         <ArticleTitle className="title">{title}</ArticleTitle>
         <ArticleDescription className="description">{description}</ArticleDescription>
         <DetailBox>
-          {categoryArticleResponseDto && <CategoryBtn>{categoryArticleResponseDto.categoryName}</CategoryBtn>}
+          {articleCategory && <CategoryBtn>{articleCategory.categoryName}</CategoryBtn>}
           <ArticleDetail>{memberName}</ArticleDetail>&nbsp;·&nbsp;
           <ArticleDetail>{job}</ArticleDetail>
           <Bar>|</Bar>
