@@ -8,7 +8,7 @@ import { InputPlusButtonIcon, UserProfileDeleteIcon, UsersProfilesInputIcon } fr
 
 const UserProfile = () => {
   const { team } = useParams();
-  const [inputImage, setInputImage] = useState(true);
+  const [inputImage] = useState(true);
   const basicUserData = useGetUserBasicInfo(team);
   if (!basicUserData) return;
   return (

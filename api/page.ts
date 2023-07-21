@@ -15,7 +15,7 @@ interface postPageRequest {
 }
 
 export const postPageDraft = async (url: string, requestBody: postPageRequest) => {
-  const { data } = await client.post<Response<null>>(`/api/v1/page/Palms/${url}/create`, requestBody);
+  const { data } = await client.post<Response<null>>(`/api/v1/page/${url}/draft/create`, requestBody);
   return data;
 };
 
@@ -28,6 +28,6 @@ interface postPageCreateRequest {
 }
 
 export const postPageCreate = async (url: string, requestBody: postPageCreateRequest) => {
-  const { data } = await client.post<Response<null>>(`/api/v1/page/${url}/create`, requestBody);
+  const { data } = await client.post<Response<null>>(`/api/v1/page/${url}/admin/create`, requestBody);
   return data;
 };

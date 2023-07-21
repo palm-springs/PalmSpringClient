@@ -2,10 +2,13 @@
 import React from 'react';
 import { useParams, useRouter } from 'next/navigation';
 import router from 'next/router';
+import { useRecoilState } from 'recoil';
 import styled from 'styled-components';
 
 // import ARTICLE_CONTENT from '@/constants/ArticleContent';
 import { useGetSingleArticleData, useGetSinglePageData } from '@/hooks/article';
+
+import { articleDataState, pageDataState } from '../../states/atom';
 
 interface PublishTitleprops {
   pageType: string;
@@ -14,30 +17,28 @@ interface PublishTitleprops {
 }
 
 //정보 get 해야함
-
 const PublishTitle = (props: PublishTitleprops) => {
   const { team } = useParams();
   const { pageType, blogUrl, articleId } = props;
-  const singleArticleData = useGetSingleArticleData(team, 1);
-  const singlePageData = useGetSinglePageData(team, '');
-  if (!singleArticleData) return;
-  if (!singlePageData) return;
+
+  const [{ title }, setArticleData] = useRecoilState(articleDataState);
+  const [{ title: pageTitle }, setPageData] = useRecoilState(pageDataState);
 
   switch (pageType) {
     case `article`:
       return (
         <>
-          <ArticleTitle>{singleArticleData.data.title}</ArticleTitle>;
+          <ArticleTitle>{title}</ArticleTitle>
         </>
       );
     case `page`:
       return (
         <>
-          <ArticleTitle>{singlePageData.data.title}</ArticleTitle>;
+          <ArticleTitle>{pageTitle}</ArticleTitle>
         </>
       );
     default:
-      router.push('/not-found');
+      break;
   }
 };
 

@@ -96,7 +96,7 @@ const ThumbnailInput = (props: ThumbnailInputProps) => {
         </>
       );
     default:
-      router.push('/not-found');
+      break;
   }
 };
 

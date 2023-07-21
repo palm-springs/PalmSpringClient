@@ -4,7 +4,7 @@ import TextEditorBuild from '@/components/editor/TextEditorImport';
 const CreatePagePage = () => {
   return (
     <>
-      <ArticleTitle />
+      <ArticleTitle pageType="page" />
       <TextEditorBuild pageType="page" />
     </>
   );

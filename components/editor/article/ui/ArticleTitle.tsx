@@ -7,7 +7,13 @@ import styled from 'styled-components';
 
 import { articleDataState, pageDataState } from '../states/atom';
 
-const ArticleTitle = () => {
+interface TextEditorBuildprops {
+  pageType: string;
+}
+
+const ArticleTitle = (props: TextEditorBuildprops) => {
+  const { pageType } = props;
+
   const { team } = useParams();
   const router = useRouter();
   const [{ title }, setArticleData] = useRecoilState(articleDataState);
@@ -23,14 +29,14 @@ const ArticleTitle = () => {
     setPageData((prev) => ({ ...prev, title: value }));
   };
 
-  switch (usePathname()) {
-    case `/${team}/editor/article`:
+  switch (pageType) {
+    case `article`:
       return (
         <ArticleTitleContainer>
           <Input value={title} onChange={handleTitleChange} type="text" placeholder="제목을 입력해주세요" />
         </ArticleTitleContainer>
       );
-    case `/${team}/editor/page`:
+    case `page`:
       return (
         <ArticleTitleContainer>
           <Input value={pageTitle} onChange={handlePageTitleChange} type="text" placeholder="제목을 입력해주세요" />

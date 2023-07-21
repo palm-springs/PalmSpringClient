@@ -1,5 +1,6 @@
 'use client';
 import React from 'react';
+import { useParams } from 'next/navigation';
 import styled from 'styled-components';
 
 import CategorySelect from '@/components/editor/article/publish/ui/CategorySelect';
@@ -10,10 +11,11 @@ import ThumbnailInput from '@/components/editor/article/publish/ui/ThumbnailInpu
 import UrlCustom from '@/components/editor/article/publish/ui/UrlCustom';
 
 const ArticlePublishPage = () => {
+  const { team } = useParams();
   return (
     <ArticlePublishContainer>
       <ThumbnailInput pageType="article" />
-      <PublishTitle pageType="article" blogUrl={'team'} articleId={1} />
+      <PublishTitle pageType="article" blogUrl={team} articleId={1} />
       <CategorySelect />
       <OneLiner />
       <UrlCustom pageType="article" />

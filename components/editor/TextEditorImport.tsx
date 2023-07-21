@@ -49,9 +49,9 @@ interface TextEditorBuildprops {
 
 const TextEditorBuild = (props: TextEditorBuildprops) => {
   const { pageType } = props;
+  const { team } = useParams();
   const [{ title }, setArticleData] = useRecoilState(articleDataState);
   const [{ title: pageTitle }, setPageData] = useRecoilState(pageDataState);
-  const { team } = useParams();
 
   const [, setImageSrc] = useState('');
   const [extractedHTML, setExtractedHTML] = useState<string>('');
@@ -119,6 +119,7 @@ const TextEditorBuild = (props: TextEditorBuildprops) => {
     const reader = new FileReader();
     reader.onload = () => {
       editor.chain().focus().setImage({ src: imgUrl }).run(); // 이미지 데이터 업데이트
+      console.log(imgUrl);
     };
     reader.readAsDataURL(file);
   };
@@ -197,9 +198,9 @@ const TextEditorBuild = (props: TextEditorBuildprops) => {
       console.log(imageArr.length);
 
       if (imageArr.length === 0) {
-        postPageDraft('team', { title: pageTitle, content, images: null });
+        postPageDraft(team, { title: pageTitle, content, images: null });
       } else {
-        postPageDraft('team', {
+        postPageDraft(team, {
           title: pageTitle,
           content,
           images: imageArr,
@@ -212,13 +213,14 @@ const TextEditorBuild = (props: TextEditorBuildprops) => {
     if (editor) {
       const content = editor.getHTML();
       setExtractedHTML(content);
+      console.log(content);
 
       if (imageArr.length === 0) {
-        setPageData((prev) => ({ ...prev, title, content, image: null }));
+        setArticleData((prev) => ({ ...prev, title, content, image: null }));
       } else {
-        setPageData((prev) => ({ ...prev, title, content, image: imageArr }));
+        setArticleData((prev) => ({ ...prev, title, content, image: imageArr }));
       }
-      router.push('/${team}/editor/article/publish');
+      router.push(`/${team}/editor/article/publish`);
     }
   };
 
@@ -232,7 +234,7 @@ const TextEditorBuild = (props: TextEditorBuildprops) => {
       } else {
         setPageData((prev) => ({ ...prev, title: pageTitle, content, image: imageArr }));
       }
-      router.push('/${team}/editor/page/publish');
+      router.push(`/${team}/editor/page/publish`);
     }
   };
 
@@ -266,7 +268,7 @@ const TextEditorBuild = (props: TextEditorBuildprops) => {
         </>
       );
     default:
-      router.push('/not-found');
+      break;
   }
 };
 export default TextEditorBuild;
