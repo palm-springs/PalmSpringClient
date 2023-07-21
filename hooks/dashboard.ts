@@ -7,6 +7,7 @@ import {
   getNavList,
   getPageList,
   getTempSavedList,
+  getUserBasicInfo,
   getUserInfo,
   postCategory,
   postNavigation,
@@ -22,6 +23,7 @@ const QUERY_KEY_DASHBOARD = {
   postNavigation: 'postNavigation',
   getUserInfo: 'getUserInfo',
   getMemberInfo: 'getMemberInfo',
+  getUserBasicInfo: 'getUserBasicInfo',
 };
 
 export const useGetNavList = (blogUrl: string) => {
@@ -54,6 +56,11 @@ export const useGetTempSavedList = (blogUrl: string) => {
 
 export const useGetUserInfo = (blogUrl: string) => {
   const { data } = useQuery([QUERY_KEY_DASHBOARD.getUserInfo], () => getUserInfo(blogUrl));
+  return data;
+};
+
+export const useGetUserBasicInfo = (blogUrl: string) => {
+  const { data } = useQuery([QUERY_KEY_DASHBOARD.getUserBasicInfo], () => getUserBasicInfo(blogUrl));
   return data;
 };
 

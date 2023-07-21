@@ -10,6 +10,7 @@ export const GlobalStyle = createGlobalStyle`
   }
 
   .ProseMirror {
+    position: absolute;
     p {
       ${({ theme }) => theme.fonts.Body1_Regular};
       padding: 2.4rem 0 0.8rem 0;

@@ -4,6 +4,8 @@ import { DragEventHandler } from 'react';
 import { Editor, EditorContent } from '@tiptap/react';
 import styled from 'styled-components';
 
+// import EditorMenuBar from './article/ui/ToolBox';
+
 interface editorProps {
   editor: Editor | null;
   handleDragOver: DragEventHandler<HTMLDivElement> | undefined;
@@ -25,15 +27,16 @@ const EditorContainer = styled.div`
 `;
 
 const TextEditorUI = styled(EditorContent)`
+  ${({ theme }) => theme.fonts.Body1_Regular};
   width: 72.2rem;
   height: 100vh;
   color: ${({ theme }) => theme.colors.grey_900};
-  ${({ theme }) => theme.fonts.Body1_Regular};
+
   *:focus {
     outline: none;
   }
   .ProseMirror p.is-editor-empty:first-child::before {
-    float: left;
+    /* float: left; */
     height: 0;
     color: ${({ theme }) => theme.colors.grey_900};
     ${({ theme }) => theme.fonts.Body1_Regular};

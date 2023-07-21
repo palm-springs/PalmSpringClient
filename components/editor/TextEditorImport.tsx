@@ -1,5 +1,5 @@
 'use client';
-import React, { ChangeEvent, DragEvent, DragEventHandler, useCallback, useState } from 'react';
+import React, { ChangeEvent, DragEvent, DragEventHandler, useCallback, useEffect, useState } from 'react';
 import Blockquote from '@tiptap/extension-blockquote';
 import Bold from '@tiptap/extension-bold';
 import BulletList from '@tiptap/extension-bullet-list';
@@ -21,6 +21,7 @@ import js from 'highlight.js/lib/languages/javascript';
 import ts from 'highlight.js/lib/languages/typescript';
 import html from 'highlight.js/lib/languages/xml';
 import { lowlight } from 'lowlight';
+import { useParams, useRouter } from 'next/navigation';
 
 import SaveArticleButton from '@/components/editor/article/ui/SaveArticleButton';
 
@@ -36,18 +37,30 @@ lowlight.registerLanguage('ts', ts);
 import { useRecoilState } from 'recoil';
 
 import { postArticleList } from '@/api/article';
+import { postPageDraft } from '@/api/page';
 import ToolBox from '@/components/editor/article/ui/ToolBox';
 import TextEditor from '@/components/editor/TextEditor';
 import { getImageMultipartData } from '@/utils/getImageMultipartData';
 
-import { articleDataState } from './article/states/atom';
-import TopToolBox from './article/ui/TopToolBox';
+import { articleDataState, pageDataState } from './article/states/atom';
+interface TextEditorBuildprops {
+  pageType: string;
+}
 
-const TextEditorBuild = () => {
-  const [{ title }, setArtitleData] = useRecoilState(articleDataState);
+const TextEditorBuild = (props: TextEditorBuildprops) => {
+  const { pageType } = props;
+  const [{ title }, setArticleData] = useRecoilState(articleDataState);
+  const [{ title: pageTitle }, setPageData] = useRecoilState(pageDataState);
+  const { team } = useParams();
+
   const [, setImageSrc] = useState('');
   const [extractedHTML, setExtractedHTML] = useState<string>('');
-  const imageArr: string[] = [];
+  const [imageArr, setImageArr] = useState<string[]>([]);
+  const router = useRouter();
+
+  useEffect(() => {
+    console.log(imageArr);
+  }, [imageArr]);
 
   const editor = useEditor({
     extensions: [
@@ -98,13 +111,14 @@ const TextEditorBuild = () => {
       return null;
     }
     const file = files[0];
-    const imgUrl = await getImageMultipartData(file);
+    const imgUrl = (await getImageMultipartData(file)) as string;
     console.log(imgUrl);
+    setImageArr((prev) => [...prev, imgUrl]);
+    console.log(imageArr);
 
     const reader = new FileReader();
     reader.onload = () => {
-      const base64Data = reader.result as string;
-      editor.chain().focus().setImage({ src: base64Data }).run(); // 이미지 데이터 업데이트
+      editor.chain().focus().setImage({ src: imgUrl }).run(); // 이미지 데이터 업데이트
     };
     reader.readAsDataURL(file);
   };
@@ -142,7 +156,6 @@ const TextEditorBuild = () => {
       if (files.length > 0) {
         const file = files[0];
         const imgUrl = await getImageMultipartData(file);
-        console.log(imgUrl);
         imageArr.push(imgUrl);
 
         editor.chain().focus().setImage({ src: imgUrl }).run(); // 이미지를 에디터에 삽입
@@ -160,15 +173,37 @@ const TextEditorBuild = () => {
     return null;
   }
 
+  // post onchange, onclick 함수.
+
   const handleOnClickDraft = () => {
     if (editor) {
       const content = editor.getHTML();
       setExtractedHTML(content);
 
       if (imageArr.length === 0) {
-        postArticleList('synthiablog', { title, content, image: null });
+        postArticleList(team, { title, content, images: null });
       } else {
-        postArticleList('synthiablog', { title, content, image: imageArr });
+        postArticleList(team, { title, content, images: imageArr });
+      }
+    }
+  };
+
+  const handleOnClickPageDraft = () => {
+    if (editor) {
+      const content = editor.getHTML();
+      setExtractedHTML(content);
+
+      console.log(imageArr);
+      console.log(imageArr.length);
+
+      if (imageArr.length === 0) {
+        postPageDraft('team', { title: pageTitle, content, images: null });
+      } else {
+        postPageDraft('team', {
+          title: pageTitle,
+          content,
+          images: imageArr,
+        });
       }
     }
   };
@@ -179,19 +214,59 @@ const TextEditorBuild = () => {
       setExtractedHTML(content);
 
       if (imageArr.length === 0) {
-        setArtitleData((prev) => ({ ...prev, title, content, image: null }));
+        setPageData((prev) => ({ ...prev, title, content, image: null }));
       } else {
-        setArtitleData((prev) => ({ ...prev, title, content, image: imageArr }));
+        setPageData((prev) => ({ ...prev, title, content, image: imageArr }));
       }
+      router.push('/${team}/editor/article/publish');
     }
   };
 
-  return (
-    <>
-      <ToolBox editor={editor} encodeFileToBase64={encodeFileToBase64} setLink={setLink} />
-      <TextEditor editor={editor} handleDrop={handleDrop} handleDragOver={handleDragOver} />
-      <SaveArticleButton handleOnClickDraft={handleOnClickDraft} handleOnClickPublish={handleOnClickPublish} /> */
-    </>
-  );
+  const handleOnClickPagePublish = () => {
+    if (editor) {
+      const content = editor.getHTML();
+      setExtractedHTML(content);
+
+      if (imageArr.length === 0) {
+        setPageData((prev) => ({ ...prev, title: pageTitle, content, image: null }));
+      } else {
+        setPageData((prev) => ({ ...prev, title: pageTitle, content, image: imageArr }));
+      }
+      router.push('/${team}/editor/page/publish');
+    }
+  };
+
+  //조건문
+
+  switch (pageType) {
+    case `article`:
+      return (
+        <>
+          <ToolBox editor={editor} encodeFileToBase64={encodeFileToBase64} setLink={setLink} />
+          <TextEditor editor={editor} handleDrop={handleDrop} handleDragOver={handleDragOver} />
+          <SaveArticleButton
+            handleOnClickDraft={handleOnClickDraft}
+            handleOnClickPublish={handleOnClickPublish}
+            handleOnClickPageDraft={handleOnClickPageDraft}
+            handleOnClickPagePublish={handleOnClickPagePublish}
+          />
+        </>
+      );
+    case `page`:
+      return (
+        <>
+          <ToolBox editor={editor} encodeFileToBase64={encodeFileToBase64} setLink={setLink} />
+          <TextEditor editor={editor} handleDrop={handleDrop} handleDragOver={handleDragOver} />
+          <SaveArticleButton
+            handleOnClickDraft={handleOnClickDraft}
+            handleOnClickPublish={handleOnClickPublish}
+            handleOnClickPageDraft={handleOnClickPageDraft}
+            handleOnClickPagePublish={handleOnClickPagePublish}
+          />
+        </>
+      );
+    default:
+      router.push('/not-found');
+  }
 };
 export default TextEditorBuild;

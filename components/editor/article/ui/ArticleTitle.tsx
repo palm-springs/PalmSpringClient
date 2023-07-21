@@ -1,23 +1,44 @@
 'use client';
 
 import React, { ChangeEvent, Dispatch, SetStateAction } from 'react';
+import { useParams, usePathname, useRouter } from 'next/navigation';
 import { useRecoilState } from 'recoil';
 import styled from 'styled-components';
 
-import { articleDataState } from '../states/atom';
+import { articleDataState, pageDataState } from '../states/atom';
 
 const ArticleTitle = () => {
+  const { team } = useParams();
+  const router = useRouter();
   const [{ title }, setArticleData] = useRecoilState(articleDataState);
+  const [{ title: pageTitle }, setPageData] = useRecoilState(pageDataState);
 
   const handleTitleChange = (e: ChangeEvent<HTMLInputElement>) => {
     const { value } = e.target;
     setArticleData((prev) => ({ ...prev, title: value }));
   };
-  return (
-    <ArticleTitleContainer>
-      <Input value={title} onChange={handleTitleChange} type="text" placeholder="제목을 입력해주세요" />
-    </ArticleTitleContainer>
-  );
+
+  const handlePageTitleChange = (e: ChangeEvent<HTMLInputElement>) => {
+    const { value } = e.target;
+    setPageData((prev) => ({ ...prev, title: value }));
+  };
+
+  switch (usePathname()) {
+    case `/${team}/editor/article`:
+      return (
+        <ArticleTitleContainer>
+          <Input value={title} onChange={handleTitleChange} type="text" placeholder="제목을 입력해주세요" />
+        </ArticleTitleContainer>
+      );
+    case `/${team}/editor/page`:
+      return (
+        <ArticleTitleContainer>
+          <Input value={pageTitle} onChange={handlePageTitleChange} type="text" placeholder="제목을 입력해주세요" />
+        </ArticleTitleContainer>
+      );
+    default:
+      router.push('/not-found');
+  }
 };
 
 export default ArticleTitle;

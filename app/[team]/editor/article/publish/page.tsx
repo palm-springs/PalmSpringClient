@@ -12,12 +12,12 @@ import UrlCustom from '@/components/editor/article/publish/ui/UrlCustom';
 const ArticlePublishPage = () => {
   return (
     <ArticlePublishContainer>
-      <ThumbnailInput />
-      <PublishTitle />
+      <ThumbnailInput pageType="article" />
+      <PublishTitle pageType="article" blogUrl={'team'} articleId={1} />
       <CategorySelect />
       <OneLiner />
-      <UrlCustom />
-      <PublishBottomButtons />
+      <UrlCustom pageType="article" />
+      <PublishBottomButtons pageType="article" />
     </ArticlePublishContainer>
   );
 };

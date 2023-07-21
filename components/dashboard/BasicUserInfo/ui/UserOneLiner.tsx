@@ -1,12 +1,20 @@
 'use client';
 import React from 'react';
+import { useParams } from 'next/navigation';
 import styled from 'styled-components';
 
+import { useGetUserBasicInfo } from '@/hooks/dashboard';
+
 const UserOneLiner = () => {
+  const { team } = useParams();
+  const basicUserData = useGetUserBasicInfo(team);
+  if (!basicUserData) return;
   return (
     <UserOneLinerContainer>
       <UserNameTitle>한 줄 소개</UserNameTitle>
-      <UserOneLinerTextarea placeholder="한 줄 소개를 입력해주세요"></UserOneLinerTextarea>
+      <UserOneLinerTextarea placeholder="한 줄 소개를 입력해주세요">
+        {basicUserData.data.description}
+      </UserOneLinerTextarea>
     </UserOneLinerContainer>
   );
 };
@@ -23,7 +31,7 @@ const UserOneLinerTextarea = styled.textarea`
   width: 64.5rem;
   height: 8.6rem;
   resize: none;
-  color: ${({ theme }) => theme.colors.grey_600};
+  color: ${({ theme }) => theme.colors.grey_900};
   &:focus {
     outline: 1px solid ${({ theme }) => theme.colors.grey_700};
   }
