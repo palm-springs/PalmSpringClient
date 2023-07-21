@@ -48,6 +48,15 @@ export const getUserInfo = async (blogUrl: string) => {
   return data;
 };
 
+export const getUserInfoAfterLogin = async (blogUrl: string, accessToken: string) => {
+  const { data } = await client.get<Response<UserInfoProps>>(`/api/v1/user/dashboard/sidebar/${blogUrl}`, {
+    headers: {
+      Authorization: `Bearer ${accessToken}`,
+    },
+  });
+  return data;
+};
+
 export const getMemberList = async (blogUrl: string) => {
   const { data } = await client.get<Response<MemberProps[]>>(`/api/v1/user/dashboard/team/${blogUrl}`);
   return data;
