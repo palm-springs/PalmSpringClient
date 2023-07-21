@@ -1,6 +1,6 @@
 'use client';
 
-import React from 'react';
+import React, { useEffect } from 'react';
 import styled from 'styled-components';
 
 import ArticleList from '../common/ArticleList';
@@ -18,6 +18,10 @@ interface AuthorPageTemplateProps {
 }
 
 const AuthorPageTemplate = (props: AuthorPageTemplateProps) => {
+  useEffect(() => {
+    window.scrollTo({ top: 0, left: 0, behavior: 'auto' });
+  }, []);
+
   const {
     authorData: { thumbnail, nickname, job, description, articles },
   } = props;

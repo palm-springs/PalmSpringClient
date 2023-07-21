@@ -29,6 +29,8 @@ const AuthorInfoContainer = styled.div`
   display: flex;
   flex-direction: column;
   align-items: center;
+
+  margin-top: 6rem;
   width: 100%;
 `;
 

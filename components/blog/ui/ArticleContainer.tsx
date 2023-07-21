@@ -1,6 +1,6 @@
 'use client';
 
-import React from 'react';
+import React, { useEffect } from 'react';
 import { useParams } from 'next/navigation';
 import styled from 'styled-components';
 
@@ -22,6 +22,10 @@ interface ArticleContainerProps {
 }
 
 const ArticleContainer = (props: ArticleContainerProps) => {
+  useEffect(() => {
+    window.scrollTo({ top: 0, left: 0, behavior: 'auto' });
+  }, []);
+
   const { team } = useParams();
   const { articleListData, thumbnail, description } = props;
   const FilteredCategoryList = useGetCategoryList(team);
