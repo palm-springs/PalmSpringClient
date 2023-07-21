@@ -59,8 +59,8 @@ export const useGetUserInfo = (blogUrl: string) => {
   return data;
 };
 
-export const useGetUserBasicInfo = () => {
-  const { data } = useQuery([QUERY_KEY_DASHBOARD.getUserBasicInfo], () => getUserBasicInfo());
+export const useGetUserBasicInfo = (blogUrl: string) => {
+  const { data } = useQuery([QUERY_KEY_DASHBOARD.getUserBasicInfo], () => getUserBasicInfo(blogUrl));
   return data;
 };
 

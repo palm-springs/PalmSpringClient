@@ -1,9 +1,7 @@
 import React, { Dispatch, SetStateAction } from 'react';
-import Image from 'next/image';
 import { styled } from 'styled-components';
 
-import { DuckDuckImg } from '@/public/images';
-
+import { NoUserProfileIcon } from '@/public/icons';
 interface DashBoardProfileContainerProps {
   userName: string;
   email: string;
@@ -19,7 +17,8 @@ const DashBoardProfileContainer = (props: DashBoardProfileContainerProps) => {
       {profileImgUrl ? (
         <ProfileImg src={profileImgUrl} alt="프로필 이미지" />
       ) : (
-        <Image src={DuckDuckImg} alt="덕덕 이미지" />
+        // <Image src={DuckDuckImg} alt="덕덕 이미지" />
+        <NoUserProfileIcon />
       )}
       <div>
         <span>{userName}</span>
@@ -55,6 +54,7 @@ const DashBoardProfileContainerUI = styled.article`
     display: flex;
     flex-direction: column;
     align-items: flex-start;
+    margin-left: 1.6rem;
     :first-child {
       margin-bottom: 0.2rem;
       height: 1.7rem;

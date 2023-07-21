@@ -1,28 +1,32 @@
-// 'use client';
+'use client';
 
-// import React from 'react';
-// import styled from 'styled-components';
+import React from 'react';
+import styled from 'styled-components';
 
-// import Article from '@/components/common/Article';
-// import { ARTICLE_LIST } from '@/constants/articleList';
-// import { ArticleData } from '@/types/article';
+import Article from '@/components/common/Article';
+import { ArticleData } from '@/types/article';
 
-// const ArticleBox = () => {
-//   const RECOMMEND_ARTICLE_LIST: ArticleData[] = ARTICLE_LIST.slice(0, 3);
+interface ArticleBoxProps {
+  recommendArticle: ArticleData[];
+}
 
-//   const ArticleList = RECOMMEND_ARTICLE_LIST.map((article) => {
-//     return <Article noHover key={article.id} article={article} />;
-//   });
+const ArticleBox = (props: ArticleBoxProps) => {
+  const { recommendArticle } = props;
 
-//   return <ArticleBoxContainer>{ArticleList}</ArticleBoxContainer>;
-// };
+  const ArticleList = recommendArticle.map((article) => {
+    return <Article noHover key={article.id} article={article} />;
+  });
 
-// export default ArticleBox;
+  return <ArticleBoxContainer>{ArticleList}</ArticleBoxContainer>;
+};
 
-// const ArticleBoxContainer = styled.section`
-//   display: flex;
-//   flex-direction: column;
-//   gap: 6rem;
-//   padding-top: 2.4rem;
-//   width: 100%;
-// `;
+export default ArticleBox;
+
+const ArticleBoxContainer = styled.section`
+  display: flex;
+  flex-direction: column;
+  gap: 6rem;
+
+  padding-top: 2.4rem;
+  width: 100%;
+`;

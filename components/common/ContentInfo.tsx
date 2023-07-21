@@ -63,7 +63,8 @@ const ContentInfo = (props: ContentInfoProps) => {
             {thumbnail ? <WriterProfilePic src={thumbnail} alt="writer profile pic" /> : <NoUserProfileIcon />}
             <WriterDetailBox>
               <WriterNameBox>
-                <WriterDetail>{name}</WriterDetail>&nbsp;·&nbsp;<WriterDetail>{job}</WriterDetail>
+                <WriterDetail>{name}</WriterDetail>
+                <WriterDetail>&nbsp;·&nbsp;{job}</WriterDetail>
               </WriterNameBox>
               <WriterDetail className="date">{createdAt}</WriterDetail>
             </WriterDetailBox>
@@ -162,7 +163,7 @@ const WriterDetailBox = styled.div`
 
 const WriterDetail = styled.div`
   ${({ theme }) => theme.fonts.Body2_Regular};
-  color: ${({ theme }) => theme.colors.grey_950};
+  color: ${({ theme }) => theme.colors.grey_900};
 
   &.date {
     ${({ theme }) => theme.fonts.Body3_Regular};
