@@ -7,7 +7,7 @@ import { useGetUserBasicInfo } from '@/hooks/dashboard';
 
 const UserName = () => {
   const { team } = useParams();
-  const basicUserData = usegetUserBasicInfo();
+  const basicUserData = useGetUserBasicInfo();
   if (!basicUserData) return;
 
   return (

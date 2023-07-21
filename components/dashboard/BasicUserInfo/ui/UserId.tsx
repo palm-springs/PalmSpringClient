@@ -14,7 +14,7 @@ const UserId = () => {
   const [isAddressDuplicate, setIsAddressDuplicate] = useState<boolean | null>(null);
   const [isAddressFocus, setIsAddressFocus] = useState(false);
   const { team } = useParams();
-  const basicUserData = usegetUserBasicInfo();
+  const basicUserData = useGetUserBasicInfo();
   if (!basicUserData) return;
 
   const handleOnChange = (e: React.ChangeEvent<HTMLInputElement>) => {
@@ -30,7 +30,9 @@ const UserId = () => {
         <IdInputForm
           isFocus={isAddressFocus}
           isAddressDuplicate={isAddressDuplicate === null ? undefined : isAddressDuplicate}>
-          <div>@/sopt/author/{basicUserData.data.registerId}</div>
+          <div>
+            @/{team}/author/{basicUserData.data.registerId}
+          </div>
           <TextInput
             onFocus={() => setIsAddressFocus(true)}
             onBlur={() => setIsAddressFocus(false)}
