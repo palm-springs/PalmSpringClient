@@ -1,5 +1,8 @@
 import React from 'react';
+import { useRecoilValue } from 'recoil';
 import { styled } from 'styled-components';
+
+import { dashBoardHeaderButtonVisibleState } from '../../state/modalState';
 
 interface UploadHeaderContainerProps {
   title: string;
@@ -17,11 +20,13 @@ interface UploadHeaderContainerProps {
 const HeaderContainer = (props: UploadHeaderContainerProps) => {
   const { title, buttonInnerText, onButtonClick } = props;
 
+  const headerButtonState = useRecoilValue(dashBoardHeaderButtonVisibleState);
+
   return (
     <UploadHeaderUI>
       <HeaderContentWrapper>
         <span>{title}</span>
-        {buttonInnerText && <button onClick={onButtonClick}>{buttonInnerText}</button>}
+        {buttonInnerText && headerButtonState && <button onClick={onButtonClick}>{buttonInnerText}</button>}
       </HeaderContentWrapper>
     </UploadHeaderUI>
   );

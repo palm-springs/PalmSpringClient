@@ -43,6 +43,7 @@ export { default as Menu01Icon } from './menu-01.svg';
 export { default as ProfilePhotoIcon } from './profilePhoto.svg';
 export { default as SettingIcon } from './settings.svg';
 export { default as SymbolIcon } from './symbol.svg';
+export { default as TempsavedIcon } from './tempsaved.svg';
 export { default as ThumbnailIcon } from './thumbnail_icon-1.svg';
 export { default as UserProfile03Icon } from './user-profile-03.svg';
 export { default as UserProfileCheckIcon } from './user-profile-check.svg';

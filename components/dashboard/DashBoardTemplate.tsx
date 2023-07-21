@@ -1,6 +1,9 @@
 'use client';
 
-import React from 'react';
+import React, { useEffect } from 'react';
+import { useParams } from 'next/navigation';
+
+import { useGetUserInfo } from '@/hooks/dashboard';
 
 import DashBoardHeader from './components/DashBoardHeader';
 import DashBoardNav from './components/DashBoardNav';
@@ -14,6 +17,7 @@ interface DashBoardTemplateProps {
 
 const DashBoardTemplate = (props: DashBoardTemplateProps) => {
   const { children, noHeader } = props;
+
   return (
     <DashboardContextProvider>
       <DashBoardContainer>

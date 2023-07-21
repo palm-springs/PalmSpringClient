@@ -1,22 +1,38 @@
 'use client';
 
 import React, { Dispatch, SetStateAction } from 'react';
+import { useParams } from 'next/navigation';
 
-import { ArrowDownIcon, SymbolIcon } from '@/public/icons';
+import { useGetBlogInfo } from '@/hooks/blog';
+import { ArrowDownIcon, LogoIcon, SymbolIcon } from '@/public/icons';
 
+import BlogLogo from './ui/BlogLogo';
 import SideBarTitle from './ui/SideBarTitle';
 
 interface DashBoardTitleProps {
   setIsBlogListOpen: Dispatch<SetStateAction<boolean>>;
+  currentBlog: number;
+  setCurrentBlog: Dispatch<SetStateAction<number>>;
 }
 
 const DashBoardTitle = (props: DashBoardTitleProps) => {
   const { setIsBlogListOpen } = props;
+
+  const { team } = useParams();
+
+  const res = useGetBlogInfo(team);
+
+  if (!res) return <div>로더</div>;
+
+  const {
+    data: { name, logo },
+  } = res;
+
   return (
     <>
-      <SymbolIcon />
+      {logo ? <BlogLogo src={logo} /> : <SymbolIcon />}
       <SideBarTitle>
-        팜스프링 팀블로그
+        {name}
         <button type="button" onClick={() => setIsBlogListOpen((prev) => !prev)}>
           <ArrowDownIcon />
         </button>
