@@ -1,10 +1,12 @@
 'use client';
 
 import React from 'react';
+import { fill } from 'lodash-es';
 import { useParams } from 'next/navigation';
 import styled from 'styled-components';
 
 import ArticleList from '@/components/common/ArticleList';
+import LoadingLottie from '@/components/common/ui/LoadingLottie';
 import { useGetCategoryList } from '@/hooks/dashboard';
 import { ArticleData } from '@/types/article';
 import { getLiteralCategoryList } from '@/utils/getLiteralCategoryList';
@@ -25,7 +27,10 @@ const ArticleContainer = (props: ArticleContainerProps) => {
   const { articleListData, thumbnail, description } = props;
   const FilteredCategoryList = useGetCategoryList(team);
 
-  if (!FilteredCategoryList) return <div>로더</div>;
+  console.log(articleListData);
+
+  if (!FilteredCategoryList || !articleListData) return <LoadingLottie width={10} height={10} fit />;
+  // <div>로더</div>;
 
   const LiteralList = getLiteralCategoryList(FilteredCategoryList);
 

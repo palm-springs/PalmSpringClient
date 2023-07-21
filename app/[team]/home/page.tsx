@@ -10,7 +10,10 @@ const BlogMainPage = async ({ params }: { params: { team: string } }) => {
   const {
     data: { thumbnail, description },
   } = await getBlogMainImg(params.team);
+
   const { data: articleListData } = await getArticleList(params.team, '');
+
+  console.log(articleListData);
 
   return <ArticleContainer articleListData={articleListData} thumbnail={thumbnail} description={description} />;
 };
