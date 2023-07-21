@@ -11,6 +11,7 @@ const UserProfile = () => {
   const [inputImage] = useState(true);
   const basicUserData = useGetUserBasicInfo(team);
   if (!basicUserData) return;
+  console.log(basicUserData.data.nickname);
   return (
     <UserProfileContainer>
       <ProfileInputLabel>

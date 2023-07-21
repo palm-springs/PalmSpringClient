@@ -1,5 +1,5 @@
 'use client';
-import React from 'react';
+import React, { useState } from 'react';
 import { useParams } from 'next/navigation';
 import styled from 'styled-components';
 
@@ -13,7 +13,9 @@ import UrlCustom from '@/components/editor/article/publish/ui/UrlCustom';
 
 const ArticlePublishPage = () => {
   const { team } = useParams();
+
   return (
+    //카테고리, 한줄소개, url
     <AuthRequired>
       <ArticlePublishContainer>
         <ThumbnailInput pageType="article" />
