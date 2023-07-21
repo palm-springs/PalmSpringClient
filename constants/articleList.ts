@@ -10,7 +10,7 @@ export const ARTICLE_LIST: ArticleData[] = [
     memberName: '장묭지',
     job: '웹 프론트엔드 개발자',
     createdAt: '2023.06.25',
-    categoryArticleResponseDto: {
+    articleCategory: {
       categoryId: 1,
       categoryName: '개발',
     },
@@ -22,7 +22,7 @@ export const ARTICLE_LIST: ArticleData[] = [
     memberName: '오형근',
     job: '웹 프론트엔드 개발자',
     createdAt: '2023.06.28',
-    categoryArticleResponseDto: {
+    articleCategory: {
       categoryId: 1,
       categoryName: '디자인',
     },
@@ -34,7 +34,7 @@ export const ARTICLE_LIST: ArticleData[] = [
     memberName: '김서현',
     job: '웹 프론트엔드 개발자',
     createdAt: '2023.06.27',
-    categoryArticleResponseDto: {
+    articleCategory: {
       categoryId: 1,
       categoryName: '팀문화',
     },
@@ -46,7 +46,7 @@ export const ARTICLE_LIST: ArticleData[] = [
     memberName: '이시연 · 웹 프론트엔드 개발자',
     job: '웹 프론트엔드 개발자',
     createdAt: '2023.07.25',
-    categoryArticleResponseDto: {
+    articleCategory: {
       categoryId: 1,
       categoryName: '팀문화',
     },
