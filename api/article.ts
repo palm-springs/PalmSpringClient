@@ -1,5 +1,7 @@
 // import { url } from 'inspector';
 
+import { useQuery } from '@tanstack/react-query';
+
 import { ArticleData, SingleArticleData } from '@/types/article';
 import { Response } from '@/types/common';
 import { PageData } from '@/types/page';
@@ -49,13 +51,16 @@ interface postArticleCreateListRequest {
 }
 
 export const postArticleCreateList = async (url: string, requestBody: postArticleCreateListRequest) => {
-  const { data } = await client.post<Response<null>>(`/api/v1/article/${url}/create`, requestBody);
+  const { data } = await client.post<Response<null>>(`/api/v1/article/${url}/create`, requestBody).then((res) => {
+    if (res.status < 300) {
+      useQuery(['getArticleList', url, '']);
+    }
+    return res;
+  });
   return data;
 };
 
-export const getCheckDuplicateUrl = async (teamUrl: string, articleUrl: string) => {
-  const {
-    data: { data },
-  } = await client.get(`/api/v1/article/${teamUrl}/check?articleUrl=${articleUrl}`);
+export const getCheckArticleUrlDuplication = async (teamUrl: string, articleUrl: string) => {
+  const { data } = await client.get(`/api/v1/article/${teamUrl}/check?articleUrl=${articleUrl}`);
   return data;
 };

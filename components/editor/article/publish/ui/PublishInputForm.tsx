@@ -1,45 +1,32 @@
 'use client';
 import styled from 'styled-components';
 
-import InputMessage from '@/components/create-blog/info/ui/basicInfo/InputMessage';
-
 interface PublishInputFormProps {
   children: React.ReactNode;
   isFocus: boolean;
-  isAddressDuplicate?: boolean;
+  isDuplicate: boolean | null;
 }
 
 const PublishInputForm = (props: PublishInputFormProps) => {
-  const { children, isFocus, isAddressDuplicate } = props;
+  const { children, isFocus, isDuplicate } = props;
 
   return (
     <>
-      <InputContainer
-        id={isAddressDuplicate !== undefined ? (isAddressDuplicate ? 'failed' : 'success') : ''}
-        $isFocus={isFocus}>
+      <InputContainer id={isDuplicate ? 'failed' : ''} $isFocus={isFocus}>
         {children}
       </InputContainer>
-      {/* {isAddressDuplicate !== undefined && <InputMessage isAddressDuplicate={isAddressDuplicate} />} */}
+      {isDuplicate && <Message>이미 사용 중인 URL입니다. 다른 URL를 입력해주세요.</Message>}
     </>
   );
 };
 
 export default PublishInputForm;
 
-// const Label = styled.label`
-//   display: flex;
-//   position: relative;
-//   flex-direction: column;
-
-//   width: 100%;
-// `;
-
-// text input 입력  컨테이너
 const InputContainer = styled.div<{ $isFocus: boolean }>`
   display: flex;
+  position: relative;
   align-items: center;
   border: 1px solid;
-
   border-radius: 0.8rem;
 
   border-color: ${({ theme, $isFocus }) => ($isFocus ? theme.colors.grey_700 : theme.colors.grey_400)};
@@ -50,10 +37,6 @@ const InputContainer = styled.div<{ $isFocus: boolean }>`
 
   &#failed {
     border-color: ${({ theme }) => theme.colors.red};
-  }
-
-  &#success {
-    border-color: ${({ theme }) => theme.colors.green};
   }
 
   & > div {
@@ -74,4 +57,12 @@ const InputContainer = styled.div<{ $isFocus: boolean }>`
       }
     }
   }
+`;
+const Message = styled.span`
+  ${({ theme }) => theme.fonts.Caption};
+  position: absolute;
+  top: 0.6rem;
+  margin-top: 0.6rem;
+
+  color: ${({ theme }) => theme.colors.red};
 `;

@@ -1,6 +1,6 @@
 'use client';
 
-import React from 'react';
+import React, { useEffect } from 'react';
 import toast, { Toaster } from 'react-hot-toast';
 import Image from 'next/image';
 import styled from 'styled-components';
@@ -17,6 +17,10 @@ interface ContentTemplateProps {
 }
 
 const ContentTemplate = (props: ContentTemplateProps) => {
+  useEffect(() => {
+    window.scrollTo({ top: 0, left: 0, behavior: 'auto' });
+  }, []);
+
   const {
     data: { thumbnail, title, description, teamMember, content },
   } = props;

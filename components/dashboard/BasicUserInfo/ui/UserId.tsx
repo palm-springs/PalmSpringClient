@@ -30,7 +30,9 @@ const UserId = () => {
         <IdInputForm
           isFocus={isAddressFocus}
           isAddressDuplicate={isAddressDuplicate === null ? undefined : isAddressDuplicate}>
-          <div>@/sopt/author/{basicUserData.data.registerId}</div>
+          <div>
+            @/{team}/author/{basicUserData.data.registerId}
+          </div>
           <TextInput
             onFocus={() => setIsAddressFocus(true)}
             onBlur={() => setIsAddressFocus(false)}

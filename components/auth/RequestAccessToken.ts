@@ -1,8 +1,9 @@
 import { useRouter } from 'next/navigation';
 import { useSetRecoilState } from 'recoil';
 
+import client from '@/api';
 import { postSocialLogin } from '@/api/auth';
-import { getUserInfo } from '@/api/dashboard';
+import { getUserInfoAfterLogin } from '@/api/dashboard';
 import { useGetAccessToken } from '@/hooks/auth';
 import { getAccessTokenProps } from '@/types/auth';
 
@@ -22,7 +23,7 @@ const RequestAccessToken = async (props: getAccessTokenProps) => {
     if (data.code === 200) {
       const {
         data: { joinBlogList },
-      } = await getUserInfo('');
+      } = await getUserInfoAfterLogin('', accessToken);
       if (joinBlogList.length === 0) {
         router.push('/no-team/dashboard');
       } else {
