@@ -13,7 +13,7 @@ const LoadingLanding = (props: authClientInfo) => {
     RequestAccessToken({ ...props, code });
   }
 
-  return <LoadingLottie width={10} height={10} />;
+  return <LoadingLottie width={10} height={10} fit />;
 };
 
 export default LoadingLanding;
