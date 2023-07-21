@@ -3,11 +3,11 @@
 import React from 'react';
 import Image from 'next/image';
 import Link from 'next/link';
+import { useParams } from 'next/navigation';
 import styled from 'styled-components';
 
 import ArticleList from '@/components/common/ArticleList';
 import ContentInfo from '@/components/common/ContentInfo';
-import { CONTENT_INFO } from '@/constants/ContentInfo';
 import { useGetCategoryList } from '@/hooks/dashboard';
 import { BlogSampleImg } from '@/public/images';
 import { ArticleData } from '@/types/article';
@@ -23,12 +23,14 @@ interface ArticleContainerProps {
   thumbnail: string | null;
   description: string | null;
   contentInfoData: ContentProps;
+  IndivContentId: number;
 }
 
 const ArticleContainer = (props: ArticleContainerProps) => {
-  const { articleListData, thumbnail, description, contentInfoData } = props;
+  const { team } = useParams();
+  const { articleListData, thumbnail, description, contentInfoData, IndivContentId } = props;
 
-  const FilteredCategoryList = useGetCategoryList('helloworld');
+  const FilteredCategoryList = useGetCategoryList(team);
   console.log(FilteredCategoryList);
 
   if (!FilteredCategoryList) return <div>로더</div>;
@@ -53,13 +55,13 @@ const ArticleContainer = (props: ArticleContainerProps) => {
           <>
             <ContentInfoContainer>
               {contentInfoData.thumbnail && (
-                <Link href={`./content/contentNameHere`}>
+                <Link href={`./content/${IndivContentId}`}>
                   <Image src={BlogSampleImg} alt="blog thumbnail" />
                 </Link>
                 //실제 썸네일 url이 들어오면 위의 코드는 삭제 후 밑의 코드를 사용할 예정입니다!
                 // <Image src={CONTENT_INFO.thumbnail} alt="blog thumbnail" width={720} height={450} />
               )}
-              <ContentInfo contentInfoData={contentInfoData} />
+              <ContentInfo contentInfoData={contentInfoData} IndivContentId={IndivContentId} />
             </ContentInfoContainer>
             <CategoryBtnWrapper>
               <CategoryBtnBar LiteralList={LiteralList} />

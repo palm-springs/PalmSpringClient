@@ -11,15 +11,14 @@ interface CategoryBtnBarProps {
   LiteralList: string[];
 }
 const CategoryBtnBar = (props: CategoryBtnBarProps) => {
-  const blogUrl = useParams;
-  console.log(blogUrl);
+  const { team } = useParams();
   const { LiteralList } = props;
   const SELECTED = useGetCategory();
 
   const CATEGORY_LIST = LiteralList.map((eachCategory) => {
     return (
       <CategoryBtn
-        href={`/blogNameHere/home/${eachCategory}`}
+        href={`/${team}/home/${eachCategory}`}
         key={eachCategory}
         type="button"
         className={eachCategory === decodeURI(SELECTED) ? 'selected' : ''}>
@@ -30,7 +29,7 @@ const CategoryBtnBar = (props: CategoryBtnBarProps) => {
 
   return (
     <CategoryBtnBarContainer>
-      <CategoryBtn href={'/blogNameHere/home'} type="button" className={SELECTED === 'home' ? 'selected' : ''}>
+      <CategoryBtn href={`/${team}/home`} type="button" className={SELECTED === 'home' ? 'selected' : ''}>
         전체
       </CategoryBtn>
       {CATEGORY_LIST}
@@ -45,6 +44,7 @@ const CategoryBtnBarContainer = styled.div`
   flex-wrap: wrap;
   gap: 1.2rem;
   justify-content: flex-start;
+
   margin: 7.2rem 0 4.8rem;
   width: 72rem;
 `;
@@ -55,6 +55,7 @@ const CategoryBtn = styled(Link)`
   display: flex;
   align-items: center;
   justify-content: center;
+
   border: none;
   border-radius: 4rem;
 
@@ -72,6 +73,7 @@ const CategoryBtn = styled(Link)`
 
   &.selected {
     ${({ theme }) => theme.fonts.Body1_Regular};
+
     background-color: ${({ theme }) => theme.colors.grey_900};
     color: ${({ theme }) => theme.colors.grey_0};
   }

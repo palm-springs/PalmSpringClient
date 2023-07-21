@@ -6,20 +6,20 @@ import { getBlogMainImg } from '@/api/blog';
 import { getContent } from '@/api/content';
 import ArticleContainer from '@/components/blog/ui/ArticleContainer';
 
-const CategoryPage = async ({ params }: { params: { categoryId: string } }) => {
-  const { data: categoryArticleList } = await getArticleList('test2', params.categoryId);
-  const { data: contentInfoData } = await getContent('test', 0);
-
+const CategoryPage = async ({ params }: { params: { category: string; team: string } }) => {
   const {
     data: { thumbnail, description },
-  } = await getBlogMainImg('test2');
-
+  } = await getBlogMainImg(params.team);
+  const { data: categoryArticleList } = await getArticleList(params.team, params.category);
+  const { data: contentInfoData } = await getContent(params.team, categoryArticleList[0].id);
+  const IndivContentId = categoryArticleList[0].id;
   return (
     <ArticleContainer
       articleListData={categoryArticleList}
       thumbnail={thumbnail}
       description={description}
       contentInfoData={contentInfoData}
+      IndivContentId={IndivContentId}
     />
   );
 };
