@@ -12,6 +12,7 @@ export { default as BoldIcon } from './ic_Bold.svg';
 export { default as CloseIcon } from './ic_close.svg';
 export { default as IcClose24Icon } from './ic_close_24.svg';
 export { default as UserProfileDeleteIcon } from './ic_deleteprofileimage.svg';
+export { default as EssentialCircleIcon } from './ic_essential_circle.svg';
 export { default as H1Icon } from './ic_H1.svg';
 export { default as H2Icon } from './ic_H2.svg';
 export { default as H3Icon } from './ic_H3.svg';

@@ -1,16 +1,18 @@
 'use client';
 import React, { useState } from 'react';
+import { useQuery } from '@tanstack/react-query';
+import { useParams } from 'next/navigation';
 import styled from 'styled-components';
 
+import { useGetUserBasicInfo } from '@/hooks/dashboard';
 import { InputPlusButtonIcon, UserProfileDeleteIcon, UsersProfilesInputIcon } from '@/public/icons';
+import { getUserBasicInfo } from '@/types/dashboard';
 
 const UserProfile = () => {
+  const { team } = useParams();
   const [inputImage, setInputImage] = useState(true);
-
-  const handleGetUserInfo = () => {
-    setInputImage(false);
-  };
-
+  const basicUserData = useGetUserBasicInfo(team);
+  if (!basicUserData) return;
   return (
     <UserProfileContainer>
       <ProfileInputLabel>
@@ -21,9 +23,7 @@ const UserProfile = () => {
 
         {inputImage ? (
           <>
-            <UsersProfilesInputBackground />
-            {/* 실제 유저 이미지 url이 오면 밑의 코드로 대체할 예정
-            <ImageUserBox src='' alt='user profile'/> */}
+            <ImageUserBox src={basicUserData.data.thumbnail} alt="user profile" />
             <UsersProfilesDelete />
           </>
         ) : (

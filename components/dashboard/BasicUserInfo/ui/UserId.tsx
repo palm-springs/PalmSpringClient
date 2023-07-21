@@ -1,16 +1,21 @@
 'use client';
 import React, { useState } from 'react';
+import { useParams } from 'next/navigation';
 import styled from 'styled-components';
 
 import TextInputForm from '@/components/invite/ui/TextInputForm';
+import { useGetUserBasicInfo } from '@/hooks/dashboard';
 import { Loader01Icon } from '@/public/icons';
 
 import IdInputForm from './IdInputForm';
 
 const UserId = () => {
   const [url, setUrl] = useState('');
-  const [isAddressFocus, setIsAddressFocus] = useState(false);
   const [isAddressDuplicate, setIsAddressDuplicate] = useState<boolean | null>(null);
+  const [isAddressFocus, setIsAddressFocus] = useState(false);
+  const { team } = useParams();
+  const basicUserData = useGetUserBasicInfo(team);
+  if (!basicUserData) return;
 
   const handleOnChange = (e: React.ChangeEvent<HTMLInputElement>) => {
     const { value } = e.currentTarget;
@@ -25,7 +30,7 @@ const UserId = () => {
         <IdInputForm
           isFocus={isAddressFocus}
           isAddressDuplicate={isAddressDuplicate === null ? undefined : isAddressDuplicate}>
-          <div>@/sopt/author/</div>
+          <div>@/sopt/author/{basicUserData.data.registerId}</div>
           <TextInput
             onFocus={() => setIsAddressFocus(true)}
             onBlur={() => setIsAddressFocus(false)}

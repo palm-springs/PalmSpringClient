@@ -1,12 +1,18 @@
 'use client';
 import React from 'react';
+import { useParams } from 'next/navigation';
 import styled from 'styled-components';
 
+import { useGetUserBasicInfo } from '@/hooks/dashboard';
+
 const UserPosition = () => {
+  const { team } = useParams();
+  const basicUserData = useGetUserBasicInfo(team);
+  if (!basicUserData) return;
   return (
     <UserPositionContainer>
       <UserPositionTitle>직책</UserPositionTitle>
-      <UserPositionTextarea placeholder="직책을 입력해주세요"></UserPositionTextarea>
+      <UserPositionTextarea placeholder="직책을 입력해주세요">{basicUserData.data.job}</UserPositionTextarea>
     </UserPositionContainer>
   );
 };
