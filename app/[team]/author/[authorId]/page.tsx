@@ -8,16 +8,13 @@ import LoadingLottie from '@/components/common/ui/LoadingLottie';
 import { useGetAuthorInfo } from '@/hooks/author';
 
 const AuthorPage = () => {
-  const { team, authorId } = useParams();
-  const res = useGetAuthorInfo(team, authorId);
+  const { authorId } = useParams();
+  const authorIdNum = Number(authorId);
+  const res = useGetAuthorInfo(authorIdNum);
 
   if (!res) return <LoadingLottie width={10} height={10} fit />;
 
   const { data } = res;
-
-  const authorNickName = decodeURI(authorId);
-
-  console.log(authorNickName);
 
   return <AuthorPageTemplate authorData={data} />;
 };

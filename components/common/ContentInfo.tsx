@@ -38,7 +38,7 @@ const ContentInfo = (props: ContentInfoProps) => {
   const {
     title,
     description,
-    teamMember: { thumbnail, name, job, createdAt },
+    teamMember: { thumbnail, name, job, createdAt, id },
   } = contentInfoData;
   // const authorName = {name}
 
@@ -59,7 +59,7 @@ const ContentInfo = (props: ContentInfoProps) => {
       )}
       {name && (
         <WriterBox>
-          <WriterInfo href={`/${team}/author/${name}`}>
+          <WriterInfo href={`/${team}/author/${id}`}>
             {thumbnail ? <WriterProfilePic src={thumbnail} alt="writer profile pic" /> : <NoUserProfileIcon />}
             <WriterDetailBox>
               <WriterNameBox>
