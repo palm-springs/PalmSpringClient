@@ -3,13 +3,13 @@
 import React from 'react';
 import styled from 'styled-components';
 
-import ArticleBox from './ArticleBox';
+// import ArticleBox from './ArticleBox';
 
 const Recommend = () => {
   return (
     <RecommendContainer>
       <RecommendTitle>추천 아티클</RecommendTitle>
-      <ArticleBox />
+      {/* <ArticleBox /> */}
     </RecommendContainer>
   );
 };
