@@ -1,7 +1,7 @@
 import { Response } from '@/types/common';
 import { CategoryListProps, NavListProps, PageListProps, TempSavedListProps } from '@/types/dashboard';
 
-import { client } from '.';
+import client from '.';
 
 interface UserInfoProps {
   name: string;

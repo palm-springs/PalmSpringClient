@@ -3,7 +3,7 @@ import axios from 'axios';
 import { getAccessTokenProps, googleAccessTokenResponse, jwtAccessTokenResponse } from '@/types/auth';
 import { Response } from '@/types/common';
 
-import { client } from '.';
+import client from '.';
 
 // 구글 액세스 토큰 발급
 export const getAccessToken = async (props: getAccessTokenProps) => {
