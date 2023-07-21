@@ -23,6 +23,7 @@ const TextEditor = ({ editor, handleDragOver, handleDrop }: editorProps) => (
 export default TextEditor;
 
 const EditorContainer = styled.div`
+  margin-bottom: 64px;
   margin-left: 35.9rem;
 `;
 
@@ -34,6 +35,7 @@ const TextEditorUI = styled(EditorContent)`
 
   *:focus {
     outline: none;
+    border: 1px solid ${({ theme }) => theme.colors.grey_700};
   }
   .ProseMirror p.is-editor-empty:first-child::before {
     /* float: left; */

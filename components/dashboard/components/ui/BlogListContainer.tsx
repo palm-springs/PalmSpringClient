@@ -10,7 +10,7 @@ export default BlogListContainer;
 const BlogListUI = styled.section`
   display: flex;
   position: absolute;
-  top: 12.3rem;
+  top: 10.3rem;
   left: 1.6rem;
   flex-direction: column;
   gap: 0.4rem;

@@ -17,7 +17,7 @@ const UrlInputContainer = (props: ModalPortalContainerProps) => {
   return (
     <UrlInputUI>
       <div>
-        <span>연결 Url</span>
+        <span>연결 URL</span>
         <span>페이지 또는 외부 웹사이트를 연결할 수 있습니다.</span>
       </div>
       <input type="text" placeholder="연결 URL" value={state} readOnly />
@@ -50,6 +50,10 @@ const UrlInputUI = styled.article`
       text-align: center;
       ${({ theme }) => theme.fonts.Caption};
       color: ${({ theme }) => theme.colors.grey_700};
+      &:focus {
+        outline: none;
+        border: 1px solid ${({ theme }) => theme.colors.grey_700};
+      }
     }
   }
   input {
@@ -57,6 +61,11 @@ const UrlInputUI = styled.article`
     border-radius: 0.8rem;
     padding: 1rem 1.2rem;
     width: 100%;
+    height: 3.75rem;
+    &:focus {
+      outline: none;
+      border: 1px solid ${({ theme }) => theme.colors.grey_700};
+    }
   }
 `;
 
