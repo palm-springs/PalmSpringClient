@@ -8,7 +8,7 @@ export const CONTENT_INFO: ContentProps = {
     '이렇게 글 설명이 보입니다.이렇게 글 설명이 보입니다.이렇게 글 설명이 보입니다.이렇게 글 설명이 보입니다.이렇게 글 설명이 보입니다.이렇게 글 설명이 보입니다.이렇게 글 설명이 보입니다.이렇게 글 설명이 보입니다.',
   teamMember: {
     id: 1,
-    // thumbnail: 'string',
+    thumbnail: 'string',
     name: '김대덕',
     job: 'TL',
     createdAt: '2023년 5월 12일',

@@ -4,81 +4,115 @@ import React, { useState } from 'react';
 import Image from 'next/image';
 import styled from 'styled-components';
 
-import ModalPortal from '@/components/common/ModalPortal';
-import { CharmMenuMeatballIcon, IcClose24Icon, IcUserIcon } from '@/public/icons';
+import { CharmMenuMeatballIcon } from '@/public/icons';
 import { MemberExampleImg } from '@/public/images';
-import { MemberProps } from '@/types/member';
 
 import PopOver from '../PopOver';
 
-import CancelInviteModal from './CancelInviteModal';
 import Manager from './Manager';
-import Pending from './Pending';
+//이 주석들도 모두 나중에 사용할 예정이라 일단 놔뒀습니다,,
+// import CancelInviteModal from './CancelInviteModal';
+// import Pending from './Pending';
+// import ModalPortal from '@/components/common/ModalPortal';
+// import { IcClose24Icon, IcUserIcon } from '@/public/icons';
 
-const Member = (props: MemberProps) => {
-  const { profilePicUrl, name, status, position, email } = props;
+interface MemberComponentProps {
+  email: string;
+  job: string;
+  nickname: string;
+  thumbnail: string;
+}
+
+const Member = (props: MemberComponentProps) => {
+  const { email, job, nickname, thumbnail } = props;
 
   const [showPopOver, setShowPopOver] = useState(false);
-  const [showCancelInviteModal, setShowCancelInviteModal] = useState(false);
+  // const [showCancelInviteModal, setShowCancelInviteModal] = useState(false);
 
-  const modalCloseHandler = () => {
-    setShowCancelInviteModal(false);
-  };
+  // const modalCloseHandler = () => {
+  //   setShowCancelInviteModal(false);
+  // };
 
   return (
     <MemberContainer>
       <MemberInnerContent>
-        {status === '수락대기중' ? (
-          <>
-            <MemberInfoBox>
-              <NameBox>
-                <IcUserIcon />
-                <Email>{email} </Email>
-                <Pending />
-              </NameBox>
-            </MemberInfoBox>
-            <IcClose24Icon onClick={() => setShowCancelInviteModal(!showCancelInviteModal)} />
-            {showCancelInviteModal && (
-              <ModalPortal>
-                <CancelInviteModal
-                  text={'초대를 취소하시겠어요?'}
-                  subText={`${email}`}
-                  leftButtonText={'유지하기'}
-                  rightButtonText={'초대 취소'}
-                  leftHandler={modalCloseHandler}
-                />
-              </ModalPortal>
-            )}
-          </>
-        ) : (
-          <>
-            <MemberInfoBox>
-              <NameBox className="manager">
-                {profilePicUrl ? (
-                  // <Image src={profilePicUrl} alt="member profile photo" width={36} height={36} />
-                  //후에 멤버 프로필 이미지의 url이 생기면 사용할 예정
-                  <>
-                    <Image src={MemberExampleImg} alt="member profile pic example" width={36} height={36} />
-                  </>
-                ) : (
-                  <Image src={MemberExampleImg} alt="member profile photo" width={36} height={36} />
-                )}
-                <Name> {name} </Name>
-                {status === '관리자' && <Manager />}
-              </NameBox>
-              <Position> {position} </Position>
-              <Email> {email} </Email>
-            </MemberInfoBox>
-            <MenuBtn onClick={() => setShowPopOver(!showPopOver)} />
-            {showPopOver && <PopOver name={name} />}
-          </>
-        )}
+        <>
+          <MemberInfoBox>
+            <NameBox className="member">
+              {thumbnail ? (
+                <MemberProfile src={thumbnail} alt="member profile pic" />
+              ) : (
+                <Image src={MemberExampleImg} alt="member profile photo" width={36} height={36} />
+              )}
+              <Name> {nickname} </Name>
+              {job === 'Team Manager' && <Manager />}
+            </NameBox>
+            <Position> {job} </Position>
+            <Email> {email} </Email>
+          </MemberInfoBox>
+          <MenuBtn onClick={() => setShowPopOver(!showPopOver)} />
+          {showPopOver && <PopOver nickname={nickname} />}
+        </>
       </MemberInnerContent>
     </MemberContainer>
   );
 };
 
+//밑의 코드는 수락대기중인 멤버가 생기면 다시 사용할 코드입니다.
+// {role === '수락대기중' ? (
+//   <>
+//     <MemberInfoBox>
+//       <NameBox>
+//         <IcUserIcon />
+//         <Email>{email} </Email>
+//         <Pending />
+//       </NameBox>
+//     </MemberInfoBox>
+//     <IcClose24Icon onClick={() => setShowCancelInviteModal(!showCancelInviteModal)} />
+//     {showCancelInviteModal && (
+//       <ModalPortal>
+//         <CancelInviteModal
+//           text={'초대를 취소하시겠어요?'}
+//           subText={`${email}`}
+//           leftButtonText={'유지하기'}
+//           rightButtonText={'초대 취소'}
+//           leftHandler={modalCloseHandler}
+//         />
+//       </ModalPortal>
+//     )}
+//   </>
+// ) : (
+//   <>
+//     <MemberInfoBox>
+//       <NameBox className="manager">
+//         {thumbnail ? (
+//           // <Image src={profilePicUrl} alt="member profile photo" width={36} height={36} />
+//           //후에 멤버 프로필 이미지의 url이 생기면 사용할 예정
+//           <>
+//             <Image src={MemberExampleImg} alt="member profile pic example" width={36} height={36} />
+//           </>
+//         ) : (
+//           <Image src={MemberExampleImg} alt="member profile photo" width={36} height={36} />
+//         )}
+//         <Name> {nickname} </Name>
+//         {job === '관리자' && <Manager />}
+//       </NameBox>
+//       <Position> {role} </Position>
+//       <Email> {email} </Email>
+//     </MemberInfoBox>
+//     <MenuBtn onClick={() => setShowPopOver(!showPopOver)} />
+//     {showPopOver && <PopOver nickname={nickname} />}
+//   </>
+// )}
+
 export default Member;
+
+const MemberProfile = styled.img`
+  border-radius: 50%;
+
+  width: 3.6rem;
+  height: 3.6rem;
+`;
 
 const MemberInfoBox = styled.div`
   display: flex;
@@ -110,7 +144,8 @@ const NameBox = styled.div`
   align-items: center;
 
   margin-right: 2rem;
-  &.manager {
+
+  &.member {
     width: 19rem;
   }
 `;
@@ -122,6 +157,7 @@ const Name = styled.div`
 
 const Position = styled.div`
   ${({ theme }) => theme.fonts.Body3_Regular};
+
   margin-right: 2rem;
   width: 8.4rem;
   height: 1.7rem;

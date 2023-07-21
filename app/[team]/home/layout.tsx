@@ -1,14 +1,16 @@
-'use client';
-
 import React from 'react';
 
+import { getBlogHeaderInfo } from '@/api/blog';
 import BlogFooter from '@/components/common/BlogFooter';
 import BlogHeader from '@/components/common/BlogHeader';
 
-const BlogHomeLayout = ({ children }: { children: React.ReactElement }) => {
+const BlogHomeLayout = async ({ children, params }: { children: React.ReactElement; params: { team: string } }) => {
+  const {
+    data: { logo, blogName, navList },
+  } = await getBlogHeaderInfo(params.team);
   return (
     <>
-      <BlogHeader />
+      <BlogHeader logo={logo} blogName={blogName} navList={navList} />
       <main>{children}</main>
       <BlogFooter />
     </>

@@ -2,25 +2,44 @@
 
 import React from 'react';
 import Link from 'next/link';
+import { useParams } from 'next/navigation';
 import styled from 'styled-components';
 
 import useGetIfContentPage from '@/hooks/useGetIfContentPage';
 import { NoUserProfileIcon } from '@/public/icons';
-import { ContentProps } from '@/types/content';
 
 interface ContentInfoProps {
-  content: ContentProps;
+  contentInfoData: {
+    title: string;
+    description: string | null;
+    teamMember: {
+      id: number;
+      thumbnail: string | null;
+      name: string;
+      job: string;
+      createdAt: string;
+    };
+  };
+  IndivContentId?: number;
 }
 
+// @params teamMember id 이건 나중에 author 페이지로 이동하는데 필요할수도 있을거 같아서 일단 받아왔습니당
+// @params teamMember thumbnail 글쓴이 프로필 사진 없을 시 기본 프로필 아이콘으로 보여줌
+
 const ContentInfo = (props: ContentInfoProps) => {
-  const ifContent = useGetIfContentPage();
+  const { team } = useParams();
+
   const {
-    content: {
+    contentInfoData: {
       title,
       description,
-      teamMember: { thumbnail, name, job, createdAt },
+      teamMember: { id, thumbnail, name, job, createdAt },
     },
+    IndivContentId,
   } = props;
+  console.log(id);
+  // const authorName = {name}
+  const ifContent = useGetIfContentPage();
 
   return (
     <ContentInfoContainer className={ifContent === 'content' ? 'noHover' : 'hover'}>
@@ -31,7 +50,7 @@ const ContentInfo = (props: ContentInfoProps) => {
         </TestBox>
       ) : (
         <TestBox>
-          <Link href={`/blogNameHere/content/contentNameHere`}>
+          <Link href={`/${team}/content/${IndivContentId}`}>
             <TitleBox>{title}</TitleBox>
             {description && <DescriptionBox>{description}</DescriptionBox>}
           </Link>
@@ -39,7 +58,7 @@ const ContentInfo = (props: ContentInfoProps) => {
       )}
       {name && (
         <WriterBox>
-          <WriterInfo href={`/blogNameHere/author/authorNameHere`}>
+          <WriterInfo href={`/${team}/author/${name}`}>
             {thumbnail ? <WriterProfilePic src={thumbnail} alt="writer profile pic" /> : <NoUserProfileIcon />}
             <WriterDetailBox>
               <WriterNameBox>
@@ -97,6 +116,7 @@ const ContentInfoContainer = styled.section`
 const WriterNameBox = styled.div`
   display: flex;
   align-items: center;
+
   ${({ theme }) => theme.fonts.Body2_Regular};
 `;
 

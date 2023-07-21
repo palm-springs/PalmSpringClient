@@ -2,9 +2,9 @@
 
 import React from 'react';
 import Link from 'next/link';
+import { useParams } from 'next/navigation';
 import styled from 'styled-components';
 
-import useGetCategory from '@/hooks/useGetCategory';
 import { ArticleData } from '@/types/article';
 
 import ArticleImg from '../blog/ui/ArticleImg';
@@ -15,27 +15,19 @@ interface ArticleProps {
 }
 
 const Article = (props: ArticleProps) => {
-  const Selected = useGetCategory();
+  const { team } = useParams();
   const {
     noHover,
-    article: {
-      title,
-      description,
-      memberName,
-      job,
-      createdAt,
-      thumbnail,
-      categoryArticleResponseDto: { categoryName },
-    },
+    article: { id, title, description, memberName, job, createdAt, thumbnail, categoryArticleResponseDto },
   } = props;
 
   return (
-    <ArticleContainer href={`/blogNameHere/content/contentNameHere`} className={noHover ? '' : 'hover'}>
+    <ArticleContainer href={`/${team}/content/${id}`} className={noHover ? '' : 'hover'}>
       <ArticleInfo>
         <ArticleTitle className="title">{title}</ArticleTitle>
         <ArticleDescription className="description">{description}</ArticleDescription>
         <DetailBox>
-          {Selected === 'home' && <CategoryBtn>{categoryName}</CategoryBtn>}
+          {categoryArticleResponseDto !== null && <CategoryBtn>{categoryArticleResponseDto.categoryName}</CategoryBtn>}
           <ArticleDetail>{memberName}</ArticleDetail>&nbsp;·&nbsp;
           <ArticleDetail>{job}</ArticleDetail>
           <Bar>|</Bar>

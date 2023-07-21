@@ -1,10 +1,10 @@
 export interface ContentProps {
-  thumbnail?: string;
+  thumbnail: string | null;
   title: string;
-  description?: string;
+  description: string | null;
   teamMember: {
     id: number;
-    thumbnail?: string;
+    thumbnail: string | null;
     name: string;
     job: string;
     createdAt: string;

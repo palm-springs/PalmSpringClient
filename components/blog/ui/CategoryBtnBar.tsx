@@ -2,19 +2,23 @@
 
 import React from 'react';
 import Link from 'next/link';
+import { useParams } from 'next/navigation';
 import styled from 'styled-components';
 
 import useGetCategory from '@/hooks/useGetCategory';
 
-const CategoryBtnBar = () => {
+interface CategoryBtnBarProps {
+  LiteralList: string[];
+}
+const CategoryBtnBar = (props: CategoryBtnBarProps) => {
+  const { team } = useParams();
+  const { LiteralList } = props;
   const SELECTED = useGetCategory();
 
-  const CATEGORY_EXAMPLE: string[] = ['개발', '디자인', '팀문화'];
-
-  const CATEGORY_LIST = CATEGORY_EXAMPLE.map((eachCategory) => {
+  const CATEGORY_LIST = LiteralList.map((eachCategory) => {
     return (
       <CategoryBtn
-        href={`/blogNameHere/home/${eachCategory}`}
+        href={`/${team}/home/${eachCategory}`}
         key={eachCategory}
         type="button"
         className={eachCategory === decodeURI(SELECTED) ? 'selected' : ''}>
@@ -25,7 +29,7 @@ const CategoryBtnBar = () => {
 
   return (
     <CategoryBtnBarContainer>
-      <CategoryBtn href={'/blogNameHere/home'} type="button" className={SELECTED === 'home' ? 'selected' : ''}>
+      <CategoryBtn href={`/${team}/home`} type="button" className={SELECTED === 'home' ? 'selected' : ''}>
         전체
       </CategoryBtn>
       {CATEGORY_LIST}
@@ -37,6 +41,7 @@ export default CategoryBtnBar;
 
 const CategoryBtnBarContainer = styled.div`
   display: flex;
+  flex-wrap: wrap;
   gap: 1.2rem;
   justify-content: flex-start;
 
@@ -58,6 +63,8 @@ const CategoryBtn = styled(Link)`
   padding: 0.8rem 2rem;
   height: 4.2rem;
 
+  white-space: nowrap;
+
   color: ${({ theme }) => theme.colors.grey_700};
 
   &:hover {
@@ -66,6 +73,7 @@ const CategoryBtn = styled(Link)`
 
   &.selected {
     ${({ theme }) => theme.fonts.Body1_Regular};
+
     background-color: ${({ theme }) => theme.colors.grey_900};
     color: ${({ theme }) => theme.colors.grey_0};
   }

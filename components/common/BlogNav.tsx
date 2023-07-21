@@ -2,6 +2,7 @@
 
 import React from 'react';
 import Link from 'next/link';
+import { useParams } from 'next/navigation';
 import styled from 'styled-components';
 
 import PageBtn from '@/components/blog/PageBtn';
@@ -18,6 +19,7 @@ interface navProps {
 
 const BlogNav = (prop: navProps) => {
   const { navList } = prop;
+  const { team } = useParams();
 
   return (
     <BlogNavContainer>
@@ -25,7 +27,7 @@ const BlogNav = (prop: navProps) => {
         navList.map(({ navUrl, name, isPage }) => (
           <PageBtn key={navUrl}>
             {isPage === true ? (
-              <Link href={`/blogNameHere/content/${navUrl}`}>{name}</Link>
+              <Link href={`/${team}/content/${navUrl}`}>{name}</Link>
             ) : (
               <Link href={`${navUrl}`}>{name}</Link>
             )}
@@ -42,5 +44,6 @@ const BlogNavContainer = styled.div`
   display: flex;
   align-items: center;
   justify-content: space-between;
+
   width: 31.6rem;
 `;

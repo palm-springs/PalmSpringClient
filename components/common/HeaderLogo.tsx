@@ -2,23 +2,22 @@
 
 import React from 'react';
 import Link from 'next/link';
+import { useParams } from 'next/navigation';
 import styled from 'styled-components';
-
-import { SymbolIcon } from '@/public/icons';
 interface LogoProp {
-  logo?: string;
+  logo: string | null;
   blogName: string;
 }
 
 const HeaderLogo = (prop: LogoProp) => {
   const { logo, blogName } = prop;
+  const { team } = useParams();
+
   return (
-    <Link href={'/blogNameHere/home'}>
+    <Link href={`/${team}/home`}>
       {logo ? (
         <>
-          <SymbolIcon />
-          {/* {실제 아이콘 src가 오면 밑의 코드로 대체예정입니다} */}
-          {/* <img src={SymbolIcon} alt="team logo icon" height={24} /> */}
+          <img src={logo} alt="team logo icon" height={24} />
         </>
       ) : (
         <BlogName>{blogName}</BlogName>

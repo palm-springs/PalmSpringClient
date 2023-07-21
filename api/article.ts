@@ -30,3 +30,5 @@ export const postArticleList = async (url: string, requestBody: postArticleListR
   const { data } = await client.post<Response<null>>(`/api/v1/article/${url}/draft`, requestBody);
   return data;
 };
+
+// export const getContentInfo = async ()

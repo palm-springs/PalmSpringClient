@@ -3,59 +3,25 @@
 import React from 'react';
 import styled from 'styled-components';
 
-import { MemberProps } from '@/types/member';
-
 import Member from './Member';
 
-const MemberList = () => {
-  const MEMBERS: MemberProps[] = [
-    {
-      profilePicUrl: 'MemberExampleImg',
-      name: '김서홍윤',
-      status: '관리자',
-      position: 'Product Manager',
-      email: 'maerong@naver.com',
-    },
-    {
-      name: '김서윤',
-      status: '',
-      position: 'UX Designer',
-      email: 'baek7890@naver.com',
-    },
-    {
-      name: '김김김',
-      status: '',
-      position: 'Product Manager',
-      email: 'baek78349@naver.com',
-    },
-    {
-      name: '김김김',
-      status: '수락대기중',
-      position: 'Product Manager',
-      email: 'baek789@naver.com',
-    },
-    {
-      name: '김김김',
-      status: '수락대기중',
-      position: 'Product Manager',
-      email: 'sian0803@naver.com',
-    },
-  ];
+interface MemberListProps {
+  memberListData: {
+    email: string;
+    id: number;
+    job: string;
+    nickname: string;
+    thumbnail: string;
+  }[];
+}
+const MemberList = (props: MemberListProps) => {
+  const { memberListData } = props;
 
-  const MEMBER_LIST = MEMBERS.map((eachItem) => {
-    return (
-      <Member
-        key={eachItem.email}
-        profilePicUrl={eachItem.profilePicUrl}
-        name={eachItem.name}
-        status={eachItem.status}
-        position={eachItem.position}
-        email={eachItem.email}
-      />
-    );
+  const MemberList = memberListData.map(({ email, id, job, nickname, thumbnail }) => {
+    return <Member key={id} thumbnail={thumbnail} nickname={nickname} job={job} email={email} />;
   });
 
-  return <MemberListContainer>{MEMBER_LIST}</MemberListContainer>;
+  return <MemberListContainer>{MemberList}</MemberListContainer>;
 };
 
 export default MemberList;
