@@ -4,7 +4,7 @@ import styled from 'styled-components';
 
 import { Error404Img } from '@/public/images';
 
-const Error404Page = () => {
+const NotFound = () => {
   return (
     <Error404Container>
       <Image src={Error404Img} alt="404 이미지" />
@@ -18,7 +18,7 @@ const Error404Page = () => {
   );
 };
 
-export default Error404Page;
+export default NotFound;
 
 const Error404Container = styled.div`
   display: flex;
