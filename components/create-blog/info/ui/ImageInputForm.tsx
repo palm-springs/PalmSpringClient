@@ -73,6 +73,7 @@ export default ImageInputForm;
 // img input 입력  컨테이너
 const ImageContainer = styled.div`
   margin-top: 0.8rem;
+  cursor: pointer;
   &.logo {
     height: 11.6rem;
   }

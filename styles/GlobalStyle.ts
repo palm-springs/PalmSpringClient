@@ -64,6 +64,10 @@ export const GlobalStyle = createGlobalStyle`
       box-decoration-break: clone;
     }
 
+    hr {
+     color: ${({ theme }) => theme.colors.grey_300};
+    }
+
     pre {
       border-radius: 0.5rem;
       background: ${({ theme }) => theme.colors.grey_100};

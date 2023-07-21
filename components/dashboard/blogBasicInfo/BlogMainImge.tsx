@@ -72,6 +72,7 @@ const BlogMainUpload = styled.div`
   margin-left: 4.8rem;
   border-radius: 0.8rem;
   background-color: ${({ theme }) => theme.colors.grey_200};
+  cursor: pointer;
   width: 64.5rem;
   height: 22.4rem;
 `;
@@ -83,8 +84,12 @@ const ImageGuideContainer = styled.div`
 `;
 
 const ImageGuideContent = styled.p`
+  margin-top: 0.4rem;
   ${({ theme }) => theme.fonts.Caption};
   color: ${({ theme }) => theme.colors.grey_700};
+  p {
+    margin-top: 0.4rem;
+  }
 `;
 
 const ImageGuideTitle = styled.p`

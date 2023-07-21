@@ -69,6 +69,7 @@ const BlogLogoUpload = styled.div`
   margin-left: 4.8rem;
   border-radius: 0.8rem;
   background-color: ${({ theme }) => theme.colors.grey_200};
+  cursor: pointer;
   width: 64.5rem;
   height: 14.6rem;
 `;

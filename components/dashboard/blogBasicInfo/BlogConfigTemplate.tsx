@@ -56,7 +56,6 @@ const BlogConfigTemplate = () => {
   };
   return (
     <>
-      <Line />
       <BlogBasicInfoContainer>
         <BlogUrl />
         <BlogName
