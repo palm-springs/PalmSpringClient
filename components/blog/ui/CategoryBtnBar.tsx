@@ -2,9 +2,7 @@
 
 import React from 'react';
 import Link from 'next/link';
-
-import { useParams, useRouter } from 'next/navigation';
-
+import { useParams } from 'next/navigation';
 import styled from 'styled-components';
 
 import useGetCategory from '@/hooks/useGetCategory';
@@ -16,7 +14,6 @@ const CategoryBtnBar = (props: CategoryBtnBarProps) => {
   const { team } = useParams();
   const { LiteralList } = props;
   const SELECTED = useGetCategory();
-  const { team } = useParams();
 
   const CATEGORY_LIST = LiteralList.map((eachCategory) => {
     return (
