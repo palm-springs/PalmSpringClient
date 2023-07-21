@@ -1,15 +1,24 @@
 'use client';
 
 import React from 'react';
+import { useParams } from 'next/navigation';
 import styled from 'styled-components';
 
-// import ArticleBox from './ArticleBox';
+import LoadingLottie from '@/components/common/ui/LoadingLottie';
+import { useGetArticleList } from '@/hooks/article';
+
+import ArticleBox from './ArticleBox';
 
 const Recommend = () => {
+  const { team } = useParams();
+
+  const data = useGetArticleList(team, '');
+  const recommendArticle = data?.data.slice(0, 3);
+  if (!recommendArticle) return <LoadingLottie width={5} height={5} fit />;
   return (
     <RecommendContainer>
       <RecommendTitle>추천 아티클</RecommendTitle>
-      {/* <ArticleBox /> */}
+      <ArticleBox recommendArticle={recommendArticle} />
     </RecommendContainer>
   );
 };
