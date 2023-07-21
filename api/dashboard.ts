@@ -53,7 +53,7 @@ export const getMemberList = async (blogUrl: string) => {
   return data;
 };
 
-export const getUserBasicInfo = async (blogUrl: string) => {
+export const getUserBasicInfo = async () => {
   const { data } = await client.get<Response<UserBasicInfoProps>>(`/api/v1/user/dashboard/me/detail`);
   return data;
 };

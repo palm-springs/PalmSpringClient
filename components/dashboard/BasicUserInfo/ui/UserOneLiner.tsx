@@ -7,7 +7,7 @@ import { useGetUserBasicInfo } from '@/hooks/dashboard';
 
 const UserOneLiner = () => {
   const { team } = useParams();
-  const basicUserData = useGetUserBasicInfo(team);
+  const basicUserData = usegetUserBasicInfo();
   if (!basicUserData) return;
   return (
     <UserOneLinerContainer>

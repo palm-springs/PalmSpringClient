@@ -14,7 +14,7 @@ const UserId = () => {
   const [isAddressDuplicate, setIsAddressDuplicate] = useState<boolean | null>(null);
   const [isAddressFocus, setIsAddressFocus] = useState(false);
   const { team } = useParams();
-  const basicUserData = useGetUserBasicInfo(team);
+  const basicUserData = usegetUserBasicInfo();
   if (!basicUserData) return;
 
   const handleOnChange = (e: React.ChangeEvent<HTMLInputElement>) => {
