@@ -4,6 +4,7 @@ import { useParams } from 'next/navigation';
 import { useRecoilState } from 'recoil';
 import styled from 'styled-components';
 
+import LoadingLottie from '@/components/common/ui/LoadingLottie';
 import { useGetCategoryList } from '@/hooks/dashboard';
 import { EssentialCircleIcon } from '@/public/icons';
 import { getLiteralCategoryList } from '@/utils/getLiteralCategoryList';
@@ -30,7 +31,8 @@ const CategorySelect = () => {
   };
 
   if (!getCategoryList) {
-    return <>로딩</>;
+    return;
+    <LoadingLottie width={4} height={4} fit />;
   }
 
   const CATEGORY_LIST = getLiteralCategoryList(getCategoryList);

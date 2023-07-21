@@ -112,6 +112,7 @@ const CustomImage = styled.img`
 
 const ThumbnailTitleContainer = styled.div`
   display: flex;
+  cursor: pointer;
 `;
 
 const ThumbnailInputInfo = styled.h1`

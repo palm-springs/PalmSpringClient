@@ -12,7 +12,9 @@ const CategoryPage = async ({ params }: { params: { category: string; team: stri
 
   console.log(data);
 
-  const articleListData = data.filter(({ articleCategory }) => articleCategory.categoryName === categoryName);
+  const articleListData = data.filter(
+    ({ categoryArticleResponseDto }) => categoryArticleResponseDto.categoryName === categoryName,
+  );
 
   // const FilteredCategoryList = await getCategoryList(params.team);
 

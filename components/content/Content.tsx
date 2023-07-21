@@ -23,9 +23,9 @@ const Content = (prop: ContentProp) => {
 export default Content;
 
 const ContentContainer = styled.section`
-  position: relative;
+  position: relative !important;
   margin: 8.4rem 0 8rem;
   margin-bottom: 8rem;
   width: 100%;
-  font-family: 'Fira Mono', monospace !important;
+  font-family: 'Fira Mono', monospace;
 `;
