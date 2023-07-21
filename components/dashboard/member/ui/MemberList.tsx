@@ -1,23 +1,20 @@
 'use client';
 
 import React from 'react';
+import { useParams } from 'next/navigation';
 import styled from 'styled-components';
+
+import { useGetMemberInfo } from '@/hooks/dashboard';
 
 import Member from './Member';
 
-interface MemberListProps {
-  memberListData: {
-    email: string;
-    id: number;
-    job: string;
-    nickname: string;
-    thumbnail: string;
-  }[];
-}
-const MemberList = (props: MemberListProps) => {
-  const { memberListData } = props;
+const MemberList = () => {
+  const { team } = useParams();
 
-  const MemberList = memberListData.map(({ email, id, job, nickname, thumbnail }) => {
+  const res = useGetMemberInfo(team);
+  if (!res?.data) return <div>로더</div>;
+
+  const MemberList = res?.data.map(({ email, id, job, nickname, thumbnail }) => {
     return <Member key={id} thumbnail={thumbnail} nickname={nickname} job={job} email={email} />;
   });
 
