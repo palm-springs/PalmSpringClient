@@ -1,7 +1,6 @@
 'use client';
 
 import React from 'react';
-import { fill } from 'lodash-es';
 import { useParams } from 'next/navigation';
 import styled from 'styled-components';
 
@@ -29,7 +28,7 @@ const ArticleContainer = (props: ArticleContainerProps) => {
 
   console.log(articleListData);
 
-  if (!FilteredCategoryList || !articleListData) return <LoadingLottie width={10} height={10} fit />;
+  if (!FilteredCategoryList) return <LoadingLottie width={10} height={10} fit />;
   // <div>로더</div>;
 
   const LiteralList = getLiteralCategoryList(FilteredCategoryList);
