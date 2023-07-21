@@ -11,7 +11,7 @@ interface CategoryBtnBarProps {
   LiteralList: string[];
 }
 const CategoryBtnBar = (props: CategoryBtnBarProps) => {
-  const { team } = useParams();
+  const { team, category } = useParams();
   const { LiteralList } = props;
   const SELECTED = useGetCategory();
 
@@ -21,7 +21,7 @@ const CategoryBtnBar = (props: CategoryBtnBarProps) => {
         href={`/${team}/home/${eachCategory}`}
         key={eachCategory}
         type="button"
-        className={eachCategory === decodeURI(SELECTED) ? 'selected' : ''}>
+        className={eachCategory === decodeURI(category) ? 'selected' : ''}>
         {eachCategory}
       </CategoryBtn>
     );

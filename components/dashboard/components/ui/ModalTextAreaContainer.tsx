@@ -24,7 +24,7 @@ export default ModalTextAreaContainer;
 const ModalTextAreaUI = styled.article`
   display: flex;
   flex-direction: column;
-  margin-bottom: 2rem;
+  margin: 2rem 0;
   width: 100%;
   span {
     margin-bottom: 0.8rem;

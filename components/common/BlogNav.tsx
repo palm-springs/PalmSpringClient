@@ -23,6 +23,7 @@ const BlogNav = (prop: navProps) => {
 
   return (
     <BlogNavContainer>
+      <div></div>
       {navList &&
         navList.map(({ navUrl, name, isPage }) => (
           <PageBtn key={navUrl}>
@@ -42,6 +43,7 @@ export default BlogNav;
 
 const BlogNavContainer = styled.div`
   display: flex;
+  gap: 1.6rem;
   align-items: center;
   justify-content: space-between;
 

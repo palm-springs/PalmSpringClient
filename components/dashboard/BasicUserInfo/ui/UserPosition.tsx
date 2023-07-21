@@ -31,7 +31,8 @@ const UserPositionTextarea = styled.textarea`
   resize: none;
   color: ${({ theme }) => theme.colors.grey_600};
   &:focus {
-    outline: 1px solid ${({ theme }) => theme.colors.grey_700};
+    outline: none;
+    border: 1px solid ${({ theme }) => theme.colors.grey_700};
   }
 `;
 

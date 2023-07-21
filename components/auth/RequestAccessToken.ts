@@ -2,6 +2,7 @@ import { useRouter } from 'next/navigation';
 import { useSetRecoilState } from 'recoil';
 
 import { postSocialLogin } from '@/api/auth';
+import { getUserInfo } from '@/api/dashboard';
 import { useGetAccessToken } from '@/hooks/auth';
 import { getAccessTokenProps } from '@/types/auth';
 
@@ -19,7 +20,14 @@ const RequestAccessToken = async (props: getAccessTokenProps) => {
     setAccessToken(accessToken);
 
     if (data.code === 200) {
-      router.push('/create-blog');
+      const {
+        data: { joinBlogList },
+      } = await getUserInfo('');
+      if (joinBlogList.length === 0) {
+        router.push('/no-team/dashboard');
+      } else {
+        router.push(`/${joinBlogList[0].url}/dashboard/upload`);
+      }
     }
   }
 };

@@ -12,7 +12,7 @@ const LoginSuccessLanding = () => {
   return (
     <LoginSuccessContainer>
       <Lottie animationData={SuccessLottie} className="lottie" />
-      <BlogName>{name} 기술블로그</BlogName>
+      <BlogName>{name}</BlogName>
       <SuccessMessage>블로그 개설이 완료되었습니다</SuccessMessage>
       <GoDashBoardButton href={`/${url}/dashboard/upload`}>대시보드 바로가기</GoDashBoardButton>
     </LoginSuccessContainer>

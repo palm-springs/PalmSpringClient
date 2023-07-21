@@ -151,6 +151,11 @@ const NameBox = styled.div`
 `;
 
 const Name = styled.div`
+  max-width: 19rem;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+  word-break: break-all;
   ${({ theme }) => theme.fonts.Body3_Semibold};
   color: ${({ theme }) => theme.colors.grey_900};
 `;

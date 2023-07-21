@@ -9,7 +9,7 @@ import useGetIfContentPage from '@/hooks/useGetIfContentPage';
 import { NoUserProfileIcon } from '@/public/icons';
 
 interface ContentInfoProps {
-  contentInfoData: {
+  contentInfoData?: {
     title: string;
     description: string | null;
     teamMember: {
@@ -29,17 +29,18 @@ interface ContentInfoProps {
 const ContentInfo = (props: ContentInfoProps) => {
   const { team } = useParams();
 
-  const {
-    contentInfoData: {
-      title,
-      description,
-      teamMember: { id, thumbnail, name, job, createdAt },
-    },
-    IndivContentId,
-  } = props;
-  console.log(id);
-  // const authorName = {name}
+  const { contentInfoData, IndivContentId } = props;
+
   const ifContent = useGetIfContentPage();
+
+  if (!contentInfoData) return <div>wait</div>;
+
+  const {
+    title,
+    description,
+    teamMember: { thumbnail, name, job, createdAt },
+  } = contentInfoData;
+  // const authorName = {name}
 
   return (
     <ContentInfoContainer className={ifContent === 'content' ? 'noHover' : 'hover'}>

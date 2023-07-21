@@ -65,5 +65,6 @@ const Input = styled.input`
   }
   &:focus {
     outline: none;
+    border: 1px solid ${({ theme }) => theme.colors.grey_700};
   }
 `;

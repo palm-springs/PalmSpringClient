@@ -28,4 +28,9 @@ const TextInputUI = styled.input`
   border-radius: 0.8rem;
   padding: 1rem 1.2rem;
   width: 100%;
+  height: 3.75rem;
+  &:focus {
+    outline: none;
+    border: 1px solid ${({ theme }) => theme.colors.grey_700};
+  }
 `;

@@ -3,6 +3,7 @@ import React from 'react';
 import { useParams } from 'next/navigation';
 import styled from 'styled-components';
 
+import AuthRequired from '@/components/auth/AuthRequired';
 import PublishBottomButtons from '@/components/editor/article/publish/ui/PublishBottom';
 import PublishTitle from '@/components/editor/article/publish/ui/PublishTitle';
 import ThumbnailInput from '@/components/editor/article/publish/ui/ThumbnailInput';
@@ -11,12 +12,14 @@ import UrlCustom from '@/components/editor/article/publish/ui/UrlCustom';
 const PagePublishPage = () => {
   const { team } = useParams();
   return (
-    <PagePublishContainer>
-      <ThumbnailInput pageType="page" />
-      <PublishTitle pageType="page" blogUrl={team} articleId={1} />
-      <UrlCustom pageType="page" />
-      <PublishBottomButtons pageType="page" />
-    </PagePublishContainer>
+    <AuthRequired>
+      <PagePublishContainer>
+        <ThumbnailInput pageType="page" />
+        <PublishTitle pageType="page" blogUrl={team} articleId={1} />
+        <UrlCustom pageType="page" />
+        <PublishBottomButtons pageType="page" />
+      </PagePublishContainer>
+    </AuthRequired>
   );
 };
 

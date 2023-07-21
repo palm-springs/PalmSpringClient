@@ -18,7 +18,7 @@ export interface ArticleData {
   memberName: string;
   job: string;
   createdAt: string;
-  categoryArticleResponseDto: {
+  articleCategory: {
     categoryId: number;
     categoryName: string;
   };

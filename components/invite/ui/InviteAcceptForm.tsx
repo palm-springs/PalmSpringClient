@@ -7,7 +7,7 @@ import TextInputForm from './TextInputForm';
 const InviteAcceptForm = () => {
   return (
     <InviteAcceptFormContainer>
-      <TeamName>햇살티미단 기술블로그</TeamName>
+      <TeamName>햇살티미단</TeamName>
       <Title>초대 수락하기</Title>
       <Label>
         <ProfilePhotoIcon />
@@ -82,6 +82,7 @@ const TextInput = styled.input`
   }
   &:focus {
     outline: none;
+    border: 1px solid ${({ theme }) => theme.colors.grey_700};
   }
 `;
 
@@ -97,6 +98,7 @@ const TextAreaInput = styled.textarea`
   }
   &:focus {
     outline: none;
+    border: 1px solid ${({ theme }) => theme.colors.grey_700};
   }
 `;
 
