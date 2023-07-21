@@ -6,7 +6,7 @@ const QUERY_KEY_BLOG = {
   authorInfo: 'authorInfo',
 };
 
-export const useGetAuthorInfo = (blogUrl: string, authorId: string) => {
-  const { data } = useQuery([QUERY_KEY_BLOG.authorInfo], () => getAuthor(blogUrl, authorId));
+export const useGetAuthorInfo = (authorId: number) => {
+  const { data } = useQuery([QUERY_KEY_BLOG.authorInfo], () => getAuthor(authorId));
   return data;
 };
