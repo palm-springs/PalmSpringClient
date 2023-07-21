@@ -46,66 +46,52 @@
  	┣ 📂[team]
  	┃ ┣ 📂author
  	┃ ┃ ┗ 📂[authorId]
- 	┃ ┃ ┃ ┣ 📜layout.tsx
- 	┃ ┃ ┃ ┗ 📜page.tsx
  	┃ ┣ 📂content
  	┃ ┃ ┗ 📂[contentUrl]
- 	┃ ┃ ┃ ┣ 📜layout.tsx
- 	┃ ┃ ┃ ┗ 📜page.tsx
  	┃ ┣ 📂dashboard
  	┃ ┃ ┣ 📂[pageType]
- 	┃ ┃ ┃ ┗ 📜page.tsx
  	┃ ┃ ┣ 📂basic-user-info
- 	┃ ┃ ┃ ┗ 📜page.tsx
  	┃ ┃ ┣ 📂blog-basic-info
- 	┃ ┃ ┃ ┗ 📜page.tsx
  	┃ ┃ ┣ 📂blogconfignav
- 	┃ ┃ ┃ ┗ 📜page.tsx
  	┃ ┃ ┣ 📂category
- 	┃ ┃ ┃ ┗ 📜page.tsx
  	┃ ┃ ┣ 📂member
- 	┃ ┃ ┃ ┗ 📜page.tsx
  	┃ ┃ ┣ 📂nav
- 	┃ ┃ ┃ ┗ 📜page.tsx
  	┃ ┃ ┣ 📂navigation
- 	┃ ┃ ┃ ┗ 📜page.tsx
  	┃ ┃ ┣ 📂page
- 	┃ ┃ ┃ ┗ 📜page.tsx
  	┃ ┃ ┣ 📂subscriber
- 	┃ ┃ ┃ ┗ 📜page.tsx
  	┃ ┃ ┣ 📂tempsaved
- 	┃ ┃ ┃ ┗ 📜page.tsx
  	┃ ┃ ┣ 📂upload
- 	┃ ┃ ┃ ┗ 📜page.tsx
- 	┃ ┃ ┣ 📜layout.tsx
- 	┃ ┃ ┗ 📜page.tsx
  	┃ ┣ 📂editor
  	┃ ┃ ┣ 📂article
  	┃ ┃ ┃ ┣ 📂publish
- 	┃ ┃ ┃ ┃ ┗ 📜page.tsx
- 	┃ ┃ ┃ ┗ 📜page.tsx
- 	┃ ┃ ┗ 📂page
- 	┃ ┃ ┃ ┗ 📂publish
- 	┃ ┃ ┃ ┃ ┗ 📜page.tsx
+ 	┃ ┃ ┣ 📂page
+ 	┃ ┃ ┣ ┗ 📂publish
  	┃ ┣ 📂home
- 	┃ ┃ ┣ 📂[category]
- 	┃ ┃ ┃ ┗ 📜page.tsx
- 	┃ ┃ ┣ 📜layout.tsx
- 	┃ ┃ ┗ 📜page.tsx
- 	┃ ┗ 📜page.tsx
+ 	┃ ┃ ┗ 📂[category]
  	┣ 📂auth
- 	┃ ┗ 📜page.tsx
  	┣ 📂create-blog
- 	┃ ┣ 📂info
- 	┃ ┃ ┗ 📜page.tsx
- 	┃ ┗ 📂member
- 	┃ ┃ ┗ 📜page.tsx
+ 	┃ ┗ 📂success
  	┣ 📂invite
- 	┃ ┗ 📜page.tsx
+ 	┣ 📂loading
+ 	┃ ┗ 📂dashboard
+ 	┣ 📂team
  	┣ 📜favicon.ico
  	┣ 📜layout.tsx
  	┗ 📜page.tsx
 |-- 📁 components
+  ┃ ┣ 📂auth
+  ┃ ┣ 📂author
+  ┃ ┣ 📂blog
+  ┃ ┣ 📂common
+  ┃ ┣ 📂content
+  ┃ ┣ 📂create-blog
+  ┃ ┣ 📂dashboard
+  ┃ ┣ 📂editor
+  ┃ ┣ 📂invite
+  ┃ ┣ 📂landing
+  ┗ ┣ 📂loading
+|-- 📁 constants
+|-- 📁 hooks
 |-- 📁 styles
 |-- 📁 utils
 |-- 📁 types
