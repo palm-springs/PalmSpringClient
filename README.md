@@ -42,6 +42,8 @@
 ```
 |-- 📁 node_modules
 |-- 📁 public
+  ┃ ┣ 📂icons
+  ┃ ┣ 📂images
 |-- 📁 app
  	┣ 📂[team]
  	┃ ┣ 📂author
