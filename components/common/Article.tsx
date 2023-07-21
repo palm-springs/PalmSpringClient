@@ -27,7 +27,7 @@ const Article = (props: ArticleProps) => {
         <ArticleTitle className="title">{title}</ArticleTitle>
         <ArticleDescription className="description">{description}</ArticleDescription>
         <DetailBox>
-          {categoryArticleResponseDto !== null && <CategoryBtn>{categoryArticleResponseDto.categoryName}</CategoryBtn>}
+          {categoryArticleResponseDto && <CategoryBtn>{categoryArticleResponseDto.categoryName}</CategoryBtn>}
           <ArticleDetail>{memberName}</ArticleDetail>&nbsp;·&nbsp;
           <ArticleDetail>{job}</ArticleDetail>
           <Bar>|</Bar>
