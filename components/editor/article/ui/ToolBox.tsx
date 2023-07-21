@@ -124,6 +124,8 @@ const GreyBar = styled.div`
 const IconWrapper = styled.div`
   display: flex;
   position: relative;
+  position: sticky;
+  top: 0;
   align-items: center;
   justify-content: space-evenly;
   transition: width 0.7s ease;

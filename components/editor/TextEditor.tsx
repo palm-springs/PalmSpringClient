@@ -35,13 +35,12 @@ const TextEditorUI = styled(EditorContent)`
 
   *:focus {
     outline: none;
-    border: 1px solid ${({ theme }) => theme.colors.grey_700};
   }
   .ProseMirror p.is-editor-empty:first-child::before {
-    /* float: left; */
+    ${({ theme }) => theme.fonts.Body1_Regular};
+    float: left;
     height: 0;
     color: ${({ theme }) => theme.colors.grey_900};
-    ${({ theme }) => theme.fonts.Body1_Regular};
     content: attr(data-placeholder);
     pointer-events: none;
   }
