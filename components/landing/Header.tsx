@@ -98,6 +98,25 @@ const Header = () => {
             }
           `}>
           <Link
+            href="/auth"
+            css={[
+              header_button,
+              css`
+                background: transparent;
+                color: #343a40;
+                font-size: 16px;
+                &:hover {
+                  background: rgba(0, 0, 0, 0.05);
+                  color: #19db7b;
+                }
+                @media (max-width: 1200px) {
+                  display: block;
+                }
+              `,
+            ]}>
+            로그인
+          </Link>
+          <Link
             href="/team"
             css={[
               header_button,
