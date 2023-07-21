@@ -26,7 +26,7 @@ const DashBoardTitle = (props: DashBoardTitleProps) => {
   if (!res) return <LoadingLottie width={4} height={4} fit={false} />;
 
   const {
-    data: { name, logo },
+    data: { name },
   } = res;
 
   return (

@@ -23,7 +23,7 @@ const PageContentList = () => {
       <EmptyLanding
         header={true}
         message1="작성된 페이지가 없어요."
-        message2="새 페이지를 작성해보세요."
+        message2="새 페이지를 만들어보세요."
         buttonText="새 페이지 만들기"
         buttonClick={() => setDashBoardModalState('createPage')}
       />
