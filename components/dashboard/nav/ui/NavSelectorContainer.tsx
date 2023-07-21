@@ -1,23 +1,31 @@
 import React, { Dispatch, SetStateAction } from 'react';
 import { styled } from 'styled-components';
 
-import { NavListProps } from '@/types/dashboard';
+import { NavListProps, PageListProps } from '@/types/dashboard';
 
 interface NavSelectorContainerProps {
   setIsSelectorOpen: Dispatch<SetStateAction<boolean>>;
   navSelectorContent: NavListProps[];
   newNavigationSelector: string;
+  pageList: PageListProps[];
   setNewNavigationSelector: Dispatch<SetStateAction<string>>;
   newNavigationUrl: string;
   setNewNavigationUrl: Dispatch<SetStateAction<string>>;
 }
 
 const NavSelectorContainer = (props: NavSelectorContainerProps) => {
-  const { setIsSelectorOpen, navSelectorContent, setNewNavigationSelector, setNewNavigationUrl } = props;
+  const { setIsSelectorOpen, navSelectorContent, setNewNavigationSelector, setNewNavigationUrl, pageList } = props;
 
-  const filteredPageList = navSelectorContent.filter(({ isPage }) => isPage);
+  const filteredPageList = navSelectorContent.filter(({ isPage, id: targetId }) => {
+    if (isPage) {
+      const targetData = pageList.find(({ id }) => id === targetId);
+      if (!targetData?.isDraft) {
+        return targetData;
+      }
+    }
+  });
 
-  const nonFilteredPageList = navSelectorContent.filter(({ isPage }) => !isPage);
+  // const nonFilteredPageList = navSelectorContent.filter(({ isPage }) => !isPage);
 
   return (
     <NavSelectorUI>
@@ -42,7 +50,7 @@ const NavSelectorContainer = (props: NavSelectorContainerProps) => {
           {name}
         </IndivContentUI>
       ))}
-      {nonFilteredPageList.map(({ id, name, navUrl }) => (
+      {/* {nonFilteredPageList.map(({ id, name, navUrl }) => (
         <IndivContentUI
           type="button"
           key={id}
@@ -53,7 +61,7 @@ const NavSelectorContainer = (props: NavSelectorContainerProps) => {
           }}>
           {name}
         </IndivContentUI>
-      ))}
+      ))} */}
     </NavSelectorUI>
   );
 };

@@ -1,8 +1,7 @@
 import React, { Dispatch, SetStateAction, useState } from 'react';
 import { useParams } from 'next/navigation';
 
-import LoadingLottie from '@/components/common/ui/LoadingLottie';
-import { useGetNavList } from '@/hooks/dashboard';
+import { useGetNavList, useGetPageList } from '@/hooks/dashboard';
 
 import NavSelectorContainer from './ui/NavSelectorContainer';
 import NavUrlInputContainer from './ui/NavUrlInputContainer';
@@ -25,6 +24,8 @@ const NavUrlInput = (props: NavUrlInputProps) => {
 
   const navList = useGetNavList(blogUrl);
 
+  const pageList = useGetPageList(blogUrl);
+
   // if (!navList) return <div>로더</div>;
 
   return (
@@ -35,11 +36,12 @@ const NavUrlInput = (props: NavUrlInputProps) => {
         // setState={setNewNavigationSelector}
       />
       {newNavigationSelector === '직접 입력' && <TextInput state={newNavigationUrl} setState={setNewNavigationUrl} />}
-      {isSelectorOpen && navList && (
+      {isSelectorOpen && navList && pageList && (
         <NavSelectorContainer
           setIsSelectorOpen={setIsSelectorOpen}
           newNavigationSelector={newNavigationSelector}
           setNewNavigationSelector={setNewNavigationSelector}
+          pageList={pageList.data}
           navSelectorContent={navList.data}
           newNavigationUrl={newNavigationUrl}
           setNewNavigationUrl={setNewNavigationUrl}
