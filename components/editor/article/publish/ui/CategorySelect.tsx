@@ -1,5 +1,6 @@
 'use client';
 import React, { useState } from 'react';
+import { useParams } from 'next/navigation';
 import { useRecoilState } from 'recoil';
 import styled from 'styled-components';
 
@@ -13,8 +14,9 @@ import { articleDataState } from '../../states/atom';
 const CategorySelect = () => {
   const [{ categoryId }, setArticleData] = useRecoilState(articleDataState);
   const [activeCategory, setActiveCategory] = useState('');
+  const { team } = useParams();
 
-  const getCategoryList = useGetCategoryList('team');
+  const getCategoryList = useGetCategoryList(team);
 
   const clickActive = (e: React.MouseEvent<HTMLButtonElement>) => {
     if (!getCategoryList) return;

@@ -33,13 +33,13 @@ const UploadContentList = (props: UploadContentListProps) => {
 
   return (
     <DashBoardContentListContainer>
-      {articleData.data.map(({ id, title, memberName, job, createdAt, categoryArticleResponseDto }) => {
+      {articleData.data.map(({ id, title, memberName, job, createdAt, articleCategory }) => {
         return (
           <DashBoardContent
             key={id}
             id={String(id)}
             content={title}
-            tabType={categoryArticleResponseDto && categoryArticleResponseDto.categoryName}
+            tabType={articleCategory && articleCategory.categoryName}
             author={memberName}
             position={job}
             createdAt={createdAt}

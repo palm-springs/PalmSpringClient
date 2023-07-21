@@ -16,6 +16,7 @@ export const accessTokenState = atom<string | null>({
     persistAtom,
     ({ onSet }) => {
       onSet((newAccessToken) => {
+        console.log('here');
         client.defaults.headers.common['Authorization'] = `Bearer ${newAccessToken}`;
       });
     },

@@ -1,5 +1,6 @@
 'use client';
 import React from 'react';
+import { useParams } from 'next/navigation';
 import styled from 'styled-components';
 
 import AuthRequired from '@/components/auth/AuthRequired';
@@ -11,6 +12,7 @@ import ThumbnailInput from '@/components/editor/article/publish/ui/ThumbnailInpu
 import UrlCustom from '@/components/editor/article/publish/ui/UrlCustom';
 
 const ArticlePublishPage = () => {
+  const { team } = useParams();
   return (
     <AuthRequired>
       <ArticlePublishContainer>
