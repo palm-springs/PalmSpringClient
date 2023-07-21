@@ -1,5 +1,6 @@
 import { Response } from '@/types/common';
 import { CategoryListProps, NavListProps, PageListProps, TempSavedListProps } from '@/types/dashboard';
+import { MemberProps } from '@/types/member';
 
 import client from '.';
 
@@ -43,12 +44,12 @@ export const getTempSavedList = async (blogUrl: string) => {
 };
 
 export const getUserInfo = async (blogUrl: string) => {
-  const { data } = await client.get<Response<UserInfoProps>>(`/api/v1/user/info/simple/${blogUrl}`);
+  const { data } = await client.get<Response<UserInfoProps>>(`/api/v1/user/dashboard/sidebar/${blogUrl}`);
   return data;
 };
 
 export const getMemberList = async (blogUrl: string) => {
-  const { data } = await client.get(`/api/v1/user/members/${blogUrl}`);
+  const { data } = await client.get<Response<MemberProps[]>>(`/api/v1/user/dashboard/team/${blogUrl}`);
   return data;
 };
 

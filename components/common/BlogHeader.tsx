@@ -3,16 +3,17 @@
 import React from 'react';
 import styled from 'styled-components';
 
-import { BLOG_HEADER_EXAMPLE } from '@/constants/blogHeader';
+import { HeaderProps } from '@/types/blogHeader';
 
 import BlogNav from './BlogNav';
 import HeaderLogo from './HeaderLogo';
 
-const BlogHeader = () => {
+const BlogHeader = (props: HeaderProps) => {
+  const { logo, blogName, navList } = props;
   return (
     <BlogHeaderContainer>
-      <HeaderLogo logo={BLOG_HEADER_EXAMPLE.logo} blogName={BLOG_HEADER_EXAMPLE.blogName} />
-      <BlogNav navList={BLOG_HEADER_EXAMPLE.navList} />
+      <HeaderLogo logo={logo} blogName={blogName} />
+      <BlogNav navList={navList} />
     </BlogHeaderContainer>
   );
 };

@@ -44,5 +44,6 @@ const BlogNavContainer = styled.div`
   display: flex;
   align-items: center;
   justify-content: space-between;
+
   width: 31.6rem;
 `;

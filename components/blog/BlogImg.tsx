@@ -1,24 +1,25 @@
 'use client';
 
 import React from 'react';
-import Image from 'next/image';
 import styled from 'styled-components';
 
-import { BlogImgExampleImg } from '@/public/images';
-import { BlogImgProps } from '@/types/blogImg';
+interface BlogMainImgProps {
+  thumbnail: string | null;
+  description: string | null;
+}
 
-const BlogImg = (props: BlogImgProps) => {
-  const { blogImgUrl, blogInfo } = props;
+const BlogImg = (props: BlogMainImgProps) => {
+  const { thumbnail, description } = props;
 
   return (
     //블로그 대문 이미지가 있는 경우에만 블로그 소개글이 같이 나타납니다
     <BlogImgContainer>
-      {blogImgUrl && (
+      {thumbnail && (
         <>
           <BlogImgWrapper>
-            {/* //image src 에 blogImgUrl 넣을 예정 */}
-            <Image src={BlogImgExampleImg} alt="blog image" fill />
-            {blogInfo && <BlogInfo>{blogInfo}</BlogInfo>}
+            <img src={thumbnail} alt="blog main" />
+            {/* <Image src={BlogImgExampleImg} alt="blog image" fill /> */}
+            {description && <BlogInfo>{description}</BlogInfo>}
           </BlogImgWrapper>
         </>
       )}
@@ -32,12 +33,20 @@ const BlogImgContainer = styled.div`
   position: relative;
   margin-top: 6rem;
   min-width: 105.6rem;
+
   height: 50rem;
 `;
 
 const BlogImgWrapper = styled.div`
   width: 100%;
   vertical-align: middle;
+
+  & > img {
+    width: 100%;
+    height: 50rem;
+    user-select: none;
+    -webkit-user-drag: none;
+  }
 `;
 
 const BlogInfo = styled.div`

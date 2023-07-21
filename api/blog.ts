@@ -1,4 +1,6 @@
+import { HeaderProps } from '@/types/blogHeader';
 import { createBlogData } from '@/types/blogInfo';
+import { BlogImgProps } from '@/types/blogMainImg';
 import { Response } from '@/types/common';
 
 import client from '.';
@@ -21,8 +23,15 @@ export const getCheckBlogUrlDuplication = async (blogUrl: string) => {
   return data;
 };
 
+//blog header 정보 가져오기
 export const getBlogHeaderInfo = async (blogUrl: string) => {
   const { data } = await client.get<Response<HeaderProps>>(`/api/v1/blog/${blogUrl}/header`);
+  return data;
+};
+
+// blog 대문 이미지와 한 줄 소개 가져오기
+export const getBlogMainImg = async (blogUrl: string) => {
+  const { data } = await client.get<Response<BlogImgProps>>(`/api/v1/blog/${blogUrl}/thumbnail`);
   return data;
 };
 
