@@ -1,12 +1,10 @@
 'use client';
 import React, { useState } from 'react';
-import { useQuery } from '@tanstack/react-query';
 import { useParams } from 'next/navigation';
 import styled from 'styled-components';
 
 import { useGetUserBasicInfo } from '@/hooks/dashboard';
 import { InputPlusButtonIcon, UserProfileDeleteIcon, UsersProfilesInputIcon } from '@/public/icons';
-import { getUserBasicInfo } from '@/types/dashboard';
 
 const UserProfile = () => {
   const { team } = useParams();
