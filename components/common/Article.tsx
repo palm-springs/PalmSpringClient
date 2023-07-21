@@ -133,9 +133,9 @@ const CategoryBtn = styled.div`
   align-items: center;
   justify-content: center;
 
+  margin-right: 0.4rem;
   border: none;
   border-radius: 1.2rem;
-
   background-color: ${({ theme }) => theme.colors.grey_300};
   padding: 0.4rem 1rem;
   height: 2.4rem;
