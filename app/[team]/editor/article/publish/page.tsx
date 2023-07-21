@@ -15,11 +15,10 @@ const ArticlePublishPage = () => {
   const { team } = useParams();
 
   return (
-    //카테고리, 한줄소개, url
     <AuthRequired>
       <ArticlePublishContainer>
         <ThumbnailInput pageType="article" />
-        <PublishTitle pageType="article" blogUrl={'team'} articleId={1} />
+        <PublishTitle pageType="article" blogUrl={team} articleId={1} />
         <CategorySelect />
         <OneLiner />
         <UrlCustom pageType="article" />
