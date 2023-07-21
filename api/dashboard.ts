@@ -34,7 +34,7 @@ export const getTempSavedList = async (blogUrl: string) => {
 };
 
 export const getUserInfo = async (blogUrl: string) => {
-  const { data } = await client.get<Response<UserInfoProps>>(`/api/v1/user/info/simple/${blogUrl}`);
+  const { data } = await client.get<Response<UserInfoProps>>(`/api/v1/user/dashboard/sidebar/${blogUrl}`);
   return data;
 };
 
