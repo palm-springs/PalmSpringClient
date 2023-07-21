@@ -31,9 +31,12 @@ const NewNavigationModal = (props: NewNavigationModalProps) => {
     setNewNavigationUrl,
   } = props;
 
-  const isPage = newNavigationName === '직접 입력' ? false : true;
-
-  const { mutate } = usePostNavigation(blogUrl, newNavigationName, false, newNavigationUrl);
+  const { mutate } = usePostNavigation(
+    blogUrl,
+    newNavigationName,
+    newNavigationName === '직접 입력' ? false : true,
+    newNavigationUrl,
+  );
 
   return (
     <DashboardCreateModal

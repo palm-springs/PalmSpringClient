@@ -13,6 +13,7 @@
     "*.ts": "eslint --fix"
   },
   "dependencies": {
+    "@emotion/react": "^11.11.1",
     "@tanstack/react-query": "^4.29.19",
     "@tiptap/extension-blockquote": "^2.0.3",
     "@tiptap/extension-bold": "^2.0.3",
@@ -32,6 +33,7 @@
     "@tiptap/pm": "^2.0.3",
     "@tiptap/react": "^2.0.3",
     "@tiptap/starter-kit": "^2.0.3",
+    "aos": "^2.3.4",
     "axios": "^1.4.0",
     "eslint": "^8.43.0",
     "eslint-config-next": "13.4.7",
@@ -41,8 +43,10 @@
     "lowlight": "^2.9.0",
     "next": "13.4.7",
     "react": "18.2.0",
+    "react-burger-menu": "^3.0.9",
     "react-dom": "18.2.0",
     "react-hot-toast": "^2.4.1",
+    "react-icons": "^4.10.1",
     "recoil": "^0.7.7",
     "recoil-persist": "^5.1.0",
     "styled-components": "^6.0.1",
@@ -53,6 +57,7 @@
   "devDependencies": {
     "@stylelint/postcss-css-in-js": "^0.38.0",
     "@svgr/webpack": "^8.0.1",
+    "@types/aos": "^3.0.4",
     "@types/lodash-es": "^4.17.7",
     "@types/node": "20.3.2",
     "@types/react": "18.2.14",

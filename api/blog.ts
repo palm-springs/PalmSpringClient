@@ -3,8 +3,7 @@ import { createBlogData } from '@/types/blogInfo';
 import { BlogImgProps } from '@/types/blogMainImg';
 import { Response } from '@/types/common';
 
-// import { PageListProps } from '@/types/dashboard';
-import { client } from '.';
+import client from '.';
 
 interface BlogConfigRequestBodyProps {
   name: string;

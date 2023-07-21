@@ -18,7 +18,7 @@ const NavContentList = () => {
 
   const setDashBoardModalState = useSetRecoilState(dashBoardModalState);
 
-  if (!data)
+  if (!data || data.data.length === 0)
     return (
       <EmptyLanding
         header={true}

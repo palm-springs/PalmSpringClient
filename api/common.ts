@@ -1,4 +1,4 @@
-import { client } from '.';
+import client from '.';
 
 export const uploadImage = async (formData: FormData) => {
   const { data } = await client.post(`/api/v1/image/add`, formData, {

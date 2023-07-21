@@ -3,8 +3,8 @@
 import React, { useState } from 'react';
 import { useParams } from 'next/navigation';
 
+import LoadingLottie from '@/components/common/ui/LoadingLottie';
 import { useGetUserInfo } from '@/hooks/dashboard';
-import { DuckDuckImg } from '@/public/images';
 
 import DashBoardFooterContainer from './ui/DashBoardFooterContainer';
 import DashBoardProfileContainer from './ui/DashBoardProfileContainer';
@@ -18,18 +18,22 @@ const DashBoardFooter = () => {
 
   const res = useGetUserInfo(team);
 
-  if (!res) return <div>로더</div>;
-
   return (
     <DashBoardFooterContainer>
-      <DashBoardProfileContainer
-        setIsPopOverMenuOpen={setIsPopOverMenuOpen}
-        profileImgUrl={res.data.thumbnail}
-        userName={res.data.name}
-        email={res.data.email}
-      />
-      <DashBoardNavBtn />
-      {isPopOverMenuOpen && <FooterPopOverMenuContainer innerText="팜스프링 로그아웃" />}
+      {res ? (
+        <>
+          <DashBoardProfileContainer
+            setIsPopOverMenuOpen={setIsPopOverMenuOpen}
+            profileImgUrl={res.data.thumbnail}
+            userName={res.data.name}
+            email={res.data.email}
+          />
+          <DashBoardNavBtn />
+          {isPopOverMenuOpen && <FooterPopOverMenuContainer innerText="팜스프링 로그아웃" />}
+        </>
+      ) : (
+        <LoadingLottie height={4} width={4} fit={false} />
+      )}
     </DashBoardFooterContainer>
   );
 };

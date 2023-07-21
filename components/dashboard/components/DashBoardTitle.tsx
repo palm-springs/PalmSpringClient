@@ -4,7 +4,7 @@ import React, { Dispatch, SetStateAction } from 'react';
 import { useParams } from 'next/navigation';
 
 import { useGetBlogInfo } from '@/hooks/blog';
-import { ArrowDownIcon, SymbolIcon } from '@/public/icons';
+import { ArrowDownIcon, LogoIcon, SymbolIcon } from '@/public/icons';
 
 import BlogLogo from './ui/BlogLogo';
 import SideBarTitle from './ui/SideBarTitle';
@@ -30,7 +30,7 @@ const DashBoardTitle = (props: DashBoardTitleProps) => {
 
   return (
     <>
-      <BlogLogo src={logo} />
+      {logo ? <BlogLogo src={logo} /> : <SymbolIcon />}
       <SideBarTitle>
         {name}
         <button type="button" onClick={() => setIsBlogListOpen((prev) => !prev)}>
