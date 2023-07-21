@@ -13,6 +13,15 @@ interface UserInfoProps {
   }>;
 }
 
+interface UserBasicInfoProps {
+  registerId: string;
+  teamMemberId: string;
+  thumbnail: string;
+  nickname: string;
+  description: string;
+  job: string;
+}
+
 export const getPageList = async (blogUrl: string) => {
   const { data } = await client.get<Response<PageListProps[]>>(`/api/v1/page/${blogUrl}`);
   return data;
@@ -40,6 +49,11 @@ export const getUserInfo = async (blogUrl: string) => {
 
 export const getMemberList = async (blogUrl: string) => {
   const { data } = await client.get(`/api/v1/user/members/${blogUrl}`);
+  return data;
+};
+
+export const getUserBasicInfo = async (blogUrl: string) => {
+  const { data } = await client.get<Response<UserBasicInfoProps>>(`/api/v1/user/dashboard/me/detail/${blogUrl}`);
   return data;
 };
 

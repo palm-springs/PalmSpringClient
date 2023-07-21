@@ -1,12 +1,19 @@
 'use client';
 import React from 'react';
+import { useParams } from 'next/navigation';
 import styled from 'styled-components';
 
+import { useGetUserBasicInfo } from '@/hooks/dashboard';
+
 const UserName = () => {
+  const { team } = useParams();
+  const basicUserData = useGetUserBasicInfo(team);
+  if (!basicUserData) return;
+
   return (
     <UserNameContainer>
       <UserNameTitle>이름</UserNameTitle>
-      <UserNameTextarea placeholder="이름을 입력해주세요"></UserNameTextarea>
+      <UserNameTextarea placeholder="이름을 입력해주세요">{basicUserData.data.nickname}</UserNameTextarea>
     </UserNameContainer>
   );
 };
