@@ -3,7 +3,6 @@ import React from 'react';
 
 import { getArticleList } from '@/api/article';
 import { getBlogMainImg } from '@/api/blog';
-import { getCategoryList } from '@/api/dashboard';
 import ArticleContainer from '@/components/blog/ui/ArticleContainer';
 
 const CategoryPage = async ({ params }: { params: { category: string; team: string } }) => {

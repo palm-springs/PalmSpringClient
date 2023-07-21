@@ -10,8 +10,12 @@ const client: AxiosInstance = axios.create({
 
 // Authorization 설정
 const sessionStorage = typeof window !== 'undefined' ? window.sessionStorage : undefined;
-const token = sessionStorage?.getItem('userToken');
 
-client.defaults.headers.common['Authorization'] = token ? `Bearer ${token}` : null;
+const accessToken = sessionStorage?.getItem('userToken');
+if (accessToken) {
+  const { accessTokenState } = JSON.parse(accessToken);
+  console.log(accessTokenState);
+  axios.defaults.headers.Authorization = `Bearer ${accessTokenState}`;
+}
 
 export default client;
