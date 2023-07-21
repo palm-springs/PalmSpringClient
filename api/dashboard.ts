@@ -54,7 +54,7 @@ export const getMemberList = async (blogUrl: string) => {
 };
 
 export const getUserBasicInfo = async (blogUrl: string) => {
-  const { data } = await client.get<Response<UserBasicInfoProps>>(`/api/v1/user/dashboard/me/detail`);
+  const { data } = await client.get<Response<UserBasicInfoProps>>(`/api/v1/user/dashboard/me/${blogUrl}/detail`);
   return data;
 };
 

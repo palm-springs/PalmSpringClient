@@ -1,5 +1,5 @@
 'use client';
-import React from 'react';
+import React, { useEffect, useState } from 'react';
 import { useParams, useRouter } from 'next/navigation';
 import router from 'next/router';
 import { useRecoilValue } from 'recoil';
@@ -17,8 +17,14 @@ interface PublishBottomButtons {
 const PublishBottomButtons = (props: PublishBottomButtons) => {
   const router = useRouter();
   const { pageType } = props;
+
+  const [isDisabled, setIsDisabled] = useState(true);
+
   const articleData = useRecoilValue(articleDataState);
+  const { categoryId, description, articleUrl } = articleData;
   const pageData = useRecoilValue(pageDataState);
+  const { pageUrl } = pageData;
+
   const { team } = useParams();
 
   const handleOnClickLastPublish = () => {
@@ -37,6 +43,21 @@ const PublishBottomButtons = (props: PublishBottomButtons) => {
   const handleBackPageButton = () => {
     router.push(`/${team}/editor/page`);
   };
+  useEffect(() => {
+    if (pageType === 'article') {
+      if (categoryId !== -1 && description !== '' && articleUrl !== '') {
+        setIsDisabled(false);
+      } else {
+        setIsDisabled(true);
+      }
+    } else if (pageType === 'page') {
+      if (pageUrl) {
+        setIsDisabled(false);
+      } else {
+        setIsDisabled(true);
+      }
+    }
+  }, [categoryId, description, articleUrl, pageUrl]);
 
   switch (pageType) {
     case `article`:
@@ -46,7 +67,7 @@ const PublishBottomButtons = (props: PublishBottomButtons) => {
             <BackButton type="button" onClick={handleBackArticleButton}>
               뒤로가기
             </BackButton>
-            <PublishButton type="button" onClick={handleOnClickLastPublish}>
+            <PublishButton type="button" onClick={handleOnClickLastPublish} disabled={isDisabled}>
               글 발행하기
             </PublishButton>
           </PublishBottomButtonsContainer>
@@ -59,7 +80,7 @@ const PublishBottomButtons = (props: PublishBottomButtons) => {
             <BackButton type="button" onClick={handleBackPageButton}>
               뒤로가기
             </BackButton>
-            <PublishButton type="button" onClick={handleOnClickPublish}>
+            <PublishButton type="button" onClick={handleOnClickPublish} disabled={isDisabled}>
               글 발행하기
             </PublishButton>
           </PublishBottomButtonsContainer>
@@ -72,13 +93,13 @@ const PublishBottomButtons = (props: PublishBottomButtons) => {
 
 export default PublishBottomButtons;
 
-const PublishButton = styled.button`
+const PublishButton = styled.button<{ disabled: boolean }>`
   display: inline-flex;
   align-items: center;
   justify-content: center;
   margin-left: 34.3rem;
   border-radius: 0.8rem;
-  background-color: ${({ theme }) => theme.colors.green};
+  background-color: ${({ theme, disabled }) => (disabled ? theme.colors.background_green : theme.colors.green)};
   padding: 1rem 2.6rem;
   color: ${({ theme }) => theme.colors.grey_0};
   ${({ theme }) => theme.fonts.Body2_Regular};
