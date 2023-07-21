@@ -1,5 +1,6 @@
 'use client';
 import React, { useState } from 'react';
+import { useParams } from 'next/navigation';
 import router from 'next/router';
 import { useRecoilState } from 'recoil';
 import styled from 'styled-components';
@@ -17,6 +18,7 @@ interface UrlCustomProps {
 
 const UrlCustom = (props: UrlCustomProps) => {
   const { pageType } = props;
+  const { team } = useParams();
   const [{ articleUrl }, setArticleData] = useRecoilState(articleDataState);
   const [{ pageUrl }, setPageData] = useRecoilState(pageDataState);
 
@@ -49,7 +51,7 @@ const UrlCustom = (props: UrlCustomProps) => {
           <PublishInputForm
             isFocus={isAddressFocus}
             isAddressDuplicate={isAddressDuplicate === null ? undefined : isAddressDuplicate}>
-            <div>/@sopt/content/</div>
+            <div>/@{team}/content/</div>
             <TextInput
               onFocus={() => setIsAddressFocus(true)}
               onBlur={() => setIsAddressFocus(false)}
@@ -58,8 +60,6 @@ const UrlCustom = (props: UrlCustomProps) => {
             />
             {isAddressDuplicate === null && articleUrl !== '' && <Loader01Icon />}
           </PublishInputForm>
-          {/* <TextInputForm type={''} children={undefined} isFocus={false} /> */}
-          {/* <UrlCustomTextarea defaultValue="/@sopt/content/"></UrlCustomTextarea> */}
         </UrlContainer>
       );
     case `page`:
