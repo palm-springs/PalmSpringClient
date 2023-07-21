@@ -1,6 +1,6 @@
 'use client';
 import React from 'react';
-import { useParams } from 'next/navigation';
+import { useParams, useRouter } from 'next/navigation';
 import router from 'next/router';
 import { useRecoilValue } from 'recoil';
 import styled from 'styled-components';
@@ -15,6 +15,7 @@ interface PublishBottomButtons {
 }
 
 const PublishBottomButtons = (props: PublishBottomButtons) => {
+  const router = useRouter();
   const { pageType } = props;
   const articleData = useRecoilValue(articleDataState);
   const pageData = useRecoilValue(pageDataState);
@@ -22,10 +23,19 @@ const PublishBottomButtons = (props: PublishBottomButtons) => {
 
   const handleOnClickLastPublish = () => {
     postArticleCreateList(team, articleData);
+    router.push(`/${team}/dashboard/upload`);
   };
 
   const handleOnClickPublish = () => {
     postPageCreate(team, pageData);
+    router.push(`/${team}/dashboard/page`);
+  };
+
+  const handleBackArticleButton = () => {
+    router.push(`/${team}/editor/article`);
+  };
+  const handleBackPageButton = () => {
+    router.push(`/${team}/editor/page`);
   };
 
   switch (pageType) {
@@ -33,7 +43,9 @@ const PublishBottomButtons = (props: PublishBottomButtons) => {
       return (
         <>
           <PublishBottomButtonsContainer>
-            <BackButton type="button">뒤로가기</BackButton>
+            <BackButton type="button" onClick={handleBackArticleButton}>
+              뒤로가기
+            </BackButton>
             <PublishButton type="button" onClick={handleOnClickLastPublish}>
               글 발행하기
             </PublishButton>
@@ -44,7 +56,9 @@ const PublishBottomButtons = (props: PublishBottomButtons) => {
       return (
         <>
           <PublishBottomButtonsContainer>
-            <BackButton type="button">뒤로가기</BackButton>
+            <BackButton type="button" onClick={handleBackPageButton}>
+              뒤로가기
+            </BackButton>
             <PublishButton type="button" onClick={handleOnClickPublish}>
               글 발행하기
             </PublishButton>
@@ -52,7 +66,7 @@ const PublishBottomButtons = (props: PublishBottomButtons) => {
         </>
       );
     default:
-      router.push('/not-found');
+      break;
   }
 };
 

@@ -49,6 +49,7 @@ const SaveArticleButton = (props: editorProps) => {
   const modalOpenHandler = () => {
     setIsModal(!isModal);
     document.body.style.overflow = 'hidden';
+    router.push(`/${team}/dashboard/upload`);
   };
 
   const modalCloseHandler = () => {
