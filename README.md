@@ -15,6 +15,8 @@
 <hr/>
 <br />
 
+![기능설명](https://github.com/palm-springs/PalmSpringClient/assets/108226647/0baee4a4-05b8-4028-bf9f-56ce9ec366ea)
+
 
 ## 👩🏻‍💻 팀원 소개
 |김서현|오형근|이시연|장명지|
@@ -34,8 +36,9 @@
 |Formatting|![ESLint](https://img.shields.io/badge/ESLint-4B3263?style=for-the-badge&logo=eslint&logoColor=white) ![Prettier](https://img.shields.io/badge/Prettier-F7B93E?style=for-the-badge&logo=prettier&logoColor=white)|
 |Package Manager|![Yarn](https://img.shields.io/badge/yarn-%232C8EBB.svg?style=for-the-badge&logo=yarn&logoColor=white)|                                             
 |Text editor|<img width="145" alt="스크린샷 2023-07-12 오후 4 13 18" src="https://github.com/palm-springs/PalmSpringClient/assets/108226647/e6777b1d-3a16-43c2-9e22-2f7676105eb5">|
-|Parsing|<img width="217" alt="스크린샷 2023-07-12 오후 4 16 01" src="https://github.com/palm-springs/PalmSpringClient/assets/108226647/530553fd-1871-4d40-a392-fe19fa375517">
-|
+|Parsing|<img width="217" alt="스크린샷 2023-07-12 오후 4 16 01" src="https://github.com/palm-springs/PalmSpringClient/assets/108226647/530553fd-1871-4d40-a392-fe19fa375517">|
+|Post message|<img width="217" alt="스크린샷 2023-07-12 오후 4 16 01" src="https://github.com/palm-springs/PalmSpringClient/assets/108226647/980d0f31-f283-45f2-af35-9bdddf674659">
+
 <br />
 
 ## 📂 폴더 구조
@@ -51,18 +54,16 @@
  	┃ ┣ 📂content
  	┃ ┃ ┗ 📂[contentUrl]
  	┃ ┣ 📂dashboard
- 	┃ ┃ ┣ 📂[pageType]
- 	┃ ┃ ┣ 📂basic-user-info
- 	┃ ┃ ┣ 📂blog-basic-info
- 	┃ ┃ ┣ 📂blogconfignav
- 	┃ ┃ ┣ 📂category
- 	┃ ┃ ┣ 📂member
- 	┃ ┃ ┣ 📂nav
- 	┃ ┃ ┣ 📂navigation
- 	┃ ┃ ┣ 📂page
- 	┃ ┃ ┣ 📂subscriber
- 	┃ ┃ ┣ 📂tempsaved
- 	┃ ┃ ┣ 📂upload
+  ┃ ┃ ┣ 📂basicuserinfo
+  ┃ ┃ ┣ 📂blogconfignav
+  ┃ ┃ ┣ 📂category
+  ┃ ┃ ┣ 📂member
+  ┃ ┃ ┣ 📂nav
+  ┃ ┃ ┣ 📂navigation
+  ┃ ┃ ┣ 📂page
+  ┃ ┃ ┣ 📂subscriber
+  ┃ ┃ ┣ 📂tempsaved
+  ┃ ┃ ┣ 📂upload
  	┃ ┣ 📂editor
  	┃ ┃ ┣ 📂article
  	┃ ┃ ┃ ┣ 📂publish
