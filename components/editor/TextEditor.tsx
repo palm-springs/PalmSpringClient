@@ -15,7 +15,6 @@ interface editorProps {
 const TextEditor = ({ editor, handleDragOver, handleDrop }: editorProps) => (
   <div id="dropzone" onDrop={handleDrop} onDragOver={handleDragOver}>
     <EditorContainer>
-      {/* <EditorMenuBar editor={editor} /> */}
       <TextEditorUI editor={editor} />
     </EditorContainer>
   </div>

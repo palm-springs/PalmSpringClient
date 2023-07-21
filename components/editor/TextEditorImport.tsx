@@ -244,7 +244,12 @@ const TextEditorBuild = (props: TextEditorBuildprops) => {
         <>
           <ToolBox editor={editor} encodeFileToBase64={encodeFileToBase64} setLink={setLink} />
           <TextEditor editor={editor} handleDrop={handleDrop} handleDragOver={handleDragOver} />
-          <SaveArticleButton handleOnClickDraft={handleOnClickDraft} handleOnClickPublish={handleOnClickPublish} />
+          <SaveArticleButton
+            handleOnClickDraft={handleOnClickDraft}
+            handleOnClickPublish={handleOnClickPublish}
+            handleOnClickPageDraft={handleOnClickPageDraft}
+            handleOnClickPagePublish={handleOnClickPagePublish}
+          />
         </>
       );
     case `page`:
@@ -253,8 +258,10 @@ const TextEditorBuild = (props: TextEditorBuildprops) => {
           <ToolBox editor={editor} encodeFileToBase64={encodeFileToBase64} setLink={setLink} />
           <TextEditor editor={editor} handleDrop={handleDrop} handleDragOver={handleDragOver} />
           <SaveArticleButton
-            handleOnClickDraft={handleOnClickPageDraft}
-            handleOnClickPublish={handleOnClickPagePublish}
+            handleOnClickDraft={handleOnClickDraft}
+            handleOnClickPublish={handleOnClickPublish}
+            handleOnClickPageDraft={handleOnClickPageDraft}
+            handleOnClickPagePublish={handleOnClickPagePublish}
           />
         </>
       );
