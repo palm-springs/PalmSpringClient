@@ -14,7 +14,6 @@ const sessionStorage = typeof window !== 'undefined' ? window.sessionStorage : u
 const accessToken = sessionStorage?.getItem('userToken');
 if (accessToken) {
   const { accessTokenState } = JSON.parse(accessToken);
-  console.log(accessTokenState);
   axios.defaults.headers.Authorization = `Bearer ${accessTokenState}`;
 }
 

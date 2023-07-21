@@ -215,10 +215,13 @@ const TextEditorBuild = (props: TextEditorBuildprops) => {
       setExtractedHTML(content);
       console.log(content);
 
+      console.log(imageArr);
+      console.log(imageArr.length);
+
       if (imageArr.length === 0) {
-        setArticleData((prev) => ({ ...prev, title, content, image: null }));
+        setArticleData((prev) => ({ ...prev, title, content, images: null }));
       } else {
-        setArticleData((prev) => ({ ...prev, title, content, image: imageArr }));
+        setArticleData((prev) => ({ ...prev, title, content, images: imageArr }));
       }
       router.push(`/${team}/editor/article/publish`);
     }
@@ -230,9 +233,9 @@ const TextEditorBuild = (props: TextEditorBuildprops) => {
       setExtractedHTML(content);
 
       if (imageArr.length === 0) {
-        setPageData((prev) => ({ ...prev, title: pageTitle, content, image: null }));
+        setPageData((prev) => ({ ...prev, title: pageTitle, content, images: null }));
       } else {
-        setPageData((prev) => ({ ...prev, title: pageTitle, content, image: imageArr }));
+        setPageData((prev) => ({ ...prev, title: pageTitle, content, images: imageArr }));
       }
       router.push(`/${team}/editor/page/publish`);
     }
