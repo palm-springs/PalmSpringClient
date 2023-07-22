@@ -1,10 +1,8 @@
 'use client';
 
-import { DragEventHandler } from 'react';
+import { DragEventHandler, useEffect } from 'react';
 import { Editor, EditorContent } from '@tiptap/react';
 import styled from 'styled-components';
-
-// import EditorMenuBar from './article/ui/ToolBox';
 
 interface editorProps {
   editor: Editor | null;

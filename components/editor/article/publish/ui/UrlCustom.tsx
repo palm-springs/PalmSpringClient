@@ -58,8 +58,6 @@ const UrlCustom = (props: UrlCustomProps) => {
             />
             {isAddressDuplicate === null && articleUrl !== '' && <Loader01Icon />}
           </PublishInputForm>
-          {/* <TextInputForm type={''} children={undefined} isFocus={false} /> */}
-          {/* <UrlCustomTextarea defaultValue="/@sopt/content/"></UrlCustomTextarea> */}
         </UrlContainer>
       );
     case `page`:
@@ -140,6 +138,5 @@ const TextInput = styled.input`
 
   &:focus {
     outline: none;
-    border: 1px solid ${({ theme }) => theme.colors.grey_700};
   }
 `;
