@@ -15,10 +15,6 @@ export const GlobalStyle = createGlobalStyle`
     p {
       ${({ theme }) => theme.fonts.Body1_Regular};
       padding: 2.4rem 0 0.8rem 0;
-      
-      &::placeholder{
-      color: ${({ theme }) => theme.colors.grey_600};;
-    }
     }
 
     h1 {
@@ -48,6 +44,10 @@ export const GlobalStyle = createGlobalStyle`
 
     u {
       text-decoration: underline;
+    }
+
+    hr{
+      border: 1px solid ${({ theme }) => theme.colors.grey_300}
     }
 
     strong {
