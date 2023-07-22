@@ -41,10 +41,6 @@ const BlogDescribeTextarea = styled.textarea`
   height: 7.9rem;
   resize: none;
   color: ${({ theme }) => theme.colors.grey_700};
-  &:focus {
-    outline: none;
-    border: 1px solid ${({ theme }) => theme.colors.grey_700};
-  }
 `;
 
 const BlogDescribeTitleContainer = styled.div`

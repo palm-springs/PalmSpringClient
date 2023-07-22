@@ -50,10 +50,6 @@ const UrlInputUI = styled.article`
       text-align: center;
       ${({ theme }) => theme.fonts.Caption};
       color: ${({ theme }) => theme.colors.grey_700};
-      &:focus {
-        outline: none;
-        border: 1px solid ${({ theme }) => theme.colors.grey_700};
-      }
     }
   }
   input {
@@ -62,10 +58,6 @@ const UrlInputUI = styled.article`
     padding: 1rem 1.2rem;
     width: 100%;
     height: 3.75rem;
-    &:focus {
-      outline: none;
-      border: 1px solid ${({ theme }) => theme.colors.grey_700};
-    }
   }
 `;
 

@@ -49,9 +49,5 @@ const ModalPortalUI = styled.article`
       ${({ theme }) => theme.fonts.Body2_Regular};
       color: ${({ theme }) => theme.colors.grey_600};
     }
-    &:focus {
-      outline: none;
-      border: 1px solid ${({ theme }) => theme.colors.grey_700};
-    }
   }
 `;

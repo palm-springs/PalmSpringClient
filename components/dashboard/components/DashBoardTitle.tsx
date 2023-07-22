@@ -23,7 +23,7 @@ const DashBoardTitle = (props: DashBoardTitleProps) => {
 
   const res = useGetBlogInfo(team);
 
-  if (!res) return <LoadingLottie width={4} height={4} fit={false} />;
+  if (!res) return <SymbolIcon />;
 
   const {
     data: { name },
