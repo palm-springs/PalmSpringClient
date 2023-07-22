@@ -18,11 +18,11 @@ const Article = (props: ArticleProps) => {
   const { team } = useParams();
   const {
     noHover,
-    article: { id, title, description, memberName, job, createdAt, thumbnail, articleCategory },
+    article: { id, title, description, memberName, job, createdAt, thumbnail, articleCategory, articleUrl },
   } = props;
 
   return (
-    <ArticleContainer href={`/${team}/content/${id}`} className={noHover ? '' : 'hover'}>
+    <ArticleContainer href={`/${team}/content/article/${articleUrl}/${id}`} className={noHover ? '' : 'hover'}>
       <ArticleInfo>
         <ArticleTitle className="title">{title}</ArticleTitle>
         <ArticleDescription className="description">{description}</ArticleDescription>

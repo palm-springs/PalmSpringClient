@@ -8,11 +8,13 @@ import styled from 'styled-components';
 import useGetIfContentPage from '@/hooks/useGetIfContentPage';
 import { NoUserProfileIcon } from '@/public/icons';
 
+import LoadingLottie from './ui/LoadingLottie';
+
 interface ContentInfoProps {
   contentInfoData?: {
     title: string;
-    description: string | null;
-    teamMember: {
+    description?: string | null;
+    teamMember?: {
       id: number;
       thumbnail: string | null;
       name: string;
@@ -33,13 +35,13 @@ const ContentInfo = (props: ContentInfoProps) => {
 
   const ifContent = useGetIfContentPage();
 
-  if (!contentInfoData) return <div>wait</div>;
+  if (!contentInfoData) return <LoadingLottie height={4} width={4} fit={false} />;
 
-  const {
-    title,
-    description,
-    teamMember: { thumbnail, name, job, createdAt, id },
-  } = contentInfoData;
+  const { title, description, teamMember } = contentInfoData;
+
+  if (!teamMember) return <LoadingLottie height={4} width={4} fit={false} />;
+
+  const { thumbnail, name, job, createdAt, id } = teamMember;
   // const authorName = {name}
 
   return (
