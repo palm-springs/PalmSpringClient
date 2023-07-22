@@ -8,21 +8,18 @@ import TextEditorBuild from '@/components/editor/TextEditorImport';
 const CreatePagePage = () => {
   return (
     <AuthRequired>
-      <Container>
+      <ArticleWrapper>
         <ArticleTitle pageType="page" />
         <TextEditorBuild pageType="page" />
-      </Container>
+      </ArticleWrapper>
     </AuthRequired>
   );
 };
 
 export default CreatePagePage;
-const Container = styled.div`
+
+const ArticleWrapper = styled.div`
   display: flex;
-  flex-direction: column;
   align-items: center;
   justify-content: center;
-  margin-top: 4.4rem;
-  width: 100vw;
-  /* height: 100vh; */
 `;

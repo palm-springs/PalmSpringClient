@@ -18,21 +18,28 @@ const ArticlePublishPage = () => {
 
   return (
     <AuthRequired>
-      <ArticlePublishContainer>
-        <ThumbnailInput pageType="article" />
-        <PublishTitle pageType="article" blogUrl={team} articleId={1} />
-        <CategorySelect />
-        <OneLiner />
-        <UrlCustom pageType="article" isDuplicate={isDuplicate} setIsDuplicate={setIsDuplicate} />
-        <PublishBottomButtons pageType="article" isDuplicate={isDuplicate} />
-      </ArticlePublishContainer>
+      <PublishContainer>
+        <ArticlePublishContainer>
+          <ThumbnailInput pageType="article" />
+          <PublishTitle pageType="article" blogUrl={team} articleId={1} />
+          <CategorySelect />
+          <OneLiner />
+          <UrlCustom pageType="article" isDuplicate={isDuplicate} setIsDuplicate={setIsDuplicate} />
+          <PublishBottomButtons pageType="article" isDuplicate={isDuplicate} />
+        </ArticlePublishContainer>
+      </PublishContainer>
     </AuthRequired>
   );
 };
 
 export default ArticlePublishPage;
 
-// const PublishContainer = styled.div``;
+const PublishContainer = styled.div`
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  /* width: 100vw; */
+`;
 
 const ArticlePublishContainer = styled.div`
   display: flex;
@@ -40,6 +47,6 @@ const ArticlePublishContainer = styled.div`
   align-items: center;
   justify-content: center;
   padding: 8.1rem 45rem;
-  width: 100vw;
+  width: 54rem;
   /* height: 100vh; */
 `;
