@@ -36,7 +36,7 @@ const CategorySelect = () => {
   // const CATEGORY_LIST = getLiteralCategoryList(data);
 
   return (
-    <>
+    <CategContainer>
       <CategoryTitleContainer>
         <CategoryTitle>카테고리</CategoryTitle>
         <EssentialPointerIcon />
@@ -53,11 +53,20 @@ const CategorySelect = () => {
           </CategoryButton>
         ))}
       </CategoryButtonContainer>
-    </>
+    </CategContainer>
   );
 };
 
 export default CategorySelect;
+
+const CategContainer = styled.div`
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+  justify-content: flex-start;
+
+  width: 54rem;
+`;
 
 const EssentialPointerIcon = styled(EssentialCircleIcon)`
   margin: 0.5rem 0 0 0.8rem;
