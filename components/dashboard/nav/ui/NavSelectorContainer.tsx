@@ -14,18 +14,12 @@ interface NavSelectorContainerProps {
 }
 
 const NavSelectorContainer = (props: NavSelectorContainerProps) => {
-  const { setIsSelectorOpen, navSelectorContent, setNewNavigationSelector, setNewNavigationUrl, pageList } = props;
+  const { setIsSelectorOpen, setNewNavigationSelector, setNewNavigationUrl, pageList } = props;
 
-  const filteredPageList = navSelectorContent.filter(({ isPage, id: targetId }) => {
-    if (isPage) {
-      const targetData = pageList.find(({ id }) => id === targetId);
-      if (!targetData?.isDraft) {
-        return targetData;
-      }
-    }
-  });
+  // 페이지가 맞고 isDraft가 아닌 것
+  const filteredPageList = pageList.filter(({ isDraft }) => isDraft);
 
-  // const nonFilteredPageList = navSelectorContent.filter(({ isPage }) => !isPage);
+  const nonFilteredPageList = pageList.filter(({ isDraft }) => !isDraft);
 
   return (
     <NavSelectorUI>
@@ -38,30 +32,30 @@ const NavSelectorContainer = (props: NavSelectorContainerProps) => {
         }}>
         직접 입력
       </IndivContentUI>
-      {filteredPageList.map(({ id, name, navUrl }) => (
+      {filteredPageList.map(({ id, pageUrl, title: name }) => (
         <IndivContentUI
           type="button"
           key={id}
           onClick={() => {
-            setNewNavigationUrl(navUrl);
+            setNewNavigationUrl(pageUrl);
             setNewNavigationSelector(name);
             setIsSelectorOpen((prev) => !prev);
           }}>
           {name}
         </IndivContentUI>
       ))}
-      {/* {nonFilteredPageList.map(({ id, name, navUrl }) => (
+      {nonFilteredPageList.map(({ id, pageUrl, title: name }) => (
         <IndivContentUI
           type="button"
           key={id}
           onClick={() => {
-            setNewNavigationUrl(navUrl);
+            setNewNavigationUrl(pageUrl);
             setNewNavigationSelector(name);
             setIsSelectorOpen((prev) => !prev);
           }}>
           {name}
         </IndivContentUI>
-      ))} */}
+      ))}
     </NavSelectorUI>
   );
 };
@@ -93,6 +87,7 @@ const IndivContentUI = styled.button`
   background: none;
   padding: 1.2rem 1.2rem 1.6rem 1.2rem;
   width: 100%;
+  height: 3.75rem;
   ${({ theme }) => theme.fonts.Body3_Regular};
   color: ${({ theme }) => theme.colors.grey_900};
   &:hover {

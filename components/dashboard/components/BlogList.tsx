@@ -39,7 +39,7 @@ const BlogList = (props: BlogListProps) => {
               />
             );
           })}
-          <MakeNewBlogContainer />
+          <MakeNewBlogContainer onClick={() => router.push('/create-blog')} />
         </>
       ) : (
         <LoadingLottie width={4} height={4} />

@@ -1,11 +1,17 @@
-import React from 'react';
+import React, { MouseEventHandler } from 'react';
 import { styled } from 'styled-components';
 
 import { IcPlusIcon } from '@/public/icons';
 
-const MakeNewBlogContainer = () => {
+interface MakeNewBlogContainerProps {
+  onClick: MouseEventHandler<HTMLElement>;
+}
+
+const MakeNewBlogContainer = (props: MakeNewBlogContainerProps) => {
+  const { onClick } = props;
+
   return (
-    <MakeNewBlogUI>
+    <MakeNewBlogUI onClick={onClick}>
       <PlusIcon />
       <span>새로운 블로그 생성하기</span>
     </MakeNewBlogUI>
