@@ -32,12 +32,29 @@ const EditorMenuBar = ({ editor, encodeFileToBase64, setLink }: editorProps) => 
   const [isAtTop, setIsAtTop] = useState(true);
   const [visible, setVisible] = useState(false);
 
+  const [scrollY, setScrollY] = useState<number>(0);
+
+  useEffect(() => {
+    const handleScroll = () => {
+      const currentScrollY = window.scrollY;
+      setScrollY(currentScrollY);
+      console.log('현재 스크롤 위치:', currentScrollY);
+    };
+
+    window.addEventListener('scroll', handleScroll);
+
+    return () => {
+      window.removeEventListener('scroll', handleScroll);
+    };
+  }, []);
+
   //스크롤바 높이에 따라 visible 조건부 설정, 높이 인식 설정
   useEffect(() => {
     const handleScroll = () => {
       setIsAtTop(window.scrollY >= 143);
-
       setVisible(window.scrollY >= 143);
+      // setIsAtTop(window.scrollY < 143);
+      // setVisible(window.scrollY >= 1000);
     };
 
     window.addEventListener('scroll', handleScroll);
