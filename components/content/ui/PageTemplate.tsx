@@ -2,27 +2,28 @@
 
 import React, { useEffect } from 'react';
 import toast, { Toaster } from 'react-hot-toast';
-import Image from 'next/image';
 import styled from 'styled-components';
 
 import ContentInfo from '@/components/common/ContentInfo';
 import Content from '@/components/content/Content';
 import Bar from '@/components/content/ui/Bar';
 import Recommend from '@/components/content/ui/Recommend';
-import { BlogSampleImg } from '@/public/images';
-import { ContentProps } from '@/types/content';
 
 interface ContentTemplateProps {
-  data: ContentProps;
+  data: {
+    title: string;
+    thumbnail: string;
+    content: string;
+  };
 }
 
-const ContentTemplate = (props: ContentTemplateProps) => {
+const PageTemplate = (props: ContentTemplateProps) => {
   useEffect(() => {
     window.scrollTo({ top: 0, left: 0, behavior: 'auto' });
   }, []);
 
   const {
-    data: { thumbnail, title, description, teamMember, content },
+    data: { title, thumbnail, content },
   } = props;
 
   const notify = () =>
@@ -58,10 +59,8 @@ const ContentTemplate = (props: ContentTemplateProps) => {
       />
 
       <ContentPageContainer>
-        {thumbnail && <Image src={BlogSampleImg} alt="blog thumbnail" />}
-        {/* 위의 image 태그의 src는 실제 사진 url 이 넘어오면 바꿔줄 예정입니다 */}
-        {/* {thumbnail && <Image src={thumbnail} alt="blog thumbnail" />} */}
-        <ContentInfo contentInfoData={{ title, description, teamMember }} />
+        {thumbnail && <PageThumbnail src={thumbnail} alt="page content thumbnail" />}
+        <ContentInfo contentInfoData={{ title }} />
         <Content content={content} />
         <LinkBtn onClick={copyCurrentUrl}>아티클 링크 복사하기</LinkBtn>
         <Bar />
@@ -71,7 +70,13 @@ const ContentTemplate = (props: ContentTemplateProps) => {
   );
 };
 
-export default ContentTemplate;
+export default PageTemplate;
+
+const PageThumbnail = styled.img`
+  border-radius: 1.6rem;
+  width: 72rem;
+  height: 40.5rem;
+`;
 
 const ContentPageContainer = styled.section`
   display: flex;
