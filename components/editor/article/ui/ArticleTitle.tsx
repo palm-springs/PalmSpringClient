@@ -50,8 +50,7 @@ const ArticleTitle = (props: TextEditorBuildprops) => {
 export default ArticleTitle;
 
 const ArticleTitleContainer = styled.div`
-  /* margin: 4rem 0 0 35.9rem; */
-  margin-left: -18rem;
+  width: 72.2rem;
 `;
 
 const Input = styled.input`
