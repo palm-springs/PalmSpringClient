@@ -33,8 +33,6 @@ export const postPageCreate = async (url: string, requestBody: postPageCreateReq
 };
 
 export const getCheckPageUrlDuplication = async (teamUrl: string, pageUrl: string) => {
-  const {
-    data: { data },
-  } = await client.get(`/api/v1/article/${teamUrl}/check?articleUrl=${pageUrl}`);
+  const { data } = await client.get(`/api/v1/page/${teamUrl}/check?pageUrl=${pageUrl}`);
   return data;
 };

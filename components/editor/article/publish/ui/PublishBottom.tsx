@@ -1,7 +1,7 @@
 'use client';
 import React, { useEffect, useState } from 'react';
 import { useParams, useRouter } from 'next/navigation';
-import { useRecoilValue, useSetRecoilState } from 'recoil';
+import { useRecoilValue, useResetRecoilState, useSetRecoilState } from 'recoil';
 import styled from 'styled-components';
 
 import { postArticleCreateList } from '@/api/article';
@@ -27,14 +27,18 @@ const PublishBottomButtons = (props: PublishBottomButtons) => {
 
   const { team } = useParams();
 
+  const resetArticleData = useResetRecoilState(articleDataState);
+  const resetPageData = useResetRecoilState(pageDataState);
+
   const handleOnClickLastPublish = () => {
-    console.log(articleData);
     postArticleCreateList(team, articleData);
+    resetArticleData();
     router.push(`/${team}/dashboard/upload`);
   };
 
   const handleOnClickPublish = () => {
     postPageCreate(team, pageData);
+    resetPageData();
     router.push(`/${team}/dashboard/page`);
   };
 
@@ -44,22 +48,6 @@ const PublishBottomButtons = (props: PublishBottomButtons) => {
   const handleBackPageButton = () => {
     router.push(`/${team}/editor/page`);
   };
-  useEffect(() => {
-    console.log(categoryId, description, articleUrl, isDuplicate);
-    if (pageType === 'article') {
-      if (categoryId !== -1 && description !== '' && articleUrl !== '' && !isDuplicate) {
-        setIsDisabled(false);
-      } else {
-        setIsDisabled(true);
-      }
-    } else if (pageType === 'page') {
-      if (pageUrl !== '' && !isDuplicate) {
-        setIsDisabled(false);
-      } else {
-        setIsDisabled(true);
-      }
-    }
-  }, [categoryId, description, articleUrl, pageUrl]);
 
   switch (pageType) {
     case `article`:
@@ -69,7 +57,12 @@ const PublishBottomButtons = (props: PublishBottomButtons) => {
             <BackButton type="button" onClick={handleBackArticleButton}>
               뒤로가기
             </BackButton>
-            <PublishButton type="button" onClick={handleOnClickLastPublish} disabled={isDisabled}>
+            <PublishButton
+              type="button"
+              onClick={handleOnClickLastPublish}
+              disabled={
+                categoryId === -1 || description === '' || articleUrl === '' || isDuplicate || isDuplicate === null
+              }>
               글 발행하기
             </PublishButton>
           </PublishBottomButtonsContainer>
@@ -82,7 +75,10 @@ const PublishBottomButtons = (props: PublishBottomButtons) => {
             <BackButton type="button" onClick={handleBackPageButton}>
               뒤로가기
             </BackButton>
-            <PublishButton type="button" onClick={handleOnClickPublish} disabled={isDisabled}>
+            <PublishButton
+              type="button"
+              onClick={handleOnClickPublish}
+              disabled={pageUrl === '' || isDuplicate || isDuplicate === null}>
               글 발행하기
             </PublishButton>
           </PublishBottomButtonsContainer>
@@ -102,6 +98,8 @@ const PublishButton = styled.button<{ disabled: boolean }>`
   margin-left: 34.3rem;
   border-radius: 0.8rem;
   background-color: ${({ theme, disabled }) => (disabled ? theme.colors.background_green : theme.colors.green)};
+
+  cursor: ${({ disabled }) => (disabled ? 'default' : 'pointer')};
   padding: 1rem 2.6rem;
   color: ${({ theme }) => theme.colors.grey_0};
   ${({ theme }) => theme.fonts.Body2_Regular};
