@@ -12,11 +12,12 @@ import { articleDataState, pageDataState } from '../../states/atom';
 
 interface PublishBottomButtons {
   pageType: string;
+  isDuplicate: boolean | null;
 }
 
 const PublishBottomButtons = (props: PublishBottomButtons) => {
   const router = useRouter();
-  const { pageType } = props;
+  const { pageType, isDuplicate } = props;
 
   const [isDisabled, setIsDisabled] = useState(true);
 
@@ -44,14 +45,15 @@ const PublishBottomButtons = (props: PublishBottomButtons) => {
     router.push(`/${team}/editor/page`);
   };
   useEffect(() => {
+    console.log(categoryId, description, articleUrl, isDuplicate);
     if (pageType === 'article') {
-      if (categoryId !== -1 && description !== '' && articleUrl !== '') {
+      if (categoryId !== -1 && description !== '' && articleUrl !== '' && !isDuplicate) {
         setIsDisabled(false);
       } else {
         setIsDisabled(true);
       }
     } else if (pageType === 'page') {
-      if (pageUrl) {
+      if (pageUrl !== '' && !isDuplicate) {
         setIsDisabled(false);
       } else {
         setIsDisabled(true);

@@ -14,16 +14,17 @@ import UrlCustom from '@/components/editor/article/publish/ui/UrlCustom';
 const ArticlePublishPage = () => {
   const { team } = useParams();
 
+  const [isDuplicate, setIsDuplicate] = useState<boolean | null>(false);
+
   return (
-    //카테고리, 한줄소개, url
     <AuthRequired>
       <ArticlePublishContainer>
         <ThumbnailInput pageType="article" />
-        <PublishTitle pageType="article" blogUrl={'team'} articleId={1} />
+        <PublishTitle pageType="article" blogUrl={team} articleId={1} />
         <CategorySelect />
         <OneLiner />
-        <UrlCustom pageType="article" />
-        <PublishBottomButtons pageType="article" />
+        <UrlCustom pageType="article" isDuplicate={isDuplicate} setIsDuplicate={setIsDuplicate} />
+        <PublishBottomButtons pageType="article" isDuplicate={isDuplicate} />
       </ArticlePublishContainer>
     </AuthRequired>
   );
@@ -31,10 +32,14 @@ const ArticlePublishPage = () => {
 
 export default ArticlePublishPage;
 
+// const PublishContainer = styled.div``;
+
 const ArticlePublishContainer = styled.div`
+  display: flex;
+  flex-direction: column;
   align-items: center;
   justify-content: center;
   padding: 8.1rem 45rem;
   width: 100vw;
-  height: 100vh;
+  /* height: 100vh; */
 `;

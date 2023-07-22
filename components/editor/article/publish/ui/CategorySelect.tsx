@@ -16,26 +16,24 @@ const CategorySelect = () => {
   const [activeCategory, setActiveCategory] = useState('');
   const { team } = useParams();
 
-  const getCategoryList = useGetCategoryList(team);
+  const data = useGetCategoryList(team);
+  console.log(data);
 
   const clickActive = (e: React.MouseEvent<HTMLButtonElement>) => {
-    if (!getCategoryList) return;
-
+    if (!data) return;
     const value = e.currentTarget.value;
     setActiveCategory(value);
     setArticleData((prev) => ({
       ...prev,
-      categoryId: Number(getCategoryList.data[Number(value)].id),
+      categoryId: Number(value),
     }));
-    console.log(categoryId);
   };
 
-  if (!getCategoryList) {
-    return;
-    <LoadingLottie width={4} height={4} fit />;
+  if (!data) {
+    return <LoadingLottie width={4} height={4} fit />;
   }
 
-  const CATEGORY_LIST = getLiteralCategoryList(getCategoryList);
+  // const CATEGORY_LIST = getLiteralCategoryList(data);
 
   return (
     <>
@@ -45,13 +43,13 @@ const CategorySelect = () => {
       </CategoryTitleContainer>
 
       <CategoryButtonContainer>
-        {CATEGORY_LIST.map((title, index) => (
+        {data.data.map(({ id, name }) => (
           <CategoryButton
-            key={title}
-            value={index}
-            className={activeCategory === String(index) ? 'active' : ''}
+            key={id}
+            value={id}
+            className={activeCategory === String(id) ? 'active' : ''}
             onClick={clickActive}>
-            {title}
+            {name}
           </CategoryButton>
         ))}
       </CategoryButtonContainer>

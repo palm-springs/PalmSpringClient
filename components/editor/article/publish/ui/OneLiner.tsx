@@ -22,7 +22,15 @@ const OneLiner = () => {
         <EssentialPointerIcon />
       </OneLineTitleContainer>
 
-      <OneLinerTextarea placeholder="한 줄 소개를 입력해주세요"></OneLinerTextarea>
+      <OneLinerTextarea
+        placeholder="한 줄 소개를 입력해주세요"
+        value={description}
+        onChange={(e) =>
+          setArticleData((prev) => ({
+            ...prev,
+            description: e.target.value,
+          }))
+        }></OneLinerTextarea>
     </OneLinerContainer>
   );
 };
