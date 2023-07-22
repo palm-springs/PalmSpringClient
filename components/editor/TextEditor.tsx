@@ -22,8 +22,9 @@ export default TextEditor;
 
 const EditorContainer = styled.div`
   margin-bottom: 64px;
-  margin-left: 35.9rem;
+  /* margin-left: 35.9rem; */
   height: fit-content;
+  /* overflow: scroll; */
 `;
 
 const TextEditorUI = styled(EditorContent)`

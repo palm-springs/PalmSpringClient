@@ -133,7 +133,7 @@ const IconWrapper = styled.div`
   justify-content: space-evenly;
   transition: width 0.7s ease;
   z-index: 20;
-  margin: 4rem 0 2rem 0;
+  /* margin: 4rem 0 2rem 0; */
   border-radius: 0.8rem;
   background-color: ${({ theme }) => theme.colors.grey_100};
   width: 72.2rem;
@@ -144,7 +144,8 @@ const IconContainer = styled.div<{ isAtTop: boolean }>`
   position: ${({ isAtTop }) => isAtTop && 'sticky'};
   top: 0;
   z-index: 30;
-  margin-left: 35.9rem;
+  /* margin-left: 35.9rem; */
+  margin-top: 4.4rem;
   width: ${({ isAtTop }) => isAtTop && '72.2rem'};
 `;
 
