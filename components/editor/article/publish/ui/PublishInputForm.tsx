@@ -9,13 +9,12 @@ interface PublishInputFormProps {
 
 const PublishInputForm = (props: PublishInputFormProps) => {
   const { children, isFocus, isDuplicate } = props;
-
+  console.log(isDuplicate);
   return (
     <>
       <InputContainer id={isDuplicate ? 'failed' : ''} $isFocus={isFocus}>
         {children}
       </InputContainer>
-      {isDuplicate && <Message>이미 사용 중인 URL입니다. 다른 URL를 입력해주세요.</Message>}
     </>
   );
 };
@@ -57,12 +56,4 @@ const InputContainer = styled.div<{ $isFocus: boolean }>`
       }
     }
   }
-`;
-const Message = styled.span`
-  ${({ theme }) => theme.fonts.Caption};
-  position: absolute;
-  top: 0.6rem;
-  margin-top: 0.6rem;
-
-  color: ${({ theme }) => theme.colors.red};
 `;

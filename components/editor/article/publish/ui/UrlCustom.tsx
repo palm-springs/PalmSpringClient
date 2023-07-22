@@ -67,6 +67,8 @@ const UrlCustom = (props: UrlCustomProps) => {
             />
             {isDuplicate === null && articleUrl !== '' && <Loader01Icon />}
           </PublishInputForm>
+
+          {isDuplicate && <Message>이미 사용 중인 URL입니다. 다른 URL를 입력해주세요.</Message>}
         </UrlContainer>
       );
     case `page`:
@@ -87,6 +89,7 @@ const UrlCustom = (props: UrlCustomProps) => {
             />
             {isDuplicate === null && pageUrl !== '' && <Loader01Icon />}
           </PublishInputForm>
+          {isDuplicate && <Message>이미 사용 중인 URL입니다. 다른 URL를 입력해주세요.</Message>}
         </UrlContainer>
       );
     default:
@@ -128,4 +131,10 @@ const TextInput = styled.input`
   &:focus {
     outline: none;
   }
+`;
+const Message = styled.div`
+  ${({ theme }) => theme.fonts.Caption};
+  margin-top: 0.6rem;
+
+  color: ${({ theme }) => theme.colors.red};
 `;
