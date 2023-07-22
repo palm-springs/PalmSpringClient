@@ -19,7 +19,7 @@ const NavSelectorContainer = (props: NavSelectorContainerProps) => {
   // 페이지가 맞고 isDraft가 아닌 것
   const filteredPageList = pageList.filter(({ isDraft }) => isDraft);
 
-  const nonFilteredPageList = pageList.filter(({ isDraft }) => !isDraft);
+  // const nonFilteredPageList = pageList.filter(({ isDraft }) => !isDraft);
 
   return (
     <NavSelectorUI>
@@ -45,7 +45,7 @@ const NavSelectorContainer = (props: NavSelectorContainerProps) => {
           {name}
         </IndivContentUI>
       ))}
-      {nonFilteredPageList.map(({ id, title: name }) => (
+      {/* {nonFilteredPageList.map(({ id, title: name }) => (
         <IndivContentUI
           type="button"
           key={id}
@@ -56,7 +56,7 @@ const NavSelectorContainer = (props: NavSelectorContainerProps) => {
           }}>
           {name}
         </IndivContentUI>
-      ))}
+      ))} */}
     </NavSelectorUI>
   );
 };
@@ -78,6 +78,7 @@ const NavSelectorUI = styled.section`
   padding: 0.8rem;
   width: 100%;
   max-height: 20.8rem;
+  overflow: hidden;
 `;
 
 const IndivContentUI = styled.button`

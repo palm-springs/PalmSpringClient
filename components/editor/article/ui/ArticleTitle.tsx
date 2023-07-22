@@ -54,6 +54,7 @@ const ArticleTitleContainer = styled.div`
 `;
 
 const Input = styled.input`
+  margin-top: 4rem;
   border: none;
   background: ${({ theme }) => theme.colors.grey_0};
   width: 100%;
@@ -65,5 +66,6 @@ const Input = styled.input`
   }
   &:focus {
     outline: none;
+    border: 1px solid ${({ theme }) => theme.colors.grey_300};
   }
 `;

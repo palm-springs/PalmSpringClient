@@ -31,10 +31,6 @@ const UserNameTextarea = styled.textarea`
   height: 4.6rem;
   resize: none;
   color: ${({ theme }) => theme.colors.grey_900};
-  &:focus {
-    outline: none;
-    border: 1px solid ${({ theme }) => theme.colors.grey_700};
-  }
 `;
 
 const UserNameContainer = styled.div`
