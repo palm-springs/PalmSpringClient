@@ -6,8 +6,11 @@ import { useParams } from 'next/navigation';
 import styled from 'styled-components';
 
 import PageBtn from '@/components/blog/PageBtn';
+import { useGetNavList } from '@/hooks/dashboard';
 
 import SubscribeBtn from '../blog/SubscribeBtn';
+
+import LoadingLottie from './ui/LoadingLottie';
 
 interface navProps {
   navList: {
@@ -19,8 +22,14 @@ interface navProps {
 }
 
 const BlogNav = (prop: navProps) => {
-  const { navList } = prop;
+  // const { navList } = prop;
   const { team } = useParams();
+
+  const res = useGetNavList(team);
+
+  if (!res) return <LoadingLottie width={10} height={10} fit />;
+
+  const { data: navList } = res;
 
   return (
     <BlogNavContainer>

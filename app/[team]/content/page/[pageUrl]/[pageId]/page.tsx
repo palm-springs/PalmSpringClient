@@ -9,7 +9,7 @@ import LoadingLottie from '@/components/common/ui/LoadingLottie';
 import PageTemplate from '@/components/content/ui/PageTemplate';
 import { useGetPageDetail } from '@/hooks/blog';
 // import ContentTemplate from '@/components/content/ContentTemplate';
-const ContentPage = async () => {
+const ContentPage = () => {
   const { team, pageId } = useParams();
   //   const { data } = await getContent(params.team, params.pageId);
   // const pageIdNum = String(params.pageId);

@@ -78,6 +78,7 @@ const NavSelectorUI = styled.section`
   padding: 0.8rem;
   width: 100%;
   max-height: 20.8rem;
+  overflow: hidden;
 `;
 
 const IndivContentUI = styled.button`
