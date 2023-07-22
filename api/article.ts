@@ -51,12 +51,7 @@ interface postArticleCreateListRequest {
 }
 
 export const postArticleCreateList = async (url: string, requestBody: CreateArticleProps) => {
-  const { data } = await client.post<Response<null>>(`/api/v1/article/${url}/create`, requestBody).then((res) => {
-    if (res.status < 300) {
-      useQuery(['getArticleList', url, '']);
-    }
-    return res;
-  });
+  const { data } = await client.post<Response<null>>(`/api/v1/article/${url}/create`, requestBody);
   return data;
 };
 
