@@ -10,7 +10,6 @@ const CheckArticleDuplication = debounce(
       return;
     } else {
       const { data } = await getCheckArticleUrlDuplication(blogUrl, addressValue);
-      console.log(data);
       setState(data);
     }
   },
