@@ -1,14 +1,25 @@
-import React from 'react';
+'use client';
 
-import { getBlogHeaderInfo } from '@/api/blog';
+import React from 'react';
+import { useParams } from 'next/navigation';
+
 import AuthRequired from '@/components/auth/AuthRequired';
 import BlogFooter from '@/components/common/BlogFooter';
 import BlogHeader from '@/components/common/BlogHeader';
+import LoadingLottie from '@/components/common/ui/LoadingLottie';
+import { useGetBlogHeaderInfo } from '@/hooks/blog';
 
-const ContentLayout = async ({ children, params }: { children: React.ReactElement; params: { team: string } }) => {
+const ContentLayout = ({ children }: { children: React.ReactElement }) => {
+  const { team } = useParams();
+
+  const res = useGetBlogHeaderInfo(team);
+
+  if (!res) return <LoadingLottie width={10} height={10} fit />;
+
   const {
     data: { logo, blogName, navList },
-  } = await getBlogHeaderInfo(params.team);
+  } = res;
+
   return (
     <AuthRequired>
       <BlogHeader logo={logo} blogName={blogName} navList={navList} />

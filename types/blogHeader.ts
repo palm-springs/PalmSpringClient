@@ -5,6 +5,7 @@ export interface HeaderProps {
 }
 
 export interface NavItem {
+  id: number;
   name: string;
   navUrl: string;
   isPage: boolean;

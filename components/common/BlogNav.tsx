@@ -11,6 +11,7 @@ import SubscribeBtn from '../blog/SubscribeBtn';
 
 interface navProps {
   navList: {
+    id: number;
     name: string;
     navUrl: string;
     isPage: boolean;
@@ -25,10 +26,10 @@ const BlogNav = (prop: navProps) => {
     <BlogNavContainer>
       <div></div>
       {navList &&
-        navList.map(({ navUrl, name, isPage }) => (
+        navList.map(({ navUrl, name, isPage, id }) => (
           <PageBtn key={navUrl}>
             {isPage === true ? (
-              <Link href={`/${team}/content/${navUrl}`}>{name}</Link>
+              <Link href={`/${team}/content/page/${navUrl}/${id}`}>{name}</Link>
             ) : (
               <Link href={`${navUrl}`}>{name}</Link>
             )}
