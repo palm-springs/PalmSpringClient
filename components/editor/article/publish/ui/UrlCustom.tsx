@@ -104,9 +104,7 @@ const UrlTitleContainer = styled.div`
   display: flex;
 `;
 
-const UrlContainer = styled.div`
-  margin-top: 2.4rem;
-`;
+const UrlContainer = styled.div``;
 
 const UrlTitle = styled.p`
   color: ${({ theme }) => theme.colors.grey_950};
