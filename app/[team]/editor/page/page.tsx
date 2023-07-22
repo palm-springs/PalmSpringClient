@@ -20,6 +20,7 @@ export default CreatePagePage;
 
 const ArticleWrapper = styled.div`
   display: flex;
+  flex-direction: column;
   align-items: center;
   justify-content: center;
 `;
