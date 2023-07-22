@@ -5,7 +5,7 @@ import { NavListProps, PageListProps } from '@/types/dashboard';
 
 interface NavSelectorContainerProps {
   setIsSelectorOpen: Dispatch<SetStateAction<boolean>>;
-  navSelectorContent: NavListProps[];
+  // navSelectorContent: NavListProps[];
   newNavigationSelector: string;
   pageList: PageListProps[];
   setNewNavigationSelector: Dispatch<SetStateAction<string>>;
@@ -32,24 +32,25 @@ const NavSelectorContainer = (props: NavSelectorContainerProps) => {
         }}>
         직접 입력
       </IndivContentUI>
-      {filteredPageList.map(({ id, pageUrl, title: name }) => (
+      {filteredPageList.map(({ id, title: name }) => (
         <IndivContentUI
           type="button"
           key={id}
           onClick={() => {
-            setNewNavigationUrl(pageUrl);
+            setNewNavigationUrl(name);
             setNewNavigationSelector(name);
             setIsSelectorOpen((prev) => !prev);
-          }}>
+          }}
+          disabled>
           {name}
         </IndivContentUI>
       ))}
-      {nonFilteredPageList.map(({ id, pageUrl, title: name }) => (
+      {nonFilteredPageList.map(({ id, title: name }) => (
         <IndivContentUI
           type="button"
           key={id}
           onClick={() => {
-            setNewNavigationUrl(pageUrl);
+            setNewNavigationUrl(name);
             setNewNavigationSelector(name);
             setIsSelectorOpen((prev) => !prev);
           }}>

@@ -22,7 +22,7 @@ const NavUrlInput = (props: NavUrlInputProps) => {
 
   const [isSelectorOpen, setIsSelectorOpen] = useState<boolean>(false);
 
-  const navList = useGetNavList(blogUrl);
+  // const navList = useGetNavList(blogUrl);
 
   const pageList = useGetPageList(blogUrl);
 
@@ -36,13 +36,13 @@ const NavUrlInput = (props: NavUrlInputProps) => {
         // setState={setNewNavigationSelector}
       />
       {newNavigationSelector === '직접 입력' && <TextInput state={newNavigationUrl} setState={setNewNavigationUrl} />}
-      {isSelectorOpen && navList && pageList && (
+      {isSelectorOpen && pageList && (
         <NavSelectorContainer
           setIsSelectorOpen={setIsSelectorOpen}
           newNavigationSelector={newNavigationSelector}
           setNewNavigationSelector={setNewNavigationSelector}
           pageList={pageList.data}
-          navSelectorContent={navList.data}
+          // navSelectorContent={navList.data}
           newNavigationUrl={newNavigationUrl}
           setNewNavigationUrl={setNewNavigationUrl}
         />
