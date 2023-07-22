@@ -17,7 +17,6 @@ const AuthRequired = ({ children }: { children: React.ReactNode }) => {
 
   useEffect(() => {
     const accessToken = sessionStorage?.getItem('userToken');
-    console.log(accessToken);
     if (accessToken) {
       const { accessTokenState } = JSON.parse(accessToken);
       console.log(accessTokenState);
@@ -33,7 +32,6 @@ const AuthRequired = ({ children }: { children: React.ReactNode }) => {
       data: { accessToken },
     } = await getRefreshToken();
 
-    console.log(accessToken);
     console.log('refresh');
 
     console.log(code);
