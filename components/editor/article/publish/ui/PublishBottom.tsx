@@ -53,7 +53,7 @@ const PublishBottomButtons = (props: PublishBottomButtons) => {
         setIsDisabled(true);
       }
     } else if (pageType === 'page') {
-      if (pageUrl) {
+      if (pageUrl !== '' && !isDuplicate) {
         setIsDisabled(false);
       } else {
         setIsDisabled(true);
