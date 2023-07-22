@@ -14,6 +14,8 @@ import UrlCustom from '@/components/editor/article/publish/ui/UrlCustom';
 const ArticlePublishPage = () => {
   const { team } = useParams();
 
+  const [isDuplicate, setIsDuplicate] = useState<boolean | null>(false);
+
   return (
     //카테고리, 한줄소개, url
     <AuthRequired>
@@ -22,8 +24,8 @@ const ArticlePublishPage = () => {
         <PublishTitle pageType="article" blogUrl={'team'} articleId={1} />
         <CategorySelect />
         <OneLiner />
-        <UrlCustom pageType="article" />
-        <PublishBottomButtons pageType="article" />
+        <UrlCustom pageType="article" isDuplicate={isDuplicate} setIsDuplicate={setIsDuplicate} />
+        <PublishBottomButtons pageType="article" isDuplicate={isDuplicate} />
       </ArticlePublishContainer>
     </AuthRequired>
   );
