@@ -153,6 +153,3 @@ button{
     font-size:var(--16px);
     font-weight:600;
 }
-button:focus {
-    outline: none;
-}
