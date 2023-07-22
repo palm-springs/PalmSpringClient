@@ -73,4 +73,5 @@ const ArrowDown = styled(ArrowDownIcon)`
   position: absolute;
   top: 4.2rem;
   right: 1.4rem;
+  cursor: pointer;
 `;

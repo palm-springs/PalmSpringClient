@@ -10,7 +10,7 @@ interface DraftProps {
 const Draft = (props: DraftProps) => {
   const { draft } = props;
 
-  return <DraftUI $draft={draft}>{draft ? '업로드 완료' : '임시저장'}</DraftUI>;
+  return <DraftUI $draft={!draft}>{!draft ? '업로드 완료' : '임시저장'}</DraftUI>;
 };
 
 export default Draft;
