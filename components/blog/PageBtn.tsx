@@ -18,6 +18,8 @@ const PageBtnContainer = styled.button`
   padding: 1rem;
   height: 3.6rem;
   text-align: center;
+  text-overflow: ellipsis;
+  white-space: nowrap;
   color: ${({ theme }) => theme.colors.grey_900};
 
   &:hover {
