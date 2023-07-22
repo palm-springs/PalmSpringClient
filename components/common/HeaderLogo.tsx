@@ -2,7 +2,7 @@
 
 import React from 'react';
 import Link from 'next/link';
-import { useParams } from 'next/navigation';
+import { useParams, useRouter } from 'next/navigation';
 import styled from 'styled-components';
 interface LogoProp {
   logo: string | null;
@@ -12,9 +12,10 @@ interface LogoProp {
 const HeaderLogo = (prop: LogoProp) => {
   const { logo, blogName } = prop;
   const { team } = useParams();
+  const router = useRouter();
 
   return (
-    <Link href={`/${team}/home`}>
+    <Link href={`/${team}/home`} onClick={() => router.push(`/${team}/dashboard/upload`)}>
       {logo ? (
         <>
           <img src={logo} alt="team logo icon" height={24} />
