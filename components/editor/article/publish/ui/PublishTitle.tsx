@@ -44,8 +44,9 @@ const PublishTitle = (props: PublishTitleprops) => {
 
 export default PublishTitle;
 
-const ArticleTitle = styled.p`
+const ArticleTitle = styled.span`
   margin: 2.4rem 0;
+  white-space: nowrap;
   color: ${({ theme }) => theme.colors.grey_950};
   ${({ theme }) => theme.fonts.Heading1};
 `;
