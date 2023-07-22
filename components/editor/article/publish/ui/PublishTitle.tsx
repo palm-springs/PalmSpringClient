@@ -27,15 +27,15 @@ const PublishTitle = (props: PublishTitleprops) => {
   switch (pageType) {
     case `article`:
       return (
-        <>
+        <TitleWrapper>
           <ArticleTitle>{title}</ArticleTitle>
-        </>
+        </TitleWrapper>
       );
     case `page`:
       return (
-        <>
+        <TitleWrapper>
           <ArticleTitle>{pageTitle}</ArticleTitle>
-        </>
+        </TitleWrapper>
       );
     default:
       break;
@@ -43,6 +43,11 @@ const PublishTitle = (props: PublishTitleprops) => {
 };
 
 export default PublishTitle;
+
+const TitleWrapper = styled.div`
+  margin: 2.4rem 0;
+  width: 54rem;
+`;
 
 const ArticleTitle = styled.span`
   margin: 2.4rem 0;
