@@ -14,6 +14,7 @@ export interface ArticleData {
   id: number;
   thumbnail?: string;
   title: string;
+  articleUrl: string;
   description: string;
   memberName: string;
   job: string;
