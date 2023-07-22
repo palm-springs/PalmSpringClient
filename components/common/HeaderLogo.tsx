@@ -12,10 +12,9 @@ interface LogoProp {
 const HeaderLogo = (prop: LogoProp) => {
   const { logo, blogName } = prop;
   const { team } = useParams();
-  const router = useRouter();
 
   return (
-    <Link href={`/${team}/home`} onClick={() => router.push(`/${team}/dashboard/upload`)}>
+    <Link href={`/${team}/home`}>
       {logo ? (
         <>
           <img src={logo} alt="team logo icon" height={24} />
