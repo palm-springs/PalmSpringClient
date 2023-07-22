@@ -102,4 +102,10 @@ const ModalContainer = styled.div`
   width: 100vw;
   height: 100vh;
   overflow: hidden;
+  input {
+    &:focus {
+      outline: none;
+      border: 1px solid ${({ theme }) => theme.colors.grey_700};
+    }
+  }
 `;

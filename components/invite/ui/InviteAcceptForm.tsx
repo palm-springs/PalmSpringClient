@@ -96,10 +96,6 @@ const TextAreaInput = styled.textarea`
   &::placeholder {
     color: ${({ theme }) => theme.colors.grey_600};
   }
-  &:focus {
-    outline: none;
-    border: 1px solid ${({ theme }) => theme.colors.grey_700};
-  }
 `;
 
 const AcceptButton = styled.button`

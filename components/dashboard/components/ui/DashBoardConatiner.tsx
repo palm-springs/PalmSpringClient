@@ -14,4 +14,10 @@ const DashBoardContainerUI = styled.section`
   flex-direction: column;
 
   padding-left: 28.6rem;
+  & > input {
+    &:focus {
+      outline: none;
+      border: 1px solid ${({ theme }) => theme.colors.grey_300};
+    }
+  }
 `;
