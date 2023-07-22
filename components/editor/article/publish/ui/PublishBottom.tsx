@@ -1,7 +1,7 @@
 'use client';
 import React, { useEffect, useState } from 'react';
 import { useParams, useRouter } from 'next/navigation';
-import { useRecoilValue, useSetRecoilState } from 'recoil';
+import { useRecoilValue, useResetRecoilState, useSetRecoilState } from 'recoil';
 import styled from 'styled-components';
 
 import { postArticleCreateList } from '@/api/article';
@@ -27,14 +27,19 @@ const PublishBottomButtons = (props: PublishBottomButtons) => {
 
   const { team } = useParams();
 
+  const resetArticleData = useResetRecoilState(articleDataState);
+  const resetPageData = useResetRecoilState(pageDataState);
+
   const handleOnClickLastPublish = () => {
     console.log(articleData);
     postArticleCreateList(team, articleData);
+    resetArticleData();
     router.push(`/${team}/dashboard/upload`);
   };
 
   const handleOnClickPublish = () => {
     postPageCreate(team, pageData);
+    resetPageData();
     router.push(`/${team}/dashboard/page`);
   };
 
