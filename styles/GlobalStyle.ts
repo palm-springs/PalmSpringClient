@@ -11,6 +11,7 @@ export const GlobalStyle = createGlobalStyle`
 
   .ProseMirror {
     position: absolute;
+    
     p {
       ${({ theme }) => theme.fonts.Body1_Regular};
       padding: 2.4rem 0 0.8rem 0;
@@ -43,6 +44,10 @@ export const GlobalStyle = createGlobalStyle`
 
     u {
       text-decoration: underline;
+    }
+
+    hr{
+      border: 1px solid ${({ theme }) => theme.colors.grey_300}
     }
 
     strong {

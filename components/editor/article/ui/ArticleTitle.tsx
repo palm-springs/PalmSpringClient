@@ -50,7 +50,8 @@ const ArticleTitle = (props: TextEditorBuildprops) => {
 export default ArticleTitle;
 
 const ArticleTitleContainer = styled.div`
-  margin: 4rem 0 0 35.9rem;
+  /* margin: 4rem 0 0 35.9rem; */
+  margin-left: -18rem;
 `;
 
 const Input = styled.input`
@@ -61,10 +62,9 @@ const Input = styled.input`
   color: ${({ theme }) => theme.colors.grey_900};
   font-family: ${({ theme }) => theme.fonts.Title};
   &::placeholder {
-    color: ${({ theme }) => theme.colors.grey_900};
+    color: ${({ theme }) => theme.colors.grey_600};
   }
   &:focus {
     outline: none;
-    border: 1px solid ${({ theme }) => theme.colors.grey_700};
   }
 `;

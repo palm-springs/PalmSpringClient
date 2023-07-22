@@ -1,5 +1,5 @@
 'use client';
-import React, { useState } from 'react';
+import React, { Dispatch, SetStateAction, useState } from 'react';
 import { useParams } from 'next/navigation';
 import router from 'next/router';
 import { useRecoilState } from 'recoil';
@@ -15,17 +15,18 @@ import PublishInputForm from './PublishInputForm';
 
 interface UrlCustomProps {
   pageType: string;
+  isDuplicate: boolean | null;
+  setIsDuplicate: Dispatch<SetStateAction<boolean | null>>;
 }
 
 const UrlCustom = (props: UrlCustomProps) => {
-  const { pageType } = props;
+  const { pageType, isDuplicate, setIsDuplicate } = props;
   const { team } = useParams();
 
   const [{ articleUrl }, setArticleData] = useRecoilState(articleDataState);
   const [{ pageUrl }, setPageData] = useRecoilState(pageDataState);
 
   const [isAddressFocus, setIsAddressFocus] = useState(false);
-  const [isDuplicate, setIsDuplicate] = useState<boolean | null>(false);
 
   const checkDuplication = (value: string) => {
     if (pageType === 'page') {
@@ -126,6 +127,5 @@ const TextInput = styled.input`
 
   &:focus {
     outline: none;
-    border: 1px solid ${({ theme }) => theme.colors.grey_700};
   }
 `;

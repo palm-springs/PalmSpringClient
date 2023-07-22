@@ -1,5 +1,5 @@
 'use client';
-import React from 'react';
+import React, { useState } from 'react';
 import { useParams } from 'next/navigation';
 import styled from 'styled-components';
 
@@ -11,13 +11,14 @@ import UrlCustom from '@/components/editor/article/publish/ui/UrlCustom';
 
 const PagePublishPage = () => {
   const { team } = useParams();
+  const [isDuplicate, setIsDuplicate] = useState<boolean | null>(false);
   return (
     <AuthRequired>
       <PagePublishContainer>
         <ThumbnailInput pageType="page" />
         <PublishTitle pageType="page" blogUrl={team} articleId={1} />
-        <UrlCustom pageType="page" />
-        <PublishBottomButtons pageType="page" />
+        <UrlCustom pageType="page" isDuplicate={isDuplicate} setIsDuplicate={setIsDuplicate} />
+        <PublishBottomButtons pageType="page" isDuplicate={isDuplicate} />
       </PagePublishContainer>
     </AuthRequired>
   );
@@ -26,9 +27,11 @@ const PagePublishPage = () => {
 export default PagePublishPage;
 
 const PagePublishContainer = styled.div`
+  display: flex;
+  flex-direction: column;
   align-items: center;
   justify-content: center;
-  padding: 21.45rem 45rem;
+  padding: 17.85rem 45rem;
   width: 100vw;
-  height: 100vh;
+  /* height: 100vh; */
 `;

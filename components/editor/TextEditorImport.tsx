@@ -213,10 +213,6 @@ const TextEditorBuild = (props: TextEditorBuildprops) => {
     if (editor) {
       const content = editor.getHTML();
       setExtractedHTML(content);
-      console.log(content);
-
-      console.log(imageArr);
-      console.log(imageArr.length);
 
       if (imageArr.length === 0) {
         setArticleData((prev) => ({ ...prev, title, content, images: null }));
