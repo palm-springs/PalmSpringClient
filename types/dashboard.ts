@@ -21,6 +21,7 @@ export interface PageListProps {
   id: string;
   title: string;
   createdAt: string;
+  pageUrl: string;
   isDraft: boolean;
 }
 

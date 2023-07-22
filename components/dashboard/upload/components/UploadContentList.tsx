@@ -1,7 +1,7 @@
 'use client';
 
 import React from 'react';
-import { useParams } from 'next/navigation';
+import { useParams, useRouter } from 'next/navigation';
 
 import EmptyLanding from '@/components/common/ui/EmptyLanding';
 import { ArticleData } from '@/types/article';
@@ -20,6 +20,8 @@ const UploadContentList = (props: UploadContentListProps) => {
 
   const { team } = useParams();
 
+  const router = useRouter();
+
   if (!articleData || articleData.data.length === 0)
     return (
       <EmptyLanding
@@ -33,7 +35,7 @@ const UploadContentList = (props: UploadContentListProps) => {
 
   return (
     <DashBoardContentListContainer>
-      {articleData.data.map(({ id, title, memberName, job, createdAt, articleCategory }) => {
+      {articleData.data.map(({ id, title, memberName, job, createdAt, articleCategory, articleUrl }) => {
         return (
           <DashBoardContent
             key={id}
@@ -43,7 +45,7 @@ const UploadContentList = (props: UploadContentListProps) => {
             author={memberName}
             position={job}
             createdAt={createdAt}
-            onTitleClick={console.log}
+            onTitleClick={() => router.push(`/${team}/content/article/${articleUrl}/${id}`)}
           />
         );
       })}

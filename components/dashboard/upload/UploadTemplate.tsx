@@ -25,10 +25,6 @@ const UploadTemplate = () => {
 
   const articleData = useGetArticleList(blogUrl, category === '전체' ? '' : String(currentCategoryId));
 
-  useEffect(() => {
-    console.log(category, currentCategoryId);
-  }, [articleData]);
-
   if (!categoryData)
     return (
       <EmptyLanding

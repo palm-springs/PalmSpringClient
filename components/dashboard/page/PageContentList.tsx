@@ -2,7 +2,6 @@
 
 import React from 'react';
 import { useParams, useRouter } from 'next/navigation';
-import { useSetRecoilState } from 'recoil';
 
 import EmptyLanding from '@/components/common/ui/EmptyLanding';
 import { useGetPageList } from '@/hooks/dashboard';
@@ -30,7 +29,7 @@ const PageContentList = () => {
 
   return (
     <DashBoardContentListContainer>
-      {data.data.map(({ id, title, createdAt, isDraft }) => {
+      {data.data.map(({ id, title, createdAt, isDraft, pageUrl }) => {
         return (
           <DashBoardContent
             key={id}
@@ -38,9 +37,7 @@ const PageContentList = () => {
             content={title}
             draft={isDraft}
             createdAt={createdAt}
-            onTitleClick={() => {
-              console.log('김서윤');
-            }}
+            onTitleClick={() => router.push(`/${blogUrl}/content/article/${pageUrl}/${id}`)}
           />
         );
       })}

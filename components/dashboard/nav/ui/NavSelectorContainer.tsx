@@ -1,23 +1,25 @@
 import React, { Dispatch, SetStateAction } from 'react';
 import { styled } from 'styled-components';
 
-import { NavListProps } from '@/types/dashboard';
+import { NavListProps, PageListProps } from '@/types/dashboard';
 
 interface NavSelectorContainerProps {
   setIsSelectorOpen: Dispatch<SetStateAction<boolean>>;
-  navSelectorContent: NavListProps[];
+  // navSelectorContent: NavListProps[];
   newNavigationSelector: string;
+  pageList: PageListProps[];
   setNewNavigationSelector: Dispatch<SetStateAction<string>>;
   newNavigationUrl: string;
   setNewNavigationUrl: Dispatch<SetStateAction<string>>;
 }
 
 const NavSelectorContainer = (props: NavSelectorContainerProps) => {
-  const { setIsSelectorOpen, navSelectorContent, setNewNavigationSelector, setNewNavigationUrl } = props;
+  const { setIsSelectorOpen, setNewNavigationSelector, setNewNavigationUrl, pageList } = props;
 
-  const filteredPageList = navSelectorContent.filter(({ isPage }) => isPage);
+  // 페이지가 맞고 isDraft가 아닌 것
+  const filteredPageList = pageList.filter(({ isDraft }) => isDraft);
 
-  const nonFilteredPageList = navSelectorContent.filter(({ isPage }) => !isPage);
+  const nonFilteredPageList = pageList.filter(({ isDraft }) => !isDraft);
 
   return (
     <NavSelectorUI>
@@ -30,24 +32,25 @@ const NavSelectorContainer = (props: NavSelectorContainerProps) => {
         }}>
         직접 입력
       </IndivContentUI>
-      {filteredPageList.map(({ id, name, navUrl }) => (
+      {filteredPageList.map(({ id, title: name }) => (
         <IndivContentUI
           type="button"
           key={id}
           onClick={() => {
-            setNewNavigationUrl(navUrl);
+            setNewNavigationUrl(name);
             setNewNavigationSelector(name);
             setIsSelectorOpen((prev) => !prev);
-          }}>
+          }}
+          disabled>
           {name}
         </IndivContentUI>
       ))}
-      {nonFilteredPageList.map(({ id, name, navUrl }) => (
+      {nonFilteredPageList.map(({ id, title: name }) => (
         <IndivContentUI
           type="button"
           key={id}
           onClick={() => {
-            setNewNavigationUrl(navUrl);
+            setNewNavigationUrl(name);
             setNewNavigationSelector(name);
             setIsSelectorOpen((prev) => !prev);
           }}>
@@ -85,6 +88,7 @@ const IndivContentUI = styled.button`
   background: none;
   padding: 1.2rem 1.2rem 1.6rem 1.2rem;
   width: 100%;
+  height: 3.75rem;
   ${({ theme }) => theme.fonts.Body3_Regular};
   color: ${({ theme }) => theme.colors.grey_900};
   &:hover {
