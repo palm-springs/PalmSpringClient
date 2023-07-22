@@ -25,4 +25,7 @@ const PageBtnContainer = styled.button`
   &:hover {
     background-color: ${({ theme }) => theme.colors.navItem_hover};
   }
+  @media screen and (max-width: 768px) {
+    display: none;
+  }
 `;

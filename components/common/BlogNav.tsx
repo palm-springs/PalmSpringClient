@@ -47,6 +47,11 @@ const BlogNavContainer = styled.div`
   gap: 1.6rem;
   align-items: center;
   justify-content: space-between;
+  width: auto;
 
-  width: 31.6rem;
+  @media screen and (max-width: 768px) {
+    position: absolute;
+    right: 4rem;
+    width: 31.6rem;
+  }
 `;

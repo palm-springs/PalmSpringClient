@@ -10,5 +10,5 @@ export const articleDataState = atom<CreateArticleProps>({
 
 export const pageDataState = atom<CreatePageProps>({
   key: 'pageDataState',
-  default: { title: '', content: '', images: [''], thumbnail: '', pageUrl: '' },
+  default: { title: '', content: '', images: [''], thumbnail: null, pageUrl: '' },
 });

@@ -9,6 +9,6 @@ export interface CreatePageProps {
   title: string;
   content: string;
   images: string[] | null;
-  thumbnail: string;
+  thumbnail: string | null;
   pageUrl: string;
 }
