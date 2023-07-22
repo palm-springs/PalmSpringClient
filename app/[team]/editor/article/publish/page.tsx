@@ -30,10 +30,14 @@ const ArticlePublishPage = () => {
 
 export default ArticlePublishPage;
 
+// const PublishContainer = styled.div``;
+
 const ArticlePublishContainer = styled.div`
+  display: flex;
+  flex-direction: column;
   align-items: center;
   justify-content: center;
   padding: 8.1rem 45rem;
   width: 100vw;
-  height: 100vh;
+  /* height: 100vh; */
 `;
