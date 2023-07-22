@@ -1,8 +1,7 @@
 'use client';
 import React, { useEffect, useState } from 'react';
 import { useParams, useRouter } from 'next/navigation';
-import router from 'next/router';
-import { useRecoilValue } from 'recoil';
+import { useRecoilValue, useSetRecoilState } from 'recoil';
 import styled from 'styled-components';
 
 import { postArticleCreateList } from '@/api/article';
@@ -29,6 +28,7 @@ const PublishBottomButtons = (props: PublishBottomButtons) => {
   const { team } = useParams();
 
   const handleOnClickLastPublish = () => {
+    console.log(articleData);
     postArticleCreateList(team, articleData);
     router.push(`/${team}/dashboard/upload`);
   };

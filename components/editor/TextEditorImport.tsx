@@ -182,7 +182,7 @@ const TextEditorBuild = (props: TextEditorBuildprops) => {
       setExtractedHTML(content);
 
       if (imageArr.length === 0) {
-        postArticleList(team, { title, content, images: null });
+        postArticleList(team, { title, content, images: [] });
       } else {
         postArticleList(team, { title, content, images: imageArr });
       }
@@ -198,7 +198,7 @@ const TextEditorBuild = (props: TextEditorBuildprops) => {
       console.log(imageArr.length);
 
       if (imageArr.length === 0) {
-        postPageDraft(team, { title: pageTitle, content, images: null });
+        postPageDraft(team, { title: pageTitle, content, images: [] });
       } else {
         postPageDraft(team, {
           title: pageTitle,
@@ -215,7 +215,7 @@ const TextEditorBuild = (props: TextEditorBuildprops) => {
       setExtractedHTML(content);
 
       if (imageArr.length === 0) {
-        setArticleData((prev) => ({ ...prev, title, content, images: null }));
+        setArticleData((prev) => ({ ...prev, title, content, images: [] }));
       } else {
         setArticleData((prev) => ({ ...prev, title, content, images: imageArr }));
       }
@@ -229,7 +229,7 @@ const TextEditorBuild = (props: TextEditorBuildprops) => {
       setExtractedHTML(content);
 
       if (imageArr.length === 0) {
-        setPageData((prev) => ({ ...prev, title: pageTitle, content, images: null }));
+        setPageData((prev) => ({ ...prev, title: pageTitle, content, images: [] }));
       } else {
         setPageData((prev) => ({ ...prev, title: pageTitle, content, images: imageArr }));
       }

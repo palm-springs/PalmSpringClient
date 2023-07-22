@@ -29,7 +29,7 @@ export interface CreateArticleProps {
   title: string;
   content: string;
   images: string[] | null;
-  thumbnail: string;
+  thumbnail: string | null;
   categoryId: number;
   description: string;
   articleUrl: string;
