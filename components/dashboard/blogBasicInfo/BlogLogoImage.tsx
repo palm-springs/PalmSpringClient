@@ -1,18 +1,20 @@
 'use client';
 
-import React, { ChangeEvent, useState } from 'react';
+import React, { ChangeEvent, useRef, useState } from 'react';
 import styled from 'styled-components';
 
 import { CloseIcon, UploadIcon } from '@/public/icons';
 
 interface BlogLogoImageProps {
-  setFile: (v: File) => void;
+  setFile: (v: File | null) => void;
 }
 
 const BlogLogoImage = (props: BlogLogoImageProps) => {
   const { setFile } = props;
 
   const [preLoadImg, setPreLoadImg] = useState<string>('');
+
+  const inputImgRef = useRef<HTMLInputElement>(null);
 
   return (
     <BlogLogoImageContainer>
@@ -21,10 +23,12 @@ const BlogLogoImage = (props: BlogLogoImageProps) => {
       </ImageGuideContainer>
       <BlogLogoUploadLabel>
         <input
+          ref={inputImgRef}
           type="file"
           onChange={(e: ChangeEvent<HTMLInputElement>) => {
-            const file = e.target?.files![0];
-            if (!file) return;
+            if (!e.target?.files) return;
+            const file = e.target.files[0];
+            console.log(file);
             const reader = new FileReader();
             reader.readAsDataURL(file);
             reader.onloadend = () => {
@@ -33,27 +37,40 @@ const BlogLogoImage = (props: BlogLogoImageProps) => {
             setFile(file);
           }}
         />
-        {preLoadImg ? (
+        {preLoadImg !== '' ? (
           <PreLoadImg src={preLoadImg} alt="블로그 로고 이미지" />
         ) : (
           <BlogLogoUpload>
             <UploadIcon />
             <UploadText>업로드하기</UploadText>
-            {/* <ImageCloseIcon /> */}
           </BlogLogoUpload>
         )}
       </BlogLogoUploadLabel>
+      {preLoadImg !== '' && (
+        <DeleteImageButton
+          type="button"
+          onClick={() => {
+            setFile(null);
+            setPreLoadImg('');
+            if (inputImgRef.current) {
+              inputImgRef.current.value = '';
+            }
+          }}>
+          <CloseIcon />
+        </DeleteImageButton>
+      )}
     </BlogLogoImageContainer>
   );
 };
 
 export default BlogLogoImage;
 
-// const ImageCloseIcon = styled(CloseIcon)`
-//   position: absolute;
-//   top: 1.2rem;
-//   right: 1.2rem;
-// `;
+const DeleteImageButton = styled.button`
+  border: none;
+  background: none;
+  width: 2rem;
+  height: 2rem;
+`;
 
 const UploadText = styled.p`
   ${({ theme }) => theme.fonts.Body2_Semibold};

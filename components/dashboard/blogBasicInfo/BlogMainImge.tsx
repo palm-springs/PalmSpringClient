@@ -1,18 +1,20 @@
 'use client';
 
-import React, { ChangeEvent, useState } from 'react';
+import React, { ChangeEvent, useRef, useState } from 'react';
 import styled from 'styled-components';
 
-import { UploadIcon } from '@/public/icons';
+import { CloseIcon, UploadIcon } from '@/public/icons';
 
 interface BlogMainImageProps {
-  setFile: (v: File) => void;
+  setFile: (v: File | null) => void;
 }
 
 const BlogMainImage = (props: BlogMainImageProps) => {
   const { setFile } = props;
 
   const [preLoadImg, setPreLoadImg] = useState<string>('');
+
+  const inputImgRef = useRef<HTMLInputElement>(null);
 
   return (
     <BlogMainImageContainer>
@@ -24,6 +26,7 @@ const BlogMainImage = (props: BlogMainImageProps) => {
       </ImageGuideContainer>
       <BlogMainUploadLabel>
         <input
+          ref={inputImgRef}
           type="file"
           onChange={(e: ChangeEvent<HTMLInputElement>) => {
             const file = e.target?.files![0];
@@ -36,27 +39,40 @@ const BlogMainImage = (props: BlogMainImageProps) => {
             setFile(file);
           }}
         />
-        {preLoadImg ? (
+        {preLoadImg !== '' ? (
           <PreLoadImg src={preLoadImg} alt="블로그 메인 이미지" />
         ) : (
           <BlogMainUpload>
             <UploadIcon />
             <UploadText>업로드하기</UploadText>
-            {/* <ImageCloseIcon /> */}
           </BlogMainUpload>
         )}
       </BlogMainUploadLabel>
+      {preLoadImg !== '' && (
+        <DeleteImageButton
+          type="button"
+          onClick={() => {
+            setFile(null);
+            setPreLoadImg('');
+            if (inputImgRef.current) {
+              inputImgRef.current.value = '';
+            }
+          }}>
+          <CloseIcon />
+        </DeleteImageButton>
+      )}
     </BlogMainImageContainer>
   );
 };
 
 export default BlogMainImage;
 
-// const ImageCloseIcon = styled(CloseIcon)`
-//   position: absolute;
-//   top: 1.2rem;
-//   right: 1.2rem;
-// `;
+const DeleteImageButton = styled.button`
+  border: none;
+  background: none;
+  width: 2rem;
+  height: 2rem;
+`;
 
 const UploadText = styled.p`
   ${({ theme }) => theme.fonts.Body2_Semibold};
