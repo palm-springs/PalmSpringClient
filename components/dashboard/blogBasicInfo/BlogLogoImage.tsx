@@ -16,6 +16,9 @@ const BlogLogoImage = (props: BlogLogoImageProps) => {
 
   return (
     <BlogLogoImageContainer>
+      <ImageGuideContainer>
+        <ImageGuideTitle>블로그 로고 이미지</ImageGuideTitle>
+      </ImageGuideContainer>
       <BlogLogoUploadLabel>
         <input
           type="file"
@@ -30,9 +33,6 @@ const BlogLogoImage = (props: BlogLogoImageProps) => {
             setFile(file);
           }}
         />
-        <ImageGuideContainer>
-          <ImageGuideTitle>블로그 로고 이미지</ImageGuideTitle>
-        </ImageGuideContainer>
         {preLoadImg ? (
           <PreLoadImg src={preLoadImg} alt="블로그 로고 이미지" />
         ) : (
@@ -88,6 +88,7 @@ const BlogLogoUploadLabel = styled.label`
   display: flex;
   border: none;
   border-radius: 0.5rem;
+  cursor: pointer;
   input[type='file'] {
     position: absolute;
     margin: -0.1rem;
@@ -101,8 +102,8 @@ const BlogLogoUploadLabel = styled.label`
 `;
 
 const BlogLogoImageContainer = styled.div`
+  display: flex;
   margin-top: 3.2rem;
-  cursor: pointer;
 `;
 
 const PreLoadImg = styled.img`

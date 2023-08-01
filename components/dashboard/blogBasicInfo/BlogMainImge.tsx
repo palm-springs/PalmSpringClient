@@ -16,6 +16,12 @@ const BlogMainImage = (props: BlogMainImageProps) => {
 
   return (
     <BlogMainImageContainer>
+      <ImageGuideContainer>
+        <ImageGuideTitle>블로그 대문 이미지</ImageGuideTitle>
+        <ImageGuideContent>
+          대문 이미지 권장 크기는 <p>1920*1080 입니다</p>
+        </ImageGuideContent>
+      </ImageGuideContainer>
       <BlogMainUploadLabel>
         <input
           type="file"
@@ -30,12 +36,6 @@ const BlogMainImage = (props: BlogMainImageProps) => {
             setFile(file);
           }}
         />
-        <ImageGuideContainer>
-          <ImageGuideTitle>블로그 대문 이미지</ImageGuideTitle>
-          <ImageGuideContent>
-            대문 이미지 권장 크기는 <p>1920*1080 입니다</p>
-          </ImageGuideContent>
-        </ImageGuideContainer>
         {preLoadImg ? (
           <PreLoadImg src={preLoadImg} alt="블로그 메인 이미지" />
         ) : (
@@ -101,6 +101,7 @@ const BlogMainUploadLabel = styled.label`
   display: flex;
   border: none;
   border-radius: 0.5rem;
+  cursor: pointer;
   input[type='file'] {
     position: absolute;
     margin: -0.1rem;
@@ -114,8 +115,8 @@ const BlogMainUploadLabel = styled.label`
 `;
 
 const BlogMainImageContainer = styled.div`
+  display: flex;
   margin-top: 3.2rem;
-  cursor: pointer;
 `;
 
 const PreLoadImg = styled.img`
