@@ -39,7 +39,7 @@ const BlogLogoImage = (props: BlogLogoImageProps) => {
           <BlogLogoUpload>
             <UploadIcon />
             <UploadText>업로드하기</UploadText>
-            <ImageCloseIcon />
+            {/* <ImageCloseIcon /> */}
           </BlogLogoUpload>
         )}
       </BlogLogoUploadLabel>
@@ -49,11 +49,11 @@ const BlogLogoImage = (props: BlogLogoImageProps) => {
 
 export default BlogLogoImage;
 
-const ImageCloseIcon = styled(CloseIcon)`
-  position: absolute;
-  top: 1.2rem;
-  right: 1.2rem;
-`;
+// const ImageCloseIcon = styled(CloseIcon)`
+//   position: absolute;
+//   top: 1.2rem;
+//   right: 1.2rem;
+// `;
 
 const UploadText = styled.p`
   ${({ theme }) => theme.fonts.Body2_Semibold};
@@ -102,6 +102,7 @@ const BlogLogoUploadLabel = styled.label`
 
 const BlogLogoImageContainer = styled.div`
   margin-top: 3.2rem;
+  cursor: pointer;
 `;
 
 const PreLoadImg = styled.img`
