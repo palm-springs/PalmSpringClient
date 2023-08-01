@@ -1,5 +1,5 @@
 'use client';
-import React, { Dispatch, SetStateAction } from 'react';
+import React, { useCallback } from 'react';
 import styled from 'styled-components';
 
 interface BlogDescribeTextProps {
@@ -10,6 +10,14 @@ interface BlogDescribeTextProps {
 const BlogDescribeText = (props: BlogDescribeTextProps) => {
   const { describeText, setDescribeText } = props;
 
+  const getCurInputTextLineCnt = useCallback((text: string) => {
+    const lines = text?.split(/\r|\r\n|\n/);
+    const count = lines?.length;
+    return count;
+  }, []);
+
+  const isScrollable = getCurInputTextLineCnt(describeText) >= 3;
+
   return (
     <BlogDescribeContainer>
       <BlogDescribeTitleContainer>
@@ -17,6 +25,7 @@ const BlogDescribeText = (props: BlogDescribeTextProps) => {
         <BlogDescribeContent>메인 홈에 나타나는 설명입니다.</BlogDescribeContent>
       </BlogDescribeTitleContainer>
       <BlogDescribeTextarea
+        $isScrollable={isScrollable}
         value={describeText}
         onChange={(e) => setDescribeText(e.target.value)}
         placeholder="블로그 설명을 입력하세요"></BlogDescribeTextarea>
@@ -31,7 +40,7 @@ const BlogDescribeContainer = styled.div`
   margin-top: 3.2rem;
 `;
 
-const BlogDescribeTextarea = styled.textarea`
+const BlogDescribeTextarea = styled.textarea<{ $isScrollable: boolean }>`
   ${({ theme }) => theme.fonts.Body2_Regular};
   margin-left: 1.8rem;
   border: 1px solid ${({ theme }) => theme.colors.grey_400};
@@ -39,6 +48,7 @@ const BlogDescribeTextarea = styled.textarea`
   padding: 1rem 1.2rem 5rem;
   width: 64.5rem;
   height: 7.9rem;
+  overflow-y: ${({ $isScrollable }) => ($isScrollable ? 'auto' : 'hidden')};
   resize: none;
   color: ${({ theme }) => theme.colors.grey_700};
 `;

@@ -3,7 +3,7 @@
 import React, { ChangeEvent, useState } from 'react';
 import styled from 'styled-components';
 
-import { CloseIcon, UploadIcon } from '@/public/icons';
+import { UploadIcon } from '@/public/icons';
 
 interface BlogMainImageProps {
   setFile: (v: File) => void;
@@ -123,4 +123,5 @@ const PreLoadImg = styled.img`
   border-radius: 0.8rem;
   width: auto;
   height: 22.4rem;
+  object-fit: cover;
 `;
