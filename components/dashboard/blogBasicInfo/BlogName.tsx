@@ -1,9 +1,7 @@
 'use client';
 
-import React, { Dispatch, SetStateAction } from 'react';
+import React from 'react';
 import styled from 'styled-components';
-
-import BLOG_BASIC_INFO_DATA from '@/constants/blogBasicInfoData';
 
 interface BlogNameProps {
   blogName: string;
