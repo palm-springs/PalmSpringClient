@@ -53,60 +53,71 @@ const EditorMenuBar = ({ editor, encodeFileToBase64, setLink }: editorProps) => 
     <IconContainer isAtTop={isAtTop}>
       {visible && <Wrapper isVisible={visible ? true : undefined} />}
       <IconWrapper>
-        <button onClick={() => editor.chain().focus().toggleHeading({ level: 1 }).run()}>
+        <ToolButton onClick={() => editor.chain().focus().toggleHeading({ level: 1 }).run()}>
           <H1Icon />
-        </button>
-        <button onClick={() => editor.chain().focus().toggleHeading({ level: 2 }).run()}>
+        </ToolButton>
+        <ToolButton onClick={() => editor.chain().focus().toggleHeading({ level: 2 }).run()}>
           <H2Icon />
-        </button>
-        <button onClick={() => editor.chain().focus().toggleHeading({ level: 3 }).run()}>
+        </ToolButton>
+        <ToolButton onClick={() => editor.chain().focus().toggleHeading({ level: 3 }).run()}>
           <H3Icon />
-        </button>
-        <button onClick={() => editor.chain().focus().toggleBulletList().run()}>
+        </ToolButton>
+        <ToolButton onClick={() => editor.chain().focus().toggleBulletList().run()}>
           <BulletIcon />
-        </button>
-        <button onClick={() => editor.chain().focus().toggleOrderedList().run()}>
+        </ToolButton>
+        <ToolButton onClick={() => editor.chain().focus().toggleOrderedList().run()}>
           <OrderIcon />
-        </button>
+        </ToolButton>
         <GreyBar />
-        <button onClick={() => editor.chain().focus().toggleUnderline().run()}>
+        <ToolButton onClick={() => editor.chain().focus().toggleUnderline().run()}>
           <UnderlineIcon />
-        </button>
-        <button onClick={() => editor.chain().focus().toggleBold().run()}>
+        </ToolButton>
+        <ToolButton onClick={() => editor.chain().focus().toggleBold().run()}>
           <BoldIcon />
-        </button>
-        <button onClick={() => editor.chain().focus().toggleItalic().run()}>
+        </ToolButton>
+        <ToolButton onClick={() => editor.chain().focus().toggleItalic().run()}>
           <ItalicIcon />
-        </button>
-        <button onClick={() => editor.chain().focus().toggleStrike().run()}>
+        </ToolButton>
+        <ToolButton onClick={() => editor.chain().focus().toggleStrike().run()}>
           <StrikeIcon />
-        </button>
-        <button onClick={() => editor.chain().focus().toggleCode().run()}>
+        </ToolButton>
+        <ToolButton onClick={() => editor.chain().focus().toggleCode().run()}>
           <CodeIcon />
-        </button>
+        </ToolButton>
         <GreyBar />
-        <button onClick={() => editor.chain().focus().toggleBlockquote().run()}>
+        <ToolButton onClick={() => editor.chain().focus().toggleBlockquote().run()}>
           <QuoteIcon />
-        </button>
-        <button onClick={() => editor.chain().focus().setHorizontalRule().run()}>
+        </ToolButton>
+        <ToolButton onClick={() => editor.chain().focus().setHorizontalRule().run()}>
           <HorizonIcon />
-        </button>
+        </ToolButton>
         <ImageInputLabel>
           <input type="file" onChange={(event) => encodeFileToBase64(event, editor)}></input>
           <ImageIcon />
         </ImageInputLabel>
-        <button onClick={() => setLink({ editor })} className={editor.isActive('link') ? 'is-active' : ''}>
+        <ToolButton onClick={() => setLink({ editor })} className={editor.isActive('link') ? 'is-active' : ''}>
           <LinkIcon />
-        </button>
-        <button onClick={() => editor.chain().focus().toggleCodeBlock().run()}>
+        </ToolButton>
+        <ToolButton onClick={() => editor.chain().focus().toggleCodeBlock().run()}>
           <CodeBlockIcon />
-        </button>
+        </ToolButton>
       </IconWrapper>
     </IconContainer>
   );
 };
 
 export default EditorMenuBar;
+
+const ToolButton = styled.button`
+  width: 3.6rem;
+  height: 3.6rem;
+  &:hover {
+    border-radius: 0.8rem;
+    background-color: ${({ theme }) => theme.colors.grey_300};
+    width: 3.6rem;
+    height: 3.6rem;
+  }
+`;
 
 const Wrapper = styled.div<{ isVisible?: boolean }>`
   position: absolute;

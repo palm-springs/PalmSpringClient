@@ -157,8 +157,16 @@ const ButtonContainer = styled.div`
 `;
 
 const ExitButton = styled.button`
+  width: 8.2rem;
+  height: 3.6rem;
   color: ${({ theme }) => theme.colors.grey_900};
   font-family: ${({ theme }) => theme.fonts.Body3_Regular};
+  &:hover {
+    border-radius: 0.8rem;
+    background: ${({ theme }) => theme.colors.grey_200};
+    width: 8.2rem;
+    height: 3.6rem;
+  }
 `;
 
 const TemporarySaveButton = styled.button`
@@ -169,9 +177,16 @@ const TemporarySaveButton = styled.button`
   justify-content: center;
   margin-left: 48.5rem;
   padding: 1rem 2rem;
+  width: 9.6rem;
   height: 3.6rem;
   color: ${({ theme }) => theme.colors.grey_900};
   font-family: ${({ theme }) => theme.fonts.Button_medium};
+  &:hover {
+    border-radius: 0.8rem;
+    background: ${({ theme }) => theme.colors.grey_200};
+    width: 9.6rem;
+    height: 3.6rem;
+  }
 `;
 
 const SaveButton = styled.button`
@@ -187,4 +202,9 @@ const SaveButton = styled.button`
   height: 3.6rem;
   color: ${({ theme }) => theme.colors.grey_0};
   font-family: ${({ theme }) => theme.fonts.Button_medium};
+  &:hover {
+    background-color: ${({ theme }) => theme.colors.grey_800};
+    width: 9.6rem;
+    height: 3.6rem;
+  }
 `;
