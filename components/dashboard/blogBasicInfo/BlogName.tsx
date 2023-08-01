@@ -43,4 +43,8 @@ const BlogNameText = styled.input`
   width: 64.5rem;
   height: 4.6rem;
   color: ${({ theme }) => theme.colors.grey_950};
+  &:focus {
+    outline: none;
+    border: 1px solid ${({ theme }) => theme.colors.grey_700};
+  }
 `;

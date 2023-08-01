@@ -51,6 +51,10 @@ const BlogDescribeTextarea = styled.textarea<{ $isScrollable: boolean }>`
   overflow-y: ${({ $isScrollable }) => ($isScrollable ? 'auto' : 'hidden')};
   resize: none;
   color: ${({ theme }) => theme.colors.grey_700};
+  &:focus {
+    outline: none;
+    border: 1px solid ${({ theme }) => theme.colors.grey_700};
+  }
 `;
 
 const BlogDescribeTitleContainer = styled.div`
