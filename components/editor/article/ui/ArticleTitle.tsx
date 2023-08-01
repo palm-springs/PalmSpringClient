@@ -19,12 +19,12 @@ const ArticleTitle = (props: TextEditorBuildprops) => {
   const [{ title }, setArticleData] = useRecoilState(articleDataState);
   const [{ title: pageTitle }, setPageData] = useRecoilState(pageDataState);
 
-  const handleTitleChange = (e: ChangeEvent<HTMLInputElement>) => {
+  const handleTitleChange = (e: ChangeEvent<HTMLTextAreaElement>) => {
     const { value } = e.target;
     setArticleData((prev) => ({ ...prev, title: value }));
   };
 
-  const handlePageTitleChange = (e: ChangeEvent<HTMLInputElement>) => {
+  const handlePageTitleChange = (e: ChangeEvent<HTMLTextAreaElement>) => {
     const { value } = e.target;
     setPageData((prev) => ({ ...prev, title: value }));
   };
@@ -33,13 +33,13 @@ const ArticleTitle = (props: TextEditorBuildprops) => {
     case `article`:
       return (
         <ArticleTitleContainer>
-          <Input value={title} onChange={handleTitleChange} type="text" placeholder="제목을 입력해주세요" />
+          <Input value={title} onChange={handleTitleChange} rows={1} placeholder="제목을 입력해주세요" />
         </ArticleTitleContainer>
       );
     case `page`:
       return (
         <ArticleTitleContainer>
-          <Input value={pageTitle} onChange={handlePageTitleChange} type="text" placeholder="제목을 입력해주세요" />
+          <Input value={pageTitle} onChange={handlePageTitleChange} rows={1} placeholder="제목을 입력해주세요" />
         </ArticleTitleContainer>
       );
     default:
@@ -53,12 +53,14 @@ const ArticleTitleContainer = styled.div`
   width: 72.2rem;
 `;
 
-const Input = styled.input`
+const Input = styled.textarea`
   margin-top: 4rem;
   border: none;
   background: ${({ theme }) => theme.colors.grey_0};
   width: 100%;
   height: 100%;
+  resize: none;
+  word-wrap: break-word;
   color: ${({ theme }) => theme.colors.grey_900};
   font-family: ${({ theme }) => theme.fonts.Title};
   &::placeholder {
@@ -66,6 +68,5 @@ const Input = styled.input`
   }
   &:focus {
     outline: none;
-    border: 1px solid ${({ theme }) => theme.colors.grey_300};
   }
 `;
