@@ -121,7 +121,7 @@ const BlogMainImageContainer = styled.div`
 const PreLoadImg = styled.img`
   margin-left: 4.8rem;
   border-radius: 0.8rem;
-  width: auto;
+  width: 64.5rem;
   height: 22.4rem;
   object-fit: cover;
 `;
