@@ -1,7 +1,7 @@
 'use client';
 
 import React from 'react';
-import { useParams } from 'next/navigation';
+import { useParams, useRouter } from 'next/navigation';
 import { useSetRecoilState } from 'recoil';
 
 import EmptyLanding from '@/components/common/ui/EmptyLanding';
@@ -15,6 +15,8 @@ const NavContentList = () => {
   const { team: blogUrl } = useParams();
 
   const data = useGetNavList(blogUrl);
+
+  const router = useRouter();
 
   const setDashBoardModalState = useSetRecoilState(dashBoardModalState);
 
@@ -39,7 +41,7 @@ const NavContentList = () => {
             content={name}
             url={navUrl}
             onTitleClick={() => {
-              console.log('김서윤');
+              window.location.href = navUrl;
             }}
           />
         );

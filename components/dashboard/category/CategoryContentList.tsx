@@ -1,7 +1,7 @@
 'use client';
 
 import React from 'react';
-import { useParams } from 'next/navigation';
+import { useParams, useRouter } from 'next/navigation';
 
 import EmptyLanding from '@/components/common/ui/EmptyLanding';
 import { useGetCategoryList } from '@/hooks/dashboard';
@@ -13,6 +13,8 @@ const CategoryContentList = () => {
   const { team: blogUrl } = useParams();
 
   const data = useGetCategoryList(blogUrl);
+
+  const router = useRouter();
 
   if (!data || data.data.length === 0)
     return (
@@ -36,7 +38,7 @@ const CategoryContentList = () => {
             url={`/category/${categoryUrl}`}
             description={description}
             onTitleClick={() => {
-              console.log(categoryUrl);
+              router.push(`/${blogUrl}/home/${categoryUrl}`);
             }}
           />
         );
