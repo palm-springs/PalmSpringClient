@@ -32,8 +32,6 @@ const EditorMenuBar = ({ editor, encodeFileToBase64, setLink }: editorProps) => 
   const [isAtTop, setIsAtTop] = useState(true);
   const [visible, setVisible] = useState(false);
 
-  const [scrollY, setScrollY] = useState<number>(0);
-
   //스크롤바 높이에 따라 visible 조건부 설정, 높이 인식 설정
   useEffect(() => {
     const handleScroll = () => {
