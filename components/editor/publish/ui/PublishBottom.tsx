@@ -36,7 +36,7 @@ const PublishBottomButtons = (props: PublishBottomButtons) => {
     router.push(`/${team}/dashboard/upload`);
   };
 
-  const handleOnClickPublish = () => {
+  const handleOnClickArticlePublish = () => {
     postPageCreate(team, pageData);
     resetPageData();
     router.push(`/${team}/dashboard/page`);
@@ -77,7 +77,7 @@ const PublishBottomButtons = (props: PublishBottomButtons) => {
             </BackButton>
             <PublishButton
               type="button"
-              onClick={handleOnClickPublish}
+              onClick={handleOnClickArticlePublish}
               disabled={pageUrl === '' || isDuplicate || isDuplicate === null}>
               글 발행하기
             </PublishButton>

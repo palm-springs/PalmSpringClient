@@ -10,14 +10,15 @@ import DashboardDeleteModal from '@/components/common/ui/DashboardDeleteModal';
 
 interface editorProps {
   handleOnClickArticleDraft: () => void;
-  handleOnClickPublish: () => void;
+  handleOnClickArticlePublish: () => void;
   handleOnClickPageDraft: () => void;
   handleOnClickPagePublish: () => void;
 }
 
 const SaveEditorContentButton = (props: editorProps) => {
   const [isModal, setIsModal] = useState(false);
-  const { handleOnClickArticleDraft, handleOnClickPublish, handleOnClickPageDraft, handleOnClickPagePublish } = props;
+  const { handleOnClickArticleDraft, handleOnClickArticlePublish, handleOnClickPageDraft, handleOnClickPagePublish } =
+    props;
   const { team } = useParams();
   const router = useRouter();
 
@@ -77,7 +78,7 @@ const SaveEditorContentButton = (props: editorProps) => {
               <TemporarySaveButton type="button" onClick={handleDraftSaveButton}>
                 임시저장
               </TemporarySaveButton>
-              <SaveButton type="button" onClick={handleOnClickPublish}>
+              <SaveButton type="button" onClick={handleOnClickArticlePublish}>
                 발행하기
               </SaveButton>
             </BottomWrapper>

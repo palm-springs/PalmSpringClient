@@ -209,7 +209,7 @@ const TextEditorBuild = (props: TextEditorBuildprops) => {
     }
   };
 
-  const handleOnClickPublish = () => {
+  const handleOnClickArticlePublish = () => {
     if (editor) {
       const content = editor.getHTML();
       setExtractedHTML(content);
@@ -247,7 +247,7 @@ const TextEditorBuild = (props: TextEditorBuildprops) => {
           <TextEditor editor={editor} handleDrop={handleDrop} handleDragOver={handleDragOver} />
           <SaveEditorContentButton
             handleOnClickArticleDraft={handleOnClickArticleDraft}
-            handleOnClickPublish={handleOnClickPublish}
+            handleOnClickArticlePublish={handleOnClickArticlePublish}
             handleOnClickPageDraft={handleOnClickPageDraft}
             handleOnClickPagePublish={handleOnClickPagePublish}
           />
@@ -260,7 +260,7 @@ const TextEditorBuild = (props: TextEditorBuildprops) => {
           <TextEditor editor={editor} handleDrop={handleDrop} handleDragOver={handleDragOver} />
           <SaveEditorContentButton
             handleOnClickArticleDraft={handleOnClickArticleDraft}
-            handleOnClickPublish={handleOnClickPublish}
+            handleOnClickArticlePublish={handleOnClickArticlePublish}
             handleOnClickPageDraft={handleOnClickPageDraft}
             handleOnClickPagePublish={handleOnClickPagePublish}
           />
