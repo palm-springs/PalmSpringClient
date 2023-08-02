@@ -2,8 +2,8 @@
 import styled from 'styled-components';
 
 import AuthRequired from '@/components/auth/AuthRequired';
-import ArticleTitle from '@/components/editor/article/ui/ArticleTitle';
 import TextEditorBuild from '@/components/editor/TextEditorImport';
+import EditorInputTitle from '@/components/editor/ui/EditorInputTitle';
 import { TextEditorStyle } from '@/styles/TextEditorStyle';
 
 const CreateArticlePage = () => {
@@ -11,7 +11,7 @@ const CreateArticlePage = () => {
     <AuthRequired>
       <TextEditorStyle>
         <ArticleWrapper className="ProseMirror">
-          <ArticleTitle pageType="article" />
+          <EditorInputTitle pageType="article" />
           <TextEditorBuild pageType="article" />
         </ArticleWrapper>
       </TextEditorStyle>

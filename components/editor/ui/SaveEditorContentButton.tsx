@@ -9,15 +9,15 @@ import ModalPortal from '@/components/common/ModalPortal';
 import DashboardDeleteModal from '@/components/common/ui/DashboardDeleteModal';
 
 interface editorProps {
-  handleOnClickDraft: () => void;
+  handleOnClickArticleDraft: () => void;
   handleOnClickPublish: () => void;
   handleOnClickPageDraft: () => void;
   handleOnClickPagePublish: () => void;
 }
 
-const SaveArticleButton = (props: editorProps) => {
+const SaveEditorContentButton = (props: editorProps) => {
   const [isModal, setIsModal] = useState(false);
-  const { handleOnClickDraft, handleOnClickPublish, handleOnClickPageDraft, handleOnClickPagePublish } = props;
+  const { handleOnClickArticleDraft, handleOnClickPublish, handleOnClickPageDraft, handleOnClickPagePublish } = props;
   const { team } = useParams();
   const router = useRouter();
 
@@ -38,7 +38,7 @@ const SaveArticleButton = (props: editorProps) => {
     });
 
   const handleDraftSaveButton = () => {
-    handleOnClickDraft();
+    handleOnClickArticleDraft();
     notify();
   };
 
@@ -135,11 +135,11 @@ const SaveArticleButton = (props: editorProps) => {
         </>
       );
     default:
-      router.push('/not-found');
+      break;
   }
 };
 
-export default SaveArticleButton;
+export default SaveEditorContentButton;
 
 const BottomWrapper = styled.div`
   margin-left: 35.9rem;

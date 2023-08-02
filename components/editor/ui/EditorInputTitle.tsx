@@ -1,30 +1,27 @@
 'use client';
 
-import React, { ChangeEvent, Dispatch, SetStateAction } from 'react';
-import { useParams, usePathname, useRouter } from 'next/navigation';
+import React, { ChangeEvent } from 'react';
 import { useRecoilState } from 'recoil';
 import styled from 'styled-components';
 
 import { articleDataState, pageDataState } from '../states/atom';
 
-interface TextEditorBuildprops {
+interface TextEditorBuildProps {
   pageType: string;
 }
 
-const ArticleTitle = (props: TextEditorBuildprops) => {
+const EditorInputTitle = (props: TextEditorBuildProps) => {
   const { pageType } = props;
 
-  const { team } = useParams();
-  const router = useRouter();
   const [{ title }, setArticleData] = useRecoilState(articleDataState);
   const [{ title: pageTitle }, setPageData] = useRecoilState(pageDataState);
 
-  const handleTitleChange = (e: ChangeEvent<HTMLTextAreaElement>) => {
+  const handleSaveArticleTitle = (e: ChangeEvent<HTMLTextAreaElement>) => {
     const { value } = e.target;
     setArticleData((prev) => ({ ...prev, title: value }));
   };
 
-  const handlePageTitleChange = (e: ChangeEvent<HTMLTextAreaElement>) => {
+  const handleSavePageTitle = (e: ChangeEvent<HTMLTextAreaElement>) => {
     const { value } = e.target;
     setPageData((prev) => ({ ...prev, title: value }));
   };
@@ -32,28 +29,28 @@ const ArticleTitle = (props: TextEditorBuildprops) => {
   switch (pageType) {
     case `article`:
       return (
-        <ArticleTitleContainer>
-          <Input value={title} onChange={handleTitleChange} rows={1} placeholder="제목을 입력해주세요" />
-        </ArticleTitleContainer>
+        <EditorInputTitleContainer>
+          <TitleInputBox value={title} onChange={handleSaveArticleTitle} rows={1} placeholder="제목을 입력해주세요" />
+        </EditorInputTitleContainer>
       );
     case `page`:
       return (
-        <ArticleTitleContainer>
-          <Input value={pageTitle} onChange={handlePageTitleChange} rows={1} placeholder="제목을 입력해주세요" />
-        </ArticleTitleContainer>
+        <EditorInputTitleContainer>
+          <TitleInputBox value={pageTitle} onChange={handleSavePageTitle} rows={1} placeholder="제목을 입력해주세요" />
+        </EditorInputTitleContainer>
       );
     default:
-      router.push('/not-found');
+      break;
   }
 };
 
-export default ArticleTitle;
+export default EditorInputTitle;
 
-const ArticleTitleContainer = styled.div`
+const EditorInputTitleContainer = styled.div`
   width: 72.2rem;
 `;
 
-const Input = styled.textarea`
+const TitleInputBox = styled.textarea`
   margin-top: 4rem;
   border: none;
   background: ${({ theme }) => theme.colors.grey_0};

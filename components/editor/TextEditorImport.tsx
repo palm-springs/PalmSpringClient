@@ -23,7 +23,7 @@ import html from 'highlight.js/lib/languages/xml';
 import { lowlight } from 'lowlight';
 import { useParams, useRouter } from 'next/navigation';
 
-import SaveArticleButton from '@/components/editor/article/ui/SaveArticleButton';
+import SaveEditorContentButton from '@/components/editor/ui/SaveEditorContentButton';
 
 import css from 'highlight.js/lib/languages/css';
 
@@ -38,11 +38,11 @@ import { useRecoilState } from 'recoil';
 
 import { postArticleList } from '@/api/article';
 import { postPageDraft } from '@/api/page';
-import ToolBox from '@/components/editor/article/ui/ToolBox';
 import TextEditor from '@/components/editor/TextEditor';
+import ToolBox from '@/components/editor/ui/ToolBox';
 import { getImageMultipartData } from '@/utils/getImageMultipartData';
 
-import { articleDataState, pageDataState } from './article/states/atom';
+import { articleDataState, pageDataState } from './states/atom';
 interface TextEditorBuildprops {
   pageType: string;
 }
@@ -176,7 +176,7 @@ const TextEditorBuild = (props: TextEditorBuildprops) => {
 
   // post onchange, onclick 함수.
 
-  const handleOnClickDraft = () => {
+  const handleOnClickArticleDraft = () => {
     if (editor) {
       const content = editor.getHTML();
       setExtractedHTML(content);
@@ -245,8 +245,8 @@ const TextEditorBuild = (props: TextEditorBuildprops) => {
         <>
           <ToolBox editor={editor} encodeFileToBase64={encodeFileToBase64} setLink={setLink} />
           <TextEditor editor={editor} handleDrop={handleDrop} handleDragOver={handleDragOver} />
-          <SaveArticleButton
-            handleOnClickDraft={handleOnClickDraft}
+          <SaveEditorContentButton
+            handleOnClickArticleDraft={handleOnClickArticleDraft}
             handleOnClickPublish={handleOnClickPublish}
             handleOnClickPageDraft={handleOnClickPageDraft}
             handleOnClickPagePublish={handleOnClickPagePublish}
@@ -258,8 +258,8 @@ const TextEditorBuild = (props: TextEditorBuildprops) => {
         <>
           <ToolBox editor={editor} encodeFileToBase64={encodeFileToBase64} setLink={setLink} />
           <TextEditor editor={editor} handleDrop={handleDrop} handleDragOver={handleDragOver} />
-          <SaveArticleButton
-            handleOnClickDraft={handleOnClickDraft}
+          <SaveEditorContentButton
+            handleOnClickArticleDraft={handleOnClickArticleDraft}
             handleOnClickPublish={handleOnClickPublish}
             handleOnClickPageDraft={handleOnClickPageDraft}
             handleOnClickPagePublish={handleOnClickPagePublish}
