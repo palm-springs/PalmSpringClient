@@ -2,8 +2,8 @@
 import styled from 'styled-components';
 
 import AuthRequired from '@/components/auth/AuthRequired';
-import EditorInputTitle from '@/components/editor/ui/EditorInputTitle';
 import TextEditorBuild from '@/components/editor/TextEditorImport';
+import EditorInputTitle from '@/components/editor/ui/EditorInputTitle';
 import { TextEditorStyle } from '@/styles/TextEditorStyle';
 
 const CreatePagePage = () => {
