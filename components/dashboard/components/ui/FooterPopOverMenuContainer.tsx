@@ -21,7 +21,7 @@ const FooterPopOverMenuUI = styled.article`
   gap: 1rem;
   align-items: flex-start;
   justify-content: space-between;
-  transform: translate(30rem, -10rem);
+  transform: translate(26.2rem, -10rem);
   z-index: 100;
   border: 1px solid ${({ theme }) => theme.colors.grey_300};
   border-radius: 0.8rem;
