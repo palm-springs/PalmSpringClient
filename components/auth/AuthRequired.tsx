@@ -1,6 +1,6 @@
 'use client';
 import { useEffect } from 'react';
-import axios from 'axios';
+import axios, { AxiosError } from 'axios';
 import { error } from 'console';
 import { useRouter } from 'next/navigation';
 import { useResetRecoilState, useSetRecoilState } from 'recoil';
@@ -68,6 +68,7 @@ const AuthRequired = ({ children }: { children: React.ReactNode }) => {
     });
     const responseInterceptor = client.interceptors.response.use(
       async (response) => {
+        if (response.status >= 400) throw new Error(response.data);
         const { config } = response;
         const { code, message } = response.data;
 
@@ -123,7 +124,7 @@ const AuthRequired = ({ children }: { children: React.ReactNode }) => {
           router.push('/auth');
         }
 
-        return error;
+        return Promise.reject(error);
       },
     );
 
