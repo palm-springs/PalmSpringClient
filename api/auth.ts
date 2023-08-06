@@ -31,6 +31,11 @@ export const postSocialLogin = async (platform: string, AccessToken: string) => 
 };
 
 export const getRefreshToken = async () => {
-  const { data } = await client.get(`/api/v1/auth/reissue`);
+  const { data } = await axios.get(`${process.env.NEXT_PUBLIC_BASE_URL}/api/v1/auth/reissue`, {
+    withCredentials: true,
+    headers: {
+      'Content-Type': 'application/json',
+    },
+  });
   return data;
 };
