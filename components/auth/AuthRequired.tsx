@@ -99,7 +99,8 @@ const AuthRequired = ({ children }: { children: React.ReactNode }) => {
       },
       async (error) => {
         console.log(error);
-        if (error.response?.status === 401) {
+        console.log(error.response, error.response.status);
+        if (error.response.status === 401) {
           const { config } = error.response;
           const { code, message } = error.response;
 
