@@ -54,8 +54,8 @@ const AuthRequired = ({ children }: { children: React.ReactNode }) => {
     const requestInterceptor = client.interceptors.request.use(async (config) => {
       const accessToken = sessionStorage?.getItem('userToken');
       if (accessToken) {
-        console.log('액세스 토큰 다시 받을게요~');
-        await refresh();
+        // console.log('액세스 토큰 다시 받을게요~');
+        // await refresh();
         const { accessTokenState } = JSON.parse(accessToken);
         console.log(accessTokenState);
         config.headers.Authorization = `Bearer ${accessTokenState}`;
