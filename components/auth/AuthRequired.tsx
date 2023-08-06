@@ -54,6 +54,8 @@ const AuthRequired = ({ children }: { children: React.ReactNode }) => {
     const requestInterceptor = client.interceptors.request.use(async (config) => {
       const accessToken = sessionStorage?.getItem('userToken');
       if (accessToken) {
+        console.log('액세스 토큰 다시 받을게요~');
+        await refresh();
         const { accessTokenState } = JSON.parse(accessToken);
         console.log(accessTokenState);
         config.headers.Authorization = `Bearer ${accessTokenState}`;
@@ -71,9 +73,9 @@ const AuthRequired = ({ children }: { children: React.ReactNode }) => {
       if (code === 401) {
         router.push('/auth');
         if (message === 'Access Token is expired.') {
-          // await refresh();
-          // console.log('여기까지 오지롱');
-          // return client(config);
+          await refresh();
+          console.log('여기까지 오지롱');
+          return client(config);
         } else if (message === 'Refresh Token is expired.') {
           resetAccessToken();
           console.log('heeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeere');

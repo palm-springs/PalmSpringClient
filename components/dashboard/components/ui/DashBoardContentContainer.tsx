@@ -85,7 +85,7 @@ const DashBoardContentContainer = (props: DashBoardContentContainerProps) => {
           <CharmMenuMeatballIcon />
         </BtnContainer>
       )}
-      {isModalOpen && <PopOverMenu pathName={pathName} />}
+      {isModalOpen && <PopOverMenu onNavigateContentClick={onTitleClick} pathName={pathName} />}
     </DashBoardContentUI>
   );
 };

@@ -1,13 +1,12 @@
-import React, { useState } from 'react';
+import React, { useEffect, useState } from 'react';
 import axios from 'axios';
 import { useParams } from 'next/navigation';
 import { styled } from 'styled-components';
 
 import { putBlogConfig } from '@/api/blog';
-import BLOG_BASIC_INFO_DATA from '@/constants/blogBasicInfoData';
+import LoadingLottie from '@/components/common/ui/LoadingLottie';
+import { useGetBlogInfo } from '@/hooks/blog';
 import { getImageMultipartData } from '@/utils/getImageMultipartData';
-
-import Line from '../components/ui/Line';
 
 import BlogInfoDeleteButton from './BlogDeleteButton';
 import BlogDescribeText from './BlogDescribeText';
@@ -24,14 +23,29 @@ interface BlogConfigProps {
 }
 
 const BlogConfigTemplate = () => {
+  const { team: blogUrl } = useParams();
+
+  const res = useGetBlogInfo(blogUrl);
+
   const [blogConfig, setBlogConfig] = useState<BlogConfigProps>({
-    blogName: BLOG_BASIC_INFO_DATA.myBlog.blogName,
+    blogName: '블로그 이름을 불러오는 중입니다...',
     blogLogoImage: null,
     blogMainImage: null,
-    blogDescribeText: '',
+    blogDescribeText: '블로그 설명을 불러오는 중입니다...',
   });
 
-  const { team: blogUrl } = useParams();
+  useEffect(() => {
+    if (!res || !res.data) return;
+    setBlogConfig((prev) => ({
+      ...prev,
+      blogName: res.data.name,
+      blogLogoImage: res.data.logo,
+      blogDescribeText: res.data.description,
+      blogMainImage: res.data.thumbnail,
+    }));
+  }, [res]);
+
+  if (!res || !res.data) return <LoadingLottie width={10} height={10} />;
 
   const postBlogConfig = async () => {
     const logoS3 = blogConfig.blogLogoImage && ((await getImageMultipartData(blogConfig.blogLogoImage)) as string);
@@ -57,7 +71,7 @@ const BlogConfigTemplate = () => {
   return (
     <>
       <BlogBasicInfoContainer>
-        <BlogUrl />
+        <BlogUrl blogUrl={res.data.url} />
         <BlogName
           blogName={blogConfig.blogName}
           setBlogName={(v) =>
