@@ -32,15 +32,11 @@ const EditorMenuBar = ({ editor, encodeFileToBase64, setLink }: editorProps) => 
   const [isAtTop, setIsAtTop] = useState(true);
   const [visible, setVisible] = useState(false);
 
-  const [scrollY, setScrollY] = useState<number>(0);
-
   //스크롤바 높이에 따라 visible 조건부 설정, 높이 인식 설정
   useEffect(() => {
     const handleScroll = () => {
       setIsAtTop(window.scrollY >= 143);
       setVisible(window.scrollY >= 143);
-      // setIsAtTop(window.scrollY < 143);
-      // setVisible(window.scrollY >= 1000);
     };
 
     window.addEventListener('scroll', handleScroll);
@@ -53,60 +49,71 @@ const EditorMenuBar = ({ editor, encodeFileToBase64, setLink }: editorProps) => 
     <IconContainer isAtTop={isAtTop}>
       {visible && <Wrapper isVisible={visible ? true : undefined} />}
       <IconWrapper>
-        <button onClick={() => editor.chain().focus().toggleHeading({ level: 1 }).run()}>
+        <ToolButton onClick={() => editor.chain().focus().toggleHeading({ level: 1 }).run()}>
           <H1Icon />
-        </button>
-        <button onClick={() => editor.chain().focus().toggleHeading({ level: 2 }).run()}>
+        </ToolButton>
+        <ToolButton onClick={() => editor.chain().focus().toggleHeading({ level: 2 }).run()}>
           <H2Icon />
-        </button>
-        <button onClick={() => editor.chain().focus().toggleHeading({ level: 3 }).run()}>
+        </ToolButton>
+        <ToolButton onClick={() => editor.chain().focus().toggleHeading({ level: 3 }).run()}>
           <H3Icon />
-        </button>
-        <button onClick={() => editor.chain().focus().toggleBulletList().run()}>
+        </ToolButton>
+        <ToolButton onClick={() => editor.chain().focus().toggleBulletList().run()}>
           <BulletIcon />
-        </button>
-        <button onClick={() => editor.chain().focus().toggleOrderedList().run()}>
+        </ToolButton>
+        <ToolButton onClick={() => editor.chain().focus().toggleOrderedList().run()}>
           <OrderIcon />
-        </button>
+        </ToolButton>
         <GreyBar />
-        <button onClick={() => editor.chain().focus().toggleUnderline().run()}>
+        <ToolButton onClick={() => editor.chain().focus().toggleUnderline().run()}>
           <UnderlineIcon />
-        </button>
-        <button onClick={() => editor.chain().focus().toggleBold().run()}>
+        </ToolButton>
+        <ToolButton onClick={() => editor.chain().focus().toggleBold().run()}>
           <BoldIcon />
-        </button>
-        <button onClick={() => editor.chain().focus().toggleItalic().run()}>
+        </ToolButton>
+        <ToolButton onClick={() => editor.chain().focus().toggleItalic().run()}>
           <ItalicIcon />
-        </button>
-        <button onClick={() => editor.chain().focus().toggleStrike().run()}>
+        </ToolButton>
+        <ToolButton onClick={() => editor.chain().focus().toggleStrike().run()}>
           <StrikeIcon />
-        </button>
-        <button onClick={() => editor.chain().focus().toggleCode().run()}>
+        </ToolButton>
+        <ToolButton onClick={() => editor.chain().focus().toggleCode().run()}>
           <CodeIcon />
-        </button>
+        </ToolButton>
         <GreyBar />
-        <button onClick={() => editor.chain().focus().toggleBlockquote().run()}>
+        <ToolButton onClick={() => editor.chain().focus().toggleBlockquote().run()}>
           <QuoteIcon />
-        </button>
-        <button onClick={() => editor.chain().focus().setHorizontalRule().run()}>
+        </ToolButton>
+        <ToolButton onClick={() => editor.chain().focus().setHorizontalRule().run()}>
           <HorizonIcon />
-        </button>
+        </ToolButton>
         <ImageInputLabel>
           <input type="file" onChange={(event) => encodeFileToBase64(event, editor)}></input>
           <ImageIcon />
         </ImageInputLabel>
-        <button onClick={() => setLink({ editor })} className={editor.isActive('link') ? 'is-active' : ''}>
+        <ToolButton onClick={() => setLink({ editor })} className={editor.isActive('link') ? 'is-active' : ''}>
           <LinkIcon />
-        </button>
-        <button onClick={() => editor.chain().focus().toggleCodeBlock().run()}>
+        </ToolButton>
+        <ToolButton onClick={() => editor.chain().focus().toggleCodeBlock().run()}>
           <CodeBlockIcon />
-        </button>
+        </ToolButton>
       </IconWrapper>
     </IconContainer>
   );
 };
 
 export default EditorMenuBar;
+
+const ToolButton = styled.button`
+  width: 3.6rem;
+  height: 3.6rem;
+  &:hover {
+    border-radius: 0.8rem;
+    background-color: ${({ theme }) => theme.colors.grey_300};
+    width: 3.6rem;
+    height: 3.6rem;
+  }
+`;
 
 const Wrapper = styled.div<{ isVisible?: boolean }>`
   position: absolute;
@@ -133,7 +140,6 @@ const IconWrapper = styled.div`
   justify-content: space-evenly;
   transition: width 0.7s ease;
   z-index: 20;
-  /* margin: 4rem 0 2rem 0; */
   border-radius: 0.8rem;
   background-color: ${({ theme }) => theme.colors.grey_100};
   width: 72.2rem;
@@ -144,7 +150,6 @@ const IconContainer = styled.div<{ isAtTop: boolean }>`
   position: ${({ isAtTop }) => isAtTop && 'sticky'};
   top: 0;
   z-index: 30;
-  /* margin-left: 35.9rem; */
   margin-top: 4.4rem;
   width: ${({ isAtTop }) => isAtTop && '72.2rem'};
 `;

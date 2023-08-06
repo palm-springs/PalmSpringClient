@@ -24,7 +24,7 @@ const Article = (props: ArticleProps) => {
   return (
     <ArticleContainer href={`/${team}/content/article/${articleUrl}/${id}`} className={noHover ? '' : 'hover'}>
       <ArticleInfo>
-        <ArticleTitle className="title">{title}</ArticleTitle>
+        <EditorInputTitle className="title">{title}</EditorInputTitle>
         <ArticleDescription className="description">{description}</ArticleDescription>
         <DetailBox>
           {articleCategory && <CategoryBtn>{articleCategory.categoryName}</CategoryBtn>}
@@ -68,7 +68,7 @@ const ArticleInfo = styled.article`
   width: 72rem;
 `;
 
-const ArticleTitle = styled.article`
+const EditorInputTitle = styled.article`
   ${({ theme }) => theme.fonts.Heading2};
   /* stylelint-disable-next-line value-no-vendor-prefix */
   display: -webkit-box;

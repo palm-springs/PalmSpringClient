@@ -9,15 +9,16 @@ import ModalPortal from '@/components/common/ModalPortal';
 import DashboardDeleteModal from '@/components/common/ui/DashboardDeleteModal';
 
 interface editorProps {
-  handleOnClickDraft: () => void;
-  handleOnClickPublish: () => void;
+  handleOnClickArticleDraft: () => void;
+  handleOnClickArticlePublish: () => void;
   handleOnClickPageDraft: () => void;
   handleOnClickPagePublish: () => void;
 }
 
-const SaveArticleButton = (props: editorProps) => {
+const SaveEditorContentButton = (props: editorProps) => {
   const [isModal, setIsModal] = useState(false);
-  const { handleOnClickDraft, handleOnClickPublish, handleOnClickPageDraft, handleOnClickPagePublish } = props;
+  const { handleOnClickArticleDraft, handleOnClickArticlePublish, handleOnClickPageDraft, handleOnClickPagePublish } =
+    props;
   const { team } = useParams();
   const router = useRouter();
 
@@ -38,7 +39,7 @@ const SaveArticleButton = (props: editorProps) => {
     });
 
   const handleDraftSaveButton = () => {
-    handleOnClickDraft();
+    handleOnClickArticleDraft();
     notify();
   };
 
@@ -77,7 +78,7 @@ const SaveArticleButton = (props: editorProps) => {
               <TemporarySaveButton type="button" onClick={handleDraftSaveButton}>
                 임시저장
               </TemporarySaveButton>
-              <SaveButton type="button" onClick={handleOnClickPublish}>
+              <SaveButton type="button" onClick={handleOnClickArticlePublish}>
                 발행하기
               </SaveButton>
             </BottomWrapper>
@@ -135,11 +136,11 @@ const SaveArticleButton = (props: editorProps) => {
         </>
       );
     default:
-      router.push('/not-found');
+      break;
   }
 };
 
-export default SaveArticleButton;
+export default SaveEditorContentButton;
 
 const BottomWrapper = styled.div`
   margin-left: 35.9rem;
@@ -157,8 +158,16 @@ const ButtonContainer = styled.div`
 `;
 
 const ExitButton = styled.button`
+  width: 8.2rem;
+  height: 3.6rem;
   color: ${({ theme }) => theme.colors.grey_900};
   font-family: ${({ theme }) => theme.fonts.Body3_Regular};
+  &:hover {
+    border-radius: 0.8rem;
+    background: ${({ theme }) => theme.colors.grey_200};
+    width: 8.2rem;
+    height: 3.6rem;
+  }
 `;
 
 const TemporarySaveButton = styled.button`
@@ -169,9 +178,16 @@ const TemporarySaveButton = styled.button`
   justify-content: center;
   margin-left: 48.5rem;
   padding: 1rem 2rem;
+  width: 9.6rem;
   height: 3.6rem;
   color: ${({ theme }) => theme.colors.grey_900};
   font-family: ${({ theme }) => theme.fonts.Button_medium};
+  &:hover {
+    border-radius: 0.8rem;
+    background: ${({ theme }) => theme.colors.grey_200};
+    width: 9.6rem;
+    height: 3.6rem;
+  }
 `;
 
 const SaveButton = styled.button`
@@ -187,4 +203,9 @@ const SaveButton = styled.button`
   height: 3.6rem;
   color: ${({ theme }) => theme.colors.grey_0};
   font-family: ${({ theme }) => theme.fonts.Button_medium};
+  &:hover {
+    background-color: ${({ theme }) => theme.colors.grey_800};
+    width: 9.6rem;
+    height: 3.6rem;
+  }
 `;
