@@ -69,6 +69,8 @@ const AuthRequired = ({ children }: { children: React.ReactNode }) => {
       const { config } = response;
       const { code, message } = response.data;
 
+      console.log(response, code, message);
+
       // access token 만료
       if (code === 401) {
         console.log('일단 여기에요');
