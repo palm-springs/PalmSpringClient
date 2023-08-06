@@ -41,7 +41,7 @@ const AuthRequired = ({ children }: { children: React.ReactNode }) => {
         router.push('/auth');
         break;
       // access token 재발급 성공
-      case 200:
+      case 201:
         setAccessToken(accessToken);
         break;
       default:
