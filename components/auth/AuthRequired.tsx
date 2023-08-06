@@ -71,6 +71,7 @@ const AuthRequired = ({ children }: { children: React.ReactNode }) => {
 
       // access token 만료
       if (code === 401) {
+        console.log('일단 여기에요');
         router.push('/auth');
         if (message === 'Access Token is expired.') {
           await refresh();
