@@ -4,7 +4,7 @@ import { styled } from 'styled-components';
 import useGetLastPathName from '@/hooks/useGetLastPathName';
 
 interface ContentProps {
-  onTitleClick: React.MouseEventHandler<HTMLButtonElement>;
+  onTitleClick?: React.MouseEventHandler<HTMLButtonElement>;
   content: string;
 }
 

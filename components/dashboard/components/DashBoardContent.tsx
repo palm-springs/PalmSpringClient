@@ -18,7 +18,7 @@ export interface DashBoardContentProps {
   position?: string; // 아마 팀별 직무가 팀마다 다를 수 있으므로 나중에 서버에서 타입을 받아올 수 있다면 그거로 지정해줍시다.
   createdAt?: string;
   newsLetter?: number;
-  onTitleClick: React.MouseEventHandler<HTMLButtonElement>;
+  onTitleClick?: React.MouseEventHandler<HTMLButtonElement>;
 }
 
 const DashBoardContent = (props: DashBoardContentProps) => {
