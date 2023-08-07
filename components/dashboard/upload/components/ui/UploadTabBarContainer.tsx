@@ -27,6 +27,7 @@ const UploadTabBarContainer = (props: UploadTabBarContainerProps) => {
           전체
         </UploadTabBarTextUI>
         {categoryDataList.map(({ id, name }) => {
+          if (name === '새로운 카테고리') return;
           return (
             <UploadTabBarTextUI
               key={id}
@@ -60,6 +61,9 @@ const UploadTabBarTextUI = styled.span<{ $currentTab: boolean }>`
   ${({ theme }) => theme.fonts.Body1_Semibold};
   cursor: pointer;
   height: 3.5rem;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
   color: ${({ theme, $currentTab }) => ($currentTab ? theme.colors.grey_900 : theme.colors.grey_600)};
   &:hover {
     color: ${({ theme, $currentTab }) => ($currentTab ? theme.colors.grey_800 : theme.colors.grey_700)};
