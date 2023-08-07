@@ -15,7 +15,7 @@ export default Author;
 
 const AuthorUI = styled.span`
   ${({ theme }) => theme.fonts.Body3_Regular};
-  margin-right: 2vw;
+  width: 5.6rem;
   overflow: hidden;
   text-overflow: ellipsis;
   white-space: nowrap;
