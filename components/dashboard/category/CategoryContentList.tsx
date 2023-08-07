@@ -29,6 +29,7 @@ const CategoryContentList = () => {
 
   return (
     <DashBoardContentListContainer>
+      <DashBoardContent id="컨텐츠바" content="이름" url="URL" description="한 줄 소개" />
       {data.data.map(({ id, name, categoryUrl, description }) => {
         return (
           <DashBoardContent

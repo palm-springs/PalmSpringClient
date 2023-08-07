@@ -16,8 +16,6 @@ const NavContentList = () => {
 
   const data = useGetNavList(blogUrl);
 
-  const router = useRouter();
-
   const setDashBoardModalState = useSetRecoilState(dashBoardModalState);
 
   if (!data || data.data.length === 0)
@@ -33,6 +31,7 @@ const NavContentList = () => {
 
   return (
     <DashBoardContentListContainer>
+      <DashBoardContent id="컨텐츠바" content="이름" url="URL" />
       {data.data.map(({ id, name, navUrl }) => {
         return (
           <DashBoardContent

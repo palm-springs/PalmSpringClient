@@ -27,7 +27,8 @@ const TempsavedContentList = () => {
 
   return (
     <DashBoardContentListContainer>
-      {data.map(({ id, title, teamMemberResponseDto: { id: memberId, name, job, createdAt } }) => {
+      <DashBoardContent id="컨텐츠바" content="제목" author="작성자" position="직책" createdAt="작성일" />
+      {data.map(({ id, title, teamMemberResponseDto: { name, job, createdAt } }) => {
         return (
           <DashBoardContent
             key={id}
