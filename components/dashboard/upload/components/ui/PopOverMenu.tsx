@@ -6,7 +6,7 @@ import { styled } from 'styled-components';
 import { dashBoardPageType } from '@/types/dashboard';
 
 interface PopOverMenuProps {
-  onNavigateContentClick: React.MouseEventHandler<HTMLButtonElement>;
+  onNavigateContentClick?: React.MouseEventHandler<HTMLButtonElement>;
   pathName: dashBoardPageType | 'dashboard';
 }
 

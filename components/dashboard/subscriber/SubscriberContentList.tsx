@@ -3,12 +3,10 @@ import React from 'react';
 import DashBoardContent from '../components/DashBoardContent';
 import DashBoardContentListContainer from '../components/ui/DashBoardContentListContainer';
 
-import SubscriberIndexBar from './SubscriberIndexBar';
-
 const SubscriberContentList = () => {
   return (
     <DashBoardContentListContainer>
-      <SubscriberIndexBar />
+      <DashBoardContent id="컨텐츠바" email="이메일" createdAt="구독 시작일" newsLetter="발송된 뉴스레터 수" />
       <DashBoardContent
         id="sub_1"
         email="Tevin_Hahn99@gmail.com"

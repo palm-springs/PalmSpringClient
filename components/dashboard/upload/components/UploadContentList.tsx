@@ -35,6 +35,14 @@ const UploadContentList = (props: UploadContentListProps) => {
 
   return (
     <DashBoardContentListContainer>
+      <DashBoardContent
+        id="컨텐츠바"
+        content="제목"
+        tabType="카테고리"
+        author="작성자"
+        position="직책"
+        createdAt="작성일"
+      />
       {articleData.data.map(({ id, title, memberName, job, createdAt, articleCategory, articleUrl }) => {
         return (
           <DashBoardContent

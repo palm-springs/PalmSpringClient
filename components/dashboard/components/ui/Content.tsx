@@ -4,7 +4,7 @@ import { styled } from 'styled-components';
 import useGetLastPathName from '@/hooks/useGetLastPathName';
 
 interface ContentProps {
-  onTitleClick: React.MouseEventHandler<HTMLButtonElement>;
+  onTitleClick?: React.MouseEventHandler<HTMLButtonElement>;
   content: string;
 }
 
@@ -24,8 +24,7 @@ export default Content;
 
 const ContentUI = styled.button<{ $isPathNavOrCategory: boolean }>`
   ${({ theme }) => theme.fonts.Body3_Semibold};
-  margin-right: 5vw;
-  width: ${({ $isPathNavOrCategory }) => ($isPathNavOrCategory ? '5vw' : '40vw')};
+  width: ${({ $isPathNavOrCategory }) => ($isPathNavOrCategory ? '10rem' : '52.1rem')};
   overflow: hidden;
   text-align: left;
   text-overflow: ellipsis;
