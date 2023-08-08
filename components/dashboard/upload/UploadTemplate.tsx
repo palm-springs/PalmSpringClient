@@ -47,7 +47,7 @@ const UploadTemplate = () => {
           categoryListData={categoryData.data}
         />
         <Line />
-        <UploadContentList category={filteredCategory} articleData={articleData} />
+        <UploadContentList category={filteredCategory} currentCategory={category} articleData={articleData} />
       </DashBoardTemplateContainer>
     </>
   );

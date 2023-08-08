@@ -19,7 +19,7 @@ const DashBoardFooterUI = styled.section`
   & > button {
     background: ${({ theme }) => theme.colors.grey_900};
     &:hover {
-      transition-duration: 0.3s ease-out;
+      transition: 0.3s ease-out;
       background: ${({ theme }) => theme.colors.grey_800};
     }
   }

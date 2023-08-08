@@ -121,7 +121,6 @@ const MemberInfoBox = styled.div`
 
 const MemberContainer = styled.div`
   display: flex;
-  position: relative;
   align-items: center;
 
   border-bottom: 1px solid ${({ theme }) => theme.colors.grey_400};

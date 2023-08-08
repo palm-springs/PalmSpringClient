@@ -83,7 +83,7 @@ const NavSelectorUI = styled.section`
 
 const IndivContentUI = styled.button`
   display: flex;
-  transition-duration: 0.3s ease-out;
+  transition: 0.3s ease-out;
   border: none;
   border-radius: 0.8rem;
   background: none;

@@ -58,7 +58,7 @@ const PopOverMenuUI = styled.article`
     display: flex;
     align-items: center;
     ${({ theme }) => theme.fonts.Body3_Regular};
-    transition-duration: 0.3s ease-out;
+    transition: 0.3s ease-out;
     border: none;
     border-radius: 0.8rem;
     background: none;

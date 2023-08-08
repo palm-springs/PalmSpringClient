@@ -1,7 +1,7 @@
 'use client';
 
 import React from 'react';
-import { useParams, useRouter } from 'next/navigation';
+import { useParams, useRouter, useSearchParams } from 'next/navigation';
 
 import EmptyLanding from '@/components/common/ui/EmptyLanding';
 import { ArticleData } from '@/types/article';
@@ -12,15 +12,18 @@ import DashBoardContentListContainer from '../../components/ui/DashBoardContentL
 
 interface UploadContentListProps {
   category: string[];
+  currentCategory: string;
   articleData?: Response<ArticleData[]>;
 }
 
 const UploadContentList = (props: UploadContentListProps) => {
-  const { articleData } = props;
+  const { articleData, currentCategory } = props;
 
   const { team } = useParams();
 
   const router = useRouter();
+
+  const isAllCategory = currentCategory === '전체';
 
   if (!articleData || articleData.data.length === 0)
     return (
@@ -38,7 +41,7 @@ const UploadContentList = (props: UploadContentListProps) => {
       <DashBoardContent
         id="컨텐츠바"
         content="제목"
-        tabType="카테고리"
+        tabType={isAllCategory ? '카테고리' : undefined}
         author="작성자"
         position="직책"
         createdAt="작성일"

@@ -24,7 +24,7 @@ const MakeNewBlogUI = styled.article`
   display: flex;
   gap: 1rem;
   align-items: center;
-  transition-duration: 0.3s ease-out;
+  transition: 0.3s ease-out;
   cursor: pointer;
   padding: 1.2rem 1.6rem 1.2rem 1.2rem;
   width: 100%;
