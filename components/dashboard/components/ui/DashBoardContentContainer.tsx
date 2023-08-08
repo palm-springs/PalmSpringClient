@@ -99,7 +99,6 @@ export default DashBoardContentContainer;
 
 const DashBoardContentUI = styled.article<{ $isContentBar: boolean }>`
   display: flex;
-  position: relative;
   align-items: center;
   transition: 0.3s ease-out;
   border-bottom: 1px solid ${({ theme }) => theme.colors.grey_300};
