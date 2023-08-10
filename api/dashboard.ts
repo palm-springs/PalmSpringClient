@@ -68,7 +68,7 @@ export const getUserBasicInfo = async (blogUrl: string) => {
 };
 
 export const postCategory = async (blogUrl: string, name: string, description: string) => {
-  const { data } = await client.post<Response<null>>(`/api/v1/category/${blogUrl}/create`, {
+  const { data } = await client.post<Response<null>>(`/api/v1/category/${blogUrl}/admin/create`, {
     name,
     description,
   });
