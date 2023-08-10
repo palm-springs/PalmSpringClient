@@ -4,8 +4,10 @@ import { useRouter } from 'next/navigation';
 import { deleteBlog, getBlogHeaderInfo, getBlogInfo } from '@/api/blog';
 import { getContent } from '@/api/content';
 import { getPageDetail } from '@/api/page';
+import { Response } from '@/types/common';
+import { UserInfoProps } from '@/types/user';
 
-import { useGetUserInfo } from './dashboard';
+import { QUERY_KEY_DASHBOARD, useGetUserInfo } from './dashboard';
 import { useGetCurrentUserInfo } from './user';
 
 const QUERY_KEY_BLOG = {
@@ -37,15 +39,21 @@ export const useGetPageDetail = (blogUrl: string, articleId: string) => {
 };
 
 export const useDeleteBlog = (blogUrl: string) => {
-  const res = useGetUserInfo();
+  const queryClient = useQueryClient();
 
   const router = useRouter();
 
   return useMutation([QUERY_KEY_BLOG.deleteBlog], () => deleteBlog(blogUrl), {
-    onSuccess: () => {
+    onSuccess: async () => {
+      await queryClient.invalidateQueries([QUERY_KEY_DASHBOARD.getUserInfo]);
+
+      const res = queryClient.getQueryData<Response<UserInfoProps>>([QUERY_KEY_DASHBOARD.getUserInfo]);
+
       if (!res) return;
 
-      if (res && res.data.joinBlogList.length > 0) {
+      console.log('구분해줘', res);
+
+      if (res.data && res.data.joinBlogList.length > 0) {
         router.push(`/${res.data.joinBlogList[0].url}/dashboard/upload`);
       } else {
         router.push(`/no-team/dashboard`);

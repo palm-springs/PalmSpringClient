@@ -13,7 +13,7 @@ import {
   postNavigation,
 } from '@/api/dashboard';
 
-const QUERY_KEY_DASHBOARD = {
+export const QUERY_KEY_DASHBOARD = {
   getNavList: 'getNavList',
   getCategoryList: 'getCategoryList',
   getBlogHeader: 'getBlogHeader',
