@@ -7,8 +7,7 @@ import { getPageDetail } from '@/api/page';
 import { Response } from '@/types/common';
 import { UserInfoProps } from '@/types/user';
 
-import { QUERY_KEY_DASHBOARD, useGetUserInfo } from './dashboard';
-import { useGetCurrentUserInfo } from './user';
+import { QUERY_KEY_DASHBOARD } from './dashboard';
 
 const QUERY_KEY_BLOG = {
   getBlogInfo: 'getBlogInfo',

@@ -16,9 +16,7 @@ interface BlogListProps {
 const BlogList = (props: BlogListProps) => {
   const { currentBlog, setCurrentBlog } = props;
 
-  const { team } = useParams();
-
-  const res = useGetUserInfo(team);
+  const res = useGetUserInfo();
 
   const router = useRouter();
 

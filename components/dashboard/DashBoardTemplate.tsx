@@ -1,9 +1,6 @@
 'use client';
 
-import React, { useEffect } from 'react';
-import { useParams } from 'next/navigation';
-
-import { useGetUserInfo } from '@/hooks/dashboard';
+import React from 'react';
 
 import DashBoardHeader from './components/DashBoardHeader';
 import DashBoardNav from './components/DashBoardNav';

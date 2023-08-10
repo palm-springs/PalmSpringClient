@@ -14,9 +14,7 @@ import DashBoardNavBtn from './DashBoardNavBtn';
 const DashBoardFooter = () => {
   const [isPopOverMenuOpen, setIsPopOverMenuOpen] = useState<boolean>(false);
 
-  const { team } = useParams();
-
-  const res = useGetUserInfo(team);
+  const res = useGetUserInfo();
 
   if (!res) return <LoadingLottie height={4} width={4} fit={false} />;
 
