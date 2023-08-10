@@ -54,8 +54,8 @@ export const useGetTempSavedList = (blogUrl: string) => {
   return data.data;
 };
 
-export const useGetUserInfo = (blogUrl: string) => {
-  const { data } = useQuery([QUERY_KEY_DASHBOARD.getUserInfo], () => getUserInfo(blogUrl));
+export const useGetUserInfo = () => {
+  const { data } = useQuery([QUERY_KEY_DASHBOARD.getUserInfo], () => getUserInfo());
   return data;
 };
 

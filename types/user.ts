@@ -1,6 +1,9 @@
-// export interface User {
-//   avatar_url: string;
-//   id: number;
-//   login: string;
-//   following: boolean;
-// }
+export interface UserInfoProps {
+  name: string;
+  email: string;
+  thumbnail: string;
+  joinBlogList: Array<{
+    name: string;
+    url: string;
+  }>;
+}
