@@ -81,6 +81,6 @@ const TextInput = styled.input`
 
   &:focus {
     outline: none;
-    border: 1px solid ${({ theme }) => theme.colors.grey_700};
+    border: 0px solid ${({ theme }) => theme.colors.grey_700};
   }
 `;
