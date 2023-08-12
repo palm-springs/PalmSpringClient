@@ -1,30 +1,28 @@
 'use client';
 import styled from 'styled-components';
 
-import InputMessage from '@/components/create-blog/info/ui/basicInfo/InputMessage';
+// import InputMessage from '@/components/create-blog/info/ui/basicInfo/InputMessage';
 
-interface PublishInputFormProps {
+interface UserIdCheckProps {
   children: React.ReactNode;
   isFocus: boolean;
-  isAddressDuplicate?: boolean;
+  isDuplicate: boolean | null;
 }
 
-const PublishInputForm = (props: PublishInputFormProps) => {
-  const { children, isFocus, isAddressDuplicate } = props;
+const IdInputForm = (props: UserIdCheckProps) => {
+  const { children, isFocus, isDuplicate } = props;
+  console.log(isDuplicate);
 
   return (
     <>
-      <InputContainer
-        id={isAddressDuplicate !== undefined ? (isAddressDuplicate ? 'failed' : 'success') : ''}
-        $isFocus={isFocus}>
+      <InputContainer id={isDuplicate ? 'failed' : ''} $isFocus={isFocus}>
         {children}
       </InputContainer>
-      {/* {isAddressDuplicate !== undefined && <InputMessage isAddressDuplicate={isAddressDuplicate} />} */}
     </>
   );
 };
 
-export default PublishInputForm;
+export default IdInputForm;
 
 // text input 입력  컨테이너
 const InputContainer = styled.div<{ $isFocus: boolean }>`
