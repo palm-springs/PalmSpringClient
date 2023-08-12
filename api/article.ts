@@ -34,22 +34,6 @@ export const postArticleList = async (url: string, requestBody: postArticleListR
   return data;
 };
 
-//위치 변경
-export const getSinglePageData = async (blogUrl: string, pageUrl: string) => {
-  const { data } = await client.get<Response<PageData>>(`/api/v1/page/${blogUrl}/detail/list?pageUrl=${pageUrl}`);
-  return data;
-};
-
-interface postArticleCreateListRequest {
-  title: string;
-  content: string;
-  images: string[] | null;
-  thumbnail: string;
-  categoryId: number;
-  description: string;
-  articleUrl: string;
-}
-
 export const postArticleCreateList = async (url: string, requestBody: CreateArticleProps) => {
   const { data } = await client.post<Response<null>>(`/api/v1/article/${url}/create`, requestBody);
   return data;

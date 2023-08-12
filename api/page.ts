@@ -36,3 +36,8 @@ export const getCheckPageUrlDuplication = async (teamUrl: string, pageUrl: strin
   const { data } = await client.get(`/api/v1/page/${teamUrl}/check?pageUrl=${pageUrl}`);
   return data;
 };
+
+export const getSinglePageData = async (blogUrl: string, pageUrl: string) => {
+  const { data } = await client.get<Response<PageData>>(`/api/v1/page/${blogUrl}/detail/list?pageUrl=${pageUrl}`);
+  return data;
+};
