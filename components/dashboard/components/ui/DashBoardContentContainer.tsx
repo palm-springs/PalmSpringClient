@@ -43,6 +43,7 @@ const DashBoardContentContainer = (props: DashBoardContentContainerProps) => {
       position,
       createdAt,
       onTitleClick,
+      onDeleteClick,
       newsLetter,
     },
     onMenuButtonClick,
@@ -72,6 +73,7 @@ const DashBoardContentContainer = (props: DashBoardContentContainerProps) => {
           <IcClose24Icon />
         </BtnContainer>
       ) : (
+        // blur 관련 클릭 인식 안되는 오류 처리 + useMutation invalid hook call 정리
         <BtnContainer
           onBlur={() => setModalOpenContentId('')}
           onClick={() => {
@@ -85,7 +87,9 @@ const DashBoardContentContainer = (props: DashBoardContentContainerProps) => {
           <CharmMenuMeatballIcon />
         </BtnContainer>
       )}
-      {isModalOpen && <PopOverMenu onNavigateContentClick={onTitleClick} pathName={pathName} />}
+      {isModalOpen && (
+        <PopOverMenu onNavigateContentClick={onTitleClick} onDeleteButtonClick={onDeleteClick} pathName={pathName} />
+      )}
     </DashBoardContentUI>
   );
 };
