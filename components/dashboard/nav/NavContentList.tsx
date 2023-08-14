@@ -1,11 +1,11 @@
 'use client';
 
 import React from 'react';
-import { useParams, useRouter } from 'next/navigation';
+import { useParams } from 'next/navigation';
 import { useSetRecoilState } from 'recoil';
 
 import EmptyLanding from '@/components/common/ui/EmptyLanding';
-import { useGetNavList } from '@/hooks/dashboard';
+import { useDeleteNavigation, useGetNavList } from '@/hooks/dashboard';
 
 import DashBoardContent from '../components/DashBoardContent';
 import DashBoardContentListContainer from '../components/ui/DashBoardContentListContainer';
@@ -15,6 +15,8 @@ const NavContentList = () => {
   const { team: blogUrl } = useParams();
 
   const data = useGetNavList(blogUrl);
+
+  const mutateFn = useDeleteNavigation;
 
   const setDashBoardModalState = useSetRecoilState(dashBoardModalState);
 
@@ -41,6 +43,9 @@ const NavContentList = () => {
             url={navUrl}
             onTitleClick={() => {
               window.location.href = navUrl;
+            }}
+            onDeleteClick={() => {
+              mutateFn(blogUrl, id).mutate();
             }}
           />
         );
