@@ -39,17 +39,15 @@ const UploadTemplate = () => {
   const filteredCategory = getLiteralCategoryList(categoryData);
 
   return (
-    <>
-      <DashBoardTemplateContainer>
-        <UploadTabBar
-          setCategory={setCategory}
-          currentCategory={[...filteredCategory]}
-          categoryListData={categoryData.data}
-        />
-        <Line />
-        <UploadContentList category={filteredCategory} currentCategory={category} articleData={articleData} />
-      </DashBoardTemplateContainer>
-    </>
+    <DashBoardTemplateContainer>
+      <UploadTabBar
+        setCategory={setCategory}
+        currentCategory={[...filteredCategory]}
+        categoryListData={categoryData.data}
+      />
+      <Line />
+      <UploadContentList category={filteredCategory} currentCategory={category} articleData={articleData} />
+    </DashBoardTemplateContainer>
   );
 };
 
