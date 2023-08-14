@@ -2,6 +2,7 @@ import { useMutation, useQuery, useQueryClient } from '@tanstack/react-query';
 
 import { getBlogHeaderInfo } from '@/api/blog';
 import {
+  deleteNavigation,
   getCategoryList,
   getMemberList,
   getNavList,
@@ -21,6 +22,7 @@ const QUERY_KEY_DASHBOARD = {
   getTempSavedList: 'getTempSavedList',
   postCategory: 'postCategory',
   postNavigation: 'postNavigation',
+  deleteNavigation: 'deleteNavigation',
   getUserInfo: 'getUserInfo',
   getMemberInfo: 'getMemberInfo',
   getUserBasicInfo: 'getUserBasicInfo',
@@ -91,5 +93,16 @@ export const usePostNavigation = (blogUrl: string, name: string, isPage: boolean
       },
     },
   );
+  return mutation;
+};
+
+export const useDeleteNavigation = (blogUrl: string, id: number) => {
+  const queryClient = useQueryClient();
+
+  const mutation = useMutation([QUERY_KEY_DASHBOARD.deleteNavigation], () => deleteNavigation(blogUrl, id), {
+    onSuccess: () => {
+      queryClient.invalidateQueries([QUERY_KEY_DASHBOARD.getNavList]);
+    },
+  });
   return mutation;
 };
