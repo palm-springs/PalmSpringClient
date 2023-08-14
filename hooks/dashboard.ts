@@ -12,6 +12,7 @@ import {
   getUserInfo,
   postCategory,
   postNavigation,
+  updateNavigation,
 } from '@/api/dashboard';
 
 const QUERY_KEY_DASHBOARD = {
@@ -23,6 +24,7 @@ const QUERY_KEY_DASHBOARD = {
   postCategory: 'postCategory',
   postNavigation: 'postNavigation',
   deleteNavigation: 'deleteNavigation',
+  updateNavigation: 'updateNavigation',
   getUserInfo: 'getUserInfo',
   getMemberInfo: 'getMemberInfo',
   getUserBasicInfo: 'getUserBasicInfo',
@@ -104,5 +106,20 @@ export const useDeleteNavigation = (blogUrl: string, id: number) => {
       queryClient.invalidateQueries([QUERY_KEY_DASHBOARD.getNavList]);
     },
   });
+  return mutation;
+};
+
+export const useUpdateNavigation = (blogUrl: string, id: number, name: string, isPage: boolean, navUrl: string) => {
+  const queryClient = useQueryClient();
+
+  const mutation = useMutation(
+    [QUERY_KEY_DASHBOARD.updateNavigation],
+    () => updateNavigation(blogUrl, id, name, isPage, navUrl),
+    {
+      onSuccess: () => {
+        queryClient.invalidateQueries([QUERY_KEY_DASHBOARD.getNavList]);
+      },
+    },
+  );
   return mutation;
 };

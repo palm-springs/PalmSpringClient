@@ -87,6 +87,16 @@ export const postNavigation = async (blogUrl: string, name: string, isPage: bool
 };
 
 export const deleteNavigation = async (blogUrl: string, id: number) => {
-  const { data } = await client.post(`/api/v1/nav/${blogUrl}/admin/remove?id=${String(id)}`);
+  const { data } = await client.delete(`/api/v1/nav/${blogUrl}/admin/remove?id=${String(id)}`);
+  return data;
+};
+
+export const updateNavigation = async (blogUrl: string, id: number, name: string, isPage: boolean, navUrl: string) => {
+  const { data } = await client.patch<Response<null>>(`/api/v1/nav/${blogUrl}/admin/modify`, {
+    id,
+    name,
+    isPage,
+    navUrl,
+  });
   return data;
 };
