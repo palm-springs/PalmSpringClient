@@ -58,7 +58,7 @@ const AuthRequired = ({ children }: { children: React.ReactNode }) => {
         // console.log('액세스 토큰 다시 받을게요~');
         // await refresh();
         const { accessTokenState } = JSON.parse(accessToken);
-        console.log(accessTokenState);
+        // console.log(accessTokenState);
         config.headers.Authorization = `Bearer ${accessTokenState}`;
       } else {
         router.push('/auth');
@@ -71,8 +71,6 @@ const AuthRequired = ({ children }: { children: React.ReactNode }) => {
         if (response.status >= 400) throw new Error(response.data);
         const { config } = response;
         const { code, message } = response.data;
-
-        console.log(response, code, message);
 
         // access token 만료
         if (code === 401) {
