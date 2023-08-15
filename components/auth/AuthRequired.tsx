@@ -49,7 +49,7 @@ const AuthRequired = ({ children }: { children: React.ReactNode }) => {
       // access token 재발급 성공
       case 200:
         setAccessToken(accessToken);
-        client.defaults.headers.common.Authorization = `Bearer ${accessToken}`;
+        axios.defaults.headers.common.Authorization = `Bearer ${accessToken}`;
         return status;
       default:
         break;
