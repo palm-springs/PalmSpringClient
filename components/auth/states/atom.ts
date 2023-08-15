@@ -16,8 +16,8 @@ export const accessTokenState = atom<string | null>({
     persistAtom,
     ({ onSet }) => {
       onSet((newAccessToken) => {
-        console.log('here');
-        client.defaults.headers.common['Authorization'] = `Bearer ${newAccessToken}`;
+        console.log('atom에서 헤더 갈아끼우기');
+        client.defaults.headers.common.Authorization = `Bearer ${newAccessToken}`;
       });
     },
   ],
