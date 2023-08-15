@@ -57,20 +57,20 @@ const AuthRequired = ({ children }: { children: React.ReactNode }) => {
 
   useEffect(() => {
     console.log('here');
-    // const requestInterceptor = client.interceptors.request.use(async (config) => {
-    //   const accessToken = sessionStorage?.getItem('userToken');
-    //   if (accessToken) {
-    //     // console.log('액세스 토큰 다시 받을게요~');
-    //     // await refresh();
-    //     const { accessTokenState } = JSON.parse(accessToken);
-    //     console.log(accessTokenState);
-    //     config.headers.Authorization = `Bearer ${accessTokenState}`;
-    //   } else {
-    //     router.push('/auth');
-    //   }
+    axios.interceptors.request.use(async (config) => {
+      const accessToken = sessionStorage?.getItem('userToken');
+      if (accessToken) {
+        console.log('헤더에 토큰 껴넣기~');
+        const { accessTokenState } = JSON.parse(accessToken);
+        console.log(accessTokenState);
+        config.headers.Authorization = `Bearer ${accessTokenState}`;
+      } else {
+        console.log('토큰 없다 안녕~');
+        router.push('/auth');
+      }
 
-    //   return config;
-    // });
+      return config;
+    });
     client.interceptors.response.use(
       // async (response) => {
       //   if (response.status >= 400) throw new Error(response.data);
@@ -102,28 +102,24 @@ const AuthRequired = ({ children }: { children: React.ReactNode }) => {
 
       //   return response;
       // },
-      async (response) => {
+      (response) => {
         console.log('response 성공');
         return response;
       },
       async (error) => {
-        const { config, status } = error;
+        const { config } = error;
         console.log(error);
 
-        if (status >= 400) {
-          // access token 만료
-          if (status === 401) {
-            console.log('Access Token is expired.');
-            const refreshStatus = await refresh();
-            switch (refreshStatus) {
-              case 201:
-                return client(config);
-              case 401:
-                router.push('/auth');
-                break;
-            }
-          }
+        console.log('Access Token is expired.');
+        const refreshStatus = await refresh();
+        switch (refreshStatus) {
+          case 201:
+            return client(config);
+          case 401:
+            router.push('/auth');
+            break;
         }
+
         return Promise.reject(error);
       },
     );
