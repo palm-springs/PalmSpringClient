@@ -51,8 +51,6 @@ const AuthRequired = ({ children }: { children: React.ReactNode }) => {
       case 200:
         setAccessToken(accessToken);
         console.log(`바꾸는거 : ${accessToken}`);
-        axios.defaults.headers.common.Authorization = `Bearer ${accessToken}`;
-        client.defaults.headers.common.Authorization = `Bearer ${accessToken}`;
         return status;
       default:
         break;
@@ -114,14 +112,14 @@ const AuthRequired = ({ children }: { children: React.ReactNode }) => {
       },
       async (error) => {
         const { config } = error;
-        // const accessToken = sessionStorage?.getItem('userToken');
+        const accessToken = sessionStorage?.getItem('userToken');
         console.log(error);
 
         console.log('Access Token is expired.');
         const refreshStatus = await refresh();
         switch (refreshStatus) {
           case 200:
-            // config.headers.Authorization = `Bearer ${accessToken}`;
+            config.headers.Authorization = `Bearer ${accessToken}`;
             return client(config);
           case 401:
             router.push('/auth');
