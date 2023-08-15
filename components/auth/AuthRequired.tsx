@@ -114,13 +114,14 @@ const AuthRequired = ({ children }: { children: React.ReactNode }) => {
       },
       async (error) => {
         const { config } = error;
+        // const accessToken = sessionStorage?.getItem('userToken');
         console.log(error);
 
         console.log('Access Token is expired.');
         const refreshStatus = await refresh();
         switch (refreshStatus) {
           case 200:
-            // config.headers.Authorization = `Bearer ${accessTokenState}`;
+            // config.headers.Authorization = `Bearer ${accessToken}`;
             return client(config);
           case 401:
             router.push('/auth');
