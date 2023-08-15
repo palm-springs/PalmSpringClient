@@ -21,8 +21,8 @@ const AuthRequired = ({ children }: { children: React.ReactNode }) => {
     if (accessToken) {
       const { accessTokenState } = JSON.parse(accessToken);
       console.log(accessTokenState);
-      axios.defaults.headers.Authorization = `Bearer ${accessTokenState}`;
-      client.defaults.headers.Authorization = `Bearer ${accessTokenState}`;
+      axios.defaults.headers.common.Authorization = `Bearer ${accessTokenState}`;
+      client.defaults.headers.common.Authorization = `Bearer ${accessTokenState}`;
     } else {
       router.push('/auth');
     }
@@ -51,7 +51,7 @@ const AuthRequired = ({ children }: { children: React.ReactNode }) => {
       case 200:
         setAccessToken(accessToken);
         axios.defaults.headers.common.Authorization = `Bearer ${accessToken}`;
-        client.defaults.headers.Authorization = `Bearer ${accessTokenState}`;
+        client.defaults.headers.common.Authorization = `Bearer ${accessToken}`;
         return status;
       default:
         break;
@@ -119,7 +119,7 @@ const AuthRequired = ({ children }: { children: React.ReactNode }) => {
         const refreshStatus = await refresh();
         switch (refreshStatus) {
           case 200:
-            config.headers.Authorization = `Bearer ${accessTokenState}`;
+            // config.headers.Authorization = `Bearer ${accessTokenState}`;
             return client(config);
           case 401:
             router.push('/auth');
