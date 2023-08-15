@@ -71,7 +71,7 @@ const AuthRequired = ({ children }: { children: React.ReactNode }) => {
 
     //   return config;
     // });
-    const responseInterceptor = client.interceptors.response.use(
+    client.interceptors.response.use(
       // async (response) => {
       //   if (response.status >= 400) throw new Error(response.data);
       //   const { config, status } = response;
@@ -130,7 +130,7 @@ const AuthRequired = ({ children }: { children: React.ReactNode }) => {
 
     return () => {
       // client.interceptors.request.eject(requestInterceptor);
-      client.interceptors.response.eject(responseInterceptor);
+      // client.interceptors.response.eject(responseInterceptor);
     };
   }, []);
 
