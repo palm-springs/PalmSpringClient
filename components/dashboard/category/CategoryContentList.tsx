@@ -1,7 +1,7 @@
 'use client';
 
 import React from 'react';
-import { useParams, useRouter } from 'next/navigation';
+import { useParams } from 'next/navigation';
 
 import EmptyLanding from '@/components/common/ui/EmptyLanding';
 import { useGetCategoryList } from '@/hooks/dashboard';
@@ -9,12 +9,12 @@ import { useGetCategoryList } from '@/hooks/dashboard';
 import DashBoardContent from '../components/DashBoardContent';
 import DashBoardContentListContainer from '../components/ui/DashBoardContentListContainer';
 
+import IndivCategoryDashboardContent from './IndivCategoryDashboardContent';
+
 const CategoryContentList = () => {
   const { team: blogUrl } = useParams();
 
   const data = useGetCategoryList(blogUrl);
-
-  const router = useRouter();
 
   if (!data || data.data.length === 0)
     return (
@@ -32,15 +32,13 @@ const CategoryContentList = () => {
       <DashBoardContent id="컨텐츠바" content="이름" url="URL" description="한 줄 소개" />
       {data.data.map(({ id, name, categoryUrl, description }) => {
         return (
-          <DashBoardContent
+          <IndivCategoryDashboardContent
             key={id}
-            id={String(id)}
+            id={Number(id)}
             content={name}
-            url={`/category/${categoryUrl}`}
+            categoryUrl={categoryUrl}
+            blogUrl={blogUrl}
             description={description}
-            onTitleClick={() => {
-              router.push(`/${blogUrl}/home/${categoryUrl}`);
-            }}
           />
         );
       })}
