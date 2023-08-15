@@ -30,6 +30,7 @@ export const postSocialLogin = async (platform: string, AccessToken: string) => 
   return data;
 };
 
+// 리프레시 토큰 재발급
 export const getRefreshToken = async () => {
   const { data } = await axios.get(`${process.env.NEXT_PUBLIC_BASE_URL}/api/v1/auth/reissue`, {
     withCredentials: true,
