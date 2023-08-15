@@ -46,12 +46,12 @@ const AuthRequired = ({ children }: { children: React.ReactNode }) => {
         console.log('Refresh Token is expired.');
         resetAccessToken();
         sessionStorage?.removeItem('userToken');
-        return status;
+        return { status, newToken: null };
       // access token 재발급 성공
       case 200:
         setAccessToken(accessToken);
         console.log(`바꾸는거 : ${accessToken}`);
-        return status;
+        return { status, newToken: accessToken };
       default:
         break;
     }
@@ -112,14 +112,13 @@ const AuthRequired = ({ children }: { children: React.ReactNode }) => {
       },
       async (error) => {
         const { config } = error;
-        const accessToken = sessionStorage?.getItem('userToken');
         console.log(error);
 
         console.log('Access Token is expired.');
-        const refreshStatus = await refresh();
-        switch (refreshStatus) {
+        const refreshData = await refresh();
+        switch (refreshData?.status) {
           case 200:
-            config.headers.Authorization = `Bearer ${accessToken}`;
+            config.headers.Authorization = `Bearer ${refreshData?.newToken}`;
             return client(config);
           case 401:
             router.push('/auth');
