@@ -47,7 +47,7 @@ const AuthRequired = ({ children }: { children: React.ReactNode }) => {
         sessionStorage?.removeItem('userToken');
         return status;
       // access token 재발급 성공
-      case 201:
+      case 200:
         setAccessToken(accessToken);
         return status;
       default:
@@ -59,6 +59,8 @@ const AuthRequired = ({ children }: { children: React.ReactNode }) => {
     console.log('here');
     axios.interceptors.request.use(async (config) => {
       const accessToken = sessionStorage?.getItem('userToken');
+      console.log(accessToken);
+      console.log('request interceptor');
       if (accessToken) {
         console.log('헤더에 토큰 껴넣기~');
         const { accessTokenState } = JSON.parse(accessToken);
@@ -113,7 +115,7 @@ const AuthRequired = ({ children }: { children: React.ReactNode }) => {
         console.log('Access Token is expired.');
         const refreshStatus = await refresh();
         switch (refreshStatus) {
-          case 201:
+          case 200:
             return client(config);
           case 401:
             router.push('/auth');
