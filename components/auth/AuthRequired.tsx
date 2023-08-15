@@ -1,7 +1,6 @@
 'use client';
 import { useEffect } from 'react';
 import axios, { AxiosError } from 'axios';
-import { error } from 'console';
 import { useRouter } from 'next/navigation';
 import { useResetRecoilState, useSetRecoilState } from 'recoil';
 
@@ -30,24 +29,28 @@ const AuthRequired = ({ children }: { children: React.ReactNode }) => {
 
   // access token 재발급 요청 함수
   const refresh = async () => {
+    console.log('refresh');
     const {
-      code,
-      data: { accessToken },
+      status,
+      data: {
+        data: { accessToken },
+      },
     } = await getRefreshToken();
 
-    console.log('refresh');
-    console.log(code);
-    switch (code) {
+    console.log(status);
+
+    switch (status) {
       // refresh token 만료
       case 401:
-        router.push('/auth');
-        break;
+        console.log('Refresh Token is expired.');
+        resetAccessToken();
+        sessionStorage?.removeItem('userToken');
+        return status;
       // access token 재발급 성공
       case 201:
         setAccessToken(accessToken);
-        break;
+        return status;
       default:
-        router.push('/auth');
         break;
     }
   };
@@ -69,66 +72,56 @@ const AuthRequired = ({ children }: { children: React.ReactNode }) => {
     //   return config;
     // });
     const responseInterceptor = client.interceptors.response.use(
+      // async (response) => {
+      //   if (response.status >= 400) throw new Error(response.data);
+      //   const { config, status } = response;
+      //   const { code, message } = response.data;
+
+      //   console.log(response, status, code, message);
+
+      //   // access token 만료
+      //   if (status === 401) {
+      //     console.log('일단 여기에요');
+      //     router.push('/auth');
+      //     if (message === 'Access Token is expired.') {
+      //       await refresh();
+      //       console.log('여기까지 오지롱');
+      //       return client(config);
+      //     } else if (message === 'Refresh Token is expired.') {
+      //       resetAccessToken();
+      //       console.log('heeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeere');
+      //       router.push('/auth');
+      //     }
+      //   } else if (status === 400) {
+      //     sessionStorage?.removeItem('userToken');
+      //     router.push('/auth');
+      //   } else if (status === 403) {
+      //     sessionStorage?.removeItem('userToken');
+      //     router.push('/auth');
+      //   }
+
+      //   return response;
+      // },
       async (response) => {
-        if (response.status >= 400) throw new Error(response.data);
-        const { config, status } = response;
-        const { code, message } = response.data;
-
-        console.log(response, status, code, message);
-
-        // access token 만료
-        if (status === 401) {
-          console.log('일단 여기에요');
-          router.push('/auth');
-          if (message === 'Access Token is expired.') {
-            await refresh();
-            console.log('여기까지 오지롱');
-            return client(config);
-          } else if (message === 'Refresh Token is expired.') {
-            resetAccessToken();
-            console.log('heeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeere');
-            router.push('/auth');
-          }
-        } else if (status === 400) {
-          sessionStorage?.removeItem('userToken');
-          router.push('/auth');
-        } else if (status === 403) {
-          sessionStorage?.removeItem('userToken');
-          router.push('/auth');
-        }
-
+        console.log('response 성공');
         return response;
       },
       async (error) => {
-        const {
-          config,
-          status,
-          data: { message },
-        } = error;
+        const { config, status } = error;
+        console.log(error);
 
         if (status >= 400) {
           // access token 만료
           if (status === 401) {
-            console.log('일단 여기에요');
-            router.push('/auth');
-            // 액세스 토큰 만료
-            if (message === 'Access Token is expired.') {
-              await refresh();
-              console.log('Access Token is expired.');
-              return client(config);
+            console.log('Access Token is expired.');
+            const refreshStatus = await refresh();
+            switch (refreshStatus) {
+              case 201:
+                return client(config);
+              case 401:
+                router.push('/auth');
+                break;
             }
-            // 리프레시 토큰 만료
-            else if (message === 'Refresh Token is expired.') {
-              resetAccessToken();
-              console.log('Refresh Token is expired.');
-              router.push('/auth');
-            }
-          } else if (status === 400) {
-            sessionStorage?.removeItem('userToken');
-            router.push('/auth');
-          } else if (status === 403) {
-            sessionStorage?.removeItem('userToken');
-            router.push('/auth');
           }
         }
         return Promise.reject(error);
