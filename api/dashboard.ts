@@ -92,7 +92,7 @@ export const deleteNavigation = async (blogUrl: string, id: number) => {
 };
 
 export const updateNavigation = async (blogUrl: string, id: number, name: string, isPage: boolean, navUrl: string) => {
-  const { data } = await client.patch<Response<null>>(`/api/v1/nav/${blogUrl}/admin/modify`, {
+  const { data } = await client.put<Response<null>>(`/api/v1/nav/${blogUrl}/admin/modify`, {
     id,
     name,
     isPage,
