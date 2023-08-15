@@ -38,5 +38,6 @@ export const getRefreshToken = async () => {
       'Content-Type': 'application/json',
     },
   });
+  console.log('여기는 리프레시 토큰 재발급중', data);
   return data;
 };
