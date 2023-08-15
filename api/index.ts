@@ -13,8 +13,10 @@ const sessionStorage = typeof window !== 'undefined' ? window.sessionStorage : u
 
 const accessToken = sessionStorage?.getItem('userToken');
 if (accessToken) {
+  console.log('여기는 client 설정하는 곳에서 header 갈아끼움');
   const { accessTokenState } = JSON.parse(accessToken);
   axios.defaults.headers.Authorization = `Bearer ${accessTokenState}`;
+  client.defaults.headers.Authorization = `Bearer ${accessTokenState}`;
 }
 
 export default client;

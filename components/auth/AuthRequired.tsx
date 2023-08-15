@@ -22,6 +22,7 @@ const AuthRequired = ({ children }: { children: React.ReactNode }) => {
       const { accessTokenState } = JSON.parse(accessToken);
       console.log(accessTokenState);
       axios.defaults.headers.Authorization = `Bearer ${accessTokenState}`;
+      client.defaults.headers.Authorization = `Bearer ${accessTokenState}`;
     } else {
       router.push('/auth');
     }
@@ -50,6 +51,7 @@ const AuthRequired = ({ children }: { children: React.ReactNode }) => {
       case 200:
         setAccessToken(accessToken);
         axios.defaults.headers.common.Authorization = `Bearer ${accessToken}`;
+        client.defaults.headers.Authorization = `Bearer ${accessTokenState}`;
         return status;
       default:
         break;
