@@ -1,5 +1,3 @@
-import { useMutation } from '@tanstack/react-query';
-
 import { Response } from '@/types/common';
 import { CategoryListProps, NavListProps, PageListProps, TempSavedListProps } from '@/types/dashboard';
 import { MemberProps } from '@/types/member';
@@ -98,5 +96,24 @@ export const updateNavigation = async (blogUrl: string, id: number, name: string
     isPage,
     navUrl,
   });
+  return data;
+};
+
+export const deleteCategory = async (blogUrl: string, id: number) => {
+  const { data } = await client.delete(`/api/v1/category/${blogUrl}/admin/remove?id=${id}`);
+  return data;
+};
+
+export const updateCategory = async (blogUrl: string, id: number, name: string, description: string) => {
+  const { data } = await client.put(`/api/v1/category/${blogUrl}/admin/modify`, {
+    id,
+    name,
+    description,
+  });
+  return data;
+};
+
+export const deletePage = async (blogUrl: string, id: number) => {
+  const { data } = await client.delete(`/api/v1/page/${blogUrl}/admin/remove?id=${id}`);
   return data;
 };

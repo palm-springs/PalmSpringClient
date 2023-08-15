@@ -2,7 +2,9 @@ import { useMutation, useQuery, useQueryClient } from '@tanstack/react-query';
 
 import { getBlogHeaderInfo } from '@/api/blog';
 import {
+  deleteCategory,
   deleteNavigation,
+  deletePage,
   getCategoryList,
   getMemberList,
   getNavList,
@@ -12,6 +14,7 @@ import {
   getUserInfo,
   postCategory,
   postNavigation,
+  updateCategory,
   updateNavigation,
 } from '@/api/dashboard';
 
@@ -20,8 +23,11 @@ const QUERY_KEY_DASHBOARD = {
   getCategoryList: 'getCategoryList',
   getBlogHeader: 'getBlogHeader',
   getPageList: 'getPageList',
+  deletePage: 'deletePage',
   getTempSavedList: 'getTempSavedList',
   postCategory: 'postCategory',
+  updateCategory: 'updateCategory',
+  deleteCategory: 'deleteCategory',
   postNavigation: 'postNavigation',
   deleteNavigation: 'deleteNavigation',
   updateNavigation: 'updateNavigation',
@@ -121,5 +127,42 @@ export const useUpdateNavigation = (blogUrl: string, id: number, name: string, i
       },
     },
   );
+  return mutation;
+};
+
+export const useDeleteCategory = (blogUrl: string, id: number) => {
+  const queryClient = useQueryClient();
+
+  const mutation = useMutation([QUERY_KEY_DASHBOARD.deleteCategory], () => deleteCategory(blogUrl, id), {
+    onSuccess: () => {
+      queryClient.invalidateQueries([QUERY_KEY_DASHBOARD.getCategoryList]);
+    },
+  });
+  return mutation;
+};
+
+export const useUpdateCategory = (blogUrl: string, id: number, name: string, description: string) => {
+  const queryClient = useQueryClient();
+
+  const mutation = useMutation(
+    [QUERY_KEY_DASHBOARD.updateCategory],
+    () => updateCategory(blogUrl, id, name, description),
+    {
+      onSuccess: () => {
+        queryClient.invalidateQueries([QUERY_KEY_DASHBOARD.getCategoryList]);
+      },
+    },
+  );
+  return mutation;
+};
+
+export const useDeletePage = (blogUrl: string, id: number) => {
+  const queryClient = useQueryClient();
+
+  const mutation = useMutation([QUERY_KEY_DASHBOARD.deletePage], () => deletePage(blogUrl, id), {
+    onSuccess: () => {
+      queryClient.invalidateQueries([QUERY_KEY_DASHBOARD.getPageList]);
+    },
+  });
   return mutation;
 };
