@@ -67,8 +67,8 @@ const AuthRequired = ({ children }: { children: React.ReactNode }) => {
       if (accessToken) {
         console.log('헤더에 토큰 껴넣기~');
         const { accessTokenState } = JSON.parse(accessToken);
-        console.log(accessTokenState);
         config.headers.Authorization = `Bearer ${accessTokenState}`;
+        console.log(accessTokenState);
       } else {
         console.log('토큰 없다 안녕~');
         router.push('/auth');
@@ -119,6 +119,7 @@ const AuthRequired = ({ children }: { children: React.ReactNode }) => {
         const refreshStatus = await refresh();
         switch (refreshStatus) {
           case 200:
+            config.headers.Authorization = `Bearer ${accessTokenState}`;
             return client(config);
           case 401:
             router.push('/auth');
