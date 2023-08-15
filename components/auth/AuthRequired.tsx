@@ -50,6 +50,7 @@ const AuthRequired = ({ children }: { children: React.ReactNode }) => {
       // access token 재발급 성공
       case 200:
         setAccessToken(accessToken);
+        console.log(`바꾸는거 : ${accessToken}`);
         axios.defaults.headers.common.Authorization = `Bearer ${accessToken}`;
         client.defaults.headers.common.Authorization = `Bearer ${accessToken}`;
         return status;
@@ -60,22 +61,22 @@ const AuthRequired = ({ children }: { children: React.ReactNode }) => {
 
   useEffect(() => {
     console.log('here');
-    axios.interceptors.request.use(async (config) => {
-      const accessToken = sessionStorage?.getItem('userToken');
-      console.log(accessToken);
-      console.log('request interceptor');
-      if (accessToken) {
-        console.log('헤더에 토큰 껴넣기~');
-        const { accessTokenState } = JSON.parse(accessToken);
-        config.headers.Authorization = `Bearer ${accessTokenState}`;
-        console.log(accessTokenState);
-      } else {
-        console.log('토큰 없다 안녕~');
-        router.push('/auth');
-      }
+    // axios.interceptors.request.use(async (config) => {
+    //   const accessToken = sessionStorage?.getItem('userToken');
+    //   console.log(accessToken);
+    //   console.log('request interceptor');
+    //   if (accessToken) {
+    //     console.log('헤더에 토큰 껴넣기~');
+    //     const { accessTokenState } = JSON.parse(accessToken);
+    //     config.headers.Authorization = `Bearer ${accessTokenState}`;
+    //     console.log(accessTokenState);
+    //   } else {
+    //     console.log('토큰 없다 안녕~');
+    //     router.push('/auth');
+    //   }
 
-      return config;
-    });
+    //   return config;
+    // });
     client.interceptors.response.use(
       // async (response) => {
       //   if (response.status >= 400) throw new Error(response.data);
