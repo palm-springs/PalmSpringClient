@@ -31,29 +31,32 @@ const AuthRequired = ({ children }: { children: React.ReactNode }) => {
   // access token 재발급 요청 함수
   const refresh = async () => {
     console.log('refresh');
-    const {
-      status,
-      data: {
-        data: { accessToken },
-      },
-    } = await getRefreshToken();
+    const newRefreshData = await getRefreshToken();
 
-    console.log(status);
+    if (newRefreshData) {
+      const {
+        status,
+        data: {
+          data: { accessToken },
+        },
+      } = newRefreshData;
+      console.log(status);
 
-    switch (status) {
-      // refresh token 만료
-      case 401:
-        console.log('Refresh Token is expired.');
-        resetAccessToken();
-        sessionStorage?.removeItem('userToken');
-        return { status, newToken: null };
-      // access token 재발급 성공
-      case 200:
-        setAccessToken(accessToken);
-        console.log(`바꾸는거 : ${accessToken}`);
-        return { status, newToken: accessToken };
-      default:
-        break;
+      switch (status) {
+        // refresh token 만료
+        case 401:
+          console.log('Refresh Token is expired.');
+          resetAccessToken();
+          sessionStorage?.removeItem('userToken');
+          return { status, newToken: null };
+        // access token 재발급 성공
+        case 200:
+          setAccessToken(accessToken);
+          console.log(`바꾸는거 : ${accessToken}`);
+          return { status, newToken: accessToken };
+        default:
+          break;
+      }
     }
   };
 
