@@ -68,7 +68,7 @@ export const getUserBasicInfo = async (blogUrl: string) => {
 };
 
 export const postCategory = async (blogUrl: string, name: string, description: string) => {
-  const { data } = await client.post<Response<null>>(`/api/v1/category/${blogUrl}/create`, {
+  const { data } = await client.post<Response<null>>(`/api/v1/category/${blogUrl}/admin/create`, {
     name,
     description,
   });
@@ -100,12 +100,15 @@ export const updateNavigation = async (blogUrl: string, id: number, name: string
 };
 
 export const deleteCategory = async (blogUrl: string, id: number) => {
-  const { data } = await client.delete(`/api/v1/category/${blogUrl}/admin/remove?id=${id}`);
+  const { data } = await client.delete<Response<null>>(`/api/v1/category/${blogUrl}/admin/remove?id=${id}`);
+  if (data.code === 406) {
+    alert('카테고리 안에 글이 없어야해요~');
+  }
   return data;
 };
 
 export const updateCategory = async (blogUrl: string, id: number, name: string, description: string) => {
-  const { data } = await client.put(`/api/v1/category/${blogUrl}/admin/modify`, {
+  const { data } = await client.put<Response<null>>(`/api/v1/category/${blogUrl}/admin/modify`, {
     id,
     name,
     description,
@@ -114,6 +117,6 @@ export const updateCategory = async (blogUrl: string, id: number, name: string, 
 };
 
 export const deletePage = async (blogUrl: string, id: number) => {
-  const { data } = await client.delete(`/api/v1/page/${blogUrl}/admin/remove?id=${id}`);
+  const { data } = await client.delete<Response<null>>(`/api/v1/page/${blogUrl}/admin/remove?id=${id}`);
   return data;
 };
