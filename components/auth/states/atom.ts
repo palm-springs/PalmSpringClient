@@ -1,3 +1,4 @@
+import axios from 'axios';
 import { atom } from 'recoil';
 import { recoilPersist } from 'recoil-persist';
 
@@ -16,8 +17,9 @@ export const accessTokenState = atom<string | null>({
     persistAtom,
     ({ onSet }) => {
       onSet((newAccessToken) => {
-        console.log('here');
-        client.defaults.headers.common['Authorization'] = `Bearer ${newAccessToken}`;
+        console.log('atom에서 헤더 갈아끼우기');
+        axios.defaults.headers.common.Authorization = `Bearer ${newAccessToken}`;
+        client.defaults.headers.common.Authorization = `Bearer ${newAccessToken}`;
       });
     },
   ],
