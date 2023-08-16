@@ -48,13 +48,12 @@ const AuthRequired = ({ children }: { children: React.ReactNode }) => {
         return response;
       },
       async (error) => {
-        const {
-          config,
-          response: { status },
-        } = error;
-        console.log(error.response);
+        const { config } = error;
+        console.log('에러임');
+        console.log(error);
+        console.log(error.response.status);
 
-        if (status === 401) {
+        if (error.response.status === 401) {
           console.log('Access Token is expired.');
           const newAccessToken = await refresh();
           config.headers.Authorization = `Bearer ${newAccessToken}`;
