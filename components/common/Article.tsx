@@ -53,6 +53,11 @@ const ArticleContainer = styled(Link)`
   width: 100%;
   height: 17rem;
 
+  &.hover {
+    transform: translateY(0.8rem);
+    transition: 0.3s ease-in-out;
+  }
+
   &.hover:hover {
     transform: translateY(-0.8rem);
     transition: 0.3s ease-in-out;
