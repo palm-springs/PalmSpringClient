@@ -3,7 +3,6 @@
 import React from 'react';
 import { useParams } from 'next/navigation';
 
-import AuthRequired from '@/components/auth/AuthRequired';
 import BlogFooter from '@/components/common/BlogFooter';
 import BlogHeader from '@/components/common/BlogHeader';
 import LoadingLottie from '@/components/common/ui/LoadingLottie';
@@ -20,11 +19,11 @@ const ContentLayout = ({ children }: { children: React.ReactElement }) => {
   } = res;
 
   return (
-    <AuthRequired>
+    <>
       <BlogHeader logo={logo} blogName={blogName} />
       <main>{children}</main>
       <BlogFooter />
-    </AuthRequired>
+    </>
   );
 };
 
