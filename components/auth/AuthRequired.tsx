@@ -58,7 +58,7 @@ const AuthRequired = ({ children }: { children: React.ReactNode }) => {
         }
 
         console.log('response 있다.');
-        return Promise.reject(error);
+        return error.response;
       },
     );
 
