@@ -1,6 +1,6 @@
 'use client';
 import { useEffect } from 'react';
-import axios, { AxiosError } from 'axios';
+import axios from 'axios';
 import { useRouter } from 'next/navigation';
 import { useResetRecoilState, useSetRecoilState } from 'recoil';
 
@@ -35,23 +35,9 @@ const AuthRequired = ({ children }: { children: React.ReactNode }) => {
       data: { accessToken },
     } = await getRefreshToken();
 
-    console.log(status);
-
-    // switch (status) {
-    //   // refresh token 만료
-    //   case 401:
-    //   console.log('Refresh Token is expired.');
-    //   resetAccessToken();
-    //   sessionStorage?.removeItem('userToken');
-    //   return { status, newToken: null };
-    // // access token 재발급 성공
-    // case 200:
     setAccessToken(accessToken);
     console.log(`바꾸는거 : ${accessToken}`);
     return accessToken;
-    // default:
-    //   break;
-    // }
   };
 
   useEffect(() => {
@@ -62,19 +48,18 @@ const AuthRequired = ({ children }: { children: React.ReactNode }) => {
         return response;
       },
       async (error) => {
-        const { config } = error;
-        console.log(error);
+        const {
+          config,
+          response: { status },
+        } = error;
+        console.log(status);
 
-        console.log('Access Token is expired.');
-        const newAccessToken = await refresh();
-        // switch (refreshData?.status) {
-        //   case 200:
-        config.headers.Authorization = `Bearer ${newAccessToken}`;
-        return client(config);
-        //   case 401:
-        //     router.push('/auth');
-        //     break;
-        // }
+        if (status === 401) {
+          console.log('Access Token is expired.');
+          const newAccessToken = await refresh();
+          config.headers.Authorization = `Bearer ${newAccessToken}`;
+          return client(config);
+        }
 
         return Promise.reject(error);
       },
