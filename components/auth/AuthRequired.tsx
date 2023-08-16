@@ -52,7 +52,7 @@ const AuthRequired = ({ children }: { children: React.ReactNode }) => {
           config,
           response: { status },
         } = error;
-        console.log(status);
+        console.log(error.response);
 
         if (status === 401) {
           console.log('Access Token is expired.');
@@ -80,6 +80,7 @@ const AuthRequired = ({ children }: { children: React.ReactNode }) => {
     );
 
     return () => {
+      console.log('interceptor 제거 위치');
       // client.interceptors.request.eject(requestInterceptor);
       // client.interceptors.response.eject(responseInterceptor);
     };
