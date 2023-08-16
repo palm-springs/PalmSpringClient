@@ -1,6 +1,6 @@
 'use client';
 import { useEffect } from 'react';
-import axios from 'axios';
+import axios, { AxiosError } from 'axios';
 import { useRouter } from 'next/navigation';
 import { useResetRecoilState, useSetRecoilState } from 'recoil';
 
@@ -48,16 +48,19 @@ const AuthRequired = ({ children }: { children: React.ReactNode }) => {
         return response;
       },
       async (error) => {
-        const { config } = error;
+        const err = error as AxiosError;
+        const { config } = err;
         console.log('에러임');
-        console.log(error);
-        console.log(error.response.status);
+        console.log(err);
+        console.log(err.response?.status);
 
-        if (error.response.status === 401) {
+        if (err.response?.status === 401) {
           console.log('Access Token is expired.');
           const newAccessToken = await refresh();
-          config.headers.Authorization = `Bearer ${newAccessToken}`;
-          return client(config);
+          if (config) {
+            config.headers.Authorization = `Bearer ${newAccessToken}`;
+            return client(config);
+          }
         }
 
         return Promise.reject(error);
