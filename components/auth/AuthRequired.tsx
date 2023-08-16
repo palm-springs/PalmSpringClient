@@ -48,21 +48,16 @@ const AuthRequired = ({ children }: { children: React.ReactNode }) => {
         return response;
       },
       async (error) => {
-        const err = error as AxiosError;
-        const { config } = err;
-        console.log('에러임');
-        console.log(err);
-        console.log(err.response?.status);
+        const { config } = error;
 
-        if (err.response?.status === 401) {
+        if (!error.response) {
           console.log('Access Token is expired.');
           const newAccessToken = await refresh();
-          if (config) {
-            config.headers.Authorization = `Bearer ${newAccessToken}`;
-            return client(config);
-          }
+          config.headers.Authorization = `Bearer ${newAccessToken}`;
+          return client(config);
         }
 
+        console.log('response 있다.');
         return Promise.reject(error);
       },
     );
