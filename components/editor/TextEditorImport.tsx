@@ -23,7 +23,7 @@ import html from 'highlight.js/lib/languages/xml';
 import { lowlight } from 'lowlight';
 import { useParams, useRouter } from 'next/navigation';
 
-import SaveArticleButton from '@/components/editor/article/ui/SaveArticleButton';
+import SaveEditorContentButton from '@/components/editor/ui/SaveEditorContentButton';
 
 import css from 'highlight.js/lib/languages/css';
 
@@ -32,17 +32,15 @@ lowlight.registerLanguage('css', css);
 lowlight.registerLanguage('js', js);
 lowlight.registerLanguage('ts', ts);
 
-// import ScrollTopToolbar from '@/components/editor/article/publish/ScrollTopToolbar';
-
 import { useRecoilState } from 'recoil';
 
 import { postArticleList } from '@/api/article';
 import { postPageDraft } from '@/api/page';
-import ToolBox from '@/components/editor/article/ui/ToolBox';
 import TextEditor from '@/components/editor/TextEditor';
+import ToolBox from '@/components/editor/ui/ToolBox';
 import { getImageMultipartData } from '@/utils/getImageMultipartData';
 
-import { articleDataState, pageDataState } from './article/states/atom';
+import { articleDataState, pageDataState } from './states/atom';
 interface TextEditorBuildprops {
   pageType: string;
 }
@@ -62,6 +60,7 @@ const TextEditorBuild = (props: TextEditorBuildprops) => {
     console.log(imageArr);
   }, [imageArr]);
 
+  // tiptap 라이브러리 내장 에디터 관련 기능 extentions.
   const editor = useEditor({
     extensions: [
       StarterKit,
@@ -105,6 +104,7 @@ const TextEditorBuild = (props: TextEditorBuildprops) => {
     content: '',
   });
 
+  //encodeFileToBase64 => 코드 변환
   const encodeFileToBase64 = async (event: ChangeEvent<HTMLInputElement>, editor: Editor) => {
     const files = event.target.files;
     if (!files || files.length === 0) {
@@ -112,18 +112,16 @@ const TextEditorBuild = (props: TextEditorBuildprops) => {
     }
     const file = files[0];
     const imgUrl = (await getImageMultipartData(file)) as string;
-    console.log(imgUrl);
     setImageArr((prev) => [...prev, imgUrl]);
-    console.log(imageArr);
 
     const reader = new FileReader();
     reader.onload = () => {
       editor.chain().focus().setImage({ src: imgUrl }).run(); // 이미지 데이터 업데이트
-      console.log(imgUrl);
     };
     reader.readAsDataURL(file);
   };
 
+  //링크 삽입 버튼
   const setLink = useCallback(
     ({ editor }: { editor: Editor }) => {
       const previousUrl = editor.getAttributes('link').href;
@@ -144,6 +142,7 @@ const TextEditorBuild = (props: TextEditorBuildprops) => {
     [editor],
   );
 
+  //이미지 drag & drop
   const handleDrop: DragEventHandler<HTMLDivElement> = useCallback(
     async (event) => {
       event.preventDefault();
@@ -174,9 +173,8 @@ const TextEditorBuild = (props: TextEditorBuildprops) => {
     return null;
   }
 
-  // post onchange, onclick 함수.
-
-  const handleOnClickDraft = () => {
+  // article page 임시저장시 post
+  const handleOnClickArticleDraft = () => {
     if (editor) {
       const content = editor.getHTML();
       setExtractedHTML(content);
@@ -189,6 +187,7 @@ const TextEditorBuild = (props: TextEditorBuildprops) => {
     }
   };
 
+  // page page 임시저장시 post
   const handleOnClickPageDraft = () => {
     if (editor) {
       const content = editor.getHTML();
@@ -209,7 +208,8 @@ const TextEditorBuild = (props: TextEditorBuildprops) => {
     }
   };
 
-  const handleOnClickPublish = () => {
+  // article page 저장시 내용 가지고 발행하기 페이지로 이동
+  const handleOnClickArticlePublish = () => {
     if (editor) {
       const content = editor.getHTML();
       setExtractedHTML(content);
@@ -223,6 +223,7 @@ const TextEditorBuild = (props: TextEditorBuildprops) => {
     }
   };
 
+  // page page 저장시 내용 가지고 발행하기 페이지로 이동
   const handleOnClickPagePublish = () => {
     if (editor) {
       const content = editor.getHTML();
@@ -237,17 +238,16 @@ const TextEditorBuild = (props: TextEditorBuildprops) => {
     }
   };
 
-  //조건문
-
+  // article, page에 따라 article page, page page에서 각각 렌더링 되도록 조건함.
   switch (pageType) {
     case `article`:
       return (
         <>
           <ToolBox editor={editor} encodeFileToBase64={encodeFileToBase64} setLink={setLink} />
           <TextEditor editor={editor} handleDrop={handleDrop} handleDragOver={handleDragOver} />
-          <SaveArticleButton
-            handleOnClickDraft={handleOnClickDraft}
-            handleOnClickPublish={handleOnClickPublish}
+          <SaveEditorContentButton
+            handleOnClickArticleDraft={handleOnClickArticleDraft}
+            handleOnClickArticlePublish={handleOnClickArticlePublish}
             handleOnClickPageDraft={handleOnClickPageDraft}
             handleOnClickPagePublish={handleOnClickPagePublish}
           />
@@ -258,9 +258,9 @@ const TextEditorBuild = (props: TextEditorBuildprops) => {
         <>
           <ToolBox editor={editor} encodeFileToBase64={encodeFileToBase64} setLink={setLink} />
           <TextEditor editor={editor} handleDrop={handleDrop} handleDragOver={handleDragOver} />
-          <SaveArticleButton
-            handleOnClickDraft={handleOnClickDraft}
-            handleOnClickPublish={handleOnClickPublish}
+          <SaveEditorContentButton
+            handleOnClickArticleDraft={handleOnClickArticleDraft}
+            handleOnClickArticlePublish={handleOnClickArticlePublish}
             handleOnClickPageDraft={handleOnClickPageDraft}
             handleOnClickPagePublish={handleOnClickPagePublish}
           />

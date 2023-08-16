@@ -1,9 +1,7 @@
 'use client';
 
-import React, { Dispatch, SetStateAction } from 'react';
+import React from 'react';
 import styled from 'styled-components';
-
-import BLOG_BASIC_INFO_DATA from '@/constants/blogBasicInfoData';
 
 interface BlogNameProps {
   blogName: string;
@@ -43,4 +41,8 @@ const BlogNameText = styled.input`
   width: 64.5rem;
   height: 4.6rem;
   color: ${({ theme }) => theme.colors.grey_950};
+  &:focus {
+    outline: none;
+    border: 1px solid ${({ theme }) => theme.colors.grey_700};
+  }
 `;

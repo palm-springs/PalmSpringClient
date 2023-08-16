@@ -3,8 +3,18 @@
 import React from 'react';
 import { styled } from 'styled-components';
 
-const DashBoardNavBtnContainer = ({ children }: { children: React.ReactNode }) => {
-  return <DashBoardNavBtnContainerUI id="dashboard_navbar_profile_btn">{children}</DashBoardNavBtnContainerUI>;
+const DashBoardNavBtnContainer = ({
+  children,
+  onDashboardClick,
+}: {
+  children: React.ReactNode;
+  onDashboardClick: () => void;
+}) => {
+  return (
+    <DashBoardNavBtnContainerUI id="dashboard_navbar_profile_btn" onClick={onDashboardClick}>
+      {children}
+    </DashBoardNavBtnContainerUI>
+  );
 };
 
 export default DashBoardNavBtnContainer;

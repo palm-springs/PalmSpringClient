@@ -6,11 +6,14 @@ import { styled } from 'styled-components';
 import { dashBoardPageType } from '@/types/dashboard';
 
 interface PopOverMenuProps {
+  onNavigateContentClick?: React.MouseEventHandler<HTMLButtonElement>;
+  onMutateButtonClick?: React.MouseEventHandler<HTMLButtonElement>;
+  onDeleteButtonClick?: React.MouseEventHandler<HTMLButtonElement>;
   pathName: dashBoardPageType | 'dashboard';
 }
 
 const PopOverMenu = (props: PopOverMenuProps) => {
-  const { pathName } = props;
+  const { onNavigateContentClick, onMutateButtonClick, pathName, onDeleteButtonClick } = props;
 
   const navigateContent = () => {
     switch (pathName) {
@@ -25,9 +28,9 @@ const PopOverMenu = (props: PopOverMenuProps) => {
 
   return (
     <PopOverMenuUI className="pop_over_menu">
-      <div>{navigateContent()}</div>
-      <div>수정하기</div>
-      <div>삭제하기</div>
+      <button onMouseDown={onNavigateContentClick}>{navigateContent()}</button>
+      <button onMouseDown={onMutateButtonClick}>수정하기</button>
+      <button onMouseDown={onDeleteButtonClick}>삭제하기</button>
     </PopOverMenuUI>
   );
 };
@@ -53,7 +56,7 @@ const PopOverMenuUI = styled.article`
   :nth-child(3) {
     color: ${({ theme }) => theme.colors.red};
   }
-  div {
+  button {
     display: flex;
     align-items: center;
     ${({ theme }) => theme.fonts.Body3_Regular};

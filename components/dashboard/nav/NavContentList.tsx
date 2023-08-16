@@ -11,6 +11,8 @@ import DashBoardContent from '../components/DashBoardContent';
 import DashBoardContentListContainer from '../components/ui/DashBoardContentListContainer';
 import { dashBoardModalState } from '../state/modalState';
 
+import IndivNavDashboardContent from './IndivNavDashboardContent';
+
 const NavContentList = () => {
   const { team: blogUrl } = useParams();
 
@@ -31,17 +33,10 @@ const NavContentList = () => {
 
   return (
     <DashBoardContentListContainer>
-      {data.data.map(({ id, name, navUrl }) => {
+      <DashBoardContent id="컨텐츠바" content="이름" url="URL" />
+      {data.data.map(({ id, name, navUrl, isPage }) => {
         return (
-          <DashBoardContent
-            key={id}
-            id={String(id)}
-            content={name}
-            url={navUrl}
-            onTitleClick={() => {
-              console.log('김서윤');
-            }}
-          />
+          <IndivNavDashboardContent key={id} id={id} content={name} url={navUrl} blogUrl={blogUrl} isPage={isPage} />
         );
       })}
     </DashBoardContentListContainer>

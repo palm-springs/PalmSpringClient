@@ -1,12 +1,12 @@
 'use client';
 
-import React, { ChangeEvent, useState } from 'react';
+import React, { ChangeEvent, useRef, useState } from 'react';
 import styled from 'styled-components';
 
 import { CloseIcon, UploadIcon } from '@/public/icons';
 
 interface BlogMainImageProps {
-  setFile: (v: File) => void;
+  setFile: (v: File | null) => void;
 }
 
 const BlogMainImage = (props: BlogMainImageProps) => {
@@ -14,10 +14,19 @@ const BlogMainImage = (props: BlogMainImageProps) => {
 
   const [preLoadImg, setPreLoadImg] = useState<string>('');
 
+  const inputImgRef = useRef<HTMLInputElement>(null);
+
   return (
     <BlogMainImageContainer>
+      <ImageGuideContainer>
+        <ImageGuideTitle>블로그 대문 이미지</ImageGuideTitle>
+        <ImageGuideContent>
+          대문 이미지 권장 크기는 <p>1920*1080 입니다</p>
+        </ImageGuideContent>
+      </ImageGuideContainer>
       <BlogMainUploadLabel>
         <input
+          ref={inputImgRef}
           type="file"
           onChange={(e: ChangeEvent<HTMLInputElement>) => {
             const file = e.target?.files![0];
@@ -30,32 +39,39 @@ const BlogMainImage = (props: BlogMainImageProps) => {
             setFile(file);
           }}
         />
-        <ImageGuideContainer>
-          <ImageGuideTitle>블로그 대문 이미지</ImageGuideTitle>
-          <ImageGuideContent>
-            대문 이미지 권장 크기는 <p>1920*1080 입니다</p>
-          </ImageGuideContent>
-        </ImageGuideContainer>
-        {preLoadImg ? (
+        {preLoadImg !== '' ? (
           <PreLoadImg src={preLoadImg} alt="블로그 메인 이미지" />
         ) : (
           <BlogMainUpload>
             <UploadIcon />
             <UploadText>업로드하기</UploadText>
-            <ImageCloseIcon />
           </BlogMainUpload>
         )}
       </BlogMainUploadLabel>
+      {preLoadImg !== '' && (
+        <DeleteImageButton
+          type="button"
+          onClick={() => {
+            setFile(null);
+            setPreLoadImg('');
+            if (inputImgRef.current) {
+              inputImgRef.current.value = '';
+            }
+          }}>
+          <CloseIcon />
+        </DeleteImageButton>
+      )}
     </BlogMainImageContainer>
   );
 };
 
 export default BlogMainImage;
 
-const ImageCloseIcon = styled(CloseIcon)`
-  position: absolute;
-  top: 1.2rem;
-  right: 1.2rem;
+const DeleteImageButton = styled.button`
+  border: none;
+  background: none;
+  width: 2rem;
+  height: 2rem;
 `;
 
 const UploadText = styled.p`
@@ -101,6 +117,7 @@ const BlogMainUploadLabel = styled.label`
   display: flex;
   border: none;
   border-radius: 0.5rem;
+  cursor: pointer;
   input[type='file'] {
     position: absolute;
     margin: -0.1rem;
@@ -114,12 +131,14 @@ const BlogMainUploadLabel = styled.label`
 `;
 
 const BlogMainImageContainer = styled.div`
+  display: flex;
   margin-top: 3.2rem;
 `;
 
 const PreLoadImg = styled.img`
   margin-left: 4.8rem;
   border-radius: 0.8rem;
-  width: auto;
+  width: 64.5rem;
   height: 22.4rem;
+  object-fit: cover;
 `;

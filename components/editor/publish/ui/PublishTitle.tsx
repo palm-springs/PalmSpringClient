@@ -28,13 +28,13 @@ const PublishTitle = (props: PublishTitleprops) => {
     case `article`:
       return (
         <TitleWrapper>
-          <ArticleTitle>{title}</ArticleTitle>
+          <EditorInputTitle>{title}</EditorInputTitle>
         </TitleWrapper>
       );
     case `page`:
       return (
         <TitleWrapper>
-          <ArticleTitle>{pageTitle}</ArticleTitle>
+          <EditorInputTitle>{pageTitle}</EditorInputTitle>
         </TitleWrapper>
       );
     default:
@@ -49,7 +49,7 @@ const TitleWrapper = styled.div`
   width: 54rem;
 `;
 
-const ArticleTitle = styled.span`
+const EditorInputTitle = styled.span`
   margin: 2.4rem 0;
   white-space: nowrap;
   color: ${({ theme }) => theme.colors.grey_950};

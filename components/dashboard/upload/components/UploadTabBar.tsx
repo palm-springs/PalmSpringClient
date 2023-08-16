@@ -6,7 +6,7 @@ import { CategoryListProps } from '@/types/dashboard';
 
 import UploadTabBarContainer from './ui/UploadTabBarContainer';
 
-type ArrayLiteral<T extends ReadonlyArray<any>> = T[number];
+// type ArrayLiteral<T extends ReadonlyArray<any>> = T[number];
 export interface UploadTabBarProps {
   categoryListData: CategoryListProps[];
   currentCategory: string[];
@@ -18,7 +18,7 @@ const UploadTabBar = (props: UploadTabBarProps) => {
     currentCategory: [category],
   } = props;
 
-  const [currentCategory, setCurrentCategory] = useState<string>(category);
+  const [currentCategory, setCurrentCategory] = useState<string>('전체');
 
   return (
     <UploadTabBarContainer

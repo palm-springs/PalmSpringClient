@@ -11,7 +11,7 @@ export type dashBoardPageType =
   | 'basicuserinfo';
 
 export interface NavListProps {
-  id: string;
+  id: number;
   name: string;
   navUrl: string;
   isPage: boolean;

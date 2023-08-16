@@ -29,6 +29,7 @@ const PageContentList = () => {
 
   return (
     <DashBoardContentListContainer>
+      <DashBoardContent id="컨텐츠바" content="제목" draft="상태" createdAt="작성일" />
       {data.data.map(({ id, title, createdAt, isDraft, pageUrl }) => {
         return (
           <DashBoardContent

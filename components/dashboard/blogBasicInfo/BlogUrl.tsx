@@ -2,13 +2,17 @@
 import React from 'react';
 import styled from 'styled-components';
 
-import BLOG_BASIC_INFO_DATA from '@/constants/blogBasicInfoData';
+interface BlogUrlProps {
+  blogUrl: string | null;
+}
 
-const BlogUrl = () => {
+const BlogUrl = (props: BlogUrlProps) => {
+  const { blogUrl } = props;
+
   return (
     <BlogUrlContainer>
       <BlogUrlTitle>블로그 주소</BlogUrlTitle>
-      <BlogUrlText>{BLOG_BASIC_INFO_DATA.myBlog.blogUrl}</BlogUrlText>
+      <BlogUrlText>{blogUrl ?? '블로그 주소를 불러오는 중입니다...'}</BlogUrlText>
     </BlogUrlContainer>
   );
 };

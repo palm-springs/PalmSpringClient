@@ -1,7 +1,7 @@
 import React, { Dispatch, SetStateAction } from 'react';
 import { styled } from 'styled-components';
 
-import { NavListProps, PageListProps } from '@/types/dashboard';
+import { PageListProps } from '@/types/dashboard';
 
 interface NavSelectorContainerProps {
   setIsSelectorOpen: Dispatch<SetStateAction<boolean>>;
@@ -17,9 +17,7 @@ const NavSelectorContainer = (props: NavSelectorContainerProps) => {
   const { setIsSelectorOpen, setNewNavigationSelector, setNewNavigationUrl, pageList } = props;
 
   // 페이지가 맞고 isDraft가 아닌 것
-  const filteredPageList = pageList.filter(({ isDraft }) => isDraft);
-
-  // const nonFilteredPageList = pageList.filter(({ isDraft }) => !isDraft);
+  const filteredPageList = pageList.filter(({ isDraft }) => !isDraft);
 
   return (
     <NavSelectorUI>
@@ -32,31 +30,19 @@ const NavSelectorContainer = (props: NavSelectorContainerProps) => {
         }}>
         직접 입력
       </IndivContentUI>
-      {filteredPageList.map(({ id, title: name }) => (
+      {filteredPageList.map(({ id, title: name, pageUrl }) => (
         <IndivContentUI
           type="button"
           key={id}
           onClick={() => {
-            setNewNavigationUrl(name);
-            setNewNavigationSelector(name);
-            setIsSelectorOpen((prev) => !prev);
-          }}
-          disabled>
-          {name}
-        </IndivContentUI>
-      ))}
-      {/* {nonFilteredPageList.map(({ id, title: name }) => (
-        <IndivContentUI
-          type="button"
-          key={id}
-          onClick={() => {
+            console.log(name);
             setNewNavigationUrl(name);
             setNewNavigationSelector(name);
             setIsSelectorOpen((prev) => !prev);
           }}>
           {name}
         </IndivContentUI>
-      ))} */}
+      ))}
     </NavSelectorUI>
   );
 };
@@ -83,7 +69,7 @@ const NavSelectorUI = styled.section`
 
 const IndivContentUI = styled.button`
   display: flex;
-  transition-duration: 0.3s ease-out;
+  transition: 0.3s ease-out;
   border: none;
   border-radius: 0.8rem;
   background: none;
