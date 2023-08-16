@@ -3,7 +3,6 @@
 import React from 'react';
 import { useParams } from 'next/navigation';
 
-// import { getBlogHeaderInfo } from '@/api/blog';
 import AuthRequired from '@/components/auth/AuthRequired';
 import BlogFooter from '@/components/common/BlogFooter';
 import BlogHeader from '@/components/common/BlogHeader';
@@ -17,12 +16,12 @@ const ContentLayout = ({ children }: { children: React.ReactElement }) => {
   if (!res) return <LoadingLottie width={10} height={10} fit />;
 
   const {
-    data: { logo, blogName, navList },
+    data: { logo, blogName },
   } = res;
 
   return (
     <AuthRequired>
-      <BlogHeader logo={logo} blogName={blogName} navList={navList} />
+      <BlogHeader logo={logo} blogName={blogName} />
       <main>{children}</main>
       <BlogFooter />
     </AuthRequired>

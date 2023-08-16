@@ -17,12 +17,12 @@ const ContentLayout = ({ children }: { children: React.ReactElement }) => {
   if (!res) return <LoadingLottie width={10} height={10} fit />;
 
   const {
-    data: { logo, blogName, navList },
+    data: { logo, blogName },
   } = res;
 
   return (
     <AuthRequired>
-      <BlogHeader logo={logo} blogName={blogName} navList={navList} />
+      <BlogHeader logo={logo} blogName={blogName} />
       <main>{children}</main>
       <BlogFooter />
     </AuthRequired>

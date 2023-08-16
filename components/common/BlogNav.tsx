@@ -12,17 +12,7 @@ import SubscribeBtn from '../blog/SubscribeBtn';
 
 import LoadingLottie from './ui/LoadingLottie';
 
-interface navProps {
-  navList: {
-    id: number;
-    name: string;
-    navUrl: string;
-    isPage: boolean;
-  }[];
-}
-
-const BlogNav = (prop: navProps) => {
-  // const { navList } = prop;
+const BlogNav = () => {
   const { team } = useParams();
 
   const res = useGetNavList(team);
@@ -33,7 +23,8 @@ const BlogNav = (prop: navProps) => {
 
   return (
     <BlogNavContainer>
-      <div></div>
+      {/* <div></div> */}
+      {/* 위의 div 왜 넣어둔거지,,, */}
       {navList &&
         navList.map(({ navUrl, name, isPage, id }) => (
           <PageBtn key={navUrl}>
@@ -56,10 +47,12 @@ const BlogNavContainer = styled.div`
   gap: 1.6rem;
   align-items: center;
   justify-content: space-between;
+
   width: auto;
 
   @media screen and (max-width: 768px) {
     position: absolute;
+
     right: 4rem;
     width: 31.6rem;
   }
