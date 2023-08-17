@@ -45,8 +45,9 @@ const IndivNavDashboardContent = (props: IndivNavDashboardContentProps) => {
             router.push(`/${blogUrl}/content/page/${url}/${id}`);
             return;
           }
-
-          window.location.href = `https://${url}`;
+          if (typeof window !== 'undefined') {
+            window.location.href = `https://${url}`;
+          }
         }}
         onMutateClick={() => {
           setDashboardModalState('updateNavigation');

@@ -1,6 +1,6 @@
 'use client';
 
-import React, { useEffect } from 'react';
+import React from 'react';
 import { useParams, useRouter } from 'next/navigation';
 
 import { useGetBlogInfo } from '@/hooks/blog';
@@ -26,7 +26,7 @@ const DashBoardTemplate = (props: DashBoardTemplateProps) => {
 
   const title = res?.data.name;
 
-  if (!title) {
+  if (!title && typeof window !== 'undefined') {
     router.push(`/no-team/dashboard`);
   }
 

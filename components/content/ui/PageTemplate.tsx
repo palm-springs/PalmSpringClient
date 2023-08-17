@@ -43,8 +43,10 @@ const PageTemplate = (props: ContentTemplateProps) => {
     });
 
   const copyCurrentUrl = () => {
-    navigator.clipboard.writeText(window.location.href);
-    notify();
+    if (typeof window !== undefined) {
+      navigator.clipboard.writeText(window.location.href);
+      notify();
+    }
   };
 
   return (
