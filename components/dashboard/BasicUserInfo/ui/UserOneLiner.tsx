@@ -32,6 +32,9 @@ const UserOneLinerTextarea = styled.textarea`
   height: 8.6rem;
   resize: none;
   color: ${({ theme }) => theme.colors.grey_900};
+  &:focus {
+    border: 1px solid ${({ theme }) => theme.colors.grey_700};
+  }
 `;
 
 const UserOneLinerContainer = styled.div`
