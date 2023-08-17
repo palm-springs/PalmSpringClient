@@ -72,6 +72,8 @@ const UpdateNavigationModal = (props: UpdateNavigationModalProps) => {
         setNewNavigationSelector={setUpdateNavigationSelector}
         newNavigationUrl={updateNavigationUrl}
         setNewNavigationUrl={setUpdateNavigationUrl}
+        newNavigationName={updateNavigationName}
+        setNewNavigationName={setUpdateNavigationName}
       />
     </DashboardCreateModal>
   );
