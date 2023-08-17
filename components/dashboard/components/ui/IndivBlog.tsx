@@ -20,7 +20,7 @@ const IndivBlog = (props: IndivBlogProps) => {
 export default IndivBlog;
 
 const IndivBlogUI = styled.span<{ $isCurrentBlog: boolean }>`
-  transition-duration: 0.3s ease-out;
+  transition: 0.3s ease-out;
   cursor: pointer;
   padding: 1.2rem 1.6rem 1.2rem 1.2rem;
   width: 100%;

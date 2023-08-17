@@ -1,55 +1,61 @@
 'use client';
-import React, { useState } from 'react';
+import React, { Dispatch, SetStateAction, useState } from 'react';
 import { useParams } from 'next/navigation';
 import styled from 'styled-components';
 
-import TextInputForm from '@/components/invite/ui/TextInputForm';
 import { useGetUserBasicInfo } from '@/hooks/dashboard';
 import { Loader01Icon } from '@/public/icons';
 
 import IdInputForm from './IdInputForm';
 
-const UserId = () => {
-  const [url, setUrl] = useState('');
-  const [isAddressDuplicate, setIsAddressDuplicate] = useState<boolean | null>(null);
-  const [isAddressFocus, setIsAddressFocus] = useState(false);
+interface UserIdCheckProps {
+  isDuplicate: boolean | null;
+  setIsDuplicate: Dispatch<SetStateAction<boolean | null>>;
+}
+
+const UserId = (props: UserIdCheckProps) => {
+  const { isDuplicate, setIsDuplicate } = props; //구조 분해 할당
   const { team } = useParams();
+
+  const [userId, setUserId] = useState('');
+  const [isUserIdFocus, setIsUserIdFocus] = useState(false);
   const basicUserData = useGetUserBasicInfo(team);
   if (!basicUserData) return;
 
   const handleOnChange = (e: React.ChangeEvent<HTMLInputElement>) => {
     const { value } = e.currentTarget;
-    setUrl(value);
-
-    // url 중복 쳌 :  CheckDuplication(value, setIsAddressDuplicate);
+    setUserId(value);
   };
   return (
     <UserIdContainer>
       <UserIdTitle>ID</UserIdTitle>
       <InputWidthContainer>
-        <IdInputForm
-          isFocus={isAddressFocus}
-          isAddressDuplicate={isAddressDuplicate === null ? undefined : isAddressDuplicate}>
-          <div>
-            @/{team}/author/{basicUserData.data.registerId}
-          </div>
+        <IdInputForm isFocus={isUserIdFocus} isDuplicate={isDuplicate}>
+          <div>@/{team}/author/</div>
           <TextInput
-            onFocus={() => setIsAddressFocus(true)}
-            onBlur={() => setIsAddressFocus(false)}
-            value={url}
-            onChange={handleOnChange}></TextInput>
+            onFocus={() => setIsUserIdFocus(true)}
+            onBlur={() => setIsUserIdFocus(false)}
+            value={userId}
+            onChange={handleOnChange}
+            placeholder={basicUserData.data.registerId}
+          />
 
-          {isAddressDuplicate === null && url !== '' && <Loader01Icon />}
+          {isDuplicate === null && userId !== '' && <Loader01Icon />}
         </IdInputForm>
       </InputWidthContainer>
-      {/* 중복제거 주석 */}
-      {/* <TextInputForm type={''} children={undefined} isFocus={false} /> */}
-      {/* <UrlCustomTextarea defaultValue="/@sopt/content/"></UrlCustomTextarea> */}
+      {isDuplicate && <Message>이미 사용 중인 ID입니다. 다른 ID를 입력해주세요.</Message>}
     </UserIdContainer>
   );
 };
 
 export default UserId;
+
+const Message = styled.div`
+  ${({ theme }) => theme.fonts.Caption};
+  margin-top: 0.6rem;
+
+  color: ${({ theme }) => theme.colors.red};
+`;
 
 const InputWidthContainer = styled.div`
   width: 64.5rem;
@@ -76,11 +82,11 @@ const TextInput = styled.input`
   height: 100%;
 
   &::placeholder {
-    color: ${({ theme }) => theme.colors.grey_600};
+    color: ${({ theme }) => theme.colors.grey_900};
   }
 
   &:focus {
     outline: none;
-    border: 1px solid ${({ theme }) => theme.colors.grey_700};
+    border: 0px solid ${({ theme }) => theme.colors.grey_700};
   }
 `;

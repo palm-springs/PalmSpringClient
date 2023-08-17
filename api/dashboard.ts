@@ -1,18 +1,9 @@
 import { Response } from '@/types/common';
 import { CategoryListProps, NavListProps, PageListProps, TempSavedListProps } from '@/types/dashboard';
 import { MemberProps } from '@/types/member';
+import { UserInfoProps } from '@/types/user';
 
 import client from '.';
-
-interface UserInfoProps {
-  name: string;
-  email: string;
-  thumbnail: string;
-  joinBlogList: Array<{
-    name: string;
-    url: string;
-  }>;
-}
 
 interface UserBasicInfoProps {
   registerId: string;
@@ -43,8 +34,8 @@ export const getTempSavedList = async (blogUrl: string) => {
   return data;
 };
 
-export const getUserInfo = async (blogUrl: string) => {
-  const { data } = await client.get<Response<UserInfoProps>>(`/api/v1/user/dashboard/sidebar/${blogUrl}`);
+export const getUserInfo = async () => {
+  const { data } = await client.get<Response<UserInfoProps>>(`/api/v1/user/dashboard/sidebar`);
   return data;
 };
 

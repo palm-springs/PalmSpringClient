@@ -1,4 +1,5 @@
 import React, { useEffect, useState } from 'react';
+import { toast } from 'react-hot-toast';
 import axios from 'axios';
 import { useParams } from 'next/navigation';
 import { styled } from 'styled-components';
@@ -63,9 +64,9 @@ const BlogConfigTemplate = () => {
         logo: logoS3,
         thumbnail: mainS3,
       });
-      alert('게시글이 등록되었습니다');
+      toast('블로그 정보를 수정했습니다!');
     } catch (err) {
-      alert(err || '게시글 등록에 실패했습니다');
+      toast('정보 수정에 실패했습니다..');
     }
   };
   return (

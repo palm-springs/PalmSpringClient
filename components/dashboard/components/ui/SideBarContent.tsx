@@ -21,7 +21,7 @@ const SideBarContentContainer = styled.div<{ $currentPage: boolean }>`
   display: flex;
   gap: 0.8rem;
   align-items: center;
-  transition-duration: 0.3s ease-out;
+  transition: 0.3s ease-out;
   border-radius: 0.8rem;
 
   background: ${({ theme, $currentPage }) => ($currentPage ? theme.colors.grey_300 : theme.colors.grey_100)};
