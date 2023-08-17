@@ -123,3 +123,8 @@ export const deletePage = async (blogUrl: string, id: number) => {
   const { data } = await client.delete<Response<null>>(`/api/v1/page/${blogUrl}/admin/remove?id=${id}`);
   return data;
 };
+
+export const deleteArticle = async (blogUrl: string, id: number) => {
+  const { data } = await client.delete<Response<null>>(`/api/v1/article/${blogUrl}/admin/remove?id=${id}`);
+  return data;
+};
