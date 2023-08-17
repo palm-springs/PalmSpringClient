@@ -12,8 +12,16 @@ interface BlogConfigRequestBodyProps {
   logo: string;
 }
 
+interface BlogInfoProps {
+  name: string;
+  url: string;
+  thumbnail: string;
+  logo: string;
+  description: string;
+}
+
 export const getBlogInfo = async (blogUrl: string) => {
-  const { data } = await client.get(`/api/v1/blog?url=${blogUrl}`);
+  const { data } = await client.get<Response<BlogInfoProps>>(`/api/v1/blog?url=${blogUrl}`);
   return data;
 };
 
