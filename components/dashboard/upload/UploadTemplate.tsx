@@ -4,8 +4,8 @@ import React, { useState } from 'react';
 import { useParams } from 'next/navigation';
 
 import EmptyLanding from '@/components/common/ui/EmptyLanding';
-import { useGetArticleList } from '@/hooks/editor';
 import { useGetCategoryList } from '@/hooks/dashboard';
+import { useGetArticleList } from '@/hooks/editor';
 import { getLiteralCategoryList } from '@/utils/getLiteralCategoryList';
 
 import DashBoardTemplateContainer from '../components/ui/DashBoardTemplateContainer';
