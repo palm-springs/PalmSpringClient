@@ -9,4 +9,5 @@ export default DashBoardContentListContainer;
 
 const DashBoardContentListUI = styled.article`
   padding: 0 2.4rem 0 4rem;
+  overflow-y: scroll;
 `;

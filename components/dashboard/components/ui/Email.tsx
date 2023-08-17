@@ -15,7 +15,6 @@ export default Email;
 
 const EmailUI = styled.span`
   ${({ theme }) => theme.fonts.Body3_Semibold};
-  width: 15vw;
   max-width: 28rem;
   color: ${({ theme }) => theme.colors.grey_900};
 `;

@@ -75,6 +75,7 @@ const DeleteImageButton = styled.button`
 const UploadText = styled.p`
   ${({ theme }) => theme.fonts.Body2_Semibold};
   margin-left: 0.6rem;
+  width: 14.8rem;
   color: ${({ theme }) => theme.colors.grey_700};
 `;
 
@@ -83,7 +84,7 @@ const BlogLogoUpload = styled.div`
   position: relative;
   align-items: center;
   justify-content: center;
-  margin-left: 4.8rem;
+  margin-left: 1.8rem;
   border-radius: 0.8rem;
   background-color: ${({ theme }) => theme.colors.grey_200};
   cursor: pointer;
@@ -98,6 +99,7 @@ const ImageGuideContainer = styled.div`
 
 const ImageGuideTitle = styled.p`
   ${({ theme }) => theme.fonts.Body2_Semibold};
+  width: 14.8rem;
   color: ${({ theme }) => theme.colors.grey_950};
 `;
 
@@ -124,7 +126,7 @@ const BlogLogoImageContainer = styled.div`
 `;
 
 const PreLoadImg = styled.img`
-  margin-left: 4.8rem;
+  margin-left: 1.8rem;
   border-radius: 0.8rem;
   width: auto;
   height: 14.6rem;

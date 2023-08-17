@@ -122,6 +122,8 @@ const DashBoardContentUI = styled.article<{ $isContentBar: boolean }>`
   }
 
   span,
+  div,
+  div > span,
   & > button {
     white-space: nowrap;
     ${({ $isContentBar }) =>
