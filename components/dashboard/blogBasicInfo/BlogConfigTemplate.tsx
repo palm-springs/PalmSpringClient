@@ -18,8 +18,8 @@ import BlogUrl from './BlogUrl';
 
 interface BlogConfigProps {
   blogName: string;
-  blogLogoImage: File | null;
-  blogMainImage: File | null;
+  blogLogoImage: File | string | null;
+  blogMainImage: File | string | null;
   blogDescribeText: string;
 }
 
@@ -49,11 +49,17 @@ const BlogConfigTemplate = () => {
   if (!res || !res.data) return <LoadingLottie width={10} height={10} />;
 
   const postBlogConfig = async () => {
-    const logoS3 = blogConfig.blogLogoImage && ((await getImageMultipartData(blogConfig.blogLogoImage)) as string);
+    const logoS3 =
+      blogConfig.blogLogoImage &&
+      typeof blogConfig.blogLogoImage !== 'string' &&
+      ((await getImageMultipartData(blogConfig.blogLogoImage)) as string);
 
     // imageArray.append(logoS3);
 
-    const mainS3 = blogConfig.blogMainImage && ((await getImageMultipartData(blogConfig.blogMainImage)) as string);
+    const mainS3 =
+      blogConfig.blogMainImage &&
+      typeof blogConfig.blogMainImage !== 'string' &&
+      ((await getImageMultipartData(blogConfig.blogMainImage)) as string);
 
     try {
       // axios를 이용한 post 요청. 헤더를 multipart/form-data 로 한다.
