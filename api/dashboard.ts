@@ -1,5 +1,3 @@
-import axios, { AxiosResponse } from 'axios';
-
 import { Response } from '@/types/common';
 import { CategoryListProps, NavListProps, PageListProps, TempSavedListProps } from '@/types/dashboard';
 import { MemberProps } from '@/types/member';
