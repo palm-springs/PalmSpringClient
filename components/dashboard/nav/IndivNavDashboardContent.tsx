@@ -1,4 +1,5 @@
 import { useState } from 'react';
+import { useRouter } from 'next/navigation';
 import { useRecoilState } from 'recoil';
 
 import ModalPortal from '@/components/common/ModalPortal';
@@ -20,6 +21,8 @@ interface IndivNavDashboardContentProps {
 const IndivNavDashboardContent = (props: IndivNavDashboardContentProps) => {
   const { id, content, url, blogUrl, isPage } = props;
 
+  const router = useRouter();
+
   const { mutate: deleteNav } = useDeleteNavigation(blogUrl, id);
 
   const [dashboardModalState, setDashboardModalState] = useRecoilState(dashBoardModalState);
@@ -38,7 +41,12 @@ const IndivNavDashboardContent = (props: IndivNavDashboardContentProps) => {
         content={content}
         url={url}
         onTitleClick={() => {
-          window.location.href = url;
+          if (isPage) {
+            router.push(`/${blogUrl}/content/page/${url}/${id}`);
+            return;
+          }
+
+          window.location.href = `https://${url}`;
         }}
         onMutateClick={() => {
           setDashboardModalState('updateNavigation');
