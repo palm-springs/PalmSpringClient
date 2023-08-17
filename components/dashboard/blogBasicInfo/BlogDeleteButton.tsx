@@ -1,11 +1,18 @@
 'use client';
 import React from 'react';
+import { useParams } from 'next/navigation';
 import styled from 'styled-components';
 
+import { useDeleteBlog } from '@/hooks/blog';
+
 const BlogInfoDeleteButton = () => {
+  const { team: blogUrl } = useParams();
+
+  const { mutate } = useDeleteBlog(blogUrl);
+
   return (
     <BlogInfoDeleteButtonContainer>
-      <BlogDeleteButton>블로그 삭제</BlogDeleteButton>
+      <BlogDeleteButton onClick={() => mutate()}>블로그 삭제</BlogDeleteButton>
     </BlogInfoDeleteButtonContainer>
   );
 };

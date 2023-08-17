@@ -3,7 +3,7 @@ import axios from 'axios';
 import { getAccessTokenProps, googleAccessTokenResponse, jwtAccessTokenResponse } from '@/types/auth';
 import { Response } from '@/types/common';
 
-import client from '.';
+import client, { refreshAxiosInstance } from '.';
 
 // 구글 액세스 토큰 발급
 export const getAccessToken = async (props: getAccessTokenProps) => {
@@ -32,12 +32,6 @@ export const postSocialLogin = async (platform: string, AccessToken: string) => 
 
 // 리프레시 토큰 재발급
 export const getRefreshToken = async () => {
-  const data = await axios.get(`${process.env.NEXT_PUBLIC_BASE_URL}/api/v1/auth/reissue`, {
-    withCredentials: true,
-    headers: {
-      'Content-Type': 'application/json',
-    },
-  });
-  console.log('여기는 리프레시 토큰 재발급중', data);
+  const { data } = await refreshAxiosInstance.get(`/api/v1/auth/reissue`);
   return data;
 };

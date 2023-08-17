@@ -3,18 +3,9 @@ import { useMutation } from '@tanstack/react-query';
 import { Response } from '@/types/common';
 import { CategoryListProps, NavListProps, PageListProps, TempSavedListProps } from '@/types/dashboard';
 import { MemberProps } from '@/types/member';
+import { UserInfoProps } from '@/types/user';
 
 import client from '.';
-
-interface UserInfoProps {
-  name: string;
-  email: string;
-  thumbnail: string;
-  joinBlogList: Array<{
-    name: string;
-    url: string;
-  }>;
-}
 
 interface UserBasicInfoProps {
   registerId: string;
@@ -45,8 +36,8 @@ export const getTempSavedList = async (blogUrl: string) => {
   return data;
 };
 
-export const getUserInfo = async (blogUrl: string) => {
-  const { data } = await client.get<Response<UserInfoProps>>(`/api/v1/user/dashboard/sidebar/${blogUrl}`);
+export const getUserInfo = async () => {
+  const { data } = await client.get<Response<UserInfoProps>>(`/api/v1/user/dashboard/sidebar`);
   return data;
 };
 
@@ -70,7 +61,7 @@ export const getUserBasicInfo = async (blogUrl: string) => {
 };
 
 export const postCategory = async (blogUrl: string, name: string, description: string) => {
-  const { data } = await client.post<Response<null>>(`/api/v1/category/${blogUrl}/create`, {
+  const { data } = await client.post<Response<null>>(`/api/v1/category/${blogUrl}/admin/create`, {
     name,
     description,
   });

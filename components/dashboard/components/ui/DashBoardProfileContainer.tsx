@@ -34,7 +34,7 @@ const DashBoardProfileContainerUI = styled.article`
   display: flex;
   align-items: center;
 
-  transition-duration: 0.3s ease-out;
+  transition: 0.3s ease-out;
 
   margin-bottom: 0.8rem;
   border-radius: 0.8rem;

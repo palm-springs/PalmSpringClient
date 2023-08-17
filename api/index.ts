@@ -20,3 +20,11 @@ if (accessToken) {
 }
 
 export default client;
+
+export const refreshAxiosInstance: AxiosInstance = axios.create({
+  baseURL: process.env.NEXT_PUBLIC_BASE_URL,
+  withCredentials: true,
+  headers: {
+    'content-type': 'application/json',
+  },
+});
