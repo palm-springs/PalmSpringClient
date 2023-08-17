@@ -69,49 +69,47 @@ const BlogConfigTemplate = () => {
     }
   };
   return (
-    <>
-      <BlogBasicInfoContainer>
-        <BlogUrl blogUrl={res.data.url} />
-        <BlogName
-          blogName={blogConfig.blogName}
-          setBlogName={(v) =>
-            setBlogConfig((prev) => ({
-              ...prev,
-              blogName: v,
-            }))
-          }
-        />
-        <BlogLogoImage
-          setFile={(v) =>
-            setBlogConfig((prev) => ({
-              ...prev,
-              blogLogoImage: v,
-            }))
-          }
-        />
-        <BlogMainImage
-          setFile={(v) =>
-            setBlogConfig((prev) => ({
-              ...prev,
-              blogMainImage: v,
-            }))
-          }
-        />
-        <BlogDescribeText
-          describeText={blogConfig.blogDescribeText}
-          setDescribeText={(v) =>
-            setBlogConfig((prev) => ({
-              ...prev,
-              blogDescribeText: v,
-            }))
-          }
-        />
-        <BlogInfoDeleteButton />
-        <BlogSaveButton type="button" disabled={blogConfig.blogName === ''} onClick={postBlogConfig}>
-          저장하기
-        </BlogSaveButton>
-      </BlogBasicInfoContainer>
-    </>
+    <BlogBasicInfoContainer>
+      <BlogUrl blogUrl={res.data.url} />
+      <BlogName
+        blogName={blogConfig.blogName}
+        setBlogName={(v) =>
+          setBlogConfig((prev) => ({
+            ...prev,
+            blogName: v,
+          }))
+        }
+      />
+      <BlogLogoImage
+        setFile={(v) =>
+          setBlogConfig((prev) => ({
+            ...prev,
+            blogLogoImage: v,
+          }))
+        }
+      />
+      <BlogMainImage
+        setFile={(v) =>
+          setBlogConfig((prev) => ({
+            ...prev,
+            blogMainImage: v,
+          }))
+        }
+      />
+      <BlogDescribeText
+        describeText={blogConfig.blogDescribeText}
+        setDescribeText={(v) =>
+          setBlogConfig((prev) => ({
+            ...prev,
+            blogDescribeText: v,
+          }))
+        }
+      />
+      <BlogInfoDeleteButton />
+      <BlogSaveButton type="button" disabled={blogConfig.blogName === ''} onClick={postBlogConfig}>
+        저장하기
+      </BlogSaveButton>
+    </BlogBasicInfoContainer>
   );
 };
 
@@ -120,6 +118,7 @@ export default BlogConfigTemplate;
 const BlogBasicInfoContainer = styled.div`
   padding-left: 4rem;
   width: 100%;
+  overflow-y: scroll;
 `;
 
 const BlogSaveButton = styled.button`
