@@ -6,7 +6,7 @@ import styled from 'styled-components';
 
 import { UpdateArticleProps } from '@/types/article';
 
-import { articleDataState, pageDataState } from '../states/atom';
+import { articleDataState, articleEditDataState, pageDataState } from '../states/atom';
 
 interface TextEditorBuildProps {
   pageType: string;
@@ -19,6 +19,7 @@ const EditorInputTitle = (props: TextEditorBuildProps) => {
 
   const [{ title }, setArticleData] = useRecoilState(articleDataState);
   const [{ title: pageTitle }, setPageData] = useRecoilState(pageDataState);
+  // const [{ title: updateArticleTitle }, setArticleEditDataState] = useRecoilState(articleEditDataState); update할 때
 
   const handleSaveArticleTitle = (e: ChangeEvent<HTMLTextAreaElement>) => {
     const { value } = e.target;
@@ -38,7 +39,9 @@ const EditorInputTitle = (props: TextEditorBuildProps) => {
         const { title } = data;
         return (
           <EditorInputTitleContainer>
-            <TitleInputBox value={title} onChange={handleSaveArticleTitle} rows={1} placeholder="제목을 입력해주세요" />
+            <TitleInputBox value={title} onChange={handleSaveArticleTitle} rows={1}>
+              {data.title}
+            </TitleInputBox>
           </EditorInputTitleContainer>
         );
       } else {
