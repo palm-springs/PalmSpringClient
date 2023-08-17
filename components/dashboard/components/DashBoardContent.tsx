@@ -19,6 +19,8 @@ export interface DashBoardContentProps {
   createdAt?: string;
   newsLetter?: number | '발송된 뉴스레터 수';
   onTitleClick?: React.MouseEventHandler<HTMLButtonElement>;
+  onMutateClick?: React.MouseEventHandler<HTMLButtonElement>;
+  onDeleteClick?: React.MouseEventHandler<HTMLButtonElement>;
 }
 
 const DashBoardContent = (props: DashBoardContentProps) => {

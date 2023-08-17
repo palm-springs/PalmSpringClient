@@ -1,5 +1,5 @@
 'use client';
-import React from 'react';
+import React, { useState } from 'react';
 import styled from 'styled-components';
 
 import DeleteButton from '@/components/dashboard/BasicUserInfo/ui/DeleteButton';
@@ -10,11 +10,13 @@ import UserPosition from '@/components/dashboard/BasicUserInfo/ui/UserPosition';
 import UserProfile from '@/components/dashboard/BasicUserInfo/ui/UserProfile';
 
 const BasicUserInfoPage = () => {
+  const [isDuplicate, setIsDuplicate] = useState<boolean | null>(false);
+
   return (
     <BasicUserInfoContainer>
       <UserProfile />
       <UserName />
-      <UserId />
+      <UserId isDuplicate={isDuplicate} setIsDuplicate={setIsDuplicate} />
       <UserOneLiner />
       <UserPosition />
       <DeleteButton />

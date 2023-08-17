@@ -56,7 +56,7 @@ const UploadTabBarUI = styled.section`
 `;
 
 const UploadTabBarTextUI = styled.span<{ $currentTab: boolean }>`
-  transition-duration: 0.3s ease-out;
+  transition: 0.3s ease-out;
   border-bottom: ${({ theme, $currentTab }) => ($currentTab ? `2px solid ${theme.colors.grey_950}` : 0)};
   ${({ theme }) => theme.fonts.Body1_Semibold};
   cursor: pointer;

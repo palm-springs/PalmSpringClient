@@ -2,6 +2,7 @@ import { useMutation, useQuery, useQueryClient } from '@tanstack/react-query';
 
 import { getBlogHeaderInfo } from '@/api/blog';
 import {
+  deleteNavigation,
   getCategoryList,
   getMemberList,
   getNavList,
@@ -11,9 +12,10 @@ import {
   getUserInfo,
   postCategory,
   postNavigation,
+  updateNavigation,
 } from '@/api/dashboard';
 
-const QUERY_KEY_DASHBOARD = {
+export const QUERY_KEY_DASHBOARD = {
   getNavList: 'getNavList',
   getCategoryList: 'getCategoryList',
   getBlogHeader: 'getBlogHeader',
@@ -21,6 +23,8 @@ const QUERY_KEY_DASHBOARD = {
   getTempSavedList: 'getTempSavedList',
   postCategory: 'postCategory',
   postNavigation: 'postNavigation',
+  deleteNavigation: 'deleteNavigation',
+  updateNavigation: 'updateNavigation',
   getUserInfo: 'getUserInfo',
   getMemberInfo: 'getMemberInfo',
   getUserBasicInfo: 'getUserBasicInfo',
@@ -54,8 +58,8 @@ export const useGetTempSavedList = (blogUrl: string) => {
   return data.data;
 };
 
-export const useGetUserInfo = (blogUrl: string) => {
-  const { data } = useQuery([QUERY_KEY_DASHBOARD.getUserInfo], () => getUserInfo(blogUrl));
+export const useGetUserInfo = () => {
+  const { data } = useQuery([QUERY_KEY_DASHBOARD.getUserInfo], () => getUserInfo());
   return data;
 };
 
@@ -85,6 +89,32 @@ export const usePostNavigation = (blogUrl: string, name: string, isPage: boolean
   const mutation = useMutation(
     [QUERY_KEY_DASHBOARD.postNavigation],
     () => postNavigation(blogUrl, name, isPage, navUrl),
+    {
+      onSuccess: () => {
+        queryClient.invalidateQueries([QUERY_KEY_DASHBOARD.getNavList]);
+      },
+    },
+  );
+  return mutation;
+};
+
+export const useDeleteNavigation = (blogUrl: string, id: number) => {
+  const queryClient = useQueryClient();
+
+  const mutation = useMutation([QUERY_KEY_DASHBOARD.deleteNavigation], () => deleteNavigation(blogUrl, id), {
+    onSuccess: () => {
+      queryClient.invalidateQueries([QUERY_KEY_DASHBOARD.getNavList]);
+    },
+  });
+  return mutation;
+};
+
+export const useUpdateNavigation = (blogUrl: string, id: number, name: string, isPage: boolean, navUrl: string) => {
+  const queryClient = useQueryClient();
+
+  const mutation = useMutation(
+    [QUERY_KEY_DASHBOARD.updateNavigation],
+    () => updateNavigation(blogUrl, id, name, isPage, navUrl),
     {
       onSuccess: () => {
         queryClient.invalidateQueries([QUERY_KEY_DASHBOARD.getNavList]);
