@@ -116,6 +116,6 @@ export const deletePage = async (blogUrl: string, id: number) => {
 };
 
 export const deleteArticle = async (blogUrl: string, id: number) => {
-  const { data } = await client.delete<Response<null>>(`/api/v1/article/${blogUrl}/admin/remove?id=${id}`);
+  const { data } = await client.delete<Response<null>>(`/api/v1/article/${blogUrl}/remove?id=${id}`);
   return data;
 };
