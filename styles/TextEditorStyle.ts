@@ -26,6 +26,7 @@ export const TextEditorStyle = styled.div`
 
     h3 {
       ${({ theme }) => theme.editor.Edit_h3};
+      margin-top: 2.4rem;
       padding-top: 2.4rem 0 0.4rem 0;
       width: 72.2rem;
     }
@@ -73,9 +74,11 @@ export const TextEditorStyle = styled.div`
     }
 
     pre {
+      margin-top: 3.2rem;
       border-radius: 0.5rem;
       background: ${({ theme }) => theme.colors.grey_100};
-      padding: 0.75rem 1rem;
+      padding: 1.6rem 2rem;
+      width: 72.2rem;
       color: #383a41;
       font-family: 'Fira Mono', monospace;
 
