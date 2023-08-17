@@ -17,7 +17,7 @@ interface IndivUploadContentListProps {
   articleUrl: string;
 }
 
-export const IndivUploadContentList = (props: IndivUploadContentListProps) => {
+const IndivUploadContentList = (props: IndivUploadContentListProps) => {
   const { team } = useParams();
 
   const router = useRouter();
@@ -39,3 +39,5 @@ export const IndivUploadContentList = (props: IndivUploadContentListProps) => {
     />
   );
 };
+
+export default IndivUploadContentList;
