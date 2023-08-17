@@ -34,3 +34,13 @@ export interface CreateArticleProps {
   description: string;
   articleUrl: string;
 }
+
+export interface UpdateArticleProps {
+  title: string;
+  content: string;
+  images: string[] | null;
+  thumbnail?: string | null;
+  categoryId?: number;
+  description?: string;
+  articleUrl?: string;
+}

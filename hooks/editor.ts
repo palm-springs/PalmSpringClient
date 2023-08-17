@@ -1,6 +1,6 @@
 import { useQuery } from '@tanstack/react-query';
 
-import { getArticleList, getSingleArticleData } from '@/api/article';
+import { getArticleList, getSingleArticleData, getUpdateArticleContent } from '@/api/article';
 import { getContent } from '@/api/content';
 import { getSinglePageData } from '@/api/page';
 
@@ -9,6 +9,7 @@ const QUERY_KEY_ARTICLE = {
   getSingleArticleData: 'getSingleArticleData',
   getSinglePageData: 'getSinglePageData',
   getContent: 'getContent',
+  getUpdateArticleContent: 'getUpdateArticleContent',
 };
 
 export const useGetArticleList = (blogUrl: string, categoryId: string) => {
@@ -33,6 +34,13 @@ export const useGetContent = (team: string, id: number) => {
 export const useGetSinglePageData = (blogUrl: string, pageUrl: string) => {
   const { data } = useQuery([QUERY_KEY_ARTICLE.getSinglePageData, blogUrl, pageUrl], () =>
     getSinglePageData(blogUrl, pageUrl),
+  );
+  return data;
+};
+
+export const useGetUpdateArticleContent = (articleId: number) => {
+  const { data } = useQuery([QUERY_KEY_ARTICLE.getUpdateArticleContent, articleId], () =>
+    getUpdateArticleContent(articleId),
   );
   return data;
 };

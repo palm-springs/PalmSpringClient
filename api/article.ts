@@ -1,12 +1,6 @@
-// import { url } from 'inspector';
-
-import { useQuery } from '@tanstack/react-query';
-
 import { ArticleData, CreateArticleProps, SingleArticleData } from '@/types/article';
 import { Response } from '@/types/common';
-import { PageData } from '@/types/page';
 
-// import { getImageMultipartData } from '@/utils/getImageMultipartData';
 import client from '.';
 
 export const getArticleList = async (blogUrl: string, categoryId: string | null) => {
@@ -43,3 +37,13 @@ export const getCheckArticleUrlDuplication = async (teamUrl: string, articleUrl:
   const { data } = await client.get(`/api/v1/article/${teamUrl}/check?articleUrl=${articleUrl}`);
   return data;
 };
+
+export const getUpdateArticleContent = async (articleId: number) => {
+  const { data } = await client.get(`/api/v1/article/modify/detail?id=${articleId}`);
+  return data;
+};
+
+// export const updateArticleDetail = async (articleUrl: string) => {
+//   const { data } = await client.patch(`/api/v1/article/${articleUrl}/modify`);
+//   return data;
+// };

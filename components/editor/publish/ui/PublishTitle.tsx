@@ -6,7 +6,7 @@ import { useRecoilState } from 'recoil';
 import styled from 'styled-components';
 
 // import ARTICLE_CONTENT from '@/constants/ArticleContent';
-import { useGetSingleArticleData, useGetSinglePageData } from '@/hooks/article';
+import { useGetSingleArticleData, useGetSinglePageData } from '@/hooks/editor';
 
 import { articleDataState, pageDataState } from '../../states/atom';
 

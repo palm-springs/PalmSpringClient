@@ -15,7 +15,7 @@ import OrderedList from '@tiptap/extension-ordered-list';
 import Placeholder from '@tiptap/extension-placeholder';
 import Strike from '@tiptap/extension-strike';
 import Underline from '@tiptap/extension-underline';
-import { Editor, useEditor } from '@tiptap/react';
+import { Content, Editor, useEditor } from '@tiptap/react';
 import StarterKit from '@tiptap/starter-kit';
 import js from 'highlight.js/lib/languages/javascript';
 import ts from 'highlight.js/lib/languages/typescript';
@@ -34,19 +34,23 @@ lowlight.registerLanguage('ts', ts);
 
 import { useRecoilState } from 'recoil';
 
-import { postArticleList } from '@/api/article';
+import { getUpdateArticleContent, postArticleList } from '@/api/article';
 import { postPageDraft } from '@/api/page';
 import TextEditor from '@/components/editor/TextEditor';
 import ToolBox from '@/components/editor/ui/ToolBox';
+import { useGetUpdateArticleContent } from '@/hooks/editor';
+import { UpdateArticleProps } from '@/types/article';
 import { getImageMultipartData } from '@/utils/getImageMultipartData';
 
 import { articleDataState, pageDataState } from './states/atom';
 interface TextEditorBuildprops {
   pageType: string;
+  currentState?: string;
+  data?: UpdateArticleProps;
 }
 
 const TextEditorBuild = (props: TextEditorBuildprops) => {
-  const { pageType } = props;
+  const { pageType, currentState, data } = props;
   const { team } = useParams();
   const [{ title }, setArticleData] = useRecoilState(articleDataState);
   const [{ title: pageTitle }, setPageData] = useRecoilState(pageDataState);
@@ -101,10 +105,8 @@ const TextEditorBuild = (props: TextEditorBuildprops) => {
         linkOnPaste: true,
       }),
     ],
-    content: '',
+    content: data?.content,
   });
-
-  //encodeFileToBase64 => 코드 변환
   const encodeFileToBase64 = async (event: ChangeEvent<HTMLInputElement>, editor: Editor) => {
     const files = event.target.files;
     if (!files || files.length === 0) {
@@ -241,18 +243,46 @@ const TextEditorBuild = (props: TextEditorBuildprops) => {
   // article, page에 따라 article page, page page에서 각각 렌더링 되도록 조건함.
   switch (pageType) {
     case `article`:
-      return (
-        <>
-          <ToolBox editor={editor} encodeFileToBase64={encodeFileToBase64} setLink={setLink} />
-          <TextEditor editor={editor} handleDrop={handleDrop} handleDragOver={handleDragOver} />
-          <SaveEditorContentButton
-            handleOnClickArticleDraft={handleOnClickArticleDraft}
-            handleOnClickArticlePublish={handleOnClickArticlePublish}
-            handleOnClickPageDraft={handleOnClickPageDraft}
-            handleOnClickPagePublish={handleOnClickPagePublish}
-          />
-        </>
-      );
+      if (currentState === 'edit' && data) {
+        const { content, images } = data;
+
+        return (
+          <>
+            <ToolBox editor={editor} encodeFileToBase64={encodeFileToBase64} setLink={setLink} />
+            <TextEditor
+              editor={editor}
+              handleDrop={handleDrop}
+              handleDragOver={handleDragOver}
+              updateArticleData={{ title, content, images }}
+            />
+
+            {currentState === 'edit' && (
+              <>
+                <TextEditor editor={editor} handleDragOver={handleDragOver} handleDrop={handleDrop} />
+              </>
+            )}
+            <SaveEditorContentButton
+              handleOnClickArticleDraft={handleOnClickArticleDraft}
+              handleOnClickArticlePublish={handleOnClickArticlePublish}
+              handleOnClickPageDraft={handleOnClickPageDraft}
+              handleOnClickPagePublish={handleOnClickPagePublish}
+            />
+          </>
+        );
+      } else {
+        return (
+          <>
+            <ToolBox editor={editor} encodeFileToBase64={encodeFileToBase64} setLink={setLink} />
+            <TextEditor editor={editor} handleDrop={handleDrop} handleDragOver={handleDragOver} />
+            <SaveEditorContentButton
+              handleOnClickArticleDraft={handleOnClickArticleDraft}
+              handleOnClickArticlePublish={handleOnClickArticlePublish}
+              handleOnClickPageDraft={handleOnClickPageDraft}
+              handleOnClickPagePublish={handleOnClickPagePublish}
+            />
+          </>
+        );
+      }
     case `page`:
       return (
         <>

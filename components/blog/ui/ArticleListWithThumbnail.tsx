@@ -8,7 +8,7 @@ import { styled } from 'styled-components';
 
 import ArticleList from '@/components/common/ArticleList';
 import ContentInfo from '@/components/common/ContentInfo';
-import { useGetContent } from '@/hooks/article';
+import { useGetContent } from '@/hooks/editor';
 import { useGetCategoryList } from '@/hooks/dashboard';
 import { BlogSampleImg } from '@/public/images';
 import { ArticleData } from '@/types/article';

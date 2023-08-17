@@ -4,10 +4,13 @@ import { DragEventHandler } from 'react';
 import { Editor, EditorContent } from '@tiptap/react';
 import styled from 'styled-components';
 
+import { UpdateArticleProps } from '@/types/article';
+
 interface editorProps {
   editor: Editor | null;
   handleDragOver: DragEventHandler<HTMLDivElement> | undefined;
   handleDrop: DragEventHandler<HTMLDivElement> | undefined;
+  updateArticleData?: UpdateArticleProps;
 }
 
 const TextEditor = ({ editor, handleDragOver, handleDrop }: editorProps) => (
