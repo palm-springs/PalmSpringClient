@@ -60,7 +60,7 @@ const GoDashBoardButton = styled.a`
   height: 4.2rem;
   color: ${({ theme }) => theme.colors.grey_0};
   &:hover {
-    transition-duration: 0.3s ease-out;
+    transition: 0.3s ease-out;
     background-color: ${({ theme }) => theme.colors.green_hover};
   }
 `;

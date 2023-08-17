@@ -69,32 +69,36 @@ const DashBoardContentContainer = (props: DashBoardContentContainerProps) => {
       {draft !== undefined ? <Draft draft={draft} /> : <></>}
       {createdAt && <CreatedAt createdAt={createdAt} />}
       {newsLetter && <NewsLetter newsLetter={newsLetter} />}
-      {pathName === 'subscriber' ? (
-        <BtnContainer onBlur={() => setModalOpenContentId('')}>
-          <IcClose24Icon />
-        </BtnContainer>
-      ) : (
-        // blur 관련 클릭 인식 안되는 오류 처리 + useMutation invalid hook call 정리
-        <BtnContainer
-          onBlur={() => setModalOpenContentId('')}
-          onClick={() => {
-            onMenuButtonClick((prev) => !prev);
-            if (modalOpenContentId === id) {
-              setModalOpenContentId('');
-            } else {
-              setModalOpenContentId(id);
-            }
-          }}>
-          <CharmMenuMeatballIcon />
-        </BtnContainer>
-      )}
-      {isModalOpen && (
+      {id !== '컨텐츠바' && (
+        <>
+          {pathName === 'subscriber' ? (
+            <BtnContainer $isContentBar={id === '컨텐츠바'} onBlur={() => setModalOpenContentId('')}>
+              <IcClose24Icon />
+            </BtnContainer>
+          ) : (
+            <BtnContainer
+              $isContentBar={id === '컨텐츠바'}
+              onBlur={() => setModalOpenContentId('')}
+              onClick={() => {
+                onMenuButtonClick((prev) => !prev);
+                if (modalOpenContentId === id) {
+                  setModalOpenContentId('');
+                } else {
+                  setModalOpenContentId(id);
+                }
+              }}>
+              <CharmMenuMeatballIcon />
+            </BtnContainer>
+          )}
+                {isModalOpen && (
         <PopOverMenu
           onNavigateContentClick={onTitleClick}
           onMutateButtonClick={onMutateClick}
           onDeleteButtonClick={onDeleteClick}
           pathName={pathName}
         />
+      )}
+        </>
       )}
     </DashBoardContentUI>
   );
@@ -104,21 +108,20 @@ export default DashBoardContentContainer;
 
 const DashBoardContentUI = styled.article<{ $isContentBar: boolean }>`
   display: flex;
-  position: relative;
   align-items: center;
-  transition-duration: 0.3s ease-out;
+  transition: 0.3s ease-out;
   border-bottom: 1px solid ${({ theme }) => theme.colors.grey_300};
   width: 100%;
   height: ${({ $isContentBar }) => ($isContentBar ? '4rem' : '5.2rem')};
 
   &:hover {
-    background: ${({ theme }) => theme.colors.grey_100};
+    background: ${({ theme, $isContentBar }) => !$isContentBar && theme.colors.grey_100};
   }
 
   button {
     border: none;
     background: none;
-    cursor: pointer;
+    cursor: ${({ $isContentBar }) => !$isContentBar && 'pointer'} !important;
   }
 
   span,
@@ -139,16 +142,15 @@ const DashBoardContentUI = styled.article<{ $isContentBar: boolean }>`
   }
 `;
 
-const BtnContainer = styled.button`
+const BtnContainer = styled.button<{ $isContentBar: boolean }>`
   display: flex;
   position: absolute;
   right: 0;
   align-items: center;
   justify-content: center;
-  transition-duration: 0.3s ease-out;
+  transition: 0.3s ease-out;
   margin-right: 0.6rem;
   border-radius: 0.4rem;
-  cursor: pointer;
   width: 2.4rem;
   height: 2.4rem;
   &:hover {
