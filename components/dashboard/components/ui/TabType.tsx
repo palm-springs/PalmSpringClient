@@ -31,11 +31,11 @@ const TabTypeUI = styled.div`
   overflow: hidden;
   text-overflow: ellipsis;
   span {
+    ${({ theme }) => theme.fonts.Body3_Regular};
     display: inline-flex;
     gap: 1rem;
     align-items: center;
     padding: 0.4rem 0.8rem;
-    ${({ theme }) => theme.fonts.Body3_Regular};
     max-width: 6.5rem;
     overflow: hidden;
     text-overflow: ellipsis;
