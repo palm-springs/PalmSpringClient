@@ -54,6 +54,7 @@ const UploadContentList = (props: UploadContentListProps) => {
             position={job}
             createdAt={createdAt}
             onTitleClick={() => router.push(`/${team}/content/article/${articleUrl}/${id}`)}
+            onMutateClick={() => router.push(`/${team}/editor/article/edit/${id}`)}
           />
         );
       })}
