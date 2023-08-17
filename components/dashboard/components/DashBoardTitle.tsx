@@ -1,7 +1,7 @@
 'use client';
 
 import React, { Dispatch, SetStateAction } from 'react';
-import { useParams } from 'next/navigation';
+import { useParams, useRouter } from 'next/navigation';
 
 import { useGetBlogInfo } from '@/hooks/blog';
 import { ArrowDownIcon, SymbolIcon } from '@/public/icons';
@@ -19,13 +19,15 @@ const DashBoardTitle = (props: DashBoardTitleProps) => {
 
   const { team } = useParams();
 
-  const res = useGetBlogInfo(team);
+  const res = useGetBlogInfo(team ?? '');
+
+  const title = res?.data.name;
 
   return (
     <>
       <SymbolIcon />
       <SideBarTitle>
-        {res ? res.data.name : '블로그가 없어요.'}
+        {title ?? '블로그가 없어요.'}
         <button type="button" onClick={() => setIsBlogListOpen((prev) => !prev)}>
           <ArrowDownIcon />
         </button>
