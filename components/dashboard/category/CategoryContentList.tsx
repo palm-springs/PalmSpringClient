@@ -2,12 +2,14 @@
 
 import React from 'react';
 import { useParams } from 'next/navigation';
+import { useSetRecoilState } from 'recoil';
 
 import EmptyLanding from '@/components/common/ui/EmptyLanding';
 import { useGetCategoryList } from '@/hooks/dashboard';
 
 import DashBoardContent from '../components/DashBoardContent';
 import DashBoardContentListContainer from '../components/ui/DashBoardContentListContainer';
+import { dashBoardModalState } from '../state/modalState';
 
 import IndivCategoryDashboardContent from './IndivCategoryDashboardContent';
 
@@ -16,6 +18,8 @@ const CategoryContentList = () => {
 
   const data = useGetCategoryList(blogUrl);
 
+  const setModalState = useSetRecoilState(dashBoardModalState);
+
   if (!data || data.data.length === 0)
     return (
       <EmptyLanding
@@ -23,7 +27,7 @@ const CategoryContentList = () => {
         message1="카테고리가 없어요."
         message2="새 카테고리를 작성해보세요."
         buttonText="새 카테고리 작성하기"
-        buttonLink={`/${blogUrl}/editor/article`}
+        buttonClick={() => setModalState('createCategory')}
       />
     );
 
