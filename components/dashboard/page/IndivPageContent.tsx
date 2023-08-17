@@ -1,3 +1,4 @@
+import { toast } from 'react-hot-toast';
 import { useRouter } from 'next/navigation';
 
 import { useDeletePage } from '@/hooks/dashboard';
@@ -29,7 +30,13 @@ const IndivPageContent = (props: IndivPageContentProps) => {
       draft={isDraft}
       createdAt={createdAt}
       onTitleClick={() => router.push(`/${blogUrl}/content/article/${pageUrl}/${id}`)}
-      onDeleteClick={() => mutate()}
+      onDeleteClick={() => {
+        if (isLinked) {
+          toast('해당 페이지는 연결된 네비게이션이 존재합니다. 네비게이션 연결을 해제하고 다시 시도해주세요!');
+          return;
+        }
+        mutate();
+      }}
     />
   );
 };
