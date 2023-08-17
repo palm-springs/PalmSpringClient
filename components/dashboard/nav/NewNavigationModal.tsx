@@ -1,4 +1,4 @@
-import React, { Dispatch, SetStateAction } from 'react';
+import React, { Dispatch, SetStateAction, useEffect } from 'react';
 import { useParams } from 'next/navigation';
 import { SetterOrUpdater } from 'recoil';
 
@@ -34,7 +34,7 @@ const NewNavigationModal = (props: NewNavigationModalProps) => {
   const { mutate } = usePostNavigation(
     blogUrl,
     newNavigationName,
-    newNavigationName === '직접 입력' ? false : true,
+    newNavigationSelector !== '직접 입력',
     // false,
     newNavigationUrl,
   );
@@ -69,6 +69,8 @@ const NewNavigationModal = (props: NewNavigationModalProps) => {
         setNewNavigationSelector={setNewNavigationSelector}
         newNavigationUrl={newNavigationUrl}
         setNewNavigationUrl={setNewNavigationUrl}
+        newNavigationName={newNavigationName}
+        setNewNavigationName={setNewNavigationName}
       />
     </DashboardCreateModal>
   );
