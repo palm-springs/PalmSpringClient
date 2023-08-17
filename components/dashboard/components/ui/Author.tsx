@@ -14,6 +14,7 @@ const Author = (props: AuthorProps) => {
 export default Author;
 
 const AuthorUI = styled.span`
+  margin-right: 2rem;
   ${({ theme }) => theme.fonts.Body3_Regular};
   width: 5.6rem;
   overflow: hidden;

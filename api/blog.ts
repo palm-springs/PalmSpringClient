@@ -45,3 +45,8 @@ export const putBlogConfig = async (blogUrl: string, requestBody: BlogConfigRequ
   const { data } = await client.put(`/api/v1/blog/${blogUrl}/admin/modify`, requestBody);
   return data;
 };
+
+export const deleteBlog = async (blogUrl: string) => {
+  const { data } = await client.delete<Response<null>>(`/api/v1/blog/${blogUrl}/admin/remove`);
+  return data;
+};
