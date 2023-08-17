@@ -43,6 +43,8 @@ const DashBoardContentContainer = (props: DashBoardContentContainerProps) => {
       position,
       createdAt,
       onTitleClick,
+      onMutateClick,
+      onDeleteClick,
       newsLetter,
     },
     onMenuButtonClick,
@@ -88,7 +90,14 @@ const DashBoardContentContainer = (props: DashBoardContentContainerProps) => {
               <CharmMenuMeatballIcon />
             </BtnContainer>
           )}
-          {isModalOpen && <PopOverMenu onNavigateContentClick={onTitleClick} pathName={pathName} />}
+                {isModalOpen && (
+        <PopOverMenu
+          onNavigateContentClick={onTitleClick}
+          onMutateButtonClick={onMutateClick}
+          onDeleteButtonClick={onDeleteClick}
+          pathName={pathName}
+        />
+      )}
         </>
       )}
     </DashBoardContentUI>

@@ -6,4 +6,5 @@ type modalStateProps =
   | 'createPage'
   | 'createMember'
   | 'createSubscriber'
+  | 'updateNavigation'
   | '';
