@@ -13,12 +13,18 @@ interface editorProps {
   handleOnClickArticlePublish: () => void;
   handleOnClickPageDraft: () => void;
   handleOnClickPagePublish: () => void;
+  currentState?: string;
 }
 
 const SaveEditorContentButton = (props: editorProps) => {
   const [isModal, setIsModal] = useState(false);
-  const { handleOnClickArticleDraft, handleOnClickArticlePublish, handleOnClickPageDraft, handleOnClickPagePublish } =
-    props;
+  const {
+    handleOnClickArticleDraft,
+    handleOnClickArticlePublish,
+    handleOnClickPageDraft,
+    handleOnClickPagePublish,
+    currentState,
+  } = props;
   const { team } = useParams();
   const router = useRouter();
 
@@ -78,9 +84,15 @@ const SaveEditorContentButton = (props: editorProps) => {
               <TemporarySaveButton type="button" onClick={handleDraftSaveButton}>
                 임시저장
               </TemporarySaveButton>
-              <SaveButton type="button" onClick={handleOnClickArticlePublish}>
-                발행하기
-              </SaveButton>
+              {currentState === 'edit' ? (
+                <SaveButton type="button" onClick={handleOnClickArticlePublish}>
+                  수정하기
+                </SaveButton>
+              ) : (
+                <SaveButton type="button" onClick={handleOnClickArticlePublish}>
+                  발행하기
+                </SaveButton>
+              )}
             </BottomWrapper>
           </ButtonContainer>
           {isModal && (

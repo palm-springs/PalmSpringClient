@@ -33,6 +33,7 @@ lowlight.registerLanguage('js', js);
 lowlight.registerLanguage('ts', ts);
 
 import { useRecoilState } from 'recoil';
+import { styled } from 'styled-components';
 
 import { getUpdateArticleContent, postArticleList } from '@/api/article';
 import { postPageDraft } from '@/api/page';
@@ -255,17 +256,12 @@ const TextEditorBuild = (props: TextEditorBuildprops) => {
               handleDragOver={handleDragOver}
               updateArticleData={{ title, content, images }}
             />
-
-            {currentState === 'edit' && (
-              <>
-                <TextEditor editor={editor} handleDragOver={handleDragOver} handleDrop={handleDrop} />
-              </>
-            )}
             <SaveEditorContentButton
               handleOnClickArticleDraft={handleOnClickArticleDraft}
               handleOnClickArticlePublish={handleOnClickArticlePublish}
               handleOnClickPageDraft={handleOnClickPageDraft}
               handleOnClickPagePublish={handleOnClickPagePublish}
+              currentState="edit"
             />
           </>
         );
@@ -301,3 +297,8 @@ const TextEditorBuild = (props: TextEditorBuildprops) => {
   }
 };
 export default TextEditorBuild;
+
+const dd = styled.div`
+  position: absolute;
+  bottom: 0;
+`;
