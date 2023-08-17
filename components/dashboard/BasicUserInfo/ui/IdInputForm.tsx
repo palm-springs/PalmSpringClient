@@ -1,8 +1,6 @@
 'use client';
 import styled from 'styled-components';
 
-// import InputMessage from '@/components/create-blog/info/ui/basicInfo/InputMessage';
-
 interface UserIdCheckProps {
   children: React.ReactNode;
   isFocus: boolean;
@@ -14,11 +12,9 @@ const IdInputForm = (props: UserIdCheckProps) => {
   console.log(isDuplicate);
 
   return (
-    <>
-      <InputContainer id={isDuplicate ? 'failed' : ''} $isFocus={isFocus}>
-        {children}
-      </InputContainer>
-    </>
+    <InputContainer id={isDuplicate ? 'failed' : ''} $isFocus={isFocus}>
+      {children}
+    </InputContainer>
   );
 };
 

@@ -37,7 +37,8 @@ const UserId = (props: UserIdCheckProps) => {
             onBlur={() => setIsUserIdFocus(false)}
             value={userId}
             onChange={handleOnChange}
-            placeholder={basicUserData.data.registerId}></TextInput>
+            placeholder={basicUserData.data.registerId}
+          />
 
           {isDuplicate === null && userId !== '' && <Loader01Icon />}
         </IdInputForm>
