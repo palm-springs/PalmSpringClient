@@ -43,7 +43,12 @@ export const getUpdateArticleContent = async (articleId: number) => {
   return data;
 };
 
-// export const updateArticleDetail = async (articleUrl: string) => {
-//   const { data } = await client.patch(`/api/v1/article/${articleUrl}/modify`);
-//   return data;
-// };
+export const updateArticleDetail = async (articleUrl: string) => {
+  const { data } = await client.put(`/api/v1/article/${articleUrl}/modify`);
+  return data;
+};
+
+export const updateArticleDraft = async (articleUrl: string) => {
+  const { data } = await client.put(`/api/v1/article/${articleUrl}/modify/draft`);
+  return data;
+};
