@@ -2,6 +2,7 @@ import { toast } from 'react-hot-toast';
 import { useRouter } from 'next/navigation';
 
 import { useDeletePage } from '@/hooks/dashboard';
+import theme from '@/styles/theme';
 
 import DashBoardContent from '../components/DashBoardContent';
 
@@ -22,6 +23,22 @@ const IndivPageContent = (props: IndivPageContentProps) => {
 
   const { mutate } = useDeletePage(blogUrl, Number(id));
 
+  const notify = () =>
+    toast.error('네비게이션 연결을 해제하고 다시 시도해주세요!', {
+      id: 'has linked nav',
+      style: {
+        padding: '1.6rem 2rem',
+        borderRadius: '3.2rem',
+        background: theme.colors.background_red,
+        color: '#fff',
+        fontSize: '1.4rem',
+        fontFamily: 'Pretendard',
+        fontStyle: 'normal',
+        fontWeight: '700',
+        letterSpacing: '-0.028rem',
+      },
+    });
+
   return (
     <DashBoardContent
       key={id}
@@ -29,11 +46,11 @@ const IndivPageContent = (props: IndivPageContentProps) => {
       content={title}
       draft={isDraft}
       createdAt={createdAt}
-      onTitleClick={() => router.push(`/${blogUrl}/content/article/${pageUrl}/${id}`)}
+      onTitleClick={() => router.push(`/${blogUrl}/content/page/${pageUrl}/${id}`)}
       onMutateClick={() => router.push(`/${blogUrl}/editor/page/edit/${id}`)}
       onDeleteClick={() => {
         if (isLinked) {
-          toast('해당 페이지는 연결된 네비게이션이 존재합니다. 네비게이션 연결을 해제하고 다시 시도해주세요!');
+          alert('나중에 토스트 메세지로 네비게이션 연결을 해제하고 다시 시도해주세요! 를 보여주기');
           return;
         }
         mutate();
