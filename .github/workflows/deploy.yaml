@@ -19,9 +19,10 @@ jobs:
       - name: Run scripts in server
         uses: appleboy/ssh-action@v1.0.0
         with:
-          key: ${{ secrets.SSH_KEY }}
+          password: ${{ secrets.SSH_KEY }}
           host: ${{ secrets.HOST }}
           username: ${{ secrets.USER }}
+          port: ${{ secrets.PORT }}
           script: |
             whoami
             cd palmspring-client/PalmSpringClient
