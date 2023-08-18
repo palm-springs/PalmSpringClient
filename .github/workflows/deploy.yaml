@@ -19,7 +19,7 @@ jobs:
       - name: Run scripts in server
         uses: appleboy/ssh-action@v1.0.0
         with:
-          password: ${{ secrets.SSH_KEY }}
+          password: ${{ secrets.INSTANCE_PWD }}
           host: ${{ secrets.HOST }}
           username: ${{ secrets.USER }}
           port: ${{ secrets.PORT }}
