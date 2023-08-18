@@ -1,5 +1,5 @@
 'use client';
-import { ChangeEvent, Dispatch, KeyboardEvent, SetStateAction, useRef, useState } from 'react';
+import { ChangeEvent, Dispatch, KeyboardEvent, RefObject, SetStateAction, useRef, useState } from 'react';
 import styled from 'styled-components';
 
 import EmailBox from './EmailBox';
@@ -7,10 +7,11 @@ import EmailBox from './EmailBox';
 interface AddMemberInputProps {
   emailBox: string[];
   setEmailBox: Dispatch<SetStateAction<string[]>>;
+  emailInputRef: RefObject<HTMLInputElement>;
 }
 
 const AddMemberInput = (props: AddMemberInputProps) => {
-  const { emailBox: emailList, setEmailBox: setEmailList } = props;
+  const { emailBox: emailList, setEmailBox: setEmailList, emailInputRef } = props;
 
   const [emailValue, setEmailValue] = useState('');
 
@@ -53,7 +54,7 @@ const AddMemberInput = (props: AddMemberInputProps) => {
   return (
     <AddMemberInputContainer>
       {EmailBoxList}
-      <Input value={emailValue} onChange={handleInputChange} onKeyDown={handleInputKeyDown} />
+      <Input value={emailValue} onChange={handleInputChange} onKeyDown={handleInputKeyDown} ref={emailInputRef} />
     </AddMemberInputContainer>
   );
 };
