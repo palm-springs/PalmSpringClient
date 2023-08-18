@@ -1,7 +1,7 @@
 'use client';
 
 import React from 'react';
-import { useParams, useRouter, useSearchParams } from 'next/navigation';
+import { useParams } from 'next/navigation';
 
 import EmptyLanding from '@/components/common/ui/EmptyLanding';
 import { ArticleData } from '@/types/article';
@@ -9,6 +9,8 @@ import { Response } from '@/types/common';
 
 import DashBoardContent from '../../components/DashBoardContent';
 import DashBoardContentListContainer from '../../components/ui/DashBoardContentListContainer';
+
+import IndivUploadContentList from './IndivUploadContentList';
 
 interface UploadContentListProps {
   category: string[];
@@ -20,8 +22,6 @@ const UploadContentList = (props: UploadContentListProps) => {
   const { articleData, currentCategory } = props;
 
   const { team } = useParams();
-
-  const router = useRouter();
 
   const isAllCategory = currentCategory === '전체';
 
@@ -48,15 +48,15 @@ const UploadContentList = (props: UploadContentListProps) => {
       />
       {articleData.data.map(({ id, title, memberName, job, createdAt, articleCategory, articleUrl }) => {
         return (
-          <DashBoardContent
+          <IndivUploadContentList
             key={id}
-            id={String(id)}
-            content={title}
-            tabType={articleCategory && articleCategory.categoryName}
-            author={memberName}
-            position={job}
+            id={id}
+            title={title}
+            memberName={memberName}
+            job={job}
             createdAt={createdAt}
-            onTitleClick={() => router.push(`/${team}/content/article/${articleUrl}/${id}`)}
+            articleCategory={articleCategory}
+            articleUrl={articleUrl}
           />
         );
       })}

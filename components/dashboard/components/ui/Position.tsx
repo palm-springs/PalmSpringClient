@@ -15,9 +15,10 @@ export default Position;
 
 const PositionUI = styled.span`
   ${({ theme }) => theme.fonts.Body3_Regular};
-  margin-right: 3vw;
+  margin-right: 2rem;
   width: 12.4rem;
-  overflow: hidden;
+  height: 1.7rem;
+  overflow-x: hidden;
   text-overflow: ellipsis;
   white-space: nowrap;
   color: ${({ theme }) => theme.colors.grey_700};

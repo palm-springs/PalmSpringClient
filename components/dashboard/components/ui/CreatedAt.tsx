@@ -8,7 +8,7 @@ interface CreatedAtProps {
 const CreatedAt = (props: CreatedAtProps) => {
   const { createdAt } = props;
 
-  return <CreatedAtUI>{createdAt}</CreatedAtUI>;
+  return <CreatedAtUI>{createdAt.length > 10 ? createdAt.slice(0, 10) : createdAt}</CreatedAtUI>;
 };
 
 export default CreatedAt;

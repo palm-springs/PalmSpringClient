@@ -1,4 +1,4 @@
-import React, { Dispatch, SetStateAction, useEffect } from 'react';
+import React, { Dispatch, SetStateAction } from 'react';
 import { useParams } from 'next/navigation';
 import { SetterOrUpdater } from 'recoil';
 
@@ -60,7 +60,7 @@ const UpdateNavigationModal = (props: UpdateNavigationModalProps) => {
         setUpdateNavigationSelector('');
         setUpdateNavigationUrl('');
       }}
-      disabled={updateNavigationName === '' && updateNavigationUrl === ''}>
+      disabled={updateNavigationName === '' || updateNavigationUrl === ''}>
       <ModalPortalContainer
         title="네비게이션 이름"
         placeholder="네비게이션 이름을 입력하세요."
@@ -72,6 +72,8 @@ const UpdateNavigationModal = (props: UpdateNavigationModalProps) => {
         setNewNavigationSelector={setUpdateNavigationSelector}
         newNavigationUrl={updateNavigationUrl}
         setNewNavigationUrl={setUpdateNavigationUrl}
+        newNavigationName={updateNavigationName}
+        setNewNavigationName={setUpdateNavigationName}
       />
     </DashboardCreateModal>
   );

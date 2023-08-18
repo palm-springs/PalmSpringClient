@@ -1,5 +1,3 @@
-import { useMutation } from '@tanstack/react-query';
-
 import { Response } from '@/types/common';
 import { CategoryListProps, NavListProps, PageListProps, TempSavedListProps } from '@/types/dashboard';
 import { MemberProps } from '@/types/member';
@@ -89,5 +87,35 @@ export const updateNavigation = async (blogUrl: string, id: number, name: string
     isPage,
     navUrl,
   });
+  return data;
+};
+
+export const deleteCategory = async (blogUrl: string, id: number) => {
+  const { data } = await client.delete<Response<null>>(
+    `https://api.palms.blog/api/v1/category/${blogUrl}/admin/remove?id=${id}`,
+  );
+  console.log('이게지', data);
+  if (data.code === 406) {
+    alert('카테고리 안에 글이 없어야해요~');
+  }
+  return data;
+};
+
+export const updateCategory = async (blogUrl: string, id: number, name: string, description: string) => {
+  const { data } = await client.put<Response<null>>(`/api/v1/category/${blogUrl}/admin/modify`, {
+    id,
+    name,
+    description,
+  });
+  return data;
+};
+
+export const deletePage = async (blogUrl: string, id: number) => {
+  const { data } = await client.delete<Response<null>>(`/api/v1/page/${blogUrl}/admin/remove?id=${id}`);
+  return data;
+};
+
+export const deleteArticle = async (blogUrl: string, id: number) => {
+  const { data } = await client.delete<Response<null>>(`/api/v1/article/${blogUrl}/remove?id=${id}`);
   return data;
 };

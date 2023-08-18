@@ -3,7 +3,7 @@ import { useQuery } from '@tanstack/react-query';
 import { getArticleList, getSingleArticleData, getSinglePageData } from '@/api/article';
 import { getContent } from '@/api/content';
 
-const QUERY_KEY_ARTICLE = {
+export const QUERY_KEY_ARTICLE = {
   getArticleList: 'getArticleList',
   getSingleArticleData: 'getSingleArticleData',
   getSinglePageData: 'getSinglePageData',

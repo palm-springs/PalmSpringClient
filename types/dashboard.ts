@@ -23,6 +23,7 @@ export interface PageListProps {
   createdAt: string;
   pageUrl: string;
   isDraft: boolean;
+  isLinked: boolean;
 }
 
 export interface CategoryListProps {
