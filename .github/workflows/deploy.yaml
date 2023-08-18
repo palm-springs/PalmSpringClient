@@ -17,12 +17,13 @@ jobs:
     steps:
       - uses: actions/checkout@v2
       - name: Run scripts in server
-        uses: appleboy/ssh-action@master
+        uses: appleboy/ssh-action@1.0.0
         with:
           key: ${{ secrets.SSH_KEY }}
           host: ${{ secrets.HOST }}
           username: ${{ secrets.USER }}
           script: |
+            whoami
             cd palmspring-client/PalmSpringClient
             git fetch --all
             git reset --hard origin/develop
