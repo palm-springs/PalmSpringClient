@@ -49,7 +49,14 @@ const DashBoardProfileContainerUI = styled.article`
     display: flex;
     flex-direction: column;
     align-items: flex-start;
-    margin-left: 1.6rem;
+
+    span {
+      width: 20rem;
+      overflow: hidden;
+      text-overflow: ellipsis;
+      white-space: nowrap;
+    }
+
     :first-child {
       margin-bottom: 0.2rem;
       height: 1.7rem;
