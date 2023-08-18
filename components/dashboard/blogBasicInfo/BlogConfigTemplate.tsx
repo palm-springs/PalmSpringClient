@@ -18,8 +18,8 @@ import BlogUrl from './BlogUrl';
 
 interface BlogConfigProps {
   blogName: string;
-  blogLogoImage: File | null;
-  blogMainImage: File | null;
+  blogLogoImage: File | string | null;
+  blogMainImage: File | string | null;
   blogDescribeText: string;
 }
 
@@ -49,11 +49,17 @@ const BlogConfigTemplate = () => {
   if (!res || !res.data) return <LoadingLottie width={10} height={10} />;
 
   const postBlogConfig = async () => {
-    const logoS3 = blogConfig.blogLogoImage && ((await getImageMultipartData(blogConfig.blogLogoImage)) as string);
+    const logoS3 =
+      blogConfig.blogLogoImage &&
+      typeof blogConfig.blogLogoImage !== 'string' &&
+      ((await getImageMultipartData(blogConfig.blogLogoImage)) as string);
 
     // imageArray.append(logoS3);
 
-    const mainS3 = blogConfig.blogMainImage && ((await getImageMultipartData(blogConfig.blogMainImage)) as string);
+    const mainS3 =
+      blogConfig.blogMainImage &&
+      typeof blogConfig.blogMainImage !== 'string' &&
+      ((await getImageMultipartData(blogConfig.blogMainImage)) as string);
 
     try {
       // axios를 이용한 post 요청. 헤더를 multipart/form-data 로 한다.
@@ -70,49 +76,47 @@ const BlogConfigTemplate = () => {
     }
   };
   return (
-    <>
-      <BlogBasicInfoContainer>
-        <BlogUrl blogUrl={res.data.url} />
-        <BlogName
-          blogName={blogConfig.blogName}
-          setBlogName={(v) =>
-            setBlogConfig((prev) => ({
-              ...prev,
-              blogName: v,
-            }))
-          }
-        />
-        <BlogLogoImage
-          setFile={(v) =>
-            setBlogConfig((prev) => ({
-              ...prev,
-              blogLogoImage: v,
-            }))
-          }
-        />
-        <BlogMainImage
-          setFile={(v) =>
-            setBlogConfig((prev) => ({
-              ...prev,
-              blogMainImage: v,
-            }))
-          }
-        />
-        <BlogDescribeText
-          describeText={blogConfig.blogDescribeText}
-          setDescribeText={(v) =>
-            setBlogConfig((prev) => ({
-              ...prev,
-              blogDescribeText: v,
-            }))
-          }
-        />
-        <BlogInfoDeleteButton />
-        <BlogSaveButton type="button" disabled={blogConfig.blogName === ''} onClick={postBlogConfig}>
-          저장하기
-        </BlogSaveButton>
-      </BlogBasicInfoContainer>
-    </>
+    <BlogBasicInfoContainer>
+      <BlogUrl blogUrl={res.data.url} />
+      <BlogName
+        blogName={blogConfig.blogName}
+        setBlogName={(v) =>
+          setBlogConfig((prev) => ({
+            ...prev,
+            blogName: v,
+          }))
+        }
+      />
+      <BlogLogoImage
+        setFile={(v) =>
+          setBlogConfig((prev) => ({
+            ...prev,
+            blogLogoImage: v,
+          }))
+        }
+      />
+      <BlogMainImage
+        setFile={(v) =>
+          setBlogConfig((prev) => ({
+            ...prev,
+            blogMainImage: v,
+          }))
+        }
+      />
+      <BlogDescribeText
+        describeText={blogConfig.blogDescribeText}
+        setDescribeText={(v) =>
+          setBlogConfig((prev) => ({
+            ...prev,
+            blogDescribeText: v,
+          }))
+        }
+      />
+      <BlogInfoDeleteButton />
+      <BlogSaveButton type="button" disabled={blogConfig.blogName === ''} onClick={postBlogConfig}>
+        저장하기
+      </BlogSaveButton>
+    </BlogBasicInfoContainer>
   );
 };
 
@@ -121,6 +125,7 @@ export default BlogConfigTemplate;
 const BlogBasicInfoContainer = styled.div`
   padding-left: 4rem;
   width: 100%;
+  overflow-y: scroll;
 `;
 
 const BlogSaveButton = styled.button`
