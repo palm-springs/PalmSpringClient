@@ -66,6 +66,7 @@ export default AddMemberInput;
 const AddMemberInputContainer = styled.div`
   display: flex;
   flex-wrap: wrap;
+
   gap: 1.2rem;
 
   width: 100%;
@@ -74,6 +75,7 @@ const AddMemberInputContainer = styled.div`
 const Input = styled.input`
   ${({ theme }) => theme.fonts.Body3_Regular};
   border: none;
+  width: 100%;
 
   &:focus {
     outline: none;
