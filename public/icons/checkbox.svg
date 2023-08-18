@@ -1,6 +1,3 @@
-<svg width="20" height="20" viewBox="0 0 20 20" fill="none" xmlns="http://www.w3.org/2000/svg">
-<g id="checkbox">
-<rect id="Rectangle 5729" width="20" height="20" rx="3" fill="#19DB7B"/>
-<path id="Vector 52" d="M5 10.48L9.23077 14L15 6" stroke="white" stroke-width="1.5"/>
-</g>
+<svg width="12" height="11" viewBox="0 0 12 11" fill="none" xmlns="http://www.w3.org/2000/svg">
+<path d="M1 5.48L5.23077 9L11 1" stroke="white" stroke-width="1.5"/>
 </svg>
