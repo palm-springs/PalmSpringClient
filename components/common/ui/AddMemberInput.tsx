@@ -33,9 +33,11 @@ const AddMemberInput = (props: AddMemberInputProps) => {
     const { key } = e;
 
     if (key === 'Enter' || key === ' ' || key === ',') {
-      setEmailList([...emailList, emailValue]);
-      setEmailValue('');
       isDivisionKey.current = true;
+      if (emailValue !== '') {
+        setEmailList([...emailList, emailValue]);
+        setEmailValue('');
+      }
     }
   };
 
