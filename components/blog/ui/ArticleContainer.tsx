@@ -32,28 +32,30 @@ const ArticleContainer = (props: ArticleContainerProps) => {
   const FilteredCategoryList = useGetCategoryList(team);
   const CategorySelected = useGetCategory();
 
-  if (!FilteredCategoryList) return <LoadingLottie width={10} height={10} fit />;
+  if (!FilteredCategoryList || !CategorySelected) return <LoadingLottie width={10} height={10} fit />;
 
   const LiteralList = getLiteralCategoryList(FilteredCategoryList);
 
-  //카테고리 선택됨, 아티클 리스트 없고 블로그 대문 있을 때
-  if (CategorySelected !== 'home' && articleListData.length === 0 && thumbnail)
-    return (
-      <BlogImgContainer>
-        <BlogImg thumbnail={thumbnail} description={description} />
-        <CategoryBtnWrapper>
-          <CategoryBtnBar LiteralList={LiteralList} />
-        </CategoryBtnWrapper>
-      </BlogImgContainer>
-    );
-
-  //아티클 리스트가 없고 카테고리 선택 안되고 블로그 대문이 있을 때
-  if (articleListData.length === 0 && thumbnail)
-    return (
-      <BlogImgContainer>
-        <BlogImg thumbnail={thumbnail} description={description} />
-      </BlogImgContainer>
-    );
+  if (articleListData.length === 0 && thumbnail) {
+    if (CategorySelected !== 'home') {
+      //아티클 리스트가 없고 카테고리 선택 안되고 블로그 대문이 있을 때
+      return (
+        <BlogImgContainer>
+          <BlogImg thumbnail={thumbnail} description={description} />
+          <CategoryBtnWrapper>
+            <CategoryBtnBar LiteralList={LiteralList} />
+          </CategoryBtnWrapper>
+        </BlogImgContainer>
+      );
+    } else {
+      //카테고리 선택됨, 아티클 리스트 없고 블로그 대문 있을 때
+      return (
+        <BlogImgContainer>
+          <BlogImg thumbnail={thumbnail} description={description} />
+        </BlogImgContainer>
+      );
+    }
+  }
 
   //아티클 리스트가 없고 블로그 대문이 없을 때
   if (articleListData.length === 0 && !thumbnail)

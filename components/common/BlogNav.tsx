@@ -20,18 +20,16 @@ const BlogNav = () => {
   if (!res) return <LoadingLottie width={10} height={10} fit />;
 
   const { data: navList } = res;
-
+  console.log(navList);
   return (
     <BlogNavContainer>
-      {/* <div></div> */}
-      {/* 위의 div 왜 넣어둔거지,,, */}
       {navList &&
         navList.map(({ navUrl, name, isPage, id }) => (
           <PageBtn key={navUrl}>
             {isPage === true ? (
               <Link href={`/${team}/content/page/${navUrl}/${id}`}>{name}</Link>
             ) : (
-              <Link href={`${navUrl}`}>{name}</Link>
+              <Link href={`https://${navUrl}`}>{name}</Link>
             )}
           </PageBtn>
         ))}
