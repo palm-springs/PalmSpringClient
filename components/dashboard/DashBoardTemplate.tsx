@@ -24,7 +24,7 @@ const DashBoardTemplate = (props: DashBoardTemplateProps) => {
 
   const res = useGetBlogInfo(team ?? '');
 
-  const title = res?.data.name;
+  const title = res && res.data && res.data.name;
 
   if (!title && typeof window !== 'undefined') {
     router.push(`/no-team/dashboard`);
