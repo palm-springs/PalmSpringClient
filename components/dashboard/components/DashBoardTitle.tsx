@@ -1,7 +1,7 @@
 'use client';
 
 import React, { Dispatch, SetStateAction } from 'react';
-import { useParams, useRouter } from 'next/navigation';
+import { useParams } from 'next/navigation';
 
 import { useGetBlogInfo } from '@/hooks/blog';
 import { ArrowDownIcon, SymbolIcon } from '@/public/icons';

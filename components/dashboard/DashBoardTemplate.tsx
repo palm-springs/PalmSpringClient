@@ -27,7 +27,7 @@ const DashBoardTemplate = (props: DashBoardTemplateProps) => {
   const title = res && res.data && res.data.name;
 
   if (!title && typeof window !== 'undefined') {
-    router.push(`/no-team/dashboard`);
+    // router.push(`/no-team/dashboard`);
   }
 
   return (

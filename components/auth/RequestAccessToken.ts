@@ -25,7 +25,7 @@ const RequestAccessToken = async (props: getAccessTokenProps) => {
         data: { joinBlogList },
       } = await getUserInfoAfterLogin('', accessToken);
       if (joinBlogList.length === 0) {
-        router.push('/no-team/dashboard');
+        // router.push('/no-team/dashboard');
       } else {
         router.push(`/${joinBlogList[0].url}/dashboard/upload`);
       }
