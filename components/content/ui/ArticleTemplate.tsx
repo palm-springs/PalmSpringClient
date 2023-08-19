@@ -72,9 +72,13 @@ const ArticleTemplate = (props: ArticleTemplateProps) => {
 export default ArticleTemplate;
 
 const ArticleThumbnail = styled.img`
+  object-fit: cover;
   border-radius: 1.6rem;
   width: 72rem;
   height: 40.5rem;
+
+  user-select: none;
+  -webkit-user-drag: none;
 `;
 
 const ContentPageContainer = styled.section`

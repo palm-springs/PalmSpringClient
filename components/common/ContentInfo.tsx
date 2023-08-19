@@ -42,7 +42,6 @@ const ContentInfo = (props: ContentInfoProps) => {
   if (!teamMember) return <LoadingLottie height={4} width={4} fit={false} />;
 
   const { thumbnail, name, job, createdAt, id } = teamMember;
-  // const authorName = {name}
 
   return (
     <ContentInfoContainer className={ifContent === 'content' ? 'noHover' : 'hover'}>
