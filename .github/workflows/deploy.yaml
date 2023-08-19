@@ -43,7 +43,6 @@ jobs:
           password: ${{ secrets.INSTANCE_PWD }}
           host: ${{ secrets.HOST }}
           username: ${{ secrets.USER }}
-          port: ${{ secrets.PORT }}
           script: |
             whoami
             cd palmspring-client/PalmSpringClient
