@@ -17,7 +17,7 @@ interface TextEditorBuildProps {
 }
 
 const EditorInputTitle = (props: TextEditorBuildProps) => {
-  const { pageType, currentState, articleData } = props;
+  const { pageType, currentState, articleData, pageData } = props;
 
   const [{ title }, setArticleData] = useRecoilState(articleDataState);
   const [{ title: pageTitle }, setPageData] = useRecoilState(pageDataState);
@@ -38,7 +38,7 @@ const EditorInputTitle = (props: TextEditorBuildProps) => {
   switch (pageType) {
     case `article`:
       if (currentState === 'edit' && articleData) {
-        const { title } = articleData;
+        const { title } = articleData; //이 값은 수정되는 값으로 해야함 그리고 value에 넣기 -> 수정하는 title data 변화값 넣기
         return (
           <EditorInputTitleContainer>
             <TitleInputBox value={title} onChange={handleSaveArticleTitle} rows={1}>
@@ -54,11 +54,23 @@ const EditorInputTitle = (props: TextEditorBuildProps) => {
         );
       }
     case `page`:
-      return (
-        <EditorInputTitleContainer>
-          <TitleInputBox value={pageTitle} onChange={handleSavePageTitle} rows={1} placeholder="제목을 입력해주세요" />
-        </EditorInputTitleContainer>
-      );
+      if (currentState === 'edit' && pageData) {
+        const { title: pageTitle } = pageData; //이 값은 수정되는 값으로 해야함 그리고 value에 넣기
+
+        return (
+          <EditorInputTitleContainer>
+            <TitleInputBox value={pageTitle} onChange={handleSavePageTitle} rows={1}>
+              {pageData.title}
+            </TitleInputBox>
+          </EditorInputTitleContainer>
+        );
+      } else {
+        return (
+          <EditorInputTitleContainer>
+            <TitleInputBox value={title} onChange={handleSaveArticleTitle} rows={1} placeholder="제목을 입력해주세요" />
+          </EditorInputTitleContainer>
+        );
+      }
     default:
       break;
   }

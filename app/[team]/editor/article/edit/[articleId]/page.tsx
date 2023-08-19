@@ -10,7 +10,7 @@ import { TextEditorStyle } from '@/styles/TextEditorStyle';
 
 const EditArticlePage = () => {
   const { articleId } = useParams();
-  const updateArticleEditContents = useGetUpdateArticleContent(Number(78)); // number 값 articleId로 바꿀거이
+  const updateArticleEditContents = useGetUpdateArticleContent(Number(articleId)); // number 값 articleId로 바꿀거이
   // console.log(updateArticleEditContents.data.content);
   return (
     <AuthRequired>
