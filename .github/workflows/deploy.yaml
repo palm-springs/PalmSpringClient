@@ -16,6 +16,10 @@ jobs:
 
     steps:
 
+      - name: Get Github action IP
+        id: ip
+        uses: haythem/public-ip@v1.2
+
       - name: Configure AWS Credentials
         uses: aws-actions/configure-aws-credentials@v1
         with:
@@ -25,7 +29,7 @@ jobs:
 
       - name: Add Github Actions IP to Security group
         run: |
-          aws ec2 authorize-security-group-ingress --group-id ${{ secrets.AWS_SG_ID }} --protocol tcp --port 22 --cidr ${{ steps.ip.outputs.ipv4 }}/\32
+         aws ec2 authorize-security-group-ingress --group-name ${{ env.AWS_SG_NAME }} --protocol tcp --port 22 --cidr ${{ steps.ip.outputs.ipv4 }}/32 
     
       - uses: actions/checkout@v2
       - name: Run scripts in server
@@ -45,6 +49,6 @@ jobs:
             yarn build
             pm2 start yarn -- start
 
-      - name: Remove Github Actions IP From Security Group
+      - name: Remove Github Actions IP from security group
         run: |
-          aws ec2 revoke-security-group-ingress --group-id ${{ secrets.AWS_SG_ID }} --protocol tcp --port 22 --cidr ${{ steps.ip.outputs.ipv4 }}/\32
+         aws ec2 revoke-security-group-ingress --group-name ${{ env.AWS_SG_NAME }} --protocol tcp --port 22 --cidr ${{ steps.ip.outputs.ipv4 }}/32
