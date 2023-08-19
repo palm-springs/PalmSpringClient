@@ -5,23 +5,23 @@ import styled from 'styled-components';
 import AuthRequired from '@/components/auth/AuthRequired';
 import TextEditorBuild from '@/components/editor/TextEditorImport';
 import EditorInputTitle from '@/components/editor/ui/EditorInputTitle';
-import { useGetUpdateArticleContent } from '@/hooks/editor';
+import { useGetUpdateArticleContent, useGetUpdatePageContent } from '@/hooks/editor';
 import { TextEditorStyle } from '@/styles/TextEditorStyle';
 
-const EditArticlePage = () => {
-  const { articleId } = useParams();
-  const updateArticleEditContents = useGetUpdateArticleContent(Number(78)); // number 값 articleId로 바꿀거이
-  // console.log(updateArticleEditContents.data.content);
+const EditPagePage = () => {
+  const { pageId } = useParams();
+  const updatePageEditContents = useGetUpdatePageContent(Number(78)); // number 값 pageId로 바꿀거이
+  // console.log(updatePageEditContents.data.content);
   return (
     <AuthRequired>
       <TextEditorStyle>
         <ArticleWrapper className="ProseMirror">
           {/* 데이터가 content 있는 페이지 */}
-          {updateArticleEditContents && (
-            <EditorInputTitle pageType="article" currentState="edit" articleData={updateArticleEditContents.data} />
+          {updatePageEditContents && (
+            <EditorInputTitle pageType="page" currentState="edit" pageData={updatePageEditContents.data} />
           )}
-          {updateArticleEditContents && (
-            <TextEditorBuild pageType="article" currentState="edit" articleData={updateArticleEditContents.data} />
+          {updatePageEditContents && (
+            <TextEditorBuild pageType="page" currentState="edit" pageData={updatePageEditContents.data} />
           )}
         </ArticleWrapper>
       </TextEditorStyle>
@@ -29,7 +29,7 @@ const EditArticlePage = () => {
   );
 };
 
-export default EditArticlePage;
+export default EditPagePage;
 
 const ArticleWrapper = styled.div`
   display: flex;

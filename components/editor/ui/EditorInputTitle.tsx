@@ -5,17 +5,19 @@ import { useRecoilState } from 'recoil';
 import styled from 'styled-components';
 
 import { UpdateArticleProps } from '@/types/article';
+import { UpdatePageProps } from '@/types/page';
 
 import { articleDataState, articleEditDataState, pageDataState } from '../states/atom';
 
 interface TextEditorBuildProps {
   pageType: string;
   currentState?: string;
-  data?: UpdateArticleProps;
+  articleData?: UpdateArticleProps;
+  pageData?: UpdatePageProps;
 }
 
 const EditorInputTitle = (props: TextEditorBuildProps) => {
-  const { pageType, currentState, data } = props;
+  const { pageType, currentState, articleData } = props;
 
   const [{ title }, setArticleData] = useRecoilState(articleDataState);
   const [{ title: pageTitle }, setPageData] = useRecoilState(pageDataState);
@@ -35,12 +37,12 @@ const EditorInputTitle = (props: TextEditorBuildProps) => {
   // 아니라면 기존의 빈 타이틀이 저장된다.
   switch (pageType) {
     case `article`:
-      if (currentState === 'edit' && data) {
-        const { title } = data;
+      if (currentState === 'edit' && articleData) {
+        const { title } = articleData;
         return (
           <EditorInputTitleContainer>
             <TitleInputBox value={title} onChange={handleSaveArticleTitle} rows={1}>
-              {data.title}
+              {articleData.title}
             </TitleInputBox>
           </EditorInputTitleContainer>
         );

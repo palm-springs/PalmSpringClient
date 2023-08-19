@@ -41,17 +41,19 @@ import TextEditor from '@/components/editor/TextEditor';
 import ToolBox from '@/components/editor/ui/ToolBox';
 import { useGetUpdateArticleContent } from '@/hooks/editor';
 import { UpdateArticleProps } from '@/types/article';
+import { UpdatePageProps } from '@/types/page';
 import { getImageMultipartData } from '@/utils/getImageMultipartData';
 
 import { articleDataState, pageDataState } from './states/atom';
 interface TextEditorBuildprops {
   pageType: string;
   currentState?: string;
-  data?: UpdateArticleProps;
+  articleData?: UpdateArticleProps;
+  pageData?: UpdatePageProps;
 }
 
 const TextEditorBuild = (props: TextEditorBuildprops) => {
-  const { pageType, currentState, data } = props;
+  const { pageType, currentState, articleData, pageData } = props;
   const { team } = useParams();
   const [{ title }, setArticleData] = useRecoilState(articleDataState);
   const [{ title: pageTitle }, setPageData] = useRecoilState(pageDataState);
@@ -106,7 +108,7 @@ const TextEditorBuild = (props: TextEditorBuildprops) => {
         linkOnPaste: true,
       }),
     ],
-    content: data?.content,
+    content: articleData ? articleData.content : pageData ? pageData.content : '',
   });
   const encodeFileToBase64 = async (event: ChangeEvent<HTMLInputElement>, editor: Editor) => {
     const files = event.target.files;
@@ -244,8 +246,8 @@ const TextEditorBuild = (props: TextEditorBuildprops) => {
   // article, page에 따라 article page, page page에서 각각 렌더링 되도록 조건함.
   switch (pageType) {
     case `article`:
-      if (currentState === 'edit' && data) {
-        const { content, images } = data;
+      if (currentState === 'edit' && articleData) {
+        const { content, images } = articleData;
 
         return (
           <>
@@ -280,18 +282,40 @@ const TextEditorBuild = (props: TextEditorBuildprops) => {
         );
       }
     case `page`:
-      return (
-        <>
-          <ToolBox editor={editor} encodeFileToBase64={encodeFileToBase64} setLink={setLink} />
-          <TextEditor editor={editor} handleDrop={handleDrop} handleDragOver={handleDragOver} />
-          <SaveEditorContentButton
-            handleOnClickArticleDraft={handleOnClickArticleDraft}
-            handleOnClickArticlePublish={handleOnClickArticlePublish}
-            handleOnClickPageDraft={handleOnClickPageDraft}
-            handleOnClickPagePublish={handleOnClickPagePublish}
-          />
-        </>
-      );
+      if (currentState === 'edit' && pageData) {
+        const { content, images } = pageData;
+
+        return (
+          <>
+            <ToolBox editor={editor} encodeFileToBase64={encodeFileToBase64} setLink={setLink} />
+            <TextEditor
+              editor={editor}
+              handleDrop={handleDrop}
+              handleDragOver={handleDragOver}
+              updatePageData={{ title, content, images }}
+            />
+            <SaveEditorContentButton
+              handleOnClickArticleDraft={handleOnClickArticleDraft}
+              handleOnClickArticlePublish={handleOnClickArticlePublish}
+              handleOnClickPageDraft={handleOnClickPageDraft}
+              handleOnClickPagePublish={handleOnClickPagePublish}
+            />
+          </>
+        );
+      } else {
+        return (
+          <>
+            <ToolBox editor={editor} encodeFileToBase64={encodeFileToBase64} setLink={setLink} />
+            <TextEditor editor={editor} handleDrop={handleDrop} handleDragOver={handleDragOver} />
+            <SaveEditorContentButton
+              handleOnClickArticleDraft={handleOnClickArticleDraft}
+              handleOnClickArticlePublish={handleOnClickArticlePublish}
+              handleOnClickPageDraft={handleOnClickPageDraft}
+              handleOnClickPagePublish={handleOnClickPagePublish}
+            />
+          </>
+        );
+      }
     default:
       break;
   }

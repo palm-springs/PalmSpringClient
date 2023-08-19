@@ -41,3 +41,8 @@ export const getSinglePageData = async (blogUrl: string, pageUrl: string) => {
   const { data } = await client.get<Response<PageData>>(`/api/v1/page/${blogUrl}/detail/list?pageUrl=${pageUrl}`);
   return data;
 };
+
+export const getUpdatePageContent = async (pageId: number) => {
+  const { data } = await client.get(`/api/v1/page/admin/modify/detail?id=${pageId}`);
+  return data;
+};

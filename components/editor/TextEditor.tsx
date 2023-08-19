@@ -5,12 +5,14 @@ import { Editor, EditorContent } from '@tiptap/react';
 import styled from 'styled-components';
 
 import { UpdateArticleProps } from '@/types/article';
+import { UpdatePageProps } from '@/types/page';
 
 interface editorProps {
   editor: Editor | null;
   handleDragOver: DragEventHandler<HTMLDivElement> | undefined;
   handleDrop: DragEventHandler<HTMLDivElement> | undefined;
-  updateArticleData?: UpdateArticleProps;
+  updateArticleData?: UpdateArticleProps; //얘네 필요없지 않나
+  updatePageData?: UpdatePageProps; //얘네 필요없지 않나
 }
 
 const TextEditor = ({ editor, handleDragOver, handleDrop }: editorProps) => (

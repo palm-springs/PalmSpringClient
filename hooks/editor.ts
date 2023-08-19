@@ -2,7 +2,7 @@ import { useQuery } from '@tanstack/react-query';
 
 import { getArticleList, getSingleArticleData, getUpdateArticleContent } from '@/api/article';
 import { getContent } from '@/api/content';
-import { getSinglePageData } from '@/api/page';
+import { getSinglePageData, getUpdatePageContent } from '@/api/page';
 
 export const QUERY_KEY_ARTICLE = {
   getArticleList: 'getArticleList',
@@ -42,5 +42,10 @@ export const useGetUpdateArticleContent = (articleId: number) => {
   const { data } = useQuery([QUERY_KEY_ARTICLE.getUpdateArticleContent, articleId], () =>
     getUpdateArticleContent(articleId),
   );
+  return data;
+};
+
+export const useGetUpdatePageContent = (pageId: number) => {
+  const { data } = useQuery([QUERY_KEY_ARTICLE.getUpdateArticleContent, pageId], () => getUpdatePageContent(pageId));
   return data;
 };
