@@ -52,7 +52,7 @@ jobs:
           username: ${{ secrets.USER }}
           password: ${{ secrets.INSTANCE_PWD }}
           source: ".next/*"
-          target: "palmspring-client/PalmSpringClient"
+          target: "palmspring-client/PalmSpringClient/.next"
       
       - name: Run scripts in server
         uses: appleboy/ssh-action@v0.1.6
