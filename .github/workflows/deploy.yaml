@@ -30,6 +30,11 @@ jobs:
       - name: Add Github Actions IP to Security group
         run: |
          aws ec2 authorize-security-group-ingress --group-name ${{ secrets.AWS_SG_ID }} --protocol tcp --port 22 --cidr ${{ steps.ip.outputs.ipv4 }}/32 
+        env:
+         AWS_ACCESS_KEY_ID: ${{ secrets.AWS_ACCESS_KEY_ID }}
+         AWS_SECRET_ACCESS_KEY: ${{ secrets.AWS_SECRET_ACCESS_KEY }}
+         AWS_DEFAULT_REGION: ap-northeast-2
+
     
       - uses: actions/checkout@v2
       - name: Run scripts in server
@@ -52,3 +57,7 @@ jobs:
       - name: Remove Github Actions IP from security group
         run: |
          aws ec2 revoke-security-group-ingress --group-name ${{ secrets.AWS_SG_ID }} --protocol tcp --port 22 --cidr ${{ steps.ip.outputs.ipv4 }}/32
+        env:
+         AWS_ACCESS_KEY_ID: ${{ secrets.AWS_ACCESS_KEY_ID }}
+         AWS_SECRET_ACCESS_KEY: ${{ secrets.AWS_SECRET_ACCESS_KEY }}
+         AWS_DEFAULT_REGION: ap-northeast-2
