@@ -40,8 +40,10 @@ const ArticleTemplate = (props: ArticleTemplateProps) => {
     });
 
   const copyCurrentUrl = () => {
-    navigator.clipboard.writeText(window.location.href);
-    notify();
+    if (typeof window !== undefined) {
+      navigator.clipboard.writeText(window.location.href);
+      notify();
+    }
   };
 
   return (
@@ -70,9 +72,13 @@ const ArticleTemplate = (props: ArticleTemplateProps) => {
 export default ArticleTemplate;
 
 const ArticleThumbnail = styled.img`
+  object-fit: cover;
   border-radius: 1.6rem;
   width: 72rem;
   height: 40.5rem;
+
+  user-select: none;
+  -webkit-user-drag: none;
 `;
 
 const ContentPageContainer = styled.section`

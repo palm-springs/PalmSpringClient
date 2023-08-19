@@ -9,6 +9,8 @@ import { useGetPageList } from '@/hooks/dashboard';
 import DashBoardContent from '../components/DashBoardContent';
 import DashBoardContentListContainer from '../components/ui/DashBoardContentListContainer';
 
+import IndivPageContent from './IndivPageContent';
+
 const PageContentList = () => {
   const { team: blogUrl } = useParams();
 
@@ -30,15 +32,17 @@ const PageContentList = () => {
   return (
     <DashBoardContentListContainer>
       <DashBoardContent id="컨텐츠바" content="제목" draft="상태" createdAt="작성일" />
-      {data.data.map(({ id, title, createdAt, isDraft, pageUrl }) => {
+      {data.data.map(({ id, title, createdAt, isDraft, pageUrl, isLinked }) => {
         return (
-          <DashBoardContent
+          <IndivPageContent
             key={id}
-            id={String(id)}
-            content={title}
-            draft={isDraft}
+            id={id}
+            blogUrl={blogUrl}
+            title={title}
+            isDraft={isDraft}
+            isLinked={isLinked}
+            pageUrl={pageUrl}
             createdAt={createdAt}
-            onTitleClick={() => router.push(`/${blogUrl}/content/article/${pageUrl}/${id}`)}
           />
         );
       })}

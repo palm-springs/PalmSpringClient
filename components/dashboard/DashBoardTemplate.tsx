@@ -1,6 +1,11 @@
 'use client';
 
-import React from 'react';
+import React, { useEffect } from 'react';
+import { useParams, useRouter } from 'next/navigation';
+
+import { useGetBlogInfo } from '@/hooks/blog';
+
+import LoadingLottie from '../common/ui/LoadingLottie';
 
 import DashBoardHeader from './components/DashBoardHeader';
 import DashBoardNav from './components/DashBoardNav';
@@ -14,6 +19,16 @@ interface DashBoardTemplateProps {
 
 const DashBoardTemplate = (props: DashBoardTemplateProps) => {
   const { children, noHeader } = props;
+
+  const { team } = useParams();
+
+  const router = useRouter();
+
+  useEffect(() => {
+    if (!team && window.location.host !== '/no-team/dashboard') {
+      router.push(`/no-team/dashboard`);
+    }
+  }, []);
 
   return (
     <DashboardContextProvider>

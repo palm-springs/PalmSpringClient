@@ -19,13 +19,15 @@ const DashBoardTitle = (props: DashBoardTitleProps) => {
 
   const { team } = useParams();
 
-  const res = useGetBlogInfo(team);
+  const res = useGetBlogInfo(team ?? '');
+
+  const title = res && res.data && res.data.name;
 
   return (
     <>
       <SymbolIcon />
       <SideBarTitle>
-        {res ? res.data.name : '블로그가 없어요.'}
+        {title ?? '블로그가 없어요.'}
         <button type="button" onClick={() => setIsBlogListOpen((prev) => !prev)}>
           <ArrowDownIcon />
         </button>

@@ -39,7 +39,6 @@ const CategoryTemplate = () => {
             mainText="새 카테고리 만들기"
             buttonText="저장하기"
             buttonHandler={() => {
-              console.log(newCategoryName, newCategoryDescription);
               mutate();
               setModalState('');
             }}

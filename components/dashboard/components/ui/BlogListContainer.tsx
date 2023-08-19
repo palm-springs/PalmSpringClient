@@ -23,6 +23,6 @@ const BlogListUI = styled.section`
   background: ${({ theme }) => theme.colors.grey_0};
   padding: 0.8rem;
   width: 25.4rem;
-  max-height: 80vh;
+  max-height: 50rem;
   overflow-y: scroll;
 `;

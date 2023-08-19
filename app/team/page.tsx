@@ -1,9 +1,11 @@
 /** @jsxImportSource @emotion/react */
 'use client';
 
+import { useEffect } from 'react';
 import { BiLinkAlt, BiLogoGithub, BiLogoInstagram, BiLogoLinkedin } from 'react-icons/bi';
 import { css } from '@emotion/react';
 
+import client from '@/api';
 import Footer from '@/components/landing/Footer';
 import Header from '@/components/landing/Header';
 
@@ -106,6 +108,10 @@ const randomArray =
   (randomNumberForOrder === 4 && [...ourBelovedPM, ...ourBelovedServer, ...ourBelovedDesigner, ...ourBelovedFE]) ||
   (randomNumberForOrder === 5 && [...ourBelovedPM, ...ourBelovedDesigner, ...ourBelovedFE, ...ourBelovedServer]) ||
   (randomNumberForOrder === 6 && [...ourBelovedPM, ...ourBelovedDesigner, ...ourBelovedServer, ...ourBelovedFE]);
+
+const sendMessage = async () => {
+  await client.get('/api/v1/health');
+};
 
 const Team = () => {
   const main = css`
@@ -214,6 +220,11 @@ const Team = () => {
       max-width: 100%;
     }
   `;
+
+  useEffect(() => {
+    sendMessage();
+    console.log('good');
+  });
 
   return (
     <div style={{ width: '100%' }}>

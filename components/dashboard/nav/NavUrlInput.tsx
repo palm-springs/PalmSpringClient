@@ -13,12 +13,21 @@ interface NavUrlInputProps {
   setNewNavigationSelector: Dispatch<SetStateAction<string>>;
   newNavigationUrl: string;
   setNewNavigationUrl: Dispatch<SetStateAction<string>>;
+  newNavigationName: string;
+  setNewNavigationName: Dispatch<SetStateAction<string>>;
 }
 
 const NavUrlInput = (props: NavUrlInputProps) => {
   const { team: blogUrl } = useParams();
 
-  const { newNavigationSelector, setNewNavigationSelector, newNavigationUrl, setNewNavigationUrl } = props;
+  const {
+    newNavigationSelector,
+    setNewNavigationSelector,
+    newNavigationUrl,
+    setNewNavigationUrl,
+    newNavigationName,
+    setNewNavigationName,
+  } = props;
 
   const [isSelectorOpen, setIsSelectorOpen] = useState<boolean>(false);
 
@@ -45,6 +54,8 @@ const NavUrlInput = (props: NavUrlInputProps) => {
           // navSelectorContent={navList.data}
           newNavigationUrl={newNavigationUrl}
           setNewNavigationUrl={setNewNavigationUrl}
+          newNavigationName={newNavigationName}
+          setNewNavigationName={setNewNavigationName}
         />
       )}
     </NavUrlInputContainer>

@@ -50,8 +50,6 @@ export const useDeleteBlog = (blogUrl: string) => {
 
       if (!res) return;
 
-      console.log('구분해줘', res);
-
       if (res.data && res.data.joinBlogList.length > 0) {
         router.push(`/${res.data.joinBlogList[0].url}/dashboard/upload`);
       } else {

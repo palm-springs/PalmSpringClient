@@ -7,8 +7,6 @@ import styled from 'styled-components';
 
 import { ArticleData } from '@/types/article';
 
-import ArticleImg from '../blog/ui/ArticleImg';
-
 interface ArticleProps {
   noHover?: boolean;
   article: ArticleData;
@@ -34,12 +32,18 @@ const Article = (props: ArticleProps) => {
           <ArticleDetail>{createdAt}</ArticleDetail>
         </DetailBox>
       </ArticleInfo>
-      {thumbnail && <ArticleImg />}
+      {thumbnail && <ArticleThumbnail src={thumbnail} alt="Article Thumbnail" />}
     </ArticleContainer>
   );
 };
 
 export default Article;
+
+const ArticleThumbnail = styled.img`
+  border-radius: 1.2rem;
+  width: 22.8rem;
+  height: 17rem;
+`;
 
 const ArticleContainer = styled(Link)`
   display: flex;
@@ -48,6 +52,11 @@ const ArticleContainer = styled(Link)`
 
   width: 100%;
   height: 17rem;
+
+  &.hover {
+    transform: translateY(0.8rem);
+    transition: 0.3s ease-in-out;
+  }
 
   &.hover:hover {
     transform: translateY(-0.8rem);
