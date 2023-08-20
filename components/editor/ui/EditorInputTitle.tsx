@@ -40,12 +40,13 @@ const EditorInputTitle = (props: TextEditorBuildProps) => {
   // 아니라면 기존의 빈 타이틀이 저장된다.
   switch (pageType) {
     case `article`:
-      if (currentState === 'edit' && articleData) {
+      if ((currentState === 'edit' || currentState === 'draft') && articleData) {
         const { title } = articleData; //이 값은 수정되는 값으로 해야함 그리고 value에 넣기 -> 수정하는 title data 변화값 넣기
         return (
           <EditorInputTitleContainer>
             <TitleInputBox value={title} onChange={handleSaveArticleTitle} rows={1}>
               {articleData.title}
+              {/* 이거 defalt atom값으로 집어 넣어야함 */}
             </TitleInputBox>
           </EditorInputTitleContainer>
         );
@@ -57,13 +58,14 @@ const EditorInputTitle = (props: TextEditorBuildProps) => {
         );
       }
     case `page`:
-      if (currentState === 'edit' && pageData) {
+      if ((currentState === 'edit' || currentState === 'draft') && pageData) {
         const { title: pageTitle } = pageData; //이 값은 수정되는 값으로 해야함 그리고 value에 넣기
 
         return (
           <EditorInputTitleContainer>
             <TitleInputBox value={pageTitle} onChange={handleSavePageTitle} rows={1}>
               {pageData.title}
+              {/* 이거 defalt atom값으로 집어 넣어야함 */}
             </TitleInputBox>
           </EditorInputTitleContainer>
         );

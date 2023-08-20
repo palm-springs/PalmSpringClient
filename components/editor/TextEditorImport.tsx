@@ -54,12 +54,12 @@ interface TextEditorBuildprops {
 
 const TextEditorBuild = (props: TextEditorBuildprops) => {
   const { pageType, currentState, articleData, pageData } = props;
-  const { team: blogUrl, articleId } = useParams();
+  const { team, articleId } = useParams();
   const [{ title }, setArticleData] = useRecoilState(articleDataState);
   const [{ title: pageTitle }, setPageData] = useRecoilState(pageDataState);
   const [{ title: newArticleTitle }, setNewArticleData] = useRecoilState(newArticleDataState);
   const [updatedArticleData, setUpdatedArticleData] = useRecoilState(newArticleDataState);
-  const updateArticleMutation = useUpdateArticleContent(blogUrl);
+  const updateArticleMutation = useUpdateArticleContent(team);
 
   const [, setImageSrc] = useState('');
   const [extractedHTML, setExtractedHTML] = useState<string>('');
@@ -275,83 +275,38 @@ const TextEditorBuild = (props: TextEditorBuildprops) => {
     }
   };
 
-  // article, page에 따라 article page, page page에서 각각 렌더링 되도록 조건함.
-  switch (pageType) {
-    case `article`:
-      if (currentState === 'edit' && articleData) {
-        const { content, images } = articleData;
+  return (
+    <>
+      <ToolBox editor={editor} encodeFileToBase64={encodeFileToBase64} setLink={setLink} />
+      <TextEditor editor={editor} handleDrop={handleDrop} handleDragOver={handleDragOver} />
 
-        return (
-          <>
-            <ToolBox editor={editor} encodeFileToBase64={encodeFileToBase64} setLink={setLink} />
-            <TextEditor
-              editor={editor}
-              handleDrop={handleDrop}
-              handleDragOver={handleDragOver}
-              updateGetArticleData={{ title, content, images }}
-            />
-            <SaveEditorContentButton
-              handleOnClickArticleDraft={handleOnClickArticleDraft}
-              handleOnClickArticlePublish={handleOnClickArticlePublish}
-              handleOnClickPageDraft={handleOnClickPageDraft}
-              handleOnClickPagePublish={handleOnClickPagePublish}
-              handleUpdateArticleContent={handleUpdateArticleContent}
-              currentState="edit"
-            />
-          </>
-        );
-      } else {
-        return (
-          <>
-            <ToolBox editor={editor} encodeFileToBase64={encodeFileToBase64} setLink={setLink} />
-            <TextEditor editor={editor} handleDrop={handleDrop} handleDragOver={handleDragOver} />
-            <SaveEditorContentButton
-              handleOnClickArticleDraft={handleOnClickArticleDraft}
-              handleOnClickArticlePublish={handleOnClickArticlePublish}
-              handleOnClickPageDraft={handleOnClickPageDraft}
-              handleOnClickPagePublish={handleOnClickPagePublish}
-            />
-          </>
-        );
-      }
-    case `page`:
-      if (currentState === 'edit' && pageData) {
-        const { content, images } = pageData;
-
-        return (
-          <>
-            <ToolBox editor={editor} encodeFileToBase64={encodeFileToBase64} setLink={setLink} />
-            <TextEditor
-              editor={editor}
-              handleDrop={handleDrop}
-              handleDragOver={handleDragOver}
-              updateGetPageData={{ title, content, images }}
-            />
-            <SaveEditorContentButton
-              handleOnClickArticleDraft={handleOnClickArticleDraft}
-              handleOnClickArticlePublish={handleOnClickArticlePublish}
-              handleOnClickPageDraft={handleOnClickPageDraft}
-              handleOnClickPagePublish={handleOnClickPagePublish}
-            />
-          </>
-        );
-      } else {
-        return (
-          <>
-            <ToolBox editor={editor} encodeFileToBase64={encodeFileToBase64} setLink={setLink} />
-            <TextEditor editor={editor} handleDrop={handleDrop} handleDragOver={handleDragOver} />
-            <SaveEditorContentButton
-              handleOnClickArticleDraft={handleOnClickArticleDraft}
-              handleOnClickArticlePublish={handleOnClickArticlePublish}
-              handleOnClickPageDraft={handleOnClickPageDraft}
-              handleOnClickPagePublish={handleOnClickPagePublish}
-            />
-          </>
-        );
-      }
-    default:
-      break;
-  }
+      {pageType === 'article' ? (
+        <SaveEditorContentButton
+          handleOnClickDraft={
+            currentState === 'draft'
+              ? handleOnClickArticleDraft
+              : currentState === 'edit'
+              ? handleOnClickArticleDraft
+              : handleOnClickArticleDraft
+          }
+          handleOnClickPublish={currentState === 'edit' ? handleOnClickArticlePublish : handleOnClickArticlePublish}
+          isEdit={currentState === 'edit' ? true : false}
+        />
+      ) : (
+        <SaveEditorContentButton
+          handleOnClickDraft={
+            currentState === 'draft'
+              ? handleOnClickPageDraft
+              : currentState === 'edit'
+              ? handleOnClickPageDraft
+              : handleOnClickPageDraft
+          }
+          handleOnClickPublish={currentState === 'edit' ? handleOnClickPagePublish : handleOnClickPagePublish}
+          isEdit={currentState === 'edit' ? true : false}
+        />
+      )}
+    </>
+  );
 };
 export default TextEditorBuild;
 

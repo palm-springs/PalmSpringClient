@@ -30,9 +30,9 @@ const IndivTempsavedContentList = (props: IndivTempsavedContentListProps) => {
       position={job}
       createdAt={createdAt}
       onTitleClick={() => {
-        router.push(`/${blogUrl}/editor/article/edit/${id}`);
+        router.push(`/${blogUrl}/editor/article/${id}/draft`);
       }}
-      onMutateClick={() => router.push(`/${blogUrl}/editor/article/edit/${id}`)}
+      onMutateClick={() => router.push(`/${blogUrl}/editor/article/${id}/draft`)}
       onDeleteClick={() => mutate()}
     />
   );

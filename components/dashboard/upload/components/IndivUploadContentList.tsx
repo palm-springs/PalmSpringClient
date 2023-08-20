@@ -34,7 +34,7 @@ const IndivUploadContentList = (props: IndivUploadContentListProps) => {
       position={job}
       createdAt={createdAt}
       onTitleClick={() => router.push(`/${team}/content/article/${articleUrl}/${String(id)}`)}
-      onMutateClick={() => router.push(`/${team}/editor/article/edit/${String(id)}`)}
+      onMutateClick={() => router.push(`/${team}/editor/article/${String(id)}/edit`)}
       onDeleteClick={() => mutate()}
     />
   );
