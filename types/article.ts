@@ -44,3 +44,14 @@ export interface UpdateArticleProps {
   description?: string;
   articleUrl?: string;
 }
+
+export interface UpdateArticleContentProps {
+  id: number;
+  title: string;
+  content: string;
+  categoryId: number;
+  images: string[] | null;
+  description: string;
+  thumbnail: string | null;
+  articleUrl: string;
+}

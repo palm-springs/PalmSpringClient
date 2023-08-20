@@ -11,8 +11,8 @@ interface editorProps {
   editor: Editor | null;
   handleDragOver: DragEventHandler<HTMLDivElement> | undefined;
   handleDrop: DragEventHandler<HTMLDivElement> | undefined;
-  updateArticleData?: UpdateArticleProps; //얘네 필요없지 않나
-  updatePageData?: UpdatePageProps; //얘네 필요없지 않나
+  updateGetArticleData?: UpdateArticleProps; //얘네 필요없지 않나
+  updateGetPageData?: UpdatePageProps; //얘네 필요없지 않나
 }
 
 const TextEditor = ({ editor, handleDragOver, handleDrop }: editorProps) => (

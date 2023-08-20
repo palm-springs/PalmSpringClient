@@ -39,12 +39,12 @@ import { getUpdateArticleContent, postArticleList } from '@/api/article';
 import { postPageDraft } from '@/api/page';
 import TextEditor from '@/components/editor/TextEditor';
 import ToolBox from '@/components/editor/ui/ToolBox';
-import { useGetUpdateArticleContent } from '@/hooks/editor';
-import { UpdateArticleProps } from '@/types/article';
+import { useGetUpdateArticleContent, useUpdateArticleContent } from '@/hooks/editor';
+import { UpdateArticleContentProps, UpdateArticleProps } from '@/types/article';
 import { UpdatePageProps } from '@/types/page';
 import { getImageMultipartData } from '@/utils/getImageMultipartData';
 
-import { articleDataState, pageDataState } from './states/atom';
+import { articleDataState, newArticleDataState, pageDataState } from './states/atom';
 interface TextEditorBuildprops {
   pageType: string;
   currentState?: string;
@@ -54,9 +54,12 @@ interface TextEditorBuildprops {
 
 const TextEditorBuild = (props: TextEditorBuildprops) => {
   const { pageType, currentState, articleData, pageData } = props;
-  const { team } = useParams();
+  const { team: blogUrl, articleId } = useParams();
   const [{ title }, setArticleData] = useRecoilState(articleDataState);
   const [{ title: pageTitle }, setPageData] = useRecoilState(pageDataState);
+  const [{ title: newArticleTitle }, setNewArticleData] = useRecoilState(newArticleDataState);
+  const [updatedArticleData, setUpdatedArticleData] = useRecoilState(newArticleDataState);
+  const updateArticleMutation = useUpdateArticleContent(blogUrl);
 
   const [, setImageSrc] = useState('');
   const [extractedHTML, setExtractedHTML] = useState<string>('');
@@ -243,6 +246,35 @@ const TextEditorBuild = (props: TextEditorBuildprops) => {
     }
   };
 
+  //article 수정시 !
+  const handleUpdateArticleContent = () => {
+    if (editor) {
+      const newContent = editor.getHTML();
+      setExtractedHTML(newContent);
+
+      if (imageArr.length === 0) {
+        setUpdatedArticleData((prevData) => ({
+          ...prevData,
+          title: newArticleTitle,
+          content: newContent,
+          images: [],
+        }));
+      } else {
+        setUpdatedArticleData((prevData) => ({
+          ...prevData,
+          title: newArticleTitle,
+          content: newContent,
+          images: imageArr,
+        }));
+      }
+
+      // updateArticleMutation.mutate(updatedArticleData);
+      console.log(updatedArticleData);
+      console.log(imageArr);
+      router.push(`/${team}/editor/article/edit/${articleId}/publish`);
+    }
+  };
+
   // article, page에 따라 article page, page page에서 각각 렌더링 되도록 조건함.
   switch (pageType) {
     case `article`:
@@ -256,13 +288,14 @@ const TextEditorBuild = (props: TextEditorBuildprops) => {
               editor={editor}
               handleDrop={handleDrop}
               handleDragOver={handleDragOver}
-              updateArticleData={{ title, content, images }}
+              updateGetArticleData={{ title, content, images }}
             />
             <SaveEditorContentButton
               handleOnClickArticleDraft={handleOnClickArticleDraft}
               handleOnClickArticlePublish={handleOnClickArticlePublish}
               handleOnClickPageDraft={handleOnClickPageDraft}
               handleOnClickPagePublish={handleOnClickPagePublish}
+              handleUpdateArticleContent={handleUpdateArticleContent}
               currentState="edit"
             />
           </>
@@ -292,7 +325,7 @@ const TextEditorBuild = (props: TextEditorBuildprops) => {
               editor={editor}
               handleDrop={handleDrop}
               handleDragOver={handleDragOver}
-              updatePageData={{ title, content, images }}
+              updateGetPageData={{ title, content, images }}
             />
             <SaveEditorContentButton
               handleOnClickArticleDraft={handleOnClickArticleDraft}
@@ -322,7 +355,7 @@ const TextEditorBuild = (props: TextEditorBuildprops) => {
 };
 export default TextEditorBuild;
 
-const dd = styled.div`
-  position: absolute;
+const UpdateSaveButton = styled.div`
+  position: fixed;
   bottom: 0;
 `;

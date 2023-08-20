@@ -7,12 +7,14 @@ import styled from 'styled-components';
 
 import ModalPortal from '@/components/common/ModalPortal';
 import DashboardDeleteModal from '@/components/common/ui/DashboardDeleteModal';
+import { UpdateArticleProps } from '@/types/article';
 
 interface editorProps {
   handleOnClickArticleDraft: () => void;
   handleOnClickArticlePublish: () => void;
   handleOnClickPageDraft: () => void;
   handleOnClickPagePublish: () => void;
+  handleUpdateArticleContent?: () => void;
   currentState?: string;
 }
 
@@ -23,6 +25,7 @@ const SaveEditorContentButton = (props: editorProps) => {
     handleOnClickArticlePublish,
     handleOnClickPageDraft,
     handleOnClickPagePublish,
+    handleUpdateArticleContent,
     currentState,
   } = props;
   const { team } = useParams();
@@ -85,7 +88,7 @@ const SaveEditorContentButton = (props: editorProps) => {
                 임시저장
               </TemporarySaveButton>
               {currentState === 'edit' ? (
-                <SaveButton type="button" onClick={handleOnClickArticlePublish}>
+                <SaveButton type="button" onClick={handleUpdateArticleContent}>
                   수정하기
                 </SaveButton>
               ) : (

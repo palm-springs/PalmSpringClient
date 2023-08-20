@@ -1,4 +1,4 @@
-import { ArticleData, CreateArticleProps, SingleArticleData } from '@/types/article';
+import { ArticleData, CreateArticleProps, SingleArticleData, UpdateArticleContentProps } from '@/types/article';
 import { Response } from '@/types/common';
 
 import client from '.';
@@ -43,8 +43,10 @@ export const getUpdateArticleContent = async (articleId: number) => {
   return data;
 };
 
-export const updateArticleDetail = async (articleUrl: string) => {
-  const { data } = await client.put(`/api/v1/article/${articleUrl}/modify`);
+export const updateArticleDetail = async (articleUrl: string, updateArticleData: UpdateArticleContentProps) => {
+  const { data } = await client.put<Response<null>>(`/api/v1/article/${articleUrl}/modify`, {
+    ...updateArticleData,
+  });
   return data;
 };
 

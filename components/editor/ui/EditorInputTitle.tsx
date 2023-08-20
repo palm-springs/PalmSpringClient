@@ -7,7 +7,7 @@ import styled from 'styled-components';
 import { UpdateArticleProps } from '@/types/article';
 import { UpdatePageProps } from '@/types/page';
 
-import { articleDataState, articleEditDataState, pageDataState } from '../states/atom';
+import { articleDataState, newArticleDataState, pageDataState } from '../states/atom';
 
 interface TextEditorBuildProps {
   pageType: string;
@@ -20,12 +20,15 @@ const EditorInputTitle = (props: TextEditorBuildProps) => {
   const { pageType, currentState, articleData, pageData } = props;
 
   const [{ title }, setArticleData] = useRecoilState(articleDataState);
+  const [{ title: newArticleTitle }, setNewArticleData] = useRecoilState(newArticleDataState);
   const [{ title: pageTitle }, setPageData] = useRecoilState(pageDataState);
+
   // const [{ title: updateArticleTitle }, setArticleEditDataState] = useRecoilState(articleEditDataState); update할 때
 
   const handleSaveArticleTitle = (e: ChangeEvent<HTMLTextAreaElement>) => {
     const { value } = e.target;
     setArticleData((prev) => ({ ...prev, title: value }));
+    setNewArticleData((prev) => ({ ...prev, title: value }));
   };
 
   const handleSavePageTitle = (e: ChangeEvent<HTMLTextAreaElement>) => {

@@ -1,8 +1,9 @@
-import { useQuery } from '@tanstack/react-query';
+import { useMutation, useQuery, useQueryClient } from '@tanstack/react-query';
 
-import { getArticleList, getSingleArticleData, getUpdateArticleContent } from '@/api/article';
+import { getArticleList, getSingleArticleData, getUpdateArticleContent, updateArticleDetail } from '@/api/article';
 import { getContent } from '@/api/content';
 import { getSinglePageData, getUpdatePageContent } from '@/api/page';
+import { UpdateArticleContentProps } from '@/types/article';
 
 export const QUERY_KEY_ARTICLE = {
   getArticleList: 'getArticleList',
@@ -10,6 +11,7 @@ export const QUERY_KEY_ARTICLE = {
   getSinglePageData: 'getSinglePageData',
   getContent: 'getContent',
   getUpdateArticleContent: 'getUpdateArticleContent',
+  updateArticleDetail: 'updateArticleDetail',
 };
 
 export const useGetArticleList = (blogUrl: string, categoryId: string) => {
@@ -48,4 +50,19 @@ export const useGetUpdateArticleContent = (articleId: number) => {
 export const useGetUpdatePageContent = (pageId: number) => {
   const { data } = useQuery([QUERY_KEY_ARTICLE.getUpdateArticleContent, pageId], () => getUpdatePageContent(pageId));
   return data;
+};
+
+export const useUpdateArticleContent = (articleUrl: string) => {
+  const queryClient = useQueryClient();
+
+  const articleMutation = useMutation(
+    [QUERY_KEY_ARTICLE.updateArticleDetail],
+    (updateArticleData: UpdateArticleContentProps) => updateArticleDetail(articleUrl, updateArticleData),
+    {
+      onSuccess: () => {
+        queryClient.invalidateQueries([QUERY_KEY_ARTICLE.getArticleList]);
+      },
+    },
+  );
+  return articleMutation;
 };
