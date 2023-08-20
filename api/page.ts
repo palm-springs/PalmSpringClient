@@ -1,5 +1,5 @@
 import { Response } from '@/types/common';
-import { PageData } from '@/types/page';
+import { PageData, UpdatePageContentProps } from '@/types/page';
 
 import client from '.';
 
@@ -44,5 +44,12 @@ export const getSinglePageData = async (blogUrl: string, pageUrl: string) => {
 
 export const getUpdatePageContent = async (pageId: number) => {
   const { data } = await client.get(`/api/v1/page/admin/modify/detail?id=${pageId}`);
+  return data;
+};
+
+export const updatePageDetail = async (updatePageData: UpdatePageContentProps) => {
+  const { data } = await client.put<Response<null>>(`/api/v1/page/admin/modify`, {
+    ...updatePageData,
+  });
   return data;
 };

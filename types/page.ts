@@ -19,3 +19,12 @@ export interface UpdatePageProps {
   images: string[] | null;
   thumbnail?: string | null;
 }
+
+export interface UpdatePageContentProps {
+  id: number;
+  thumbnail: string;
+  title: string;
+  content: string;
+  images: string[] | null;
+  pageUrl: string;
+}

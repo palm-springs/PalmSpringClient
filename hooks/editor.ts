@@ -2,8 +2,9 @@ import { useMutation, useQuery, useQueryClient } from '@tanstack/react-query';
 
 import { getArticleList, getSingleArticleData, getUpdateArticleContent, updateArticleDetail } from '@/api/article';
 import { getContent } from '@/api/content';
-import { getSinglePageData, getUpdatePageContent } from '@/api/page';
+import { getSinglePageData, getUpdatePageContent, updatePageDetail } from '@/api/page';
 import { UpdateArticleContentProps } from '@/types/article';
+import { UpdatePageContentProps } from '@/types/page';
 
 export const QUERY_KEY_ARTICLE = {
   getArticleList: 'getArticleList',
@@ -12,6 +13,8 @@ export const QUERY_KEY_ARTICLE = {
   getContent: 'getContent',
   getUpdateArticleContent: 'getUpdateArticleContent',
   updateArticleDetail: 'updateArticleDetail',
+  updatePageDetail: 'updatePageDetail',
+  getPageList: 'getPageList',
 };
 
 export const useGetArticleList = (blogUrl: string, categoryId: string) => {
@@ -65,4 +68,19 @@ export const useUpdateArticleContent = (articleUrl: string) => {
     },
   );
   return articleMutation;
+};
+
+export const useUpdatePageContent = () => {
+  const queryClient = useQueryClient();
+
+  const pageMutation = useMutation(
+    [QUERY_KEY_ARTICLE.updatePageDetail],
+    (updatePageData: UpdatePageContentProps) => updatePageDetail(updatePageData),
+    {
+      onSuccess: () => {
+        queryClient.invalidateQueries([QUERY_KEY_ARTICLE.getPageList]);
+      },
+    },
+  );
+  return pageMutation;
 };
