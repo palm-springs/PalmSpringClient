@@ -24,8 +24,9 @@ export default Content;
 
 const ContentContainer = styled.section`
   position: relative !important;
-  margin: 8.4rem 0 8rem;
-  margin-bottom: 8rem;
+
+  margin-top: 8.4rem;
+  padding: 0 2.4rem;
   width: 100%;
 
   font-family: 'Fira Mono', monospace;

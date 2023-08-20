@@ -2,6 +2,7 @@
 
 import React, { useEffect } from 'react';
 import toast, { Toaster } from 'react-hot-toast';
+import { useMediaQuery } from 'react-responsive';
 import styled from 'styled-components';
 
 import ContentInfo from '@/components/common/ContentInfo';
@@ -22,6 +23,10 @@ const ArticleTemplate = (props: ArticleTemplateProps) => {
   const {
     data: { thumbnail, title, description, teamMember, content },
   } = props;
+
+  const MOBILE = useMediaQuery({
+    query: '(min-width : 375px) and (max-width:768px)',
+  });
 
   const notify = () =>
     toast.success('링크가 복사되었습니다', {
@@ -45,40 +50,70 @@ const ArticleTemplate = (props: ArticleTemplateProps) => {
       notify();
     }
   };
+  if (MOBILE)
+    return (
+      <>
+        <Toaster
+          position="bottom-center"
+          reverseOrder={false}
+          containerClassName=""
+          containerStyle={{
+            bottom: 50,
+          }}
+        />
 
-  return (
-    <>
-      <Toaster
-        position="bottom-center"
-        reverseOrder={false}
-        containerClassName=""
-        containerStyle={{
-          bottom: 50,
-        }}
-      />
+        <ContentPageContainer className="mobile">
+          {thumbnail && <ArticleThumbnail className="mobile" src={thumbnail} alt="article content thumbnail" />}
+          <ContentInfo contentInfoData={{ title, description, teamMember }} />
+          <Content content={content} />
+          <LinkBtn className="mobile" type="button" onClick={copyCurrentUrl}>
+            아티클 링크 복사하기
+          </LinkBtn>
+          <Recommend />
+        </ContentPageContainer>
+      </>
+    );
+  else
+    return (
+      <>
+        <Toaster
+          position="bottom-center"
+          reverseOrder={false}
+          containerClassName=""
+          containerStyle={{
+            bottom: 50,
+          }}
+        />
 
-      <ContentPageContainer>
-        {thumbnail && <ArticleThumbnail src={thumbnail} alt="article content thumbnail" />}
-        <ContentInfo contentInfoData={{ title, description, teamMember }} />
-        <Content content={content} />
-        <LinkBtn onClick={copyCurrentUrl}>아티클 링크 복사하기</LinkBtn>
-        <Bar />
-        <Recommend />
-      </ContentPageContainer>
-    </>
-  );
+        <ContentPageContainer>
+          {thumbnail && <ArticleThumbnail src={thumbnail} alt="article content thumbnail" />}
+          <ContentInfo contentInfoData={{ title, description, teamMember }} />
+          <Content content={content} />
+          <LinkBtn onClick={copyCurrentUrl}>아티클 링크 복사하기</LinkBtn>
+          <Bar />
+          <Recommend />
+        </ContentPageContainer>
+      </>
+    );
 };
 
 export default ArticleTemplate;
 
 const ArticleThumbnail = styled.img`
-  object-fit: cover;
   border-radius: 1.6rem;
   width: 72rem;
   height: 40.5rem;
 
   user-select: none;
   -webkit-user-drag: none;
+  object-fit: cover;
+
+  &.mobile {
+    margin-top: 6rem;
+    border-radius: 0;
+    width: 100%;
+    height: 37.5rem;
+  }
 `;
 
 const ContentPageContainer = styled.section`
@@ -88,17 +123,23 @@ const ContentPageContainer = styled.section`
 
   margin: 11.8rem 36rem;
   width: 72rem;
+
+  &.mobile {
+    margin: 0;
+    width: 100vw;
+  }
 `;
 
 const LinkBtn = styled.button`
   ${({ theme }) => theme.fonts.Body3_Semibold};
   align-items: center;
 
+  margin: 6rem 0 5.8rem;
+
   border: none;
   border-radius: 0.8rem;
 
   background-color: ${({ theme }) => theme.colors.grey_200};
-
   padding: 0 1.4rem;
   height: 3.2rem;
 
@@ -106,5 +147,13 @@ const LinkBtn = styled.button`
 
   &:hover {
     background-color: ${({ theme }) => theme.colors.grey_400};
+  }
+
+  &.mobile {
+    ${({ theme }) => theme.mobileFonts.Button};
+
+    margin: 4rem 0;
+    padding: 0 2rem;
+    height: 3.6rem;
   }
 `;
