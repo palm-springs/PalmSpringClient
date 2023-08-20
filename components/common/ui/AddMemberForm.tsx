@@ -19,9 +19,7 @@ const AddMemberForm = (props: AddMemberFormProps) => {
   const emailInputRef = useRef<HTMLInputElement>(null);
 
   const handleOnClick = () => {
-    if (emailInputRef.current) {
-      emailInputRef.current.focus();
-    }
+    emailInputRef.current && emailInputRef.current.focus();
   };
 
   return (
