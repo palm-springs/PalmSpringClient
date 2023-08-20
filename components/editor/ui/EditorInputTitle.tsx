@@ -70,10 +70,7 @@ const EditorInputTitle = (props: TextEditorBuildProps) => {
 
         return (
           <EditorInputTitleContainer>
-            <TitleInputBox value={pageTitle} onChange={handleSavePageTitle} rows={1}>
-              {pageData.title}
-              {/* 이거 defalt atom값으로 집어 넣어야함 */}
-            </TitleInputBox>
+            <TitleInputBox value={pageTitle} onChange={handleSavePageTitle} rows={1}></TitleInputBox>
           </EditorInputTitleContainer>
         );
       } else {
