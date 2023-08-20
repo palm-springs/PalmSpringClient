@@ -1,5 +1,5 @@
-import React, { Dispatch, SetStateAction, useState } from 'react';
-import { useParams, useRouter } from 'next/navigation';
+import React, { Dispatch, SetStateAction } from 'react';
+import { useRouter } from 'next/navigation';
 
 import LoadingLottie from '@/components/common/ui/LoadingLottie';
 import { useGetUserInfo } from '@/hooks/dashboard';
