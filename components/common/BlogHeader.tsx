@@ -1,6 +1,6 @@
 'use client';
 
-import React from 'react';
+import React, { useState } from 'react';
 import { useMediaQuery } from 'react-responsive';
 import styled from 'styled-components';
 
@@ -9,20 +9,25 @@ import { HeaderProps } from '@/types/blogHeader';
 
 import BlogNav from './BlogNav';
 import HeaderLogo from './HeaderLogo';
+import SideBar from './SideBar';
 
 const BlogHeader = (props: HeaderProps) => {
   const { logo, blogName } = props;
+  const [isMenuOpen, setIsMenuOpen] = useState(false);
 
   const MOBILE = useMediaQuery({
     query: '(min-width : 375px) and (max-width:768px)',
   });
 
+  const sidebarToggle = () => setIsMenuOpen(!isMenuOpen);
+
   if (MOBILE)
     return (
       <BlogHeaderContainer className="mobile">
         <HeaderLogo logo={logo} blogName={blogName} />
-        {/* <BlogNav /> */}
-        <MenuIcon type="button" />
+        <BlurBackground className={isMenuOpen ? 'blur' : ''} onClick={sidebarToggle} />
+        <SideBar isMenuOpen={isMenuOpen} setIsMenuOpen={setIsMenuOpen} />
+        <MenuIcon type="button" onClick={sidebarToggle} />
       </BlogHeaderContainer>
     );
   else
@@ -35,6 +40,20 @@ const BlogHeader = (props: HeaderProps) => {
 };
 
 export default BlogHeader;
+
+const BlurBackground = styled.div`
+  &.blur {
+    position: fixed;
+    top: 0;
+    right: 0;
+    transition: 0.1ms ease-in-out;
+    opacity: 1;
+    z-index: 2;
+    background-color: rgba(64, 71, 79, 0.5);
+    width: 100vw;
+    height: 100vh;
+  }
+`;
 
 const BlogHeaderContainer = styled.div`
   display: flex;
@@ -60,7 +79,6 @@ const BlogHeaderContainer = styled.div`
 
 const MenuIcon = styled(HamburgerIcon)`
   border: none;
-
   width: 4rem;
   height: 4rem;
 `;
