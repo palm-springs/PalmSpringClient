@@ -309,8 +309,3 @@ const TextEditorBuild = (props: TextEditorBuildprops) => {
   );
 };
 export default TextEditorBuild;
-
-const UpdateSaveButton = styled.div`
-  position: fixed;
-  bottom: 0;
-`;
