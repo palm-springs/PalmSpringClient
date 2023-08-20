@@ -275,6 +275,34 @@ const TextEditorBuild = (props: TextEditorBuildprops) => {
     }
   };
 
+  const handleUpdatePageContent = () => {
+    if (editor) {
+      const newContent = editor.getHTML();
+      setExtractedHTML(newContent);
+
+      if (imageArr.length === 0) {
+        setUpdatedArticleData((prevData) => ({
+          ...prevData,
+          title: newArticleTitle,
+          content: newContent,
+          images: [],
+        }));
+      } else {
+        setUpdatedArticleData((prevData) => ({
+          ...prevData,
+          title: newArticleTitle,
+          content: newContent,
+          images: imageArr,
+        }));
+      }
+
+      // updateArticleMutation.mutate(updatedArticleData);
+      console.log(updatedArticleData);
+      console.log(imageArr);
+      router.push(`/${team}/editor/article/edit/${articleId}/publish`);
+    }
+  };
+
   return (
     <>
       <ToolBox editor={editor} encodeFileToBase64={encodeFileToBase64} setLink={setLink} />
