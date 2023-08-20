@@ -1,11 +1,13 @@
 'use client';
 
 import React from 'react';
+import { useMediaQuery } from 'react-responsive';
 import Link from 'next/link';
 import { useParams } from 'next/navigation';
 import styled from 'styled-components';
 
 import useGetIfContentPage from '@/hooks/useGetIfContentPage';
+import useGetIfPage from '@/hooks/useGetIfPage';
 import { NoUserProfileIcon } from '@/public/icons';
 
 import LoadingLottie from './ui/LoadingLottie';
@@ -23,57 +25,96 @@ interface ContentInfoProps {
     };
   };
   IndivContentId?: number;
+  articleUrl?: string;
 }
 
 // @params teamMember id 이건 나중에 author 페이지로 이동하는데 필요할수도 있을거 같아서 일단 받아왔습니당
 // @params teamMember thumbnail 글쓴이 프로필 사진 없을 시 기본 프로필 아이콘으로 보여줌
 
 const ContentInfo = (props: ContentInfoProps) => {
+  const MOBILE = useMediaQuery({
+    query: '(min-width : 375px) and (max-width:768px)',
+  });
+
   const { team } = useParams();
 
-  const { contentInfoData, IndivContentId } = props;
+  const { contentInfoData, IndivContentId, articleUrl } = props;
 
   const ifContent = useGetIfContentPage();
-
+  const ifPage = useGetIfPage();
   if (!contentInfoData) return <LoadingLottie height={4} width={4} fit={false} />;
-
   const { title, description, teamMember } = contentInfoData;
 
+  if (ifPage === 'page' && !teamMember) return <></>;
   if (!teamMember) return <LoadingLottie height={4} width={4} fit={false} />;
 
   const { thumbnail, name, job, createdAt, id } = teamMember;
 
-  return (
-    <ContentInfoContainer className={ifContent === 'content' ? 'noHover' : 'hover'}>
-      {ifContent === 'content' ? (
-        <TestBox>
-          <TitleBox>{title}</TitleBox>
-          {description && <DescriptionBox>{description}</DescriptionBox>}
-        </TestBox>
-      ) : (
-        <TestBox>
-          <Link href={`/${team}/content/${IndivContentId}`}>
+  if (MOBILE)
+    return (
+      <ContentInfoContainer className="mobile">
+        {ifContent === 'content' ? (
+          <TestBox>
             <TitleBox>{title}</TitleBox>
             {description && <DescriptionBox>{description}</DescriptionBox>}
-          </Link>
-        </TestBox>
-      )}
-      {name && (
-        <WriterBox>
-          <WriterInfo href={`/${team}/author/${id}`}>
-            {thumbnail ? <WriterProfilePic src={thumbnail} alt="writer profile pic" /> : <NoUserProfileIcon />}
-            <WriterDetailBox>
-              <WriterNameBox>
-                <WriterDetail>{name}</WriterDetail>
-                <WriterDetail>&nbsp;·&nbsp;{job}</WriterDetail>
-              </WriterNameBox>
-              <WriterDetail className="date">{createdAt}</WriterDetail>
-            </WriterDetailBox>
-          </WriterInfo>
-        </WriterBox>
-      )}
-    </ContentInfoContainer>
-  );
+          </TestBox>
+        ) : (
+          <TestBox>
+            <Link href={`/${team}/content/article/${articleUrl}/${IndivContentId}`}>
+              {' '}
+              <TitleBox>{title}</TitleBox>
+              {description && <DescriptionBox>{description}</DescriptionBox>}
+            </Link>
+          </TestBox>
+        )}
+        {name && (
+          <WriterBox>
+            <WriterInfo href={`/${team}/author/${id}`}>
+              {thumbnail ? <WriterProfilePic src={thumbnail} alt="writer profile pic" /> : <NoUserProfileIcon />}
+              <WriterDetailBox>
+                <WriterNameBox>
+                  <WriterDetail>{name}</WriterDetail>
+                  <WriterDetail>&nbsp;·&nbsp;{job}</WriterDetail>
+                </WriterNameBox>
+                <WriterDetail className="date">{createdAt}</WriterDetail>
+              </WriterDetailBox>
+            </WriterInfo>
+          </WriterBox>
+        )}
+      </ContentInfoContainer>
+    );
+  else
+    return (
+      <ContentInfoContainer className={ifContent === 'content' ? 'noHover' : 'hover'}>
+        {ifContent === 'content' ? (
+          <TestBox>
+            <TitleBox>{title}</TitleBox>
+            {description && <DescriptionBox>{description}</DescriptionBox>}
+          </TestBox>
+        ) : (
+          <TestBox>
+            <Link href={`/${team}/content/article/${articleUrl}/${IndivContentId}`}>
+              <TitleBox>{title}</TitleBox>
+              {description && <DescriptionBox>{description}</DescriptionBox>}
+            </Link>
+          </TestBox>
+        )}
+        {name && (
+          <WriterBox>
+            <WriterInfo href={`/${team}/author/${id}`}>
+              {thumbnail ? <WriterProfilePic src={thumbnail} alt="writer profile pic" /> : <NoUserProfileIcon />}
+              <WriterDetailBox>
+                <WriterNameBox>
+                  <WriterDetail>{name}</WriterDetail>
+                  <WriterDetail>&nbsp;·&nbsp;{job}</WriterDetail>
+                </WriterNameBox>
+                <WriterDetail className="date">{createdAt}</WriterDetail>
+              </WriterDetailBox>
+            </WriterInfo>
+          </WriterBox>
+        )}
+      </ContentInfoContainer>
+    );
 };
 
 export default ContentInfo;
@@ -98,6 +139,7 @@ const TestBox = styled.section`
   display: flex;
   flex-direction: column;
   align-items: flex-start;
+  width: 100%;
 
   &.hover:hover {
     opacity: 0.8;
@@ -111,9 +153,15 @@ const TestBox = styled.section`
 const ContentInfoContainer = styled.section`
   display: flex;
   flex-direction: column;
+  align-items: flex-start;
   justify-content: flex-start;
 
   width: 72rem;
+
+  &.mobile {
+    padding: 0 2.4rem;
+    width: 100vw;
+  }
 `;
 
 const WriterNameBox = styled.div`
