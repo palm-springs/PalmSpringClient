@@ -1,5 +1,5 @@
 'use client';
-import { ChangeEvent, Dispatch, KeyboardEvent, SetStateAction, useRef, useState } from 'react';
+import { ChangeEvent, Dispatch, KeyboardEvent, RefObject, SetStateAction, useRef, useState } from 'react';
 import styled from 'styled-components';
 
 import EmailBox from './EmailBox';
@@ -7,10 +7,11 @@ import EmailBox from './EmailBox';
 interface AddMemberInputProps {
   emailBox: string[];
   setEmailBox: Dispatch<SetStateAction<string[]>>;
+  emailInputRef: RefObject<HTMLInputElement>;
 }
 
 const AddMemberInput = (props: AddMemberInputProps) => {
-  const { emailBox: emailList, setEmailBox: setEmailList } = props;
+  const { emailBox: emailList, setEmailBox: setEmailList, emailInputRef } = props;
 
   const [emailValue, setEmailValue] = useState('');
 
@@ -32,9 +33,11 @@ const AddMemberInput = (props: AddMemberInputProps) => {
     const { key } = e;
 
     if (key === 'Enter' || key === ' ' || key === ',') {
-      setEmailList([...emailList, emailValue]);
-      setEmailValue('');
       isDivisionKey.current = true;
+      if (emailValue !== '') {
+        setEmailList([...emailList, emailValue]);
+        setEmailValue('');
+      }
     }
   };
 
@@ -53,7 +56,7 @@ const AddMemberInput = (props: AddMemberInputProps) => {
   return (
     <AddMemberInputContainer>
       {EmailBoxList}
-      <Input value={emailValue} onChange={handleInputChange} onKeyDown={handleInputKeyDown} />
+      <Input value={emailValue} onChange={handleInputChange} onKeyDown={handleInputKeyDown} ref={emailInputRef} />
     </AddMemberInputContainer>
   );
 };
@@ -63,6 +66,7 @@ export default AddMemberInput;
 const AddMemberInputContainer = styled.div`
   display: flex;
   flex-wrap: wrap;
+
   gap: 1.2rem;
 
   width: 100%;
@@ -71,9 +75,9 @@ const AddMemberInputContainer = styled.div`
 const Input = styled.input`
   ${({ theme }) => theme.fonts.Body3_Regular};
   border: none;
+  width: 100%;
 
   &:focus {
     outline: none;
-    border: 1px solid ${({ theme }) => theme.colors.grey_700};
   }
 `;
