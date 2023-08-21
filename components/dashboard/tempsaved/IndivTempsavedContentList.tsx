@@ -32,7 +32,7 @@ const IndivTempsavedContentList = (props: IndivTempsavedContentListProps) => {
       onTitleClick={() => {
         router.push(`/${blogUrl}/editor/article/edit/${id}`);
       }}
-      onMutateClick={() => router.push(`/${blogUrl}/editor/article/edit/${id}`)}
+      onMutateClick={() => router.push(`/${blogUrl}/editor/article/${id}/draft`)}
       onDeleteClick={() => mutate()}
     />
   );

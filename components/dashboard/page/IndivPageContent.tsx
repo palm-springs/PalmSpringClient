@@ -47,7 +47,13 @@ const IndivPageContent = (props: IndivPageContentProps) => {
       draft={isDraft}
       createdAt={createdAt}
       onTitleClick={() => router.push(`/${blogUrl}/content/page/${pageUrl}/${id}`)}
-      onMutateClick={() => router.push(`/${blogUrl}/editor/page/edit/${id}`)}
+      onMutateClick={() => {
+        if (isDraft) {
+          router.push(`/${blogUrl}/editor/page/${id}/draft`);
+        } else {
+          router.push(`/${blogUrl}/editor/page/${id}/edit`);
+        }
+      }}
       onDeleteClick={() => {
         if (isLinked) {
           alert('나중에 토스트 메세지로 네비게이션 연결을 해제하고 다시 시도해주세요! 를 보여주기');
