@@ -17,7 +17,9 @@ export interface UpdatePageProps {
   title: string;
   content: string;
   images: string[] | null;
-  thumbnail?: string | null;
+  thumbnail?: string;
+  pageUrl: string;
+  pageId: number;
 }
 
 export interface UpdatePageContentProps {

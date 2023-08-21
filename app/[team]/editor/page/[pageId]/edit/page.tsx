@@ -31,10 +31,10 @@ const EditPagePage = () => {
           <ArticleWrapper className="ProseMirror">
             {/* 데이터가 content 있는 페이지 */}
             {updatePageEditContents && (
-              <EditorInputTitle pageType="page" currentState="edit" pageData={updatePageEditContents.data} />
+              <EditorInputTitle pageType="page" currentState="edit" pageData={updatePageEditContents?.data} />
             )}
             {updatePageEditContents && (
-              <TextEditorBuild pageType="page" currentState="edit" pageData={updatePageEditContents.data} />
+              <TextEditorBuild pageType="page" currentState="edit" pageData={updatePageEditContents?.data} />
             )}
           </ArticleWrapper>
         </TextEditorStyle>

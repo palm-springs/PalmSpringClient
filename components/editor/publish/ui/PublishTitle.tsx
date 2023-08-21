@@ -7,6 +7,7 @@ import styled from 'styled-components';
 
 // import ARTICLE_CONTENT from '@/constants/ArticleContent';
 import { useGetSingleArticleData, useGetSinglePageData } from '@/hooks/editor';
+import { UpdatePageProps } from '@/types/page';
 
 import { articleDataState, pageDataState } from '../../states/atom';
 
@@ -14,6 +15,7 @@ interface PublishTitleprops {
   pageType: string;
   blogUrl: string;
   articleId: number;
+  pageData?: UpdatePageProps;
 }
 
 //정보 get 해야함

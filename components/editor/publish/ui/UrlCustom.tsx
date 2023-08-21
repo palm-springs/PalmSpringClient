@@ -6,6 +6,7 @@ import { useRecoilState } from 'recoil';
 import styled from 'styled-components';
 
 import { EssentialCircleIcon, Loader01Icon } from '@/public/icons';
+import { UpdatePageProps } from '@/types/page';
 import CheckArticleDuplication from '@/utils/checkArticleUrlDuplication';
 import CheckPageDuplication from '@/utils/checkPageUrlDuplication';
 
@@ -17,10 +18,11 @@ interface UrlCustomProps {
   pageType: string;
   isDuplicate: boolean | null;
   setIsDuplicate: Dispatch<SetStateAction<boolean | null>>;
+  pageData?: UpdatePageProps;
 }
 
 const UrlCustom = (props: UrlCustomProps) => {
-  const { pageType, isDuplicate, setIsDuplicate } = props;
+  const { pageType, isDuplicate, setIsDuplicate, pageData } = props;
   const { team } = useParams();
 
   const [{ articleUrl }, setArticleData] = useRecoilState(articleDataState);
@@ -81,12 +83,21 @@ const UrlCustom = (props: UrlCustomProps) => {
 
           <PublishInputForm isFocus={isAddressFocus} isDuplicate={isDuplicate}>
             <div>/@{team}/content/</div>
-            <TextInput
-              onFocus={() => setIsAddressFocus(true)}
-              onBlur={() => setIsAddressFocus(false)}
-              value={pageUrl}
-              onChange={handleOnPageChange}
-            />
+            {pageData ? (
+              <TextInput
+                onFocus={() => setIsAddressFocus(true)}
+                onBlur={() => setIsAddressFocus(false)}
+                value={pageData.pageUrl}
+                onChange={handleOnPageChange}
+              />
+            ) : (
+              <TextInput
+                onFocus={() => setIsAddressFocus(true)}
+                onBlur={() => setIsAddressFocus(false)}
+                value={pageUrl}
+                onChange={handleOnPageChange}
+              />
+            )}
             {isDuplicate === null && pageUrl !== '' && <Loader01Icon />}
           </PublishInputForm>
           {isDuplicate && <Message>이미 사용 중인 URL입니다. 다른 URL를 입력해주세요.</Message>}

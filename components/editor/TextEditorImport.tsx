@@ -54,7 +54,7 @@ interface TextEditorBuildprops {
 
 const TextEditorBuild = (props: TextEditorBuildprops) => {
   const { pageType, currentState, articleData, pageData } = props;
-  const { team, articleId } = useParams();
+  const { team, articleId, pageId } = useParams();
   const [{ title }, setArticleData] = useRecoilState(articleDataState);
   const [{ title: pageTitle }, setPageData] = useRecoilState(pageDataState);
   const [{ title: newArticleTitle }, setNewArticleData] = useRecoilState(newArticleDataState);
@@ -297,9 +297,9 @@ const TextEditorBuild = (props: TextEditorBuildprops) => {
       }
 
       // updateArticleMutation.mutate(updatedArticleData);
-      console.log(updatedArticleData);
-      console.log(imageArr);
-      router.push(`/${team}/editor/article/edit/${articleId}/publish`);
+      // console.log(updatedArticleData);
+      // console.log(imageArr);
+      router.push(`/${team}/editor/page/${pageId}/publish`);
     }
   };
 
@@ -329,7 +329,7 @@ const TextEditorBuild = (props: TextEditorBuildprops) => {
               ? handleOnClickPageDraft
               : handleOnClickPageDraft
           }
-          handleOnClickPublish={currentState === 'edit' ? handleOnClickPagePublish : handleOnClickPagePublish}
+          handleOnClickPublish={currentState === 'edit' ? handleUpdatePageContent : handleOnClickPagePublish}
           isEdit={currentState === 'edit' ? true : false}
         />
       )}
