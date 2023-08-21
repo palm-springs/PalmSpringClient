@@ -155,7 +155,6 @@ const TextAreaInput = styled.textarea`
 
   &:focus {
     outline: none;
-    border: 1px solid ${({ theme }) => theme.colors.grey_700};
   }
 `;
 

@@ -15,14 +15,51 @@ jobs:
     runs-on: ubuntu-latest
 
     steps:
-      - uses: actions/checkout@v2
+
+      - name: Checkout
+        uses: actions/checkout@master
+        with:
+          persist-credentials: false
+
+      - name: Install and Build
+        uses: actions/setup-node@master
+      - run: yarn install
+      - run: yarn build
+
+      - name: Get Github action IP
+        id: ip
+        uses: haythem/public-ip@v1.2
+
+      - name: Configure AWS Credentials
+        uses: aws-actions/configure-aws-credentials@v1
+        with:
+          aws-access-key-id: ${{ secrets.AWS_ACCESS_KEY_ID }}
+          aws-secret-access-key: ${{ secrets.AWS_SECRET_ACCESS_KEY }}
+          aws-region: ap-northeast-2
+
+      - name: Add Github Actions IP to Security group
+        run: |
+         aws ec2 authorize-security-group-ingress --group-id ${{ secrets.AWS_SG_ID }} --protocol tcp --port 22 --cidr ${{ steps.ip.outputs.ipv4 }}/32 
+        env:
+         AWS_ACCESS_KEY_ID: ${{ secrets.AWS_ACCESS_KEY_ID }}
+         AWS_SECRET_ACCESS_KEY: ${{ secrets.AWS_SECRET_ACCESS_KEY }}
+         AWS_DEFAULT_REGION: ap-northeast-2
+
+      - name: copy file via ssh password
+        uses: appleboy/scp-action@v0.1.4
+        with:
+          host: ${{ secrets.HOST }}
+          username: ${{ secrets.USER }}
+          password: ${{ secrets.INSTANCE_PWD }}
+          source: ".next/*"
+          target: "palmspring-client/PalmSpringClient/.next"
+      
       - name: Run scripts in server
-        uses: appleboy/ssh-action@master
+        uses: appleboy/ssh-action@v0.1.6
         with:
           password: ${{ secrets.INSTANCE_PWD }}
           host: ${{ secrets.HOST }}
           username: ${{ secrets.USER }}
-          port: ${{ secrets.PORT }}
           script: |
             whoami
             cd palmspring-client/PalmSpringClient
@@ -30,5 +67,12 @@ jobs:
             git reset --hard origin/develop
             yarn
             pm2 stop 0
-            yarn build
             pm2 start yarn -- start
+
+      - name: Remove Github Actions IP from security group
+        run: |
+         aws ec2 revoke-security-group-ingress --group-id ${{ secrets.AWS_SG_ID }} --protocol tcp --port 22 --cidr ${{ steps.ip.outputs.ipv4 }}/32
+        env:
+         AWS_ACCESS_KEY_ID: ${{ secrets.AWS_ACCESS_KEY_ID }}
+         AWS_SECRET_ACCESS_KEY: ${{ secrets.AWS_SECRET_ACCESS_KEY }}
+         AWS_DEFAULT_REGION: ap-northeast-2

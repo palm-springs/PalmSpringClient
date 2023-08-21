@@ -12,7 +12,7 @@ export const getArticleList = async (blogUrl: string, categoryId: string | null)
 
 export const getSingleArticleData = async (blogUrl: string, articleId: number) => {
   const { data } = await client.get<Response<SingleArticleData>>(
-    `/api/v1/article/${blogUrl}/detail?articleUrl=${articleId}`,
+    `/api/v2/dashboard/article/detail/${blogUrl}?articleId=${articleId}`,
   );
   return data;
 };
@@ -24,12 +24,22 @@ interface postArticleListRequest {
 }
 
 export const postArticleList = async (url: string, requestBody: postArticleListRequest) => {
-  const { data } = await client.post<Response<null>>(`/api/v1/article/${url}/draft`, requestBody);
+  const { data } = await client.post<Response<null>>(`/api/v2/dashboard/article/draft/create/${url}`, requestBody);
   return data;
 };
 
+interface postArticleCreateListRequest {
+  title: string;
+  content: string;
+  images: string[] | null;
+  thumbnail: string;
+  categoryId: number;
+  description: string;
+  articleUrl: string;
+}
+
 export const postArticleCreateList = async (url: string, requestBody: CreateArticleProps) => {
-  const { data } = await client.post<Response<null>>(`/api/v1/article/${url}/create`, requestBody);
+  const { data } = await client.post<Response<null>>(`/api/v2/dashboard/article/publish/create/${url}`, requestBody);
   return data;
 };
 
