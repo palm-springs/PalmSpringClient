@@ -20,7 +20,6 @@ const BlogNav = () => {
   if (!res) return <LoadingLottie width={10} height={10} fit />;
 
   const { data: navList } = res;
-  console.log(navList);
   return (
     <BlogNavContainer>
       {navList &&

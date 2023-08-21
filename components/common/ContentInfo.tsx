@@ -54,18 +54,17 @@ const ContentInfo = (props: ContentInfoProps) => {
     return (
       <ContentInfoContainer className="mobile">
         {ifContent === 'content' ? (
-          <TestBox>
-            <TitleBox>{title}</TitleBox>
-            {description && <DescriptionBox>{description}</DescriptionBox>}
-          </TestBox>
+          <ContentDetailBox>
+            <TitleBox className="mobile">{title}</TitleBox>
+            {description && <DescriptionBox className="mobile">{description}</DescriptionBox>}
+          </ContentDetailBox>
         ) : (
-          <TestBox>
+          <ContentDetailBox>
             <Link href={`/${team}/content/article/${articleUrl}/${IndivContentId}`}>
-              {' '}
-              <TitleBox>{title}</TitleBox>
-              {description && <DescriptionBox>{description}</DescriptionBox>}
+              <TitleBox className="mobile">{title}</TitleBox>
+              {description && <DescriptionBox className="mobile">{description}</DescriptionBox>}
             </Link>
-          </TestBox>
+          </ContentDetailBox>
         )}
         {name && (
           <WriterBox>
@@ -73,8 +72,8 @@ const ContentInfo = (props: ContentInfoProps) => {
               {thumbnail ? <WriterProfilePic src={thumbnail} alt="writer profile pic" /> : <NoUserProfileIcon />}
               <WriterDetailBox>
                 <WriterNameBox>
-                  <WriterDetail>{name}</WriterDetail>
-                  <WriterDetail>&nbsp;·&nbsp;{job}</WriterDetail>
+                  <WriterDetail className="mobile">{name}</WriterDetail>
+                  <WriterDetail className="mobile">&nbsp;·&nbsp;{job}</WriterDetail>
                 </WriterNameBox>
                 <WriterDetail className="date">{createdAt}</WriterDetail>
               </WriterDetailBox>
@@ -87,17 +86,17 @@ const ContentInfo = (props: ContentInfoProps) => {
     return (
       <ContentInfoContainer className={ifContent === 'content' ? 'noHover' : 'hover'}>
         {ifContent === 'content' ? (
-          <TestBox>
+          <ContentDetailBox>
             <TitleBox>{title}</TitleBox>
             {description && <DescriptionBox>{description}</DescriptionBox>}
-          </TestBox>
+          </ContentDetailBox>
         ) : (
-          <TestBox>
+          <ContentDetailBox>
             <Link href={`/${team}/content/article/${articleUrl}/${IndivContentId}`}>
               <TitleBox>{title}</TitleBox>
               {description && <DescriptionBox>{description}</DescriptionBox>}
             </Link>
-          </TestBox>
+          </ContentDetailBox>
         )}
         {name && (
           <WriterBox>
@@ -135,7 +134,7 @@ const WriterProfilePic = styled.img`
   height: 5rem;
 `;
 
-const TestBox = styled.section`
+const ContentDetailBox = styled.section`
   display: flex;
   flex-direction: column;
   align-items: flex-start;
@@ -181,6 +180,10 @@ const TitleBox = styled.article`
   width: 100%;
 
   color: ${({ theme }) => theme.colors.grey_950};
+
+  &.mobile {
+    ${({ theme }) => theme.mobileFonts.Title1};
+  }
 `;
 
 const DescriptionBox = styled.article`
@@ -192,6 +195,10 @@ const DescriptionBox = styled.article`
   width: 100%;
 
   color: ${({ theme }) => theme.colors.grey_950};
+
+  &.mobile {
+    ${({ theme }) => theme.mobileFonts.Body1_Regular};
+  }
 `;
 
 const WriterInfo = styled(Link)`
@@ -217,5 +224,9 @@ const WriterDetail = styled.div`
   &.date {
     ${({ theme }) => theme.fonts.Body3_Regular};
     color: ${({ theme }) => theme.colors.grey_700};
+  }
+
+  &.mobile {
+    ${({ theme }) => theme.mobileFonts.Body2_Regular};
   }
 `;

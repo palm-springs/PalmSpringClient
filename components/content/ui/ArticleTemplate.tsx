@@ -63,7 +63,11 @@ const ArticleTemplate = (props: ArticleTemplateProps) => {
         />
 
         <ContentPageContainer className="mobile">
-          {thumbnail && <ArticleThumbnail className="mobile" src={thumbnail} alt="article content thumbnail" />}
+          {thumbnail ? (
+            <ArticleThumbnail className="mobile" src={thumbnail} alt="article content thumbnail" />
+          ) : (
+            <Blank />
+          )}
           <ContentInfo contentInfoData={{ title, description, teamMember }} />
           <Content content={content} />
           <LinkBtn className="mobile" type="button" onClick={copyCurrentUrl}>
@@ -98,7 +102,10 @@ const ArticleTemplate = (props: ArticleTemplateProps) => {
 };
 
 export default ArticleTemplate;
-
+const Blank = styled.div`
+  width: 100vw;
+  height: 6rem;
+`;
 const ArticleThumbnail = styled.img`
   border-radius: 1.6rem;
   width: 72rem;
@@ -122,7 +129,6 @@ const ContentPageContainer = styled.section`
   align-items: center;
 
   margin: 11.8rem 36rem;
-  width: 72rem;
 
   &.mobile {
     margin: 0;
@@ -141,6 +147,7 @@ const LinkBtn = styled.button`
 
   background-color: ${({ theme }) => theme.colors.grey_200};
   padding: 0 1.4rem;
+  min-width: 17.2rem;
   height: 3.2rem;
 
   color: ${({ theme }) => theme.colors.grey_900};

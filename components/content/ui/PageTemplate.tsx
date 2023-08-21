@@ -126,7 +126,6 @@ const ContentPageContainer = styled.section`
   align-items: center;
 
   margin: 11.8rem 36rem;
-  width: 72rem;
 
   &.mobile {
     margin: 0;
@@ -138,12 +137,14 @@ const LinkBtn = styled.button`
   ${({ theme }) => theme.fonts.Body3_Semibold};
   align-items: center;
 
+  margin: 6rem 0 5.8rem;
+
   border: none;
   border-radius: 0.8rem;
 
   background-color: ${({ theme }) => theme.colors.grey_200};
-
   padding: 0 1.4rem;
+  min-width: 17.2rem;
   height: 3.2rem;
 
   color: ${({ theme }) => theme.colors.grey_900};

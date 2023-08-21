@@ -42,6 +42,7 @@ export default Recommend;
 const RecommendContainer = styled.section`
   margin-bottom: 5.8rem;
   width: 100%;
+  min-width: 72rem;
 
   &.mobile {
     display: flex;
