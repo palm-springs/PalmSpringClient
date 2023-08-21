@@ -191,6 +191,14 @@ const mobileFonts = {
     font-weight: 700;
     font-style: normal;
   `,
+  Title3: css`
+    line-height: 155%;
+    letter-spacing: -0.0175em;
+    font-family: 'Pretendard';
+    font-size: 2rem;
+    font-weight: 600;
+    font-style: normal;
+  `,
   Body1_Semibold: css`
     line-height: 170%;
     letter-spacing: -0.00375em;

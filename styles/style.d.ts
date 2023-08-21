@@ -49,6 +49,7 @@ declare module 'styled-components' {
     mobileFonts: {
       Title1: SerializedStyles;
       Title2: SerializedStyles;
+      Title3: SerializedStyles;
       Body1_Semibold: SerializedStyles;
       Body1_Regular: SerializedStyles;
       Body2_Semibold: SerializedStyles;
