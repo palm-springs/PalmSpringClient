@@ -1,10 +1,7 @@
 // import { url } from 'inspector';
 
-import { useQuery } from '@tanstack/react-query';
-
 import { ArticleData, CreateArticleProps, SingleArticleData } from '@/types/article';
 import { Response } from '@/types/common';
-import { PageData } from '@/types/page';
 
 // import { getImageMultipartData } from '@/utils/getImageMultipartData';
 import client from '.';
