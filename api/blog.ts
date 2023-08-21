@@ -21,7 +21,7 @@ interface BlogInfoProps {
 }
 
 export const getBlogInfo = async (blogUrl: string) => {
-  const { data } = await client.get<Response<BlogInfoProps>>(`/api/v1/blog?url=${blogUrl}`);
+  const { data } = await client.get<Response<BlogInfoProps>>(`/api/v2/dashboard/blog/admin/info/${blogUrl}`);
   return data;
 };
 

@@ -11,7 +11,7 @@ import client from '.';
 
 export const getArticleList = async (blogUrl: string, categoryId: string | null) => {
   const { data } = await client.get<Response<ArticleData[]>>(
-    `/api/v1/article/${blogUrl}/list?categoryId=${categoryId}`,
+    `/api/v2/dashboard/article/list/publish/${blogUrl}?categoryId=${categoryId}`,
   );
   return data;
 };

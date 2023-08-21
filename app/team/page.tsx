@@ -110,7 +110,7 @@ const randomArray =
   (randomNumberForOrder === 6 && [...ourBelovedPM, ...ourBelovedDesigner, ...ourBelovedServer, ...ourBelovedFE]);
 
 const sendMessage = async () => {
-  await client.get('/api/v1/health');
+  await client.get('/api/v2/health');
 };
 
 const Team = () => {
