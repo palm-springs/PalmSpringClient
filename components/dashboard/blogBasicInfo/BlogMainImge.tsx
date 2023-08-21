@@ -1,20 +1,26 @@
 'use client';
 
-import React, { ChangeEvent, useRef, useState } from 'react';
+import React, { ChangeEvent, useEffect, useRef, useState } from 'react';
 import styled from 'styled-components';
 
 import { CloseIcon, UploadIcon } from '@/public/icons';
 
 interface BlogMainImageProps {
+  file: string;
   setFile: (v: File | null) => void;
 }
 
 const BlogMainImage = (props: BlogMainImageProps) => {
-  const { setFile } = props;
+  const { file, setFile } = props;
 
   const [preLoadImg, setPreLoadImg] = useState<string>('');
 
   const inputImgRef = useRef<HTMLInputElement>(null);
+
+  useEffect(() => {
+    if (!file) return;
+    setPreLoadImg(file);
+  }, [file]);
 
   return (
     <BlogMainImageContainer>

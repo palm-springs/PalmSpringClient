@@ -53,8 +53,6 @@ const BlogConfigTemplate = () => {
       typeof blogConfig.blogLogoImage !== 'string' &&
       ((await getImageMultipartData(blogConfig.blogLogoImage)) as string);
 
-    // imageArray.append(logoS3);
-
     const mainS3 =
       blogConfig.blogMainImage &&
       typeof blogConfig.blogMainImage !== 'string' &&
@@ -93,6 +91,7 @@ const BlogConfigTemplate = () => {
             blogLogoImage: v,
           }))
         }
+        file={blogConfig.blogLogoImage as string}
       />
       <BlogMainImage
         setFile={(v) =>
@@ -101,6 +100,7 @@ const BlogConfigTemplate = () => {
             blogMainImage: v,
           }))
         }
+        file={blogConfig.blogMainImage as string}
       />
       <BlogDescribeText
         describeText={blogConfig.blogDescribeText}
