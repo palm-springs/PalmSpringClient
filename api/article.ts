@@ -39,7 +39,7 @@ export const getCheckArticleUrlDuplication = async (teamUrl: string, articleUrl:
 };
 
 export const getUpdateArticleContent = async (articleId: number) => {
-  const { data } = await client.get(`/api/v1/article/modify/detail?id=${articleId}`);
+  const { data } = await client.get(`/api/v1/article/detail/modify?id=${articleId}`);
   return data;
 };
 

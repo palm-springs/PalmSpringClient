@@ -43,7 +43,7 @@ export const getSinglePageData = async (blogUrl: string, pageUrl: string) => {
 };
 
 export const getUpdatePageContent = async (pageId: number) => {
-  const { data } = await client.get(`/api/v1/page/admin/modify/detail?id=${pageId}`);
+  const { data } = await client.get(`/api/v1/page/admin/detail/modify?id=${pageId}`);
   return data;
 };
 
