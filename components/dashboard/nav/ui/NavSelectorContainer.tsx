@@ -1,4 +1,5 @@
 import React, { Dispatch, SetStateAction } from 'react';
+import { useParams } from 'next/navigation';
 import { styled } from 'styled-components';
 
 import { PageListProps } from '@/types/dashboard';
@@ -11,10 +12,21 @@ interface NavSelectorContainerProps {
   setNewNavigationSelector: Dispatch<SetStateAction<string>>;
   newNavigationUrl: string;
   setNewNavigationUrl: Dispatch<SetStateAction<string>>;
+  newNavigationName: string;
+  setNewNavigationName: Dispatch<SetStateAction<string>>;
 }
 
 const NavSelectorContainer = (props: NavSelectorContainerProps) => {
-  const { setIsSelectorOpen, setNewNavigationSelector, setNewNavigationUrl, pageList } = props;
+  const {
+    setIsSelectorOpen,
+    setNewNavigationSelector,
+    setNewNavigationUrl,
+    pageList,
+    newNavigationName,
+    setNewNavigationName,
+  } = props;
+
+  const { team: blogUrl } = useParams();
 
   // 페이지가 맞고 isDraft가 아닌 것
   const filteredPageList = pageList.filter(({ isDraft }) => !isDraft);
@@ -25,6 +37,7 @@ const NavSelectorContainer = (props: NavSelectorContainerProps) => {
         type="button"
         onClick={() => {
           setNewNavigationUrl('');
+          setNewNavigationName('직접 입력');
           setNewNavigationSelector('직접 입력');
           setIsSelectorOpen((prev) => !prev);
         }}>
@@ -37,6 +50,7 @@ const NavSelectorContainer = (props: NavSelectorContainerProps) => {
           onClick={() => {
             console.log(name);
             setNewNavigationUrl(name);
+            setNewNavigationName(name);
             setNewNavigationSelector(name);
             setIsSelectorOpen((prev) => !prev);
           }}>

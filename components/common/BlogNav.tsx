@@ -12,17 +12,7 @@ import SubscribeBtn from '../blog/SubscribeBtn';
 
 import LoadingLottie from './ui/LoadingLottie';
 
-interface navProps {
-  navList: {
-    id: number;
-    name: string;
-    navUrl: string;
-    isPage: boolean;
-  }[];
-}
-
-const BlogNav = (prop: navProps) => {
-  // const { navList } = prop;
+const BlogNav = () => {
   const { team } = useParams();
 
   const res = useGetNavList(team);
@@ -30,17 +20,16 @@ const BlogNav = (prop: navProps) => {
   if (!res) return <LoadingLottie width={10} height={10} fit />;
 
   const { data: navList } = res;
-
+  console.log(navList);
   return (
     <BlogNavContainer>
-      <div></div>
       {navList &&
         navList.map(({ navUrl, name, isPage, id }) => (
           <PageBtn key={navUrl}>
             {isPage === true ? (
               <Link href={`/${team}/content/page/${navUrl}/${id}`}>{name}</Link>
             ) : (
-              <Link href={`${navUrl}`}>{name}</Link>
+              <Link href={`https://${navUrl}`}>{name}</Link>
             )}
           </PageBtn>
         ))}
@@ -56,10 +45,12 @@ const BlogNavContainer = styled.div`
   gap: 1.6rem;
   align-items: center;
   justify-content: space-between;
+
   width: auto;
 
   @media screen and (max-width: 768px) {
     position: absolute;
+
     right: 4rem;
     width: 31.6rem;
   }

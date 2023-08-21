@@ -43,8 +43,10 @@ const PageTemplate = (props: ContentTemplateProps) => {
     });
 
   const copyCurrentUrl = () => {
-    navigator.clipboard.writeText(window.location.href);
-    notify();
+    if (typeof window !== undefined) {
+      navigator.clipboard.writeText(window.location.href);
+      notify();
+    }
   };
 
   return (
@@ -73,9 +75,13 @@ const PageTemplate = (props: ContentTemplateProps) => {
 export default PageTemplate;
 
 const PageThumbnail = styled.img`
+  object-fit: cover;
   border-radius: 1.6rem;
   width: 72rem;
   height: 40.5rem;
+
+  user-select: none;
+  -webkit-user-drag: none;
 `;
 
 const ContentPageContainer = styled.section`

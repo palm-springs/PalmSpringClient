@@ -10,7 +10,9 @@ const TabType = (props: TabTypeProps) => {
 
   return (
     <TabTypeContainer>
-      <TabTypeUI>{tabType}</TabTypeUI>
+      <TabTypeUI>
+        <span>{tabType}</span>
+      </TabTypeUI>
     </TabTypeContainer>
   );
 };
@@ -22,15 +24,21 @@ const TabTypeContainer = styled.div`
   width: 8.1rem;
 `;
 
-const TabTypeUI = styled.span`
-  display: inline-flex;
-  gap: 1rem;
-  align-items: center;
-  ${({ theme }) => theme.fonts.Body3_Regular};
+const TabTypeUI = styled.div`
   border: 1px solid ${({ theme }) => theme.colors.grey_400};
   border-radius: 2rem;
-  padding: 0.4rem 0.8rem;
+  width: fit-content;
   overflow: hidden;
   text-overflow: ellipsis;
-  white-space: nowrap;
+  span {
+    ${({ theme }) => theme.fonts.Body3_Regular};
+    display: inline-flex;
+    gap: 1rem;
+    align-items: center;
+    padding: 0.4rem 0.8rem;
+    max-width: 6.5rem;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    white-space: nowrap;
+  }
 `;

@@ -9,5 +9,5 @@ export default DashBoardHeaderContainer;
 
 const DashBoardHeaderUI = styled.section`
   display: flex;
-  width: calc(100vw - 28.6rem);
+  width: 100%;
 `;

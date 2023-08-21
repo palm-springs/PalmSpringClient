@@ -30,9 +30,9 @@ export default BlogImg;
 
 const BlogImgContainer = styled.div`
   position: relative;
+
   margin-top: 6rem;
   min-width: 105.6rem;
-
   height: 50rem;
 `;
 
@@ -43,18 +43,23 @@ const BlogImgWrapper = styled.div`
   & > img {
     width: 100%;
     height: 50rem;
+
     user-select: none;
     -webkit-user-drag: none;
+    object-fit: cover;
   }
 `;
 
 const BlogInfo = styled.div`
   ${({ theme }) => theme.fonts.Heading1};
+
   position: absolute;
   top: 50%;
   left: 50%;
   transform: translate(-50%, -50%);
+
   text-align: center;
   color: ${({ theme }) => theme.colors.grey_0};
+
   pointer-events: none;
 `;

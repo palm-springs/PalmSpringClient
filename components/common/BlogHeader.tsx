@@ -9,11 +9,11 @@ import BlogNav from './BlogNav';
 import HeaderLogo from './HeaderLogo';
 
 const BlogHeader = (props: HeaderProps) => {
-  const { logo, blogName, navList } = props;
+  const { logo, blogName } = props;
   return (
     <BlogHeaderContainer>
       <HeaderLogo logo={logo} blogName={blogName} />
-      <BlogNav navList={navList} />
+      <BlogNav />
     </BlogHeaderContainer>
   );
 };

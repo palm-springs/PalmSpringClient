@@ -90,14 +90,14 @@ const DashBoardContentContainer = (props: DashBoardContentContainerProps) => {
               <CharmMenuMeatballIcon />
             </BtnContainer>
           )}
-                {isModalOpen && (
-        <PopOverMenu
-          onNavigateContentClick={onTitleClick}
-          onMutateButtonClick={onMutateClick}
-          onDeleteButtonClick={onDeleteClick}
-          pathName={pathName}
-        />
-      )}
+          {isModalOpen && (
+            <PopOverMenu
+              onNavigateContentClick={onTitleClick}
+              onMutateButtonClick={onMutateClick}
+              onDeleteButtonClick={onDeleteClick}
+              pathName={pathName}
+            />
+          )}
         </>
       )}
     </DashBoardContentUI>
@@ -108,6 +108,7 @@ export default DashBoardContentContainer;
 
 const DashBoardContentUI = styled.article<{ $isContentBar: boolean }>`
   display: flex;
+  position: relative;
   align-items: center;
   transition: 0.3s ease-out;
   border-bottom: 1px solid ${({ theme }) => theme.colors.grey_300};
@@ -125,6 +126,8 @@ const DashBoardContentUI = styled.article<{ $isContentBar: boolean }>`
   }
 
   span,
+  div,
+  div > span,
   & > button {
     white-space: nowrap;
     ${({ $isContentBar }) =>

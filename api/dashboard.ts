@@ -1,5 +1,3 @@
-import { useMutation } from '@tanstack/react-query';
-
 import { Response } from '@/types/common';
 import { CategoryListProps, NavListProps, PageListProps, TempSavedListProps } from '@/types/dashboard';
 import { MemberProps } from '@/types/member';
@@ -17,32 +15,32 @@ interface UserBasicInfoProps {
 }
 
 export const getPageList = async (blogUrl: string) => {
-  const { data } = await client.get<Response<PageListProps[]>>(`/api/v1/page/${blogUrl}`);
+  const { data } = await client.get<Response<PageListProps[]>>(`/api/v2/dashboard/page/admin/list/${blogUrl}`);
   return data;
 };
 
 export const getNavList = async (blogUrl: string) => {
-  const { data } = await client.get<Response<NavListProps[]>>(`/api/v1/nav/${blogUrl}/list`);
+  const { data } = await client.get<Response<NavListProps[]>>(`/api/v2/dashboard/nav/admin/list/${blogUrl}`);
   return data;
 };
 
 export const getCategoryList = async (blogUrl: string) => {
-  const { data } = await client.get<Response<CategoryListProps[]>>(`/api/v1/category/${blogUrl}/list`);
+  const { data } = await client.get<Response<CategoryListProps[]>>(`/api/v2/dashboard/category/admin//list/${blogUrl}`);
   return data;
 };
 
 export const getTempSavedList = async (blogUrl: string) => {
-  const { data } = await client.get<Response<TempSavedListProps[]>>(`/api/v1/article/${blogUrl}/draftList`);
+  const { data } = await client.get<Response<TempSavedListProps[]>>(`/api/v2/dashboard/article/list/draft/${blogUrl}`);
   return data;
 };
 
 export const getUserInfo = async () => {
-  const { data } = await client.get<Response<UserInfoProps>>(`/api/v1/user/dashboard/sidebar`);
+  const { data } = await client.get<Response<UserInfoProps>>(`/api/v2/dashboard/user/sidebar`);
   return data;
 };
 
 export const getUserInfoAfterLogin = async (blogUrl: string, accessToken: string) => {
-  const { data } = await client.get<Response<UserInfoProps>>(`/api/v1/user/dashboard/sidebar/${blogUrl}`, {
+  const { data } = await client.get<Response<UserInfoProps>>(`/api/v2/dashboard/user/me/detail/joined/${blogUrl}`, {
     headers: {
       Authorization: `Bearer ${accessToken}`,
     },
@@ -51,17 +49,18 @@ export const getUserInfoAfterLogin = async (blogUrl: string, accessToken: string
 };
 
 export const getMemberList = async (blogUrl: string) => {
-  const { data } = await client.get<Response<MemberProps[]>>(`/api/v1/user/dashboard/team/${blogUrl}`);
+  const { data } = await client.get<Response<MemberProps[]>>(`/api/v2/dashboard/user/team/list/members/${blogUrl}`);
   return data;
 };
 
+// 왜 있지?
 export const getUserBasicInfo = async (blogUrl: string) => {
   const { data } = await client.get<Response<UserBasicInfoProps>>(`/api/v1/user/dashboard/me/${blogUrl}/detail`);
   return data;
 };
 
 export const postCategory = async (blogUrl: string, name: string, description: string) => {
-  const { data } = await client.post<Response<null>>(`/api/v1/category/${blogUrl}/admin/create`, {
+  const { data } = await client.post<Response<null>>(`/api/v2/dashboard/category/admin/create/${blogUrl}`, {
     name,
     description,
   });
@@ -69,7 +68,7 @@ export const postCategory = async (blogUrl: string, name: string, description: s
 };
 
 export const postNavigation = async (blogUrl: string, name: string, isPage: boolean, navUrl: string) => {
-  const { data } = await client.post<Response<null>>(`/api/v1/nav/${blogUrl}/admin/create`, {
+  const { data } = await client.post<Response<null>>(`/api/v2/dashboard/nav/admin/create/${blogUrl}`, {
     name,
     isPage,
     navUrl,
@@ -78,16 +77,45 @@ export const postNavigation = async (blogUrl: string, name: string, isPage: bool
 };
 
 export const deleteNavigation = async (blogUrl: string, id: number) => {
-  const { data } = await client.delete(`/api/v1/nav/${blogUrl}/admin/remove?id=${String(id)}`);
+  const { data } = await client.delete(`/api/v2/dashboard/nav/admin/remove/${blogUrl}?navId=${String(id)}`);
   return data;
 };
 
 export const updateNavigation = async (blogUrl: string, id: number, name: string, isPage: boolean, navUrl: string) => {
-  const { data } = await client.put<Response<null>>(`/api/v1/nav/${blogUrl}/admin/modify`, {
+  const { data } = await client.put<Response<null>>(`/api/v2/dashboard/nav/admin/modify/${blogUrl}`, {
     id,
     name,
     isPage,
     navUrl,
   });
+  return data;
+};
+
+export const deleteCategory = async (blogUrl: string, id: number) => {
+  const { data } = await client.delete<Response<null>>(
+    `/api/v2/dashboard/category/admin/remove/${blogUrl}?categoryId=${id}`,
+  );
+  if (data.code === 406) {
+    alert('카테고리 안에 글이 없어야해요~');
+  }
+  return data;
+};
+
+export const updateCategory = async (blogUrl: string, id: number, name: string, description: string) => {
+  const { data } = await client.put<Response<null>>(`/api/v2/dashboard/category/admin/modify/${blogUrl}`, {
+    id,
+    name,
+    description,
+  });
+  return data;
+};
+
+export const deletePage = async (blogUrl: string, id: number) => {
+  const { data } = await client.delete<Response<null>>(`/api/v2/dashboard/page/admin/remove/${blogUrl}?pageId=${id}`);
+  return data;
+};
+
+export const deleteArticle = async (blogUrl: string, id: number) => {
+  const { data } = await client.delete<Response<null>>(`/api/v2/dashboard/article/remove/${blogUrl}?articleId=${id}`);
   return data;
 };

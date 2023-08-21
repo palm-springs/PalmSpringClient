@@ -1,10 +1,14 @@
 import { useQuery } from '@tanstack/react-query';
 
+<<<<<<< HEAD:hooks/editor.ts
 import { getArticleList, getSingleArticleData, getUpdateArticleContent } from '@/api/article';
+=======
+import { getArticleList, getSingleArticleData } from '@/api/article';
+>>>>>>> develop:hooks/article.ts
 import { getContent } from '@/api/content';
 import { getSinglePageData } from '@/api/page';
 
-const QUERY_KEY_ARTICLE = {
+export const QUERY_KEY_ARTICLE = {
   getArticleList: 'getArticleList',
   getSingleArticleData: 'getSingleArticleData',
   getSinglePageData: 'getSinglePageData',

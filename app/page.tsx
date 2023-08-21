@@ -4,6 +4,7 @@ import { useEffect } from 'react';
 import { css } from '@emotion/react';
 import AOS from 'aos';
 
+import client from '@/api';
 // import { Metadata } from 'next';
 import Footer from '@/components/landing/Footer';
 import Header from '@/components/landing/Header';
@@ -196,8 +197,13 @@ const why_they_use_container = css`
   }
 `;
 
+const sendMessage = async () => {
+  await client.get('/api/v1/health');
+};
+
 const Home = () => {
   useEffect(() => {
+    sendMessage();
     AOS.init({
       offset: 200,
       duration: 400,

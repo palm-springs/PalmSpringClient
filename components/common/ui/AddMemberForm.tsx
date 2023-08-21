@@ -1,5 +1,5 @@
 'use client';
-import { Dispatch, SetStateAction } from 'react';
+import { Dispatch, SetStateAction, useRef } from 'react';
 import styled from 'styled-components';
 
 import AddMemberInput from './AddMemberInput';
@@ -16,9 +16,20 @@ interface AddMemberFormProps {
 const AddMemberForm = (props: AddMemberFormProps) => {
   const { width, height, paddingUD, paddingLR, emailBox, setEmailBox } = props;
 
+  const emailInputRef = useRef<HTMLInputElement>(null);
+
+  const handleOnClick = () => {
+    emailInputRef.current && emailInputRef.current.focus();
+  };
+
   return (
-    <AddMemberFormContainer $width={width} $height={height} $paddingUD={paddingUD} $paddingLR={paddingLR}>
-      <AddMemberInput emailBox={emailBox} setEmailBox={setEmailBox} />
+    <AddMemberFormContainer
+      $width={width}
+      $height={height}
+      $paddingUD={paddingUD}
+      $paddingLR={paddingLR}
+      onClick={handleOnClick}>
+      <AddMemberInput emailBox={emailBox} setEmailBox={setEmailBox} emailInputRef={emailInputRef} />
     </AddMemberFormContainer>
   );
 };
@@ -39,4 +50,8 @@ const AddMemberFormContainer = styled.div<{
   height: ${({ $height }) => `${$height}rem`};
 
   overflow-y: auto;
+
+  &:hover {
+    cursor: text;
+  }
 `;

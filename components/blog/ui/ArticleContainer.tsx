@@ -7,6 +7,7 @@ import styled from 'styled-components';
 import ArticleList from '@/components/common/ArticleList';
 import LoadingLottie from '@/components/common/ui/LoadingLottie';
 import { useGetCategoryList } from '@/hooks/dashboard';
+import useGetCategory from '@/hooks/useGetCategory';
 import { ArticleData } from '@/types/article';
 import { getLiteralCategoryList } from '@/utils/getLiteralCategoryList';
 
@@ -29,19 +30,32 @@ const ArticleContainer = (props: ArticleContainerProps) => {
   const { team } = useParams();
   const { articleListData, thumbnail, description } = props;
   const FilteredCategoryList = useGetCategoryList(team);
+  const CategorySelected = useGetCategory();
 
-  if (!FilteredCategoryList) return <LoadingLottie width={10} height={10} fit />;
+  if (!FilteredCategoryList || !CategorySelected) return <LoadingLottie width={10} height={10} fit />;
 
   const LiteralList = getLiteralCategoryList(FilteredCategoryList);
 
-  //아티클 리스트가 없고 블로그 대문이 있을 때
-  if (articleListData.length === 0 && thumbnail)
-    return (
-      <BlogImgContainer>
-        {/* //article list가 없을 때 - 블로그 대문이미지가 있을 때와 없을 때로 나뉨 */}
-        <BlogImg thumbnail={thumbnail} description={description} />
-      </BlogImgContainer>
-    );
+  if (articleListData.length === 0 && thumbnail) {
+    if (CategorySelected !== 'home') {
+      //아티클 리스트가 없고 카테고리 선택 안되고 블로그 대문이 있을 때
+      return (
+        <BlogImgContainer>
+          <BlogImg thumbnail={thumbnail} description={description} />
+          <CategoryBtnWrapper>
+            <CategoryBtnBar LiteralList={LiteralList} />
+          </CategoryBtnWrapper>
+        </BlogImgContainer>
+      );
+    } else {
+      //카테고리 선택됨, 아티클 리스트 없고 블로그 대문 있을 때
+      return (
+        <BlogImgContainer>
+          <BlogImg thumbnail={thumbnail} description={description} />
+        </BlogImgContainer>
+      );
+    }
+  }
 
   //아티클 리스트가 없고 블로그 대문이 없을 때
   if (articleListData.length === 0 && !thumbnail)
@@ -53,12 +67,7 @@ const ArticleContainer = (props: ArticleContainerProps) => {
     );
 
   //아티클 리스트가 있고 블로그 대문이 없을 때
-  if (articleListData.length !== 0 && !thumbnail)
-    return (
-      <>
-        <ArticleListWithThumbnail articleListData={articleListData} />
-      </>
-    );
+  if (articleListData.length !== 0 && !thumbnail) return <ArticleListWithThumbnail articleListData={articleListData} />;
 
   //아티클 리스트가 있고 블로그 대문이 있을 때
   if (articleListData.length !== 0 && thumbnail)
@@ -97,6 +106,7 @@ const ArticleWrapper = styled.section`
 const CategoryBtnWrapper = styled.div`
   display: flex;
   justify-content: center;
+
   min-width: 105.6rem;
 `;
 
