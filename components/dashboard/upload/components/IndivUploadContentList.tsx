@@ -33,7 +33,9 @@ const IndivUploadContentList = (props: IndivUploadContentListProps) => {
       author={memberName}
       position={job}
       createdAt={createdAt}
-      onTitleClick={() => router.push(`/${team}/content/article/${articleUrl}/${String(id)}`)}
+      onTitleClick={() => {
+        window.location.href = `https://${team}.palms.blog/content/article/${articleUrl}/${String(id)}`;
+      }}
       onMutateClick={() => router.push(`/${team}/editor/article/edit/${String(id)}`)}
       onDeleteClick={() => mutate()}
     />
