@@ -1,6 +1,5 @@
 import { useMutation, useQuery, useQueryClient } from '@tanstack/react-query';
 
-import { getBlogHeaderInfo } from '@/api/blog';
 import {
   deleteArticle,
   deleteCategory,
@@ -47,11 +46,6 @@ export const useGetNavList = (blogUrl: string) => {
 
 export const useGetCategoryList = (blogUrl: string) => {
   const { data } = useQuery([QUERY_KEY_DASHBOARD.getCategoryList], () => getCategoryList(blogUrl));
-  return data;
-};
-
-export const useGerBlogHeader = (blogUrl: string) => {
-  const { data } = useQuery([QUERY_KEY_DASHBOARD.getBlogHeader], () => getBlogHeaderInfo(blogUrl));
   return data;
 };
 

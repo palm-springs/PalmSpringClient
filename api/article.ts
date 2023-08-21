@@ -6,6 +6,7 @@ import { Response } from '@/types/common';
 // import { getImageMultipartData } from '@/utils/getImageMultipartData';
 import client from '.';
 
+//아티클 리스트 가져오기 - 반영 완
 export const getArticleList = async (blogUrl: string, categoryId: string | null) => {
   const { data } = await client.get<Response<ArticleData[]>>(
     `/api/v2/dashboard/article/list/publish/${blogUrl}?categoryId=${categoryId}`,
@@ -13,6 +14,7 @@ export const getArticleList = async (blogUrl: string, categoryId: string | null)
   return data;
 };
 
+//단일 아티클 가져오기 - 반영 완
 export const getSingleArticleData = async (blogUrl: string, articleId: number) => {
   const { data } = await client.get<Response<SingleArticleData>>(
     `/api/v2/dashboard/article/detail/${blogUrl}?articleId=${articleId}`,
