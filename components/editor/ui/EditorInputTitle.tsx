@@ -67,10 +67,11 @@ const EditorInputTitle = (props: TextEditorBuildProps) => {
     case `page`:
       if ((currentState === 'edit' || currentState === 'draft') && pageData) {
         // const { title: pageTitle } = pageData; //이 값은 수정되는 값으로 해야함 그리고 value에 넣기
+        console.log(pageTitle);
 
         return (
           <EditorInputTitleContainer>
-            <TitleInputBox value={pageNewTitle} onChange={handleSaveUpdatePageTitle} rows={1}></TitleInputBox>
+            <TitleInputBox value={pageNewTitle} onChange={handleSaveUpdatePageTitle} rows={1} />
           </EditorInputTitleContainer>
         );
       } else {

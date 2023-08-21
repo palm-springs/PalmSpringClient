@@ -32,7 +32,7 @@ lowlight.registerLanguage('css', css);
 lowlight.registerLanguage('js', js);
 lowlight.registerLanguage('ts', ts);
 
-import { useRecoilState } from 'recoil';
+import { useRecoilState, useRecoilValue } from 'recoil';
 import { styled } from 'styled-components';
 
 import { getUpdateArticleContent, postArticleList } from '@/api/article';
@@ -44,7 +44,7 @@ import { UpdateArticleContentProps, UpdateArticleProps } from '@/types/article';
 import { UpdatePageProps } from '@/types/page';
 import { getImageMultipartData } from '@/utils/getImageMultipartData';
 
-import { articleDataState, newArticleDataState, pageDataState } from './states/atom';
+import { articleDataState, newArticleDataState, pageDataState, pageTitleState } from './states/atom';
 interface TextEditorBuildprops {
   pageType: string;
   currentState?: string;
@@ -57,9 +57,11 @@ const TextEditorBuild = (props: TextEditorBuildprops) => {
   const { team, articleId, pageId } = useParams();
   const [{ title }, setArticleData] = useRecoilState(articleDataState);
   const [{ title: pageTitle }, setPageData] = useRecoilState(pageDataState);
+  const pageNewTitle = useRecoilValue(pageTitleState);
+  console.log(pageNewTitle);
   const [{ title: newArticleTitle }, setNewArticleData] = useRecoilState(newArticleDataState);
   const [updatedArticleData, setUpdatedArticleData] = useRecoilState(newArticleDataState);
-  const updateArticleMutation = useUpdateArticleContent(team);
+  // const updateArticleMutation = useUpdateArticleContent(team);
 
   const [, setImageSrc] = useState('');
   const [extractedHTML, setExtractedHTML] = useState<string>('');
@@ -275,6 +277,7 @@ const TextEditorBuild = (props: TextEditorBuildprops) => {
     }
   };
 
+  // 페이지 수정시
   const handleUpdatePageContent = () => {
     if (editor) {
       const newContent = editor.getHTML();
@@ -283,7 +286,7 @@ const TextEditorBuild = (props: TextEditorBuildprops) => {
       if (imageArr.length === 0) {
         setUpdatedArticleData((prevData) => ({
           ...prevData,
-          title: newArticleTitle,
+          title: pageNewTitle,
           content: newContent,
           images: [],
         }));

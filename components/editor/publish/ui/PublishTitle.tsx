@@ -2,14 +2,14 @@
 import React from 'react';
 import { useParams, useRouter } from 'next/navigation';
 import router from 'next/router';
-import { useRecoilState } from 'recoil';
+import { useRecoilState, useRecoilValue } from 'recoil';
 import styled from 'styled-components';
 
 // import ARTICLE_CONTENT from '@/constants/ArticleContent';
 import { useGetSingleArticleData, useGetSinglePageData } from '@/hooks/editor';
 import { UpdatePageProps } from '@/types/page';
 
-import { articleDataState, pageDataState } from '../../states/atom';
+import { articleDataState, pageDataState, pageTitleState } from '../../states/atom';
 
 interface PublishTitleprops {
   pageType: string;
@@ -21,10 +21,12 @@ interface PublishTitleprops {
 //정보 get 해야함
 const PublishTitle = (props: PublishTitleprops) => {
   const { team } = useParams();
-  const { pageType, blogUrl, articleId } = props;
+  const { pageType, pageData } = props;
 
   const [{ title }, setArticleData] = useRecoilState(articleDataState);
   const [{ title: pageTitle }, setPageData] = useRecoilState(pageDataState);
+
+  const pageNewTitle = useRecoilValue(pageTitleState);
 
   switch (pageType) {
     case `article`:
@@ -34,9 +36,15 @@ const PublishTitle = (props: PublishTitleprops) => {
         </TitleWrapper>
       );
     case `page`:
+      console.log(pageNewTitle, '왜 안넘어옴?');
+
       return (
         <TitleWrapper>
-          <EditorInputTitle>{pageTitle}</EditorInputTitle>
+          {pageData ? (
+            <EditorInputTitle>{pageNewTitle}</EditorInputTitle>
+          ) : (
+            <EditorInputTitle>{pageTitle}</EditorInputTitle>
+          )}
         </TitleWrapper>
       );
     default:
