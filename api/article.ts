@@ -18,7 +18,7 @@ export const getArticleList = async (blogUrl: string, categoryId: string | null)
 
 export const getSingleArticleData = async (blogUrl: string, articleId: number) => {
   const { data } = await client.get<Response<SingleArticleData>>(
-    `/api/v1/article/${blogUrl}/detail?articleUrl=${articleId}`,
+    `/api/v2/dashboard/article/detail/${blogUrl}?articleId=${articleId}`,
   );
   return data;
 };
@@ -30,13 +30,7 @@ interface postArticleListRequest {
 }
 
 export const postArticleList = async (url: string, requestBody: postArticleListRequest) => {
-  const { data } = await client.post<Response<null>>(`/api/v1/article/${url}/draft`, requestBody);
-  return data;
-};
-
-//위치 변경
-export const getSinglePageData = async (blogUrl: string, pageUrl: string) => {
-  const { data } = await client.get<Response<PageData>>(`/api/v1/page/${blogUrl}/detail/list?pageUrl=${pageUrl}`);
+  const { data } = await client.post<Response<null>>(`/api/v2/dashboard/article/draft/create/${url}`, requestBody);
   return data;
 };
 
@@ -51,7 +45,7 @@ interface postArticleCreateListRequest {
 }
 
 export const postArticleCreateList = async (url: string, requestBody: CreateArticleProps) => {
-  const { data } = await client.post<Response<null>>(`/api/v1/article/${url}/create`, requestBody);
+  const { data } = await client.post<Response<null>>(`/api/v2/dashboard/article/publish/create/${url}`, requestBody);
   return data;
 };
 
