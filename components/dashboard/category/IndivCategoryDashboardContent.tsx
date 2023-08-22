@@ -1,5 +1,4 @@
 import { useState } from 'react';
-import { useRouter } from 'next/navigation';
 import { useRecoilState } from 'recoil';
 
 import ModalPortal from '@/components/common/ModalPortal';
@@ -29,8 +28,6 @@ const IndivCategoryDashboardContent = (props: IndivCategoryDashboardContentProps
 
   const { mutate: deleteCategory } = useDeleteCategory(blogUrl, id);
 
-  const router = useRouter();
-
   return (
     <>
       <DashBoardContent
@@ -39,7 +36,7 @@ const IndivCategoryDashboardContent = (props: IndivCategoryDashboardContentProps
         content={content}
         url={blogUrl}
         onTitleClick={() => {
-          router.push(`/${blogUrl}/home/${categoryUrl}`);
+          window.location.href = `https://${blogUrl}.palms.blog/home/${categoryUrl}`;
         }}
         onMutateClick={() => {
           setModalState('updateCategory');

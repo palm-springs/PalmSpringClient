@@ -46,7 +46,9 @@ const IndivPageContent = (props: IndivPageContentProps) => {
       content={title}
       draft={isDraft}
       createdAt={createdAt}
-      onTitleClick={() => router.push(`/${blogUrl}/content/page/${pageUrl}/${id}`)}
+      onTitleClick={() => {
+        window.location.href = `https://${blogUrl}.palms.blog/content/page/${pageUrl}/${id}`;
+      }}
       onMutateClick={() => {
         if (isDraft) {
           router.push(`/${blogUrl}/editor/page/${id}/draft`);

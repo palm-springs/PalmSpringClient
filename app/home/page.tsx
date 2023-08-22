@@ -1,15 +1,14 @@
 // all 카테고리 페이지
 import React from 'react';
 
-import { getArticleList } from '@/api/article';
-import { getBlogMainImg } from '@/api/blog';
+import { getBlogArticleList, getBlogMainImg } from '@/api/blogHome';
 import ArticleContainer from '@/components/blog/ui/ArticleContainer';
 
-const BlogMainPage = async ({ params }: { params: { team: string } }) => {
+const BlogMainPage = async () => {
   const {
     data: { thumbnail, description },
-  } = await getBlogMainImg(params.team);
-  const { data: articleListData } = await getArticleList(params.team, '');
+  } = await getBlogMainImg();
+  const { data: articleListData } = await getBlogArticleList('');
 
   return <ArticleContainer articleListData={articleListData} thumbnail={thumbnail} description={description} />;
 };

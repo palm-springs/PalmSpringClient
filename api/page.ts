@@ -3,11 +3,6 @@ import { PageData } from '@/types/page';
 
 import client from '.';
 
-export const getPageDetail = async (blogUrl: string, pageUrl: string) => {
-  const { data } = await client.get<Response<PageData>>(`/api/v1/page/${blogUrl}/detail?pageUrl=${pageUrl}`);
-  return data;
-};
-
 interface postPageRequest {
   title: string;
   content: string;
@@ -15,7 +10,14 @@ interface postPageRequest {
 }
 
 export const postPageDraft = async (url: string, requestBody: postPageRequest) => {
-  const { data } = await client.post<Response<null>>(`/api/v1/page/${url}/draft/create`, requestBody);
+  const { data } = await client.post<Response<null>>(`/api/v2/dashboard/page/admin/draft/create/${url}`, requestBody);
+  return data;
+};
+
+export const getSinglePageData = async (blogUrl: string, pageUrl: string) => {
+  const { data } = await client.get<Response<PageData>>(
+    `/api/v2/dashboard/page/admin/detail/${blogUrl}?pageUrl=${pageUrl}`,
+  );
   return data;
 };
 
@@ -28,7 +30,7 @@ interface postPageCreateRequest {
 }
 
 export const postPageCreate = async (url: string, requestBody: postPageCreateRequest) => {
-  const { data } = await client.post<Response<null>>(`/api/v1/page/${url}/admin/create`, requestBody);
+  const { data } = await client.post<Response<null>>(`/api/v2/dashboard/page/admin/publish/create/${url}`, requestBody);
   return data;
 };
 
