@@ -1,6 +1,7 @@
 'use client';
 
 import React, { useEffect } from 'react';
+import { useParams } from 'next/navigation';
 import styled from 'styled-components';
 
 import ArticleList from '@/components/common/ArticleList';
@@ -25,9 +26,9 @@ const ArticleContainer = (props: ArticleContainerProps) => {
   useEffect(() => {
     window.scrollTo({ top: 0, left: 0, behavior: 'auto' });
   }, []);
-
+  const { team } = useParams();
   const { articleListData, thumbnail, description } = props;
-  const FilteredCategoryList = useGetBlogCategoryList();
+  const FilteredCategoryList = useGetBlogCategoryList(team);
   const CategorySelected = useGetCategory();
 
   if (!FilteredCategoryList || !CategorySelected) return <LoadingLottie width={10} height={10} fit />;

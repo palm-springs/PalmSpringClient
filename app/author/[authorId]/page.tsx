@@ -9,8 +9,9 @@ import { useGetBlogAuthorDetail } from '@/hooks/blogHome';
 
 const AuthorPage = () => {
   const { authorId } = useParams();
+  const { team } = useParams();
   const authorIdNum = Number(authorId);
-  const res = useGetBlogAuthorDetail(authorIdNum);
+  const res = useGetBlogAuthorDetail(team, authorIdNum);
 
   if (!res) return <LoadingLottie width={10} height={10} fit />;
 
