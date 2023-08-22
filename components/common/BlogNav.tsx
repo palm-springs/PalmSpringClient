@@ -6,7 +6,7 @@ import { useParams } from 'next/navigation';
 import styled from 'styled-components';
 
 import PageBtn from '@/components/blog/PageBtn';
-import { useGetNavList } from '@/hooks/dashboard';
+import { useGetBlogHeaderInfo } from '@/hooks/blogHome';
 
 import SubscribeBtn from '../blog/SubscribeBtn';
 
@@ -15,21 +15,20 @@ import LoadingLottie from './ui/LoadingLottie';
 const BlogNav = () => {
   const { team } = useParams();
 
-  const res = useGetNavList(team);
+  const res = useGetBlogHeaderInfo(team);
 
   if (!res) return <LoadingLottie width={10} height={10} fit />;
 
-  const { data: navList } = res;
+  const {
+    data: { navList },
+  } = res;
+
   return (
     <BlogNavContainer>
       {navList &&
         navList.map(({ navUrl, name, isPage, id }) => (
           <PageBtn key={navUrl}>
-            {isPage === true ? (
-              <Link href={`/${team}/content/page/${navUrl}/${id}`}>{name}</Link>
-            ) : (
-              <Link href={`https://${navUrl}`}>{name}</Link>
-            )}
+            <Link href={isPage ? `/${team}/content/page/${navUrl}/${id}` : `https://${navUrl}`}>{name}</Link>
           </PageBtn>
         ))}
       <SubscribeBtn />
