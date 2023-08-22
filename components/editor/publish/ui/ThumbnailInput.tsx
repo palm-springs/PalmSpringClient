@@ -1,8 +1,7 @@
 'use client';
 
-import React, { ChangeEvent, useState } from 'react';
-import { useRouter } from 'next/navigation';
-import { useSetRecoilState } from 'recoil';
+import React, { ChangeEvent, useEffect } from 'react';
+import { useRecoilState } from 'recoil';
 import styled from 'styled-components';
 
 import { ThumbnailIcon } from '@/public/icons';
@@ -19,12 +18,18 @@ interface ThumbnailInputProps {
 }
 
 const ThumbnailInput = (props: ThumbnailInputProps) => {
-  const { pageType, pageData } = props;
-  const router = useRouter();
+  const { pageType, pageData, articleData } = props;
 
-  const [imageSrc, setImageSrc] = useState('');
-  const setArticleData = useSetRecoilState(articleDataState);
-  const setPageData = useSetRecoilState(pageDataState);
+  const [{ thumbnail: articleThumbnail }, setArticleData] = useRecoilState(articleDataState);
+  const [{ thumbnail: pageThumbnail }, setPageData] = useRecoilState(pageDataState);
+
+  useEffect(() => {
+    if (articleData) {
+      setArticleData((prev) => ({ ...prev, thumbnail: articleData.thumbnail }));
+    } else if (pageData) {
+      setPageData((prev) => ({ ...prev, thumbnail: pageData.thumbnail }));
+    }
+  }, []);
 
   const encodeFileToBase64 = async (event: ChangeEvent<HTMLInputElement>) => {
     const files = event.target.files;
@@ -37,25 +42,12 @@ const ThumbnailInput = (props: ThumbnailInputProps) => {
 
     const reader = new FileReader();
     reader.onload = () => {
-      setArticleData((prev) => ({ ...prev, thumbnail }));
-      setImageSrc(thumbnail); // 이미지 데이터 업데이트
-    };
-    reader.readAsDataURL(file);
-  };
-
-  const pageEncodeFileImage = async (event: ChangeEvent<HTMLInputElement>) => {
-    const files = event.target.files;
-    if (!files || files.length === 0) {
-      return null;
-    }
-    const file = files[0];
-    const thumbnail = await getImageMultipartData(file);
-    console.log(thumbnail);
-
-    const reader = new FileReader();
-    reader.onload = () => {
-      setPageData((prev) => ({ ...prev, thumbnail }));
-      setImageSrc(thumbnail); // 이미지 데이터 업데이트
+      if (pageType === 'article') {
+        setArticleData((prev) => ({ ...prev, thumbnail }));
+      } else {
+        setPageData((prev) => ({ ...prev, thumbnail }));
+      }
+      // setImageSrc(thumbnail); // 이미지 데이터 업데이트
     };
     reader.readAsDataURL(file);
   };
@@ -66,8 +58,8 @@ const ThumbnailInput = (props: ThumbnailInputProps) => {
         <>
           <ThumbnailInputLabel>
             <input type="file" id="logo_input" onChange={(event) => encodeFileToBase64(event)} />
-            {imageSrc ? (
-              <CustomImage src={imageSrc} alt="미리보기 이미지" />
+            {articleThumbnail ? (
+              <CustomImage src={articleThumbnail} alt="미리보기 이미지" />
             ) : (
               <>
                 <ThumbnailTitleContainer>
@@ -83,24 +75,21 @@ const ThumbnailInput = (props: ThumbnailInputProps) => {
     case `page`:
       return (
         <>
-          {pageData ? (
-            <CustomImage src={pageData?.thumbnail} alt="미리보기 이미지" />
-          ) : (
-            <ThumbnailInputLabel>
-              <input type="file" id="logo_input" onChange={(event) => pageEncodeFileImage(event)} />
-              {imageSrc ? (
-                <CustomImage src={imageSrc} alt="미리보기 이미지" />
-              ) : (
-                <>
-                  <ThumbnailTitleContainer>
-                    <ThumbnailIcon />
-                    <ThumbnailInputTitle>업로드하기 (선택)</ThumbnailInputTitle>
-                  </ThumbnailTitleContainer>
-                  <ThumbnailInputInfo>커버 이미지 권장 크기는 1920*1080 이상입니다.</ThumbnailInputInfo>
-                </>
-              )}
-            </ThumbnailInputLabel>
-          )}
+          <ThumbnailInputLabel>
+            <input type="file" id="logo_input" onChange={(event) => encodeFileToBase64(event)} />
+            {pageThumbnail ? (
+              <CustomImage src={pageThumbnail} alt="미리보기 이미지" />
+            ) : (
+              <>
+                <ThumbnailTitleContainer>
+                  <ThumbnailIcon />
+                  <ThumbnailInputTitle>업로드하기 (선택)</ThumbnailInputTitle>
+                </ThumbnailTitleContainer>
+                <ThumbnailInputInfo>커버 이미지 권장 크기는 1920*1080 이상입니다.</ThumbnailInputInfo>
+              </>
+            )}
+          </ThumbnailInputLabel>
+          )
         </>
       );
     default:
