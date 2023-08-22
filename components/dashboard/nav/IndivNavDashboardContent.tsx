@@ -42,7 +42,7 @@ const IndivNavDashboardContent = (props: IndivNavDashboardContentProps) => {
         url={url}
         onTitleClick={() => {
           if (isPage) {
-            router.push(`/${blogUrl}/content/page/${url}/${id}`);
+            window.location.href = `https://${blogUrl}.palms.blog/content/page/${url}/${id}`;
             return;
           }
           if (typeof window !== 'undefined') {

@@ -46,8 +46,10 @@ const IndivPageContent = (props: IndivPageContentProps) => {
       content={title}
       draft={isDraft}
       createdAt={createdAt}
-      onTitleClick={() => router.push(`/${blogUrl}/content/page/${pageUrl}/${id}`)}
-      onMutateClick={() => router.push(`/${blogUrl}/editor/page/${id}/edit`)}
+      onTitleClick={() => {
+        window.location.href = `https://${blogUrl}.palms.blog/content/page/${pageUrl}/${id}`;
+      }}
+      onMutateClick={() => router.push(`/${blogUrl}/editor/page/edit/${id}`)}
       onDeleteClick={() => {
         if (isLinked) {
           alert('나중에 토스트 메세지로 네비게이션 연결을 해제하고 다시 시도해주세요! 를 보여주기');

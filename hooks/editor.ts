@@ -1,13 +1,7 @@
 import { useMutation, useQuery, useQueryClient } from '@tanstack/react-query';
 
-import {
-  deleteArticle,
-  getArticleList,
-  getSingleArticleData,
-  getUpdateArticleContent,
-  updateArticleDetail,
-} from '@/api/article';
-import { getContent } from '@/api/content';
+import { getArticleList, getSingleArticleData, getUpdateArticleContent, updateArticleDetail } from '@/api/article';
+import { deleteArticle } from '@/api/dashboard';
 import { getSinglePageData, getUpdatePageContent, updatePageDetail } from '@/api/page';
 import { UpdateArticleContentProps } from '@/types/article';
 import { UpdatePageContentProps } from '@/types/page';
@@ -23,6 +17,7 @@ export const QUERY_KEY_ARTICLE = {
   getPageList: 'getPageList',
   deleteArticle: 'deleteArticle',
   deletePage: 'deletePage',
+  getBlogSingleArticleData: 'getBlogSingleArticleData',
 };
 
 export const useGetArticleList = (blogUrl: string, categoryId: string) => {
@@ -36,11 +31,6 @@ export const useGetSingleArticleData = (blogUrl: string, articleId: number) => {
   const { data } = useQuery([QUERY_KEY_ARTICLE.getSingleArticleData, blogUrl, articleId], () =>
     getSingleArticleData(blogUrl, articleId),
   );
-  return data;
-};
-
-export const useGetContent = (team: string, id: number) => {
-  const { data } = useQuery([QUERY_KEY_ARTICLE.getContent], () => getContent(team, id));
   return data;
 };
 
@@ -97,11 +87,15 @@ export const useUpdatePageContent = () => {
 export const useDeleteArticleContent = (blogUrl: string, articleId: string) => {
   const queryClient = useQueryClient();
 
-  const articleMutation = useMutation([QUERY_KEY_ARTICLE.deleteArticle], () => deleteArticle(blogUrl, articleId), {
-    onSuccess: () => {
-      queryClient.invalidateQueries([QUERY_KEY_ARTICLE.getArticleList]);
+  const articleMutation = useMutation(
+    [QUERY_KEY_ARTICLE.deleteArticle],
+    () => deleteArticle(blogUrl, Number(articleId)),
+    {
+      onSuccess: () => {
+        queryClient.invalidateQueries([QUERY_KEY_ARTICLE.getArticleList]);
+      },
     },
-  });
+  );
   return articleMutation;
 };
 
@@ -110,7 +104,7 @@ export const useDeleteArticleContent = (blogUrl: string, articleId: string) => {
 export const useDeletePageContent = (blogUrl: string, pageId: string) => {
   const queryClient = useQueryClient();
 
-  const pageMutation = useMutation([QUERY_KEY_ARTICLE.deletePage], () => deleteArticle(blogUrl, pageId), {
+  const pageMutation = useMutation([QUERY_KEY_ARTICLE.deletePage], () => deleteArticle(blogUrl, Number(pageId)), {
     onSuccess: () => {
       queryClient.invalidateQueries([QUERY_KEY_ARTICLE.getPageList]);
     },

@@ -3,13 +3,11 @@
 import React from 'react';
 import Image from 'next/image';
 import Link from 'next/link';
-import { useParams } from 'next/navigation';
 import { styled } from 'styled-components';
 
 import ArticleList from '@/components/common/ArticleList';
 import ContentInfo from '@/components/common/ContentInfo';
-import { useGetCategoryList } from '@/hooks/dashboard';
-import { useGetContent } from '@/hooks/editor';
+import { useGetBlogArticleDetail, useGetBlogCategoryList } from '@/hooks/blogHome';
 import { BlogSampleImg } from '@/public/images';
 import { ArticleData } from '@/types/article';
 import { getLiteralCategoryList } from '@/utils/getLiteralCategoryList';
@@ -23,13 +21,11 @@ interface ArticleListWithThumbnailProps {
 const ArticleListWithThumbnail = (props: ArticleListWithThumbnailProps) => {
   const { articleListData } = props;
 
-  const { team } = useParams();
-
   const IndivContentId = articleListData[0].id;
 
-  const res = useGetContent(team, IndivContentId);
+  const res = useGetBlogArticleDetail(IndivContentId);
 
-  const FilteredCategoryList = useGetCategoryList(team);
+  const FilteredCategoryList = useGetBlogCategoryList();
 
   if (!FilteredCategoryList || FilteredCategoryList.data.length === 0 || !res) return <div>로더</div>;
 

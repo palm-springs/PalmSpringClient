@@ -40,7 +40,7 @@ export const getUserInfo = async () => {
 };
 
 export const getUserInfoAfterLogin = async (blogUrl: string, accessToken: string) => {
-  const { data } = await client.get<Response<UserInfoProps>>(`/api/v2/dashboard/user/me/detail/joined/${blogUrl}`, {
+  const { data } = await client.get<Response<UserInfoProps>>(`/api/v2/dashboard/user/sidebar`, {
     headers: {
       Authorization: `Bearer ${accessToken}`,
     },
@@ -55,7 +55,7 @@ export const getMemberList = async (blogUrl: string) => {
 
 // 왜 있지?
 export const getUserBasicInfo = async (blogUrl: string) => {
-  const { data } = await client.get<Response<UserBasicInfoProps>>(`/api/v1/user/dashboard/me/${blogUrl}/detail`);
+  const { data } = await client.get<Response<UserBasicInfoProps>>(`/api/v2/dashboard/user/sidebar`);
   return data;
 };
 
