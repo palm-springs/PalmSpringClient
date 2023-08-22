@@ -6,16 +6,20 @@ import { useSetRecoilState } from 'recoil';
 import styled from 'styled-components';
 
 import { ThumbnailIcon } from '@/public/icons';
+import { UpdateArticleProps } from '@/types/article';
+import { UpdatePageProps } from '@/types/page';
 import { getImageMultipartData } from '@/utils/getImageMultipartData';
 
 import { articleDataState, pageDataState } from '../../states/atom';
 
 interface ThumbnailInputProps {
   pageType: string;
+  pageData?: UpdatePageProps;
+  articleData?: UpdateArticleProps;
 }
 
 const ThumbnailInput = (props: ThumbnailInputProps) => {
-  const { pageType } = props;
+  const { pageType, pageData } = props;
   const router = useRouter();
 
   const [imageSrc, setImageSrc] = useState('');
@@ -79,20 +83,24 @@ const ThumbnailInput = (props: ThumbnailInputProps) => {
     case `page`:
       return (
         <>
-          <ThumbnailInputLabel>
-            <input type="file" id="logo_input" onChange={(event) => pageEncodeFileImage(event)} />
-            {imageSrc ? (
-              <CustomImage src={imageSrc} alt="미리보기 이미지" />
-            ) : (
-              <>
-                <ThumbnailTitleContainer>
-                  <ThumbnailIcon />
-                  <ThumbnailInputTitle>업로드하기 (선택)</ThumbnailInputTitle>
-                </ThumbnailTitleContainer>
-                <ThumbnailInputInfo>커버 이미지 권장 크기는 1920*1080 이상입니다.</ThumbnailInputInfo>
-              </>
-            )}
-          </ThumbnailInputLabel>
+          {pageData ? (
+            <CustomImage src={pageData?.thumbnail} alt="미리보기 이미지" />
+          ) : (
+            <ThumbnailInputLabel>
+              <input type="file" id="logo_input" onChange={(event) => pageEncodeFileImage(event)} />
+              {imageSrc ? (
+                <CustomImage src={imageSrc} alt="미리보기 이미지" />
+              ) : (
+                <>
+                  <ThumbnailTitleContainer>
+                    <ThumbnailIcon />
+                    <ThumbnailInputTitle>업로드하기 (선택)</ThumbnailInputTitle>
+                  </ThumbnailTitleContainer>
+                  <ThumbnailInputInfo>커버 이미지 권장 크기는 1920*1080 이상입니다.</ThumbnailInputInfo>
+                </>
+              )}
+            </ThumbnailInputLabel>
+          )}
         </>
       );
     default:

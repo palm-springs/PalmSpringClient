@@ -6,12 +6,14 @@ import styled from 'styled-components';
 
 import { postArticleCreateList } from '@/api/article';
 import { postPageCreate } from '@/api/page';
+import { UpdateArticleProps } from '@/types/article';
 
 import { articleDataState, pageDataState } from '../../states/atom';
 
 interface PublishBottomButtons {
   pageType: string;
   isDuplicate: boolean | null;
+  articleData?: UpdateArticleProps;
 }
 
 const PublishBottomButtons = (props: PublishBottomButtons) => {

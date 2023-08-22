@@ -5,10 +5,16 @@ import { useRecoilState } from 'recoil';
 import styled from 'styled-components';
 
 import { EssentialCircleIcon } from '@/public/icons';
+import { UpdateArticleProps } from '@/types/article';
 
 import { articleDataState } from '../../states/atom';
 
-const OneLiner = () => {
+interface CategorySelectProps {
+  articleData?: UpdateArticleProps;
+}
+
+const OneLiner = (props: CategorySelectProps) => {
+  const { articleData } = props;
   const [{ description }, setArticleData] = useRecoilState(articleDataState);
   const handleOnChange = (e: React.ChangeEvent<HTMLInputElement>) => {
     const { value } = e.currentTarget;
