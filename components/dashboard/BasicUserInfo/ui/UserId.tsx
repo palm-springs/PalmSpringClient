@@ -67,9 +67,10 @@ const UserIdContainer = styled.div`
   margin-top: 3.2rem;
 `;
 
-const UserIdTitle = styled.p`
+const UserIdTitle = styled.span`
   ${({ theme }) => theme.fonts.Body2_Semibold};
   margin: 1rem 15rem 0.8rem 0;
+  white-space: nowrap;
   color: ${({ theme }) => theme.colors.grey_950};
 `;
 

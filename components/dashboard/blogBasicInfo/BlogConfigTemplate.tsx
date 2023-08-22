@@ -1,6 +1,5 @@
 import React, { useEffect, useState } from 'react';
 import { toast } from 'react-hot-toast';
-import axios from 'axios';
 import { useParams } from 'next/navigation';
 import { styled } from 'styled-components';
 
@@ -54,8 +53,6 @@ const BlogConfigTemplate = () => {
       typeof blogConfig.blogLogoImage !== 'string' &&
       ((await getImageMultipartData(blogConfig.blogLogoImage)) as string);
 
-    // imageArray.append(logoS3);
-
     const mainS3 =
       blogConfig.blogMainImage &&
       typeof blogConfig.blogMainImage !== 'string' &&
@@ -94,6 +91,7 @@ const BlogConfigTemplate = () => {
             blogLogoImage: v,
           }))
         }
+        file={blogConfig.blogLogoImage as string}
       />
       <BlogMainImage
         setFile={(v) =>
@@ -102,6 +100,7 @@ const BlogConfigTemplate = () => {
             blogMainImage: v,
           }))
         }
+        file={blogConfig.blogMainImage as string}
       />
       <BlogDescribeText
         describeText={blogConfig.blogDescribeText}
@@ -141,6 +140,7 @@ const BlogSaveButton = styled.button`
   border-radius: 0.8rem;
   background-color: ${({ theme }) => theme.colors.green};
   padding: 1rem 2rem;
+  width: 9.6rem;
   height: 3.6rem;
   color: ${({ theme }) => theme.colors.grey_0};
 `;

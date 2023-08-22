@@ -27,16 +27,16 @@ const BlogNameContainer = styled.div`
 `;
 
 const BlogNameTitle = styled.div`
+  margin-right: 9.3rem;
   ${({ theme }) => theme.fonts.Body2_Semibold};
   margin-bottom: 0.8rem;
-  width: 14.8rem;
+  white-space: nowrap;
   color: ${({ theme }) => theme.colors.grey_950};
 `;
 
 const BlogNameText = styled.input`
   ${({ theme }) => theme.fonts.Body2_Regular};
   gap: 1rem;
-  margin-left: 1.8rem;
   border: 1px solid ${({ theme }) => theme.colors.grey_400};
   border-radius: 0.8rem;
   padding: 1rem 1.2rem;
