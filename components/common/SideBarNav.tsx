@@ -22,11 +22,7 @@ const SideBarNav = () => {
       {navList &&
         navList.map(({ navUrl, name, isPage, id }) => (
           <NavBtn key={navUrl} type="button">
-            {isPage === true ? (
-              <Link href={`/${team}/content/page/${navUrl}/${id}`}>{name}</Link>
-            ) : (
-              <Link href={`https://${navUrl}`}>{name}</Link>
-            )}
+            <Link href={isPage ? `/${team}/content/page/${navUrl}/${id}` : `https://${navUrl}`}>{name}</Link>
           </NavBtn>
         ))}
     </BlogNavContainer>

@@ -54,18 +54,9 @@ const PageTemplate = (props: ContentTemplateProps) => {
     }
   };
 
-  if (MOBILE)
-    return (
-      <>
-        <Toaster
-          position="bottom-center"
-          reverseOrder={false}
-          containerClassName=""
-          containerStyle={{
-            bottom: 50,
-          }}
-        />
-
+  const PageMain = () => {
+    if (MOBILE)
+      return (
         <ContentPageContainer className="mobile">
           {thumbnail && <PageThumbnail className="mobile" src={thumbnail} alt="page content thumbnail" />}
           <ContentInfo contentInfoData={{ title }} />
@@ -75,20 +66,9 @@ const PageTemplate = (props: ContentTemplateProps) => {
           </LinkBtn>
           <Recommend />
         </ContentPageContainer>
-      </>
-    );
-  else
-    return (
-      <>
-        <Toaster
-          position="bottom-center"
-          reverseOrder={false}
-          containerClassName=""
-          containerStyle={{
-            bottom: 50,
-          }}
-        />
-
+      );
+    else
+      return (
         <ContentPageContainer>
           {thumbnail && <PageThumbnail src={thumbnail} alt="page content thumbnail" />}
           <ContentInfo contentInfoData={{ title }} />
@@ -97,8 +77,22 @@ const PageTemplate = (props: ContentTemplateProps) => {
           <Bar />
           <Recommend />
         </ContentPageContainer>
-      </>
-    );
+      );
+  };
+
+  return (
+    <>
+      <Toaster
+        position="bottom-center"
+        reverseOrder={false}
+        containerClassName=""
+        containerStyle={{
+          bottom: 50,
+        }}
+      />
+      {PageMain}
+    </>
+  );
 };
 
 export default PageTemplate;

@@ -24,7 +24,7 @@ const MobileArticle = (props: ArticleProps) => {
         <EditorInputTitle className="title">{title}</EditorInputTitle>
         <ArticleDescription className="description">{description}</ArticleDescription>
         <DetailBox>
-          {articleCategory && <CategoryBtn>{articleCategory.categoryName}</CategoryBtn>}
+          {articleCategory && <CategoryBtn type="button">{articleCategory.categoryName}</CategoryBtn>}
           <ArticleDetail>{memberName}</ArticleDetail>
           <Bar>|</Bar>
           <ArticleDetail>{createdAt}</ArticleDetail>
@@ -47,7 +47,6 @@ const ArticleThumbnail = styled.img`
 const ArticleContainer = styled(Link)`
   display: flex;
   flex-direction: column;
-  /* gap: 1.2rem; */
   align-items: flex-start;
   justify-content: center;
 
@@ -117,7 +116,7 @@ const DetailBox = styled.div`
 
   margin-top: 1rem;
 `;
-const CategoryBtn = styled.div`
+const CategoryBtn = styled.button`
   ${({ theme }) => theme.mobileFonts.Caption};
 
   display: flex;

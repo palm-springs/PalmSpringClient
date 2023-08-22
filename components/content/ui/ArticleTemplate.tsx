@@ -50,18 +50,10 @@ const ArticleTemplate = (props: ArticleTemplateProps) => {
       notify();
     }
   };
-  if (MOBILE)
-    return (
-      <>
-        <Toaster
-          position="bottom-center"
-          reverseOrder={false}
-          containerClassName=""
-          containerStyle={{
-            bottom: 50,
-          }}
-        />
 
+  const ArticleMain = () => {
+    if (MOBILE)
+      return (
         <ContentPageContainer className="mobile">
           {thumbnail ? (
             <ArticleThumbnail className="mobile" src={thumbnail} alt="article content thumbnail" />
@@ -75,20 +67,9 @@ const ArticleTemplate = (props: ArticleTemplateProps) => {
           </LinkBtn>
           <Recommend />
         </ContentPageContainer>
-      </>
-    );
-  else
-    return (
-      <>
-        <Toaster
-          position="bottom-center"
-          reverseOrder={false}
-          containerClassName=""
-          containerStyle={{
-            bottom: 50,
-          }}
-        />
-
+      );
+    else
+      return (
         <ContentPageContainer>
           {thumbnail && <ArticleThumbnail src={thumbnail} alt="article content thumbnail" />}
           <ContentInfo contentInfoData={{ title, description, teamMember }} />
@@ -97,8 +78,22 @@ const ArticleTemplate = (props: ArticleTemplateProps) => {
           <Bar />
           <Recommend />
         </ContentPageContainer>
-      </>
-    );
+      );
+  };
+
+  return (
+    <>
+      <Toaster
+        position="bottom-center"
+        reverseOrder={false}
+        containerClassName=""
+        containerStyle={{
+          bottom: 50,
+        }}
+      />
+      {ArticleMain}
+    </>
+  );
 };
 
 export default ArticleTemplate;
