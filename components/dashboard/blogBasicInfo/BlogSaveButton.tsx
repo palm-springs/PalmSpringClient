@@ -24,6 +24,8 @@ const SaveButton = styled.button`
   border-radius: 0.8rem;
   background-color: ${({ theme }) => theme.colors.green};
   padding: 1rem 2rem;
+  width: 9.6rem;
   height: 3.6rem;
+  white-space: nowrap;
   color: ${({ theme }) => theme.colors.grey_0};
 `;
