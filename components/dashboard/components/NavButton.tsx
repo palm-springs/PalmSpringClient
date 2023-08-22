@@ -30,12 +30,12 @@ const NavButton = (props: NavButtonProps) => {
     <NavButtonContainer
       onNavButtonClick={() => {
         if (currentPageType === 'blogdirectnav') {
-          window.location.href = `https://${team}.palms.blog/home`;
+          window.location.href = `https://${team}.palms.blog/${team}/home`;
         } else {
           router.push(currentPageType);
         }
       }}
-      disabled={pageType === 'dashboard'}>
+      disabled={pageType === 'dashboard' || innerText === '구독자'}>
       <SideBarContent currentPage={pageType === currentPageType}>
         {icon}
         {innerText}

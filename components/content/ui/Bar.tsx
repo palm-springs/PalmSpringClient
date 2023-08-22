@@ -10,8 +10,8 @@ const Bar = () => {
 export default Bar;
 
 const BarContainer = styled.div`
-  margin: 4.1rem 0 6rem;
+  margin-bottom: 6rem;
   background-color: ${({ theme }) => theme.colors.grey_400};
-  width: 100%;
+  min-width: 72rem;
   height: 1px;
 `;

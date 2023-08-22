@@ -36,7 +36,7 @@ const IndivCategoryDashboardContent = (props: IndivCategoryDashboardContentProps
         content={content}
         url={blogUrl}
         onTitleClick={() => {
-          window.location.href = `https://${blogUrl}.palms.blog/home/${categoryUrl}`;
+          window.location.href = `https://${blogUrl}.palms.blog/${blogUrl}/home/${categoryUrl}`;
         }}
         onMutateClick={() => {
           setModalState('updateCategory');

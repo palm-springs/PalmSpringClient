@@ -42,8 +42,9 @@ const UserPositionContainer = styled.div`
   margin: 3.2rem 0;
 `;
 
-const UserPositionTitle = styled.p`
+const UserPositionTitle = styled.span`
   ${({ theme }) => theme.fonts.Body2_Semibold};
   margin: 1rem 13.8rem 0.8rem 0;
+  white-space: nowrap;
   color: ${({ theme }) => theme.colors.grey_950};
 `;

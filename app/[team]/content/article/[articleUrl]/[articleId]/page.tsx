@@ -8,9 +8,9 @@ import ArticleTemplate from '@/components/content/ui/ArticleTemplate';
 import { useGetBlogArticleDetail } from '@/hooks/blogHome';
 
 const ContentPage = () => {
-  const { articleId } = useParams();
+  const { team, articleId } = useParams();
 
-  const res = useGetBlogArticleDetail(Number(articleId));
+  const res = useGetBlogArticleDetail(team, Number(articleId));
 
   if (!res) return <LoadingLottie width={10} height={10} fit />;
 

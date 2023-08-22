@@ -13,23 +13,31 @@ const Draft = (props: DraftProps) => {
   if (typeof draft === 'string') {
     return <DraftUI>상태</DraftUI>;
   }
-  return <DraftUI $draft={!draft}>{!draft ? '업로드 완료' : '임시저장'}</DraftUI>;
+  return (
+    <DraftUI $draft={draft}>
+      <span>{draft ? '임시 저장' : '업로드 완료'}</span>
+    </DraftUI>
+  );
 };
 
 export default Draft;
 
-const DraftUI = styled.span<{ $draft?: boolean }>`
+const DraftUI = styled.div<{ $draft?: boolean }>`
   display: inline-flex;
   gap: 1rem;
   align-items: center;
   margin-right: 2rem;
-  border: 1px solid ${({ theme, $draft }) => ($draft ? theme.colors.dark_green : theme.colors.grey_700)};
-  ${({ theme }) => theme.fonts.Body3_Regular};
-  border-radius: 2rem;
-  padding: 0.4rem 0.8rem;
   width: 8.1rem;
   overflow: hidden;
-  text-overflow: ellipsis;
-  white-space: nowrap;
-  color: ${({ theme, $draft }) => ($draft ? theme.colors.dark_green : theme.colors.grey_700)};
+  span {
+    border: 1px solid ${({ theme, $draft }) => ($draft ? theme.colors.grey_700 : theme.colors.dark_green)};
+    border-radius: 2rem;
+    background: none;
+    padding: 0.4rem 0.8rem;
+    max-width: 8rem;
+    text-overflow: ellipsis;
+    white-space: nowrap;
+    ${({ theme }) => theme.fonts.Body3_Regular};
+    color: ${({ theme, $draft }) => ($draft ? theme.colors.grey_700 : theme.colors.dark_green)};
+  }
 `;

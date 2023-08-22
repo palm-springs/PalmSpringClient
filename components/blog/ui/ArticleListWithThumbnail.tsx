@@ -1,8 +1,10 @@
 'use client';
 
 import React from 'react';
+import { useMediaQuery } from 'react-responsive';
 import Image from 'next/image';
 import Link from 'next/link';
+import { useParams } from 'next/navigation';
 import { styled } from 'styled-components';
 
 import ArticleList from '@/components/common/ArticleList';
@@ -15,17 +17,23 @@ import { getLiteralCategoryList } from '@/utils/getLiteralCategoryList';
 import CategoryBtnBar from './CategoryBtnBar';
 
 interface ArticleListWithThumbnailProps {
-  articleListData: ArticleData[];
+  articleList: ArticleData[];
 }
 
 const ArticleListWithThumbnail = (props: ArticleListWithThumbnailProps) => {
-  const { articleListData } = props;
+  const { articleList } = props;
 
-  const IndivContentId = articleListData[0].id;
+  const MOBILE = useMediaQuery({
+    query: '(min-width : 375px) and (max-width:768px)',
+  });
 
-  const res = useGetBlogArticleDetail(IndivContentId);
+  const { team } = useParams();
 
-  const FilteredCategoryList = useGetBlogCategoryList();
+  const IndivContentId = articleList[0].id;
+  const articleUrl = articleList[0].articleUrl;
+  const res = useGetContent(team, IndivContentId);
+
+  const FilteredCategoryList = useGetBlogCategoryList(team);
 
   if (!FilteredCategoryList || FilteredCategoryList.data.length === 0 || !res) return <div>로더</div>;
 
@@ -33,24 +41,44 @@ const ArticleListWithThumbnail = (props: ArticleListWithThumbnailProps) => {
 
   const LiteralList = getLiteralCategoryList(FilteredCategoryList);
 
-  return (
-    <>
-      <ContentInfoContainer>
-        {contentListData && contentListData.thumbnail && (
-          <Link href={`./content/${IndivContentId}`}>
-            <Image src={BlogSampleImg} alt="blog thumbnail" />
-          </Link>
-        )}
-        <ContentInfo contentInfoData={contentListData} IndivContentId={IndivContentId} />
-      </ContentInfoContainer>
-      <CategoryBtnWrapper>
-        <CategoryBtnBar LiteralList={LiteralList} />
-      </CategoryBtnWrapper>
-      <ArticleWrapper>
-        <ArticleList articleList={articleListData} />
-      </ArticleWrapper>
-    </>
-  );
+  if (MOBILE)
+    return (
+      <>
+        <ContentInfoContainer>
+          {contentListData && contentListData.thumbnail && (
+            <Link href={`/${team}/content/article/${articleUrl}/${IndivContentId}`}>
+              <Image src={contentListData.thumbnail} alt="blog thumbnail" />
+            </Link>
+          )}
+          <ContentInfo contentInfoData={contentListData} articleUrl={articleUrl} IndivContentId={IndivContentId} />
+        </ContentInfoContainer>
+        <CategoryBtnWrapper>
+          <CategoryBtnBar LiteralList={LiteralList} />
+        </CategoryBtnWrapper>
+        <ArticleWrapper>
+          <ArticleList articleList={articleList} />
+        </ArticleWrapper>
+      </>
+    );
+  else
+    return (
+      <>
+        <ContentInfoContainer>
+          {contentListData && contentListData.thumbnail && (
+            <Link href={`/${team}/content/article/${articleUrl}/${IndivContentId}`}>
+              <Image src={contentListData.thumbnail} alt="blog thumbnail" />
+            </Link>
+          )}
+          <ContentInfo contentInfoData={contentListData} articleUrl={articleUrl} IndivContentId={IndivContentId} />
+        </ContentInfoContainer>
+        <CategoryBtnWrapper>
+          <CategoryBtnBar LiteralList={LiteralList} />
+        </CategoryBtnWrapper>
+        <ArticleWrapper>
+          <ArticleList articleList={articleList} />
+        </ArticleWrapper>
+      </>
+    );
 };
 
 export default ArticleListWithThumbnail;
@@ -61,6 +89,7 @@ const ContentInfoContainer = styled.div`
   align-items: center;
 
   margin-top: 12rem;
+  width: 100%;
 `;
 
 const ArticleWrapper = styled.section`
@@ -69,10 +98,10 @@ const ArticleWrapper = styled.section`
   align-items: center;
 
   margin-bottom: 11rem;
-  min-width: 105.6rem;
+  width: 100vw;
 `;
 const CategoryBtnWrapper = styled.div`
   display: flex;
   justify-content: center;
-  min-width: 105.6rem;
+  width: 100vw;
 `;
