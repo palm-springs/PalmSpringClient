@@ -99,14 +99,14 @@ const CheckBox = styled.div<{ $width: string; $height: string }>`
 `;
 
 const Dot = styled.div<{ $isShown: boolean }>`
-  transition: opacity 0.6s;
+  transition: ${({ $isShown }) => ($isShown ? '0.2s' : '2s')};
   opacity: ${({ $isShown }) => ($isShown ? 0 : 1)};
   border-radius: 1.5rem;
 
   background-color: ${({ theme }) => theme.colors.background_green};
 
-  width: ${({ $isShown }) => ($isShown ? '3rem' : '2.2rem')};
-  height: ${({ $isShown }) => ($isShown ? '3rem' : '2.2rem')};
+  width: 2.2rem;
+  height: 2.2rem;
 
   &.grey {
     background-color: ${({ theme }) => theme.colors.grey_200};
@@ -122,22 +122,34 @@ const CheckDot = styled.div`
 
   opacity: 0;
 
-  border-radius: 1.5rem;
   background-color: ${({ theme }) => theme.colors.green};
-  width: 3rem;
-  height: 3rem;
 
   &.shown {
     opacity: 1;
+
+    border-radius: 1.5rem;
+
+    width: 3rem;
+    height: 3rem;
   }
 
   &.fadeIn {
     transition: 0.6s;
     opacity: 1;
+
+    border-radius: 1.5rem;
+
+    width: 3rem;
+    height: 3rem;
   }
 
   &.fadeOut {
     transition: 0.6s;
     opacity: 0;
+
+    border-radius: 1.5rem;
+
+    width: 2.2rem;
+    height: 2.2rem;
   }
 `;

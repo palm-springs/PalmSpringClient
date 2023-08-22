@@ -19,7 +19,7 @@ import {
   updateNavigation,
 } from '@/api/dashboard';
 
-import { QUERY_KEY_ARTICLE } from './article';
+import { QUERY_KEY_ARTICLE } from './editor';
 
 export const QUERY_KEY_DASHBOARD = {
   getNavList: 'getNavList',

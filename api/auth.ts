@@ -21,7 +21,7 @@ grant_type=authorization_code`,
 // JWT 토큰 발급
 export const postSocialLogin = async (platform: string, AccessToken: string) => {
   const { data } = await client.post<Response<jwtAccessTokenResponse>>(
-    `/api/v1/user/login/social/${platform}`,
+    `/api/v2/auth/social/login/${platform}`,
     {
       accessToken: AccessToken,
     },
@@ -32,6 +32,6 @@ export const postSocialLogin = async (platform: string, AccessToken: string) => 
 
 // 리프레시 토큰 재발급
 export const getRefreshToken = async () => {
-  const { data } = await refreshAxiosInstance.get(`/api/v1/auth/reissue`);
+  const { data } = await refreshAxiosInstance.get(`/api/v2/auth/token/reissue`);
   return data;
 };
