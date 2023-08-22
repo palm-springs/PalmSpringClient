@@ -9,8 +9,8 @@ import { styled } from 'styled-components';
 
 import ArticleList from '@/components/common/ArticleList';
 import ContentInfo from '@/components/common/ContentInfo';
-import { useGetContent } from '@/hooks/article';
-import { useGetCategoryList } from '@/hooks/dashboard';
+import { useGetBlogArticleDetail, useGetBlogCategoryList } from '@/hooks/blogHome';
+import { BlogSampleImg } from '@/public/images';
 import { ArticleData } from '@/types/article';
 import { getLiteralCategoryList } from '@/utils/getLiteralCategoryList';
 
@@ -33,7 +33,7 @@ const ArticleListWithThumbnail = (props: ArticleListWithThumbnailProps) => {
   const articleUrl = articleList[0].articleUrl;
   const res = useGetContent(team, IndivContentId);
 
-  const FilteredCategoryList = useGetCategoryList(team);
+  const FilteredCategoryList = useGetBlogCategoryList(team);
 
   if (!FilteredCategoryList || FilteredCategoryList.data.length === 0 || !res) return <div>로더</div>;
 

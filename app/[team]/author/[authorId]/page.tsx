@@ -5,12 +5,12 @@ import { useParams } from 'next/navigation';
 
 import AuthorPageTemplate from '@/components/author/AuthorPageTemplate';
 import LoadingLottie from '@/components/common/ui/LoadingLottie';
-import { useGetAuthorInfo } from '@/hooks/author';
+import { useGetBlogAuthorDetail } from '@/hooks/blogHome';
 
 const AuthorPage = () => {
-  const { authorId } = useParams();
+  const { team, authorId } = useParams();
   const authorIdNum = Number(authorId);
-  const res = useGetAuthorInfo(authorIdNum);
+  const res = useGetBlogAuthorDetail(team, authorIdNum);
 
   if (!res) return <LoadingLottie width={10} height={10} fit />;
 

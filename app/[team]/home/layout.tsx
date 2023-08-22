@@ -1,6 +1,6 @@
 import React from 'react';
 
-import { getBlogHeaderInfo } from '@/api/blog';
+import { getBlogHeaderInfo } from '@/api/blogHome';
 import BlogFooter from '@/components/common/BlogFooter';
 import BlogHeader from '@/components/common/BlogHeader';
 

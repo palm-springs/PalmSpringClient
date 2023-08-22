@@ -198,7 +198,7 @@ const why_they_use_container = css`
 `;
 
 const sendMessage = async () => {
-  await client.get('/api/v1/health');
+  await client.get('/api/v2/health');
 };
 
 const Home = () => {

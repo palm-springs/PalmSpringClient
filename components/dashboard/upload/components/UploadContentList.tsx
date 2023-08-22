@@ -25,7 +25,7 @@ const UploadContentList = (props: UploadContentListProps) => {
 
   const isAllCategory = currentCategory === '전체';
 
-  if (!articleData || articleData.data.length === 0)
+  if (!articleData || !articleData.data || articleData.data.length === 0)
     return (
       <EmptyLanding
         header={true}

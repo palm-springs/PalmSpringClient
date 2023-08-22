@@ -1,0 +1,56 @@
+import { ArticleData } from '@/types/article';
+import { AuthorInfoProps } from '@/types/author';
+import { HeaderProps } from '@/types/blogHeader';
+import { BlogImgProps } from '@/types/blogMainImg';
+import { Response } from '@/types/common';
+import { ContentProps } from '@/types/content';
+import { CategoryListProps } from '@/types/dashboard';
+import { PageData } from '@/types/page';
+
+import client from '.';
+
+//블로그 header 정보 가져오기 - 반영 완 -b
+export const getBlogHeaderInfo = async (blogUrl: string) => {
+  const { data } = await client.get<Response<HeaderProps>>(`/api/v2/view/meta/${blogUrl}/header`);
+  return data;
+};
+
+// blog 대문 이미지와 한 줄 소개 가져오기 - 반영 완 -b
+export const getBlogMainImg = async (blogUrl: string) => {
+  const { data } = await client.get<Response<BlogImgProps>>(`/api/v2/view/meta/${blogUrl}/thumbnail`);
+  return data;
+};
+
+//블로그용 카테고리 가져오기 - 반영 완 - 새로 생김 -b
+export const getBlogCategoryList = async (blogUrl: string) => {
+  const { data } = await client.get<Response<CategoryListProps[]>>(`/api/v2/view/category/${blogUrl}/list`);
+  return data;
+};
+
+//블로그용 아티클 리스트 가져오기 - 반영 완 -b
+export const getBlogArticleList = async (blogUrl: string, categoryId: string | null) => {
+  const { data } = await client.get<Response<ArticleData[]>>(
+    `/api/v2/view/article/${blogUrl}/list?categoryId=${categoryId}`,
+  );
+  return data;
+};
+
+//블로그용 페이지 상세 정보 가져오기 -b
+export const getBlogPageDetail = async (blogUrl: string, pageUrl: string) => {
+  const { data } = await client.get<Response<PageData>>(`/api/v2/view/page/${blogUrl}/detail?pageUrl=${pageUrl}`);
+  return data;
+};
+
+//블로그용 아티클 상세 정보 가져오기 -b
+export const getBlogArticleDetail = async (blogUrl: string, articleId: number) => {
+  const { data } = await client.get<Response<ContentProps>>(
+    `/api/v2/view/article/${blogUrl}/detail?articleId=${articleId}`,
+  );
+  return data;
+};
+
+//블로그용 글쓴이 정보 가져오기
+export const getBlogAuthorDetail = async (blogUrl: string, memberId: number) => {
+  const { data } = await client.get<Response<AuthorInfoProps>>(`/api/v2/view/author${blogUrl}/detail//${memberId}`);
+  return data;
+};
