@@ -19,18 +19,16 @@ const BlogNav = () => {
 
   if (!res) return <LoadingLottie width={10} height={10} fit />;
 
-  const { data: data } = res;
+  const {
+    data: { navList },
+  } = res;
 
   return (
     <BlogNavContainer>
-      {data.navList &&
-        data.navList.map(({ navUrl, name, isPage, id }) => (
+      {navList &&
+        navList.map(({ navUrl, name, isPage, id }) => (
           <PageBtn key={navUrl}>
-            {isPage === true ? (
-              <Link href={`/${team}/content/page/${navUrl}/${id}`}>{name}</Link>
-            ) : (
-              <Link href={`https://${navUrl}`}>{name}</Link>
-            )}
+            <Link href={isPage ? `/${team}/content/page/${navUrl}/${id}` : `https://${navUrl}`}>{name}</Link>
           </PageBtn>
         ))}
       <SubscribeBtn />
