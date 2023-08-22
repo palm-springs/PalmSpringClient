@@ -9,51 +9,48 @@ import { PageData } from '@/types/page';
 
 import client from '.';
 
-//블로그 header 정보 가져오기 - 반영 완
-export const getBlogHeaderInfo = async () => {
-  const { data } = await client.get<Response<HeaderProps>>(`/api/v2/view/meta/header`);
+//블로그 header 정보 가져오기 - 반영 완 -b
+export const getBlogHeaderInfo = async (blogUrl: string) => {
+  const { data } = await client.get<Response<HeaderProps>>(`/api/v2/view/meta/${blogUrl}/header`);
   return data;
-  // {{SUBDOMAIN_URL}}/api/v2/view/meta/header
 };
 
-// blog 대문 이미지와 한 줄 소개 가져오기 - 반영 완
-export const getBlogMainImg = async () => {
-  const { data } = await client.get<Response<BlogImgProps>>(`/api/v2/view/meta/thumbnail`);
+// blog 대문 이미지와 한 줄 소개 가져오기 - 반영 완 -b
+export const getBlogMainImg = async (blogUrl: string) => {
+  const { data } = await client.get<Response<BlogImgProps>>(`/api/v2/view/meta/${blogUrl}/thumbnail`);
   return data;
-  // {{SUBDOMAIN_URL}}/api/v2/view/meta/thumbnail
 };
 
-//블로그용 카테고리 가져오기 - 반영 완 - 새로 생김
-export const getBlogCategoryList = async () => {
-  const { data } = await client.get<Response<CategoryListProps[]>>(`/api/v2/view/category/list`);
+//블로그용 카테고리 가져오기 - 반영 완 - 새로 생김 -b
+export const getBlogCategoryList = async (blogUrl: string) => {
+  const { data } = await client.get<Response<CategoryListProps[]>>(`/api/v2/view/category/${blogUrl}/list`);
   return data;
-  // {{SUBDOMAIN_URL}}/api/v2/view/category/list
 };
 
-//블로그용 아티클 리스트 가져오기 - 반영 완
-export const getBlogArticleList = async (categoryId: string | null) => {
-  const { data } = await client.get<Response<ArticleData[]>>(`/api/v2/view/article/list?categoryId=${categoryId}`);
+//블로그용 아티클 리스트 가져오기 - 반영 완 -b
+export const getBlogArticleList = async (blogUrl: string, categoryId: string | null) => {
+  const { data } = await client.get<Response<ArticleData[]>>(
+    `/api/v2/view/article/${blogUrl}/list?categoryId=${categoryId}`,
+  );
   return data;
-  // {{SUBDOMAIN_URL}}/api/v2/view/article/list?categoryId=
 };
 
-//블로그용 페이지 상세 정보 가져오기
-export const getBlogPageDetail = async (pageUrl: string) => {
-  const { data } = await client.get<Response<PageData>>(`/api/v2/view/page/detail?pageUrl=${pageUrl}`);
+//블로그용 페이지 상세 정보 가져오기 -b
+export const getBlogPageDetail = async (blogUrl: string, pageUrl: string) => {
+  const { data } = await client.get<Response<PageData>>(`/api/v2/view/page/${blogUrl}/detail?pageUrl=${pageUrl}`);
   return data;
-  // {{SUBDOMAIN_URL}}/api/v2/view/page/detail?pageUrl=
 };
 
-//블로그용 아티클 상세 정보 가져오기
-export const getBlogArticleDetail = async (articleId: number) => {
-  const { data } = await client.get<Response<ContentProps>>(`/api/v2/view/article/detail?articleId=${articleId}`);
+//블로그용 아티클 상세 정보 가져오기 -b
+export const getBlogArticleDetail = async (blogUrl: string, articleId: number) => {
+  const { data } = await client.get<Response<ContentProps>>(
+    `/api/v2/view/article/${blogUrl}/detail?articleId=${articleId}`,
+  );
   return data;
-  //   {{SUBDOMAIN_URL}}/api/v2/view/article/detail?articleId=
 };
 
 //블로그용 글쓴이 정보 가져오기
-export const getBlogAuthorDetail = async (memberId: number) => {
-  const { data } = await client.get<Response<AuthorInfoProps>>(`/api/v2/view/author/detail/${memberId}`);
+export const getBlogAuthorDetail = async (blogUrl: string, memberId: number) => {
+  const { data } = await client.get<Response<AuthorInfoProps>>(`/api/v2/view/author${blogUrl}/detail//${memberId}`);
   return data;
-  // {{SUBDOMAIN_URL;}}/api/v2/view/author/detail/{ memberId };
 };

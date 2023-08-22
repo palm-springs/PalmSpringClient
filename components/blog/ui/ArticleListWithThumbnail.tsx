@@ -3,6 +3,7 @@
 import React from 'react';
 import Image from 'next/image';
 import Link from 'next/link';
+import { useParams } from 'next/navigation';
 import { styled } from 'styled-components';
 
 import ArticleList from '@/components/common/ArticleList';
@@ -21,11 +22,12 @@ interface ArticleListWithThumbnailProps {
 const ArticleListWithThumbnail = (props: ArticleListWithThumbnailProps) => {
   const { articleListData } = props;
 
+  const { team } = useParams();
   const IndivContentId = articleListData[0].id;
 
-  const res = useGetBlogArticleDetail(IndivContentId);
+  const res = useGetBlogArticleDetail(team, IndivContentId);
 
-  const FilteredCategoryList = useGetBlogCategoryList();
+  const FilteredCategoryList = useGetBlogCategoryList(team);
 
   if (!FilteredCategoryList || FilteredCategoryList.data.length === 0 || !res) return <div>로더</div>;
 
@@ -37,7 +39,7 @@ const ArticleListWithThumbnail = (props: ArticleListWithThumbnailProps) => {
     <>
       <ContentInfoContainer>
         {contentListData && contentListData.thumbnail && (
-          <Link href={`./content/${IndivContentId}`}>
+          <Link href={`./content/article/${IndivContentId}`}>
             <Image src={BlogSampleImg} alt="blog thumbnail" />
           </Link>
         )}
