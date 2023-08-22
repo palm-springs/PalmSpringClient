@@ -1,15 +1,13 @@
 import React from 'react';
-import { useParams } from 'next/navigation';
 
 import { getBlogHeaderInfo } from '@/api/blogHome';
 import BlogFooter from '@/components/common/BlogFooter';
 import BlogHeader from '@/components/common/BlogHeader';
 
-const BlogHomeLayout = async ({ children }: { children: React.ReactElement }) => {
-  const { team } = useParams();
+const BlogHomeLayout = async ({ children, params }: { children: React.ReactElement; params: { team: string } }) => {
   const {
     data: { logo, blogName },
-  } = await getBlogHeaderInfo(team);
+  } = await getBlogHeaderInfo(params.team);
   return (
     <>
       <BlogHeader logo={logo} blogName={blogName} />

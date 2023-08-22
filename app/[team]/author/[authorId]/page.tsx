@@ -8,8 +8,7 @@ import LoadingLottie from '@/components/common/ui/LoadingLottie';
 import { useGetBlogAuthorDetail } from '@/hooks/blogHome';
 
 const AuthorPage = () => {
-  const { authorId } = useParams();
-  const { team } = useParams();
+  const { team, authorId } = useParams();
   const authorIdNum = Number(authorId);
   const res = useGetBlogAuthorDetail(team, authorIdNum);
 
