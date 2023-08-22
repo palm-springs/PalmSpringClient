@@ -13,6 +13,8 @@ const DashBoardFooterUI = styled.section`
   left: 0;
   z-index: 100;
   margin-bottom: 1.6rem;
+
+  background: ${({ theme }) => theme.colors.grey_100};
   padding: 0 1.6rem;
   width: 100%;
 
