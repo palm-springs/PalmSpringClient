@@ -24,7 +24,7 @@ export interface UpdatePageProps {
 
 export interface UpdatePageContentProps {
   id: number;
-  thumbnail: string;
+  thumbnail: string | null;
   title: string;
   content: string;
   images: string[] | null;

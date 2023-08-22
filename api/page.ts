@@ -54,7 +54,7 @@ export const getUpdatePageContent = async (pageId: number) => {
 
 //페이지 업로드된 글 수정하기
 export const updatePageDetail = async (updatePageData: UpdatePageContentProps) => {
-  const { data } = await client.put<Response<null>>(`/api/v2/dashboard/page/admin/pulbish/modify`, {
+  const { data } = await client.put<Response<null>>(`/api/v2/dashboard/page/admin/publish/modify`, {
     ...updatePageData,
   });
   return data;

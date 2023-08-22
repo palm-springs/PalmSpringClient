@@ -279,7 +279,7 @@ const TextEditorBuild = (props: TextEditorBuildprops) => {
     }
   };
 
-  // 페이지 수정시
+  // 페이지 수정시 발행페이지 이동
   const handleUpdatePageContent = () => {
     if (editor) {
       const newContent = editor.getHTML();

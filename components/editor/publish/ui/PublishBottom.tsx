@@ -1,11 +1,12 @@
 'use client';
 import React, { useEffect, useState } from 'react';
-import { useParams, useRouter } from 'next/navigation';
-import { useRecoilValue, useResetRecoilState, useSetRecoilState } from 'recoil';
+import { useParams, usePathname, useRouter } from 'next/navigation';
+import { useRecoilState, useRecoilValue, useResetRecoilState, useSetRecoilState } from 'recoil';
 import styled from 'styled-components';
 
 import { postArticleCreateList } from '@/api/article';
 import { postPageCreate } from '@/api/page';
+import { useUpdateArticleContent, useUpdatePageContent } from '@/hooks/editor';
 import { UpdateArticleProps } from '@/types/article';
 
 import { articleDataState, pageDataState } from '../../states/atom';
@@ -19,6 +20,7 @@ interface PublishBottomButtons {
 const PublishBottomButtons = (props: PublishBottomButtons) => {
   const router = useRouter();
   const { pageType, isDuplicate } = props;
+  const pathName = usePathname();
 
   const [isDisabled, setIsDisabled] = useState(true);
 
@@ -27,19 +29,28 @@ const PublishBottomButtons = (props: PublishBottomButtons) => {
   const pageData = useRecoilValue(pageDataState);
   const { pageUrl } = pageData;
 
-  const { team } = useParams();
+  const { team, pageId } = useParams();
+
+  const updatePageMutation = useUpdatePageContent();
+  const [updatedPageData, setUpdatedPageData] = useRecoilState(pageDataState);
 
   const resetArticleData = useResetRecoilState(articleDataState);
   const resetPageData = useResetRecoilState(pageDataState);
 
-  const handleOnClickLastPublish = () => {
+  const handleOnClickArticlePublish = () => {
     postArticleCreateList(team, articleData);
     resetArticleData();
     router.push(`/${team}/dashboard/upload`);
   };
 
-  const handleOnClickArticlePublish = () => {
+  const handleOnClickPagePublish = () => {
     postPageCreate(team, pageData);
+    resetPageData();
+    router.push(`/${team}/dashboard/page`);
+  };
+
+  const handleOnClickUpdatePagePublish = () => {
+    updatePageMutation.mutate({ ...updatedPageData, id: Number(pageId) });
     resetPageData();
     router.push(`/${team}/dashboard/page`);
   };
@@ -59,14 +70,25 @@ const PublishBottomButtons = (props: PublishBottomButtons) => {
             <BackButton type="button" onClick={handleBackArticleButton}>
               뒤로가기
             </BackButton>
-            <PublishButton
-              type="button"
-              onClick={handleOnClickLastPublish}
-              disabled={
-                categoryId === -1 || description === '' || articleUrl === '' || isDuplicate || isDuplicate === null
-              }>
-              글 발행하기
-            </PublishButton>
+            {articleData.articleUrl ? (
+              <PublishButton
+                type="button"
+                onClick={handleOnClickArticlePublish}
+                disabled={
+                  categoryId === -1 || description === '' || articleUrl === '' || isDuplicate || isDuplicate === null
+                }>
+                글 발행하기
+              </PublishButton>
+            ) : (
+              <PublishButton
+                type="button"
+                onClick={handleOnClickArticlePublish}
+                disabled={
+                  categoryId === -1 || description === '' || articleUrl === '' || isDuplicate || isDuplicate === null
+                }>
+                글 발행하기
+              </PublishButton>
+            )}
           </PublishBottomButtonsContainer>
         </>
       );
@@ -77,12 +99,21 @@ const PublishBottomButtons = (props: PublishBottomButtons) => {
             <BackButton type="button" onClick={handleBackPageButton}>
               뒤로가기
             </BackButton>
-            <PublishButton
-              type="button"
-              onClick={handleOnClickArticlePublish}
-              disabled={pageUrl === '' || isDuplicate || isDuplicate === null}>
-              글 발행하기
-            </PublishButton>
+            {pathName === `/${team}/editor/page/${pageId}/publish` ? (
+              <PublishButton
+                type="button"
+                onClick={handleOnClickUpdatePagePublish}
+                disabled={pageUrl === '' || isDuplicate || isDuplicate === null}>
+                글 발행하기
+              </PublishButton>
+            ) : (
+              <PublishButton
+                type="button"
+                onClick={handleOnClickPagePublish}
+                disabled={pageUrl === '' || isDuplicate || isDuplicate === null}>
+                글 발행하기
+              </PublishButton>
+            )}
           </PublishBottomButtonsContainer>
         </>
       );
