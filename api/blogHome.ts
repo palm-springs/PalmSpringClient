@@ -30,7 +30,9 @@ export const getBlogCategoryList = async (blogUrl: string) => {
 //블로그용 아티클 리스트 가져오기 - 반영 완 -b
 export const getBlogArticleList = async (blogUrl: string, categoryId: string | null) => {
   const { data } = await client.get<Response<ArticleData[]>>(
-    `/api/v2/view/article/${blogUrl}/list?categoryId=${categoryId}`,
+    categoryId
+      ? `/api/v2/view/article/${blogUrl}/list?categoryId=${categoryId}`
+      : `/api/v2/view/article/${blogUrl}/list`,
   );
   return data;
 };
