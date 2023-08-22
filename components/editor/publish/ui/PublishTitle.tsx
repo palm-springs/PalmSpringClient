@@ -1,32 +1,24 @@
 'use client';
 import React from 'react';
-import { useParams, useRouter } from 'next/navigation';
-import router from 'next/router';
 import { useRecoilState, useRecoilValue } from 'recoil';
 import styled from 'styled-components';
 
-// import ARTICLE_CONTENT from '@/constants/ArticleContent';
-import { useGetSingleArticleData, useGetSinglePageData } from '@/hooks/editor';
 import { UpdatePageProps } from '@/types/page';
 
 import { articleDataState, pageDataState, pageTitleState } from '../../states/atom';
 
 interface PublishTitleprops {
   pageType: string;
-  blogUrl: string;
-  articleId: number;
   pageData?: UpdatePageProps;
 }
 
 //정보 get 해야함
 const PublishTitle = (props: PublishTitleprops) => {
-  const { team } = useParams();
   const { pageType, pageData } = props;
 
   const [{ title }, setArticleData] = useRecoilState(articleDataState);
   const [{ title: pageTitle }, setPageData] = useRecoilState(pageDataState);
-
-  const pageNewTitle = useRecoilValue(pageTitleState);
+  const [pageNewTitle, setPageNewTitle] = useRecoilState(pageTitleState);
 
   switch (pageType) {
     case `article`:

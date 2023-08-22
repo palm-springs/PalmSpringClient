@@ -57,7 +57,9 @@ const TextEditorBuild = (props: TextEditorBuildprops) => {
   const { team, articleId, pageId } = useParams();
   const [{ title }, setArticleData] = useRecoilState(articleDataState);
   const [{ title: pageTitle }, setPageData] = useRecoilState(pageDataState);
-  const pageNewTitle = useRecoilValue(pageTitleState);
+  const [pageNewTitle, setPageNewTitle] = useRecoilState(pageTitleState);
+
+  // const pageNewTitle = useRecoilValue(pageTitleState);
   console.log(pageNewTitle);
   const [{ title: newArticleTitle }, setNewArticleData] = useRecoilState(newArticleDataState);
   const [updatedArticleData, setUpdatedArticleData] = useRecoilState(newArticleDataState);
@@ -284,16 +286,16 @@ const TextEditorBuild = (props: TextEditorBuildprops) => {
       setExtractedHTML(newContent);
 
       if (imageArr.length === 0) {
-        setUpdatedArticleData((prevData) => ({
+        setPageData((prevData) => ({
           ...prevData,
           title: pageNewTitle,
           content: newContent,
           images: [],
         }));
       } else {
-        setUpdatedArticleData((prevData) => ({
+        setPageData((prevData) => ({
           ...prevData,
-          title: newArticleTitle,
+          title: pageNewTitle,
           content: newContent,
           images: imageArr,
         }));

@@ -22,8 +22,10 @@ const EditorInputTitle = (props: TextEditorBuildProps) => {
   const [{ title }, setArticleData] = useRecoilState(articleDataState); // 아티클 초기 타이틀 -> 에디터 초기 필요
   const [{ title: newArticleTitle }, setNewArticleData] = useRecoilState(newArticleDataState);
   const [{ title: pageTitle }, setPageData] = useRecoilState(pageDataState); // 페이지 초기 타이틀 -> 에디터 초기 필요
-  const [updateNewPageData, setUpdateNewPageData] = useRecoilState(pageDataState);
-  const pageNewTitle = useRecoilValue(pageTitleState);
+  // const [updateNewPageData, setUpdateNewPageData] = useRecoilState(pageDataState);
+  const [pageNewTitle, setPageNewTitle] = useRecoilState(pageTitleState);
+
+  // const pageNewTitle = useRecoilValue(pageTitleState);
 
   // const [{ title: updateArticleTitle }, setArticleEditDataState] = useRecoilState(articleEditDataState); update할 때
 
@@ -40,7 +42,7 @@ const EditorInputTitle = (props: TextEditorBuildProps) => {
 
   const handleSaveUpdatePageTitle = (e: ChangeEvent<HTMLTextAreaElement>) => {
     const { value } = e.target;
-    setUpdateNewPageData((prev) => ({ ...prev, title: value }));
+    setPageNewTitle(value);
   };
 
   // currentState가 edit 이고 데이터가 있으면 title (updateTitle)이 보여지고

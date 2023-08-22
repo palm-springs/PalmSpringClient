@@ -1,4 +1,4 @@
-import { atom, selector } from 'recoil';
+import { atom, RecoilState, selector } from 'recoil';
 
 import { CreateArticleProps, UpdateArticleContentProps, UpdateArticleProps } from '@/types/article';
 import { CreatePageProps } from '@/types/page';

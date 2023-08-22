@@ -1,6 +1,12 @@
 import { useMutation, useQuery, useQueryClient } from '@tanstack/react-query';
 
-import { getArticleList, getSingleArticleData, getUpdateArticleContent, updateArticleDetail } from '@/api/article';
+import {
+  deleteArticle,
+  getArticleList,
+  getSingleArticleData,
+  getUpdateArticleContent,
+  updateArticleDetail,
+} from '@/api/article';
 import { getContent } from '@/api/content';
 import { getSinglePageData, getUpdatePageContent, updatePageDetail } from '@/api/page';
 import { UpdateArticleContentProps } from '@/types/article';
@@ -15,6 +21,8 @@ export const QUERY_KEY_ARTICLE = {
   updateArticleDetail: 'updateArticleDetail',
   updatePageDetail: 'updatePageDetail',
   getPageList: 'getPageList',
+  deleteArticle: 'deleteArticle',
+  deletePage: 'deletePage',
 };
 
 export const useGetArticleList = (blogUrl: string, categoryId: string) => {
@@ -82,5 +90,30 @@ export const useUpdatePageContent = () => {
       },
     },
   );
+  return pageMutation;
+};
+
+// 아티클 글 삭제 query
+export const useDeleteArticleContent = (blogUrl: string, articleId: string) => {
+  const queryClient = useQueryClient();
+
+  const articleMutation = useMutation([QUERY_KEY_ARTICLE.deleteArticle], () => deleteArticle(blogUrl, articleId), {
+    onSuccess: () => {
+      queryClient.invalidateQueries([QUERY_KEY_ARTICLE.getArticleList]);
+    },
+  });
+  return articleMutation;
+};
+
+//페이지 글 삭제하기 query
+
+export const useDeletePageContent = (blogUrl: string, pageId: string) => {
+  const queryClient = useQueryClient();
+
+  const pageMutation = useMutation([QUERY_KEY_ARTICLE.deletePage], () => deleteArticle(blogUrl, pageId), {
+    onSuccess: () => {
+      queryClient.invalidateQueries([QUERY_KEY_ARTICLE.getPageList]);
+    },
+  });
   return pageMutation;
 };

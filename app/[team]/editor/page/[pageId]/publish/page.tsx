@@ -19,7 +19,7 @@ const UpdatePagePublishPage = () => {
     <AuthRequired>
       <PagePublishContainer>
         {updatePageEditContents && <ThumbnailInput pageType="page" pageData={updatePageEditContents?.data} />}
-        <PublishTitle pageType="page" blogUrl={team} articleId={1} />
+        <PublishTitle pageType="page" />
         {updatePageEditContents && (
           <UrlCustom
             pageType="page"

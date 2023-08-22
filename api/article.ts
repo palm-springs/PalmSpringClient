@@ -28,39 +28,50 @@ export const postArticleList = async (url: string, requestBody: postArticleListR
   return data;
 };
 
-interface postArticleCreateListRequest {
-  title: string;
-  content: string;
-  images: string[] | null;
-  thumbnail: string;
-  categoryId: number;
-  description: string;
-  articleUrl: string;
-}
-
 export const postArticleCreateList = async (url: string, requestBody: CreateArticleProps) => {
   const { data } = await client.post<Response<null>>(`/api/v2/dashboard/article/publish/create/${url}`, requestBody);
   return data;
 };
 
 export const getCheckArticleUrlDuplication = async (teamUrl: string, articleUrl: string) => {
-  const { data } = await client.get(`/api/v1/article/${teamUrl}/check?articleUrl=${articleUrl}`);
+  const { data } = await client.get(`/api/v2/dashboard/article/check/${teamUrl}?articleUrl=${articleUrl}`);
   return data;
 };
 
+//아티클 업로드한 글 get
 export const getUpdateArticleContent = async (articleId: number) => {
-  const { data } = await client.get(`/api/v1/article/detail/modify?id=${articleId}`);
+  const { data } = await client.get(`/api/v2/dashboard/article/detail?articleId=${articleId}`);
   return data;
 };
 
+//아티클 업로드 된 글 수정하기
 export const updateArticleDetail = async (articleUrl: string, updateArticleData: UpdateArticleContentProps) => {
-  const { data } = await client.put<Response<null>>(`/api/v1/article/${articleUrl}/modify`, {
+  const { data } = await client.put<Response<null>>(`/api/v2/dashboard/article/publish//modify/${articleUrl}`, {
     ...updateArticleData,
   });
   return data;
 };
 
-export const updateArticleDraft = async (articleUrl: string) => {
-  const { data } = await client.put(`/api/v1/article/${articleUrl}/modify/draft`);
+//아티클 임시저장 수정하기 (requestBody 넣어서 보내기)
+interface updateArticleRequest {
+  id: number;
+  title: string;
+  content: string;
+  images: string[] | null;
+  thumbnail: string;
+  catagoryId: number;
+  description: string | null;
+  articleUrl: string;
+  isPublish: boolean;
+}
+
+export const updateArticleDraft = async (articleUrl: string, requestBody: updateArticleRequest) => {
+  const { data } = await client.put(`/api/v2/dashboard/article/draft/modify/${articleUrl}`, requestBody);
+  return data;
+};
+
+// 아티클 삭제하기
+export const deleteArticle = async (blogUrl: string, articleId: string) => {
+  const { data } = await client.delete(`/api/v2/dashboard/article/remove/${blogUrl}?articleId=${articleId}`);
   return data;
 };
