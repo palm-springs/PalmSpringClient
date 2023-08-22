@@ -5,22 +5,22 @@ import Link from 'next/link';
 import { useParams } from 'next/navigation';
 import styled from 'styled-components';
 
-import { useGetNavList } from '@/hooks/dashboard';
+import { useGetBlogHeaderInfo } from '@/hooks/blogHome';
 
 import LoadingLottie from './ui/LoadingLottie';
 
 const SideBarNav = () => {
   const { team } = useParams();
 
-  const res = useGetNavList(team);
+  const res = useGetBlogHeaderInfo(team);
 
   if (!res) return <LoadingLottie width={10} height={10} fit />;
 
-  const { data: navList } = res;
+  const { data: data } = res;
   return (
     <BlogNavContainer>
-      {navList &&
-        navList.map(({ navUrl, name, isPage, id }) => (
+      {data.navList &&
+        data.navList.map(({ navUrl, name, isPage, id }) => (
           <NavBtn key={navUrl} type="button">
             <Link href={isPage ? `/${team}/content/page/${navUrl}/${id}` : `https://${navUrl}`}>{name}</Link>
           </NavBtn>
