@@ -1,5 +1,5 @@
 'use client';
-import React, { Dispatch, SetStateAction, useState } from 'react';
+import React, { Dispatch, SetStateAction, useEffect, useState } from 'react';
 import { useParams } from 'next/navigation';
 import router from 'next/router';
 import { useRecoilState } from 'recoil';
@@ -24,13 +24,21 @@ interface UrlCustomProps {
 }
 
 const UrlCustom = (props: UrlCustomProps) => {
-  const { pageType, isDuplicate, setIsDuplicate, pageData } = props;
+  const { pageType, isDuplicate, setIsDuplicate, pageData, articleData } = props;
   const { team } = useParams();
 
   const [{ articleUrl }, setArticleData] = useRecoilState(articleDataState);
   const [{ pageUrl }, setPageData] = useRecoilState(pageDataState);
 
   const [isAddressFocus, setIsAddressFocus] = useState(false);
+
+  useEffect(() => {
+    if (articleData) {
+      setArticleData((prev) => ({ ...prev, articleUrl: articleData.articleUrl }));
+    } else if (pageData) {
+      setPageData((prev) => ({ ...prev, pageUrl: pageData.pageUrl }));
+    }
+  }, []);
 
   const checkDuplication = (value: string) => {
     if (pageType === 'page') {
@@ -85,21 +93,12 @@ const UrlCustom = (props: UrlCustomProps) => {
 
           <PublishInputForm isFocus={isAddressFocus} isDuplicate={isDuplicate}>
             <div>/@{team}/content/</div>
-            {pageData ? (
-              <TextInput
-                onFocus={() => setIsAddressFocus(true)}
-                onBlur={() => setIsAddressFocus(false)}
-                value={pageData.pageUrl}
-                onChange={handleOnPageChange}
-              />
-            ) : (
-              <TextInput
-                onFocus={() => setIsAddressFocus(true)}
-                onBlur={() => setIsAddressFocus(false)}
-                value={pageUrl}
-                onChange={handleOnPageChange}
-              />
-            )}
+            <TextInput
+              onFocus={() => setIsAddressFocus(true)}
+              onBlur={() => setIsAddressFocus(false)}
+              value={pageUrl}
+              onChange={handleOnPageChange}
+            />
             {isDuplicate === null && pageUrl !== '' && <Loader01Icon />}
           </PublishInputForm>
           {isDuplicate && <Message>이미 사용 중인 URL입니다. 다른 URL를 입력해주세요.</Message>}

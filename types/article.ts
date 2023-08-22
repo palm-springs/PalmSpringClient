@@ -42,7 +42,7 @@ export interface UpdateArticleProps {
   thumbnail: string | null;
   categoryId?: number;
   description?: string;
-  articleUrl?: string;
+  articleUrl: string;
 }
 
 export interface UpdateArticleContentProps {
