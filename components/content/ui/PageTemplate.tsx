@@ -90,7 +90,7 @@ const PageTemplate = (props: ContentTemplateProps) => {
           bottom: 50,
         }}
       />
-      {PageMain}
+      {PageMain()}
     </>
   );
 };

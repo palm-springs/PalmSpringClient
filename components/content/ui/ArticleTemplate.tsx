@@ -91,7 +91,7 @@ const ArticleTemplate = (props: ArticleTemplateProps) => {
           bottom: 50,
         }}
       />
-      {ArticleMain}
+      {ArticleMain()}
     </>
   );
 };
