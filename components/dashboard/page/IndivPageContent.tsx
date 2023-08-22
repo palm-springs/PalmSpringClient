@@ -47,7 +47,7 @@ const IndivPageContent = (props: IndivPageContentProps) => {
       draft={isDraft}
       createdAt={createdAt}
       onTitleClick={() => {
-        window.location.href = `https://${blogUrl}.palms.blog/content/page/${pageUrl}/${id}`;
+        window.location.href = `https://${blogUrl}.palms.blog/${blogUrl}/content/page/${pageUrl}/${id}`;
       }}
       onMutateClick={() => {
         if (isDraft) {
