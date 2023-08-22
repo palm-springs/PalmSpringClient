@@ -1,15 +1,19 @@
+// import { url } from 'inspector';
+
 import { ArticleData, CreateArticleProps, SingleArticleData } from '@/types/article';
 import { Response } from '@/types/common';
 
 import client from '.';
 
+//아티클 리스트 가져오기 - 반영 완
 export const getArticleList = async (blogUrl: string, categoryId: string | null) => {
   const { data } = await client.get<Response<ArticleData[]>>(
-    `/api/v1/article/${blogUrl}/list?categoryId=${categoryId}`,
+    `/api/v2/dashboard/article/list/publish/${blogUrl}?categoryId=${categoryId}`,
   );
   return data;
 };
 
+//단일 아티클 가져오기 - 반영 완
 export const getSingleArticleData = async (blogUrl: string, articleId: number) => {
   const { data } = await client.get<Response<SingleArticleData>>(
     `/api/v2/dashboard/article/detail/${blogUrl}?articleId=${articleId}`,

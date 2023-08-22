@@ -1,16 +1,14 @@
 'use client';
 
 import React from 'react';
-import { useParams } from 'next/navigation';
 
 import BlogFooter from '@/components/common/BlogFooter';
 import BlogHeader from '@/components/common/BlogHeader';
 import LoadingLottie from '@/components/common/ui/LoadingLottie';
-import { useGetBlogHeaderInfo } from '@/hooks/blog';
+import { useGetBlogHeaderInfo } from '@/hooks/blogHome';
 
 const ContentLayout = ({ children }: { children: React.ReactElement }) => {
-  const { team } = useParams();
-  const res = useGetBlogHeaderInfo(team);
+  const res = useGetBlogHeaderInfo();
 
   if (!res) return <LoadingLottie width={10} height={10} fit />;
 

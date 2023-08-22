@@ -1,6 +1,4 @@
-import { HeaderProps } from '@/types/blogHeader';
 import { createBlogData } from '@/types/blogInfo';
-import { BlogImgProps } from '@/types/blogMainImg';
 import { Response } from '@/types/common';
 
 import client from '.';
@@ -20,41 +18,37 @@ interface BlogInfoProps {
   description: string;
 }
 
+//블로그 정보 가져오기 - 반영 완
 export const getBlogInfo = async (blogUrl: string) => {
-  const { data } = await client.get<Response<BlogInfoProps>>(`/api/v1/blog?url=${blogUrl}`);
+  const { data } = await client.get<Response<BlogInfoProps>>(`/api/v2/dashboard/blog/admin/info/${blogUrl}`);
   return data;
+  // {{BASE_URL}}/api/v2/dashboard/blog/admin/info/{blogUrl}
 };
 
-// 블로그 url 중복 검사
+// 블로그 url 중복 검사 - 반영 완
 export const getCheckBlogUrlDuplication = async (blogUrl: string) => {
   const { data } = await client.get(`/api/v2/dashboard/blog/check?url=${blogUrl}`);
   return data;
+  // {{BASE_URL}}/api/v2/dashboard/blog/check?url=
 };
 
-//blog header 정보 가져오기
-export const getBlogHeaderInfo = async (blogUrl: string) => {
-  const { data } = await client.get<Response<HeaderProps>>(`/api/v1/blog/${blogUrl}/header`);
-  return data;
-};
-
-// blog 대문 이미지와 한 줄 소개 가져오기
-export const getBlogMainImg = async (blogUrl: string) => {
-  const { data } = await client.get<Response<BlogImgProps>>(`/api/v1/blog/${blogUrl}/thumbnail`);
-  return data;
-};
-
-// 블로그 생성
+// 블로그 생성 - 반영 완
 export const postCreateBlog = async (requestBody: createBlogData) => {
   const { data } = await client.post(`/api/v2/dashboard/blog/create`, requestBody);
   return data;
+  // {{BASE_URL}}/api/v2/dashboard/blog/create
 };
 
+//블로그 수정 - 반영 완
 export const putBlogConfig = async (blogUrl: string, requestBody: BlogConfigRequestBodyProps) => {
-  const { data } = await client.put(`/api/v1/blog/${blogUrl}/admin/modify`, requestBody);
+  const { data } = await client.put(`/api/v2/dashboard/blog/admin/info/${blogUrl}`, requestBody);
   return data;
+  // {{BASE_URL}}/api/v2/dashboard/blog/admin/info/{blogUrl}
 };
 
+//블로그 삭제 - 반영 완
 export const deleteBlog = async (blogUrl: string) => {
-  const { data } = await client.delete<Response<null>>(`/api/v1/blog/${blogUrl}/admin/remove`);
+  const { data } = await client.delete<Response<null>>(`/api/v2/dashboard/blog/admin/remove/${blogUrl}`);
   return data;
+  // {{BASE_URL}}/api/v2/dashboard/blog/admin/remove/{blogUrl}
 };

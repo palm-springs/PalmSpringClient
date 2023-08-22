@@ -5,11 +5,12 @@ import { useParams } from 'next/navigation';
 
 import LoadingLottie from '@/components/common/ui/LoadingLottie';
 import ArticleTemplate from '@/components/content/ui/ArticleTemplate';
-import { useGetContent } from '@/hooks/blog';
-const ContentPage = () => {
-  const { team, articleId } = useParams();
+import { useGetBlogArticleDetail } from '@/hooks/blogHome';
 
-  const res = useGetContent(team, Number(articleId));
+const ContentPage = () => {
+  const { articleId } = useParams();
+
+  const res = useGetBlogArticleDetail(Number(articleId));
 
   if (!res) return <LoadingLottie width={10} height={10} fit />;
 
