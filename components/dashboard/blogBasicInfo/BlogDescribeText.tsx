@@ -64,11 +64,13 @@ const BlogDescribeTitleContainer = styled.div`
 `;
 
 const BlogDescribeContent = styled.span`
+  white-space: nowrap;
   ${({ theme }) => theme.fonts.Caption};
   color: ${({ theme }) => theme.colors.grey_700};
 `;
 
 const BlogDescribeTitle = styled.span`
+  white-space: nowrap;
   ${({ theme }) => theme.fonts.Body2_Semibold};
   color: ${({ theme }) => theme.colors.grey_950};
 `;

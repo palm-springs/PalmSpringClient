@@ -25,5 +25,6 @@ const BlogInfoDeleteButtonContainer = styled.div`
 
 const BlogDeleteButton = styled.p`
   ${({ theme }) => theme.fonts.Body2_Regular};
+  cursor: pointer;
   color: ${({ theme }) => theme.colors.grey_700};
 `;
