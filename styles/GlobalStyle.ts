@@ -37,4 +37,8 @@ a {
         text-decoration: none;
         color: inherit;
       }
+
+*::marker {
+	font-size: 1.8rem;
+}
 `;

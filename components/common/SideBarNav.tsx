@@ -5,14 +5,11 @@ import Link from 'next/link';
 import { useParams } from 'next/navigation';
 import styled from 'styled-components';
 
-import PageBtn from '@/components/blog/PageBtn';
 import { useGetNavList } from '@/hooks/dashboard';
-
-import SubscribeBtn from '../blog/SubscribeBtn';
 
 import LoadingLottie from './ui/LoadingLottie';
 
-const BlogNav = () => {
+const SideBarNav = () => {
   const { team } = useParams();
 
   const res = useGetNavList(team);
@@ -24,28 +21,23 @@ const BlogNav = () => {
     <BlogNavContainer>
       {navList &&
         navList.map(({ navUrl, name, isPage, id }) => (
-          <PageBtn key={navUrl}>
-            {isPage === true ? (
-              <Link href={`/${team}/content/page/${navUrl}/${id}`}>{name}</Link>
-            ) : (
-              <Link href={`https://${navUrl}`}>{name}</Link>
-            )}
-          </PageBtn>
+          <NavBtn key={navUrl} type="button">
+            <Link href={isPage ? `/${team}/content/page/${navUrl}/${id}` : `https://${navUrl}`}>{name}</Link>
+          </NavBtn>
         ))}
-      <SubscribeBtn />
     </BlogNavContainer>
   );
 };
 
-export default BlogNav;
+export default SideBarNav;
 
 const BlogNavContainer = styled.div`
   display: flex;
-  gap: 1.6rem;
+  flex-direction: column;
   align-items: center;
   justify-content: space-between;
 
-  width: auto;
+  width: 26.6rem;
 
   @media screen and (max-width: 768px) {
     position: absolute;
@@ -53,4 +45,11 @@ const BlogNavContainer = styled.div`
     right: 4rem;
     width: 31.6rem;
   }
+`;
+
+const NavBtn = styled.button`
+  ${({ theme }) => theme.mobileFonts.Markdown_H3};
+  padding: 1.2rem 2.4rem;
+  width: 100%;
+  height: 6rem;
 `;

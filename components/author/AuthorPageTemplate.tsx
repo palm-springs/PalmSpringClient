@@ -1,6 +1,7 @@
 'use client';
 
 import React, { useEffect } from 'react';
+import { useMediaQuery } from 'react-responsive';
 import styled from 'styled-components';
 
 import ArticleList from '../common/ArticleList';
@@ -22,17 +23,29 @@ const AuthorPageTemplate = (props: AuthorPageTemplateProps) => {
     window.scrollTo({ top: 0, left: 0, behavior: 'auto' });
   }, []);
 
+  const MOBILE = useMediaQuery({
+    query: '(min-width : 375px) and (max-width:768px)',
+  });
   const {
     authorData: { thumbnail, nickname, job, description, articles },
   } = props;
 
-  return (
-    <AuthorPageTemplateContainer>
-      <AuthorInfo thumbnail={thumbnail} nickname={nickname} job={job} description={description} />
-      <Line />
-      <ArticleList articleList={articles} />
-    </AuthorPageTemplateContainer>
-  );
+  if (MOBILE)
+    return (
+      <AuthorPageTemplateContainer className="mobile">
+        <AuthorInfo thumbnail={thumbnail} nickname={nickname} job={job} description={description} />
+        {articles.length !== 0 && <Line className="mobile" />}
+        <ArticleList articleList={articles} />
+      </AuthorPageTemplateContainer>
+    );
+  else
+    return (
+      <AuthorPageTemplateContainer>
+        <AuthorInfo thumbnail={thumbnail} nickname={nickname} job={job} description={description} />
+        {articles.length !== 0 && <Line />}
+        <ArticleList articleList={articles} />
+      </AuthorPageTemplateContainer>
+    );
 };
 
 export default AuthorPageTemplate;
@@ -42,8 +55,13 @@ const AuthorPageTemplateContainer = styled.section`
   flex-direction: column;
   align-items: center;
 
-  margin: 6rem 0 12rem;
-  min-width: 72rem;
+  padding: 6rem 0 12rem;
+  width: 100vw;
+
+  &.mobile {
+    padding: 6rem 2.4rem 12rem;
+    width: 100vw;
+  }
 `;
 
 const Line = styled.div`
@@ -51,4 +69,8 @@ const Line = styled.div`
   background-color: ${({ theme }) => theme.colors.grey_300};
   width: 72rem;
   height: 1px;
+
+  &.mobile {
+    width: calc(100vw - 4.8rem);
+  }
 `;

@@ -46,5 +46,20 @@ declare module 'styled-components' {
       Button_medium: SerializedStyles;
       Button_small: SerializedStyles;
     };
+    mobileFonts: {
+      Title1: SerializedStyles;
+      Title2: SerializedStyles;
+      Title3: SerializedStyles;
+      Body1_Semibold: SerializedStyles;
+      Body1_Regular: SerializedStyles;
+      Body2_Semibold: SerializedStyles;
+      Body2_Regular: SerializedStyles;
+      Caption: SerializedStyles;
+      Button: SerializedStyles;
+      Markdown_H1: SerializedStyles;
+      Markdown_H2: SerializedStyles;
+      Markdown_H3: SerializedStyles;
+      Code: SerializedStyles;
+    };
   }
 }

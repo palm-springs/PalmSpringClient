@@ -2,6 +2,7 @@
 
 import React, { useEffect } from 'react';
 import toast, { Toaster } from 'react-hot-toast';
+import { useMediaQuery } from 'react-responsive';
 import styled from 'styled-components';
 
 import ContentInfo from '@/components/common/ContentInfo';
@@ -26,6 +27,10 @@ const PageTemplate = (props: ContentTemplateProps) => {
     data: { title, thumbnail, content },
   } = props;
 
+  const MOBILE = useMediaQuery({
+    query: '(min-width : 375px) and (max-width:768px)',
+  });
+
   const notify = () =>
     toast.success('링크가 복사되었습니다', {
       id: 'link copied',
@@ -49,6 +54,32 @@ const PageTemplate = (props: ContentTemplateProps) => {
     }
   };
 
+  const PageMain = () => {
+    if (MOBILE)
+      return (
+        <ContentPageContainer className="mobile">
+          {thumbnail && <PageThumbnail className="mobile" src={thumbnail} alt="page content thumbnail" />}
+          <ContentInfo contentInfoData={{ title }} />
+          <Content content={content} />
+          <LinkBtn className="mobile" type="button" onClick={copyCurrentUrl}>
+            아티클 링크 복사하기
+          </LinkBtn>
+          <Recommend />
+        </ContentPageContainer>
+      );
+    else
+      return (
+        <ContentPageContainer>
+          {thumbnail && <PageThumbnail src={thumbnail} alt="page content thumbnail" />}
+          <ContentInfo contentInfoData={{ title }} />
+          <Content content={content} />
+          <LinkBtn onClick={copyCurrentUrl}>아티클 링크 복사하기</LinkBtn>
+          <Bar />
+          <Recommend />
+        </ContentPageContainer>
+      );
+  };
+
   return (
     <>
       <Toaster
@@ -59,15 +90,7 @@ const PageTemplate = (props: ContentTemplateProps) => {
           bottom: 50,
         }}
       />
-
-      <ContentPageContainer>
-        {thumbnail && <PageThumbnail src={thumbnail} alt="page content thumbnail" />}
-        <ContentInfo contentInfoData={{ title }} />
-        <Content content={content} />
-        <LinkBtn onClick={copyCurrentUrl}>아티클 링크 복사하기</LinkBtn>
-        <Bar />
-        <Recommend />
-      </ContentPageContainer>
+      {PageMain}
     </>
   );
 };
@@ -75,13 +98,20 @@ const PageTemplate = (props: ContentTemplateProps) => {
 export default PageTemplate;
 
 const PageThumbnail = styled.img`
-  object-fit: cover;
   border-radius: 1.6rem;
   width: 72rem;
   height: 40.5rem;
 
   user-select: none;
   -webkit-user-drag: none;
+  object-fit: cover;
+
+  &.mobile {
+    margin-top: 6rem;
+    border-radius: 0;
+    width: 100%;
+    height: 37.5rem;
+  }
 `;
 
 const ContentPageContainer = styled.section`
@@ -90,24 +120,38 @@ const ContentPageContainer = styled.section`
   align-items: center;
 
   margin: 11.8rem 36rem;
-  width: 72rem;
+
+  &.mobile {
+    margin: 0;
+    width: 100vw;
+  }
 `;
 
 const LinkBtn = styled.button`
   ${({ theme }) => theme.fonts.Body3_Semibold};
   align-items: center;
 
+  margin: 6rem 0 5.8rem;
+
   border: none;
   border-radius: 0.8rem;
 
   background-color: ${({ theme }) => theme.colors.grey_200};
-
   padding: 0 1.4rem;
+  min-width: 17.2rem;
   height: 3.2rem;
 
   color: ${({ theme }) => theme.colors.grey_900};
 
   &:hover {
     background-color: ${({ theme }) => theme.colors.grey_400};
+  }
+
+  &.mobile {
+    ${({ theme }) => theme.mobileFonts.Button};
+
+    margin: 4rem 0;
+    padding: 0 2rem;
+    height: 3.6rem;
   }
 `;

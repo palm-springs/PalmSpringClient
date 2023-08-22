@@ -174,9 +174,115 @@ const editor = {
   `,
 };
 
-const theme: Pick<DefaultTheme, 'colors' | 'fonts' | 'editor'> = {
+const mobileFonts = {
+  Title1: css`
+    line-height: 130%;
+    letter-spacing: -0.00375em;
+    font-family: 'Pretendard';
+    font-size: 2.8rem;
+    font-weight: 700;
+    font-style: normal;
+  `,
+  Title2: css`
+    line-height: 130%;
+    letter-spacing: -0.00375em;
+    font-family: 'Pretendard';
+    font-size: 2.2rem;
+    font-weight: 700;
+    font-style: normal;
+  `,
+  Title3: css`
+    line-height: 155%;
+    letter-spacing: -0.0175em;
+    font-family: 'Pretendard';
+    font-size: 2rem;
+    font-weight: 600;
+    font-style: normal;
+  `,
+  Body1_Semibold: css`
+    line-height: 170%;
+    letter-spacing: -0.00375em;
+    font-family: 'Pretendard';
+    font-size: 1.7rem;
+    font-weight: 600;
+    font-style: normal;
+  `,
+  Body1_Regular: css`
+    line-height: 170%;
+    letter-spacing: -0.00375em;
+    font-family: 'Pretendard';
+    font-size: 1.7rem;
+    font-weight: 400;
+    font-style: normal;
+  `,
+  Body2_Semibold: css`
+    line-height: 160%;
+    letter-spacing: -0.003125em;
+    font-family: 'Pretendard';
+    font-size: 1.5rem;
+    font-weight: 600;
+    font-style: normal;
+  `,
+  Body2_Regular: css`
+    line-height: 160%;
+    letter-spacing: -0.003125em;
+    font-family: 'Pretendard';
+    font-size: 1.5rem;
+    font-weight: 400;
+    font-style: normal;
+  `,
+  Caption: css`
+    letter-spacing: 0em;
+    font-family: 'Pretendard';
+    font-size: 1.3rem;
+    font-weight: 400;
+    font-style: normal;
+  `,
+  Button: css`
+    letter-spacing: -0.0025em;
+    font-family: 'Pretendard';
+    font-size: 1.6rem;
+    font-weight: 700;
+    font-style: normal;
+  `,
+  Markdown_H1: css`
+    line-height: 140%;
+    letter-spacing: -0.02em;
+    font-family: 'Pretendard';
+    font-size: 2.6rem;
+    font-weight: 700;
+    font-style: normal;
+  `,
+  Markdown_H2: css`
+    line-height: 155%;
+    letter-spacing: -0.0175em;
+    font-family: 'Pretendard';
+    font-size: 2.4rem;
+    font-weight: 700;
+    font-style: normal;
+  `,
+  Markdown_H3: css`
+    line-height: 155%;
+    letter-spacing: -0.0175em;
+    font-family: 'Pretendard';
+    font-size: 2rem;
+    font-weight: 700;
+    font-style: normal;
+  `,
+  Code: css`
+    line-height: 100%;
+    letter-spacing: 0em;
+    font-family: 'Pretendard';
+    font-size: 1.4em;
+    font-weight: 400;
+    font-style: normal;
+  `,
+};
+
+const theme: Pick<DefaultTheme, 'colors' | 'fonts' | 'editor' | 'mobileFonts'> = {
   colors,
   fonts,
   editor,
+  mobileFonts,
 };
 export default theme;

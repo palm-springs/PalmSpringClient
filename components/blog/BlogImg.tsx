@@ -32,14 +32,11 @@ const BlogImgContainer = styled.div`
   position: relative;
 
   margin-top: 6rem;
-  min-width: 105.6rem;
+  width: 100vw;
   height: 50rem;
 `;
 
 const BlogImgWrapper = styled.div`
-  width: 100%;
-  vertical-align: middle;
-
   & > img {
     width: 100%;
     height: 50rem;

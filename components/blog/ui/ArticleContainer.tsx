@@ -1,6 +1,7 @@
 'use client';
 
 import React, { useEffect } from 'react';
+import { useMediaQuery } from 'react-responsive';
 import { useParams } from 'next/navigation';
 import styled from 'styled-components';
 
@@ -27,6 +28,11 @@ const ArticleContainer = (props: ArticleContainerProps) => {
     window.scrollTo({ top: 0, left: 0, behavior: 'auto' });
   }, []);
   const { team } = useParams();
+
+  const MOBILE = useMediaQuery({
+    query: '(min-width : 375px) and (max-width:768px)',
+  });
+
   const { articleListData, thumbnail, description } = props;
   const FilteredCategoryList = useGetBlogCategoryList(team);
   const CategorySelected = useGetCategory();
@@ -35,9 +41,10 @@ const ArticleContainer = (props: ArticleContainerProps) => {
 
   const LiteralList = getLiteralCategoryList(FilteredCategoryList);
 
+  //데스크탑 뷰
   if (articleListData.length === 0 && thumbnail) {
     if (CategorySelected !== 'home') {
-      //아티클 리스트가 없고 카테고리 선택 안되고 블로그 대문이 있을 때
+      //아티클 리스트가 없고 카테고리 선택 안되어있고 블로그 대문이 있을 때
       return (
         <BlogImgContainer>
           <BlogImg thumbnail={thumbnail} description={description} />
@@ -47,7 +54,7 @@ const ArticleContainer = (props: ArticleContainerProps) => {
         </BlogImgContainer>
       );
     } else {
-      //카테고리 선택됨, 아티클 리스트 없고 블로그 대문 있을 때
+      //아티클 리스트 없고 카테고리 선택되어있고 블로그 대문 있을 때
       return (
         <BlogImgContainer>
           <BlogImg thumbnail={thumbnail} description={description} />
@@ -56,6 +63,29 @@ const ArticleContainer = (props: ArticleContainerProps) => {
     }
   }
 
+  //모바일 뷰
+  if (articleListData.length === 0 && thumbnail && MOBILE) {
+    if (CategorySelected !== 'home') {
+      //아티클 리스트가 없고 카테고리 선택 안되어있고 블로그 대문이 있을 때
+      return (
+        <BlogImgContainer>
+          <BlogImg thumbnail={thumbnail} description={description} />
+          <CategoryBtnWrapper>
+            <CategoryBtnBar LiteralList={LiteralList} />
+          </CategoryBtnWrapper>
+        </BlogImgContainer>
+      );
+    } else {
+      //아티클 리스트 없고 카테고리 선택되어있고 블로그 대문 있을 때
+      return (
+        <BlogImgContainer>
+          <BlogImg thumbnail={thumbnail} description={description} />
+        </BlogImgContainer>
+      );
+    }
+  }
+
+  //데스크탑 뷰
   //아티클 리스트가 없고 블로그 대문이 없을 때
   if (articleListData.length === 0 && !thumbnail)
     return (
@@ -66,7 +96,7 @@ const ArticleContainer = (props: ArticleContainerProps) => {
     );
 
   //아티클 리스트가 있고 블로그 대문이 없을 때
-  if (articleListData.length !== 0 && !thumbnail) return <ArticleListWithThumbnail articleListData={articleListData} />;
+  if (articleListData.length !== 0 && !thumbnail) return <ArticleListWithThumbnail articleList={articleListData} />;
 
   //아티클 리스트가 있고 블로그 대문이 있을 때
   if (articleListData.length !== 0 && thumbnail)
@@ -81,6 +111,36 @@ const ArticleContainer = (props: ArticleContainerProps) => {
         </ArticleWrapper>
       </>
     );
+
+  //모바일 뷰
+  //아티클 리스트가 없고 블로그 대문이 없을 때 -- 완
+  if (articleListData.length === 0 && !thumbnail && MOBILE) {
+    return (
+      <DefaultTextContainer>
+        <DefaultTitle>팜스프링 기술 블로그</DefaultTitle>
+        <DefaultSubText>등록된 글이 없습니다</DefaultSubText>
+      </DefaultTextContainer>
+    );
+  }
+
+  //아티클 리스트가 있고 블로그 대문이 없을 때 -- 완
+  if (articleListData.length !== 0 && !thumbnail && MOBILE) {
+    return <ArticleListWithThumbnail articleList={articleListData} />;
+  }
+  //아티클 리스트가 있고 블로그 대문이 있을 때 -- 완
+  if (articleListData.length !== 0 && thumbnail && MOBILE) {
+    return (
+      <>
+        <BlogImg thumbnail={thumbnail} description={description} />
+        <CategoryBtnWrapper>
+          <CategoryBtnBar LiteralList={LiteralList} />
+        </CategoryBtnWrapper>
+        <ArticleWrapper>
+          <ArticleList articleList={articleListData} />
+        </ArticleWrapper>
+      </>
+    );
+  }
 };
 
 export default ArticleContainer;
@@ -100,13 +160,13 @@ const ArticleWrapper = styled.section`
   align-items: center;
 
   margin-bottom: 11rem;
-  min-width: 105.6rem;
+  width: 100vw;
 `;
 const CategoryBtnWrapper = styled.div`
   display: flex;
   justify-content: center;
 
-  min-width: 105.6rem;
+  width: 100vw;
 `;
 
 const BlogImgContainer = styled.div`
@@ -118,7 +178,9 @@ const DefaultTextContainer = styled.div`
   display: flex;
   flex-direction: column;
   align-items: center;
+  justify-content: center;
 
   padding: 34rem 0 25.6rem;
+  width: 100%;
   height: 70.8rem;
 `;
