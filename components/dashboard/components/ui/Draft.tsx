@@ -14,8 +14,8 @@ const Draft = (props: DraftProps) => {
     return <DraftUI>상태</DraftUI>;
   }
   return (
-    <DraftUI $draft={!draft}>
-      <span>{!draft ? '업로드 완료' : '임시저장'}</span>
+    <DraftUI $draft={draft}>
+      <span>{draft ? '임시 저장' : '업로드 완료'}</span>
     </DraftUI>
   );
 };
@@ -30,7 +30,7 @@ const DraftUI = styled.div<{ $draft?: boolean }>`
   width: 8.1rem;
   overflow: hidden;
   span {
-    border: 1px solid ${({ theme, $draft }) => ($draft ? theme.colors.dark_green : theme.colors.grey_700)};
+    border: 1px solid ${({ theme, $draft }) => ($draft ? theme.colors.grey_700 : theme.colors.dark_green)};
     border-radius: 2rem;
     background: none;
     padding: 0.4rem 0.8rem;
@@ -38,6 +38,6 @@ const DraftUI = styled.div<{ $draft?: boolean }>`
     text-overflow: ellipsis;
     white-space: nowrap;
     ${({ theme }) => theme.fonts.Body3_Regular};
-    color: ${({ theme, $draft }) => ($draft ? theme.colors.dark_green : theme.colors.grey_700)};
+    color: ${({ theme, $draft }) => ($draft ? theme.colors.grey_700 : theme.colors.dark_green)};
   }
 `;
