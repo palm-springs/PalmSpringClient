@@ -21,7 +21,7 @@ const ArticlePublishPage = () => {
       <PublishContainer>
         <ArticlePublishContainer>
           <ThumbnailInput pageType="article" />
-          <PublishTitle pageType="article" blogUrl={team} articleId={1} />
+          <PublishTitle pageType="article" />
           <CategorySelect />
           <OneLiner />
           <UrlCustom pageType="article" isDuplicate={isDuplicate} setIsDuplicate={setIsDuplicate} />
