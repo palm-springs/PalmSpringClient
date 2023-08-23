@@ -318,14 +318,17 @@ const TextEditorBuild = (props: TextEditorBuildprops) => {
       ) : (
         <SaveEditorContentButton
           handleOnClickDraft={
+            //임시저장의 발행하기는 ? 어디임? -> 아 이거 어차피 넘김
             currentState === 'draft'
-              ? handleOnClickPageDraft
+              ? handleOnClickPageDraft // 임시저장의 임시저장
               : currentState === 'edit'
-              ? handleOnClickPageDraft
-              : handleOnClickPageDraft
+              ? handleOnClickPageDraft // 수정하기의 임시저장?
+              : handleOnClickPageDraft // 두 가지 경우가 모두 아닌거
           }
-          handleOnClickPublish={currentState === 'edit' ? handleUpdateGoPagePublish : handleOnClickPagePublish}
-          isEdit={currentState === 'edit' ? true : false}
+          handleOnClickPublish={
+            currentState === 'edit' || currentState === 'draft' ? handleUpdateGoPagePublish : handleOnClickPagePublish
+          }
+          isEdit={currentState === 'edit' ? true : false} // edit이 아닌 경우는 draft 경우임
         />
       )}
     </>

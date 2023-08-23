@@ -21,14 +21,6 @@ const PublishTitle = (props: PublishTitleprops) => {
   const [{ title: articleTitle }, setArticleData] = useRecoilState(articleDataState);
   const [{ title: pageTitle }, setPageData] = useRecoilState(pageDataState);
 
-  console.log(articleTitle);
-  useEffect(() => {
-    if (articleData) {
-      setArticleData((prev) => ({ ...prev, title: articleData.title }));
-    } else if (pageData) {
-      setPageData((prev) => ({ ...prev, title: pageData.title }));
-    }
-  }, []);
   switch (pageType) {
     case `article`:
       return (

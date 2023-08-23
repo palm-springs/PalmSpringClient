@@ -24,11 +24,11 @@ const EditorInputTitle = (props: TextEditorBuildProps) => {
   useEffect(() => {
     if (articleData) {
       setArticleData((prev) => ({ ...prev, title: articleData.title }));
-      console.log(articleTitle);
+      // console.log(articleTitle);
     } else if (pageData) {
       setPageData((prev) => ({ ...prev, title: pageData.title }));
     }
-  }, []);
+  }, [articleData, pageData]);
 
   const handleSaveArticleTitle = (e: ChangeEvent<HTMLTextAreaElement>) => {
     const { value } = e.target;
