@@ -19,8 +19,9 @@ interface TextEditorBuildProps {
 const EditorInputTitle = (props: TextEditorBuildProps) => {
   const { pageType, articleData, pageData } = props;
 
-  const [{ title: articleTitle }, setArticleData] = useRecoilState(articleDataState); // 아티클 초기 타이틀 -> 에디터 초기 필요
-  const [{ title: pageTitle }, setPageData] = useRecoilState(pageDataState); // 페이지 초기 타이틀 -> 에디터 초기 필요
+  const [{ title: articleTitle }, setArticleData] = useRecoilState(articleDataState); // 아티클 초기 타이틀 -> 복사 -> 새로운 title 갈아끼기
+  const [{ title: pageTitle }, setPageData] = useRecoilState(pageDataState);
+
   useEffect(() => {
     if (articleData) {
       setArticleData((prev) => ({ ...prev, title: articleData.title }));
@@ -45,9 +46,7 @@ const EditorInputTitle = (props: TextEditorBuildProps) => {
     case `article`:
       return (
         <EditorInputTitleContainer>
-          <TitleInputBox value={articleTitle} onChange={handleSaveArticleTitle} rows={1}>
-            {/* 이거 defalt atom값으로 집어 넣어야함 */}
-          </TitleInputBox>
+          <TitleInputBox value={articleTitle} onChange={handleSaveArticleTitle} rows={1} />
         </EditorInputTitleContainer>
       );
     case `page`:

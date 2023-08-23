@@ -16,7 +16,7 @@ const PagePublishPage = () => {
     <AuthRequired>
       <PagePublishContainer>
         <ThumbnailInput pageType="page" />
-        <PublishTitle pageType="page" blogUrl={team} articleId={1} />
+        <PublishTitle pageType="page" />
         <UrlCustom pageType="page" isDuplicate={isDuplicate} setIsDuplicate={setIsDuplicate} />
         <PublishBottomButtons pageType="page" isDuplicate={isDuplicate} />
       </PagePublishContainer>

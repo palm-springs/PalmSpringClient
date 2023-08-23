@@ -47,7 +47,6 @@ const ThumbnailInput = (props: ThumbnailInputProps) => {
       } else {
         setPageData((prev) => ({ ...prev, thumbnail }));
       }
-      // setImageSrc(thumbnail); // 이미지 데이터 업데이트
     };
     reader.readAsDataURL(file);
   };
