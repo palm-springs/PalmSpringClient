@@ -60,7 +60,7 @@ interface updateArticleRequest {
   content: string;
   images: string[] | null;
   thumbnail: string;
-  catagoryId: number;
+  categoryId: number;
   description: string | null;
   articleUrl: string;
   isPublish: boolean;

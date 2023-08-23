@@ -7,7 +7,6 @@ import styled from 'styled-components';
 
 import ModalPortal from '@/components/common/ModalPortal';
 import DashboardDeleteModal from '@/components/common/ui/DashboardDeleteModal';
-import { UpdateArticleProps } from '@/types/article';
 
 interface editorProps {
   handleOnClickDraft: () => void;
@@ -42,10 +41,6 @@ const SaveEditorContentButton = (props: editorProps) => {
     notify();
   };
 
-  // const handlePageDraftSaveButton = () => {
-  //   handleOnClickDraft();
-  //   notify();
-  // };
   const modalOpenHandler = () => {
     setIsModal(!isModal);
     document.body.style.overflow = 'hidden';

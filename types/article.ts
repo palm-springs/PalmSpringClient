@@ -40,7 +40,7 @@ export interface UpdateArticleProps {
   content: string;
   images: string[] | null;
   thumbnail: string | null;
-  categoryId?: number;
+  categoryId: number;
   description?: string;
   articleUrl: string;
 }
@@ -51,7 +51,7 @@ export interface UpdateArticleContentProps {
   content: string;
   categoryId: number;
   images: string[] | null;
-  description: string;
+  description?: string;
   thumbnail: string | null;
   articleUrl: string;
 }
