@@ -10,7 +10,6 @@ import { styled } from 'styled-components';
 import ArticleList from '@/components/common/ArticleList';
 import ContentInfo from '@/components/common/ContentInfo';
 import { useGetBlogArticleDetail, useGetBlogCategoryList } from '@/hooks/blogHome';
-import { BlogSampleImg } from '@/public/images';
 import { ArticleData } from '@/types/article';
 import { getLiteralCategoryList } from '@/utils/getLiteralCategoryList';
 
@@ -31,7 +30,7 @@ const ArticleListWithThumbnail = (props: ArticleListWithThumbnailProps) => {
 
   const IndivContentId = articleList[0].id;
   const articleUrl = articleList[0].articleUrl;
-  const res = useGetContent(team, IndivContentId);
+  const res = useGetBlogArticleDetail(team, IndivContentId);
 
   const FilteredCategoryList = useGetBlogCategoryList(team);
 
