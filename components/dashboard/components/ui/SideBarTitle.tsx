@@ -16,6 +16,8 @@ const SideBarTitleContainer = styled.div`
   align-items: center;
 
   justify-content: space-between;
+
+  cursor: pointer;
   padding: 1.2rem 1.6rem;
 
   width: 27rem;
