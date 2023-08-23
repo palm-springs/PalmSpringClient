@@ -46,13 +46,18 @@ const EditorInputTitle = (props: TextEditorBuildProps) => {
     case `article`:
       return (
         <EditorInputTitleContainer>
-          <TitleInputBox value={articleTitle} onChange={handleSaveArticleTitle} rows={1} />
+          <TitleInputBox
+            value={articleTitle}
+            onChange={handleSaveArticleTitle}
+            rows={1}
+            placeholder="제목을 입력해주세요"
+          />
         </EditorInputTitleContainer>
       );
     case `page`:
       return (
         <EditorInputTitleContainer>
-          <TitleInputBox value={pageTitle} onChange={handleSavePageTitle} rows={1} />
+          <TitleInputBox value={pageTitle} onChange={handleSavePageTitle} rows={1} placeholder="제목을 입력해주세요" />
         </EditorInputTitleContainer>
       );
     default:

@@ -44,12 +44,15 @@ const SaveEditorContentButton = (props: editorProps) => {
   const modalOpenHandler = () => {
     setIsModal(!isModal);
     document.body.style.overflow = 'hidden';
-    router.push(`/${team}/dashboard/upload`);
   };
 
   const modalCloseHandler = () => {
     setIsModal(false);
     document.body.style.overflow = 'visible';
+  };
+
+  const modalRealCloseHandler = () => {
+    router.push(`/${team}/dashboard/upload`);
   };
 
   return (
@@ -85,6 +88,7 @@ const SaveEditorContentButton = (props: editorProps) => {
             leftButtonText={'돌아가기'}
             rightButtonText={'나가기'}
             leftHandler={modalCloseHandler}
+            rightHandler={modalRealCloseHandler}
           />
         </ModalPortal>
       )}
