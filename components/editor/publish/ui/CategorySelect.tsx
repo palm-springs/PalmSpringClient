@@ -27,13 +27,16 @@ const CategorySelect = (props: CategorySelectProps) => {
   useEffect(() => {
     if (articleData) {
       setArticleData((prev) => ({ ...prev, categoryId: Number(articleData.categoryId) }));
+      setActiveCategory(String(articleData.categoryId));
     }
   }, []);
 
   const clickActive = (e: React.MouseEvent<HTMLButtonElement>) => {
     if (!data) return;
     const value = e.currentTarget.value;
+
     setActiveCategory(value);
+
     setArticleData((prev) => ({
       ...prev,
       categoryId: Number(value),
