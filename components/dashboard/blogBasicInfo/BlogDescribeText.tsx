@@ -28,7 +28,8 @@ const BlogDescribeText = (props: BlogDescribeTextProps) => {
         $isScrollable={isScrollable}
         value={describeText}
         onChange={(e) => setDescribeText(e.target.value)}
-        placeholder="블로그 설명을 입력하세요"></BlogDescribeTextarea>
+        placeholder="블로그 설명을 입력하세요"
+      />
     </BlogDescribeContainer>
   );
 };
@@ -51,6 +52,9 @@ const BlogDescribeTextarea = styled.textarea<{ $isScrollable: boolean }>`
   overflow-y: ${({ $isScrollable }) => ($isScrollable ? 'auto' : 'hidden')};
   resize: none;
   color: ${({ theme }) => theme.colors.grey_700};
+  &::placeholder {
+    color: ${({ theme }) => theme.colors.grey_600};
+  }
   &:focus {
     outline: none;
     border: 1px solid ${({ theme }) => theme.colors.grey_700};

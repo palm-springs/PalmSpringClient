@@ -83,7 +83,7 @@ const TextInput = styled.input`
   height: 100%;
 
   &::placeholder {
-    color: ${({ theme }) => theme.colors.grey_900};
+    color: ${({ theme }) => theme.colors.grey_600};
   }
 
   &:focus {
