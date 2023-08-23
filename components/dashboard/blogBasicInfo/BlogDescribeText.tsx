@@ -51,7 +51,7 @@ const BlogDescribeTextarea = styled.textarea<{ $isScrollable: boolean }>`
   height: 7.9rem;
   overflow-y: ${({ $isScrollable }) => ($isScrollable ? 'auto' : 'hidden')};
   resize: none;
-  color: ${({ theme }) => theme.colors.grey_700};
+  color: ${({ theme }) => theme.colors.grey_900};
   &::placeholder {
     color: ${({ theme }) => theme.colors.grey_600};
   }

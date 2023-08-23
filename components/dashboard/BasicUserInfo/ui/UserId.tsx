@@ -16,28 +16,26 @@ interface UserIdCheckProps {
 const UserId = (props: UserIdCheckProps) => {
   const { isDuplicate, setIsDuplicate } = props; //구조 분해 할당
   const { team } = useParams();
-
-  const [userId, setUserId] = useState('');
   const [isUserIdFocus, setIsUserIdFocus] = useState(false);
   const basicUserData = useGetUserBasicInfo(team);
+  const [userId, setUserId] = useState(basicUserData?.data.registerId ?? 'SET ID');
   if (!basicUserData) return;
 
   const handleOnChange = (e: React.ChangeEvent<HTMLInputElement>) => {
     const { value } = e.currentTarget;
     setUserId(value);
   };
+
   return (
     <UserIdContainer>
       <UserIdTitle>ID</UserIdTitle>
       <InputWidthContainer>
         <IdInputForm isFocus={isUserIdFocus} isDuplicate={isDuplicate}>
-          <div>@/{team}/author/</div>
           <TextInput
             onFocus={() => setIsUserIdFocus(true)}
             onBlur={() => setIsUserIdFocus(false)}
             value={userId}
             onChange={handleOnChange}
-            placeholder={basicUserData.data.registerId}
           />
 
           {isDuplicate === null && userId !== '' && <Loader01Icon />}
@@ -71,16 +69,17 @@ const UserIdTitle = styled.span`
   ${({ theme }) => theme.fonts.Body2_Semibold};
   margin: 1rem 15rem 0.8rem 0;
   white-space: nowrap;
-  color: ${({ theme }) => theme.colors.grey_950};
+  color: ${({ theme }) => theme.colors.grey_900};
 `;
 
 const TextInput = styled.input`
-  ${({ theme }) => theme.fonts.Body2_Regular};
   border: none;
 
   padding: 0;
   width: 100%;
   height: 100%;
+  ${({ theme }) => theme.fonts.Body2_Regular};
+  color: ${({ theme }) => theme.colors.grey_900};
 
   &::placeholder {
     color: ${({ theme }) => theme.colors.grey_600};
