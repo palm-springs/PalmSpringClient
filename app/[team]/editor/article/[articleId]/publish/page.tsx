@@ -58,7 +58,7 @@ const UpdateArticlePublishPage = (props: Publishprops) => {
               <PublishBottomButtons
                 pageType="article"
                 isDuplicate={isDuplicate}
-                isEdit={currentState === 'edit' ? true : false}
+                isEdit={currentState === 'draft' ? true : false}
               />
             </>
           )}

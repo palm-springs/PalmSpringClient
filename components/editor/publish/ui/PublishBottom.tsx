@@ -157,7 +157,7 @@ const PublishBottomButtons = (props: PublishBottomButtons) => {
             ) : (
               <PublishButton
                 type="button"
-                onClick={handleOnClickPagePublish}
+                onClick={isEdit ? handleTempPageUpdatePublish : handleOnClickPagePublish}
                 disabled={pageUrl === '' || isDuplicate || isDuplicate === null}>
                 글 발행하기
               </PublishButton>
