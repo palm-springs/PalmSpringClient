@@ -30,4 +30,5 @@ const BasicUserInfoContainer = styled.div`
   display: flex;
   flex-direction: column;
   margin-left: 7.2rem;
+  overflow-y: scroll;
 `;
