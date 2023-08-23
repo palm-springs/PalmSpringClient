@@ -2,6 +2,7 @@ import { useQuery } from '@tanstack/react-query';
 
 import {
   getBlogArticleDetail,
+  getBlogArticleList,
   getBlogAuthorDetail,
   getBlogCategoryList,
   getBlogHeaderInfo,
@@ -14,11 +15,18 @@ const QUERY_KEY_BLOG = {
   getBlogCategoryList: 'getBlogCategoryList',
   getBlogPageDetail: 'getBlogPageDetail',
   getBlogAuthorDetail: 'getBlogAuthorDetail',
+  getBlogArticleList: 'getBlogArticleList',
 };
 
 //블로그용 헤더 가져오기
 export const useGetBlogHeaderInfo = (blogUrl: string) => {
   const { data } = useQuery([QUERY_KEY_BLOG.getBlogHeaderInfo], () => getBlogHeaderInfo(blogUrl));
+  return data;
+};
+
+//블로그용 아티클 리스트 가져오기
+export const useGetBlogArticleList = (blogUrl: string, categoryId: string | null) => {
+  const { data } = useQuery([QUERY_KEY_BLOG.getBlogArticleList], () => getBlogArticleList(blogUrl, categoryId));
   return data;
 };
 
