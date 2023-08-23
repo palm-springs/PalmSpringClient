@@ -19,8 +19,8 @@ interface TextEditorBuildProps {
 const EditorInputTitle = (props: TextEditorBuildProps) => {
   const { pageType, articleData, pageData } = props;
 
-  const [{ title: articleTitle }, setArticleData] = useRecoilState(articleDataState); // 아티클 초기 타이틀 -> 에디터 초기 필요
-  const [{ title: pageTitle }, setPageData] = useRecoilState(pageDataState); // 페이지 초기 타이틀 -> 에디터 초기 필요
+  const [{ title: articleTitle }, setArticleData] = useRecoilState(articleDataState); // 아티클 초기 타이틀 -> 복사 -> 새로운 title 갈아끼기
+  const [{ title: pageTitle }, setPageData] = useRecoilState(pageDataState);
   useEffect(() => {
     if (articleData) {
       setArticleData((prev) => ({ ...prev, title: articleData.title }));

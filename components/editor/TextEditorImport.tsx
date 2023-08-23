@@ -32,9 +32,9 @@ lowlight.registerLanguage('css', css);
 lowlight.registerLanguage('js', js);
 lowlight.registerLanguage('ts', ts);
 
-import { useRecoilState, useRecoilValue } from 'recoil';
-import { styled } from 'styled-components';
+import { useRecoilState } from 'recoil';
 
+// import { styled } from 'styled-components';
 import { getUpdateArticleContent, postArticleList } from '@/api/article';
 import { postPageDraft } from '@/api/page';
 import TextEditor from '@/components/editor/TextEditor';
@@ -44,7 +44,7 @@ import { UpdateArticleContentProps, UpdateArticleProps } from '@/types/article';
 import { UpdatePageProps } from '@/types/page';
 import { getImageMultipartData } from '@/utils/getImageMultipartData';
 
-import { articleDataState, newArticleDataState, pageDataState, pageTitleState } from './states/atom';
+import { articleDataState, pageDataState } from './states/atom';
 interface TextEditorBuildprops {
   pageType: string;
   currentState?: string;
@@ -55,15 +55,9 @@ interface TextEditorBuildprops {
 const TextEditorBuild = (props: TextEditorBuildprops) => {
   const { pageType, currentState, articleData, pageData } = props;
   const { team, articleId, pageId } = useParams();
-  const [{ title }, setArticleData] = useRecoilState(articleDataState);
-  const [{ title: pageTitle }, setPageData] = useRecoilState(pageDataState);
-  const [pageNewTitle, setPageNewTitle] = useRecoilState(pageTitleState);
 
-  // const pageNewTitle = useRecoilValue(pageTitleState);
-  console.log(pageNewTitle);
-  const [{ title: newArticleTitle }, setNewArticleData] = useRecoilState(newArticleDataState);
-  const [updatedArticleData, setUpdatedArticleData] = useRecoilState(newArticleDataState);
-  // const updateArticleMutation = useUpdateArticleContent(team);
+  const [{ title: articleTitle }, setArticleData] = useRecoilState(articleDataState); // 아티클 초기 타이틀 -> 복사 -> 새로운 title 갈아끼기
+  const [{ title: pageTitle }, setPageData] = useRecoilState(pageDataState);
 
   const [, setImageSrc] = useState('');
   const [extractedHTML, setExtractedHTML] = useState<string>('');
@@ -192,9 +186,9 @@ const TextEditorBuild = (props: TextEditorBuildprops) => {
       setExtractedHTML(content);
 
       if (imageArr.length === 0) {
-        postArticleList(team, { title, content, images: [] });
+        postArticleList(team, { title: articleTitle, content, images: [] });
       } else {
-        postArticleList(team, { title, content, images: imageArr });
+        postArticleList(team, { title: articleTitle, content, images: imageArr });
       }
     }
   };
@@ -227,9 +221,9 @@ const TextEditorBuild = (props: TextEditorBuildprops) => {
       setExtractedHTML(content);
 
       if (imageArr.length === 0) {
-        setArticleData((prev) => ({ ...prev, title, content, images: [] }));
+        setArticleData((prev) => ({ ...prev, title: articleTitle, content, images: [] }));
       } else {
-        setArticleData((prev) => ({ ...prev, title, content, images: imageArr }));
+        setArticleData((prev) => ({ ...prev, title: articleTitle, content, images: imageArr }));
       }
       router.push(`/${team}/editor/article/publish`);
     }
@@ -256,25 +250,22 @@ const TextEditorBuild = (props: TextEditorBuildprops) => {
       const newContent = editor.getHTML();
       setExtractedHTML(newContent);
 
-      if (imageArr.length === 0) {
-        setUpdatedArticleData((prevData) => ({
-          ...prevData,
-          title: newArticleTitle,
-          content: newContent,
-          images: [],
-        }));
-      } else {
-        setUpdatedArticleData((prevData) => ({
-          ...prevData,
-          title: newArticleTitle,
-          content: newContent,
-          images: imageArr,
-        }));
-      }
+      // if (imageArr.length === 0) {
+      //   setUpdatedArticleData((prevData) => ({
+      //     ...prevData,
+      //     title: newArticleTitle,
+      //     content: newContent,
+      //     images: [],
+      //   }));
+      // } else {
+      //   setUpdatedArticleData((prevData) => ({
+      //     ...prevData,
+      //     title: newArticleTitle,
+      //     content: newContent,
+      //     images: imageArr,
+      //   }));
+      // }
 
-      // updateArticleMutation.mutate(updatedArticleData);
-      console.log(updatedArticleData);
-      console.log(imageArr);
       router.push(`/${team}/editor/article/edit/${articleId}/publish`);
     }
   };
@@ -288,22 +279,19 @@ const TextEditorBuild = (props: TextEditorBuildprops) => {
       if (imageArr.length === 0) {
         setPageData((prevData) => ({
           ...prevData,
-          title: pageNewTitle,
+          title: pageTitle,
           content: newContent,
           images: [],
         }));
       } else {
         setPageData((prevData) => ({
           ...prevData,
-          title: pageNewTitle,
+          title: pageTitle,
           content: newContent,
           images: imageArr,
         }));
       }
 
-      // updateArticleMutation.mutate(updatedArticleData);
-      // console.log(updatedArticleData);
-      // console.log(imageArr);
       router.push(`/${team}/editor/page/${pageId}/publish`);
     }
   };
