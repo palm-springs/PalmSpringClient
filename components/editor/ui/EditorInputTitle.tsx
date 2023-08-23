@@ -25,8 +25,6 @@ const EditorInputTitle = (props: TextEditorBuildProps) => {
   useEffect(() => {
     if (articleData) {
       setArticleData((prev) => ({ ...prev, title: articleData.title }));
-    } else if (pageData) {
-      setPageData((prev) => ({ ...prev, title: pageData.title }));
     }
   }, []);
 
@@ -40,8 +38,6 @@ const EditorInputTitle = (props: TextEditorBuildProps) => {
     setPageData((prev) => ({ ...prev, title: value }));
   };
 
-  // currentState가 edit 이고 데이터가 있으면 title (updateTitle)이 보여지고
-  // 아니라면 기존의 빈 타이틀이 저장된다.
   switch (pageType) {
     case `article`:
       return (

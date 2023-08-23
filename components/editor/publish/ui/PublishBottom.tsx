@@ -53,7 +53,7 @@ const PublishBottomButtons = (props: PublishBottomButtons) => {
       ...updatedArticleData,
       id: Number(articleId),
     });
-    resetPageData();
+    resetArticleData();
     router.push(`/${team}/dashboard/page`);
   };
 

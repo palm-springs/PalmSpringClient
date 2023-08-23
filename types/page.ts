@@ -30,3 +30,13 @@ export interface UpdatePageContentProps {
   images: string[] | null;
   pageUrl: string;
 }
+
+export interface UpdateTempPageDraftProps {
+  id: number;
+  title: string;
+  content: string;
+  images: string[] | null;
+  thumbnail: string | null;
+  pageUrl: string;
+  isPublish: boolean;
+}
