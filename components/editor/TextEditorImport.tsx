@@ -34,7 +34,6 @@ lowlight.registerLanguage('ts', ts);
 
 import { useRecoilState } from 'recoil';
 
-// import { styled } from 'styled-components';
 import { getUpdateArticleContent, postArticleList } from '@/api/article';
 import { postPageDraft } from '@/api/page';
 import TextEditor from '@/components/editor/TextEditor';
@@ -249,8 +248,6 @@ const TextEditorBuild = (props: TextEditorBuildprops) => {
     if (editor) {
       const newContent = editor.getHTML();
       setExtractedHTML(newContent);
-
-      console.log(articleTitle); // 수정전 타이틀 뜸
 
       if (imageArr.length === 0) {
         setArticleData((prevData) => ({

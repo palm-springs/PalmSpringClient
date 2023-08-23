@@ -25,7 +25,6 @@ const ThumbnailInput = (props: ThumbnailInputProps) => {
 
   useEffect(() => {
     if (articleData) {
-      console.log(articleThumbnail);
       setArticleData((prev) => ({ ...prev, thumbnail: articleData.thumbnail }));
     } else if (pageData) {
       setPageData((prev) => ({ ...prev, thumbnail: pageData.thumbnail }));

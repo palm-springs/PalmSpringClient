@@ -9,7 +9,6 @@ import { useGetCategoryList } from '@/hooks/dashboard';
 import { EssentialCircleIcon } from '@/public/icons';
 import { UpdateArticleProps } from '@/types/article';
 
-// import { getLiteralCategoryList } from '@/utils/getLiteralCategoryList';
 import { articleDataState } from '../../states/atom';
 
 interface CategorySelectProps {
