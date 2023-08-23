@@ -11,12 +11,13 @@ import DashboardDeleteModal from '@/components/common/ui/DashboardDeleteModal';
 interface editorProps {
   handleOnClickDraft: () => void;
   handleOnClickPublish: () => void;
-  isEdit: boolean;
+  isEdit?: boolean;
+  currentState?: string;
 }
 
 const SaveEditorContentButton = (props: editorProps) => {
   const [isModal, setIsModal] = useState(false);
-  const { handleOnClickDraft, handleOnClickPublish, isEdit } = props;
+  const { handleOnClickDraft, handleOnClickPublish, isEdit, currentState } = props;
   const { team } = useParams();
   const router = useRouter();
 
@@ -70,10 +71,13 @@ const SaveEditorContentButton = (props: editorProps) => {
           <ExitButton type="button" onClick={modalOpenHandler}>
             나가기
           </ExitButton>
-          <TemporarySaveButton type="button" onClick={handleDraftSaveButton}>
-            임시저장
-          </TemporarySaveButton>
-
+          {isEdit ? (
+            <NoneTemporary type="button" />
+          ) : (
+            <TemporarySaveButton type="button" onClick={handleDraftSaveButton}>
+              임시저장
+            </TemporarySaveButton>
+          )}
           <SaveButton type="button" onClick={handleOnClickPublish}>
             {isEdit ? '수정하기' : '발행하기'}
           </SaveButton>
@@ -124,6 +128,13 @@ const ExitButton = styled.button`
     width: 8.2rem;
     height: 3.6rem;
   }
+`;
+
+const NoneTemporary = styled.button`
+  margin-left: 48.5rem;
+  padding: 1rem 2rem;
+  width: 9.6rem;
+  height: 3.6rem;
 `;
 
 const TemporarySaveButton = styled.button`

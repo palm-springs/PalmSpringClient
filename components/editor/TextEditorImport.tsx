@@ -383,12 +383,12 @@ const TextEditorBuild = (props: TextEditorBuildprops) => {
           handleOnClickDraft={
             //임시저장의 발행하기는 ? 어디임? -> 아 이거 어차피 넘김
             currentState === 'draft'
-              ? handleTempPageDraft // 임시저장의 임시저장
-              : handleOnClickPageDraft // 두 가지 경우가 모두 아닌거
+              ? handleTempPageDraft
+              : currentState === 'edit'
+              ? handleOnClickPageDraft
+              : handleOnClickPageDraft
           }
-          handleOnClickPublish={
-            currentState === 'edit' || currentState === 'draft' ? handleUpdateGoPagePublish : handleOnClickPagePublish
-          }
+          handleOnClickPublish={currentState === 'edit' ? handleUpdateGoPagePublish : handleOnClickPagePublish}
           isEdit={currentState === 'edit' ? true : false} // edit이 아닌 경우는 draft 경우임
         />
       )}
