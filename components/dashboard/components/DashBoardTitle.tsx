@@ -26,11 +26,9 @@ const DashBoardTitle = (props: DashBoardTitleProps) => {
   return (
     <>
       <SymbolIcon />
-      <SideBarTitle>
+      <SideBarTitle onBlogListSelectorClick={() => setIsBlogListOpen((prev) => !prev)}>
         {title ?? '블로그가 없어요.'}
-        <button type="button" onClick={() => setIsBlogListOpen((prev) => !prev)}>
-          <ArrowDownIcon />
-        </button>
+        <ArrowDownIcon />
       </SideBarTitle>
     </>
   );
