@@ -1,6 +1,5 @@
 'use client';
 import { useParams } from 'next/navigation';
-import { RecoilRoot } from 'recoil';
 import styled from 'styled-components';
 
 import AuthRequired from '@/components/auth/AuthRequired';
@@ -12,7 +11,6 @@ import { TextEditorStyle } from '@/styles/TextEditorStyle';
 const DraftPagePage = () => {
   const { pageId } = useParams();
   const updatePageEditContents = useGetUpdatePageContent(Number(pageId)); // number 값 articleId로 바꿀거이
-  // console.log(updateArticleEditContents.data.content);
 
   return (
     <AuthRequired>
@@ -20,10 +18,10 @@ const DraftPagePage = () => {
         <ArticleWrapper className="ProseMirror">
           {/* 데이터가 content 있는 페이지 */}
           {updatePageEditContents && (
-            <EditorInputTitle pageType="page" currentState="draft" articleData={updatePageEditContents.data} />
-          )}
-          {updatePageEditContents && (
-            <TextEditorBuild pageType="page" currentState="draft" articleData={updatePageEditContents.data} />
+            <>
+              <EditorInputTitle pageType="page" currentState="draft" articleData={updatePageEditContents.data} />
+              <TextEditorBuild pageType="page" currentState="draft" articleData={updatePageEditContents.data} />
+            </>
           )}
         </ArticleWrapper>
       </TextEditorStyle>

@@ -10,18 +10,18 @@ import { TextEditorStyle } from '@/styles/TextEditorStyle';
 
 const DraftArticlePage = () => {
   const { articleId } = useParams();
-  const updateArticleEditContents = useGetUpdateArticleContent(Number(articleId)); // number 값 articleId로 바꿀거이
-  // console.log(updateArticleEditContents.data.content);
+  const updateArticleEditContents = useGetUpdateArticleContent(Number(articleId));
+
   return (
     <AuthRequired>
       <TextEditorStyle>
         <ArticleWrapper className="ProseMirror">
           {/* 데이터가 content 있는 페이지 */}
           {updateArticleEditContents && (
-            <EditorInputTitle pageType="article" currentState="draft" articleData={updateArticleEditContents.data} />
-          )}
-          {updateArticleEditContents && (
-            <TextEditorBuild pageType="article" currentState="draft" articleData={updateArticleEditContents.data} />
+            <>
+              <EditorInputTitle pageType="article" currentState="draft" articleData={updateArticleEditContents.data} />
+              <TextEditorBuild pageType="article" currentState="draft" articleData={updateArticleEditContents.data} />
+            </>
           )}
         </ArticleWrapper>
       </TextEditorStyle>
