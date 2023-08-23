@@ -6,25 +6,19 @@ name: deploy
 on:
   # Triggers the workflow on push or pull request events but only for the main branch
   push:
-    branches:
-      - develop
+    branches: [ master, develop ]
 
 # A workflow run is made up of one or more jobs that can run sequentially or in parallel
 jobs:
   SSH:
     runs-on: ubuntu-latest
-
+    if: contains(github.event.head_commit.message, 'subdomain')
     steps:
 
       - name: Checkout
         uses: actions/checkout@master
         with:
           persist-credentials: false
-
-      - name: Install and Build
-        uses: actions/setup-node@master
-      - run: yarn install
-      - run: yarn build
 
       - name: Get Github action IP
         id: ip
@@ -44,15 +38,6 @@ jobs:
          AWS_ACCESS_KEY_ID: ${{ secrets.AWS_ACCESS_KEY_ID }}
          AWS_SECRET_ACCESS_KEY: ${{ secrets.AWS_SECRET_ACCESS_KEY }}
          AWS_DEFAULT_REGION: ap-northeast-2
-
-      - name: copy file via ssh password
-        uses: appleboy/scp-action@v0.1.4
-        with:
-          host: ${{ secrets.HOST }}
-          username: ${{ secrets.USER }}
-          password: ${{ secrets.INSTANCE_PWD }}
-          source: ".next/*"
-          target: "palmspring-client/PalmSpringClient/.next"
       
       - name: Run scripts in server
         uses: appleboy/ssh-action@v0.1.6
@@ -66,6 +51,7 @@ jobs:
             git fetch --all
             git reset --hard origin/develop
             yarn
+            yarn build
             pm2 stop 0
             pm2 start yarn -- start
 
