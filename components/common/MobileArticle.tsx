@@ -18,7 +18,7 @@ const MobileArticle = (props: ArticleProps) => {
   } = props;
 
   return (
-    <ArticleContainer href={`/${team}/content/article/${articleUrl}/${id}`}>
+    <ArticleContainer href={`/content/article/${articleUrl}/${id}`}>
       {thumbnail && <ArticleThumbnail src={thumbnail} alt="Article Thumbnail" />}
       <ArticleInfo>
         <EditorInputTitle className="title">{title}</EditorInputTitle>

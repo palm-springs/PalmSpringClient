@@ -20,7 +20,7 @@ const Article = (props: ArticleProps) => {
   } = props;
 
   return (
-    <ArticleContainer href={`/${team}/content/article/${articleUrl}/${id}`} className={noHover ? '' : 'hover'}>
+    <ArticleContainer href={`/content/article/${articleUrl}/${id}`} className={noHover ? '' : 'hover'}>
       <ArticleInfo>
         <EditorInputTitle className="title">{title}</EditorInputTitle>
         <ArticleDescription className="description">{description}</ArticleDescription>

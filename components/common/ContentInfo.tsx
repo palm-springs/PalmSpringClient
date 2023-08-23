@@ -60,7 +60,7 @@ const ContentInfo = (props: ContentInfoProps) => {
           </ContentDetailBox>
         ) : (
           <ContentDetailBox>
-            <Link href={`/${team}/content/article/${articleUrl}/${IndivContentId}`}>
+            <Link href={`/content/article/${articleUrl}/${IndivContentId}`}>
               <TitleBox className="mobile">{title}</TitleBox>
               {description && <DescriptionBox className="mobile">{description}</DescriptionBox>}
             </Link>
@@ -92,7 +92,7 @@ const ContentInfo = (props: ContentInfoProps) => {
           </ContentDetailBox>
         ) : (
           <ContentDetailBox>
-            <Link href={`/${team}/content/article/${articleUrl}/${IndivContentId}`}>
+            <Link href={`/content/article/${articleUrl}/${IndivContentId}`}>
               <TitleBox>{title}</TitleBox>
               {description && <DescriptionBox>{description}</DescriptionBox>}
             </Link>

@@ -45,7 +45,7 @@ const ArticleListWithThumbnail = (props: ArticleListWithThumbnailProps) => {
       <>
         <ContentInfoContainer>
           {contentListData && contentListData.thumbnail && (
-            <Link href={`/${team}/content/article/${articleUrl}/${IndivContentId}`}>
+            <Link href={`/content/article/${articleUrl}/${IndivContentId}`}>
               <Image src={contentListData.thumbnail} alt="blog thumbnail" />
             </Link>
           )}
@@ -64,7 +64,7 @@ const ArticleListWithThumbnail = (props: ArticleListWithThumbnailProps) => {
       <>
         <ContentInfoContainer>
           {contentListData && contentListData.thumbnail && (
-            <Link href={`/${team}/content/article/${articleUrl}/${IndivContentId}`}>
+            <Link href={`/content/article/${articleUrl}/${IndivContentId}`}>
               <Image src={contentListData.thumbnail} alt="blog thumbnail" />
             </Link>
           )}
