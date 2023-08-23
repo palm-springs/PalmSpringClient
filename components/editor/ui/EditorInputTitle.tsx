@@ -21,10 +21,12 @@ const EditorInputTitle = (props: TextEditorBuildProps) => {
 
   const [{ title: articleTitle }, setArticleData] = useRecoilState(articleDataState); // 아티클 초기 타이틀 -> 복사 -> 새로운 title 갈아끼기
   const [{ title: pageTitle }, setPageData] = useRecoilState(pageDataState);
-
+  console.log(pageData);
   useEffect(() => {
     if (articleData) {
       setArticleData((prev) => ({ ...prev, title: articleData.title }));
+    } else if (pageData) {
+      setPageData((prev) => ({ ...prev, title: pageData.title }));
     }
   }, []);
 

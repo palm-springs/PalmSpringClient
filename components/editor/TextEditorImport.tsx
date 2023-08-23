@@ -360,7 +360,7 @@ const TextEditorBuild = (props: TextEditorBuildprops) => {
       router.push(`/${team}/editor/page/${pageId}/publish`);
     }
   };
-
+  console.log(pageTitle, '지나떠란어라ㅣㄴ어라ㅣㅓㄴㅇ');
   return (
     <>
       <ToolBox editor={editor} encodeFileToBase64={encodeFileToBase64} setLink={setLink} />
