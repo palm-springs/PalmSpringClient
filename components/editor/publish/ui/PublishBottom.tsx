@@ -37,24 +37,28 @@ const PublishBottomButtons = (props: PublishBottomButtons) => {
   const resetArticleData = useResetRecoilState(articleDataState);
   const resetPageData = useResetRecoilState(pageDataState);
 
+  //아티클 최종 발행하기
   const handleOnClickArticlePublish = () => {
     postArticleCreateList(team, articleData);
     resetArticleData();
     router.push(`/${team}/dashboard/upload`);
   };
 
+  //페이지 최종 발행하기
   const handleOnClickPagePublish = () => {
     postPageCreate(team, pageData);
     resetPageData();
     router.push(`/${team}/dashboard/page`);
   };
 
+  //페이지 최종 수정하기 버튼
   const handleOnClickUpdatePagePublish = () => {
     updatePageMutation.mutate({ ...updatedPageData, id: Number(pageId) });
     resetPageData();
     router.push(`/${team}/dashboard/page`);
   };
 
+  // 뒤로가기 -> 전페이지로 바꾸는 걸로 바꾸기
   const handleBackArticleButton = () => {
     router.push(`/${team}/editor/article`);
   };

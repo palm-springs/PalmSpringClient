@@ -25,6 +25,7 @@ const ThumbnailInput = (props: ThumbnailInputProps) => {
 
   useEffect(() => {
     if (articleData) {
+      console.log(articleThumbnail);
       setArticleData((prev) => ({ ...prev, thumbnail: articleData.thumbnail }));
     } else if (pageData) {
       setPageData((prev) => ({ ...prev, thumbnail: pageData.thumbnail }));
@@ -47,7 +48,6 @@ const ThumbnailInput = (props: ThumbnailInputProps) => {
       } else {
         setPageData((prev) => ({ ...prev, thumbnail }));
       }
-      // setImageSrc(thumbnail); // 이미지 데이터 업데이트
     };
     reader.readAsDataURL(file);
   };

@@ -1,5 +1,5 @@
 'use client';
-import React, { useState } from 'react';
+import React, { useEffect, useState } from 'react';
 import { useParams } from 'next/navigation';
 import { useRecoilState } from 'recoil';
 import styled from 'styled-components';
@@ -8,8 +8,8 @@ import LoadingLottie from '@/components/common/ui/LoadingLottie';
 import { useGetCategoryList } from '@/hooks/dashboard';
 import { EssentialCircleIcon } from '@/public/icons';
 import { UpdateArticleProps } from '@/types/article';
-import { getLiteralCategoryList } from '@/utils/getLiteralCategoryList';
 
+// import { getLiteralCategoryList } from '@/utils/getLiteralCategoryList';
 import { articleDataState } from '../../states/atom';
 
 interface CategorySelectProps {
@@ -23,7 +23,12 @@ const CategorySelect = (props: CategorySelectProps) => {
   const { team } = useParams();
 
   const data = useGetCategoryList(team);
-  console.log(data);
+
+  useEffect(() => {
+    if (articleData) {
+      setArticleData((prev) => ({ ...prev, categoryId: Number(articleData.categoryId) }));
+    }
+  }, []);
 
   const clickActive = (e: React.MouseEvent<HTMLButtonElement>) => {
     if (!data) return;
@@ -38,8 +43,6 @@ const CategorySelect = (props: CategorySelectProps) => {
   if (!data) {
     return <LoadingLottie width={4} height={4} fit />;
   }
-
-  // const CATEGORY_LIST = getLiteralCategoryList(data);
 
   return (
     <CategContainer>

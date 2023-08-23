@@ -244,34 +244,34 @@ const TextEditorBuild = (props: TextEditorBuildprops) => {
     }
   };
 
-  //article 수정시 !
-  const handleUpdateArticleContent = () => {
+  //article 수정시 발행하기로 내용가지고 이동
+  const handleUpdateGoArticlePublish = () => {
     if (editor) {
       const newContent = editor.getHTML();
       setExtractedHTML(newContent);
 
-      // if (imageArr.length === 0) {
-      //   setUpdatedArticleData((prevData) => ({
-      //     ...prevData,
-      //     title: newArticleTitle,
-      //     content: newContent,
-      //     images: [],
-      //   }));
-      // } else {
-      //   setUpdatedArticleData((prevData) => ({
-      //     ...prevData,
-      //     title: newArticleTitle,
-      //     content: newContent,
-      //     images: imageArr,
-      //   }));
-      // }
+      if (imageArr.length === 0) {
+        setArticleData((prevData) => ({
+          ...prevData,
+          title: articleTitle,
+          content: newContent,
+          images: [],
+        }));
+      } else {
+        setArticleData((prevData) => ({
+          ...prevData,
+          title: articleTitle,
+          content: newContent,
+          images: imageArr,
+        }));
+      }
 
-      router.push(`/${team}/editor/article/edit/${articleId}/publish`);
+      router.push(`/${team}/editor/article/${articleId}/publish`);
     }
   };
 
   // 페이지 수정시 발행페이지 이동
-  const handleUpdatePageContent = () => {
+  const handleUpdateGoPagePublish = () => {
     if (editor) {
       const newContent = editor.getHTML();
       setExtractedHTML(newContent);
@@ -310,7 +310,7 @@ const TextEditorBuild = (props: TextEditorBuildprops) => {
               ? handleOnClickArticleDraft
               : handleOnClickArticleDraft
           }
-          handleOnClickPublish={currentState === 'edit' ? handleOnClickArticlePublish : handleOnClickArticlePublish}
+          handleOnClickPublish={currentState === 'edit' ? handleUpdateGoArticlePublish : handleOnClickArticlePublish}
           isEdit={currentState === 'edit' ? true : false}
         />
       ) : (
@@ -322,7 +322,7 @@ const TextEditorBuild = (props: TextEditorBuildprops) => {
               ? handleOnClickPageDraft
               : handleOnClickPageDraft
           }
-          handleOnClickPublish={currentState === 'edit' ? handleUpdatePageContent : handleOnClickPagePublish}
+          handleOnClickPublish={currentState === 'edit' ? handleUpdateGoPagePublish : handleOnClickPagePublish}
           isEdit={currentState === 'edit' ? true : false}
         />
       )}

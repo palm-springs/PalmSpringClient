@@ -13,9 +13,9 @@ import UrlCustom from '@/components/editor/publish/ui/UrlCustom';
 import { useGetUpdateArticleContent } from '@/hooks/editor';
 
 const UpdateArticlePublishArticle = () => {
-  const { team, ArticleId } = useParams();
+  const { team, articleId } = useParams();
   const [isDuplicate, setIsDuplicate] = useState<boolean | null>(false);
-  const updateArticleEditContents = useGetUpdateArticleContent(Number(ArticleId)); // number 값 ArticleId로 바꿀거이
+  const updateArticleEditContents = useGetUpdateArticleContent(Number(articleId)); // number 값 ArticleId로 바꿀거이
 
   return (
     <AuthRequired>
