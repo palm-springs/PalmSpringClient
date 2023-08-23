@@ -15,7 +15,7 @@ import OrderedList from '@tiptap/extension-ordered-list';
 import Placeholder from '@tiptap/extension-placeholder';
 import Strike from '@tiptap/extension-strike';
 import Underline from '@tiptap/extension-underline';
-import { Editor, useEditor } from '@tiptap/react';
+import { Content, Editor, useEditor } from '@tiptap/react';
 import StarterKit from '@tiptap/starter-kit';
 import js from 'highlight.js/lib/languages/javascript';
 import ts from 'highlight.js/lib/languages/typescript';
@@ -32,24 +32,38 @@ lowlight.registerLanguage('css', css);
 lowlight.registerLanguage('js', js);
 lowlight.registerLanguage('ts', ts);
 
-import { useRecoilState } from 'recoil';
+import { useRecoilState, useRecoilValue } from 'recoil';
+import { styled } from 'styled-components';
 
-import { postArticleList } from '@/api/article';
+import { getUpdateArticleContent, postArticleList } from '@/api/article';
 import { postPageDraft } from '@/api/page';
 import TextEditor from '@/components/editor/TextEditor';
 import ToolBox from '@/components/editor/ui/ToolBox';
+import { useGetUpdateArticleContent, useUpdateArticleContent } from '@/hooks/editor';
+import { UpdateArticleContentProps, UpdateArticleProps } from '@/types/article';
+import { UpdatePageProps } from '@/types/page';
 import { getImageMultipartData } from '@/utils/getImageMultipartData';
 
-import { articleDataState, pageDataState } from './states/atom';
+import { articleDataState, newArticleDataState, pageDataState, pageTitleState } from './states/atom';
 interface TextEditorBuildprops {
   pageType: string;
+  currentState?: string;
+  articleData?: UpdateArticleProps;
+  pageData?: UpdatePageProps;
 }
 
 const TextEditorBuild = (props: TextEditorBuildprops) => {
-  const { pageType } = props;
-  const { team } = useParams();
+  const { pageType, currentState, articleData, pageData } = props;
+  const { team, articleId, pageId } = useParams();
   const [{ title }, setArticleData] = useRecoilState(articleDataState);
   const [{ title: pageTitle }, setPageData] = useRecoilState(pageDataState);
+  const [pageNewTitle, setPageNewTitle] = useRecoilState(pageTitleState);
+
+  // const pageNewTitle = useRecoilValue(pageTitleState);
+  console.log(pageNewTitle);
+  const [{ title: newArticleTitle }, setNewArticleData] = useRecoilState(newArticleDataState);
+  const [updatedArticleData, setUpdatedArticleData] = useRecoilState(newArticleDataState);
+  // const updateArticleMutation = useUpdateArticleContent(team);
 
   const [, setImageSrc] = useState('');
   const [extractedHTML, setExtractedHTML] = useState<string>('');
@@ -101,10 +115,8 @@ const TextEditorBuild = (props: TextEditorBuildprops) => {
         linkOnPaste: true,
       }),
     ],
-    content: '',
+    content: articleData ? articleData.content : pageData ? pageData.content : '',
   });
-
-  //encodeFileToBase64 => 코드 변환
   const encodeFileToBase64 = async (event: ChangeEvent<HTMLInputElement>, editor: Editor) => {
     const files = event.target.files;
     if (!files || files.length === 0) {
@@ -238,36 +250,95 @@ const TextEditorBuild = (props: TextEditorBuildprops) => {
     }
   };
 
-  // article, page에 따라 article page, page page에서 각각 렌더링 되도록 조건함.
-  switch (pageType) {
-    case `article`:
-      return (
-        <>
-          <ToolBox editor={editor} encodeFileToBase64={encodeFileToBase64} setLink={setLink} />
-          <TextEditor editor={editor} handleDrop={handleDrop} handleDragOver={handleDragOver} />
-          <SaveEditorContentButton
-            handleOnClickArticleDraft={handleOnClickArticleDraft}
-            handleOnClickArticlePublish={handleOnClickArticlePublish}
-            handleOnClickPageDraft={handleOnClickPageDraft}
-            handleOnClickPagePublish={handleOnClickPagePublish}
-          />
-        </>
-      );
-    case `page`:
-      return (
-        <>
-          <ToolBox editor={editor} encodeFileToBase64={encodeFileToBase64} setLink={setLink} />
-          <TextEditor editor={editor} handleDrop={handleDrop} handleDragOver={handleDragOver} />
-          <SaveEditorContentButton
-            handleOnClickArticleDraft={handleOnClickArticleDraft}
-            handleOnClickArticlePublish={handleOnClickArticlePublish}
-            handleOnClickPageDraft={handleOnClickPageDraft}
-            handleOnClickPagePublish={handleOnClickPagePublish}
-          />
-        </>
-      );
-    default:
-      break;
-  }
+  //article 수정시 !
+  const handleUpdateArticleContent = () => {
+    if (editor) {
+      const newContent = editor.getHTML();
+      setExtractedHTML(newContent);
+
+      if (imageArr.length === 0) {
+        setUpdatedArticleData((prevData) => ({
+          ...prevData,
+          title: newArticleTitle,
+          content: newContent,
+          images: [],
+        }));
+      } else {
+        setUpdatedArticleData((prevData) => ({
+          ...prevData,
+          title: newArticleTitle,
+          content: newContent,
+          images: imageArr,
+        }));
+      }
+
+      // updateArticleMutation.mutate(updatedArticleData);
+      console.log(updatedArticleData);
+      console.log(imageArr);
+      router.push(`/${team}/editor/article/edit/${articleId}/publish`);
+    }
+  };
+
+  // 페이지 수정시 발행페이지 이동
+  const handleUpdatePageContent = () => {
+    if (editor) {
+      const newContent = editor.getHTML();
+      setExtractedHTML(newContent);
+
+      if (imageArr.length === 0) {
+        setPageData((prevData) => ({
+          ...prevData,
+          title: pageNewTitle,
+          content: newContent,
+          images: [],
+        }));
+      } else {
+        setPageData((prevData) => ({
+          ...prevData,
+          title: pageNewTitle,
+          content: newContent,
+          images: imageArr,
+        }));
+      }
+
+      // updateArticleMutation.mutate(updatedArticleData);
+      // console.log(updatedArticleData);
+      // console.log(imageArr);
+      router.push(`/${team}/editor/page/${pageId}/publish`);
+    }
+  };
+
+  return (
+    <>
+      <ToolBox editor={editor} encodeFileToBase64={encodeFileToBase64} setLink={setLink} />
+      <TextEditor editor={editor} handleDrop={handleDrop} handleDragOver={handleDragOver} />
+
+      {pageType === 'article' ? (
+        <SaveEditorContentButton
+          handleOnClickDraft={
+            currentState === 'draft'
+              ? handleOnClickArticleDraft
+              : currentState === 'edit'
+              ? handleOnClickArticleDraft
+              : handleOnClickArticleDraft
+          }
+          handleOnClickPublish={currentState === 'edit' ? handleOnClickArticlePublish : handleOnClickArticlePublish}
+          isEdit={currentState === 'edit' ? true : false}
+        />
+      ) : (
+        <SaveEditorContentButton
+          handleOnClickDraft={
+            currentState === 'draft'
+              ? handleOnClickPageDraft
+              : currentState === 'edit'
+              ? handleOnClickPageDraft
+              : handleOnClickPageDraft
+          }
+          handleOnClickPublish={currentState === 'edit' ? handleUpdatePageContent : handleOnClickPagePublish}
+          isEdit={currentState === 'edit' ? true : false}
+        />
+      )}
+    </>
+  );
 };
 export default TextEditorBuild;

@@ -7,11 +7,17 @@ import styled from 'styled-components';
 import LoadingLottie from '@/components/common/ui/LoadingLottie';
 import { useGetCategoryList } from '@/hooks/dashboard';
 import { EssentialCircleIcon } from '@/public/icons';
+import { UpdateArticleProps } from '@/types/article';
 import { getLiteralCategoryList } from '@/utils/getLiteralCategoryList';
 
 import { articleDataState } from '../../states/atom';
 
-const CategorySelect = () => {
+interface CategorySelectProps {
+  articleData?: UpdateArticleProps;
+}
+
+const CategorySelect = (props: CategorySelectProps) => {
+  const { articleData } = props;
   const [{ categoryId }, setArticleData] = useRecoilState(articleDataState);
   const [activeCategory, setActiveCategory] = useState('');
   const { team } = useParams();

@@ -1,11 +1,13 @@
 'use client';
-import React, { Dispatch, SetStateAction, useState } from 'react';
+import React, { Dispatch, SetStateAction, useEffect, useState } from 'react';
 import { useParams } from 'next/navigation';
 import router from 'next/router';
 import { useRecoilState } from 'recoil';
 import styled from 'styled-components';
 
 import { EssentialCircleIcon, Loader01Icon } from '@/public/icons';
+import { UpdateArticleProps } from '@/types/article';
+import { UpdatePageProps } from '@/types/page';
 import CheckArticleDuplication from '@/utils/checkArticleUrlDuplication';
 import CheckPageDuplication from '@/utils/checkPageUrlDuplication';
 
@@ -17,16 +19,26 @@ interface UrlCustomProps {
   pageType: string;
   isDuplicate: boolean | null;
   setIsDuplicate: Dispatch<SetStateAction<boolean | null>>;
+  pageData?: UpdatePageProps;
+  articleData?: UpdateArticleProps;
 }
 
 const UrlCustom = (props: UrlCustomProps) => {
-  const { pageType, isDuplicate, setIsDuplicate } = props;
+  const { pageType, isDuplicate, setIsDuplicate, pageData, articleData } = props;
   const { team } = useParams();
 
   const [{ articleUrl }, setArticleData] = useRecoilState(articleDataState);
   const [{ pageUrl }, setPageData] = useRecoilState(pageDataState);
 
   const [isAddressFocus, setIsAddressFocus] = useState(false);
+
+  useEffect(() => {
+    if (articleData) {
+      setArticleData((prev) => ({ ...prev, articleUrl: articleData.articleUrl }));
+    } else if (pageData) {
+      setPageData((prev) => ({ ...prev, pageUrl: pageData.pageUrl }));
+    }
+  }, []);
 
   const checkDuplication = (value: string) => {
     if (pageType === 'page') {

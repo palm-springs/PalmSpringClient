@@ -6,7 +6,7 @@ import { useParams } from 'next/navigation';
 import styled from 'styled-components';
 
 import LoadingLottie from '@/components/common/ui/LoadingLottie';
-import { useGetArticleList } from '@/hooks/article';
+import { useGetArticleList } from '@/hooks/editor';
 
 import ArticleBox from './ArticleBox';
 

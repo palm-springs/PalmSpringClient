@@ -9,39 +9,48 @@ export const TextEditorStyle = styled.div`
     p {
       ${({ theme }) => theme.fonts.Body1_Regular};
       padding: 2.4rem 0 0.8rem 0;
+      width: 72.2rem;
     }
 
     h1 {
       ${({ theme }) => theme.editor.Edit_h1};
       padding: 5.6rem 0 0.4rem 0;
+      width: 72.2rem;
     }
 
     h2 {
       ${({ theme }) => theme.editor.Edit_h2};
       padding: 4rem 0 0.4rem 0;
+      width: 72.2rem;
     }
 
     h3 {
       ${({ theme }) => theme.editor.Edit_h3};
+      margin-top: 2.4rem;
       padding-top: 2.4rem 0 0.4rem 0;
+      width: 72.2rem;
     }
 
     ul {
       margin-left: 4rem;
+      width: 72.2rem;
       list-style-type: disc;
     }
 
     ol {
       margin-left: 4rem;
+      width: 72.2rem;
       list-style-type: decimal;
     }
 
     u {
+      width: 72.2rem;
       text-decoration: underline;
     }
 
     hr {
       border: 1px solid ${({ theme }) => theme.colors.grey_300};
+      width: 72.2rem;
     }
 
     strong {
@@ -61,12 +70,15 @@ export const TextEditorStyle = styled.div`
       background-color: ${({ theme }) => theme.colors.grey_200};
       padding: 0.3rem 0.6rem;
       box-decoration-break: clone;
+      width: 72.2rem;
     }
 
     pre {
+      margin-top: 3.2rem;
       border-radius: 0.5rem;
       background: ${({ theme }) => theme.colors.grey_100};
-      padding: 0.75rem 1rem;
+      padding: 1.6rem 2rem;
+      width: 72.2rem;
       color: #383a41;
       font-family: 'Fira Mono', monospace;
 

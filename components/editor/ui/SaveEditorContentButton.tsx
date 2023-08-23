@@ -7,18 +7,17 @@ import styled from 'styled-components';
 
 import ModalPortal from '@/components/common/ModalPortal';
 import DashboardDeleteModal from '@/components/common/ui/DashboardDeleteModal';
+import { UpdateArticleProps } from '@/types/article';
 
 interface editorProps {
-  handleOnClickArticleDraft: () => void;
-  handleOnClickArticlePublish: () => void;
-  handleOnClickPageDraft: () => void;
-  handleOnClickPagePublish: () => void;
+  handleOnClickDraft: () => void;
+  handleOnClickPublish: () => void;
+  isEdit: boolean;
 }
 
 const SaveEditorContentButton = (props: editorProps) => {
   const [isModal, setIsModal] = useState(false);
-  const { handleOnClickArticleDraft, handleOnClickArticlePublish, handleOnClickPageDraft, handleOnClickPagePublish } =
-    props;
+  const { handleOnClickDraft, handleOnClickPublish, isEdit } = props;
   const { team } = useParams();
   const router = useRouter();
 
@@ -39,14 +38,14 @@ const SaveEditorContentButton = (props: editorProps) => {
     });
 
   const handleDraftSaveButton = () => {
-    handleOnClickArticleDraft();
+    handleOnClickDraft();
     notify();
   };
 
-  const handlePageDraftSaveButton = () => {
-    handleOnClickPageDraft();
-    notify();
-  };
+  // const handlePageDraftSaveButton = () => {
+  //   handleOnClickDraft();
+  //   notify();
+  // };
   const modalOpenHandler = () => {
     setIsModal(!isModal);
     document.body.style.overflow = 'hidden';
@@ -58,86 +57,44 @@ const SaveEditorContentButton = (props: editorProps) => {
     document.body.style.overflow = 'visible';
   };
 
-  switch (usePathname()) {
-    case `/${team}/editor/article`:
-      return (
-        <>
-          <Toaster
-            position="bottom-center"
-            reverseOrder={false}
-            containerClassName=""
-            containerStyle={{
-              bottom: 50,
-            }}
+  return (
+    <>
+      <Toaster
+        position="bottom-center"
+        reverseOrder={false}
+        containerClassName=""
+        containerStyle={{
+          bottom: 50,
+        }}
+      />
+      <ButtonContainer>
+        <BottomWrapper>
+          <ExitButton type="button" onClick={modalOpenHandler}>
+            나가기
+          </ExitButton>
+          <TemporarySaveButton type="button" onClick={handleDraftSaveButton}>
+            임시저장
+          </TemporarySaveButton>
+
+          <SaveButton type="button" onClick={handleOnClickPublish}>
+            {isEdit ? '수정하기' : '발행하기'}
+          </SaveButton>
+        </BottomWrapper>
+      </ButtonContainer>
+      {isModal && (
+        <ModalPortal>
+          <DashboardDeleteModal
+            text={'저장하지 않고 나가시겠어요?'}
+            subText={'저장하지 않고 페이지를 벗어나는 경우,'}
+            lineBreaking={'지금까지 작성한 내용이 모두 사라집니다.'}
+            leftButtonText={'돌아가기'}
+            rightButtonText={'나가기'}
+            leftHandler={modalCloseHandler}
           />
-          <ButtonContainer>
-            <BottomWrapper>
-              <ExitButton type="button" onClick={modalOpenHandler}>
-                나가기
-              </ExitButton>
-              <TemporarySaveButton type="button" onClick={handleDraftSaveButton}>
-                임시저장
-              </TemporarySaveButton>
-              <SaveButton type="button" onClick={handleOnClickArticlePublish}>
-                발행하기
-              </SaveButton>
-            </BottomWrapper>
-          </ButtonContainer>
-          {isModal && (
-            <ModalPortal>
-              <DashboardDeleteModal
-                text={'저장하지 않고 나가시겠어요?'}
-                subText={'저장하지 않고 페이지를 벗어나는 경우,'}
-                lineBreaking={'지금까지 작성한 내용이 모두 사라집니다.'}
-                leftButtonText={'돌아가기'}
-                rightButtonText={'나가기'}
-                leftHandler={modalCloseHandler}
-              />
-            </ModalPortal>
-          )}
-        </>
-      );
-    case `/${team}/editor/page`:
-      return (
-        <>
-          <Toaster
-            position="bottom-center"
-            reverseOrder={false}
-            containerClassName=""
-            containerStyle={{
-              bottom: 50,
-            }}
-          />
-          <ButtonContainer>
-            <BottomWrapper>
-              <ExitButton type="button" onClick={modalOpenHandler}>
-                나가기
-              </ExitButton>
-              <TemporarySaveButton type="button" onClick={handlePageDraftSaveButton}>
-                임시저장
-              </TemporarySaveButton>
-              <SaveButton type="button" onClick={handleOnClickPagePublish}>
-                발행하기
-              </SaveButton>
-            </BottomWrapper>
-          </ButtonContainer>
-          {isModal && (
-            <ModalPortal>
-              <DashboardDeleteModal
-                text={'저장하지 않고 나가시겠어요?'}
-                subText={'저장하지 않고 페이지를 벗어나는 경우,'}
-                lineBreaking={'지금까지 작성한 내용이 모두 사라집니다.'}
-                leftButtonText={'돌아가기'}
-                rightButtonText={'나가기'}
-                leftHandler={modalCloseHandler}
-              />
-            </ModalPortal>
-          )}
-        </>
-      );
-    default:
-      break;
-  }
+        </ModalPortal>
+      )}
+    </>
+  );
 };
 
 export default SaveEditorContentButton;
