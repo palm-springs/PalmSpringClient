@@ -1,12 +1,12 @@
 'use client';
-import React from 'react';
+import React, { useEffect } from 'react';
 import { useRecoilState, useRecoilValue } from 'recoil';
 import styled from 'styled-components';
 
 import { UpdateArticleProps } from '@/types/article';
 import { UpdatePageProps } from '@/types/page';
 
-import { articleDataState, pageDataState, pageTitleState } from '../../states/atom';
+import { articleDataState, pageDataState } from '../../states/atom';
 
 interface PublishTitleprops {
   pageType: string;
@@ -16,29 +16,22 @@ interface PublishTitleprops {
 
 //정보 get 해야함
 const PublishTitle = (props: PublishTitleprops) => {
-  const { pageType, pageData } = props;
+  const { pageType, pageData, articleData } = props;
 
-  const [{ title }, setArticleData] = useRecoilState(articleDataState);
+  const [{ title: articleTitle }, setArticleData] = useRecoilState(articleDataState);
   const [{ title: pageTitle }, setPageData] = useRecoilState(pageDataState);
-  const [pageNewTitle, setPageNewTitle] = useRecoilState(pageTitleState);
 
   switch (pageType) {
     case `article`:
       return (
         <TitleWrapper>
-          <EditorInputTitle>{title}</EditorInputTitle>
+          <EditorInputTitle>{articleTitle}</EditorInputTitle>
         </TitleWrapper>
       );
     case `page`:
-      console.log(pageNewTitle, '왜 안넘어옴?');
-
       return (
         <TitleWrapper>
-          {pageData ? (
-            <EditorInputTitle>{pageNewTitle}</EditorInputTitle>
-          ) : (
-            <EditorInputTitle>{pageTitle}</EditorInputTitle>
-          )}
+          <EditorInputTitle>{pageTitle}</EditorInputTitle>
         </TitleWrapper>
       );
     default:
