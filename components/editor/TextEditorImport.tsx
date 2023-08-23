@@ -250,6 +250,8 @@ const TextEditorBuild = (props: TextEditorBuildprops) => {
       const newContent = editor.getHTML();
       setExtractedHTML(newContent);
 
+      console.log(articleTitle); // 수정전 타이틀 뜸
+
       if (imageArr.length === 0) {
         setArticleData((prevData) => ({
           ...prevData,

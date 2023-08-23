@@ -29,7 +29,7 @@ const PublishBottomButtons = (props: PublishBottomButtons) => {
   const pageData = useRecoilValue(pageDataState);
   const { pageUrl } = pageData;
 
-  const { team, pageId } = useParams();
+  const { team, pageId, articleId } = useParams();
 
   const updatePageMutation = useUpdatePageContent();
   const [updatedPageData, setUpdatedPageData] = useRecoilState(pageDataState);
@@ -74,14 +74,14 @@ const PublishBottomButtons = (props: PublishBottomButtons) => {
             <BackButton type="button" onClick={handleBackArticleButton}>
               뒤로가기
             </BackButton>
-            {articleData.articleUrl ? (
+            {pathName === `/${team}/editor/article/${articleId}/publish` ? (
               <PublishButton
                 type="button"
                 onClick={handleOnClickArticlePublish}
                 disabled={
                   categoryId === -1 || description === '' || articleUrl === '' || isDuplicate || isDuplicate === null
                 }>
-                글 발행하기
+                글 수정하기
               </PublishButton>
             ) : (
               <PublishButton
@@ -108,7 +108,7 @@ const PublishBottomButtons = (props: PublishBottomButtons) => {
                 type="button"
                 onClick={handleOnClickUpdatePagePublish}
                 disabled={pageUrl === '' || isDuplicate || isDuplicate === null}>
-                글 발행하기
+                글 수정하기
               </PublishButton>
             ) : (
               <PublishButton

@@ -1,6 +1,6 @@
 'use-client';
 
-import React from 'react';
+import React, { useEffect } from 'react';
 import { useRecoilState } from 'recoil';
 import styled from 'styled-components';
 
@@ -16,6 +16,13 @@ interface CategorySelectProps {
 const OneLiner = (props: CategorySelectProps) => {
   const { articleData } = props;
   const [{ description }, setArticleData] = useRecoilState(articleDataState);
+
+  useEffect(() => {
+    if (articleData) {
+      setArticleData((prev) => ({ ...prev, description: String(articleData.description) }));
+    }
+  }, []);
+
   const handleOnChange = (e: React.ChangeEvent<HTMLInputElement>) => {
     const { value } = e.currentTarget;
     setArticleData((prev) => ({ ...prev, description: value }));

@@ -24,6 +24,7 @@ const EditorInputTitle = (props: TextEditorBuildProps) => {
   useEffect(() => {
     if (articleData) {
       setArticleData((prev) => ({ ...prev, title: articleData.title }));
+      console.log(articleTitle);
     } else if (pageData) {
       setPageData((prev) => ({ ...prev, title: pageData.title }));
     }
@@ -45,9 +46,7 @@ const EditorInputTitle = (props: TextEditorBuildProps) => {
     case `article`:
       return (
         <EditorInputTitleContainer>
-          <TitleInputBox value={articleTitle} onChange={handleSaveArticleTitle} rows={1}>
-            {/* 이거 defalt atom값으로 집어 넣어야함 */}
-          </TitleInputBox>
+          <TitleInputBox value={articleTitle} onChange={handleSaveArticleTitle} rows={1} />
         </EditorInputTitleContainer>
       );
     case `page`:
