@@ -197,18 +197,13 @@ const why_they_use_container = css`
   }
 `;
 
-const sendMessage = async () => {
-  await client.get('/api/v2/health');
-};
-
 const Home = () => {
   useEffect(() => {
-    sendMessage();
     AOS.init({
       offset: 200,
       duration: 400,
     });
-  });
+  }, []);
 
   return (
     <div style={{ width: '100%' }}>

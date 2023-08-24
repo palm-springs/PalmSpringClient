@@ -2,7 +2,6 @@
 
 import React from 'react';
 import Link from 'next/link';
-import { useParams } from 'next/navigation';
 import styled from 'styled-components';
 
 import { ArticleData } from '@/types/article';
@@ -13,14 +12,13 @@ interface ArticleProps {
 }
 
 const Article = (props: ArticleProps) => {
-  const { team } = useParams();
   const {
     noHover,
     article: { id, title, description, memberName, job, createdAt, thumbnail, articleCategory, articleUrl },
   } = props;
 
   return (
-    <ArticleContainer href={`/${team}/content/article/${articleUrl}/${id}`} className={noHover ? '' : 'hover'}>
+    <ArticleContainer href={`/content/article/${articleUrl}/${id}`} className={noHover ? '' : 'hover'}>
       <ArticleInfo>
         <EditorInputTitle className="title">{title}</EditorInputTitle>
         <ArticleDescription className="description">{description}</ArticleDescription>
