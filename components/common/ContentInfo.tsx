@@ -3,7 +3,6 @@
 import React from 'react';
 import { useMediaQuery } from 'react-responsive';
 import Link from 'next/link';
-import { useParams } from 'next/navigation';
 import styled from 'styled-components';
 
 import useGetIfContentPage from '@/hooks/useGetIfContentPage';
@@ -35,8 +34,6 @@ const ContentInfo = (props: ContentInfoProps) => {
   const MOBILE = useMediaQuery({
     query: '(min-width : 375px) and (max-width:768px)',
   });
-
-  const { team } = useParams();
 
   const { contentInfoData, IndivContentId, articleUrl } = props;
 

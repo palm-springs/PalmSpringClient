@@ -2,7 +2,6 @@
 
 import React from 'react';
 import Link from 'next/link';
-import { useParams } from 'next/navigation';
 import styled from 'styled-components';
 
 import { ArticleData } from '@/types/article';
@@ -13,7 +12,6 @@ interface ArticleProps {
 }
 
 const Article = (props: ArticleProps) => {
-  const { team } = useParams();
   const {
     noHover,
     article: { id, title, description, memberName, job, createdAt, thumbnail, articleCategory, articleUrl },
