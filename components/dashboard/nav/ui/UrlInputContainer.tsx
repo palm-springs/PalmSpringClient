@@ -15,22 +15,23 @@ const UrlInputContainer = (props: ModalPortalContainerProps) => {
   const { setIsSelectorOpen, state } = props;
 
   return (
-    <UrlInputUI>
+    <UrlInputUI onClick={() => setIsSelectorOpen((prev) => !prev)}>
       <div>
         <span>연결 URL</span>
         <span>페이지 또는 외부 웹사이트를 연결할 수 있습니다.</span>
       </div>
       <input type="text" placeholder="연결 URL" value={state} readOnly />
-      <ArrowDown onClick={() => setIsSelectorOpen((prev) => !prev)} />
+      <ArrowDown />
     </UrlInputUI>
   );
 };
 
 export default UrlInputContainer;
 
-const UrlInputUI = styled.article`
+const UrlInputUI = styled.button`
   display: flex;
   flex-direction: column;
+  background: none;
   width: 100%;
   div {
     display: flex;
@@ -55,6 +56,7 @@ const UrlInputUI = styled.article`
   input {
     border: 1px solid ${({ theme }) => theme.colors.grey_400};
     border-radius: 0.8rem;
+    cursor: pointer;
     padding: 1rem 1.2rem;
     width: 100%;
     height: 3.75rem;
