@@ -27,7 +27,7 @@ export const TextEditorStyle = styled.div`
     h3 {
       ${({ theme }) => theme.editor.Edit_h3};
       margin-top: 2.4rem;
-      padding-top: 2.4rem 0 0.4rem;
+      padding: 2.4rem 0 0.4rem;
       width: 72.2rem;
     }
 
