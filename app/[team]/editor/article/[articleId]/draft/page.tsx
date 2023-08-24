@@ -9,8 +9,8 @@ import { useGetUpdateArticleContent } from '@/hooks/editor';
 import { TextEditorStyle } from '@/styles/TextEditorStyle';
 
 const DraftArticlePage = () => {
-  const { articleId } = useParams();
-  const updateArticleEditContents = useGetUpdateArticleContent(Number(articleId));
+  const { team, articleId } = useParams();
+  const updateArticleEditContents = useGetUpdateArticleContent(team, Number(articleId));
 
   return (
     <AuthRequired>

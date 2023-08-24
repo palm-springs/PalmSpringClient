@@ -37,11 +37,11 @@ const PublishBottomButtons = (props: PublishBottomButtons) => {
 
   const { team, pageId, articleId } = useParams();
 
-  const updatePageMutation = useUpdatePageContent();
+  const updatePageMutation = useUpdatePageContent(team);
   const updateArticleMutation = useUpdateArticleContent(team);
 
   const draftArticleMutation = useUpdateTempArticleDraft(team);
-  const draftPageMutation = useUpdateTempPageDraft();
+  const draftPageMutation = useUpdateTempPageDraft(team);
 
   const [updatedArticleData, setUpdatedArticleData] = useRecoilState(articleDataState);
   const [updatedPageData, setUpdatedPageData] = useRecoilState(pageDataState);
