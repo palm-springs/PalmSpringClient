@@ -33,7 +33,7 @@ const BasicUserInfoPage = () => {
     <BasicUserInfoContainer>
       <UserProfile />
       <UserName />
-      <UserId isDuplicate={isDuplicate} setIsDuplicate={setIsDuplicate} previousUrl={data?.data.url} />
+      <UserId isDuplicate={isDuplicate} setIsDuplicate={setIsDuplicate} previousUrl={data?.data?.url} />
       <UserOneLiner />
       <UserPosition />
       <DeleteButton />

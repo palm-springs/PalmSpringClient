@@ -1,5 +1,6 @@
 'use client';
 import React, { useEffect, useState } from 'react';
+import { toast, Toaster } from 'react-hot-toast';
 import { useParams } from 'next/navigation';
 import { useRecoilValue } from 'recoil';
 import styled from 'styled-components';
@@ -41,14 +42,41 @@ const UserInfoSaveButton = (props: UserInfoSaveButtonProps) => {
     }
   }, [userInfoDataState]);
 
+  const notify = () =>
+    toast.success('변경 사항이 저장되었습니다', {
+      id: 'link copied',
+      style: {
+        padding: '1.6rem 2rem',
+        borderRadius: '3.2rem',
+        background: '#343A40',
+        color: '#fff',
+        fontSize: '1.4rem',
+        fontFamily: 'Pretendard',
+        fontStyle: 'normal',
+        fontWeight: '700',
+        letterSpacing: '-0.028rem',
+      },
+    });
+
   const handleOnClick = () => {
-    console.log(userInfoDataState);
     updateUserInfo();
+    notify();
+    setIsDisabled(true);
   };
   return (
-    <SaveButton type="button" disabled={isDisabled} onClick={handleOnClick}>
-      저장하기
-    </SaveButton>
+    <>
+      <SaveButton type="button" disabled={isDisabled} onClick={handleOnClick}>
+        저장하기
+      </SaveButton>
+      <Toaster
+        position="bottom-center"
+        reverseOrder={false}
+        containerClassName=""
+        containerStyle={{
+          bottom: 50,
+        }}
+      />
+    </>
   );
 };
 
