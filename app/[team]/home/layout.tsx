@@ -16,5 +16,5 @@ const BlogHomeLayout = async ({ children, params }: { children: React.ReactEleme
     </>
   );
 };
-///////d
+
 export default BlogHomeLayout;

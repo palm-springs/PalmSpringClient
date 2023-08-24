@@ -22,4 +22,3 @@ const AuthorPageLayout = async ({ children }: { children: React.ReactElement }) 
 };
 
 export default AuthorPageLayout;
-/////s

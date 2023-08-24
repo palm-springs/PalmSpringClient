@@ -26,5 +26,5 @@ const ContentLayout = ({ children }: { children: React.ReactElement }) => {
     </>
   );
 };
-//////d
+
 export default ContentLayout;
