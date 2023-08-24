@@ -25,8 +25,10 @@ export const GlobalStyle = createGlobalStyle`
     overflow: visible;
   }
 
+
   * {
     box-sizing: border-box;
+    word-break: keep-all;
 }
 
 *::-webkit-scrollbar {
