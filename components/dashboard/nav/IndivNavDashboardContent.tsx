@@ -48,7 +48,7 @@ const IndivNavDashboardContent = (props: IndivNavDashboardContentProps) => {
             return;
           }
           if (typeof window !== 'undefined') {
-            window.location.href = `https://${url}`;
+            window.location.href = url;
           }
         }}
         onMutateClick={() => {
