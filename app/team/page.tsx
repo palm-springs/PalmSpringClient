@@ -109,10 +109,6 @@ const randomArray =
   (randomNumberForOrder === 5 && [...ourBelovedPM, ...ourBelovedDesigner, ...ourBelovedFE, ...ourBelovedServer]) ||
   (randomNumberForOrder === 6 && [...ourBelovedPM, ...ourBelovedDesigner, ...ourBelovedServer, ...ourBelovedFE]);
 
-const sendMessage = async () => {
-  await client.get('/api/v2/health');
-};
-
 const Team = () => {
   const main = css`
     background: #f2f4f6;
@@ -220,11 +216,6 @@ const Team = () => {
       max-width: 100%;
     }
   `;
-
-  useEffect(() => {
-    sendMessage();
-    console.log('good');
-  });
 
   return (
     <div style={{ width: '100%' }}>

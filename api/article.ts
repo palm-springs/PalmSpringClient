@@ -1,4 +1,10 @@
-import { ArticleData, CreateArticleProps, SingleArticleData, UpdateArticleContentProps } from '@/types/article';
+import {
+  ArticleData,
+  CreateArticleProps,
+  SingleArticleData,
+  UpdateArticleContentProps,
+  UpdateTempArticleDraftProps,
+} from '@/types/article';
 import { Response } from '@/types/common';
 
 import client from '.';
@@ -40,8 +46,8 @@ export const getCheckArticleUrlDuplication = async (teamUrl: string, articleUrl:
 };
 
 //아티클 업로드한 글 get
-export const getUpdateArticleContent = async (articleId: number) => {
-  const { data } = await client.get(`/api/v2/dashboard/article/detail?articleId=${articleId}`);
+export const getUpdateArticleContent = async (blogUrl: string, articleId: number) => {
+  const { data } = await client.get(`/api/v2/dashboard/article/detail/modify/${blogUrl}?articleId=${articleId}`);
   return data;
 };
 
@@ -54,20 +60,8 @@ export const updateArticleDetail = async (articleUrl: string, updateArticleData:
 };
 
 //아티클 임시저장 수정하기 (requestBody 넣어서 보내기)
-interface updateArticleRequest {
-  id: number;
-  title: string;
-  content: string;
-  images: string[] | null;
-  thumbnail: string;
-  catagoryId: number;
-  description: string | null;
-  articleUrl: string;
-  isPublish: boolean;
-}
-
-export const updateArticleDraft = async (articleUrl: string, requestBody: updateArticleRequest) => {
-  const { data } = await client.put(`/api/v2/dashboard/article/draft/modify/${articleUrl}`, requestBody);
+export const updateArticleDraft = async (blogUrl: string, requestBody: UpdateTempArticleDraftProps) => {
+  const { data } = await client.put(`/api/v2/dashboard/article/draft/modify/${blogUrl}`, requestBody);
   return data;
 };
 

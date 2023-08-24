@@ -1,6 +1,7 @@
 // 명명규칙은 xxxxIcon으로 통일
 // export { default as AdobeLogoIcon } from './AdobeCorporateLogo1.svg';
 export { default as ArrowDownIcon } from './arrow_down.svg';
+export { default as ArrowUpIcon } from './arrow_up.svg';
 export { default as ArrowRightContained02Icon } from './arrow-right-contained-02.svg';
 export { default as CharmMenuMeatballIcon } from './charm_menu-meatball.svg';
 export { default as CheckBoxIcon } from './checkbox.svg';

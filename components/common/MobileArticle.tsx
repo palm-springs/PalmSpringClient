@@ -2,7 +2,6 @@
 
 import React from 'react';
 import Link from 'next/link';
-import { useParams } from 'next/navigation';
 import styled from 'styled-components';
 
 import { ArticleData } from '@/types/article';
@@ -12,13 +11,12 @@ interface ArticleProps {
 }
 
 const MobileArticle = (props: ArticleProps) => {
-  const { team } = useParams();
   const {
     article: { id, title, description, memberName, createdAt, thumbnail, articleCategory, articleUrl },
   } = props;
 
   return (
-    <ArticleContainer href={`/${team}/content/article/${articleUrl}/${id}`}>
+    <ArticleContainer href={`/content/article/${articleUrl}/${id}`}>
       {thumbnail && <ArticleThumbnail src={thumbnail} alt="Article Thumbnail" />}
       <ArticleInfo>
         <EditorInputTitle className="title">{title}</EditorInputTitle>

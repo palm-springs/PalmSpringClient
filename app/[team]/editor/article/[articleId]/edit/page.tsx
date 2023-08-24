@@ -9,8 +9,8 @@ import { useGetUpdateArticleContent } from '@/hooks/editor';
 import { TextEditorStyle } from '@/styles/TextEditorStyle';
 
 const EditArticlePage = () => {
-  const { articleId } = useParams();
-  const updateArticleEditContents = useGetUpdateArticleContent(Number(articleId)); // number 값 articleId로 바꿀거이
+  const { team, articleId } = useParams();
+  const updateArticleEditContents = useGetUpdateArticleContent(team, Number(articleId)); // number 값 articleId로 바꿀거이
   return (
     <AuthRequired>
       <TextEditorStyle>

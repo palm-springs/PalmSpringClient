@@ -1,6 +1,7 @@
 'use client';
 
 import React, { ChangeEvent, useEffect } from 'react';
+import { useParams } from 'next/navigation';
 import { useRecoilState } from 'recoil';
 import styled from 'styled-components';
 
@@ -19,6 +20,7 @@ interface ThumbnailInputProps {
 
 const ThumbnailInput = (props: ThumbnailInputProps) => {
   const { pageType, pageData, articleData } = props;
+  const { team } = useParams();
 
   const [{ thumbnail: articleThumbnail }, setArticleData] = useRecoilState(articleDataState);
   const [{ thumbnail: pageThumbnail }, setPageData] = useRecoilState(pageDataState);
@@ -37,7 +39,7 @@ const ThumbnailInput = (props: ThumbnailInputProps) => {
       return null;
     }
     const file = files[0];
-    const thumbnail = await getImageMultipartData(file);
+    const thumbnail = await getImageMultipartData(file, team);
     console.log(thumbnail);
 
     const reader = new FileReader();
@@ -47,7 +49,6 @@ const ThumbnailInput = (props: ThumbnailInputProps) => {
       } else {
         setPageData((prev) => ({ ...prev, thumbnail }));
       }
-      // setImageSrc(thumbnail); // 이미지 데이터 업데이트
     };
     reader.readAsDataURL(file);
   };

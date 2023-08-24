@@ -1,6 +1,7 @@
 'use client';
 
 import { ChangeEvent, useState } from 'react';
+import { useParams } from 'next/navigation';
 import { useSetRecoilState } from 'recoil';
 import styled from 'styled-components';
 
@@ -17,6 +18,7 @@ interface ImageInputFormProps {
 
 const ImageInputForm = (props: ImageInputFormProps) => {
   const { type } = props;
+  const { team } = useParams();
   // 임시 state
   const [imgSrc, setImgSrc] = useState('');
   const setBlogData = useSetRecoilState(createBlogDataState);
@@ -31,7 +33,7 @@ const ImageInputForm = (props: ImageInputFormProps) => {
 
     const reader = new FileReader();
     if (files) {
-      const remoteImgUrl = await getImageMultipartData(files[0]);
+      const remoteImgUrl = await getImageMultipartData(files[0], team);
       setBlogData((prev) => ({ ...prev, [type]: remoteImgUrl }));
 
       reader.readAsDataURL(files[0] as Blob);

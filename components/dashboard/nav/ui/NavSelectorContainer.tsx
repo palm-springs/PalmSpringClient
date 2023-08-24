@@ -26,8 +26,6 @@ const NavSelectorContainer = (props: NavSelectorContainerProps) => {
     setNewNavigationName,
   } = props;
 
-  const { team: blogUrl } = useParams();
-
   // 페이지가 맞고 isDraft가 아닌 것
   const filteredPageList = pageList.filter(({ isDraft }) => !isDraft);
 
@@ -37,7 +35,6 @@ const NavSelectorContainer = (props: NavSelectorContainerProps) => {
         type="button"
         onClick={() => {
           setNewNavigationUrl('');
-          setNewNavigationName('직접 입력');
           setNewNavigationSelector('직접 입력');
           setIsSelectorOpen((prev) => !prev);
         }}>

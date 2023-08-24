@@ -4,18 +4,19 @@ import React, { Dispatch, SetStateAction } from 'react';
 import { useParams } from 'next/navigation';
 
 import { useGetBlogInfo } from '@/hooks/blog';
-import { ArrowDownIcon, SymbolIcon } from '@/public/icons';
+import { ArrowDownIcon, ArrowUpIcon, SymbolIcon } from '@/public/icons';
 
 import SideBarTitle from './ui/SideBarTitle';
 
 interface DashBoardTitleProps {
+  isBlogOpen: boolean;
   setIsBlogListOpen: Dispatch<SetStateAction<boolean>>;
   currentBlog: number;
   setCurrentBlog: Dispatch<SetStateAction<number>>;
 }
 
 const DashBoardTitle = (props: DashBoardTitleProps) => {
-  const { setIsBlogListOpen } = props;
+  const { isBlogOpen, setIsBlogListOpen } = props;
 
   const { team } = useParams();
 
@@ -26,11 +27,9 @@ const DashBoardTitle = (props: DashBoardTitleProps) => {
   return (
     <>
       <SymbolIcon />
-      <SideBarTitle>
+      <SideBarTitle onBlogListSelectorClick={() => setIsBlogListOpen((prev) => !prev)}>
         {title ?? '블로그가 없어요.'}
-        <button type="button" onClick={() => setIsBlogListOpen((prev) => !prev)}>
-          <ArrowDownIcon />
-        </button>
+        {!isBlogOpen ? <ArrowDownIcon /> : <ArrowUpIcon />}
       </SideBarTitle>
     </>
   );

@@ -6,7 +6,12 @@ import styled from 'styled-components';
 
 import { postArticleCreateList } from '@/api/article';
 import { postPageCreate } from '@/api/page';
-import { useUpdateArticleContent, useUpdatePageContent } from '@/hooks/editor';
+import {
+  useUpdateArticleContent,
+  useUpdatePageContent,
+  useUpdateTempArticleDraft,
+  useUpdateTempPageDraft,
+} from '@/hooks/editor';
 import { UpdateArticleProps } from '@/types/article';
 
 import { articleDataState, pageDataState } from '../../states/atom';
@@ -15,11 +20,12 @@ interface PublishBottomButtons {
   pageType: string;
   isDuplicate: boolean | null;
   articleData?: UpdateArticleProps;
+  isEdit?: boolean;
 }
 
 const PublishBottomButtons = (props: PublishBottomButtons) => {
   const router = useRouter();
-  const { pageType, isDuplicate } = props;
+  const { pageType, isDuplicate, isEdit } = props;
   const pathName = usePathname();
 
   const [isDisabled, setIsDisabled] = useState(true);
@@ -29,32 +35,74 @@ const PublishBottomButtons = (props: PublishBottomButtons) => {
   const pageData = useRecoilValue(pageDataState);
   const { pageUrl } = pageData;
 
-  const { team, pageId } = useParams();
+  const { team, pageId, articleId } = useParams();
 
-  const updatePageMutation = useUpdatePageContent();
+  const updatePageMutation = useUpdatePageContent(team);
+  const updateArticleMutation = useUpdateArticleContent(team);
+
+  const draftArticleMutation = useUpdateTempArticleDraft(team);
+  const draftPageMutation = useUpdateTempPageDraft(team);
+
+  const [updatedArticleData, setUpdatedArticleData] = useRecoilState(articleDataState);
   const [updatedPageData, setUpdatedPageData] = useRecoilState(pageDataState);
 
   const resetArticleData = useResetRecoilState(articleDataState);
   const resetPageData = useResetRecoilState(pageDataState);
 
+  //아티클 최종 발행하기
   const handleOnClickArticlePublish = () => {
     postArticleCreateList(team, articleData);
     resetArticleData();
     router.push(`/${team}/dashboard/upload`);
   };
 
+  //아티클 최종 수정하기
+  const handleOnClickUpdateArticlePublish = () => {
+    updateArticleMutation.mutate({
+      ...updatedArticleData,
+      id: Number(articleId),
+    });
+    resetArticleData();
+    router.push(`/${team}/dashboard/page`);
+  };
+
+  //임시저장 아티클 수정하기 후 최종 발행하기
+  const handleTempArticleUpdatePublish = () => {
+    draftArticleMutation.mutate({
+      ...updatedArticleData,
+      id: Number(articleId),
+      isPublish: true,
+    });
+    resetArticleData();
+    router.push(`/${team}/dashboard/upload`);
+  };
+
+  //페이지 최종 발행하기
   const handleOnClickPagePublish = () => {
     postPageCreate(team, pageData);
     resetPageData();
     router.push(`/${team}/dashboard/page`);
   };
 
+  //페이지 최종 수정하기 버튼
   const handleOnClickUpdatePagePublish = () => {
     updatePageMutation.mutate({ ...updatedPageData, id: Number(pageId) });
     resetPageData();
+    router.push(`/${team}/dashboard/article`);
+  };
+
+  //임시저장 페이지 수정하기 후 최종 발행하기
+  const handleTempPageUpdatePublish = () => {
+    draftPageMutation.mutate({
+      ...updatedPageData,
+      id: Number(pageId),
+      isPublish: true,
+    });
+    resetArticleData();
     router.push(`/${team}/dashboard/page`);
   };
 
+  // 뒤로가기 -> 전 페이지로 바꾸는 걸로 바꾸기
   const handleBackArticleButton = () => {
     router.push(`/${team}/editor/article`);
   };
@@ -70,19 +118,19 @@ const PublishBottomButtons = (props: PublishBottomButtons) => {
             <BackButton type="button" onClick={handleBackArticleButton}>
               뒤로가기
             </BackButton>
-            {articleData.articleUrl ? (
+            {pathName === `/${team}/editor/article/${articleId}/publish` ? (
               <PublishButton
                 type="button"
-                onClick={handleOnClickArticlePublish}
+                onClick={handleOnClickUpdateArticlePublish}
                 disabled={
                   categoryId === -1 || description === '' || articleUrl === '' || isDuplicate || isDuplicate === null
                 }>
-                글 발행하기
+                글 수정하기
               </PublishButton>
             ) : (
               <PublishButton
                 type="button"
-                onClick={handleOnClickArticlePublish}
+                onClick={isEdit ? handleTempArticleUpdatePublish : handleOnClickArticlePublish}
                 disabled={
                   categoryId === -1 || description === '' || articleUrl === '' || isDuplicate || isDuplicate === null
                 }>
@@ -104,12 +152,12 @@ const PublishBottomButtons = (props: PublishBottomButtons) => {
                 type="button"
                 onClick={handleOnClickUpdatePagePublish}
                 disabled={pageUrl === '' || isDuplicate || isDuplicate === null}>
-                글 발행하기
+                글 수정하기
               </PublishButton>
             ) : (
               <PublishButton
                 type="button"
-                onClick={handleOnClickPagePublish}
+                onClick={isEdit ? handleTempPageUpdatePublish : handleOnClickPagePublish}
                 disabled={pageUrl === '' || isDuplicate || isDuplicate === null}>
                 글 발행하기
               </PublishButton>

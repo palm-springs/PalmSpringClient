@@ -9,8 +9,8 @@ import { useGetUpdatePageContent } from '@/hooks/editor';
 import { TextEditorStyle } from '@/styles/TextEditorStyle';
 
 const DraftPagePage = () => {
-  const { pageId } = useParams();
-  const updatePageEditContents = useGetUpdatePageContent(Number(pageId)); // number 값 articleId로 바꿀거이
+  const { team, pageId } = useParams();
+  const updatePageEditContents = useGetUpdatePageContent(team, Number(pageId)); // number 값 articleId로 바꿀거이
 
   return (
     <AuthRequired>
@@ -19,8 +19,8 @@ const DraftPagePage = () => {
           {/* 데이터가 content 있는 페이지 */}
           {updatePageEditContents && (
             <>
-              <EditorInputTitle pageType="page" currentState="draft" articleData={updatePageEditContents.data} />
-              <TextEditorBuild pageType="page" currentState="draft" articleData={updatePageEditContents.data} />
+              <EditorInputTitle pageType="page" currentState="draft" pageData={updatePageEditContents.data} />
+              <TextEditorBuild pageType="page" currentState="draft" pageData={updatePageEditContents.data} />
             </>
           )}
         </ArticleWrapper>

@@ -7,17 +7,17 @@ import styled from 'styled-components';
 
 import ModalPortal from '@/components/common/ModalPortal';
 import DashboardDeleteModal from '@/components/common/ui/DashboardDeleteModal';
-import { UpdateArticleProps } from '@/types/article';
 
 interface editorProps {
   handleOnClickDraft: () => void;
   handleOnClickPublish: () => void;
-  isEdit: boolean;
+  isEdit?: boolean;
+  currentState?: string;
 }
 
 const SaveEditorContentButton = (props: editorProps) => {
   const [isModal, setIsModal] = useState(false);
-  const { handleOnClickDraft, handleOnClickPublish, isEdit } = props;
+  const { handleOnClickDraft, handleOnClickPublish, isEdit, currentState } = props;
   const { team } = useParams();
   const router = useRouter();
 
@@ -42,19 +42,18 @@ const SaveEditorContentButton = (props: editorProps) => {
     notify();
   };
 
-  // const handlePageDraftSaveButton = () => {
-  //   handleOnClickDraft();
-  //   notify();
-  // };
   const modalOpenHandler = () => {
     setIsModal(!isModal);
     document.body.style.overflow = 'hidden';
-    router.push(`/${team}/dashboard/upload`);
   };
 
   const modalCloseHandler = () => {
     setIsModal(false);
     document.body.style.overflow = 'visible';
+  };
+
+  const modalRealCloseHandler = () => {
+    router.push(`/${team}/dashboard/upload`);
   };
 
   return (
@@ -68,18 +67,21 @@ const SaveEditorContentButton = (props: editorProps) => {
         }}
       />
       <ButtonContainer>
-        <BottomWrapper>
+        <>
           <ExitButton type="button" onClick={modalOpenHandler}>
             나가기
           </ExitButton>
-          <TemporarySaveButton type="button" onClick={handleDraftSaveButton}>
-            임시저장
-          </TemporarySaveButton>
-
+          {isEdit ? (
+            <NoneTemporary type="button" />
+          ) : (
+            <TemporarySaveButton type="button" onClick={handleDraftSaveButton}>
+              임시저장
+            </TemporarySaveButton>
+          )}
           <SaveButton type="button" onClick={handleOnClickPublish}>
             {isEdit ? '수정하기' : '발행하기'}
           </SaveButton>
-        </BottomWrapper>
+        </>
       </ButtonContainer>
       {isModal && (
         <ModalPortal>
@@ -90,6 +92,7 @@ const SaveEditorContentButton = (props: editorProps) => {
             leftButtonText={'돌아가기'}
             rightButtonText={'나가기'}
             leftHandler={modalCloseHandler}
+            rightHandler={modalRealCloseHandler}
           />
         </ModalPortal>
       )}
@@ -99,15 +102,12 @@ const SaveEditorContentButton = (props: editorProps) => {
 
 export default SaveEditorContentButton;
 
-const BottomWrapper = styled.div`
-  margin-left: 35.9rem;
-`;
-
 const ButtonContainer = styled.div`
   display: flex;
   position: fixed;
   bottom: 0;
   align-items: center;
+  justify-content: center;
   border-top: 1px solid #eee;
   background: ${({ theme }) => theme.colors.grey_0};
   width: 100vw;
@@ -125,6 +125,13 @@ const ExitButton = styled.button`
     width: 8.2rem;
     height: 3.6rem;
   }
+`;
+
+const NoneTemporary = styled.button`
+  margin-left: 48.5rem;
+  padding: 1rem 2rem;
+  width: 9.6rem;
+  height: 3.6rem;
 `;
 
 const TemporarySaveButton = styled.button`

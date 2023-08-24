@@ -6,7 +6,7 @@ import { useParams } from 'next/navigation';
 import styled from 'styled-components';
 
 import LoadingLottie from '@/components/common/ui/LoadingLottie';
-import { useGetArticleList } from '@/hooks/editor';
+import { useGetBlogArticleList } from '@/hooks/blogHome';
 
 import ArticleBox from './ArticleBox';
 
@@ -17,7 +17,7 @@ const Recommend = () => {
     query: '(min-width : 375px) and (max-width:768px)',
   });
 
-  const data = useGetArticleList(team, '');
+  const data = useGetBlogArticleList(team, '');
   const recommendArticle = data?.data.slice(0, 3);
   if (!recommendArticle) return <LoadingLottie width={5} height={5} fit />;
 

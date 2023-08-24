@@ -16,7 +16,12 @@ const DashBoardNav = () => {
 
   return (
     <DashBoardNavContainer>
-      <DashBoardTitle setIsBlogListOpen={setIsBlogListOpen} currentBlog={currentBlog} setCurrentBlog={setCurrentBlog} />
+      <DashBoardTitle
+        isBlogOpen={isBlogListOpen}
+        setIsBlogListOpen={setIsBlogListOpen}
+        currentBlog={currentBlog}
+        setCurrentBlog={setCurrentBlog}
+      />
       <NavButton currentPageType="upload" />
       <NavButton currentPageType="tempsaved" />
       <Line />

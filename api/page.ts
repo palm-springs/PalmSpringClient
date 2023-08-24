@@ -1,5 +1,5 @@
 import { Response } from '@/types/common';
-import { PageData, UpdatePageContentProps } from '@/types/page';
+import { PageData, UpdatePageContentProps, UpdateTempPageDraftProps } from '@/types/page';
 
 import client from '.';
 
@@ -46,33 +46,27 @@ export const getCheckPageUrlDuplication = async (teamUrl: string, pageUrl: strin
   return data;
 };
 
-// 페이지 업로드된 글 get
-export const getUpdatePageContent = async (pageId: number) => {
-  const { data } = await client.get(`/api/v2/dashboard/page/admin/detail?pageId=${pageId}`);
+// 페이지 업로드된 글 get (path 수정완)
+export const getUpdatePageContent = async (blogUrl: string, pageId: number) => {
+  const { data } = await client.get(`/api/v2/dashboard/page/admin/detail/modify/${blogUrl}?pageId=${pageId}`);
   return data;
 };
 
-//페이지 업로드된 글 수정하기
-export const updatePageDetail = async (updatePageData: UpdatePageContentProps) => {
-  const { data } = await client.put<Response<null>>(`/api/v2/dashboard/page/admin/publish/modify`, {
+//페이지 업로드된 글 수정하기(path 수정완)
+export const updatePageDetail = async (blogUrl: string, updatePageData: UpdatePageContentProps) => {
+  const { data } = await client.put<Response<null>>(`/api/v2/dashboard/page/admin/publish/modify/${blogUrl}`, {
     ...updatePageData,
   });
   return data;
 };
 
-// 페이지 임시저장 수정하기 -> requestBody 보내야함
-interface updatePageRequest {
-  id: number;
-  title: string;
-  content: string;
-  images: string[] | null;
-  thumbnail: string;
-  articleUrl: string;
-  isPublish: boolean;
-}
+// 페이지 임시저장 수정하기 -> requestBody 보내야함(path수정완)
 
-export const updatePageDraft = async (requestBody: updatePageRequest) => {
-  const { data } = await client.put<Response<null>>(`/api/v2/dashboard/page/admin/draft/modify`, requestBody);
+export const updatePageDraft = async (blogUrl: string, requestBody: UpdateTempPageDraftProps) => {
+  const { data } = await client.put<Response<null>>(
+    `/api/v2/dashboard/page/admin/draft/modify/${blogUrl}`,
+    requestBody,
+  );
   return data;
 };
 

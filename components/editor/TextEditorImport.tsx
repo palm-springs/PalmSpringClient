@@ -32,19 +32,24 @@ lowlight.registerLanguage('css', css);
 lowlight.registerLanguage('js', js);
 lowlight.registerLanguage('ts', ts);
 
-import { useRecoilState, useRecoilValue } from 'recoil';
-import { styled } from 'styled-components';
+import { useRecoilState } from 'recoil';
 
 import { getUpdateArticleContent, postArticleList } from '@/api/article';
 import { postPageDraft } from '@/api/page';
 import TextEditor from '@/components/editor/TextEditor';
 import ToolBox from '@/components/editor/ui/ToolBox';
-import { useGetUpdateArticleContent, useUpdateArticleContent } from '@/hooks/editor';
+import {
+  useGetUpdateArticleContent,
+  useUpdateArticleContent,
+  useUpdateTempArticleDraft,
+  useUpdateTempPageDraft,
+} from '@/hooks/editor';
 import { UpdateArticleContentProps, UpdateArticleProps } from '@/types/article';
 import { UpdatePageProps } from '@/types/page';
 import { getImageMultipartData } from '@/utils/getImageMultipartData';
 
-import { articleDataState, newArticleDataState, pageDataState, pageTitleState } from './states/atom';
+import { articleDataState, pageDataState } from './states/atom';
+
 interface TextEditorBuildprops {
   pageType: string;
   currentState?: string;
@@ -55,20 +60,18 @@ interface TextEditorBuildprops {
 const TextEditorBuild = (props: TextEditorBuildprops) => {
   const { pageType, currentState, articleData, pageData } = props;
   const { team, articleId, pageId } = useParams();
-  const [{ title }, setArticleData] = useRecoilState(articleDataState);
-  const [{ title: pageTitle }, setPageData] = useRecoilState(pageDataState);
-  const [pageNewTitle, setPageNewTitle] = useRecoilState(pageTitleState);
 
-  // const pageNewTitle = useRecoilValue(pageTitleState);
-  console.log(pageNewTitle);
-  const [{ title: newArticleTitle }, setNewArticleData] = useRecoilState(newArticleDataState);
-  const [updatedArticleData, setUpdatedArticleData] = useRecoilState(newArticleDataState);
-  // const updateArticleMutation = useUpdateArticleContent(team);
+  const [{ title: articleTitle }, setArticleData] = useRecoilState(articleDataState); // 아티클 초기 타이틀 -> 복사 -> 새로운 title 갈아끼기
+  const [{ title: pageTitle }, setPageData] = useRecoilState(pageDataState);
 
   const [, setImageSrc] = useState('');
   const [extractedHTML, setExtractedHTML] = useState<string>('');
   const [imageArr, setImageArr] = useState<string[]>([]);
   const router = useRouter();
+  const draftArticleMutation = useUpdateTempArticleDraft(team);
+  const draftPageMutation = useUpdateTempPageDraft(team);
+  const [updatedArticleData, setUpdatedArticleData] = useRecoilState(articleDataState);
+  const [updatedPageData, setUpdatedPageData] = useRecoilState(pageDataState);
 
   useEffect(() => {
     console.log(imageArr);
@@ -117,13 +120,14 @@ const TextEditorBuild = (props: TextEditorBuildprops) => {
     ],
     content: articleData ? articleData.content : pageData ? pageData.content : '',
   });
+
   const encodeFileToBase64 = async (event: ChangeEvent<HTMLInputElement>, editor: Editor) => {
     const files = event.target.files;
     if (!files || files.length === 0) {
       return null;
     }
     const file = files[0];
-    const imgUrl = (await getImageMultipartData(file)) as string;
+    const imgUrl = (await getImageMultipartData(file, team)) as string;
     setImageArr((prev) => [...prev, imgUrl]);
 
     const reader = new FileReader();
@@ -167,7 +171,7 @@ const TextEditorBuild = (props: TextEditorBuildprops) => {
       const files = event.dataTransfer.files;
       if (files.length > 0) {
         const file = files[0];
-        const imgUrl = await getImageMultipartData(file);
+        const imgUrl = await getImageMultipartData(file, team);
         imageArr.push(imgUrl);
 
         editor.chain().focus().setImage({ src: imgUrl }).run(); // 이미지를 에디터에 삽입
@@ -192,9 +196,9 @@ const TextEditorBuild = (props: TextEditorBuildprops) => {
       setExtractedHTML(content);
 
       if (imageArr.length === 0) {
-        postArticleList(team, { title, content, images: [] });
+        postArticleList(team, { title: articleTitle, content, images: [] });
       } else {
-        postArticleList(team, { title, content, images: imageArr });
+        postArticleList(team, { title: articleTitle, content, images: imageArr });
       }
     }
   };
@@ -220,6 +224,62 @@ const TextEditorBuild = (props: TextEditorBuildprops) => {
     }
   };
 
+  //article 임시저장시 임시저장put
+  const handleTempArticleDraft = () => {
+    if (editor) {
+      const newContent = editor.getHTML();
+      setExtractedHTML(newContent);
+
+      if (imageArr.length === 0) {
+        draftArticleMutation.mutate({
+          ...updatedArticleData,
+          id: Number(articleId),
+          title: articleTitle,
+          content: newContent,
+          images: [],
+          isPublish: false,
+        });
+      } else {
+        draftArticleMutation.mutate({
+          ...updatedArticleData,
+          id: Number(articleId),
+          title: articleTitle,
+          content: newContent,
+          isPublish: false,
+          images: imageArr,
+        });
+      }
+    }
+  };
+
+  //page 임시저장시 임시저장put
+  const handleTempPageDraft = () => {
+    if (editor) {
+      const newContent = editor.getHTML();
+      setExtractedHTML(newContent);
+
+      if (imageArr.length === 0) {
+        draftPageMutation.mutate({
+          ...updatedPageData,
+          id: Number(pageId),
+          title: pageTitle,
+          content: newContent,
+          images: [],
+          isPublish: false,
+        });
+      } else {
+        draftPageMutation.mutate({
+          ...updatedPageData,
+          id: Number(pageId),
+          title: pageTitle,
+          content: newContent,
+          images: imageArr,
+          isPublish: false,
+        });
+      }
+    }
+  };
+
   // article page 저장시 내용 가지고 발행하기 페이지로 이동
   const handleOnClickArticlePublish = () => {
     if (editor) {
@@ -227,9 +287,9 @@ const TextEditorBuild = (props: TextEditorBuildprops) => {
       setExtractedHTML(content);
 
       if (imageArr.length === 0) {
-        setArticleData((prev) => ({ ...prev, title, content, images: [] }));
+        setArticleData((prev) => ({ ...prev, title: articleTitle, content, images: [] }));
       } else {
-        setArticleData((prev) => ({ ...prev, title, content, images: imageArr }));
+        setArticleData((prev) => ({ ...prev, title: articleTitle, content, images: imageArr }));
       }
       router.push(`/${team}/editor/article/publish`);
     }
@@ -250,37 +310,34 @@ const TextEditorBuild = (props: TextEditorBuildprops) => {
     }
   };
 
-  //article 수정시 !
-  const handleUpdateArticleContent = () => {
+  //article 수정시 발행하기로 내용가지고 이동
+  const handleUpdateGoArticlePublish = () => {
     if (editor) {
       const newContent = editor.getHTML();
       setExtractedHTML(newContent);
 
       if (imageArr.length === 0) {
-        setUpdatedArticleData((prevData) => ({
+        setArticleData((prevData) => ({
           ...prevData,
-          title: newArticleTitle,
+          title: articleTitle,
           content: newContent,
           images: [],
         }));
       } else {
-        setUpdatedArticleData((prevData) => ({
+        setArticleData((prevData) => ({
           ...prevData,
-          title: newArticleTitle,
+          title: articleTitle,
           content: newContent,
           images: imageArr,
         }));
       }
 
-      // updateArticleMutation.mutate(updatedArticleData);
-      console.log(updatedArticleData);
-      console.log(imageArr);
-      router.push(`/${team}/editor/article/edit/${articleId}/publish`);
+      router.push(`/${team}/editor/article/${articleId}/publish`);
     }
   };
 
   // 페이지 수정시 발행페이지 이동
-  const handleUpdatePageContent = () => {
+  const handleUpdateGoPagePublish = () => {
     if (editor) {
       const newContent = editor.getHTML();
       setExtractedHTML(newContent);
@@ -288,26 +345,22 @@ const TextEditorBuild = (props: TextEditorBuildprops) => {
       if (imageArr.length === 0) {
         setPageData((prevData) => ({
           ...prevData,
-          title: pageNewTitle,
+          title: pageTitle,
           content: newContent,
           images: [],
         }));
       } else {
         setPageData((prevData) => ({
           ...prevData,
-          title: pageNewTitle,
+          title: pageTitle,
           content: newContent,
           images: imageArr,
         }));
       }
 
-      // updateArticleMutation.mutate(updatedArticleData);
-      // console.log(updatedArticleData);
-      // console.log(imageArr);
       router.push(`/${team}/editor/page/${pageId}/publish`);
     }
   };
-
   return (
     <>
       <ToolBox editor={editor} encodeFileToBase64={encodeFileToBase64} setLink={setLink} />
@@ -317,25 +370,26 @@ const TextEditorBuild = (props: TextEditorBuildprops) => {
         <SaveEditorContentButton
           handleOnClickDraft={
             currentState === 'draft'
-              ? handleOnClickArticleDraft
+              ? handleTempArticleDraft
               : currentState === 'edit'
               ? handleOnClickArticleDraft
               : handleOnClickArticleDraft
           }
-          handleOnClickPublish={currentState === 'edit' ? handleOnClickArticlePublish : handleOnClickArticlePublish}
+          handleOnClickPublish={currentState === 'edit' ? handleUpdateGoArticlePublish : handleOnClickArticlePublish}
           isEdit={currentState === 'edit' ? true : false}
         />
       ) : (
         <SaveEditorContentButton
           handleOnClickDraft={
+            //임시저장의 발행하기는 ? 어디임? -> 아 이거 어차피 넘김
             currentState === 'draft'
-              ? handleOnClickPageDraft
+              ? handleTempPageDraft
               : currentState === 'edit'
               ? handleOnClickPageDraft
               : handleOnClickPageDraft
           }
-          handleOnClickPublish={currentState === 'edit' ? handleUpdatePageContent : handleOnClickPagePublish}
-          isEdit={currentState === 'edit' ? true : false}
+          handleOnClickPublish={currentState === 'edit' ? handleUpdateGoPagePublish : handleOnClickPagePublish}
+          isEdit={currentState === 'edit' ? true : false} // edit이 아닌 경우는 draft 경우임
         />
       )}
     </>

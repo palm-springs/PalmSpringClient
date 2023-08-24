@@ -52,5 +52,5 @@ const UserPositionTitle = styled.span`
   ${({ theme }) => theme.fonts.Body2_Semibold};
   margin: 1rem 13.8rem 0.8rem 0;
   white-space: nowrap;
-  color: ${({ theme }) => theme.colors.grey_950};
+  color: ${({ theme }) => theme.colors.grey_900};
 `;

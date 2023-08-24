@@ -8,7 +8,7 @@ export const TextEditorStyle = styled.div`
 
     p {
       ${({ theme }) => theme.fonts.Body1_Regular};
-      padding: 2.4rem 0 0.8rem 0;
+      padding-bottom: 0.8rem;
       width: 72.2rem;
     }
 
@@ -27,7 +27,7 @@ export const TextEditorStyle = styled.div`
     h3 {
       ${({ theme }) => theme.editor.Edit_h3};
       margin-top: 2.4rem;
-      padding-top: 2.4rem 0 0.4rem 0;
+      padding: 2.4rem 0 0.4rem;
       width: 72.2rem;
     }
 
@@ -74,7 +74,7 @@ export const TextEditorStyle = styled.div`
     }
 
     pre {
-      margin-top: 3.2rem;
+      margin: 2.4rem 0 0.8rem;
       border-radius: 0.5rem;
       background: ${({ theme }) => theme.colors.grey_100};
       padding: 1.6rem 2rem;

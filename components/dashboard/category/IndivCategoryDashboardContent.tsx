@@ -1,4 +1,4 @@
-import { useState } from 'react';
+import { Dispatch, SetStateAction, useState } from 'react';
 import { useRecoilState } from 'recoil';
 
 import ModalPortal from '@/components/common/ModalPortal';
@@ -10,6 +10,8 @@ import { dashBoardModalState } from '../state/modalState';
 import UpdateCategoryModal from './UpdateCategoryModal';
 
 interface IndivCategoryDashboardContentProps {
+  currentModalId: number | null;
+  setCurrentModalId: Dispatch<SetStateAction<number | null>>;
   id: number;
   content: string;
   blogUrl: string;
@@ -18,7 +20,7 @@ interface IndivCategoryDashboardContentProps {
 }
 
 const IndivCategoryDashboardContent = (props: IndivCategoryDashboardContentProps) => {
-  const { id, content, description, blogUrl, categoryUrl } = props;
+  const { currentModalId, setCurrentModalId, id, content, description, blogUrl, categoryUrl } = props;
 
   const [modalState, setModalState] = useRecoilState(dashBoardModalState);
 
@@ -40,12 +42,15 @@ const IndivCategoryDashboardContent = (props: IndivCategoryDashboardContentProps
         }}
         onMutateClick={() => {
           setModalState('updateCategory');
+          setCurrentModalId(id);
+          setUpdateCategoryName(content);
+          setUpdateCategoryDescription(description);
         }}
         onDeleteClick={() => {
           deleteCategory();
         }}
       />
-      {modalState === 'updateCategory' && (
+      {modalState === 'updateCategory' && currentModalId === id && (
         <ModalPortal>
           <UpdateCategoryModal
             id={id}
