@@ -5,10 +5,7 @@ import { ArrowDownIcon } from '@/public/icons';
 
 interface ModalPortalContainerProps {
   setIsSelectorOpen: Dispatch<SetStateAction<boolean>>;
-  // newNavigationSelector: string;
-  // setNewNavigationSelector: Dispatch<SetStateAction<string>>;
   state: string;
-  // setState: Dispatch<SetStateAction<string>>;
 }
 
 const UrlInputContainer = (props: ModalPortalContainerProps) => {
