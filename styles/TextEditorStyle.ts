@@ -6,8 +6,9 @@ export const TextEditorStyle = styled.div`
   .ProseMirror {
     position: absolute;
 
-    .bzbLGU .ProseMirror p.is-editor-empty:first-child::before {
-      cursor: pointer;
+    /* 터치 영역 설정 */
+
+    .ProseMirror p.is-editor-empty:first-child::before {
       height: 100rem;
     }
 
@@ -32,7 +33,7 @@ export const TextEditorStyle = styled.div`
     h3 {
       ${({ theme }) => theme.editor.Edit_h3};
       margin-top: 2.4rem;
-      padding-top: 2.4rem 0 0.4rem 0;
+      padding-top: 2.4rem 0 0.4rem;
       width: 72.2rem;
     }
 

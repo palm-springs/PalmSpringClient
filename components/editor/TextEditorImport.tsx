@@ -120,6 +120,7 @@ const TextEditorBuild = (props: TextEditorBuildprops) => {
     ],
     content: articleData ? articleData.content : pageData ? pageData.content : '',
   });
+
   const encodeFileToBase64 = async (event: ChangeEvent<HTMLInputElement>, editor: Editor) => {
     const files = event.target.files;
     if (!files || files.length === 0) {

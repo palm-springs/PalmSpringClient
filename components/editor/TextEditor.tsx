@@ -37,7 +37,8 @@ const TextEditorUI = styled(EditorContent)`
   .ProseMirror p.is-editor-empty:first-child::before {
     ${({ theme }) => theme.fonts.Body1_Regular};
     float: left;
-    height: 0;
+    /* height: 100rem; */
+    /* height: 0; */
     color: ${({ theme }) => theme.colors.grey_600};
     content: attr(data-placeholder);
     pointer-events: none;
