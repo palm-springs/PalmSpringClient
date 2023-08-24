@@ -1,17 +1,36 @@
 'use client';
-import React, { useState } from 'react';
+import React, { ChangeEvent } from 'react';
 import { useParams } from 'next/navigation';
+import { useRecoilState } from 'recoil';
 import styled from 'styled-components';
 
-import { useGetUserBasicInfo } from '@/hooks/dashboard';
 import { InputPlusButtonIcon, UserProfileDeleteIcon, UsersProfilesInputIcon } from '@/public/icons';
+import { getImageMultipartData } from '@/utils/getImageMultipartData';
+
+import { userInfoState } from '../state/user';
 
 const UserProfile = () => {
-  const { team } = useParams();
-  const [inputImage] = useState(true);
-  const basicUserData = useGetUserBasicInfo(team);
-  if (!basicUserData) return;
-  console.log(basicUserData.data.nickname);
+  const [{ thumbnail }, setUserInfoData] = useRecoilState(userInfoState);
+
+  const handleOnFileChange = async (e: ChangeEvent<HTMLInputElement>) => {
+    const { files } = e.currentTarget;
+
+    // const reader = new FileReader();
+    if (files) {
+      const remoteImgUrl = await getImageMultipartData(files[0]);
+      setUserInfoData((prev) => ({ ...prev, thumbnail: remoteImgUrl }));
+
+      // reader.readAsDataURL(files[0] as Blob);
+      // reader.onloadend = () => {
+      //   setUserInfoData();
+      // };
+    }
+  };
+
+  const handleOnClickDelete = () => {
+    setUserInfoData((prev) => ({ ...prev, thumbnail: '' }));
+  };
+
   return (
     <UserProfileContainer>
       <ProfileInputLabel>
@@ -20,15 +39,16 @@ const UserProfile = () => {
           <ImageGuideTitle>프로필 사진</ImageGuideTitle>
         </ImageGuideContainer>
 
-        {inputImage ? (
+        {thumbnail !== '' ? (
           <>
-            <ImageUserBox src={basicUserData.data.thumbnail} alt="user profile" />
-            <UsersProfilesDelete />
+            <ImageUserBox src={thumbnail} alt="user profile" />
+            <UsersProfilesDelete onClick={handleOnClickDelete} />
           </>
         ) : (
           <>
             <UsersProfilesInputBackground />
             <UsersProfilesInput />
+            <input type="file" onChange={handleOnFileChange} />
           </>
         )}
       </ProfileInputLabel>

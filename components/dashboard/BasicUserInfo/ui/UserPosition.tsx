@@ -1,18 +1,22 @@
 'use client';
-import React from 'react';
-import { useParams } from 'next/navigation';
+import React, { ChangeEvent } from 'react';
+import { useRecoilState } from 'recoil';
 import styled from 'styled-components';
 
-import { useGetUserBasicInfo } from '@/hooks/dashboard';
+import { userInfoState } from '../state/user';
 
 const UserPosition = () => {
-  const { team } = useParams();
-  const basicUserData = useGetUserBasicInfo(team);
-  if (!basicUserData) return;
+  const [{ job }, setUserInfoData] = useRecoilState(userInfoState);
+
+  const handleOnChange = (e: ChangeEvent<HTMLTextAreaElement>) => {
+    const { value } = e.currentTarget;
+    setUserInfoData((prev) => ({ ...prev, job: value }));
+  };
+
   return (
     <UserPositionContainer>
       <UserPositionTitle>직책</UserPositionTitle>
-      <UserPositionTextarea placeholder="직책을 입력해주세요">{basicUserData.data.job}</UserPositionTextarea>
+      <UserPositionTextarea value={job} placeholder="직책을 입력해주세요" onChange={handleOnChange} />
     </UserPositionContainer>
   );
 };
@@ -29,11 +33,13 @@ const UserPositionTextarea = styled.textarea`
   width: 64.5rem;
   height: 4.6rem;
   resize: none;
-  color: ${({ theme }) => theme.colors.grey_600};
+  color: ${({ theme }) => theme.colors.grey_900};
+  &::placeholder {
+    color: ${({ theme }) => theme.colors.grey_600};
+  }
   &:focus {
     outline: none;
     border: 1px solid ${({ theme }) => theme.colors.grey_700};
-    color: ${({ theme }) => theme.colors.grey_900};
   }
 `;
 

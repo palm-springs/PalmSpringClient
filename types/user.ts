@@ -7,3 +7,10 @@ export interface UserInfoProps {
     url: string;
   }>;
 }
+
+export interface UserBasicInfo {
+  nickname: string;
+  thumbnail: string;
+  description: string;
+  job: string;
+}

@@ -1,19 +1,22 @@
 'use client';
-import React from 'react';
-import { useParams } from 'next/navigation';
+import React, { ChangeEvent } from 'react';
+import { useRecoilState } from 'recoil';
 import styled from 'styled-components';
 
-import { useGetUserBasicInfo } from '@/hooks/dashboard';
+import { userInfoState } from '../state/user';
 
 const UserName = () => {
-  const { team } = useParams();
-  const basicUserData = useGetUserBasicInfo(team);
-  if (!basicUserData) return;
+  const [{ nickname }, setUserInfoData] = useRecoilState(userInfoState);
+
+  const handleOnChange = (e: ChangeEvent<HTMLTextAreaElement>) => {
+    const { value } = e.currentTarget;
+    setUserInfoData((prev) => ({ ...prev, nickname: value }));
+  };
 
   return (
     <UserNameContainer>
       <UserNameTitle>이름</UserNameTitle>
-      <UserNameTextarea placeholder="이름을 입력해주세요">{basicUserData.data.nickname}</UserNameTextarea>
+      <UserNameTextarea value={nickname} placeholder="이름을 입력해주세요" onChange={handleOnChange} />
     </UserNameContainer>
   );
 };
@@ -31,6 +34,9 @@ const UserNameTextarea = styled.textarea`
   height: 4.6rem;
   resize: none;
   color: ${({ theme }) => theme.colors.grey_900};
+  &::placeholder {
+    color: ${({ theme }) => theme.colors.grey_600};
+  }
   &:focus {
     outline: none;
     border: 1px solid ${({ theme }) => theme.colors.grey_700};

@@ -49,13 +49,13 @@ export const getUserInfoAfterLogin = async (blogUrl: string, accessToken: string
 };
 
 export const getMemberList = async (blogUrl: string) => {
-  const { data } = await client.get<Response<MemberProps[]>>(`/api/v2/dashboard/user/team/list/members/${blogUrl}`);
+  const { data } = await client.get<Response<MemberProps[]>>(`/api/v2/dashboard/user/me/detail/joined/${blogUrl}`);
   return data;
 };
 
 // 왜 있지?
 export const getUserBasicInfo = async (blogUrl: string) => {
-  const { data } = await client.get<Response<UserBasicInfoProps>>(`/api/v2/dashboard/user/sidebar`);
+  const { data } = await client.get<Response<UserBasicInfoProps>>(`/api/v2/dashboard/user/me/detail/joined/${blogUrl}`);
   return data;
 };
 
