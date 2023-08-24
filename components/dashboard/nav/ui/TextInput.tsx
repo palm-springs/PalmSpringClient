@@ -10,21 +10,33 @@ const TextInput = (props: TextInputProps) => {
   const { state, setState } = props;
 
   return (
-    <TextInputUI
-      type="text"
-      placeholder="SNS, 채용 공고 등 링크 입력"
-      onChange={(e: React.ChangeEvent<HTMLInputElement>) => setState(e.target.value)}
-      value={state}
-    />
+    <TextInputContainer>
+      <div>https://</div>&nbsp;&nbsp;
+      <TextInputUI
+        type="text"
+        placeholder="SNS, 채용 공고 등 링크 입력"
+        onChange={(e: React.ChangeEvent<HTMLInputElement>) => setState(e.target.value)}
+        value={state}
+      />
+    </TextInputContainer>
   );
 };
 
 export default TextInput;
 
-const TextInputUI = styled.input`
+const TextInputContainer = styled.div`
+  display: flex;
+  align-items: center;
   margin-top: 0.8rem;
-  border: 1px solid ${({ theme }) => theme.colors.grey_400};
+  div {
+    color: ${({ theme }) => theme.colors.grey_700};
+    ${({ theme }) => theme.fonts.Body2_Regular};
+  }
+`;
+
+const TextInputUI = styled.input`
   ${({ theme }) => theme.fonts.Body2_Regular};
+  border: 1px solid ${({ theme }) => theme.colors.grey_400};
   border-radius: 0.8rem;
   padding: 1rem 1.2rem;
   width: 100%;
