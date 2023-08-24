@@ -67,7 +67,7 @@ const SaveEditorContentButton = (props: editorProps) => {
         }}
       />
       <ButtonContainer>
-        <BottomWrapper>
+        <>
           <ExitButton type="button" onClick={modalOpenHandler}>
             나가기
           </ExitButton>
@@ -81,7 +81,7 @@ const SaveEditorContentButton = (props: editorProps) => {
           <SaveButton type="button" onClick={handleOnClickPublish}>
             {isEdit ? '수정하기' : '발행하기'}
           </SaveButton>
-        </BottomWrapper>
+        </>
       </ButtonContainer>
       {isModal && (
         <ModalPortal>
@@ -102,15 +102,12 @@ const SaveEditorContentButton = (props: editorProps) => {
 
 export default SaveEditorContentButton;
 
-const BottomWrapper = styled.div`
-  margin-left: 35.9rem;
-`;
-
 const ButtonContainer = styled.div`
   display: flex;
   position: fixed;
   bottom: 0;
   align-items: center;
+  justify-content: center;
   border-top: 1px solid #eee;
   background: ${({ theme }) => theme.colors.grey_0};
   width: 100vw;
