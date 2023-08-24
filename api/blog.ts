@@ -5,9 +5,9 @@ import client from '.';
 
 interface BlogConfigRequestBodyProps {
   name: string;
-  description: string;
-  thumbnail: string;
-  logo: string;
+  description: string | null;
+  thumbnail: string | null;
+  logo: string | null;
 }
 
 interface BlogInfoProps {

@@ -52,7 +52,6 @@ const mapPageType2HeaderInfo: mapPageType2HeaderInfoBluePrint = {
   },
   basicuserinfo: {
     title: '유저 기본 정보',
-    buttonInnerText: '저장하기',
   },
 };
 

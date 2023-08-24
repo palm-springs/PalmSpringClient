@@ -53,23 +53,27 @@ const BlogConfigTemplate = () => {
       typeof blogConfig.blogLogoImage !== 'string' &&
       ((await getImageMultipartData(blogConfig.blogLogoImage, team)) as string);
 
+    const logoImage = logoS3 ? logoS3 : blogConfig.blogLogoImage;
+
     const mainS3 =
       blogConfig.blogMainImage &&
       typeof blogConfig.blogMainImage !== 'string' &&
       ((await getImageMultipartData(blogConfig.blogMainImage, team)) as string);
 
+    const mainImage = mainS3 ? mainS3 : blogConfig.blogMainImage;
+    // 기본적으로 로고 이미지가 null인 경우, string인 경우, File인 경우가 있다.
+
     try {
       // axios를 이용한 post 요청. 헤더를 multipart/form-data 로 한다.
-      if (!logoS3 || !mainS3) return;
       await putBlogConfig(team, {
         name: blogConfig.blogName,
         description: blogConfig.blogDescribeText,
-        logo: logoS3,
-        thumbnail: mainS3,
+        logo: typeof logoImage === 'string' ? logoImage : null,
+        thumbnail: typeof mainImage === 'string' ? mainImage : null,
       });
-      toast('블로그 정보를 수정했습니다!');
+      alert('블로그 정보를 수정했습니다!');
     } catch (err) {
-      toast('정보 수정에 실패했습니다..');
+      alert('정보 수정에 실패했습니다..');
     }
   };
   return (
