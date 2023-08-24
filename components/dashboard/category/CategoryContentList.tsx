@@ -1,6 +1,6 @@
 'use client';
 
-import React from 'react';
+import React, { useState } from 'react';
 import { useParams } from 'next/navigation';
 import { useSetRecoilState } from 'recoil';
 
@@ -20,6 +20,8 @@ const CategoryContentList = () => {
 
   const setModalState = useSetRecoilState(dashBoardModalState);
 
+  const [currentModalId, setCurrentModalId] = useState<number | null>(null);
+
   if (!data || data.data.length === 0)
     return (
       <EmptyLanding
@@ -38,6 +40,8 @@ const CategoryContentList = () => {
         return (
           <IndivCategoryDashboardContent
             key={id}
+            currentModalId={currentModalId}
+            setCurrentModalId={setCurrentModalId}
             id={Number(id)}
             content={name}
             categoryUrl={categoryUrl}
