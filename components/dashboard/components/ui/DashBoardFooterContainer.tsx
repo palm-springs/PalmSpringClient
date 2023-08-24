@@ -11,7 +11,7 @@ const DashBoardFooterUI = styled.section`
   position: absolute;
   bottom: 0;
   left: 0;
-  z-index: 100;
+  z-index: 5;
   margin-bottom: 1.6rem;
 
   background: ${({ theme }) => theme.colors.grey_100};
