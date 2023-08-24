@@ -6,6 +6,11 @@ export const TextEditorStyle = styled.div`
   .ProseMirror {
     position: absolute;
 
+    .bzbLGU .ProseMirror p.is-editor-empty:first-child::before {
+      cursor: pointer;
+      height: 100rem;
+    }
+
     p {
       ${({ theme }) => theme.fonts.Body1_Regular};
       padding: 2.4rem 0 0.8rem 0;

@@ -21,7 +21,7 @@ const TextEditor = ({ editor, handleDragOver, handleDrop }: editorProps) => (
 export default TextEditor;
 
 const EditorContainer = styled.div`
-  margin-bottom: 64px;
+  margin-bottom: 6.4rem;
   height: fit-content;
 `;
 
