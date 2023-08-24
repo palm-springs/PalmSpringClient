@@ -69,7 +69,7 @@ const TextEditorBuild = (props: TextEditorBuildprops) => {
   const [imageArr, setImageArr] = useState<string[]>([]);
   const router = useRouter();
   const draftArticleMutation = useUpdateTempArticleDraft(team);
-  const draftPageMutation = useUpdateTempPageDraft();
+  const draftPageMutation = useUpdateTempPageDraft(team);
   const [updatedArticleData, setUpdatedArticleData] = useRecoilState(articleDataState);
   const [updatedPageData, setUpdatedPageData] = useRecoilState(pageDataState);
 
@@ -120,13 +120,14 @@ const TextEditorBuild = (props: TextEditorBuildprops) => {
     ],
     content: articleData ? articleData.content : pageData ? pageData.content : '',
   });
+
   const encodeFileToBase64 = async (event: ChangeEvent<HTMLInputElement>, editor: Editor) => {
     const files = event.target.files;
     if (!files || files.length === 0) {
       return null;
     }
     const file = files[0];
-    const imgUrl = (await getImageMultipartData(file)) as string;
+    const imgUrl = (await getImageMultipartData(file, team)) as string;
     setImageArr((prev) => [...prev, imgUrl]);
 
     const reader = new FileReader();
@@ -170,7 +171,7 @@ const TextEditorBuild = (props: TextEditorBuildprops) => {
       const files = event.dataTransfer.files;
       if (files.length > 0) {
         const file = files[0];
-        const imgUrl = await getImageMultipartData(file);
+        const imgUrl = await getImageMultipartData(file, team);
         imageArr.push(imgUrl);
 
         editor.chain().focus().setImage({ src: imgUrl }).run(); // 이미지를 에디터에 삽입

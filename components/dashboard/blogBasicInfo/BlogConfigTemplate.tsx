@@ -23,9 +23,9 @@ interface BlogConfigProps {
 }
 
 const BlogConfigTemplate = () => {
-  const { team: blogUrl } = useParams();
+  const { team } = useParams();
 
-  const res = useGetBlogInfo(blogUrl);
+  const res = useGetBlogInfo(team);
 
   const [blogConfig, setBlogConfig] = useState<BlogConfigProps>({
     blogName: '블로그 이름을 불러오는 중입니다...',
@@ -51,21 +51,21 @@ const BlogConfigTemplate = () => {
     const logoS3 =
       blogConfig.blogLogoImage &&
       typeof blogConfig.blogLogoImage !== 'string' &&
-      ((await getImageMultipartData(blogConfig.blogLogoImage)) as string);
+      ((await getImageMultipartData(blogConfig.blogLogoImage, team)) as string);
 
     const logoImage = logoS3 ? logoS3 : blogConfig.blogLogoImage;
 
     const mainS3 =
       blogConfig.blogMainImage &&
       typeof blogConfig.blogMainImage !== 'string' &&
-      ((await getImageMultipartData(blogConfig.blogMainImage)) as string);
+      ((await getImageMultipartData(blogConfig.blogMainImage, team)) as string);
 
     const mainImage = mainS3 ? mainS3 : blogConfig.blogMainImage;
     // 기본적으로 로고 이미지가 null인 경우, string인 경우, File인 경우가 있다.
 
     try {
       // axios를 이용한 post 요청. 헤더를 multipart/form-data 로 한다.
-      await putBlogConfig(blogUrl, {
+      await putBlogConfig(team, {
         name: blogConfig.blogName,
         description: blogConfig.blogDescribeText,
         logo: typeof logoImage === 'string' ? logoImage : null,
