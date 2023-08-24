@@ -63,9 +63,10 @@ const header_button = css`
 const Header = () => {
   const pathname = usePathname();
   const [position, setPosition] = useState(0);
-  const [screenX, setScreenX] = useState<number>(document.body.scrollWidth);
+  const [screenX, setScreenX] = useState<number>(0);
 
   useEffect(() => {
+    setScreenX(document.body.scrollWidth);
     window.addEventListener('scroll', onScroll);
     window.addEventListener('resize', () => setScreenX(document.body.scrollWidth));
     return () => {
@@ -77,10 +78,6 @@ const Header = () => {
   function onScroll() {
     setPosition(window.scrollY);
   }
-
-  useEffect(() => {
-    console.log(document.body.scrollWidth);
-  }, [document.body.scrollWidth]);
 
   return (
     <header
