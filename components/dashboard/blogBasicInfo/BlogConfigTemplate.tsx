@@ -23,9 +23,9 @@ interface BlogConfigProps {
 }
 
 const BlogConfigTemplate = () => {
-  const { team: blogUrl } = useParams();
+  const { team } = useParams();
 
-  const res = useGetBlogInfo(blogUrl);
+  const res = useGetBlogInfo(team);
 
   const [blogConfig, setBlogConfig] = useState<BlogConfigProps>({
     blogName: '블로그 이름을 불러오는 중입니다...',
@@ -51,17 +51,17 @@ const BlogConfigTemplate = () => {
     const logoS3 =
       blogConfig.blogLogoImage &&
       typeof blogConfig.blogLogoImage !== 'string' &&
-      ((await getImageMultipartData(blogConfig.blogLogoImage)) as string);
+      ((await getImageMultipartData(blogConfig.blogLogoImage, team)) as string);
 
     const mainS3 =
       blogConfig.blogMainImage &&
       typeof blogConfig.blogMainImage !== 'string' &&
-      ((await getImageMultipartData(blogConfig.blogMainImage)) as string);
+      ((await getImageMultipartData(blogConfig.blogMainImage, team)) as string);
 
     try {
       // axios를 이용한 post 요청. 헤더를 multipart/form-data 로 한다.
       if (!logoS3 || !mainS3) return;
-      await putBlogConfig(blogUrl, {
+      await putBlogConfig(team, {
         name: blogConfig.blogName,
         description: blogConfig.blogDescribeText,
         logo: logoS3,
