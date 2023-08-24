@@ -21,7 +21,6 @@ const BasicUserInfoPage = () => {
   const setUserInfoDataState = useSetRecoilState(userInfoState);
 
   const data = useGetUserBasicInfo(team);
-
   useEffect(() => {
     if (data) {
       const {
@@ -39,7 +38,7 @@ const BasicUserInfoPage = () => {
       <UserOneLiner />
       <UserPosition />
       <DeleteButton />
-      <UserInfoSaveButton />
+      <UserInfoSaveButton userPreviousData={data} />
     </BasicUserInfoContainer>
   );
 };

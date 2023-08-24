@@ -1,7 +1,7 @@
 import { Response } from '@/types/common';
 import { CategoryListProps, NavListProps, PageListProps, TempSavedListProps } from '@/types/dashboard';
 import { MemberProps } from '@/types/member';
-import { UserInfoProps } from '@/types/user';
+import { UserBasicInfo, UserInfoProps } from '@/types/user';
 
 import client from '.';
 
@@ -118,5 +118,13 @@ export const deletePage = async (blogUrl: string, id: number) => {
 
 export const deleteArticle = async (blogUrl: string, id: number) => {
   const { data } = await client.delete<Response<null>>(`/api/v2/dashboard/article/remove/${blogUrl}?articleId=${id}`);
+  return data;
+};
+
+export const updateUserInfo = async (blogUrl: string, userInfo: UserBasicInfo) => {
+  const { data } = await client.put<Response<UserBasicInfoProps>>(
+    `/api/v2/dashboard/user/me/detail/joined/${blogUrl}`,
+    userInfo,
+  );
   return data;
 };

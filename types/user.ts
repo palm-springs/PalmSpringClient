@@ -15,3 +15,13 @@ export interface UserBasicInfo {
   description: string;
   job: string;
 }
+
+export interface UserBasicInfoProps {
+  registerId: string;
+  teamMemberId: string;
+  thumbnail: string;
+  nickname: string;
+  url: string | null;
+  description: string;
+  job: string;
+}
