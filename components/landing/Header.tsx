@@ -63,17 +63,24 @@ const header_button = css`
 const Header = () => {
   const pathname = usePathname();
   const [position, setPosition] = useState(0);
+  const [screenX, setScreenX] = useState<number>(document.body.scrollWidth);
 
   useEffect(() => {
     window.addEventListener('scroll', onScroll);
+    window.addEventListener('resize', () => setScreenX(document.body.scrollWidth));
     return () => {
       window.removeEventListener('scroll', onScroll);
+      window.removeEventListener('resize', () => setScreenX(document.body.scrollWidth));
     };
   }, []);
 
   function onScroll() {
     setPosition(window.scrollY);
   }
+
+  useEffect(() => {
+    console.log(document.body.scrollWidth);
+  }, [document.body.scrollWidth]);
 
   return (
     <header
@@ -97,25 +104,27 @@ const Header = () => {
               display: flex;
             }
           `}>
-          <Link
-            href="/auth"
-            css={[
-              header_button,
-              css`
-                background: transparent;
-                color: #343a40;
-                font-size: 16px;
-                &:hover {
-                  background: rgba(0, 0, 0, 0.05);
-                  color: #19db7b;
-                }
-                @media (max-width: 1200px) {
-                  display: block;
-                }
-              `,
-            ]}>
-            로그인
-          </Link>
+          {screenX >= 768 && (
+            <Link
+              href="/auth"
+              css={[
+                header_button,
+                css`
+                  background: transparent;
+                  color: #343a40;
+                  font-size: 16px;
+                  &:hover {
+                    background: rgba(0, 0, 0, 0.05);
+                    color: #19db7b;
+                  }
+                  @media (max-width: 1200px) {
+                    display: block;
+                  }
+                `,
+              ]}>
+              로그인
+            </Link>
+          )}
           <Link
             href="/team"
             css={[
