@@ -17,11 +17,10 @@
 
 ![기능설명](https://github.com/palm-springs/PalmSpringClient/assets/108226647/0baee4a4-05b8-4028-bf9f-56ce9ec366ea)
 
-
 ## 👩🏻‍💻 팀원 소개
 |김서현|오형근|이시연|장명지|
 |:-:|:-:|:-:|:-:|
-|<img src="https://github.com/palm-springs/PalmSpringClient/assets/108226647/bc1e7ef6-ebf9-4e90-84f1-bc9503c9de34" width="200px"/>|<img src="https://github.com/palm-springs/PalmSpringClient/assets/108226647/d84048a3-1028-4793-ae8c-e89da4ed9236" width="200px" />|<img src="https://github.com/palm-springs/PalmSpringClient/assets/108226647/cfc5b43d-344f-4965-8290-ba642e243e8b" width="200px"/>|<img src="https://github.com/palm-springs/PalmSpringClient/assets/108226647/f673bd0d-7879-40f3-ac6d-f7fcc8bbd03a" width="200px">|
+|<img src="https://github.com/palm-springs/PalmSpringClient/assets/108226647/6fa77aca-5719-4a22-9a0d-39749a781361" width="200px"/>|<img src="https://github.com/palm-springs/PalmSpringClient/assets/108226647/f280a58e-762b-41dc-b514-8fa15702d8f0" width="200px" />|<img src="https://github.com/palm-springs/PalmSpringClient/assets/108226647/56726666-2d87-4fe0-918f-4288b042ab7d" width="200px"/>|<img src="https://github.com/palm-springs/PalmSpringClient/assets/108226647/7792f158-f886-4f90-8453-436883c5ea83" width="200px">|
 |[@seobbang](https://github.com/seobbang)|[@Geun-Oh](https://github.com/Geun-Oh)|[@SynthiaLee](https://github.com/SynthiaLee)|[@Dangpy](https://github.com/Dangpy)|
 <br />
 
