@@ -24,8 +24,7 @@ export default Content;
 
 const ContentUI = styled.button<{ $isPathNavOrCategory: boolean }>`
   ${({ theme }) => theme.fonts.Body3_Semibold};
-  width: ${({ $isPathNavOrCategory }) => ($isPathNavOrCategory ? '31rem' : '30vw')};
-  min-width: 31rem;
+  width: ${({ $isPathNavOrCategory }) => ($isPathNavOrCategory ? '9.2rem' : '30vw')};
   overflow: hidden;
   text-align: left;
   text-overflow: ellipsis;

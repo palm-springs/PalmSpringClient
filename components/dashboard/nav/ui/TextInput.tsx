@@ -11,7 +11,6 @@ const TextInput = (props: TextInputProps) => {
 
   return (
     <TextInputContainer>
-      <div>https://</div>&nbsp;&nbsp;
       <TextInputUI
         type="text"
         placeholder="SNS, 채용 공고 등 링크 입력"

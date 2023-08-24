@@ -96,9 +96,6 @@ export const deleteCategory = async (blogUrl: string, id: number) => {
   const { data } = await client.delete<Response<null>>(
     `/api/v2/dashboard/category/admin/remove/${blogUrl}?categoryId=${id}`,
   );
-  if (data.code === 406) {
-    alert('카테고리 안에 글이 없어야해요~');
-  }
   return data;
 };
 
