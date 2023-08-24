@@ -22,19 +22,18 @@ const BasicUserInfoPage = () => {
 
   const data = useGetUserBasicInfo(team);
   useEffect(() => {
-    if (data) {
-      const {
-        data: { thumbnail, nickname, url, job, description },
-      } = data;
-      setUserInfoDataState({ thumbnail, nickname, url, job, description });
-    }
-  }, []);
+    if (!data) return;
+    const {
+      data: { thumbnail, nickname, url, job, description },
+    } = data;
+    setUserInfoDataState({ thumbnail, nickname, url, job, description });
+  }, [data]);
 
   return (
     <BasicUserInfoContainer>
       <UserProfile />
       <UserName />
-      <UserId isDuplicate={isDuplicate} setIsDuplicate={setIsDuplicate} />
+      <UserId isDuplicate={isDuplicate} setIsDuplicate={setIsDuplicate} previousUrl={data?.data.url} />
       <UserOneLiner />
       <UserPosition />
       <DeleteButton />

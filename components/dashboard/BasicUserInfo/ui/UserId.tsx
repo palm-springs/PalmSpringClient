@@ -14,10 +14,11 @@ import IdInputForm from './IdInputForm';
 interface UserIdCheckProps {
   isDuplicate: boolean | null;
   setIsDuplicate: Dispatch<SetStateAction<boolean | null>>;
+  previousUrl: string | null | undefined;
 }
 
 const UserId = (props: UserIdCheckProps) => {
-  const { isDuplicate, setIsDuplicate } = props; //구조 분해 할당
+  const { isDuplicate, setIsDuplicate, previousUrl } = props; //구조 분해 할당
 
   const [isUserIdFocus, setIsUserIdFocus] = useState(false);
 
@@ -34,7 +35,8 @@ const UserId = (props: UserIdCheckProps) => {
     <UserIdContainer>
       <UserIdTitle>ID</UserIdTitle>
       <InputWidthContainer>
-        <IdInputForm isFocus={isUserIdFocus} isDuplicate={isDuplicate} url={url}>
+        <IdInputForm isFocus={isUserIdFocus} isDuplicate={isDuplicate} url={url} 
+            isChanged={previousUrl !== url}>
           <div>/@{team}/author/</div>
           <TextInput
             onFocus={() => setIsUserIdFocus(true)}
@@ -44,8 +46,10 @@ const UserId = (props: UserIdCheckProps) => {
           />
           {isDuplicate === null && url !== '' && <Loader01Icon />}
         </IdInputForm>
-        {isDuplicate && <Message>이미 사용 중인 URL입니다. 다른 ID 입력해주세요.</Message>}
-        {!isDuplicate && url !== '' && <Message className="success">사용 가능한 ID입니다.</Message>}
+        {previousUrl !== url && isDuplicate && <Message>이미 사용 중인 URL입니다. 다른 ID 입력해주세요.</Message>}
+        {previousUrl !== url && !isDuplicate && url !== '' && url !== null && (
+          <Message className="success">사용 가능한 ID입니다.</Message>
+        )}
       </InputWidthContainer>
     </UserIdContainer>
   );
