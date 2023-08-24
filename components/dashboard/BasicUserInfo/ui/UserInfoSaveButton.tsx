@@ -66,6 +66,8 @@ const SaveButton = styled.button<{ disabled: boolean }>`
   margin-left: 104.1rem;
   border-radius: 0.8rem;
   background-color: ${({ disabled, theme }) => (disabled ? theme.colors.background_green : theme.colors.green)};
+
+  cursor: ${({ disabled }) => (disabled ? 'default' : 'pointer')};
   padding: 1rem 2rem;
   width: 9.6rem;
   height: 3.6rem;

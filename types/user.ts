@@ -10,7 +10,7 @@ export interface UserInfoProps {
 
 export interface UserBasicInfo {
   nickname: string;
-  thumbnail: string;
+  thumbnail: string | null;
   url: string | null;
   description: string;
   job: string;

@@ -1,5 +1,5 @@
 'use client';
-import React, { ChangeEvent } from 'react';
+import React, { ChangeEvent, useState } from 'react';
 import { useParams } from 'next/navigation';
 import { useRecoilState } from 'recoil';
 import styled from 'styled-components';
@@ -11,6 +11,7 @@ import { userInfoState } from '../state/user';
 
 const UserProfile = () => {
   const { team } = useParams();
+
   const [{ thumbnail }, setUserInfoData] = useRecoilState(userInfoState);
 
   const handleOnFileChange = async (e: ChangeEvent<HTMLInputElement>) => {
@@ -23,34 +24,35 @@ const UserProfile = () => {
 
       // reader.readAsDataURL(files[0] as Blob);
       // reader.onloadend = () => {
-      //   setUserInfoData();
+      //   setImgSrc();
       // };
     }
   };
 
-  const handleOnClickDelete = () => {
-    setUserInfoData((prev) => ({ ...prev, thumbnail: '' }));
+  const handleOnDeleteImg = () => {
+    setUserInfoData((prev) => ({ ...prev, thumbnail: null }));
   };
 
   return (
     <UserProfileContainer>
       <ProfileInputLabel>
-        <input type="file" />
         <ImageGuideContainer>
           <ImageGuideTitle>프로필 사진</ImageGuideTitle>
         </ImageGuideContainer>
 
-        {thumbnail !== '' ? (
+        {thumbnail ? (
           <>
             <ImageUserBox src={thumbnail} alt="user profile" />
-            <UsersProfilesDelete onClick={handleOnClickDelete} />
+            <UsersProfilesDeleteButton type="button" onClick={handleOnDeleteImg}>
+              <UserProfileDeleteIcon />
+            </UsersProfilesDeleteButton>
           </>
         ) : (
-          <>
+          <ImageLabel>
             <UsersProfilesInputBackground />
             <UsersProfilesInput />
             <input type="file" onChange={handleOnFileChange} />
-          </>
+          </ImageLabel>
         )}
       </ProfileInputLabel>
     </UserProfileContainer>
@@ -65,10 +67,17 @@ const ImageUserBox = styled.img`
   height: 15.6rem;
 `;
 
-const UsersProfilesDelete = styled(UserProfileDeleteIcon)`
+const UsersProfilesDeleteButton = styled.button`
   position: absolute;
   top: 25rem;
-  left: 64.5rem;
+  left: 60.8rem;
+`;
+
+const ImageLabel = styled.label`
+  cursor: pointer;
+  & > input {
+    display: none;
+  }
 `;
 
 const UsersProfilesInputBackground = styled(UsersProfilesInputIcon)`
@@ -78,7 +87,7 @@ const UsersProfilesInputBackground = styled(UsersProfilesInputIcon)`
 const UsersProfilesInput = styled(InputPlusButtonIcon)`
   position: absolute;
   top: 25rem;
-  left: 64.5rem;
+  left: 60.8rem;
 `;
 
 const ImageGuideContainer = styled.div`
@@ -93,20 +102,10 @@ const ImageGuideTitle = styled.h1`
   color: ${({ theme }) => theme.colors.grey_950};
 `;
 
-const ProfileInputLabel = styled.label`
+const ProfileInputLabel = styled.div`
   display: flex;
   border: none;
   border-radius: 0.5rem;
-  input[type='file'] {
-    position: absolute;
-    margin: -1px;
-    border: 0;
-    padding: 0;
-    width: 0;
-    height: 0;
-    overflow: hidden;
-    clip: rect(0, 0, 0, 0);
-  }
 `;
 
 const UserProfileContainer = styled.div`
