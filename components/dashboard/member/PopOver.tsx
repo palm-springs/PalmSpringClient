@@ -2,7 +2,6 @@
 
 import React, { useState } from 'react';
 import Link from 'next/link';
-import { useParams } from 'next/navigation';
 import styled from 'styled-components';
 
 import ModalPortal from '@/components/common/ModalPortal';
@@ -14,7 +13,6 @@ interface PopOverProp {
 }
 
 const PopOver = (prop: PopOverProp) => {
-  const { team } = useParams();
   const { nickname } = prop;
   const [showModal, setShowModal] = useState(false);
 
