@@ -37,8 +37,9 @@ const TextEditorUI = styled(EditorContent)`
   .ProseMirror p.is-editor-empty:first-child::before {
     ${({ theme }) => theme.fonts.Body1_Regular};
     float: left;
-    /* height: 100rem; */
-    /* height: 0; */
+    /* height: 100rem; ->이거 넣으면 커서 위치가 글자 오른쪽 맨끝으로 이동됨, 근데 터치 영역이 전체 컨텐츠가 됨*/
+    /* height: 0; -> 이거 넣으면 커서 위치가 글자 처음에서 시작함, 근데 터치 영역이 한 줄로 제한됨 */
+    height: 0;
     color: ${({ theme }) => theme.colors.grey_600};
     content: attr(data-placeholder);
     pointer-events: none;

@@ -7,8 +7,7 @@ export const TextEditorStyle = styled.div`
     position: absolute;
 
     /* 터치 영역 설정 */
-
-    .ProseMirror p.is-editor-empty:first-child::before {
+    p.is-editor-empty:first-child::before {
       height: 100rem;
     }
 
