@@ -9,7 +9,6 @@ interface UserIdCheckProps {
 
 const IdInputForm = (props: UserIdCheckProps) => {
   const { children, isFocus, isDuplicate } = props;
-  console.log(isDuplicate);
 
   return (
     <InputContainer id={isDuplicate ? 'failed' : ''} $isFocus={isFocus}>

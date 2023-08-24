@@ -29,7 +29,10 @@ const UserPositionTextarea = styled.textarea`
   width: 64.5rem;
   height: 4.6rem;
   resize: none;
-  color: ${({ theme }) => theme.colors.grey_600};
+  color: ${({ theme }) => theme.colors.grey_900};
+  &::placeholder {
+    color: ${({ theme }) => theme.colors.grey_600};
+  }
   &:focus {
     outline: none;
     border: 1px solid ${({ theme }) => theme.colors.grey_700};
@@ -46,5 +49,5 @@ const UserPositionTitle = styled.span`
   ${({ theme }) => theme.fonts.Body2_Semibold};
   margin: 1rem 13.8rem 0.8rem 0;
   white-space: nowrap;
-  color: ${({ theme }) => theme.colors.grey_950};
+  color: ${({ theme }) => theme.colors.grey_900};
 `;
