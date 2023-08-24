@@ -29,7 +29,7 @@ const PopOver = (prop: PopOverProp) => {
 
   return (
     <PopOverContainer>
-      <LinkText href={`/${team}/author/${nickname}`}>팀원이 쓴 글로 이동하기</LinkText>
+      <LinkText href={`/author/${nickname}`}>팀원이 쓴 글로 이동하기</LinkText>
       <ModalText type="button" onClick={() => modalOpenHandle()}>
         팀에서 제외하기
       </ModalText>
