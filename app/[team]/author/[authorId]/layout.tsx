@@ -10,11 +10,11 @@ import BlogHeader from '@/components/common/BlogHeader';
 const AuthorPageLayout = async ({ children }: { children: React.ReactElement }) => {
   const { team } = useParams();
   const {
-    data: { logo, blogName },
+    data: { logo, blogName, navList },
   } = await getBlogHeaderInfo(team);
   return (
     <>
-      <BlogHeader logo={logo} blogName={blogName} />
+      <BlogHeader logo={logo} blogName={blogName} navList={navList} />
       <main>{children}</main>
       <BlogFooter />
     </>
@@ -22,3 +22,4 @@ const AuthorPageLayout = async ({ children }: { children: React.ReactElement }) 
 };
 
 export default AuthorPageLayout;
+/////s
