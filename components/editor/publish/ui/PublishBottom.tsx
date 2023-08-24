@@ -6,7 +6,12 @@ import styled from 'styled-components';
 
 import { postArticleCreateList } from '@/api/article';
 import { postPageCreate } from '@/api/page';
-import { useUpdateArticleContent, useUpdatePageContent } from '@/hooks/editor';
+import {
+  useUpdateArticleContent,
+  useUpdatePageContent,
+  useUpdateTempArticleDraft,
+  useUpdateTempPageDraft,
+} from '@/hooks/editor';
 import { UpdateArticleProps } from '@/types/article';
 
 import { articleDataState, pageDataState } from '../../states/atom';
@@ -15,11 +20,12 @@ interface PublishBottomButtons {
   pageType: string;
   isDuplicate: boolean | null;
   articleData?: UpdateArticleProps;
+  isEdit?: boolean;
 }
 
 const PublishBottomButtons = (props: PublishBottomButtons) => {
   const router = useRouter();
-  const { pageType, isDuplicate } = props;
+  const { pageType, isDuplicate, isEdit } = props;
   const pathName = usePathname();
 
   const [isDisabled, setIsDisabled] = useState(true);
@@ -33,6 +39,9 @@ const PublishBottomButtons = (props: PublishBottomButtons) => {
 
   const updatePageMutation = useUpdatePageContent();
   const updateArticleMutation = useUpdateArticleContent(team);
+
+  const draftArticleMutation = useUpdateTempArticleDraft(team);
+  const draftPageMutation = useUpdateTempPageDraft();
 
   const [updatedArticleData, setUpdatedArticleData] = useRecoilState(articleDataState);
   const [updatedPageData, setUpdatedPageData] = useRecoilState(pageDataState);
@@ -53,8 +62,19 @@ const PublishBottomButtons = (props: PublishBottomButtons) => {
       ...updatedArticleData,
       id: Number(articleId),
     });
-    resetPageData();
+    resetArticleData();
     router.push(`/${team}/dashboard/page`);
+  };
+
+  //임시저장 아티클 수정하기 후 최종 발행하기
+  const handleTempArticleUpdatePublish = () => {
+    draftArticleMutation.mutate({
+      ...updatedArticleData,
+      id: Number(articleId),
+      isPublish: true,
+    });
+    resetArticleData();
+    router.push(`/${team}/dashboard/upload`);
   };
 
   //페이지 최종 발행하기
@@ -69,6 +89,17 @@ const PublishBottomButtons = (props: PublishBottomButtons) => {
     updatePageMutation.mutate({ ...updatedPageData, id: Number(pageId) });
     resetPageData();
     router.push(`/${team}/dashboard/article`);
+  };
+
+  //임시저장 페이지 수정하기 후 최종 발행하기
+  const handleTempPageUpdatePublish = () => {
+    draftPageMutation.mutate({
+      ...updatedPageData,
+      id: Number(pageId),
+      isPublish: true,
+    });
+    resetArticleData();
+    router.push(`/${team}/dashboard/page`);
   };
 
   // 뒤로가기 -> 전 페이지로 바꾸는 걸로 바꾸기
@@ -99,7 +130,7 @@ const PublishBottomButtons = (props: PublishBottomButtons) => {
             ) : (
               <PublishButton
                 type="button"
-                onClick={handleOnClickArticlePublish}
+                onClick={isEdit ? handleTempArticleUpdatePublish : handleOnClickArticlePublish}
                 disabled={
                   categoryId === -1 || description === '' || articleUrl === '' || isDuplicate || isDuplicate === null
                 }>
@@ -126,7 +157,7 @@ const PublishBottomButtons = (props: PublishBottomButtons) => {
             ) : (
               <PublishButton
                 type="button"
-                onClick={handleOnClickPagePublish}
+                onClick={isEdit ? handleTempPageUpdatePublish : handleOnClickPagePublish}
                 disabled={pageUrl === '' || isDuplicate || isDuplicate === null}>
                 글 발행하기
               </PublishButton>

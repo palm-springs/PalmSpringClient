@@ -55,3 +55,15 @@ export interface UpdateArticleContentProps {
   thumbnail: string | null;
   articleUrl: string;
 }
+
+export interface UpdateTempArticleDraftProps {
+  id: number;
+  title: string;
+  content: string;
+  images: string[] | null;
+  thumbnail: string | null;
+  categoryId: number;
+  description: string | null;
+  articleUrl: string;
+  isPublish: boolean;
+}

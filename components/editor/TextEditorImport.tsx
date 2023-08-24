@@ -38,12 +38,18 @@ import { getUpdateArticleContent, postArticleList } from '@/api/article';
 import { postPageDraft } from '@/api/page';
 import TextEditor from '@/components/editor/TextEditor';
 import ToolBox from '@/components/editor/ui/ToolBox';
-import { useGetUpdateArticleContent, useUpdateArticleContent } from '@/hooks/editor';
+import {
+  useGetUpdateArticleContent,
+  useUpdateArticleContent,
+  useUpdateTempArticleDraft,
+  useUpdateTempPageDraft,
+} from '@/hooks/editor';
 import { UpdateArticleContentProps, UpdateArticleProps } from '@/types/article';
 import { UpdatePageProps } from '@/types/page';
 import { getImageMultipartData } from '@/utils/getImageMultipartData';
 
 import { articleDataState, pageDataState } from './states/atom';
+
 interface TextEditorBuildprops {
   pageType: string;
   currentState?: string;
@@ -62,6 +68,10 @@ const TextEditorBuild = (props: TextEditorBuildprops) => {
   const [extractedHTML, setExtractedHTML] = useState<string>('');
   const [imageArr, setImageArr] = useState<string[]>([]);
   const router = useRouter();
+  const draftArticleMutation = useUpdateTempArticleDraft(team);
+  const draftPageMutation = useUpdateTempPageDraft();
+  const [updatedArticleData, setUpdatedArticleData] = useRecoilState(articleDataState);
+  const [updatedPageData, setUpdatedPageData] = useRecoilState(pageDataState);
 
   useEffect(() => {
     console.log(imageArr);
@@ -213,6 +223,62 @@ const TextEditorBuild = (props: TextEditorBuildprops) => {
     }
   };
 
+  //article 임시저장시 임시저장put
+  const handleTempArticleDraft = () => {
+    if (editor) {
+      const newContent = editor.getHTML();
+      setExtractedHTML(newContent);
+
+      if (imageArr.length === 0) {
+        draftArticleMutation.mutate({
+          ...updatedArticleData,
+          id: Number(articleId),
+          title: articleTitle,
+          content: newContent,
+          images: [],
+          isPublish: false,
+        });
+      } else {
+        draftArticleMutation.mutate({
+          ...updatedArticleData,
+          id: Number(articleId),
+          title: articleTitle,
+          content: newContent,
+          isPublish: false,
+          images: imageArr,
+        });
+      }
+    }
+  };
+
+  //page 임시저장시 임시저장put
+  const handleTempPageDraft = () => {
+    if (editor) {
+      const newContent = editor.getHTML();
+      setExtractedHTML(newContent);
+
+      if (imageArr.length === 0) {
+        draftPageMutation.mutate({
+          ...updatedPageData,
+          id: Number(pageId),
+          title: pageTitle,
+          content: newContent,
+          images: [],
+          isPublish: false,
+        });
+      } else {
+        draftPageMutation.mutate({
+          ...updatedPageData,
+          id: Number(pageId),
+          title: pageTitle,
+          content: newContent,
+          images: imageArr,
+          isPublish: false,
+        });
+      }
+    }
+  };
+
   // article page 저장시 내용 가지고 발행하기 페이지로 이동
   const handleOnClickArticlePublish = () => {
     if (editor) {
@@ -294,7 +360,6 @@ const TextEditorBuild = (props: TextEditorBuildprops) => {
       router.push(`/${team}/editor/page/${pageId}/publish`);
     }
   };
-
   return (
     <>
       <ToolBox editor={editor} encodeFileToBase64={encodeFileToBase64} setLink={setLink} />
@@ -304,7 +369,7 @@ const TextEditorBuild = (props: TextEditorBuildprops) => {
         <SaveEditorContentButton
           handleOnClickDraft={
             currentState === 'draft'
-              ? handleOnClickArticleDraft
+              ? handleTempArticleDraft
               : currentState === 'edit'
               ? handleOnClickArticleDraft
               : handleOnClickArticleDraft
@@ -317,14 +382,12 @@ const TextEditorBuild = (props: TextEditorBuildprops) => {
           handleOnClickDraft={
             //임시저장의 발행하기는 ? 어디임? -> 아 이거 어차피 넘김
             currentState === 'draft'
-              ? handleOnClickPageDraft // 임시저장의 임시저장
+              ? handleTempPageDraft
               : currentState === 'edit'
-              ? handleOnClickPageDraft // 수정하기의 임시저장?
-              : handleOnClickPageDraft // 두 가지 경우가 모두 아닌거
+              ? handleOnClickPageDraft
+              : handleOnClickPageDraft
           }
-          handleOnClickPublish={
-            currentState === 'edit' || currentState === 'draft' ? handleUpdateGoPagePublish : handleOnClickPagePublish
-          }
+          handleOnClickPublish={currentState === 'edit' ? handleUpdateGoPagePublish : handleOnClickPagePublish}
           isEdit={currentState === 'edit' ? true : false} // edit이 아닌 경우는 draft 경우임
         />
       )}
