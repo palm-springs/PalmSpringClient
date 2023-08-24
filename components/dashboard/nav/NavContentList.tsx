@@ -1,6 +1,6 @@
 'use client';
 
-import React from 'react';
+import React, { useState } from 'react';
 import { useParams } from 'next/navigation';
 import { useSetRecoilState } from 'recoil';
 
@@ -20,6 +20,8 @@ const NavContentList = () => {
 
   const setDashBoardModalState = useSetRecoilState(dashBoardModalState);
 
+  const [currentModalId, setCurrentModalId] = useState<number | null>(null);
+
   if (!data || data.data.length === 0)
     return (
       <EmptyLanding
@@ -36,7 +38,16 @@ const NavContentList = () => {
       <DashBoardContent id="컨텐츠바" content="이름" url="URL" />
       {data.data.map(({ id, name, navUrl, isPage }) => {
         return (
-          <IndivNavDashboardContent key={id} id={id} content={name} url={navUrl} blogUrl={blogUrl} isPage={isPage} />
+          <IndivNavDashboardContent
+            key={id}
+            currentModalId={currentModalId}
+            setCurrentModalId={setCurrentModalId}
+            id={id}
+            content={name}
+            url={navUrl}
+            blogUrl={blogUrl}
+            isPage={isPage}
+          />
         );
       })}
     </DashBoardContentListContainer>
