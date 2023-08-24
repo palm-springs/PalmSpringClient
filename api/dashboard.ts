@@ -10,6 +10,7 @@ interface UserBasicInfoProps {
   teamMemberId: string;
   thumbnail: string;
   nickname: string;
+  url: string | null;
   description: string;
   job: string;
 }

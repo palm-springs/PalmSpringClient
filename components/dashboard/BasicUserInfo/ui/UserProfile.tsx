@@ -10,6 +10,7 @@ import { getImageMultipartData } from '@/utils/getImageMultipartData';
 import { userInfoState } from '../state/user';
 
 const UserProfile = () => {
+  const { team } = useParams();
   const [{ thumbnail }, setUserInfoData] = useRecoilState(userInfoState);
 
   const handleOnFileChange = async (e: ChangeEvent<HTMLInputElement>) => {
@@ -17,7 +18,7 @@ const UserProfile = () => {
 
     // const reader = new FileReader();
     if (files) {
-      const remoteImgUrl = await getImageMultipartData(files[0]);
+      const remoteImgUrl = await getImageMultipartData(files[0], team);
       setUserInfoData((prev) => ({ ...prev, thumbnail: remoteImgUrl }));
 
       // reader.readAsDataURL(files[0] as Blob);

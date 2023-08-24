@@ -11,6 +11,7 @@ export interface UserInfoProps {
 export interface UserBasicInfo {
   nickname: string;
   thumbnail: string;
+  url: string | null;
   description: string;
   job: string;
 }

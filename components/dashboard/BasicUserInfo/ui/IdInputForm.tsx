@@ -5,13 +5,14 @@ interface UserIdCheckProps {
   children: React.ReactNode;
   isFocus: boolean;
   isDuplicate: boolean | null;
+  url: string | null;
 }
 
 const IdInputForm = (props: UserIdCheckProps) => {
-  const { children, isFocus, isDuplicate } = props;
+  const { children, isFocus, isDuplicate, url } = props;
 
   return (
-    <InputContainer id={isDuplicate ? 'failed' : ''} $isFocus={isFocus}>
+    <InputContainer id={!url ? '' : isDuplicate ? 'failed' : 'success'} $isFocus={isFocus}>
       {children}
     </InputContainer>
   );

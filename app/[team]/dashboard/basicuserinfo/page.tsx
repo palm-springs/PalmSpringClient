@@ -25,10 +25,9 @@ const BasicUserInfoPage = () => {
   useEffect(() => {
     if (data) {
       const {
-        data: { thumbnail, nickname, job, description },
+        data: { thumbnail, nickname, url, job, description },
       } = data;
-      console.log(thumbnail, nickname, job, description);
-      setUserInfoDataState({ thumbnail, nickname, job, description });
+      setUserInfoDataState({ thumbnail, nickname, url, job, description });
     }
   }, []);
 

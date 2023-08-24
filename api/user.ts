@@ -17,3 +17,8 @@ export const updateWithdrawPlatform = async () => {
   const { data } = await client.put<Response<string>>(`/api/v2/dashboard/user/me/out/register`);
   return data;
 };
+
+export const getCheckUserIdDuplication = async (blogUrl: string, memberUrl: string) => {
+  const { data } = await client.get(`/api/v2/dashboard/user/check/exist/in/${blogUrl}?memberUrl=${memberUrl}`);
+  return data;
+};

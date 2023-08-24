@@ -7,6 +7,7 @@ export const userInfoState = atom<UserBasicInfo>({
   default: {
     thumbnail: '',
     nickname: '',
+    url: null,
     description: '',
     job: '',
   },
