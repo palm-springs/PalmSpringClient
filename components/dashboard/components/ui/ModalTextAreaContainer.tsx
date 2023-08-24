@@ -32,6 +32,7 @@ const ModalTextAreaUI = styled.article`
     color: ${({ theme }) => theme.colors.grey_900};
   }
   textarea {
+    ${({ theme }) => theme.fonts.Body2_Regular};
     border: 1px solid ${({ theme }) => theme.colors.grey_400};
     border-radius: 0.8rem;
     padding: 1rem 1.2rem;
