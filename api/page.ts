@@ -1,5 +1,5 @@
 import { Response } from '@/types/common';
-import { PageData, UpdatePageContentProps } from '@/types/page';
+import { PageData, UpdatePageContentProps, UpdateTempPageDraftProps } from '@/types/page';
 
 import client from '.';
 
@@ -61,17 +61,8 @@ export const updatePageDetail = async (updatePageData: UpdatePageContentProps) =
 };
 
 // 페이지 임시저장 수정하기 -> requestBody 보내야함
-interface updatePageRequest {
-  id: number;
-  title: string;
-  content: string;
-  images: string[] | null;
-  thumbnail: string;
-  articleUrl: string;
-  isPublish: boolean;
-}
 
-export const updatePageDraft = async (requestBody: updatePageRequest) => {
+export const updatePageDraft = async (requestBody: UpdateTempPageDraftProps) => {
   const { data } = await client.put<Response<null>>(`/api/v2/dashboard/page/admin/draft/modify`, requestBody);
   return data;
 };

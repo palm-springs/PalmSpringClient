@@ -21,7 +21,7 @@ const EditorInputTitle = (props: TextEditorBuildProps) => {
 
   const [{ title: articleTitle }, setArticleData] = useRecoilState(articleDataState); // 아티클 초기 타이틀 -> 복사 -> 새로운 title 갈아끼기
   const [{ title: pageTitle }, setPageData] = useRecoilState(pageDataState);
-
+  console.log(pageData);
   useEffect(() => {
     if (articleData) {
       setArticleData((prev) => ({ ...prev, title: articleData.title }));
@@ -40,19 +40,22 @@ const EditorInputTitle = (props: TextEditorBuildProps) => {
     setPageData((prev) => ({ ...prev, title: value }));
   };
 
-  // currentState가 edit 이고 데이터가 있으면 title (updateTitle)이 보여지고
-  // 아니라면 기존의 빈 타이틀이 저장된다.
   switch (pageType) {
     case `article`:
       return (
         <EditorInputTitleContainer>
-          <TitleInputBox value={articleTitle} onChange={handleSaveArticleTitle} rows={1} />
+          <TitleInputBox
+            value={articleTitle}
+            onChange={handleSaveArticleTitle}
+            rows={1}
+            placeholder="제목을 입력해주세요"
+          />
         </EditorInputTitleContainer>
       );
     case `page`:
       return (
         <EditorInputTitleContainer>
-          <TitleInputBox value={pageTitle} onChange={handleSavePageTitle} rows={1} />
+          <TitleInputBox value={pageTitle} onChange={handleSavePageTitle} rows={1} placeholder="제목을 입력해주세요" />
         </EditorInputTitleContainer>
       );
     default:

@@ -6,10 +6,11 @@ import {
   getSingleArticleData,
   getUpdateArticleContent,
   updateArticleDetail,
+  updateArticleDraft,
 } from '@/api/article';
-import { getSinglePageData, getUpdatePageContent, updatePageDetail } from '@/api/page';
-import { UpdateArticleContentProps } from '@/types/article';
-import { UpdatePageContentProps } from '@/types/page';
+import { getSinglePageData, getUpdatePageContent, updatePageDetail, updatePageDraft } from '@/api/page';
+import { UpdateArticleContentProps, UpdateTempArticleDraftProps } from '@/types/article';
+import { UpdatePageContentProps, UpdateTempPageDraftProps } from '@/types/page';
 
 export const QUERY_KEY_ARTICLE = {
   getArticleList: 'getArticleList',
@@ -22,6 +23,7 @@ export const QUERY_KEY_ARTICLE = {
   getPageList: 'getPageList',
   deleteArticle: 'deleteArticle',
   deletePage: 'deletePage',
+  getTempSavedList: 'getTempSavedList',
 };
 
 export const useGetArticleList = (blogUrl: string, categoryId: string) => {
@@ -89,6 +91,39 @@ export const useUpdatePageContent = () => {
     },
   );
   return pageMutation;
+};
+
+//아티클 임시저장 수정하기 (발행, 임시저장 모두 포함)
+
+export const useUpdateTempArticleDraft = (blogUrl: string) => {
+  const queryClient = useQueryClient();
+
+  const draftArticleMutation = useMutation(
+    [QUERY_KEY_ARTICLE.updateArticleDetail],
+    (updateTempArticleData: UpdateTempArticleDraftProps) => updateArticleDraft(blogUrl, updateTempArticleData),
+    {
+      onSuccess: () => {
+        queryClient.invalidateQueries([QUERY_KEY_ARTICLE.getTempSavedList]);
+      },
+    },
+  );
+  return draftArticleMutation;
+};
+
+//페이지 임시저장 수정하기 (발행, 임시저장 모두 포함)
+export const useUpdateTempPageDraft = () => {
+  const queryClient = useQueryClient();
+
+  const draftPageMutation = useMutation(
+    [QUERY_KEY_ARTICLE.updatePageDetail],
+    (updateTempPageData: UpdateTempPageDraftProps) => updatePageDraft(updateTempPageData),
+    {
+      onSuccess: () => {
+        queryClient.invalidateQueries([QUERY_KEY_ARTICLE.getPageList]);
+      },
+    },
+  );
+  return draftPageMutation;
 };
 
 // 아티클 글 삭제 query

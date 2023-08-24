@@ -19,8 +19,8 @@ const DraftPagePage = () => {
           {/* 데이터가 content 있는 페이지 */}
           {updatePageEditContents && (
             <>
-              <EditorInputTitle pageType="page" currentState="draft" articleData={updatePageEditContents.data} />
-              <TextEditorBuild pageType="page" currentState="draft" articleData={updatePageEditContents.data} />
+              <EditorInputTitle pageType="page" currentState="draft" pageData={updatePageEditContents.data} />
+              <TextEditorBuild pageType="page" currentState="draft" pageData={updatePageEditContents.data} />
             </>
           )}
         </ArticleWrapper>
