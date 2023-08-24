@@ -34,7 +34,6 @@ const BlogLogoImage = (props: BlogLogoImageProps) => {
           onChange={(e: ChangeEvent<HTMLInputElement>) => {
             if (!e.target?.files) return;
             const file = e.target.files[0];
-            console.log(file);
             const reader = new FileReader();
             reader.readAsDataURL(file);
             reader.onloadend = () => {

@@ -35,7 +35,6 @@ const NavSelectorContainer = (props: NavSelectorContainerProps) => {
         type="button"
         onClick={() => {
           setNewNavigationUrl('');
-          setNewNavigationName('직접 입력');
           setNewNavigationSelector('직접 입력');
           setIsSelectorOpen((prev) => !prev);
         }}>
