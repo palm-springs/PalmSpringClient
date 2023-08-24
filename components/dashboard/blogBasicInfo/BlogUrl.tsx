@@ -12,7 +12,7 @@ const BlogUrl = (props: BlogUrlProps) => {
   return (
     <BlogUrlContainer>
       <BlogUrlTitle>블로그 주소</BlogUrlTitle>
-      <BlogUrlText>{blogUrl ? `https://${blogUrl}.palms.blog` : '블로그 주소를 불러오는 중입니다...'}</BlogUrlText>
+      <BlogUrlText>{blogUrl ? `https://${blogUrl}.palms.blog/home` : '블로그 주소를 불러오는 중입니다...'}</BlogUrlText>
     </BlogUrlContainer>
   );
 };

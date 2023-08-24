@@ -73,12 +73,12 @@ const UserIdTitle = styled.span`
 `;
 
 const TextInput = styled.input`
+  ${({ theme }) => theme.fonts.Body2_Regular};
+
   border: none;
 
-  padding: 0;
   width: 100%;
   height: 100%;
-  ${({ theme }) => theme.fonts.Body2_Regular};
   color: ${({ theme }) => theme.colors.grey_900};
 
   &::placeholder {
