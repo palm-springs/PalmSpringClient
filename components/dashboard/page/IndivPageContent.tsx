@@ -1,10 +1,13 @@
 import { toast, Toaster } from 'react-hot-toast';
 import { useRouter } from 'next/navigation';
+import { useRecoilState } from 'recoil';
 
 import { useDeletePage } from '@/hooks/dashboard';
 import theme from '@/styles/theme';
 
 import DashBoardContent from '../components/DashBoardContent';
+import DashboardContentDeleteModal from '../components/DashboardContentDeleteModal';
+import { dashBoardModalState } from '../state/modalState';
 
 interface IndivPageContentProps {
   blogUrl: string;
@@ -22,6 +25,8 @@ const IndivPageContent = (props: IndivPageContentProps) => {
   const router = useRouter();
 
   const { mutate } = useDeletePage(blogUrl, Number(id));
+
+  const [modalState, setModalState] = useRecoilState(dashBoardModalState);
 
   const notify = () =>
     toast.error('네비게이션 연결을 해제하고 다시 시도해주세요!', {
@@ -66,13 +71,22 @@ const IndivPageContent = (props: IndivPageContentProps) => {
           }
         }}
         onDeleteClick={() => {
-          if (isLinked) {
-            notify();
-            return;
-          }
-          mutate();
+          setModalState('deletePage');
         }}
       />
+      {modalState === 'deletePage' && (
+        <DashboardContentDeleteModal
+          text="페이지를 삭제하시겠어요?"
+          subText="페이지를 삭제할 시, 복구할 수 없습니다."
+          onDelete={() => {
+            if (isLinked) {
+              notify();
+              return;
+            }
+            mutate();
+          }}
+        />
+      )}
     </>
   );
 };
