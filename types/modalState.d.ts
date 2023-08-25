@@ -8,5 +8,9 @@ type modalStateProps =
   | 'createSubscriber'
   | 'updateNavigation'
   | 'updateCategory'
+  | 'deleteArticle'
+  | 'deletePage'
+  | 'deleteCategory'
+  | 'deleteNav'
   | 'deleteBlog'
   | '';
