@@ -27,9 +27,6 @@ interface ContentInfoProps {
   articleUrl?: string;
 }
 
-// @params teamMember id 이건 나중에 author 페이지로 이동하는데 필요할수도 있을거 같아서 일단 받아왔습니당
-// @params teamMember thumbnail 글쓴이 프로필 사진 없을 시 기본 프로필 아이콘으로 보여줌
-
 const ContentInfo = (props: ContentInfoProps) => {
   const MOBILE = useMediaQuery({
     query: '(min-width : 375px) and (max-width:768px)',
