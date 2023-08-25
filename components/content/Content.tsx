@@ -5,6 +5,7 @@ import { useMediaQuery } from 'react-responsive';
 import parse from 'html-react-parser';
 import styled from 'styled-components';
 
+import { MobileTextEditorStyle } from '@/styles/MobileTextEditorStyle';
 import { TextEditorStyle } from '@/styles/TextEditorStyle';
 
 interface ContentProp {
@@ -20,11 +21,11 @@ const Content = (prop: ContentProp) => {
 
   if (MOBILE)
     return (
-      <TextEditorStyle>
+      <MobileTextEditorStyle>
         <MobileContentContainer id="mobile" className="ProseMirror">
           {parse(content)}
         </MobileContentContainer>
-      </TextEditorStyle>
+      </MobileTextEditorStyle>
     );
   else
     return (

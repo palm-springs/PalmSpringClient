@@ -2,66 +2,66 @@
 
 import { styled } from 'styled-components';
 
-export const TextEditorStyle = styled.div`
+export const MobileTextEditorStyle = styled.div`
   .ProseMirror {
-    position: absolute;
-
     p {
-      ${({ theme }) => theme.fonts.Body1_Regular};
+      ${({ theme }) => theme.mobileFonts.Body1_Regular};
       padding-bottom: 0.8rem;
-      width: 72.2rem;
+      width: 32.7rem;
     }
 
     h1 {
-      ${({ theme }) => theme.editor.Edit_h1};
-      padding: 5.6rem 0 0.4rem 0;
-      width: 72.2rem;
+      ${({ theme }) => theme.mobileFonts.Markdown_H1};
+      padding: 4rem 0 0.4rem;
+      width: 32.7rem;
     }
 
     h2 {
-      ${({ theme }) => theme.editor.Edit_h2};
-      padding: 4rem 0 0.4rem 0;
-      width: 72.2rem;
+      ${({ theme }) => theme.mobileFonts.Markdown_H2};
+      padding: 3.2 0 0.4rem;
+      width: 32.7rem;
     }
 
     h3 {
-      ${({ theme }) => theme.editor.Edit_h3};
+      ${({ theme }) => theme.mobileFonts.Markdown_H3};
       margin-top: 2.4rem;
       padding: 2.4rem 0 0.4rem;
-      width: 72.2rem;
+      width: 32.7rem;
     }
 
     ul {
-      margin-left: 4rem;
-      width: 72.2rem;
+      margin: 2.4rem 0 0.4rem 4rem;
+      width: 32.7rem;
       list-style-type: disc;
     }
 
     ol {
-      margin-left: 4rem;
-      width: 72.2rem;
+      margin: 2.4rem 0 0.4rem 4rem;
+      width: 32.7rem;
       list-style-type: decimal;
     }
 
     u {
-      width: 72.2rem;
       text-decoration: underline;
     }
 
     hr {
       border: 1px solid ${({ theme }) => theme.colors.grey_300};
-      width: 72.2rem;
+      width: 32.7rem;
     }
 
     strong {
       ${({ theme }) => theme.fonts.Body1_Semibold};
+      width: 32.7rem;
     }
 
     s {
+      width: 32.7rem;
       text-decoration: line-through;
     }
 
     em {
+      width: 32.7rem;
       font-style: italic;
     }
 
@@ -70,15 +70,14 @@ export const TextEditorStyle = styled.div`
       background-color: ${({ theme }) => theme.colors.grey_200};
       padding: 0.3rem 0.6rem;
       box-decoration-break: clone;
-      width: 72.2rem;
     }
 
     pre {
-      margin: 2.4rem 0 0.8rem;
+      margin: 2.4rem 0 0.4rem;
       border-radius: 0.5rem;
       background: ${({ theme }) => theme.colors.grey_100};
       padding: 1.6rem 2rem;
-      width: 72.2rem;
+      width: 32.7rem;
       color: #383a41;
       font-family: 'Fira Mono', monospace;
       /* 이거 코드블럭만 피라모노! */
@@ -86,6 +85,7 @@ export const TextEditorStyle = styled.div`
       code {
         background: none;
         padding: 0;
+        width: 32.7rem;
         color: inherit;
         font-size: 1.4rem;
       }
@@ -159,16 +159,18 @@ export const TextEditorStyle = styled.div`
       margin: 2.4rem 0 0.8rem 0;
       border-left: 2px solid ${({ theme }) => theme.colors.grey_900};
       padding-left: 1.8rem;
+      width: 32.7rem;
       height: 100%;
 
       p {
         padding-top: 0.2rem;
+        width: 32.7rem;
       }
     }
 
     img {
       margin-top: 2.4rem 0 0.8rem 0;
-      width: 72.2rem;
+      width: 32.7rem;
       height: auto;
 
       &.ProseMirror-selectednode {
@@ -178,6 +180,7 @@ export const TextEditorStyle = styled.div`
 
     a {
       border-bottom: 0.8px solid ${({ theme }) => theme.colors.grey_700};
+      width: 32.7rem;
       text-decoration: none;
       color: ${({ theme }) => theme.colors.grey_700};
     }
