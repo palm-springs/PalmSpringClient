@@ -8,8 +8,7 @@ import styled from 'styled-components';
 import PageBtn from '@/components/blog/PageBtn';
 import { useGetBlogHeaderInfo } from '@/hooks/blogHome';
 
-import SubscribeBtn from '../blog/SubscribeBtn';
-
+// import SubscribeBtn from '../blog/SubscribeBtn';
 import LoadingLottie from './ui/LoadingLottie';
 
 const BlogNav = () => {
@@ -28,12 +27,11 @@ const BlogNav = () => {
       {navList &&
         navList.map(({ navUrl, name, isPage, id }) => (
           <PageBtn key={navUrl}>
-            <Link href={isPage ? `https://${team}.palms.blog/content/page/${navUrl}/${id}` : `https://${navUrl}`}>
-              {name}
-            </Link>
+            <Link href={isPage ? `/content/page/${navUrl}/${id}` : `${navUrl}`}>{name}</Link>
           </PageBtn>
         ))}
-      <SubscribeBtn />
+      {/* 밑의 버튼은 구독자 기능 생성 후 다시 넣어줄 예정 */}
+      {/* <SubscribeBtn /> */}
     </BlogNavContainer>
   );
 };
@@ -47,11 +45,4 @@ const BlogNavContainer = styled.div`
   justify-content: space-between;
 
   width: auto;
-
-  @media screen and (max-width: 768px) {
-    position: absolute;
-
-    right: 4rem;
-    width: 31.6rem;
-  }
 `;

@@ -1,6 +1,7 @@
 'use client';
 
 import React from 'react';
+import { useMediaQuery } from 'react-responsive';
 import styled from 'styled-components';
 
 interface BlogMainImgProps {
@@ -11,6 +12,10 @@ interface BlogMainImgProps {
 const BlogImg = (props: BlogMainImgProps) => {
   const { thumbnail, description } = props;
 
+  const MOBILE = useMediaQuery({
+    query: '(min-width : 375px) and (max-width:768px)',
+  });
+
   return (
     //블로그 대문 이미지가 있는 경우에만 블로그 소개글이 같이 나타납니다
     <BlogImgContainer>
@@ -18,7 +23,7 @@ const BlogImg = (props: BlogMainImgProps) => {
         <>
           <BlogImgWrapper>
             <img src={thumbnail} alt="blog main" />
-            {description && <BlogInfo>{description}</BlogInfo>}
+            {description && <BlogInfo className={MOBILE ? 'mobile' : ''}>{description}</BlogInfo>}
           </BlogImgWrapper>
         </>
       )}
@@ -59,4 +64,8 @@ const BlogInfo = styled.div`
   color: ${({ theme }) => theme.colors.grey_0};
 
   pointer-events: none;
+
+  &.mobile {
+    ${({ theme }) => theme.mobileFonts.Body1_Semibold};
+  }
 `;

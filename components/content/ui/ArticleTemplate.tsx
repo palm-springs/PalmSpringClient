@@ -114,7 +114,7 @@ const ArticleThumbnail = styled.img`
     margin-top: 6rem;
     border-radius: 0;
     width: 100%;
-    height: 37.5rem;
+    height: 20.9rem;
   }
 `;
 

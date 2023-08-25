@@ -72,6 +72,8 @@ const BlogHeaderContainer = styled.div`
   height: 6rem;
 
   &.mobile {
+    /* stylelint-disable-next-line property-no-vendor-prefix */
+    -webkit-backdrop-filter: blur(18px);
     justify-content: space-between;
     padding: 1.2rem 1.6rem 1.2rem 2.4rem;
   }

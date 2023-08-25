@@ -37,7 +37,7 @@ export default MobileArticle;
 const ArticleThumbnail = styled.img`
   margin-bottom: 1.2rem;
   border-radius: 1.2rem;
-  width: 32.7rem;
+  width: calc(100vw - 4.8rem);
   height: 18.3rem;
   object-fit: cover;
 `;
@@ -48,7 +48,7 @@ const ArticleContainer = styled(Link)`
   align-items: flex-start;
   justify-content: center;
 
-  width: 32.7rem;
+  width: calc(100vw - 4.8rem);
   height: 31.8rem;
 `;
 
