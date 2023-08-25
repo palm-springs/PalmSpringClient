@@ -13,6 +13,8 @@ import { useGetBlogArticleDetail, useGetBlogCategoryList } from '@/hooks/blogHom
 import { ArticleData } from '@/types/article';
 import { getLiteralCategoryList } from '@/utils/getLiteralCategoryList';
 
+import MobileStickyBtn from '../MobileStickyBtn';
+
 import CategoryBtnBar from './CategoryBtnBar';
 
 interface ArticleListWithThumbnailProps {
@@ -57,6 +59,7 @@ const ArticleListWithThumbnail = (props: ArticleListWithThumbnailProps) => {
         <ArticleWrapper>
           <ArticleList articleList={articleList} />
         </ArticleWrapper>
+        {MOBILE && <MobileStickyBtn />}
       </>
     );
   else

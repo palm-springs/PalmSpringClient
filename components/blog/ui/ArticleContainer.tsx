@@ -13,6 +13,7 @@ import { ArticleData } from '@/types/article';
 import { getLiteralCategoryList } from '@/utils/getLiteralCategoryList';
 
 import BlogImg from '../BlogImg';
+import MobileStickyBtn from '../MobileStickyBtn';
 
 import ArticleListWithThumbnail from './ArticleListWithThumbnail';
 import CategoryBtnBar from './CategoryBtnBar';
@@ -51,6 +52,7 @@ const ArticleContainer = (props: ArticleContainerProps) => {
           <CategoryBtnWrapper>
             <CategoryBtnBar LiteralList={LiteralList} />
           </CategoryBtnWrapper>
+          {MOBILE && <MobileStickyBtn />}
         </BlogImgContainer>
       );
     } else {
@@ -58,40 +60,41 @@ const ArticleContainer = (props: ArticleContainerProps) => {
       return (
         <BlogImgContainer>
           <BlogImg thumbnail={thumbnail} description={description} />
+          {MOBILE && <MobileStickyBtn />}
         </BlogImgContainer>
       );
     }
   }
 
   //모바일 뷰
-  if (articleListData.length === 0 && thumbnail && MOBILE) {
-    if (CategorySelected !== 'home') {
-      //아티클 리스트가 없고 카테고리 선택 안되어있고 블로그 대문이 있을 때
-      return (
-        <BlogImgContainer>
-          <BlogImg thumbnail={thumbnail} description={description} />
-          <CategoryBtnWrapper>
-            <CategoryBtnBar LiteralList={LiteralList} />
-          </CategoryBtnWrapper>
-        </BlogImgContainer>
-      );
-    } else {
-      //아티클 리스트 없고 카테고리 선택되어있고 블로그 대문 있을 때
-      return (
-        <BlogImgContainer>
-          <BlogImg thumbnail={thumbnail} description={description} />
-        </BlogImgContainer>
-      );
-    }
-  }
+  // if (articleListData.length === 0 && thumbnail && MOBILE) {
+  //   if (CategorySelected !== 'home') {
+  //     //아티클 리스트가 없고 카테고리 선택 안되어있고 블로그 대문이 있을 때
+  //     return (
+  //       <BlogImgContainer >
+  //         <BlogImg thumbnail={thumbnail} description={description} />
+  //         <CategoryBtnWrapper>
+  //           <CategoryBtnBar LiteralList={LiteralList} />
+  //         </CategoryBtnWrapper>
+  //       </BlogImgContainer>
+  //     );
+  //   } else {
+  //     //아티클 리스트 없고 카테고리 선택되어있고 블로그 대문 있을 때
+  //     return (
+  //       <BlogImgContainer>
+  //         <BlogImg thumbnail={thumbnail} description={description} />
+  //       </BlogImgContainer>
+  //     );
+  //   }
+  // }
 
   //데스크탑 뷰
   //아티클 리스트가 없고 블로그 대문이 없을 때
   if (articleListData.length === 0 && !thumbnail)
     return (
-      <DefaultTextContainer>
-        <DefaultTitle>팜스프링 기술 블로그</DefaultTitle>
-        <DefaultSubText>등록된 글이 없습니다</DefaultSubText>
+      <DefaultTextContainer className={MOBILE ? 'mobile' : ''}>
+        <DefaultTitle className={MOBILE ? 'mobile' : ''}>{team}</DefaultTitle>
+        <DefaultSubText className={MOBILE ? 'mobile' : ''}>등록된 글이 없습니다</DefaultSubText>
       </DefaultTextContainer>
     );
 
@@ -108,39 +111,40 @@ const ArticleContainer = (props: ArticleContainerProps) => {
         </CategoryBtnWrapper>
         <ArticleWrapper>
           <ArticleList articleList={articleListData} />
+          {MOBILE && <MobileStickyBtn />}
         </ArticleWrapper>
       </>
     );
 
   //모바일 뷰
   //아티클 리스트가 없고 블로그 대문이 없을 때 -- 완
-  if (articleListData.length === 0 && !thumbnail && MOBILE) {
-    return (
-      <DefaultTextContainer>
-        <DefaultTitle>팜스프링 기술 블로그</DefaultTitle>
-        <DefaultSubText>등록된 글이 없습니다</DefaultSubText>
-      </DefaultTextContainer>
-    );
-  }
+  // if (articleListData.length === 0 && !thumbnail && MOBILE) {
+  //   return (
+  //     <DefaultTextContainer>
+  //       <DefaultTitle className="mobile">팜스프링 기술 블로그</DefaultTitle>
+  //       <DefaultSubText className="mobile">등록된 글이 없습니다</DefaultSubText>
+  //     </DefaultTextContainer>
+  //   );
+  // }
 
-  //아티클 리스트가 있고 블로그 대문이 없을 때 -- 완
-  if (articleListData.length !== 0 && !thumbnail && MOBILE) {
-    return <ArticleListWithThumbnail articleList={articleListData} />;
-  }
-  //아티클 리스트가 있고 블로그 대문이 있을 때 -- 완
-  if (articleListData.length !== 0 && thumbnail && MOBILE) {
-    return (
-      <>
-        <BlogImg thumbnail={thumbnail} description={description} />
-        <CategoryBtnWrapper>
-          <CategoryBtnBar LiteralList={LiteralList} />
-        </CategoryBtnWrapper>
-        <ArticleWrapper>
-          <ArticleList articleList={articleListData} />
-        </ArticleWrapper>
-      </>
-    );
-  }
+  // //아티클 리스트가 있고 블로그 대문이 없을 때 -- 완
+  // if (articleListData.length !== 0 && !thumbnail && MOBILE) {
+  //   return <ArticleListWithThumbnail articleList={articleListData} />;
+  // }
+  // //아티클 리스트가 있고 블로그 대문이 있을 때 -- 완
+  // if (articleListData.length !== 0 && thumbnail && MOBILE) {
+  //   return (
+  //     <>
+  //       <BlogImg thumbnail={thumbnail} description={description} />
+  //       <CategoryBtnWrapper>
+  //         <CategoryBtnBar LiteralList={LiteralList} />
+  //       </CategoryBtnWrapper>
+  //       <ArticleWrapper>
+  //         <ArticleList articleList={articleListData} />
+  //       </ArticleWrapper>
+  //     </>
+  //   );
+  // }
 };
 
 export default ArticleContainer;
@@ -148,10 +152,18 @@ export default ArticleContainer;
 const DefaultTitle = styled.div`
   ${({ theme }) => theme.fonts.Title};
   color: ${({ theme }) => theme.colors.grey_900};
+
+  &.mobile {
+    ${({ theme }) => theme.mobileFonts.Title1};
+  }
 `;
 const DefaultSubText = styled.div`
   ${({ theme }) => theme.fonts.Heading3_Semibold};
-  color: ${({ theme }) => theme.colors.grey_900};
+  color: ${({ theme }) => theme.colors.grey_700};
+
+  &.mobile {
+    ${({ theme }) => theme.mobileFonts.Body1_Semibold};
+  }
 `;
 
 const ArticleWrapper = styled.section`
@@ -177,10 +189,15 @@ const BlogImgContainer = styled.div`
 const DefaultTextContainer = styled.div`
   display: flex;
   flex-direction: column;
+  gap: 0.55rem;
   align-items: center;
   justify-content: center;
+  padding: 0 7.2rem;
 
   padding: 34rem 0 25.6rem;
   width: 100%;
-  height: 70.8rem;
+
+  &.mobile {
+    height: calc(100vh - 20rem);
+  }
 `;
