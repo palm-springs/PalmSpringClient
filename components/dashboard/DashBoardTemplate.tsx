@@ -3,10 +3,6 @@
 import React, { useEffect } from 'react';
 import { useParams, useRouter } from 'next/navigation';
 
-import { useGetBlogInfo } from '@/hooks/blog';
-
-import LoadingLottie from '../common/ui/LoadingLottie';
-
 import DashBoardHeader from './components/DashBoardHeader';
 import DashBoardNav from './components/DashBoardNav';
 import DashBoardContainer from './components/ui/DashBoardConatiner';

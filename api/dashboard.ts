@@ -1,7 +1,7 @@
 import { Response } from '@/types/common';
 import { CategoryListProps, NavListProps, PageListProps, TempSavedListProps } from '@/types/dashboard';
 import { MemberProps } from '@/types/member';
-import { UserInfoProps } from '@/types/user';
+import { UserBasicInfo, UserInfoProps } from '@/types/user';
 
 import client from '.';
 
@@ -10,6 +10,7 @@ interface UserBasicInfoProps {
   teamMemberId: string;
   thumbnail: string;
   nickname: string;
+  url: string | null;
   description: string;
   job: string;
 }
@@ -49,13 +50,13 @@ export const getUserInfoAfterLogin = async (blogUrl: string, accessToken: string
 };
 
 export const getMemberList = async (blogUrl: string) => {
-  const { data } = await client.get<Response<MemberProps[]>>(`/api/v2/dashboard/user/team/list/members/${blogUrl}`);
+  const { data } = await client.get<Response<MemberProps[]>>(`/api/v2/dashboard/user/me/detail/joined/${blogUrl}`);
   return data;
 };
 
 // 왜 있지?
 export const getUserBasicInfo = async (blogUrl: string) => {
-  const { data } = await client.get<Response<UserBasicInfoProps>>(`/api/v2/dashboard/user/sidebar`);
+  const { data } = await client.get<Response<UserBasicInfoProps>>(`/api/v2/dashboard/user/me/detail/joined/${blogUrl}`);
   return data;
 };
 
@@ -114,5 +115,13 @@ export const deletePage = async (blogUrl: string, id: number) => {
 
 export const deleteArticle = async (blogUrl: string, id: number) => {
   const { data } = await client.delete<Response<null>>(`/api/v2/dashboard/article/remove/${blogUrl}?articleId=${id}`);
+  return data;
+};
+
+export const updateUserInfo = async (blogUrl: string, userInfo: UserBasicInfo) => {
+  const { data } = await client.put<Response<UserBasicInfoProps>>(
+    `/api/v2/dashboard/user/me/detail/joined/${blogUrl}`,
+    userInfo,
+  );
   return data;
 };

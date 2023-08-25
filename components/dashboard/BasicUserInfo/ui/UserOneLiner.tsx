@@ -1,20 +1,22 @@
 'use client';
-import React from 'react';
-import { useParams } from 'next/navigation';
+import React, { ChangeEvent } from 'react';
+import { useRecoilState } from 'recoil';
 import styled from 'styled-components';
 
-import { useGetUserBasicInfo } from '@/hooks/dashboard';
+import { userInfoState } from '../state/user';
 
 const UserOneLiner = () => {
-  const { team } = useParams();
-  const basicUserData = useGetUserBasicInfo(team);
-  if (!basicUserData) return;
+  const [{ description }, setUserInfoData] = useRecoilState(userInfoState);
+
+  const handleOnChange = (e: ChangeEvent<HTMLTextAreaElement>) => {
+    const { value } = e.currentTarget;
+    setUserInfoData((prev) => ({ ...prev, description: value }));
+  };
+
   return (
     <UserOneLinerContainer>
       <UserNameTitle>한 줄 소개</UserNameTitle>
-      <UserOneLinerTextarea placeholder="한 줄 소개를 입력해주세요">
-        {basicUserData.data.description}
-      </UserOneLinerTextarea>
+      <UserOneLinerTextarea value={description} placeholder="한 줄 소개를 입력해주세요" onChange={handleOnChange} />
     </UserOneLinerContainer>
   );
 };
