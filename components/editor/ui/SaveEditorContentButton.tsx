@@ -3,23 +3,32 @@
 import React, { useState } from 'react';
 import { toast, Toaster } from 'react-hot-toast';
 import { useParams, usePathname, useRouter } from 'next/navigation';
+import { useRecoilState } from 'recoil';
 import styled from 'styled-components';
 
 import ModalPortal from '@/components/common/ModalPortal';
 import DashboardDeleteModal from '@/components/common/ui/DashboardDeleteModal';
+import { UpdateArticleProps } from '@/types/article';
+import { UpdatePageProps } from '@/types/page';
+
+import { articleDataState, pageDataState } from '../states/atom';
 
 interface editorProps {
   handleOnClickDraft: () => void;
   handleOnClickPublish: () => void;
   isEdit?: boolean;
   currentState?: string;
+  articleData?: UpdateArticleProps;
+  pageData?: UpdatePageProps;
 }
 
 const SaveEditorContentButton = (props: editorProps) => {
   const [isModal, setIsModal] = useState(false);
-  const { handleOnClickDraft, handleOnClickPublish, isEdit, currentState } = props;
+  const { handleOnClickDraft, handleOnClickPublish, isEdit, currentState, articleData, pageData } = props;
   const { team } = useParams();
   const router = useRouter();
+  const [{ title: articleTitle }, setArticleData] = useRecoilState(articleDataState); // 아티클 초기 타이틀 -> 복사 -> 새로운 title 갈아끼기
+  const [{ title: pageTitle }, setPageData] = useRecoilState(pageDataState);
 
   const notify = () =>
     toast.success('글이 임시저장 되었습니다.', {
@@ -78,7 +87,7 @@ const SaveEditorContentButton = (props: editorProps) => {
               임시저장
             </TemporarySaveButton>
           )}
-          <SaveButton type="button" onClick={handleOnClickPublish}>
+          <SaveButton type="button" onClick={handleOnClickPublish} disabled={articleTitle === '' || pageTitle === ''}>
             {isEdit ? '수정하기' : '발행하기'}
           </SaveButton>
         </>
@@ -154,15 +163,19 @@ const TemporarySaveButton = styled.button`
   }
 `;
 
-const SaveButton = styled.button`
+const SaveButton = styled.button<{ disabled: boolean }>`
   display: inline-flex;
   flex-shrink: 0;
   gap: 1rem;
   align-items: center;
   justify-content: center;
+
   margin-left: 0.8rem;
   border-radius: 0.8rem;
   background-color: ${({ theme }) => theme.colors.grey_900};
+  /* background-color: ${({ theme, disabled }) =>
+    disabled ? theme.colors.grey_900 : theme.colors.grey_900}; 디자인 나오면 이걸로 교체! */
+  cursor: ${({ disabled }) => (disabled ? 'default' : 'pointer')};
   padding: 1rem 2rem;
   height: 3.6rem;
   color: ${({ theme }) => theme.colors.grey_0};
