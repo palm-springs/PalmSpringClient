@@ -63,7 +63,7 @@ const PublishBottomButtons = (props: PublishBottomButtons) => {
       id: Number(articleId),
     });
     resetArticleData();
-    router.push(`/${team}/dashboard/page`);
+    router.push(`/${team}/dashboard/upload`);
   };
 
   //임시저장 아티클 수정하기 후 최종 발행하기
@@ -88,7 +88,7 @@ const PublishBottomButtons = (props: PublishBottomButtons) => {
   const handleOnClickUpdatePagePublish = () => {
     updatePageMutation.mutate({ ...updatedPageData, id: Number(pageId) });
     resetPageData();
-    router.push(`/${team}/dashboard/article`);
+    router.push(`/${team}/dashboard/page`);
   };
 
   //임시저장 페이지 수정하기 후 최종 발행하기
@@ -103,11 +103,8 @@ const PublishBottomButtons = (props: PublishBottomButtons) => {
   };
 
   // 뒤로가기 -> 전 페이지로 바꾸는 걸로 바꾸기
-  const handleBackArticleButton = () => {
-    router.push(`/${team}/editor/article`);
-  };
-  const handleBackPageButton = () => {
-    router.push(`/${team}/editor/page`);
+  const handleBackeButton = () => {
+    router.back();
   };
 
   switch (pageType) {
@@ -115,7 +112,7 @@ const PublishBottomButtons = (props: PublishBottomButtons) => {
       return (
         <>
           <PublishBottomButtonsContainer>
-            <BackButton type="button" onClick={handleBackArticleButton}>
+            <BackButton type="button" onClick={handleBackeButton}>
               뒤로가기
             </BackButton>
             {pathName === `/${team}/editor/article/${articleId}/publish` ? (
@@ -144,7 +141,7 @@ const PublishBottomButtons = (props: PublishBottomButtons) => {
       return (
         <>
           <PublishBottomButtonsContainer>
-            <BackButton type="button" onClick={handleBackPageButton}>
+            <BackButton type="button" onClick={handleBackeButton}>
               뒤로가기
             </BackButton>
             {pathName === `/${team}/editor/page/${pageId}/publish` ? (
