@@ -19,7 +19,7 @@ const UserProfile = () => {
 
     // const reader = new FileReader();
     if (files) {
-      const remoteImgUrl = await getImageMultipartData(files[0], team);
+      const remoteImgUrl = await getImageMultipartData(files[0]);
       setUserInfoData((prev) => ({ ...prev, thumbnail: remoteImgUrl }));
 
       // reader.readAsDataURL(files[0] as Blob);

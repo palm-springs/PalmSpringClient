@@ -18,7 +18,6 @@ interface ImageInputFormProps {
 
 const ImageInputForm = (props: ImageInputFormProps) => {
   const { type } = props;
-  const { team } = useParams();
   // 임시 state
   const [imgSrc, setImgSrc] = useState('');
   const setBlogData = useSetRecoilState(createBlogDataState);
@@ -33,7 +32,7 @@ const ImageInputForm = (props: ImageInputFormProps) => {
 
     const reader = new FileReader();
     if (files) {
-      const remoteImgUrl = await getImageMultipartData(files[0], team);
+      const remoteImgUrl = await getImageMultipartData(files[0]);
       setBlogData((prev) => ({ ...prev, [type]: remoteImgUrl }));
 
       reader.readAsDataURL(files[0] as Blob);
