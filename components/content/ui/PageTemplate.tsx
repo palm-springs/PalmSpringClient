@@ -28,22 +28,13 @@ const PageTemplate = (props: ContentTemplateProps) => {
     query: '(min-width : 375px) and (max-width:768px)',
   });
 
-  if (MOBILE)
-    return (
-      <ContentPageContainer className="mobile">
-        {thumbnail && <PageThumbnail className="mobile" src={thumbnail} alt="page content thumbnail" />}
-        <PageContentInfo contentInfoData={{ title }} />
-        <Content content={content} />
-      </ContentPageContainer>
-    );
-  else
-    return (
-      <ContentPageContainer>
-        {thumbnail && <PageThumbnail src={thumbnail} alt="page content thumbnail" />}
-        <PageContentInfo contentInfoData={{ title }} />
-        <Content content={content} />
-      </ContentPageContainer>
-    );
+  return (
+    <ContentPageContainer className="mobile">
+      {thumbnail && <PageThumbnail className={MOBILE ? 'mobile' : ''} src={thumbnail} alt="page content thumbnail" />}
+      <PageContentInfo contentInfoData={{ title }} />
+      <Content content={content} />
+    </ContentPageContainer>
+  );
 };
 
 export default PageTemplate;

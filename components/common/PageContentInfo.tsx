@@ -87,8 +87,6 @@ const ContentDetailBox = styled.section`
 const ContentInfoContainer = styled.section`
   display: flex;
   flex-direction: column;
-  align-items: flex-start;
-  justify-content: flex-start;
 
   width: 72rem;
 
