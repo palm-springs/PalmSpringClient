@@ -41,9 +41,11 @@ const CategoryTemplate = () => {
             buttonHandler={() => {
               mutate();
               setModalState('');
+              setNewCategoryName('');
+              setNewCategoryDescription('');
             }}
             onModalCloseBtnClick={() => setModalState('')}
-            disabled={newCategoryName === '' && newCategoryDescription === ''}>
+            disabled={newCategoryName === '' || newCategoryDescription === ''}>
             <ModalPortalContainer
               title="카테고리 이름"
               placeholder="카테고리 이름을 입력해주세요."

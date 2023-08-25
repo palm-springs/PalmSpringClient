@@ -23,7 +23,7 @@ const UpdateArticlePublishPage = (props: Publishprops) => {
 
   const { team, articleId } = useParams();
   const [isDuplicate, setIsDuplicate] = useState<boolean | null>(false);
-  const updateArticleEditContents = useGetUpdateArticleContent(Number(articleId)); // number 값 ArticleId로 바꿀거이
+  const updateArticleEditContents = useGetUpdateArticleContent(team, Number(articleId)); // number 값 ArticleId로 바꿀거이
   const [{ title: articleTitle }, setArticleData] = useRecoilState(articleDataState); // 아티클 초기 타이틀 -> 복사 -> 새로운 title 갈아끼기
 
   return (

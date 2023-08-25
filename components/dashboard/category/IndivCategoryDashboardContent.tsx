@@ -1,4 +1,5 @@
-import { useState } from 'react';
+import { Dispatch, SetStateAction, useEffect, useState } from 'react';
+import { toast, Toaster } from 'react-hot-toast';
 import { useRecoilState } from 'recoil';
 
 import ModalPortal from '@/components/common/ModalPortal';
@@ -10,6 +11,8 @@ import { dashBoardModalState } from '../state/modalState';
 import UpdateCategoryModal from './UpdateCategoryModal';
 
 interface IndivCategoryDashboardContentProps {
+  currentModalId: number | null;
+  setCurrentModalId: Dispatch<SetStateAction<number | null>>;
   id: number;
   content: string;
   blogUrl: string;
@@ -18,7 +21,7 @@ interface IndivCategoryDashboardContentProps {
 }
 
 const IndivCategoryDashboardContent = (props: IndivCategoryDashboardContentProps) => {
-  const { id, content, description, blogUrl, categoryUrl } = props;
+  const { currentModalId, setCurrentModalId, id, content, description, blogUrl, categoryUrl } = props;
 
   const [modalState, setModalState] = useRecoilState(dashBoardModalState);
 
@@ -26,26 +29,60 @@ const IndivCategoryDashboardContent = (props: IndivCategoryDashboardContentProps
 
   const [updateCategoryDescription, setUpdateCategoryDescription] = useState<string>(description);
 
-  const { mutate: deleteCategory } = useDeleteCategory(blogUrl, id);
+  const notify = () =>
+    toast.error('카테고리에 글이 남아있습니다!', {
+      id: '406 error occured',
+      style: {
+        padding: '1.6rem 2rem',
+        borderRadius: '3.2rem',
+        background: '#343A40',
+        color: '#fff',
+        fontSize: '1.4rem',
+        fontFamily: 'Pretendard',
+        fontStyle: 'normal',
+        fontWeight: '700',
+        letterSpacing: '-0.028rem',
+      },
+    });
+
+  const { mutate: deleteCategory, data } = useDeleteCategory(blogUrl, id);
+
+  useEffect(() => {
+    if (data && data.code === 406) {
+      notify();
+    }
+  }, [data]);
 
   return (
     <>
+      <Toaster
+        position="bottom-center"
+        reverseOrder={false}
+        containerClassName=""
+        containerStyle={{
+          bottom: 50,
+        }}
+      />
       <DashBoardContent
         key={id}
         id={String(id)}
         content={content}
-        url={blogUrl}
+        url={categoryUrl}
+        description={description}
         onTitleClick={() => {
           window.location.href = `https://${blogUrl}.palms.blog/${blogUrl}/home/${categoryUrl}`;
         }}
         onMutateClick={() => {
           setModalState('updateCategory');
+          setCurrentModalId(id);
+          setUpdateCategoryName(content);
+          setUpdateCategoryDescription(description);
         }}
         onDeleteClick={() => {
           deleteCategory();
         }}
       />
-      {modalState === 'updateCategory' && (
+      {modalState === 'updateCategory' && currentModalId === id && (
         <ModalPortal>
           <UpdateCategoryModal
             id={id}

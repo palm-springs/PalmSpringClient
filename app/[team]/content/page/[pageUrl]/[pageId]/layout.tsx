@@ -15,12 +15,12 @@ const ContentLayout = ({ children }: { children: React.ReactElement }) => {
   if (!res) return <LoadingLottie width={10} height={10} fit />;
 
   const {
-    data: { logo, blogName },
+    data: { logo, blogName, navList },
   } = res;
 
   return (
     <>
-      <BlogHeader logo={logo} blogName={blogName} />
+      <BlogHeader logo={logo} blogName={blogName} navList={navList} />
       <main>{children}</main>
       <BlogFooter />
     </>

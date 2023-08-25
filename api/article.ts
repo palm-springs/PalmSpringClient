@@ -46,8 +46,8 @@ export const getCheckArticleUrlDuplication = async (teamUrl: string, articleUrl:
 };
 
 //아티클 업로드한 글 get
-export const getUpdateArticleContent = async (articleId: number) => {
-  const { data } = await client.get(`/api/v2/dashboard/article/detail?articleId=${articleId}`);
+export const getUpdateArticleContent = async (blogUrl: string, articleId: number) => {
+  const { data } = await client.get(`/api/v2/dashboard/article/detail/modify/${blogUrl}?articleId=${articleId}`);
   return data;
 };
 

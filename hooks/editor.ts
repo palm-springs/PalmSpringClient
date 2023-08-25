@@ -48,16 +48,18 @@ export const useGetSinglePageData = (blogUrl: string, pageUrl: string) => {
 };
 
 // 아티클 수정하기 get
-export const useGetUpdateArticleContent = (articleId: number) => {
-  const { data } = useQuery([QUERY_KEY_ARTICLE.getUpdateArticleContent, articleId], () =>
-    getUpdateArticleContent(articleId),
+export const useGetUpdateArticleContent = (blogUrl: string, articleId: number) => {
+  const { data } = useQuery([QUERY_KEY_ARTICLE.getUpdateArticleContent, blogUrl, articleId], () =>
+    getUpdateArticleContent(blogUrl, articleId),
   );
   return data;
 };
 
 // 페이지 수정하기 get
-export const useGetUpdatePageContent = (pageId: number) => {
-  const { data } = useQuery([QUERY_KEY_ARTICLE.getUpdateArticleContent, pageId], () => getUpdatePageContent(pageId));
+export const useGetUpdatePageContent = (blogUrl: string, pageId: number) => {
+  const { data } = useQuery([QUERY_KEY_ARTICLE.getUpdateArticleContent, blogUrl, pageId], () =>
+    getUpdatePageContent(blogUrl, pageId),
+  );
   return data;
 };
 
@@ -78,12 +80,12 @@ export const useUpdateArticleContent = (articleUrl: string) => {
 };
 
 //페이지 수정하기
-export const useUpdatePageContent = () => {
+export const useUpdatePageContent = (blogUrl: string) => {
   const queryClient = useQueryClient();
 
   const pageMutation = useMutation(
     [QUERY_KEY_ARTICLE.updatePageDetail],
-    (updatePageData: UpdatePageContentProps) => updatePageDetail(updatePageData),
+    (updatePageData: UpdatePageContentProps) => updatePageDetail(blogUrl, updatePageData),
     {
       onSuccess: () => {
         queryClient.invalidateQueries([QUERY_KEY_ARTICLE.getPageList]);
@@ -111,12 +113,12 @@ export const useUpdateTempArticleDraft = (blogUrl: string) => {
 };
 
 //페이지 임시저장 수정하기 (발행, 임시저장 모두 포함)
-export const useUpdateTempPageDraft = () => {
+export const useUpdateTempPageDraft = (blogUrl: string) => {
   const queryClient = useQueryClient();
 
   const draftPageMutation = useMutation(
     [QUERY_KEY_ARTICLE.updatePageDetail],
-    (updateTempPageData: UpdateTempPageDraftProps) => updatePageDraft(updateTempPageData),
+    (updateTempPageData: UpdateTempPageDraftProps) => updatePageDraft(blogUrl, updateTempPageData),
     {
       onSuccess: () => {
         queryClient.invalidateQueries([QUERY_KEY_ARTICLE.getPageList]);

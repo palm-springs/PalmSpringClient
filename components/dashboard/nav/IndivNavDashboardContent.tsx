@@ -1,4 +1,4 @@
-import { useState } from 'react';
+import { Dispatch, SetStateAction, useState } from 'react';
 import { useRouter } from 'next/navigation';
 import { useRecoilState } from 'recoil';
 
@@ -11,6 +11,8 @@ import { dashBoardModalState } from '../state/modalState';
 import UpdateNavigationModal from './UpdateNavigationModal';
 
 interface IndivNavDashboardContentProps {
+  currentModalId: number | null;
+  setCurrentModalId: Dispatch<SetStateAction<number | null>>;
   id: number;
   content: string;
   url: string;
@@ -19,7 +21,7 @@ interface IndivNavDashboardContentProps {
 }
 
 const IndivNavDashboardContent = (props: IndivNavDashboardContentProps) => {
-  const { id, content, url, blogUrl, isPage } = props;
+  const { currentModalId, setCurrentModalId, id, content, url, blogUrl, isPage } = props;
 
   const router = useRouter();
 
@@ -46,17 +48,21 @@ const IndivNavDashboardContent = (props: IndivNavDashboardContentProps) => {
             return;
           }
           if (typeof window !== 'undefined') {
-            window.location.href = `https://${url}`;
+            window.location.href = url;
           }
         }}
         onMutateClick={() => {
           setDashboardModalState('updateNavigation');
+          setCurrentModalId(id);
+          setUpdateNavigationName(content);
+          setUpdateNavigationSelector(isPage ? content : '직접 입력');
+          setUpdateNavigationUrl(url);
         }}
         onDeleteClick={() => {
           deleteNav();
         }}
       />
-      {dashboardModalState === 'updateNavigation' && (
+      {dashboardModalState === 'updateNavigation' && currentModalId === id && (
         <ModalPortal>
           <UpdateNavigationModal
             id={id}

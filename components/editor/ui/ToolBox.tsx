@@ -150,7 +150,7 @@ const IconContainer = styled.div<{ isAtTop: boolean }>`
   position: ${({ isAtTop }) => isAtTop && 'sticky'};
   top: 0;
   z-index: 30;
-  margin-top: 4.4rem;
+  margin: 4.4rem 0 1.6rem;
   width: ${({ isAtTop }) => isAtTop && '72.2rem'};
 `;
 

@@ -1,4 +1,4 @@
-import { toast } from 'react-hot-toast';
+import { toast, Toaster } from 'react-hot-toast';
 import { useRouter } from 'next/navigation';
 
 import { useDeletePage } from '@/hooks/dashboard';
@@ -40,30 +40,40 @@ const IndivPageContent = (props: IndivPageContentProps) => {
     });
 
   return (
-    <DashBoardContent
-      key={id}
-      id={id}
-      content={title}
-      draft={isDraft}
-      createdAt={createdAt}
-      onTitleClick={() => {
-        window.location.href = `https://${blogUrl}.palms.blog/content/page/${pageUrl}/${id}`;
-      }}
-      onMutateClick={() => {
-        if (isDraft) {
-          router.push(`/${blogUrl}/editor/page/${id}/draft`);
-        } else {
-          router.push(`/${blogUrl}/editor/page/${id}/edit`);
-        }
-      }}
-      onDeleteClick={() => {
-        if (isLinked) {
-          alert('나중에 토스트 메세지로 네비게이션 연결을 해제하고 다시 시도해주세요! 를 보여주기');
-          return;
-        }
-        mutate();
-      }}
-    />
+    <>
+      <Toaster
+        position="bottom-center"
+        reverseOrder={false}
+        containerClassName=""
+        containerStyle={{
+          bottom: 50,
+        }}
+      />
+      <DashBoardContent
+        key={id}
+        id={id}
+        content={title}
+        draft={isDraft}
+        createdAt={createdAt}
+        onTitleClick={() => {
+          window.location.href = `https://${blogUrl}.palms.blog/content/page/${pageUrl}/${id}`;
+        }}
+        onMutateClick={() => {
+          if (isDraft) {
+            router.push(`/${blogUrl}/editor/page/${id}/draft`);
+          } else {
+            router.push(`/${blogUrl}/editor/page/${id}/edit`);
+          }
+        }}
+        onDeleteClick={() => {
+          if (isLinked) {
+            notify();
+            return;
+          }
+          mutate();
+        }}
+      />
+    </>
   );
 };
 
