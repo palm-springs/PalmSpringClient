@@ -30,7 +30,7 @@ const NavButton = (props: NavButtonProps) => {
     <NavButtonContainer
       onNavButtonClick={() => {
         if (currentPageType === 'blogdirectnav') {
-          window.location.href = `https://${team}.palms.blog/${team}/home`;
+          window.location.href = `https://${team}.palms.blog/home`;
         } else {
           router.push(currentPageType);
         }
