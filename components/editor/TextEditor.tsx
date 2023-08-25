@@ -10,6 +10,7 @@ interface editorProps {
   handleDrop: DragEventHandler<HTMLDivElement> | undefined;
 }
 
+//텍스트 에디터 안에 ref가 안써짐 -> 터치영역 포커스 이동 몬함...
 const TextEditor = ({ editor, handleDragOver, handleDrop }: editorProps) => (
   <div id="dropzone" onDrop={handleDrop} onDragOver={handleDragOver} style={{ height: 'fit-content' }}>
     <EditorContainer>
