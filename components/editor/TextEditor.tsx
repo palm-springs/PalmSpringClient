@@ -12,14 +12,20 @@ interface editorProps {
 
 //텍스트 에디터 안에 ref가 안써짐 -> 터치영역 포커스 이동 몬함...
 const TextEditor = ({ editor, handleDragOver, handleDrop }: editorProps) => (
-  <div id="dropzone" onDrop={handleDrop} onDragOver={handleDragOver} style={{ height: 'fit-content' }}>
+  <TouchContainer id="dropzone" onDrop={handleDrop} onDragOver={handleDragOver} style={{ height: 'fit-content' }}>
     <EditorContainer>
       <TextEditorUI editor={editor} />
     </EditorContainer>
-  </div>
+  </TouchContainer>
 );
 
 export default TextEditor;
+
+const TouchContainer = styled.div`
+  & div {
+    height: 100vh;
+  }
+`;
 
 const EditorContainer = styled.div`
   margin-bottom: 6.4rem;
