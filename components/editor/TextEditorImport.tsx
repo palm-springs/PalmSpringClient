@@ -5,6 +5,7 @@ import Bold from '@tiptap/extension-bold';
 import BulletList from '@tiptap/extension-bullet-list';
 import Code from '@tiptap/extension-code';
 import CodeBlockLowlight from '@tiptap/extension-code-block-lowlight';
+import Document from '@tiptap/extension-document';
 import Dropcursor from '@tiptap/extension-dropcursor';
 import Heading from '@tiptap/extension-heading';
 import Image from '@tiptap/extension-image';
@@ -12,8 +13,10 @@ import Italic from '@tiptap/extension-italic';
 import Link from '@tiptap/extension-link';
 import ListItem from '@tiptap/extension-list-item';
 import OrderedList from '@tiptap/extension-ordered-list';
+import Paragraph from '@tiptap/extension-paragraph';
 import Placeholder from '@tiptap/extension-placeholder';
 import Strike from '@tiptap/extension-strike';
+import Text from '@tiptap/extension-text';
 import Underline from '@tiptap/extension-underline';
 import { Content, Editor, useEditor } from '@tiptap/react';
 import StarterKit from '@tiptap/starter-kit';
@@ -80,12 +83,14 @@ const TextEditorBuild = (props: TextEditorBuildprops) => {
   // tiptap 라이브러리 내장 에디터 관련 기능 extentions.
   const editor = useEditor({
     extensions: [
-      StarterKit,
-      Placeholder.configure({
-        placeholder: '내용을 입력해주세요',
-      }),
+      Document,
+      Paragraph,
+      Text,
       Heading.configure({
         levels: [1, 2, 3],
+      }),
+      Placeholder.configure({
+        placeholder: '내용을 입력해주세요',
       }),
       ListItem,
       BulletList.configure({
