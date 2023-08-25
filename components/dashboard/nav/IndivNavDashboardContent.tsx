@@ -1,11 +1,11 @@
 import { Dispatch, SetStateAction, useState } from 'react';
-import { useRouter } from 'next/navigation';
 import { useRecoilState } from 'recoil';
 
 import ModalPortal from '@/components/common/ModalPortal';
 import { useDeleteNavigation } from '@/hooks/dashboard';
 
 import DashBoardContent from '../components/DashBoardContent';
+import DashboardContentDeleteModal from '../components/DashboardContentDeleteModal';
 import { dashBoardModalState } from '../state/modalState';
 
 import UpdateNavigationModal from './UpdateNavigationModal';
@@ -22,8 +22,6 @@ interface IndivNavDashboardContentProps {
 
 const IndivNavDashboardContent = (props: IndivNavDashboardContentProps) => {
   const { currentModalId, setCurrentModalId, id, content, url, blogUrl, isPage } = props;
-
-  const router = useRouter();
 
   const { mutate: deleteNav } = useDeleteNavigation(blogUrl, id);
 
@@ -59,7 +57,7 @@ const IndivNavDashboardContent = (props: IndivNavDashboardContentProps) => {
           setUpdateNavigationUrl(url);
         }}
         onDeleteClick={() => {
-          deleteNav();
+          setDashboardModalState('deleteNav');
         }}
       />
       {dashboardModalState === 'updateNavigation' && currentModalId === id && (
@@ -76,6 +74,13 @@ const IndivNavDashboardContent = (props: IndivNavDashboardContentProps) => {
             updateNavigationIsPage={updateNavigationSelector === '직접 입력' ? false : true}
           />
         </ModalPortal>
+      )}
+      {dashboardModalState === 'deleteNav' && (
+        <DashboardContentDeleteModal
+          text="네비게이션을 삭제하시겠어어요?"
+          subText="네비게이션을 삭제할 시, 복구할 수 없습니다."
+          onDelete={() => deleteNav()}
+        />
       )}
     </>
   );
