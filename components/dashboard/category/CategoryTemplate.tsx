@@ -41,10 +41,12 @@ const CategoryTemplate = () => {
             buttonHandler={() => {
               mutate();
               setModalState('');
+            }}
+            onModalCloseBtnClick={() => {
+              setModalState('');
               setNewCategoryName('');
               setNewCategoryDescription('');
             }}
-            onModalCloseBtnClick={() => setModalState('')}
             disabled={newCategoryName === '' || newCategoryDescription === ''}>
             <ModalPortalContainer
               title="카테고리 이름"
