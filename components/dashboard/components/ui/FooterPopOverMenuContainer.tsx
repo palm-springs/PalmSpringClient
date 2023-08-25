@@ -3,12 +3,17 @@ import { styled } from 'styled-components';
 
 interface FooterPopOverMenuContainerProps {
   innerText: string;
+  handleOnClick?: () => void;
 }
 
 const FooterPopOverMenuContainer = (props: FooterPopOverMenuContainerProps) => {
-  const { innerText } = props;
+  const { innerText, handleOnClick } = props;
 
-  return <FooterPopOverMenuUI id="popovermenu">{innerText}</FooterPopOverMenuUI>;
+  return (
+    <FooterPopOverMenuUI id="popovermenu" onClick={handleOnClick}>
+      {innerText}
+    </FooterPopOverMenuUI>
+  );
 };
 
 export default FooterPopOverMenuContainer;
@@ -27,5 +32,7 @@ const FooterPopOverMenuUI = styled.article`
   border-radius: 0.8rem;
   box-shadow: 0px 2px 5px 0px rgba(0, 0, 0, 0.1);
   background: ${({ theme }) => theme.colors.grey_0};
+
+  cursor: pointer;
   padding: 1.6rem 2.4rem;
 `;

@@ -1,8 +1,10 @@
 'use client';
 
 import React, { useState } from 'react';
-import { useParams } from 'next/navigation';
+import { useParams, useRouter } from 'next/navigation';
+import { useResetRecoilState } from 'recoil';
 
+import { accessTokenState } from '@/components/auth/states/atom';
 import LoadingLottie from '@/components/common/ui/LoadingLottie';
 import { useGetUserInfo } from '@/hooks/dashboard';
 
@@ -13,10 +15,20 @@ import DashBoardNavBtn from './DashBoardNavBtn';
 
 const DashBoardFooter = () => {
   const [isPopOverMenuOpen, setIsPopOverMenuOpen] = useState<boolean>(false);
+  const resetAccessToken = useResetRecoilState(accessTokenState);
+  const sessionStorage = typeof window !== 'undefined' ? window.sessionStorage : undefined;
+
+  const router = useRouter();
 
   const res = useGetUserInfo();
 
   if (!res) return <LoadingLottie height={4} width={4} fit={false} />;
+
+  const handleLogOut = () => {
+    resetAccessToken();
+    sessionStorage?.removeItem('userToken');
+    router.push('/auth');
+  };
 
   return (
     <DashBoardFooterContainer>
@@ -29,7 +41,9 @@ const DashBoardFooter = () => {
             email={res.data.email}
           />
           <DashBoardNavBtn />
-          {isPopOverMenuOpen && <FooterPopOverMenuContainer innerText="팜스프링 로그아웃" />}
+          {isPopOverMenuOpen && (
+            <FooterPopOverMenuContainer innerText="팜스프링 로그아웃" handleOnClick={handleLogOut} />
+          )}
         </>
       ) : (
         <LoadingLottie height={4} width={4} fit={false} />
