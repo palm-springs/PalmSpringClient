@@ -1,4 +1,4 @@
-import { useRecoilState } from 'recoil';
+import { useSetRecoilState } from 'recoil';
 
 import ModalPortal from '@/components/common/ModalPortal';
 import DashboardDeleteModal from '@/components/common/ui/DashboardDeleteModal';
@@ -14,7 +14,7 @@ interface DashboardContentDeleteModalProps {
 const DashboardContentDeleteModal = (props: DashboardContentDeleteModalProps) => {
   const { text, subText, onDelete } = props;
 
-  const [, setDashboardModalState] = useRecoilState(dashBoardModalState);
+  const setDashboardModalState = useSetRecoilState(dashBoardModalState);
 
   return (
     <ModalPortal>
