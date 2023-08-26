@@ -19,14 +19,13 @@ const SideBarNav = () => {
   const {
     data: { navList },
   } = res;
+
   return (
     <BlogNavContainer>
       {navList &&
         navList.map(({ navUrl, name, isPage, id }) => (
           <NavBtn key={navUrl} type="button">
-            <Link href={isPage ? `https://${team}.palms.blog/content/page/${navUrl}/${id}` : `https://${navUrl}`}>
-              {name}
-            </Link>
+            <NavLink href={isPage ? `/content/page/${navUrl}/${id}` : `${navUrl}`}>{name}</NavLink>
           </NavBtn>
         ))}
     </BlogNavContainer>
@@ -35,6 +34,11 @@ const SideBarNav = () => {
 
 export default SideBarNav;
 
+const NavLink = styled(Link)`
+  ${({ theme }) => theme.mobileFonts.Markdown_H3};
+  color: ${({ theme }) => theme.colors.grey_900};
+`;
+
 const BlogNavContainer = styled.div`
   display: flex;
   flex-direction: column;
@@ -42,17 +46,11 @@ const BlogNavContainer = styled.div`
   justify-content: space-between;
 
   width: 26.6rem;
-
-  @media screen and (max-width: 768px) {
-    position: absolute;
-
-    right: 4rem;
-    width: 31.6rem;
-  }
 `;
 
 const NavBtn = styled.button`
-  ${({ theme }) => theme.mobileFonts.Markdown_H3};
+  display: flex;
+  justify-content: flex-start;
   padding: 1.2rem 2.4rem;
   width: 100%;
   height: 6rem;

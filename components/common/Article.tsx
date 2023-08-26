@@ -41,6 +41,7 @@ const ArticleThumbnail = styled.img`
   border-radius: 1.2rem;
   width: 22.8rem;
   height: 17rem;
+  object-fit: cover;
 `;
 
 const ArticleContainer = styled(Link)`
