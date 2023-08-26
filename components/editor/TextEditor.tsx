@@ -31,7 +31,6 @@ const TextEditor = ({ editor, handleDragOver, handleDrop }: editorProps) => {
       window.removeEventListener('scroll', handleScroll);
     };
   }, []);
-
   return (
     <TouchContainer id="dropzone" onDrop={handleDrop} onDragOver={handleDragOver} style={{ height: 'fit-content' }}>
       <EditorContainer>
