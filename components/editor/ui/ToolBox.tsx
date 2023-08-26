@@ -32,25 +32,32 @@ const EditorMenuBar = ({ editor, encodeFileToBase64, setLink }: editorProps) => 
   const [atTop, setAtTop] = useState(true);
   const [visible, setVisible] = useState(false);
 
+  const iconWrapperRef = useRef<HTMLDivElement>(null);
+
   // 스크롤바 높이에 따라 visible 조건부 설정, 높이 인식 설정
   useEffect(() => {
     const handleScroll = () => {
       setAtTop(window.scrollY >= 143);
       setVisible(window.scrollY >= 143);
+      if (iconWrapperRef.current === null) return;
+      console.log(iconWrapperRef.current?.style.top);
+      const { current } = iconWrapperRef;
+      if (window.scrollY >= 143) {
+        current.style.position = 'fixed';
+      } else {
+        current.style.position = 'sticky';
+      }
     };
-
     window.addEventListener('scroll', handleScroll);
     return () => {
       window.removeEventListener('scroll', handleScroll);
     };
   }, []);
 
-  console.log(document.documentElement.scrollHeight);
-
   return (
     <IconContainer atTop={atTop}>
-      {visible && <Wrapper isVisible={visible ? true : undefined} />}
-      <IconWrapper>
+      {visible && <Wrapper isVisible={visible} />}
+      <IconWrapper ref={iconWrapperRef}>
         <ToolButton onClick={() => editor.chain().focus().toggleHeading({ level: 1 }).run()}>
           <H1Icon />
         </ToolButton>
@@ -138,7 +145,7 @@ const Wrapper = styled.div<{ isVisible?: boolean }>`
   opacity: ${({ isVisible }) => (isVisible ? 1 : 0)};
   z-index: 10;
   margin-left: -35.9rem;
-  background-color: ${({ theme }) => theme.colors.grey_100};
+  /* background-color: ${({ theme }) => theme.colors.grey_100}; */
   width: 100vw;
   height: 4.8rem;
 `;
@@ -161,6 +168,10 @@ const IconWrapper = styled.div`
   background-color: ${({ theme }) => theme.colors.grey_100};
   width: 72.2rem;
   height: 4.8rem;
+  /* @media screen and (min-height: 903px) {
+    position: fixed;
+    top: 0;
+  } */
 `;
 
 const IconContainer = styled.div<{ atTop: boolean }>`
