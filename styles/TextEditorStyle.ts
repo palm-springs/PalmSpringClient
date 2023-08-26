@@ -171,7 +171,7 @@ export const TextEditorStyle = styled.div`
       height: auto;
 
       &.ProseMirror-selectednode {
-        outline: 3px solid #68cef8;
+        outline: 2px solid ${({ theme }) => theme.colors.green};
       }
     }
 
