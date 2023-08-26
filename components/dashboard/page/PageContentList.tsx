@@ -1,6 +1,6 @@
 'use client';
 
-import React from 'react';
+import React, { useState } from 'react';
 import { useParams, useRouter } from 'next/navigation';
 
 import EmptyLanding from '@/components/common/ui/EmptyLanding';
@@ -15,6 +15,8 @@ const PageContentList = () => {
   const { team: blogUrl } = useParams();
 
   const data = useGetPageList(blogUrl);
+
+  const [deleteContentId, setDeleteContentId] = useState<string>('');
 
   const router = useRouter();
 
@@ -43,6 +45,8 @@ const PageContentList = () => {
             isLinked={isLinked}
             pageUrl={pageUrl}
             createdAt={createdAt}
+            deleteContentId={deleteContentId}
+            setDeleteContentId={setDeleteContentId}
           />
         );
       })}
