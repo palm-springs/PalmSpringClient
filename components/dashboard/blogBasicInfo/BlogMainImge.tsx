@@ -53,20 +53,20 @@ const BlogMainImage = (props: BlogMainImageProps) => {
             <UploadText>업로드하기</UploadText>
           </BlogMainUpload>
         )}
+        {preLoadImg !== '' && (
+          <DeleteImageButton
+            type="button"
+            onClick={() => {
+              setFile(null);
+              setPreLoadImg('');
+              if (inputImgRef.current) {
+                inputImgRef.current.value = '';
+              }
+            }}>
+            <CloseIcon />
+          </DeleteImageButton>
+        )}
       </BlogMainUploadLabel>
-      {preLoadImg !== '' && (
-        <DeleteImageButton
-          type="button"
-          onClick={() => {
-            setFile(null);
-            setPreLoadImg('');
-            if (inputImgRef.current) {
-              inputImgRef.current.value = '';
-            }
-          }}>
-          <CloseIcon />
-        </DeleteImageButton>
-      )}
     </BlogMainImageContainer>
   );
 };
@@ -74,6 +74,9 @@ const BlogMainImage = (props: BlogMainImageProps) => {
 export default BlogMainImage;
 
 const DeleteImageButton = styled.button`
+  position: absolute;
+  top: 1.2rem;
+  right: 1.2rem;
   border: none;
   background: none;
   width: 2rem;
@@ -123,6 +126,7 @@ const ImageGuideTitle = styled.p`
 
 const BlogMainUploadLabel = styled.label`
   display: flex;
+  position: relative;
   border: none;
   border-radius: 0.5rem;
   cursor: pointer;

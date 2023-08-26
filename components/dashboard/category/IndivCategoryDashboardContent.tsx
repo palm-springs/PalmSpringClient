@@ -6,6 +6,7 @@ import ModalPortal from '@/components/common/ModalPortal';
 import { useDeleteCategory } from '@/hooks/dashboard';
 
 import DashBoardContent from '../components/DashBoardContent';
+import DashboardContentDeleteModal from '../components/DashboardContentDeleteModal';
 import { dashBoardModalState } from '../state/modalState';
 
 import UpdateCategoryModal from './UpdateCategoryModal';
@@ -79,7 +80,7 @@ const IndivCategoryDashboardContent = (props: IndivCategoryDashboardContentProps
           setUpdateCategoryDescription(description);
         }}
         onDeleteClick={() => {
-          deleteCategory();
+          setModalState('deleteCategory');
         }}
       />
       {modalState === 'updateCategory' && currentModalId === id && (
@@ -93,6 +94,13 @@ const IndivCategoryDashboardContent = (props: IndivCategoryDashboardContentProps
             setUpdateCategoryDescription={setUpdateCategoryDescription}
           />
         </ModalPortal>
+      )}
+      {modalState === 'deleteCategory' && (
+        <DashboardContentDeleteModal
+          text="카테고리를 삭제하시겠어어요?"
+          subText="카테고리를 삭제할 시, 복구할 수 없습니다."
+          onDelete={() => deleteCategory()}
+        />
       )}
     </>
   );
