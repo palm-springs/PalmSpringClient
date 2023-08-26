@@ -50,20 +50,20 @@ const BlogLogoImage = (props: BlogLogoImageProps) => {
             <UploadText>업로드하기</UploadText>
           </BlogLogoUpload>
         )}
+        {preLoadImg !== '' && (
+          <DeleteImageButton
+            type="button"
+            onClick={() => {
+              setFile(null);
+              setPreLoadImg('');
+              if (inputImgRef.current) {
+                inputImgRef.current.value = '';
+              }
+            }}>
+            <CloseIcon />
+          </DeleteImageButton>
+        )}
       </BlogLogoUploadLabel>
-      {preLoadImg !== '' && (
-        <DeleteImageButton
-          type="button"
-          onClick={() => {
-            setFile(null);
-            setPreLoadImg('');
-            if (inputImgRef.current) {
-              inputImgRef.current.value = '';
-            }
-          }}>
-          <CloseIcon />
-        </DeleteImageButton>
-      )}
     </BlogLogoImageContainer>
   );
 };
@@ -71,6 +71,9 @@ const BlogLogoImage = (props: BlogLogoImageProps) => {
 export default BlogLogoImage;
 
 const DeleteImageButton = styled.button`
+  position: absolute;
+  top: 1.2rem;
+  right: 1.2rem;
   border: none;
   background: none;
   width: 2rem;
@@ -110,6 +113,7 @@ const ImageGuideTitle = styled.p`
 
 const BlogLogoUploadLabel = styled.label`
   display: flex;
+  position: relative;
   border: none;
   border-radius: 0.5rem;
   cursor: pointer;
