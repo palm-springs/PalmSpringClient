@@ -7,6 +7,8 @@ import styled from 'styled-components';
 import PageContentInfo from '@/components/common/PageContentInfo';
 import Content from '@/components/content/Content';
 
+import MobileContent from '../MobileContent';
+
 interface ContentTemplateProps {
   data: {
     title: string;
@@ -32,7 +34,7 @@ const PageTemplate = (props: ContentTemplateProps) => {
     <ContentPageContainer className={MOBILE ? 'mobile' : ''}>
       {thumbnail && <PageThumbnail className={MOBILE ? 'mobile' : ''} src={thumbnail} alt="page content thumbnail" />}
       <PageContentInfo contentInfoData={{ title }} />
-      <Content content={content} />
+      {MOBILE ? <MobileContent content={content} /> : <Content content={content} />}
     </ContentPageContainer>
   );
 };

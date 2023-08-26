@@ -11,6 +11,8 @@ import Bar from '@/components/content/ui/Bar';
 import Recommend from '@/components/content/ui/Recommend';
 import { ContentProps } from '@/types/content';
 
+import MobileContent from '../MobileContent';
+
 interface ArticleTemplateProps {
   data: ContentProps;
 }
@@ -61,7 +63,7 @@ const ArticleTemplate = (props: ArticleTemplateProps) => {
             <Blank />
           )}
           <ContentInfo contentInfoData={{ title, description, teamMember }} />
-          <Content content={content} />
+          <MobileContent content={content} />
           <LinkBtn className="mobile" type="button" onClick={copyCurrentUrl}>
             아티클 링크 복사하기
           </LinkBtn>
