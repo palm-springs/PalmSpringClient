@@ -4,6 +4,7 @@ import React from 'react';
 import Link from 'next/link';
 import styled from 'styled-components';
 
+import useGetCategory from '@/hooks/useGetCategory';
 import { ArticleData } from '@/types/article';
 
 interface ArticleProps {
@@ -17,13 +18,15 @@ const Article = (props: ArticleProps) => {
     article: { id, title, description, memberName, job, createdAt, thumbnail, articleCategory, articleUrl },
   } = props;
 
+  const SelectedCategory = useGetCategory();
+
   return (
     <ArticleContainer href={`/content/article/${articleUrl}/${id}`} className={noHover ? '' : 'hover'}>
       <ArticleInfo>
         <EditorInputTitle className="title">{title}</EditorInputTitle>
         <ArticleDescription className="description">{description}</ArticleDescription>
         <DetailBox>
-          {articleCategory && <CategoryBtn>{articleCategory.categoryName}</CategoryBtn>}
+          {SelectedCategory === 'home' && <CategoryBtn>{articleCategory.categoryName}</CategoryBtn>}
           <ArticleDetail>{memberName}</ArticleDetail>
           <ArticleDetail>&nbsp;·&nbsp;{job}</ArticleDetail>
           <Bar>|</Bar>
