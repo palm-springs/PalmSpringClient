@@ -46,8 +46,9 @@ const TitleWrapper = styled.div`
   width: 54rem;
 `;
 
-const EditorInputTitle = styled.span`
+const EditorInputTitle = styled.p`
   margin: 2.4rem 0;
+  width: 54rem;
   white-space: nowrap;
   color: ${({ theme }) => theme.colors.grey_950};
   ${({ theme }) => theme.fonts.Heading1};

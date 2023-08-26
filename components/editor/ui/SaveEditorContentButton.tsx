@@ -48,7 +48,7 @@ const SaveEditorContentButton = (props: editorProps) => {
         fontSize: '1.4rem',
         fontFamily: 'Pretendard',
         fontStyle: 'normal',
-        fontWeight: '700',
+        fontWeight: '600',
         letterSpacing: '-0.028rem',
       },
     });

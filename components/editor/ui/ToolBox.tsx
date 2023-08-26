@@ -127,25 +127,14 @@ const ToolButton = styled.button`
   }
 `;
 
-const ImageButton = styled.div`
-  &:hover {
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    border-radius: 0.8rem;
-    background-color: ${({ theme }) => theme.colors.grey_300};
-    width: 3.6rem;
-    height: 3.6rem;
-  }
-`;
-
 const Wrapper = styled.div<{ isVisible?: boolean }>`
-  position: absolute;
+  position: fixed;
+  top: 0;
   transition: width 1s ease;
   opacity: ${({ isVisible }) => (isVisible ? 1 : 0)};
   z-index: 10;
   margin-left: -35.9rem;
-  /* background-color: ${({ theme }) => theme.colors.grey_100}; */
+  background-color: ${({ theme }) => theme.colors.grey_100};
   width: 100vw;
   height: 4.8rem;
 `;
