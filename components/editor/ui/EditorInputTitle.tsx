@@ -23,7 +23,6 @@ const EditorInputTitle = (props: TextEditorBuildProps) => {
   const [{ title: pageTitle }, setPageData] = useRecoilState(pageDataState);
   const textareaRef = useRef<HTMLTextAreaElement>(null);
 
-  // 제목 높이 자동 계산 함수 ->useEffect사용해야할듯?
   const handleResizeInput = useCallback(() => {
     if (textareaRef.current !== null) {
       textareaRef.current.style.height = 'auto';

@@ -3,7 +3,7 @@
 import React, { useState } from 'react';
 import { toast, Toaster } from 'react-hot-toast';
 import { useParams, usePathname, useRouter } from 'next/navigation';
-import { useRecoilState } from 'recoil';
+import { useRecoilState, useRecoilValue } from 'recoil';
 import styled from 'styled-components';
 
 import ModalPortal from '@/components/common/ModalPortal';
@@ -20,15 +20,22 @@ interface editorProps {
   currentState?: string;
   articleData?: UpdateArticleProps;
   pageData?: UpdatePageProps;
+  pageType?: string;
 }
 
 const SaveEditorContentButton = (props: editorProps) => {
   const [isModal, setIsModal] = useState(false);
-  const { handleOnClickDraft, handleOnClickPublish, isEdit, currentState, articleData, pageData } = props;
+  const { handleOnClickDraft, handleOnClickPublish, isEdit, pageType } = props;
   const { team } = useParams();
   const router = useRouter();
-  const [{ title: articleTitle }, setArticleData] = useRecoilState(articleDataState); // 아티클 초기 타이틀 -> 복사 -> 새로운 title 갈아끼기
-  const [{ title: pageTitle }, setPageData] = useRecoilState(pageDataState);
+
+  const articleData = useRecoilValue(articleDataState);
+
+  const { title: articleTitle } = articleData;
+
+  const pageData = useRecoilValue(pageDataState);
+
+  const { title: pageTitle } = pageData;
 
   const notify = () =>
     toast.success('글이 임시저장 되었습니다.', {
@@ -87,12 +94,15 @@ const SaveEditorContentButton = (props: editorProps) => {
               임시저장
             </TemporarySaveButton>
           )}
-          <SaveButton
-            type="button"
-            onClick={handleOnClickPublish}
-            disabled={articleData?.title === '' || pageData?.title === '' || articleTitle === '' || pageTitle === ''}>
-            {isEdit ? '수정하기' : '발행하기'}
-          </SaveButton>
+          {pageType === 'article' ? (
+            <SaveButton type="button" onClick={handleOnClickPublish} disabled={articleTitle === ''}>
+              {isEdit ? '수정하기' : '발행하기'}
+            </SaveButton>
+          ) : (
+            <SaveButton type="button" onClick={handleOnClickPublish} disabled={pageTitle === ''}>
+              {isEdit ? '수정하기' : '발행하기'}
+            </SaveButton>
+          )}
         </>
       </ButtonContainer>
       {isModal && (
@@ -175,9 +185,8 @@ const SaveButton = styled.button<{ disabled: boolean }>`
 
   margin-left: 0.8rem;
   border-radius: 0.8rem;
-  background-color: ${({ theme }) => theme.colors.grey_900};
-  /* background-color: ${({ theme, disabled }) =>
-    disabled ? `${theme.colors.grey_900}30` : theme.colors.grey_900}; 이거 안먹힘.. */
+  /* background-color: ${({ theme }) => theme.colors.grey_900}; */
+  background-color: ${({ theme, disabled }) => (disabled ? `${theme.colors.grey_900}30` : theme.colors.grey_900)};
   cursor: ${({ disabled }) => (disabled ? 'default' : 'pointer')};
   padding: 1rem 2rem;
   height: 3.6rem;

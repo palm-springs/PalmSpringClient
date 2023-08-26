@@ -1,6 +1,6 @@
 'use client';
 
-import React, { ChangeEvent, useEffect, useState } from 'react';
+import React, { ChangeEvent, useEffect, useRef, useState } from 'react';
 import { Editor } from '@tiptap/react';
 import styled from 'styled-components';
 
@@ -29,13 +29,13 @@ interface editorProps {
 }
 
 const EditorMenuBar = ({ editor, encodeFileToBase64, setLink }: editorProps) => {
-  const [isAtTop, setIsAtTop] = useState(true);
+  const [atTop, setAtTop] = useState(true);
   const [visible, setVisible] = useState(false);
 
-  //스크롤바 높이에 따라 visible 조건부 설정, 높이 인식 설정
+  // 스크롤바 높이에 따라 visible 조건부 설정, 높이 인식 설정
   useEffect(() => {
     const handleScroll = () => {
-      setIsAtTop(window.scrollY >= 143);
+      setAtTop(window.scrollY >= 143);
       setVisible(window.scrollY >= 143);
     };
 
@@ -45,8 +45,10 @@ const EditorMenuBar = ({ editor, encodeFileToBase64, setLink }: editorProps) => 
     };
   }, []);
 
+  console.log(document.documentElement.scrollHeight);
+
   return (
-    <IconContainer isAtTop={isAtTop}>
+    <IconContainer atTop={atTop}>
       {visible && <Wrapper isVisible={visible ? true : undefined} />}
       <IconWrapper>
         <ToolButton onClick={() => editor.chain().focus().toggleHeading({ level: 1 }).run()}>
@@ -146,12 +148,13 @@ const IconWrapper = styled.div`
   height: 4.8rem;
 `;
 
-const IconContainer = styled.div<{ isAtTop: boolean }>`
-  position: ${({ isAtTop }) => isAtTop && 'sticky'};
+const IconContainer = styled.div<{ atTop: boolean }>`
+  position: ${({ atTop }) => atTop && 'sticky'};
   top: 0;
   z-index: 30;
   margin: 4.4rem 0 1.6rem;
-  width: ${({ isAtTop }) => isAtTop && '72.2rem'};
+  width: ${({ atTop }) => atTop && '72.2rem'};
+  height: 100%;
 `;
 
 const ImageInputLabel = styled.label`

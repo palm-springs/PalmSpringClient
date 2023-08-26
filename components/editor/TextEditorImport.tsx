@@ -384,6 +384,8 @@ const TextEditorBuild = (props: TextEditorBuildprops) => {
           }
           handleOnClickPublish={currentState === 'edit' ? handleUpdateGoArticlePublish : handleOnClickArticlePublish}
           isEdit={currentState === 'edit' ? true : false}
+          articleData={articleData}
+          pageType="article"
         />
       ) : (
         <SaveEditorContentButton
@@ -397,8 +399,8 @@ const TextEditorBuild = (props: TextEditorBuildprops) => {
           }
           handleOnClickPublish={currentState === 'edit' ? handleUpdateGoPagePublish : handleOnClickPagePublish}
           isEdit={currentState === 'edit' ? true : false} // edit이 아닌 경우는 draft 경우임
-          articleData={articleData}
           pageData={pageData}
+          pageType="page"
         />
       )}
     </>
