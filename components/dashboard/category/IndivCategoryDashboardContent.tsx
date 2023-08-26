@@ -81,6 +81,7 @@ const IndivCategoryDashboardContent = (props: IndivCategoryDashboardContentProps
         }}
         onDeleteClick={() => {
           setModalState('deleteCategory');
+          setCurrentModalId(id);
         }}
       />
       {modalState === 'updateCategory' && currentModalId === id && (
