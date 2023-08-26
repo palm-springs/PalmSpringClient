@@ -1,6 +1,6 @@
 'use client';
 
-import React from 'react';
+import React, { useState } from 'react';
 import { useParams } from 'next/navigation';
 import styled from 'styled-components';
 
@@ -12,11 +12,23 @@ import Member from './Member';
 const MemberList = () => {
   const { team } = useParams();
 
+  const [showPopOver, setShowPopOver] = useState('');
+
   const res = useGetMemberInfo(team);
   if (!res || !res.data) return <LoadingLottie width={5} height={5} fit />;
 
   const MemberList = res?.data.map(({ email, id, job, nickname, thumbnail }) => {
-    return <Member key={id} thumbnail={thumbnail} nickname={nickname} job={job} email={email} />;
+    return (
+      <Member
+        key={id}
+        thumbnail={thumbnail}
+        nickname={nickname}
+        job={job}
+        email={email}
+        showPopOver={showPopOver}
+        setShowPopOver={setShowPopOver}
+      />
+    );
   });
 
   return <MemberListContainer>{MemberList}</MemberListContainer>;

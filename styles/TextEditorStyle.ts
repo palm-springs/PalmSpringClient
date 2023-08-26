@@ -74,15 +74,14 @@ export const TextEditorStyle = styled.div`
     }
 
     pre {
-      margin: 2.4rem 0 0.8rem;
+      margin: 2.016rem 0 0.8rem;
       border-radius: 0.5rem;
       background: ${({ theme }) => theme.colors.grey_100};
       padding: 1.6rem 2rem;
       width: 72rem;
+      overflow-y: scroll;
       color: #383a41;
       font-family: 'Fira Mono', monospace;
-      /* 이거 코드블럭만 피라모노! */
-
       code {
         background: none;
         padding: 0;

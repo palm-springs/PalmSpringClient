@@ -94,6 +94,7 @@ const CategoryButtonContainer = styled.div`
 `;
 
 const CategoryButton = styled.button`
+  ${({ theme }) => theme.fonts.Body2_Semibold};
   display: flex;
   align-items: center;
   justify-content: center;
@@ -103,6 +104,7 @@ const CategoryButton = styled.button`
   padding: 0.8rem 2rem;
   width: auto;
   height: 3.5rem;
+  color: ${({ theme }) => theme.colors.grey_700};
   &:hover {
     border: 1px solid ${({ theme }) => theme.colors.green};
     color: ${({ theme }) => theme.colors.green};
@@ -115,6 +117,6 @@ const CategoryButton = styled.button`
 `;
 
 const CategoryTitle = styled.p`
-  color: ${({ theme }) => theme.colors.grey_950};
   ${({ theme }) => theme.fonts.Body2_Semibold};
+  color: ${({ theme }) => theme.colors.grey_950};
 `;

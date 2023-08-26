@@ -62,8 +62,7 @@ const OneLinerTextarea = styled.textarea`
   ${({ theme }) => theme.fonts.Body2_Regular};
   display: flex;
   margin-top: 0.8rem;
-  outline-color: ${({ theme }) => theme.colors.grey_700};
-  border: 1px solid ${({ theme }) => theme.colors.grey_700};
+  border: 1px solid ${({ theme }) => theme.colors.grey_400};
   border-radius: 0.8rem;
   padding: 1rem 1.2rem 5rem;
   width: 54rem;
@@ -72,10 +71,13 @@ const OneLinerTextarea = styled.textarea`
     ${({ theme }) => theme.colors.grey_600};
     ${({ theme }) => theme.fonts.Body2_Regular};
   }
+  &:focus {
+    outline: none;
+    border: 1px solid ${({ theme }) => theme.colors.grey_700};
+  }
 `;
-
 const OneLinerContainer = styled.div`
-  margin-top: 2.4rem;
+  margin: 2.4rem 0;
 `;
 
 const OneLineTitle = styled.p`
