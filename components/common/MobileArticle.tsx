@@ -38,7 +38,7 @@ const ArticleThumbnail = styled.img`
   margin-bottom: 1.2rem;
   border-radius: 1.2rem;
   width: calc(100vw - 4.8rem);
-  height: 18.3rem;
+  height: calc(100vw * 9 / 16);
   object-fit: cover;
 `;
 

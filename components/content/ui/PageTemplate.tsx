@@ -29,7 +29,7 @@ const PageTemplate = (props: ContentTemplateProps) => {
   });
 
   return (
-    <ContentPageContainer className="mobile">
+    <ContentPageContainer className={MOBILE ? 'mobile' : ''}>
       {thumbnail && <PageThumbnail className={MOBILE ? 'mobile' : ''} src={thumbnail} alt="page content thumbnail" />}
       <PageContentInfo contentInfoData={{ title }} />
       <Content content={content} />
@@ -52,7 +52,7 @@ const PageThumbnail = styled.img`
     margin-top: 6rem;
     border-radius: 0;
     width: 100%;
-    height: 37.5rem;
+    height: calc(100vw * 9 / 16);
   }
 `;
 
@@ -65,6 +65,6 @@ const ContentPageContainer = styled.section`
 
   &.mobile {
     margin: 0;
-    width: 100vw;
+    width: 100%;
   }
 `;
