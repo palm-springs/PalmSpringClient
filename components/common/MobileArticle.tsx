@@ -16,7 +16,7 @@ const MobileArticle = (props: ArticleProps) => {
     article: { id, title, description, memberName, createdAt, thumbnail, articleCategory, articleUrl },
   } = props;
 
-  const SelectedCategory = useGetCategory();
+  const selectedCategory = useGetCategory();
 
   return (
     <ArticleContainer href={`/content/article/${articleUrl}/${id}`}>
@@ -25,7 +25,7 @@ const MobileArticle = (props: ArticleProps) => {
         <EditorInputTitle>{title}</EditorInputTitle>
         <ArticleDescription>{description}</ArticleDescription>
         <DetailBox>
-          {SelectedCategory === 'home' && <CategoryBtn type="button">{articleCategory.categoryName}</CategoryBtn>}
+          {selectedCategory === 'home' && <CategoryBtn type="button">{articleCategory.categoryName}</CategoryBtn>}
           <ArticleDetail>{memberName}</ArticleDetail>
           <Bar>|</Bar>
           <ArticleDetail>{createdAt}</ArticleDetail>

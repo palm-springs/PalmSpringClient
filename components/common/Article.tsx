@@ -18,7 +18,7 @@ const Article = (props: ArticleProps) => {
     article: { id, title, description, memberName, job, createdAt, thumbnail, articleCategory, articleUrl },
   } = props;
 
-  const SelectedCategory = useGetCategory();
+  const selectedCategory = useGetCategory();
 
   return (
     <ArticleContainer href={`/content/article/${articleUrl}/${id}`} className={noHover ? '' : 'hover'}>
@@ -26,7 +26,7 @@ const Article = (props: ArticleProps) => {
         <EditorInputTitle className="title">{title}</EditorInputTitle>
         <ArticleDescription className="description">{description}</ArticleDescription>
         <DetailBox>
-          {SelectedCategory === 'home' && <CategoryBtn>{articleCategory.categoryName}</CategoryBtn>}
+          {selectedCategory === 'home' && <CategoryBtn>{articleCategory.categoryName}</CategoryBtn>}
           <ArticleDetail>{memberName}</ArticleDetail>
           <ArticleDetail>&nbsp;·&nbsp;{job}</ArticleDetail>
           <Bar>|</Bar>
