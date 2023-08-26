@@ -7,7 +7,7 @@ import { Error404Img } from '@/public/images';
 const NotFound = () => {
   return (
     <Error404Container>
-      <Image src={Error404Img} alt="404 이미지" />
+      <Error404Img />
       <MainMessage>페이지가 존재하지 않습니다.</MainMessage>
       <SubMessage>
         요청하신 페이지가 사라졌거나,
