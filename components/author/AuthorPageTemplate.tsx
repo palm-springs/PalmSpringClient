@@ -34,12 +34,29 @@ const AuthorPageTemplate = (props: AuthorPageTemplateProps) => {
     <AuthorPageTemplateContainer className={MOBILE ? 'mobile' : ''}>
       <AuthorInfo thumbnail={thumbnail} nickname={nickname} job={job} description={description} />
       {articles.length !== 0 && <Line className={MOBILE ? 'mobile' : ''} />}
+      <AuthorArticle className={MOBILE ? 'mobile' : ''}>작성한 아티클</AuthorArticle>
       <ArticleList articleList={articles} />
     </AuthorPageTemplateContainer>
   );
 };
 
 export default AuthorPageTemplate;
+
+const AuthorArticle = styled.div`
+  ${({ theme }) => theme.fonts.Heading3_Semibold};
+
+  margin-bottom: 2.8rem;
+  width: 72rem;
+
+  color: ${({ theme }) => theme.colors.grey_900};
+
+  &.mobile {
+    ${({ theme }) => theme.mobileFonts.Title3};
+
+    margin-bottom: 2.2rem;
+    width: 100%;
+  }
+`;
 
 const AuthorPageTemplateContainer = styled.section`
   display: flex;

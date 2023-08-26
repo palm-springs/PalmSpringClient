@@ -33,8 +33,7 @@ export default Recommend;
 
 const RecommendContainer = styled.section`
   margin-bottom: 5.8rem;
-  width: 100%;
-  min-width: 72rem;
+  width: 72rem;
 
   &.mobile {
     display: flex;
@@ -42,7 +41,7 @@ const RecommendContainer = styled.section`
     align-items: center;
     margin-top: 8rem;
     padding: 0 2.4rem;
-    width: 100vw;
+    width: 100%;
   }
 `;
 
@@ -52,14 +51,14 @@ const RecommendTitle = styled.div`
   display: flex;
   justify-content: flex-start;
   margin-bottom: 2.4rem;
-  width: 100vw;
+  width: 100%;
 
   color: ${({ theme }) => theme.colors.grey_900};
 
   &.mobile {
     ${({ theme }) => theme.mobileFonts.Markdown_H2};
-
     margin-bottom: 2.2rem;
-    padding-left: 2.4rem;
+
+    width: 100%;
   }
 `;
