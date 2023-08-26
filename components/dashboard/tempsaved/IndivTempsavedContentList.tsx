@@ -1,3 +1,4 @@
+import { Dispatch, SetStateAction } from 'react';
 import { useParams, useRouter } from 'next/navigation';
 import { useRecoilState } from 'recoil';
 
@@ -13,6 +14,8 @@ interface IndivTempsavedContentListProps {
   name: string;
   job: string;
   createdAt: string;
+  deleteModalId: number | null;
+  setDeleteModalId: Dispatch<SetStateAction<number | null>>;
 }
 
 const IndivTempsavedContentList = (props: IndivTempsavedContentListProps) => {
@@ -20,7 +23,7 @@ const IndivTempsavedContentList = (props: IndivTempsavedContentListProps) => {
 
   const router = useRouter();
 
-  const { id, title, name, job, createdAt } = props;
+  const { id, title, name, job, createdAt, deleteModalId, setDeleteModalId } = props;
 
   const [modalState, setModalState] = useRecoilState(dashBoardModalState);
 
@@ -39,11 +42,15 @@ const IndivTempsavedContentList = (props: IndivTempsavedContentListProps) => {
         onMutateClick={() => router.push(`/${blogUrl}/editor/article/${id}/draft`)}
         onDeleteClick={() => setModalState('deleteArticle')}
       />
-      {modalState === 'deleteArticle' && (
+      {modalState === 'deleteArticle' && deleteModalId === id && (
         <DashboardContentDeleteModal
           text="글을 삭제하시겠어요?"
           subText="글을 삭제할 시, 복구할 수 없습니다."
-          onDelete={() => mutate()}
+          onDelete={() => {
+            mutate();
+            setModalState('');
+            setDeleteModalId(id);
+          }}
         />
       )}
     </>

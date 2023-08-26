@@ -1,3 +1,4 @@
+import { Dispatch, SetStateAction } from 'react';
 import { toast, Toaster } from 'react-hot-toast';
 import { useRouter } from 'next/navigation';
 import { useRecoilState } from 'recoil';
@@ -17,10 +18,12 @@ interface IndivPageContentProps {
   isLinked: boolean;
   createdAt: string;
   pageUrl: string;
+  deleteContentId: string;
+  setDeleteContentId: Dispatch<SetStateAction<string>>;
 }
 
 const IndivPageContent = (props: IndivPageContentProps) => {
-  const { blogUrl, id, title, isDraft, isLinked, createdAt, pageUrl } = props;
+  const { blogUrl, id, title, isDraft, isLinked, createdAt, pageUrl, deleteContentId, setDeleteContentId } = props;
 
   const router = useRouter();
 
@@ -72,9 +75,10 @@ const IndivPageContent = (props: IndivPageContentProps) => {
         }}
         onDeleteClick={() => {
           setModalState('deletePage');
+          setDeleteContentId(id);
         }}
       />
-      {modalState === 'deletePage' && (
+      {modalState === 'deletePage' && deleteContentId === id && (
         <DashboardContentDeleteModal
           text="페이지를 삭제하시겠어요?"
           subText="페이지를 삭제할 시, 복구할 수 없습니다."
@@ -84,6 +88,8 @@ const IndivPageContent = (props: IndivPageContentProps) => {
               return;
             }
             mutate();
+            setModalState('');
+            setDeleteContentId('');
           }}
         />
       )}

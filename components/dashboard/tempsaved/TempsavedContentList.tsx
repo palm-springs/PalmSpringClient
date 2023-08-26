@@ -1,6 +1,6 @@
 'use client';
 
-import React from 'react';
+import React, { useState } from 'react';
 import { useParams } from 'next/navigation';
 
 import EmptyLanding from '@/components/common/ui/EmptyLanding';
@@ -15,6 +15,8 @@ const TempsavedContentList = () => {
   const { team: blogUrl } = useParams();
 
   const data = useGetTempSavedList(blogUrl);
+
+  const [deleteModalId, setDeleteModalId] = useState<number | null>(null);
 
   if (!data || data.length === 0)
     return (
@@ -31,7 +33,18 @@ const TempsavedContentList = () => {
     <DashBoardContentListContainer>
       <DashBoardContent id="컨텐츠바" content="제목" author="작성자" position="직책" createdAt="작성일" />
       {data.map(({ id, title, teamMemberResponseDto: { name, job, createdAt } }) => {
-        return <IndivTempsavedContentList key={id} id={id} title={title} name={name} job={job} createdAt={createdAt} />;
+        return (
+          <IndivTempsavedContentList
+            key={id}
+            id={id}
+            title={title}
+            name={name}
+            job={job}
+            createdAt={createdAt}
+            deleteModalId={deleteModalId}
+            setDeleteModalId={setDeleteModalId}
+          />
+        );
       })}
     </DashBoardContentListContainer>
   );

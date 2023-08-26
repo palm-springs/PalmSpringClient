@@ -1,6 +1,6 @@
 'use client';
 
-import React from 'react';
+import React, { useState } from 'react';
 import { useParams } from 'next/navigation';
 
 import EmptyLanding from '@/components/common/ui/EmptyLanding';
@@ -24,6 +24,8 @@ const UploadContentList = (props: UploadContentListProps) => {
   const { team } = useParams();
 
   const isAllCategory = currentCategory === '전체';
+
+  const [deleteModalId, setDeleteModalId] = useState<number | null>(null);
 
   if (!articleData || !articleData.data || articleData.data.length === 0)
     return (
@@ -57,6 +59,8 @@ const UploadContentList = (props: UploadContentListProps) => {
             createdAt={createdAt}
             articleCategory={articleCategory}
             articleUrl={articleUrl}
+            deleteModalId={deleteModalId}
+            setDeleteModalId={setDeleteModalId}
           />
         );
       })}
