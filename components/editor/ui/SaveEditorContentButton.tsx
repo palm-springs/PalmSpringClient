@@ -175,8 +175,9 @@ const SaveButton = styled.button<{ disabled: boolean }>`
 
   margin-left: 0.8rem;
   border-radius: 0.8rem;
-  /* background-color: ${({ theme }) => theme.colors.grey_900}; */
-  background-color: ${({ theme, disabled }) => (disabled ? `${theme.colors.grey_900}30` : theme.colors.grey_900)};
+  background-color: ${({ theme }) => theme.colors.grey_900};
+  /* background-color: ${({ theme, disabled }) =>
+    disabled ? `${theme.colors.grey_900}30` : theme.colors.grey_900}; 이거 안먹힘.. */
   cursor: ${({ disabled }) => (disabled ? 'default' : 'pointer')};
   padding: 1rem 2rem;
   height: 3.6rem;
