@@ -37,8 +37,11 @@ const TextInputForm = (props: TextInputFormProps) => {
         <InputTitle>블로그 {type}</InputTitle>
         {type === '주소' && <span>영어 소문자와 숫자, 언더바(_)만 사용할 수 있어요</span>}
       </TitleContainer>
-      <InputContainer className={type} id={id} $isFocus={isFocus}>
-        {children}
+      <InputContainer>
+        <InputBox className={type} id={id} $isFocus={isFocus}>
+          {children}
+        </InputBox>
+        {type === '주소' && <div>.palms.blog</div>}
       </InputContainer>
       {type === '주소' && (isInvalidText || isAddressDuplicate !== undefined) && <InputMessage />}
     </Label>
@@ -69,8 +72,19 @@ const TitleContainer = styled.div`
   }
 `;
 
+const InputContainer = styled.div`
+  display: flex;
+  gap: 0.6rem;
+  align-items: center;
+  width: 100%;
+  & > div {
+    ${({ theme }) => theme.fonts.Body2_Regular};
+    color: ${({ theme }) => theme.colors.grey_900};
+  }
+`;
+
 // text input 입력  컨테이너
-const InputContainer = styled.div<{ $isFocus: boolean }>`
+const InputBox = styled.div<{ $isFocus: boolean }>`
   border: 1px solid;
 
   border-radius: 0.8rem;
@@ -84,6 +98,7 @@ const InputContainer = styled.div<{ $isFocus: boolean }>`
   &.주소 {
     display: flex;
     align-items: center;
+    width: 30.1rem;
   }
 
   &.설명 {
@@ -98,14 +113,9 @@ const InputContainer = styled.div<{ $isFocus: boolean }>`
     border-color: ${({ theme }) => theme.colors.green};
   }
 
-  & > div {
-    ${({ theme }) => theme.fonts.Body2_Regular};
-    color: ${({ theme }) => theme.colors.grey_600};
-  }
-
   & > svg {
     position: absolute;
-    right: 1.2rem;
+    right: 11.1rem;
     transform-origin: 50% 50%;
 
     animation: rotate_image 5s linear infinite;
