@@ -12,7 +12,7 @@ interface CategoryBtnBarProps {
   LiteralList: string[];
 }
 const CategoryBtnBar = (props: CategoryBtnBarProps) => {
-  const { team, category } = useParams();
+  const { category } = useParams();
   const { LiteralList } = props;
   const SELECTED = useGetCategory();
   const MOBILE = useMediaQuery({
@@ -112,7 +112,7 @@ const CategoryBtn = styled(Link)`
   }
 `;
 const MobileCategoryBtn = styled(Link)`
-  ${({ theme }) => theme.fonts.Body1_Regular};
+  ${({ theme }) => theme.mobileFonts.Body2_Semibold};
 
   display: flex;
   align-items: center;
@@ -122,7 +122,7 @@ const MobileCategoryBtn = styled(Link)`
   border-radius: 4rem;
 
   background-color: ${({ theme }) => theme.colors.grey_300};
-  padding: 0 2rem;
+  padding: 0 1.5rem;
   height: 3.2rem;
 
   white-space: nowrap;

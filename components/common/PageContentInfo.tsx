@@ -6,28 +6,19 @@ import Link from 'next/link';
 import styled from 'styled-components';
 
 import useGetIfContentPage from '@/hooks/useGetIfContentPage';
-import useGetIfPage from '@/hooks/useGetIfPage';
-import { NoUserProfileIcon } from '@/public/icons';
 
 import LoadingLottie from './ui/LoadingLottie';
 
-interface ContentInfoProps {
+interface PageContentInfoProps {
   contentInfoData?: {
     title: string;
     description?: string | null;
-    teamMember?: {
-      id: number;
-      thumbnail: string | null;
-      name: string;
-      job: string;
-      createdAt: string;
-    };
   };
   IndivContentId?: number;
   articleUrl?: string;
 }
 
-const ContentInfo = (props: ContentInfoProps) => {
+const PageContentInfo = (props: PageContentInfoProps) => {
   const MOBILE = useMediaQuery({
     query: '(min-width : 375px) and (max-width:768px)',
   });
@@ -35,14 +26,8 @@ const ContentInfo = (props: ContentInfoProps) => {
   const { contentInfoData, IndivContentId, articleUrl } = props;
 
   const ifContent = useGetIfContentPage();
-  const ifPage = useGetIfPage();
   if (!contentInfoData) return <LoadingLottie height={4} width={4} fit={false} />;
-  const { title, description, teamMember } = contentInfoData;
-
-  if (ifPage === 'page' && !teamMember) return <></>;
-  if (!teamMember) return <LoadingLottie height={4} width={4} fit={false} />;
-
-  const { thumbnail, name, job, createdAt, id } = teamMember;
+  const { title, description } = contentInfoData;
 
   if (MOBILE)
     return (
@@ -59,20 +44,6 @@ const ContentInfo = (props: ContentInfoProps) => {
               {description && <DescriptionBox className="mobile">{description}</DescriptionBox>}
             </Link>
           </ContentDetailBox>
-        )}
-        {name && (
-          <WriterBox>
-            <WriterInfo href={`/author/${id}`}>
-              {thumbnail ? <WriterProfilePic src={thumbnail} alt="writer profile pic" /> : <NoUserProfileIcon />}
-              <WriterDetailBox>
-                <WriterNameBox>
-                  <WriterDetail className="mobile">{name}</WriterDetail>
-                  <WriterDetail className="mobile">&nbsp;·&nbsp;{job}</WriterDetail>
-                </WriterNameBox>
-                <WriterDetail className="date">{createdAt}</WriterDetail>
-              </WriterDetailBox>
-            </WriterInfo>
-          </WriterBox>
         )}
       </ContentInfoContainer>
     );
@@ -92,41 +63,11 @@ const ContentInfo = (props: ContentInfoProps) => {
             </Link>
           </ContentDetailBox>
         )}
-        {name && (
-          <WriterBox>
-            <WriterInfo href={`/author/${id}`}>
-              {thumbnail ? <WriterProfilePic src={thumbnail} alt="writer profile pic" /> : <NoUserProfileIcon />}
-              <WriterDetailBox>
-                <WriterNameBox>
-                  <WriterDetail>{name}</WriterDetail>
-                  <WriterDetail>&nbsp;·&nbsp;{job}</WriterDetail>
-                </WriterNameBox>
-                <WriterDetail className="date">{createdAt}</WriterDetail>
-              </WriterDetailBox>
-            </WriterInfo>
-          </WriterBox>
-        )}
       </ContentInfoContainer>
     );
 };
 
-export default ContentInfo;
-
-const WriterBox = styled.article`
-  display: flex;
-  align-items: center;
-
-  &:hover {
-    opacity: 0.8;
-  }
-`;
-
-const WriterProfilePic = styled.img`
-  border-radius: 50%;
-
-  width: 5rem;
-  height: 5rem;
-`;
+export default PageContentInfo;
 
 const ContentDetailBox = styled.section`
   display: flex;
@@ -146,8 +87,6 @@ const ContentDetailBox = styled.section`
 const ContentInfoContainer = styled.section`
   display: flex;
   flex-direction: column;
-  align-items: flex-start;
-  justify-content: flex-start;
 
   width: 72rem;
 
@@ -155,13 +94,6 @@ const ContentInfoContainer = styled.section`
     padding: 0 2.4rem;
     width: 100vw;
   }
-`;
-
-const WriterNameBox = styled.div`
-  display: flex;
-  align-items: center;
-
-  ${({ theme }) => theme.fonts.Body2_Regular};
 `;
 
 const TitleBox = styled.article`
@@ -176,6 +108,7 @@ const TitleBox = styled.article`
   color: ${({ theme }) => theme.colors.grey_950};
 
   &.mobile {
+    margin-top: 6rem;
     ${({ theme }) => theme.mobileFonts.Title1};
   }
 `;
@@ -192,35 +125,5 @@ const DescriptionBox = styled.article`
 
   &.mobile {
     ${({ theme }) => theme.mobileFonts.Body1_Regular};
-  }
-`;
-
-const WriterInfo = styled(Link)`
-  display: flex;
-  gap: 2rem;
-  align-items: center;
-  justify-content: flex-start;
-
-  width: 100%;
-`;
-
-const WriterDetailBox = styled.div`
-  display: flex;
-  flex-direction: column;
-  gap: 0.4rem;
-  align-items: flex-start;
-`;
-
-const WriterDetail = styled.div`
-  ${({ theme }) => theme.fonts.Body2_Regular};
-  color: ${({ theme }) => theme.colors.grey_900};
-
-  &.date {
-    ${({ theme }) => theme.fonts.Body3_Regular};
-    color: ${({ theme }) => theme.colors.grey_700};
-  }
-
-  &.mobile {
-    ${({ theme }) => theme.mobileFonts.Body2_Regular};
   }
 `;
