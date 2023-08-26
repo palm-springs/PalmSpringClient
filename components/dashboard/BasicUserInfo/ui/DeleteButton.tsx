@@ -1,12 +1,17 @@
-import React from 'react';
+import React, { useState } from 'react';
 import { useParams, useRouter } from 'next/navigation';
 import styled from 'styled-components';
 
 import { updateWithdrawPlatform, updateWithdrawTeam } from '@/api/user';
+import ModalPortal from '@/components/common/ModalPortal';
+import DashboardDeleteModal from '@/components/common/ui/DashboardDeleteModal';
 
 const DeleteButton = () => {
   const { team } = useParams();
   const router = useRouter();
+
+  const [isModalOpen, setIsModalOpen] = useState(false);
+  const [modalType, setModalType] = useState('');
 
   // 팜스프링 탈퇴 함수
   const handleWithdrawPlatform = async () => {
@@ -27,12 +32,35 @@ const DeleteButton = () => {
     }
   };
 
+  const handleModalOpen = () => {
+    setIsModalOpen((prev) => !prev);
+  };
+
+  const handleModalType = (type: string) => {
+    setIsModalOpen((prev) => !prev);
+    setModalType(type);
+  };
+
   return (
     <DeleteButtonContainer>
-      <LeavingPalms type="button" onClick={handleWithdrawPlatform}>
+      {isModalOpen && (
+        <ModalPortal>
+          <DashboardDeleteModal
+            text={modalType === 'platform' ? '정말 탈퇴하시겠어요?' : '팀에서 나가시겠어요?'}
+            subText={
+              modalType === 'platform' ? '탈퇴할 시, 돌이킬 수 없습니다.' : '팀에서 나가도, 작성한 글은 유지됩니다.'
+            }
+            leftButtonText={'취소하기'}
+            rightButtonText={modalType === 'platform' ? '탈퇴하기' : '나가기'}
+            leftHandler={handleModalOpen}
+            rightHandler={modalType === 'platform' ? handleWithdrawPlatform : handleWithdrawTeam}
+          />
+        </ModalPortal>
+      )}
+      <LeavingPalms type="button" onClick={() => handleModalType('platform')}>
         팜스프링 탈퇴하기
       </LeavingPalms>
-      <LeavingBlog type="button" onClick={handleWithdrawTeam}>
+      <LeavingBlog type="button" onClick={() => handleModalType('team')}>
         블로그에서 나가기
       </LeavingBlog>
     </DeleteButtonContainer>

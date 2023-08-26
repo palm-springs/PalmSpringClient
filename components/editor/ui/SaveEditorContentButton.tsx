@@ -38,7 +38,7 @@ const SaveEditorContentButton = (props: editorProps) => {
   const { title: pageTitle } = pageData;
 
   const notify = () =>
-    toast.success('글이 임시저장 되었습니다.', {
+    toast('글이 임시저장 되었습니다.', {
       id: 'draft saved',
       style: {
         padding: '1.6rem 2rem',

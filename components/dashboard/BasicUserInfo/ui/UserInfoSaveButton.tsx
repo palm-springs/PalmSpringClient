@@ -43,7 +43,7 @@ const UserInfoSaveButton = (props: UserInfoSaveButtonProps) => {
   }, [userInfoDataState]);
 
   const notify = () =>
-    toast.success('변경 사항이 저장되었습니다', {
+    toast('변경 사항이 저장되었습니다', {
       id: 'link copied',
       style: {
         padding: '1.6rem 2rem',

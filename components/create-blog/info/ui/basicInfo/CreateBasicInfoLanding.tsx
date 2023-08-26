@@ -64,13 +64,13 @@ const CreateBasicInfoLanding = () => {
         </TextInputForm>
 
         <TextInputForm type="주소" isFocus={isAddressFocus}>
-          <div>palmspring.io/@</div>
           <TextInput
             id={'url'}
             onFocus={() => setIsAddressFocus(true)}
             onBlur={() => setIsAddressFocus(false)}
             value={url}
             onChange={handleOnChange}
+            placeholder="블로그 주소를 입력해주세요"
           />
           {!isInvalidText && isAddressDuplicate === null && url !== '' && <Loader01Icon />}
         </TextInputForm>
