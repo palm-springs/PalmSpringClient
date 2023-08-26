@@ -47,9 +47,12 @@ const TitleWrapper = styled.div`
 `;
 
 const EditorInputTitle = styled.p`
+  ${({ theme }) => theme.fonts.Heading1};
   margin: 2.4rem 0;
   width: 54rem;
-  white-space: nowrap;
+  overflow: hidden;
+  word-break: break-all;
+  text-overflow: clip;
+
   color: ${({ theme }) => theme.colors.grey_950};
-  ${({ theme }) => theme.fonts.Heading1};
 `;
