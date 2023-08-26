@@ -23,7 +23,7 @@ export default TextEditor;
 
 const TouchContainer = styled.div`
   & div {
-    height: 100vh;
+    height: calc(100vh - 6.7rem);
   }
 `;
 

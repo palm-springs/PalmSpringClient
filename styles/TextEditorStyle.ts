@@ -74,15 +74,14 @@ export const TextEditorStyle = styled.div`
     }
 
     pre {
-      margin: 2.4rem 0 0.8rem;
+      margin: 2.016rem 0 0.8rem;
       border-radius: 0.5rem;
       background: ${({ theme }) => theme.colors.grey_100};
       padding: 1.6rem 2rem;
       width: 72rem;
+      overflow-y: scroll;
       color: #383a41;
       font-family: 'Fira Mono', monospace;
-      /* 이거 코드블럭만 피라모노! */
-
       code {
         background: none;
         padding: 0;
@@ -159,7 +158,6 @@ export const TextEditorStyle = styled.div`
       margin: 2.4rem 0 0.8rem 0;
       border-left: 2px solid ${({ theme }) => theme.colors.grey_900};
       padding-left: 1.8rem;
-      height: 100%;
 
       p {
         padding-top: 0.2rem;
@@ -172,7 +170,7 @@ export const TextEditorStyle = styled.div`
       height: auto;
 
       &.ProseMirror-selectednode {
-        outline: 3px solid #68cef8;
+        outline: 2px solid ${({ theme }) => theme.colors.green};
       }
     }
 
