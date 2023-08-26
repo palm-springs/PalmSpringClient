@@ -51,8 +51,8 @@ const EditorInputTitle = styled.p`
   margin: 2.4rem 0;
   width: 54rem;
   overflow: hidden;
-  word-break: break-all;
   text-overflow: clip;
+  word-break: break-all;
 
   color: ${({ theme }) => theme.colors.grey_950};
 `;
