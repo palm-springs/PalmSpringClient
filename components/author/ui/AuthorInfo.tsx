@@ -18,24 +18,14 @@ const AuthorInfo = (props: AuthorInfoComponentProps) => {
     query: '(min-width : 375px) and (max-width:768px)',
   });
 
-  if (MOBILE)
-    return (
-      <AuthorInfoContainer>
-        <AuthorProfile src={thumbnail} alt="author profile pic" />
-        <AuthorName className="mobile">{nickname}</AuthorName>
-        <AuthorPosition className="mobile">{job}</AuthorPosition>
-        <AuthorDescription className="mobile">{description}</AuthorDescription>
-      </AuthorInfoContainer>
-    );
-  else
-    return (
-      <AuthorInfoContainer>
-        <AuthorProfile src={thumbnail} alt="author profile pic" />
-        <AuthorName>{nickname}</AuthorName>
-        <AuthorPosition>{job}</AuthorPosition>
-        <AuthorDescription>{description}</AuthorDescription>
-      </AuthorInfoContainer>
-    );
+  return (
+    <AuthorInfoContainer>
+      <AuthorProfile src={thumbnail} alt="author profile pic" />
+      <AuthorName className={MOBILE ? 'mobile' : ''}>{nickname}</AuthorName>
+      <AuthorPosition className={MOBILE ? 'mobile' : ''}>{job}</AuthorPosition>
+      <AuthorDescription className={MOBILE ? 'mobile' : ''}>{description}</AuthorDescription>
+    </AuthorInfoContainer>
+  );
 };
 
 export default AuthorInfo;
@@ -43,11 +33,11 @@ export default AuthorInfo;
 const AuthorInfoContainer = styled.div`
   display: flex;
   flex-direction: column;
+  gap: 0.8rem;
   align-items: center;
   justify-content: center;
 
   margin-top: 6rem;
-  width: 100vw;
 `;
 
 const AuthorProfile = styled.img`

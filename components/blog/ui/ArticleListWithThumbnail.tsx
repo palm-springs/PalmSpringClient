@@ -48,7 +48,7 @@ const ArticleListWithThumbnail = (props: ArticleListWithThumbnailProps) => {
         <ContentInfoContainer>
           {contentListData && contentListData.thumbnail && (
             <Link href={`/content/article/${articleUrl}/${IndivContentId}`}>
-              <Image width="720" height="405" src={contentListData.thumbnail} alt="blog thumbnail" />
+              <MobileImgWrapper src={contentListData.thumbnail} alt="blog thumbnail" />
             </Link>
           )}
           <ContentInfo contentInfoData={contentListData} articleUrl={articleUrl} IndivContentId={IndivContentId} />
@@ -68,7 +68,7 @@ const ArticleListWithThumbnail = (props: ArticleListWithThumbnailProps) => {
         <ContentInfoContainer>
           {contentListData && contentListData.thumbnail && (
             <Link href={`/content/article/${articleUrl}/${IndivContentId}`}>
-              <Image src={contentListData.thumbnail} alt="blog thumbnail" />
+              <Image width="720" height="405" src={contentListData.thumbnail} alt="blog thumbnail" />
             </Link>
           )}
           <ContentInfo contentInfoData={contentListData} articleUrl={articleUrl} IndivContentId={IndivContentId} />
@@ -106,4 +106,10 @@ const CategoryBtnWrapper = styled.div`
   display: flex;
   justify-content: center;
   width: 100vw;
+`;
+
+const MobileImgWrapper = styled.img`
+  width: calc(100vw - 4.8rem);
+  height: calc(100vw * 9 / 16);
+  object-fit: cover;
 `;

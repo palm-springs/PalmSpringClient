@@ -21,20 +21,12 @@ const Recommend = () => {
   const recommendArticle = data?.data.slice(0, 3);
   if (!recommendArticle) return <LoadingLottie width={5} height={5} fit />;
 
-  if (MOBILE)
-    return (
-      <RecommendContainer className="mobile">
-        <RecommendTitle className="mobile">추천 아티클</RecommendTitle>
-        <ArticleBox recommendArticle={recommendArticle} />
-      </RecommendContainer>
-    );
-  else
-    return (
-      <RecommendContainer>
-        <RecommendTitle>추천 아티클</RecommendTitle>
-        <ArticleBox recommendArticle={recommendArticle} />
-      </RecommendContainer>
-    );
+  return (
+    <RecommendContainer className={MOBILE ? 'mobile' : ''}>
+      <RecommendTitle className={MOBILE ? 'mobile' : ''}>추천 아티클</RecommendTitle>
+      <ArticleBox recommendArticle={recommendArticle} />
+    </RecommendContainer>
+  );
 };
 
 export default Recommend;
@@ -59,6 +51,7 @@ const RecommendTitle = styled.div`
 
   display: flex;
   justify-content: flex-start;
+  margin-bottom: 2.4rem;
   width: 100vw;
 
   color: ${({ theme }) => theme.colors.grey_900};

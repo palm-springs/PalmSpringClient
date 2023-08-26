@@ -19,8 +19,8 @@ const MobileArticle = (props: ArticleProps) => {
     <ArticleContainer href={`/content/article/${articleUrl}/${id}`}>
       {thumbnail && <ArticleThumbnail src={thumbnail} alt="Article Thumbnail" />}
       <ArticleInfo>
-        <EditorInputTitle className="title">{title}</EditorInputTitle>
-        <ArticleDescription className="description">{description}</ArticleDescription>
+        <EditorInputTitle>{title}</EditorInputTitle>
+        <ArticleDescription>{description}</ArticleDescription>
         <DetailBox>
           {articleCategory && <CategoryBtn type="button">{articleCategory.categoryName}</CategoryBtn>}
           <ArticleDetail>{memberName}</ArticleDetail>
@@ -49,7 +49,6 @@ const ArticleContainer = styled(Link)`
   justify-content: center;
 
   width: calc(100vw - 4.8rem);
-  height: 31.8rem;
 `;
 
 const ArticleInfo = styled.article`
@@ -114,6 +113,7 @@ const DetailBox = styled.div`
 
   margin-top: 1rem;
 `;
+
 const CategoryBtn = styled.button`
   ${({ theme }) => theme.mobileFonts.Caption};
 
