@@ -21,7 +21,7 @@ const BlogImg = (props: BlogMainImgProps) => {
     <BlogImgContainer>
       {thumbnail && (
         <>
-          <BlogImgWrapper>
+          <BlogImgWrapper className={MOBILE ? 'mobile' : ''}>
             <img src={thumbnail} alt="blog main" />
             {description && <BlogInfo className={MOBILE ? 'mobile' : ''}>{description}</BlogInfo>}
           </BlogImgWrapper>
@@ -37,14 +37,21 @@ const BlogImgContainer = styled.div`
   position: relative;
 
   margin-top: 6rem;
-  width: 100vw;
-  height: 50rem;
+  width: 100%;
 `;
 
 const BlogImgWrapper = styled.div`
   & > img {
     width: 100%;
     height: 50rem;
+
+    user-select: none;
+    -webkit-user-drag: none;
+    object-fit: cover;
+  }
+  &.mobile > img {
+    width: 100%;
+    height: calc(100vw * (9 / 16));
 
     user-select: none;
     -webkit-user-drag: none;

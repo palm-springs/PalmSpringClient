@@ -26,7 +26,7 @@ interface MemberComponentProps {
 const Member = (props: MemberComponentProps) => {
   const { email, job, nickname, thumbnail } = props;
 
-  const [showPopOver, setShowPopOver] = useState(false);
+  const [showPopOver, setShowPopOver] = useState('');
   // const [showCancelInviteModal, setShowCancelInviteModal] = useState(false);
 
   // const modalCloseHandler = () => {
@@ -50,8 +50,16 @@ const Member = (props: MemberComponentProps) => {
             <Position> {job} </Position>
             <Email> {email} </Email>
           </MemberInfoBox>
-          <MenuBtn onClick={() => setShowPopOver(!showPopOver)} />
-          {showPopOver && <PopOver nickname={nickname} />}
+          <MenuBtn
+            onClick={() => {
+              if (showPopOver === email) {
+                setShowPopOver('');
+              } else {
+                setShowPopOver(email);
+              }
+            }}
+          />
+          {showPopOver === email && <PopOver onBlur={() => setShowPopOver('')} nickname={nickname} />}
         </>
       </MemberInnerContent>
     </MemberContainer>
