@@ -2,6 +2,7 @@
 
 import React, { useState } from 'react';
 import Link from 'next/link';
+import { useParams } from 'next/navigation';
 import styled from 'styled-components';
 
 import ModalPortal from '@/components/common/ModalPortal';
@@ -14,23 +15,11 @@ interface PopOverProp {
 
 const PopOver = (prop: PopOverProp) => {
   const { nickname } = prop;
+  const { team: blogUrl } = useParams();
   const [showModal, setShowModal] = useState(false);
 
-  const modalOpenHandle = () => {
-    setShowModal(true);
-    document.body.style.overflow = 'hidden';
-  };
-  const modalCloseHandle = () => {
-    setShowModal(false);
-    document.body.style.overflow = 'visible';
-  };
-
   return (
-    <PopOverContainer>
-      <LinkText href={`/author/${nickname}`}>팀원이 쓴 글로 이동하기</LinkText>
-      <ModalText type="button" onClick={() => modalOpenHandle()}>
-        팀에서 제외하기
-      </ModalText>
+    <>
       {showModal && (
         <ModalPortal>
           <DeleteMemberModal
@@ -39,11 +28,24 @@ const PopOver = (prop: PopOverProp) => {
             subText={'팀원을 제외할 시, 복구할 수 없습니다'}
             leftButtonText={'유지하기'}
             rightButtonText={'제외하기'}
-            leftHandler={modalCloseHandle}
+            leftHandler={() => setShowModal(false)}
           />
         </ModalPortal>
       )}
-    </PopOverContainer>
+      <PopOverContainer>
+        <LinkText href={`https://${blogUrl}.palms.blog/author/${nickname}`}>팀원이 쓴 글로 이동하기</LinkText>
+        <ModalText
+          type="button"
+          onMouseDown={(e) => {
+            e.preventDefault();
+          }}
+          onClick={() => {
+            setShowModal(true);
+          }}>
+          팀에서 제외하기
+        </ModalText>
+      </PopOverContainer>
+    </>
   );
 };
 
@@ -52,11 +54,12 @@ export default PopOver;
 const PopOverContainer = styled.div`
   display: flex;
   position: absolute;
-  top: 5.2rem;
+  top: 4.2rem;
   right: 0;
 
   flex-direction: column;
   gap: 2rem;
+  align-items: flex-start;
   z-index: 5;
 
   border: 1px solid ${({ theme }) => theme.colors.grey_500};

@@ -44,14 +44,12 @@ const CategoryBtnBar = (props: CategoryBtnBarProps) => {
 
   if (MOBILE)
     return (
-      <MobileCategoryBtnBarWrapper>
-        <CategoryBtnBarContainer>
-          <MobileCategoryBtn href={`/home`} type="button" className={SELECTED === 'home' ? 'selected' : ''}>
-            전체
-          </MobileCategoryBtn>
-          {CATEGORY_LIST}
-        </CategoryBtnBarContainer>
-      </MobileCategoryBtnBarWrapper>
+      <CategoryBtnBarContainer className="mobile">
+        <MobileCategoryBtn href={`/home`} type="button" className={SELECTED === 'home' ? 'selected' : ''}>
+          전체
+        </MobileCategoryBtn>
+        {CATEGORY_LIST}
+      </CategoryBtnBarContainer>
     );
   else
     return (
@@ -65,12 +63,6 @@ const CategoryBtnBar = (props: CategoryBtnBarProps) => {
 };
 
 export default CategoryBtnBar;
-const MobileCategoryBtnBarWrapper = styled.div`
-  display: flex;
-  justify-content: center;
-  padding: 0 2.4rem;
-  width: 100%;
-`;
 
 const CategoryBtnBarContainer = styled.div`
   display: flex;
@@ -80,6 +72,10 @@ const CategoryBtnBarContainer = styled.div`
 
   padding: 7.2rem 0 4.8rem;
   width: 72rem;
+  &.mobile {
+    padding: 2.8rem 2.4rem 2.2rem;
+    width: 100%;
+  }
 `;
 
 const CategoryBtn = styled(Link)`
@@ -111,6 +107,7 @@ const CategoryBtn = styled(Link)`
     color: ${({ theme }) => theme.colors.grey_0};
   }
 `;
+
 const MobileCategoryBtn = styled(Link)`
   ${({ theme }) => theme.mobileFonts.Body2_Semibold};
 
@@ -134,7 +131,7 @@ const MobileCategoryBtn = styled(Link)`
   }
 
   &.selected {
-    ${({ theme }) => theme.fonts.Body1_Regular};
+    ${({ theme }) => theme.mobileFonts.Body2_Semibold};
 
     background-color: ${({ theme }) => theme.colors.grey_900};
     color: ${({ theme }) => theme.colors.grey_0};

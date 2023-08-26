@@ -39,7 +39,7 @@ const ThumbnailInput = (props: ThumbnailInputProps) => {
       return null;
     }
     const file = files[0];
-    const thumbnail = await getImageMultipartData(file, team);
+    const thumbnail = await getImageMultipartData(file);
     console.log(thumbnail);
 
     const reader = new FileReader();
@@ -100,6 +100,7 @@ const ThumbnailInput = (props: ThumbnailInputProps) => {
 export default ThumbnailInput;
 
 const CustomImage = styled.img`
+  border-radius: 1.6rem;
   width: 54rem;
   max-width: 100%;
 

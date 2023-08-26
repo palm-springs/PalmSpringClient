@@ -44,7 +44,6 @@ const NewNavigationModal = (props: NewNavigationModalProps) => {
       mainText="새 네비게이션 만들기"
       buttonText="저장하기"
       buttonHandler={() => {
-        console.log(newNavigationName, newNavigationUrl);
         mutate();
         setModalState('');
         setNewNavigationName('');

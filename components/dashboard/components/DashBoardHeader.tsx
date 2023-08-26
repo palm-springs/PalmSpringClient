@@ -2,8 +2,9 @@
 
 import React from 'react';
 import { useParams, useRouter } from 'next/navigation';
-import { useRecoilState } from 'recoil';
+import { useRecoilState, useSetRecoilState } from 'recoil';
 
+import { articleDataState, pageDataState } from '@/components/editor/states/atom';
 import mapPageType2HeaderInfo from '@/constants/mapPageType2HeaderInfo';
 import useGetLastPathName from '@/hooks/useGetLastPathName';
 import { dashBoardPageType } from '@/types/dashboard';
@@ -24,6 +25,10 @@ const DashBoardHeader = () => {
 
   const [, setModalStateValue] = useRecoilState<modalStateProps>(dashBoardModalState);
 
+  const setArticleDataState = useSetRecoilState(articleDataState);
+
+  const setPageDataState = useSetRecoilState(pageDataState);
+
   return (
     <DashBoardHeaderContainer>
       <HeaderContainer
@@ -33,9 +38,17 @@ const DashBoardHeader = () => {
           if (pathName === 'blogconfignav' || pathName === 'blogdirectnav') return;
           if (pathName === 'upload' || pathName === 'tempsaved') {
             router.push(`/${team}/editor/article`);
+            setArticleDataState((prev) => ({
+              ...prev,
+              title: '',
+            }));
             return;
           } else if (pathName === 'page') {
             router.push(`/${team}/editor/page`);
+            setPageDataState((prev) => ({
+              ...prev,
+              title: '',
+            }));
             return;
           }
           onButtonClickActionName && setModalStateValue(onButtonClickActionName);

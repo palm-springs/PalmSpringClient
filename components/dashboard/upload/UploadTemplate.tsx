@@ -1,9 +1,11 @@
 'use client';
 
 import React, { useState } from 'react';
-import { useParams } from 'next/navigation';
+import { useParams, useRouter } from 'next/navigation';
+import { useSetRecoilState } from 'recoil';
 
 import EmptyLanding from '@/components/common/ui/EmptyLanding';
+import { articleDataState } from '@/components/editor/states/atom';
 import { useGetCategoryList } from '@/hooks/dashboard';
 import { useGetArticleList } from '@/hooks/editor';
 import { getLiteralCategoryList } from '@/utils/getLiteralCategoryList';
@@ -17,7 +19,11 @@ import UploadTabBar from './components/UploadTabBar';
 const UploadTemplate = () => {
   const { team: blogUrl } = useParams();
 
+  const router = useRouter();
+
   const [category, setCategory] = useState<string>('전체');
+
+  const setArticleDataState = useSetRecoilState(articleDataState);
 
   const categoryData = useGetCategoryList(blogUrl);
 
@@ -32,7 +38,13 @@ const UploadTemplate = () => {
         message1="업로드된 글이 없어요."
         message2="새 글을 작성해보세요."
         buttonText="새 글 작성하기"
-        buttonLink={`/${blogUrl}/editor/article`}
+        buttonClick={() => {
+          router.push(`/${blogUrl}/editor/article`);
+          setArticleDataState((prev) => ({
+            ...prev,
+            title: '',
+          }));
+        }}
       />
     );
 

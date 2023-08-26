@@ -41,12 +41,15 @@ export default DashboardDeleteModal;
 const RightBottomButton = styled.button`
   ${({ theme }) => theme.fonts.Button_large};
   margin-left: 1.6rem;
-  border: 1px solid ${({ theme }) => theme.colors.grey_500};
+  border: 0 solid ${({ theme }) => theme.colors.grey_500};
   border-radius: 0.8rem;
   background-color: ${({ theme }) => theme.colors.red};
   padding: 1rem 2.6rem;
   height: 4.2rem;
   color: ${({ theme }) => theme.colors.grey_0};
+  &:hover {
+    background-color: ${({ theme }) => theme.colors.red_hover};
+  }
 `;
 
 const LeftBottomButton = styled.button`
@@ -56,6 +59,9 @@ const LeftBottomButton = styled.button`
   padding: 1rem 2.6rem;
   height: 4.2rem;
   color: ${({ theme }) => theme.colors.grey_700};
+  &:hover {
+    background-color: ${({ theme }) => theme.colors.grey_500};
+  }
 `;
 
 const ButtonContainer = styled.div`

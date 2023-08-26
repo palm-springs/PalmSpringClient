@@ -30,22 +30,13 @@ const AuthorPageTemplate = (props: AuthorPageTemplateProps) => {
     authorData: { thumbnail, nickname, job, description, articles },
   } = props;
 
-  if (MOBILE)
-    return (
-      <AuthorPageTemplateContainer className="mobile">
-        <AuthorInfo thumbnail={thumbnail} nickname={nickname} job={job} description={description} />
-        {articles.length !== 0 && <Line className="mobile" />}
-        <ArticleList articleList={articles} />
-      </AuthorPageTemplateContainer>
-    );
-  else
-    return (
-      <AuthorPageTemplateContainer>
-        <AuthorInfo thumbnail={thumbnail} nickname={nickname} job={job} description={description} />
-        {articles.length !== 0 && <Line />}
-        <ArticleList articleList={articles} />
-      </AuthorPageTemplateContainer>
-    );
+  return (
+    <AuthorPageTemplateContainer className={MOBILE ? 'mobile' : ''}>
+      <AuthorInfo thumbnail={thumbnail} nickname={nickname} job={job} description={description} />
+      {articles.length !== 0 && <Line className={MOBILE ? 'mobile' : ''} />}
+      <ArticleList articleList={articles} />
+    </AuthorPageTemplateContainer>
+  );
 };
 
 export default AuthorPageTemplate;

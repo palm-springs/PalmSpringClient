@@ -9,48 +9,48 @@ export const TextEditorStyle = styled.div`
     p {
       ${({ theme }) => theme.fonts.Body1_Regular};
       padding-bottom: 0.8rem;
-      width: 72.2rem;
+      width: 72rem;
     }
 
     h1 {
       ${({ theme }) => theme.editor.Edit_h1};
       padding: 5.6rem 0 0.4rem 0;
-      width: 72.2rem;
+      width: 72rem;
     }
 
     h2 {
       ${({ theme }) => theme.editor.Edit_h2};
       padding: 4rem 0 0.4rem 0;
-      width: 72.2rem;
+      width: 72rem;
     }
 
     h3 {
       ${({ theme }) => theme.editor.Edit_h3};
       margin-top: 2.4rem;
       padding: 2.4rem 0 0.4rem;
-      width: 72.2rem;
+      width: 72rem;
     }
 
     ul {
       margin-left: 4rem;
-      width: 72.2rem;
+      width: 72rem;
       list-style-type: disc;
     }
 
     ol {
       margin-left: 4rem;
-      width: 72.2rem;
+      width: 72rem;
       list-style-type: decimal;
     }
 
     u {
-      width: 72.2rem;
+      width: 72rem;
       text-decoration: underline;
     }
 
     hr {
       border: 1px solid ${({ theme }) => theme.colors.grey_300};
-      width: 72.2rem;
+      width: 72rem;
     }
 
     strong {
@@ -70,19 +70,18 @@ export const TextEditorStyle = styled.div`
       background-color: ${({ theme }) => theme.colors.grey_200};
       padding: 0.3rem 0.6rem;
       box-decoration-break: clone;
-      width: 72.2rem;
+      width: 72rem;
     }
 
     pre {
-      margin: 2.4rem 0 0.8rem;
+      margin: 2.016rem 0 0.8rem;
       border-radius: 0.5rem;
       background: ${({ theme }) => theme.colors.grey_100};
       padding: 1.6rem 2rem;
-      width: 72.2rem;
+      width: 72rem;
+      overflow-y: scroll;
       color: #383a41;
       font-family: 'Fira Mono', monospace;
-      /* 이거 코드블럭만 피라모노! */
-
       code {
         background: none;
         padding: 0;
@@ -159,7 +158,6 @@ export const TextEditorStyle = styled.div`
       margin: 2.4rem 0 0.8rem 0;
       border-left: 2px solid ${({ theme }) => theme.colors.grey_900};
       padding-left: 1.8rem;
-      height: 100%;
 
       p {
         padding-top: 0.2rem;
@@ -168,11 +166,11 @@ export const TextEditorStyle = styled.div`
 
     img {
       margin-top: 2.4rem 0 0.8rem 0;
-      width: 72.2rem;
+      width: 72rem;
       height: auto;
 
       &.ProseMirror-selectednode {
-        outline: 3px solid #68cef8;
+        outline: 2px solid ${({ theme }) => theme.colors.green};
       }
     }
 

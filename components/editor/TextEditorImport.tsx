@@ -8,6 +8,7 @@ import CodeBlockLowlight from '@tiptap/extension-code-block-lowlight';
 import Document from '@tiptap/extension-document';
 import Dropcursor from '@tiptap/extension-dropcursor';
 import Heading from '@tiptap/extension-heading';
+import HorizontalRule from '@tiptap/extension-horizontal-rule';
 import Image from '@tiptap/extension-image';
 import Italic from '@tiptap/extension-italic';
 import Link from '@tiptap/extension-link';
@@ -86,6 +87,7 @@ const TextEditorBuild = (props: TextEditorBuildprops) => {
       Document,
       Paragraph,
       Text,
+      HorizontalRule,
       Heading.configure({
         levels: [1, 2, 3],
       }),
@@ -382,6 +384,8 @@ const TextEditorBuild = (props: TextEditorBuildprops) => {
           }
           handleOnClickPublish={currentState === 'edit' ? handleUpdateGoArticlePublish : handleOnClickArticlePublish}
           isEdit={currentState === 'edit' ? true : false}
+          articleData={articleData}
+          pageType="article"
         />
       ) : (
         <SaveEditorContentButton
@@ -395,8 +399,8 @@ const TextEditorBuild = (props: TextEditorBuildprops) => {
           }
           handleOnClickPublish={currentState === 'edit' ? handleUpdateGoPagePublish : handleOnClickPagePublish}
           isEdit={currentState === 'edit' ? true : false} // edit이 아닌 경우는 draft 경우임
-          articleData={articleData}
           pageData={pageData}
+          pageType="page"
         />
       )}
     </>

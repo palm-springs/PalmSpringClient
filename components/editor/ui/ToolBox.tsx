@@ -1,6 +1,6 @@
 'use client';
 
-import React, { ChangeEvent, useEffect, useState } from 'react';
+import React, { ChangeEvent, useEffect, useRef, useState } from 'react';
 import { Editor } from '@tiptap/react';
 import styled from 'styled-components';
 
@@ -29,16 +29,25 @@ interface editorProps {
 }
 
 const EditorMenuBar = ({ editor, encodeFileToBase64, setLink }: editorProps) => {
-  const [isAtTop, setIsAtTop] = useState(true);
+  const [atTop, setAtTop] = useState(true);
   const [visible, setVisible] = useState(false);
 
-  //스크롤바 높이에 따라 visible 조건부 설정, 높이 인식 설정
+  const iconWrapperRef = useRef<HTMLDivElement>(null);
+
+  // 스크롤바 높이에 따라 visible 조건부 설정, 높이 인식 설정
   useEffect(() => {
     const handleScroll = () => {
-      setIsAtTop(window.scrollY >= 143);
+      setAtTop(window.scrollY >= 143);
       setVisible(window.scrollY >= 143);
+      if (iconWrapperRef.current === null) return;
+      console.log(iconWrapperRef.current?.style.top);
+      const { current } = iconWrapperRef;
+      if (window.scrollY >= 143) {
+        current.style.position = 'fixed';
+      } else {
+        current.style.position = 'sticky';
+      }
     };
-
     window.addEventListener('scroll', handleScroll);
     return () => {
       window.removeEventListener('scroll', handleScroll);
@@ -46,9 +55,9 @@ const EditorMenuBar = ({ editor, encodeFileToBase64, setLink }: editorProps) => 
   }, []);
 
   return (
-    <IconContainer isAtTop={isAtTop}>
-      {visible && <Wrapper isVisible={visible ? true : undefined} />}
-      <IconWrapper>
+    <IconContainer atTop={atTop}>
+      {visible && <Wrapper isVisible={visible} />}
+      <IconWrapper ref={iconWrapperRef}>
         <ToolButton onClick={() => editor.chain().focus().toggleHeading({ level: 1 }).run()}>
           <H1Icon />
         </ToolButton>
@@ -87,10 +96,13 @@ const EditorMenuBar = ({ editor, encodeFileToBase64, setLink }: editorProps) => 
         <ToolButton onClick={() => editor.chain().focus().setHorizontalRule().run()}>
           <HorizonIcon />
         </ToolButton>
-        <ImageInputLabel>
-          <input type="file" onChange={(event) => encodeFileToBase64(event, editor)}></input>
-          <ImageIcon />
-        </ImageInputLabel>
+        <ToolButton>
+          <ImageInputLabel>
+            <input type="file" onChange={(event) => encodeFileToBase64(event, editor)}></input>
+            <ImageIcon />
+          </ImageInputLabel>
+        </ToolButton>
+
         <ToolButton onClick={() => setLink({ editor })} className={editor.isActive('link') ? 'is-active' : ''}>
           <LinkIcon />
         </ToolButton>
@@ -116,7 +128,8 @@ const ToolButton = styled.button`
 `;
 
 const Wrapper = styled.div<{ isVisible?: boolean }>`
-  position: absolute;
+  position: fixed;
+  top: 0;
   transition: width 1s ease;
   opacity: ${({ isVisible }) => (isVisible ? 1 : 0)};
   z-index: 10;
@@ -144,14 +157,19 @@ const IconWrapper = styled.div`
   background-color: ${({ theme }) => theme.colors.grey_100};
   width: 72.2rem;
   height: 4.8rem;
+  /* @media screen and (min-height: 903px) {
+    position: fixed;
+    top: 0;
+  } */
 `;
 
-const IconContainer = styled.div<{ isAtTop: boolean }>`
-  position: ${({ isAtTop }) => isAtTop && 'sticky'};
+const IconContainer = styled.div<{ atTop: boolean }>`
+  position: ${({ atTop }) => atTop && 'sticky'};
   top: 0;
   z-index: 30;
   margin: 4.4rem 0 1.6rem;
-  width: ${({ isAtTop }) => isAtTop && '72.2rem'};
+  width: ${({ atTop }) => atTop && '72.2rem'};
+  height: 100%;
 `;
 
 const ImageInputLabel = styled.label`
