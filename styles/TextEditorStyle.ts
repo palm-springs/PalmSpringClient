@@ -159,7 +159,6 @@ export const TextEditorStyle = styled.div`
       margin: 2.4rem 0 0.8rem 0;
       border-left: 2px solid ${({ theme }) => theme.colors.grey_900};
       padding-left: 1.8rem;
-      height: 100%;
 
       p {
         padding-top: 0.2rem;

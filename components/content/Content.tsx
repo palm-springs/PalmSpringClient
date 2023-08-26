@@ -51,5 +51,3 @@ const ContentContainer = styled.section`
     width: calc(100vw - 4rem);
   }
 `;
-// 원래 너 스타일드 컴포너트가 초로색인거지???
-// 된거 같지???오아아ㅏ앙아ㅓ어어어!!확인해볼궤><<>

@@ -8,6 +8,7 @@ import CodeBlockLowlight from '@tiptap/extension-code-block-lowlight';
 import Document from '@tiptap/extension-document';
 import Dropcursor from '@tiptap/extension-dropcursor';
 import Heading from '@tiptap/extension-heading';
+import HorizontalRule from '@tiptap/extension-horizontal-rule';
 import Image from '@tiptap/extension-image';
 import Italic from '@tiptap/extension-italic';
 import Link from '@tiptap/extension-link';
@@ -86,6 +87,7 @@ const TextEditorBuild = (props: TextEditorBuildprops) => {
       Document,
       Paragraph,
       Text,
+      HorizontalRule,
       Heading.configure({
         levels: [1, 2, 3],
       }),
