@@ -4,28 +4,27 @@ import React from 'react';
 import parse from 'html-react-parser';
 import styled from 'styled-components';
 
-import { TextEditorStyle } from '@/styles/TextEditorStyle';
+import { MobileTextEditorStyle } from '@/styles/MobileTextEditorStyle';
 
 interface ContentProp {
   content: string;
 }
 
-const Content = (prop: ContentProp) => {
+const MobileContent = (prop: ContentProp) => {
   const { content } = prop;
 
   return (
-    <TextEditorStyle>
+    <MobileTextEditorStyle>
       <ContentContainer className="ProseMirror">{parse(content)}</ContentContainer>
-    </TextEditorStyle>
+    </MobileTextEditorStyle>
   );
 };
 
-export default Content;
+export default MobileContent;
 
 const ContentContainer = styled.section`
   position: relative !important;
 
   margin-top: 8.4rem;
-  padding: 0 2.4rem;
-  width: 72rem;
+  width: calc(100vw - 4rem);
 `;
