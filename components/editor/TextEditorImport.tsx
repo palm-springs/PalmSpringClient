@@ -132,7 +132,7 @@ const TextEditorBuild = (props: TextEditorBuildprops) => {
       return null;
     }
     const file = files[0];
-    const imgUrl = (await getImageMultipartData(file, team)) as string;
+    const imgUrl = (await getImageMultipartData(file)) as string;
     setImageArr((prev) => [...prev, imgUrl]);
 
     const reader = new FileReader();
@@ -176,7 +176,7 @@ const TextEditorBuild = (props: TextEditorBuildprops) => {
       const files = event.dataTransfer.files;
       if (files.length > 0) {
         const file = files[0];
-        const imgUrl = await getImageMultipartData(file, team);
+        const imgUrl = await getImageMultipartData(file);
         imageArr.push(imgUrl);
 
         editor.chain().focus().setImage({ src: imgUrl }).run(); // 이미지를 에디터에 삽입
