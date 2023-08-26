@@ -90,7 +90,6 @@ const ThumbnailInput = (props: ThumbnailInputProps) => {
               </>
             )}
           </ThumbnailInputLabel>
-          )
         </>
       );
     default:

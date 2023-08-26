@@ -1,6 +1,6 @@
 'use client';
 
-import React, { ChangeEvent, useEffect } from 'react';
+import React, { ChangeEvent, useCallback, useEffect, useRef, useState } from 'react';
 import { useRecoilState } from 'recoil';
 import styled from 'styled-components';
 
@@ -21,23 +21,35 @@ const EditorInputTitle = (props: TextEditorBuildProps) => {
 
   const [{ title: articleTitle }, setArticleData] = useRecoilState(articleDataState); // 아티클 초기 타이틀 -> 복사 -> 새로운 title 갈아끼기
   const [{ title: pageTitle }, setPageData] = useRecoilState(pageDataState);
-  console.log(pageData);
+  const textareaRef = useRef<HTMLTextAreaElement>(null);
+
+  // 제목 높이 자동 계산 함수 ->useEffect사용해야할듯?
+  const handleResizeInput = useCallback(() => {
+    if (textareaRef.current !== null) {
+      textareaRef.current.style.height = 'auto';
+      textareaRef.current.style.height = `${textareaRef.current.scrollHeight}px`;
+    }
+  }, []);
+
   useEffect(() => {
     if (articleData) {
       setArticleData((prev) => ({ ...prev, title: articleData.title }));
     } else if (pageData) {
       setPageData((prev) => ({ ...prev, title: pageData.title }));
     }
+    handleResizeInput();
   }, []);
 
   const handleSaveArticleTitle = (e: ChangeEvent<HTMLTextAreaElement>) => {
     const { value } = e.target;
     setArticleData((prev) => ({ ...prev, title: value }));
+    handleResizeInput();
   };
 
   const handleSavePageTitle = (e: ChangeEvent<HTMLTextAreaElement>) => {
     const { value } = e.target;
     setPageData((prev) => ({ ...prev, title: value }));
+    handleResizeInput();
   };
 
   switch (pageType) {
@@ -48,6 +60,8 @@ const EditorInputTitle = (props: TextEditorBuildProps) => {
             value={articleTitle}
             onChange={handleSaveArticleTitle}
             rows={1}
+            maxLength={67}
+            ref={textareaRef}
             placeholder="제목을 입력해주세요"
           />
         </EditorInputTitleContainer>
@@ -55,7 +69,14 @@ const EditorInputTitle = (props: TextEditorBuildProps) => {
     case `page`:
       return (
         <EditorInputTitleContainer>
-          <TitleInputBox value={pageTitle} onChange={handleSavePageTitle} rows={1} placeholder="제목을 입력해주세요" />
+          <TitleInputBox
+            value={pageTitle}
+            onChange={handleSavePageTitle}
+            rows={1}
+            maxLength={67}
+            ref={textareaRef}
+            placeholder="제목을 입력해주세요"
+          />
         </EditorInputTitleContainer>
       );
     default:
@@ -74,9 +95,11 @@ const TitleInputBox = styled.textarea`
   border: none;
   background: ${({ theme }) => theme.colors.grey_0};
   width: 100%;
-  height: 100%;
+  height: 6.7rem;
+  max-height: 28rem;
   resize: none;
-  word-wrap: break-word;
+  line-height: 140%;
+  letter-spacing: -0.05rem;
   color: ${({ theme }) => theme.colors.grey_900};
   font-family: ${({ theme }) => theme.fonts.Title};
   &::placeholder {

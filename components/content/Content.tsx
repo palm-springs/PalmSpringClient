@@ -5,6 +5,7 @@ import { useMediaQuery } from 'react-responsive';
 import parse from 'html-react-parser';
 import styled from 'styled-components';
 
+import { MobileTextEditorStyle } from '@/styles/MobileTextEditorStyle';
 import { TextEditorStyle } from '@/styles/TextEditorStyle';
 
 interface ContentProp {
@@ -18,20 +19,23 @@ const Content = (prop: ContentProp) => {
     query: '(min-width : 375px) and (max-width:768px)',
   });
 
-  if (MOBILE)
+  const TEST = () => {
     return (
-      <TextEditorStyle>
-        <MobileContentContainer id="mobile" className="ProseMirror">
-          {parse(content)}
-        </MobileContentContainer>
-      </TextEditorStyle>
+      <MobileTextEditorStyle>
+        <ContentContainer className="mobile ProseMirror">{parse(content)}</ContentContainer>
+      </MobileTextEditorStyle>
     );
-  else
+  };
+
+  const DESKTOP = () => {
     return (
       <TextEditorStyle>
         <ContentContainer className="ProseMirror">{parse(content)}</ContentContainer>
       </TextEditorStyle>
     );
+  };
+
+  return <>{MOBILE ? TEST : DESKTOP}</>;
 };
 
 export default Content;
@@ -41,16 +45,11 @@ const ContentContainer = styled.section`
 
   margin-top: 8.4rem;
   padding: 0 2.4rem;
-  min-width: 72rem;
+  width: 72rem;
 
-  font-family: 'Fira Mono', monospace;
+  &.mobile.ProseMirror {
+    width: calc(100vw - 4rem);
+  }
 `;
-const MobileContentContainer = styled.section`
-  position: relative !important;
-
-  margin-top: 8.4rem;
-  padding: 0 2.4rem;
-  width: 100vw;
-
-  font-family: 'Fira Mono', monospace;
-`;
+// 원래 너 스타일드 컴포너트가 초로색인거지???
+// 된거 같지???오아아ㅏ앙아ㅓ어어어!!확인해볼궤><<>
