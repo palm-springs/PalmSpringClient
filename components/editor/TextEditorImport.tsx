@@ -8,6 +8,7 @@ import CodeBlockLowlight from '@tiptap/extension-code-block-lowlight';
 import Document from '@tiptap/extension-document';
 import Dropcursor from '@tiptap/extension-dropcursor';
 import Heading from '@tiptap/extension-heading';
+import Highlight from '@tiptap/extension-highlight';
 import HorizontalRule from '@tiptap/extension-horizontal-rule';
 import Image from '@tiptap/extension-image';
 import Italic from '@tiptap/extension-italic';
@@ -86,6 +87,7 @@ const TextEditorBuild = (props: TextEditorBuildprops) => {
     extensions: [
       Document,
       Paragraph,
+      Highlight,
       Text,
       HorizontalRule,
       Heading.configure({
@@ -292,6 +294,7 @@ const TextEditorBuild = (props: TextEditorBuildprops) => {
     if (editor) {
       const content = editor.getHTML();
       setExtractedHTML(content);
+      console.log(content);
 
       if (imageArr.length === 0) {
         setArticleData((prev) => ({ ...prev, title: articleTitle, content, images: [] }));
@@ -322,7 +325,6 @@ const TextEditorBuild = (props: TextEditorBuildprops) => {
     if (editor) {
       const newContent = editor.getHTML();
       setExtractedHTML(newContent);
-
       if (imageArr.length === 0) {
         setArticleData((prevData) => ({
           ...prevData,
@@ -368,6 +370,7 @@ const TextEditorBuild = (props: TextEditorBuildprops) => {
       router.push(`/${team}/editor/page/${pageId}/publish`);
     }
   };
+
   return (
     <>
       <ToolBox editor={editor} encodeFileToBase64={encodeFileToBase64} setLink={setLink} />
