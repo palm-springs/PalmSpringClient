@@ -36,6 +36,14 @@ export default SideBarNav;
 
 const NavLink = styled(Link)`
   ${({ theme }) => theme.mobileFonts.Markdown_H3};
+  /* stylelint-disable-next-line value-no-vendor-prefix */
+  display: -webkit-box;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  word-break: break-all;
+
+  -webkit-line-clamp: 2;
+  -webkit-box-orient: vertical;
   color: ${({ theme }) => theme.colors.grey_900};
 `;
 
@@ -53,5 +61,6 @@ const NavBtn = styled.button`
   justify-content: flex-start;
   padding: 1.2rem 2.4rem;
   width: 100%;
-  height: 6rem;
+
+  /* height: 6rem; */
 `;
