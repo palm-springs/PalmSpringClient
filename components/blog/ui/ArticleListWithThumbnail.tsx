@@ -45,15 +45,7 @@ const ArticleListWithThumbnail = (props: ArticleListWithThumbnailProps) => {
   if (MOBILE)
     return (
       <>
-        <ContentInfoContainer>
-          {contentListData && contentListData.thumbnail && (
-            <Link href={`/content/article/${articleUrl}/${IndivContentId}`}>
-              <MobileImgWrapper src={contentListData.thumbnail} alt="blog thumbnail" />
-            </Link>
-          )}
-          <ContentInfo contentInfoData={contentListData} articleUrl={articleUrl} IndivContentId={IndivContentId} />
-        </ContentInfoContainer>
-        <CategoryBtnWrapper>
+        <CategoryBtnWrapper className="mobile">
           <CategoryBtnBar LiteralList={LiteralList} />
         </CategoryBtnWrapper>
         <ArticleWrapper>
@@ -106,10 +98,8 @@ const CategoryBtnWrapper = styled.div`
   display: flex;
   justify-content: center;
   width: 100vw;
-`;
 
-const MobileImgWrapper = styled.img`
-  width: calc(100vw - 4.8rem);
-  height: calc(100vw * 9 / 16);
-  object-fit: cover;
+  &.mobile {
+    margin-top: 6rem;
+  }
 `;
