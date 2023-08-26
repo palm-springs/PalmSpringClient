@@ -89,10 +89,13 @@ const EditorMenuBar = ({ editor, encodeFileToBase64, setLink }: editorProps) => 
         <ToolButton onClick={() => editor.chain().focus().setHorizontalRule().run()}>
           <HorizonIcon />
         </ToolButton>
-        <ImageInputLabel>
-          <input type="file" onChange={(event) => encodeFileToBase64(event, editor)}></input>
-          <ImageIcon />
-        </ImageInputLabel>
+        <ToolButton>
+          <ImageInputLabel>
+            <input type="file" onChange={(event) => encodeFileToBase64(event, editor)}></input>
+            <ImageIcon />
+          </ImageInputLabel>
+        </ToolButton>
+
         <ToolButton onClick={() => setLink({ editor })} className={editor.isActive('link') ? 'is-active' : ''}>
           <LinkIcon />
         </ToolButton>
@@ -110,6 +113,18 @@ const ToolButton = styled.button`
   width: 3.6rem;
   height: 3.6rem;
   &:hover {
+    border-radius: 0.8rem;
+    background-color: ${({ theme }) => theme.colors.grey_300};
+    width: 3.6rem;
+    height: 3.6rem;
+  }
+`;
+
+const ImageButton = styled.div`
+  &:hover {
+    display: flex;
+    align-items: center;
+    justify-content: center;
     border-radius: 0.8rem;
     background-color: ${({ theme }) => theme.colors.grey_300};
     width: 3.6rem;
