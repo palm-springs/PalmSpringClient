@@ -4,6 +4,7 @@ import React from 'react';
 import Link from 'next/link';
 import styled from 'styled-components';
 
+import useGetCategory from '@/hooks/useGetCategory';
 import { ArticleData } from '@/types/article';
 
 interface ArticleProps {
@@ -15,6 +16,8 @@ const MobileArticle = (props: ArticleProps) => {
     article: { id, title, description, memberName, createdAt, thumbnail, articleCategory, articleUrl },
   } = props;
 
+  const selectedCategory = useGetCategory();
+
   return (
     <ArticleContainer href={`/content/article/${articleUrl}/${id}`}>
       {thumbnail && <ArticleThumbnail src={thumbnail} alt="Article Thumbnail" />}
@@ -22,7 +25,7 @@ const MobileArticle = (props: ArticleProps) => {
         <EditorInputTitle>{title}</EditorInputTitle>
         <ArticleDescription>{description}</ArticleDescription>
         <DetailBox>
-          {articleCategory && <CategoryBtn type="button">{articleCategory.categoryName}</CategoryBtn>}
+          {selectedCategory === 'home' && <CategoryBtn type="button">{articleCategory.categoryName}</CategoryBtn>}
           <ArticleDetail>{memberName}</ArticleDetail>
           <Bar>|</Bar>
           <ArticleDetail>{createdAt}</ArticleDetail>
