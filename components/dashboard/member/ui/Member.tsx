@@ -1,6 +1,6 @@
 'use client';
 
-import React, { useState } from 'react';
+import React, { Dispatch, SetStateAction, useState } from 'react';
 import Image from 'next/image';
 import styled from 'styled-components';
 
@@ -21,17 +21,12 @@ interface MemberComponentProps {
   job: string;
   nickname: string;
   thumbnail: string;
+  showPopOver: string;
+  setShowPopOver: Dispatch<SetStateAction<string>>;
 }
 
 const Member = (props: MemberComponentProps) => {
-  const { email, job, nickname, thumbnail } = props;
-
-  const [showPopOver, setShowPopOver] = useState('');
-  // const [showCancelInviteModal, setShowCancelInviteModal] = useState(false);
-
-  // const modalCloseHandler = () => {
-  //   setShowCancelInviteModal(false);
-  // };
+  const { email, job, nickname, thumbnail, showPopOver, setShowPopOver } = props;
 
   return (
     <MemberContainer>
@@ -50,16 +45,18 @@ const Member = (props: MemberComponentProps) => {
             <Position> {job} </Position>
             <Email> {email} </Email>
           </MemberInfoBox>
-          <MenuBtn
+          <MenuBtnContainer
+            onBlur={() => setShowPopOver('')}
             onClick={() => {
               if (showPopOver === email) {
                 setShowPopOver('');
               } else {
                 setShowPopOver(email);
               }
-            }}
-          />
-          {showPopOver === email && <PopOver onBlur={() => setShowPopOver('')} nickname={nickname} />}
+            }}>
+            <CharmMenuMeatballIcon />
+          </MenuBtnContainer>
+          {showPopOver === email && <PopOver nickname={nickname} />}
         </>
       </MemberInnerContent>
     </MemberContainer>
@@ -143,7 +140,7 @@ const MemberInnerContent = styled.div`
   align-items: center;
   justify-content: space-between;
 
-  width: 109rem;
+  width: 100%;
 `;
 
 const NameBox = styled.div`
@@ -188,7 +185,20 @@ const Email = styled.div`
   color: ${({ theme }) => theme.colors.grey_700};
 `;
 
-const MenuBtn = styled(CharmMenuMeatballIcon)`
+const MenuBtnContainer = styled.button`
+  display: flex;
+  position: absolute;
+  right: 0;
+  align-items: center;
+  justify-content: center;
+  transition: 0.3s ease-out;
+  margin-right: 0.6rem;
+  border: none;
+  border-radius: 0.4rem;
+  background: none;
   width: 2.4rem;
-  height: 2.2286rem;
+  height: 2.4rem;
+  &:hover {
+    background: ${({ theme }) => theme.colors.grey_300};
+  }
 `;
