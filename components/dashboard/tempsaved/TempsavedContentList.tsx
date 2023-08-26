@@ -1,9 +1,11 @@
 'use client';
 
 import React, { useState } from 'react';
-import { useParams } from 'next/navigation';
+import { useParams, useRouter } from 'next/navigation';
+import { useSetRecoilState } from 'recoil';
 
 import EmptyLanding from '@/components/common/ui/EmptyLanding';
+import { articleDataState } from '@/components/editor/states/atom';
 import { useGetTempSavedList } from '@/hooks/dashboard';
 
 import DashBoardContent from '../components/DashBoardContent';
@@ -14,7 +16,11 @@ import IndivTempsavedContentList from './IndivTempsavedContentList';
 const TempsavedContentList = () => {
   const { team: blogUrl } = useParams();
 
+  const router = useRouter();
+
   const data = useGetTempSavedList(blogUrl);
+
+  const setArticleDataState = useSetRecoilState(articleDataState);
 
   const [deleteModalId, setDeleteModalId] = useState<number | null>(null);
 
@@ -25,7 +31,13 @@ const TempsavedContentList = () => {
         message1="임시저장된 글이 없어요."
         message2="새 글을 작성해보세요."
         buttonText="새 글 작성하기"
-        buttonLink={`/${blogUrl}/editor/article`}
+        buttonClick={() => {
+          router.push(`/${blogUrl}/editor/article`);
+          setArticleDataState((prev) => ({
+            ...prev,
+            title: '',
+          }));
+        }}
       />
     );
 
