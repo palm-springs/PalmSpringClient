@@ -66,28 +66,6 @@ const ArticleContainer = (props: ArticleContainerProps) => {
     }
   }
 
-  //모바일 뷰
-  // if (articleListData.length === 0 && thumbnail && MOBILE) {
-  //   if (CategorySelected !== 'home') {
-  //     //아티클 리스트가 없고 카테고리 선택 안되어있고 블로그 대문이 있을 때
-  //     return (
-  //       <BlogImgContainer >
-  //         <BlogImg thumbnail={thumbnail} description={description} />
-  //         <CategoryBtnWrapper>
-  //           <CategoryBtnBar LiteralList={LiteralList} />
-  //         </CategoryBtnWrapper>
-  //       </BlogImgContainer>
-  //     );
-  //   } else {
-  //     //아티클 리스트 없고 카테고리 선택되어있고 블로그 대문 있을 때
-  //     return (
-  //       <BlogImgContainer>
-  //         <BlogImg thumbnail={thumbnail} description={description} />
-  //       </BlogImgContainer>
-  //     );
-  //   }
-  // }
-
   //데스크탑 뷰
   //아티클 리스트가 없고 블로그 대문이 없을 때
   if (articleListData.length === 0 && !thumbnail)
@@ -115,36 +93,6 @@ const ArticleContainer = (props: ArticleContainerProps) => {
         </ArticleWrapper>
       </>
     );
-
-  //모바일 뷰
-  //아티클 리스트가 없고 블로그 대문이 없을 때 -- 완
-  // if (articleListData.length === 0 && !thumbnail && MOBILE) {
-  //   return (
-  //     <DefaultTextContainer>
-  //       <DefaultTitle className="mobile">팜스프링 기술 블로그</DefaultTitle>
-  //       <DefaultSubText className="mobile">등록된 글이 없습니다</DefaultSubText>
-  //     </DefaultTextContainer>
-  //   );
-  // }
-
-  // //아티클 리스트가 있고 블로그 대문이 없을 때 -- 완
-  // if (articleListData.length !== 0 && !thumbnail && MOBILE) {
-  //   return <ArticleListWithThumbnail articleList={articleListData} />;
-  // }
-  // //아티클 리스트가 있고 블로그 대문이 있을 때 -- 완
-  // if (articleListData.length !== 0 && thumbnail && MOBILE) {
-  //   return (
-  //     <>
-  //       <BlogImg thumbnail={thumbnail} description={description} />
-  //       <CategoryBtnWrapper>
-  //         <CategoryBtnBar LiteralList={LiteralList} />
-  //       </CategoryBtnWrapper>
-  //       <ArticleWrapper>
-  //         <ArticleList articleList={articleListData} />
-  //       </ArticleWrapper>
-  //     </>
-  //   );
-  // }
 };
 
 export default ArticleContainer;
