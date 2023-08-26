@@ -48,7 +48,7 @@ import {
   useUpdateTempArticleDraft,
   useUpdateTempPageDraft,
 } from '@/hooks/editor';
-import { UpdateArticleContentProps, UpdateArticleProps } from '@/types/article';
+import { UpdateArticleProps } from '@/types/article';
 import { UpdatePageProps } from '@/types/page';
 import { getImageMultipartData } from '@/utils/getImageMultipartData';
 
@@ -289,8 +289,9 @@ const TextEditorBuild = (props: TextEditorBuildprops) => {
 
   // article page 저장시 내용 가지고 발행하기 페이지로 이동
   const handleOnClickArticlePublish = () => {
+    if (document === undefined) return;
     if (editor) {
-      const content = editor.getHTML();
+      const content = document.querySelector('[contenteditable="true"]')!.innerHTML;
       setExtractedHTML(content);
 
       if (imageArr.length === 0) {
@@ -305,7 +306,7 @@ const TextEditorBuild = (props: TextEditorBuildprops) => {
   // page page 저장시 내용 가지고 발행하기 페이지로 이동
   const handleOnClickPagePublish = () => {
     if (editor) {
-      const content = editor.getHTML();
+      const content = document.querySelector('[contenteditable="true"]')!.innerHTML;
       setExtractedHTML(content);
 
       if (imageArr.length === 0) {
@@ -320,7 +321,7 @@ const TextEditorBuild = (props: TextEditorBuildprops) => {
   //article 수정시 발행하기로 내용가지고 이동
   const handleUpdateGoArticlePublish = () => {
     if (editor) {
-      const newContent = editor.getHTML();
+      const newContent = document.querySelector('[contenteditable="true"]')!.innerHTML;
       setExtractedHTML(newContent);
 
       if (imageArr.length === 0) {
@@ -346,7 +347,7 @@ const TextEditorBuild = (props: TextEditorBuildprops) => {
   // 페이지 수정시 발행페이지 이동
   const handleUpdateGoPagePublish = () => {
     if (editor) {
-      const newContent = editor.getHTML();
+      const newContent = document.querySelector('[contenteditable="true"]')!.innerHTML;
       setExtractedHTML(newContent);
 
       if (imageArr.length === 0) {
