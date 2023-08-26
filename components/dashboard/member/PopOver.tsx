@@ -10,11 +10,10 @@ import DeleteMemberModal from './ui/DeleteMemberModal';
 
 interface PopOverProp {
   nickname: string;
-  onBlur: () => void;
 }
 
 const PopOver = (prop: PopOverProp) => {
-  const { nickname, onBlur } = prop;
+  const { nickname } = prop;
   const [showModal, setShowModal] = useState(false);
 
   const modalOpenHandle = () => {
@@ -27,7 +26,7 @@ const PopOver = (prop: PopOverProp) => {
   };
 
   return (
-    <PopOverContainer onBlur={onBlur}>
+    <PopOverContainer>
       <LinkText href={`/author/${nickname}`}>팀원이 쓴 글로 이동하기</LinkText>
       <ModalText type="button" onClick={() => modalOpenHandle()}>
         팀에서 제외하기
@@ -53,7 +52,7 @@ export default PopOver;
 const PopOverContainer = styled.button`
   display: flex;
   position: absolute;
-  top: 5.2rem;
+  top: 4.2rem;
   right: 0;
 
   flex-direction: column;

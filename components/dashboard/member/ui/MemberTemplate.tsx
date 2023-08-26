@@ -10,6 +10,7 @@ import AddMemberForm from '@/components/common/ui/AddMemberForm';
 import DashboardCreateModal from '@/components/common/ui/DashboardCreateModal';
 import { useGetMemberInfo } from '@/hooks/dashboard';
 
+import Line from '../../components/ui/Line';
 import { dashBoardModalState } from '../../state/modalState';
 
 import MemberList from './MemberList';
@@ -29,32 +30,35 @@ const MemberTemplate = () => {
   }, [res]);
 
   return (
-    <MemberTemplateContainer>
-      <MemberListHeader />
-      <MemberList />
-      {modalState === 'createMember' && (
-        <ModalPortal>
-          <DashboardCreateModal
-            mainText="팀원 초대하기"
-            buttonText="초대하기"
-            subText="쉼표, 엔터, 스페이스바로 메일 주소를 구분할 수 있습니다"
-            buttonHandler={() => {
-              setModalState('');
-            }}
-            onModalCloseBtnClick={() => setModalState('')}
-            disabled={emailBox.length === 0}>
-            <AddMemberForm
-              emailBox={emailBox}
-              setEmailBox={setEmailBox}
-              width={'40'}
-              height={'9.8'}
-              paddingLR="1.2"
-              paddingUD="1.2"
-            />
-          </DashboardCreateModal>
-        </ModalPortal>
-      )}
-    </MemberTemplateContainer>
+    <>
+      <Line />
+      <MemberTemplateContainer>
+        <MemberListHeader />
+        <MemberList />
+        {modalState === 'createMember' && (
+          <ModalPortal>
+            <DashboardCreateModal
+              mainText="팀원 초대하기"
+              buttonText="초대하기"
+              subText="쉼표, 엔터, 스페이스바로 메일 주소를 구분할 수 있습니다"
+              buttonHandler={() => {
+                setModalState('');
+              }}
+              onModalCloseBtnClick={() => setModalState('')}
+              disabled={emailBox.length === 0}>
+              <AddMemberForm
+                emailBox={emailBox}
+                setEmailBox={setEmailBox}
+                width={'40'}
+                height={'9.8'}
+                paddingLR="1.2"
+                paddingUD="1.2"
+              />
+            </DashboardCreateModal>
+          </ModalPortal>
+        )}
+      </MemberTemplateContainer>
+    </>
   );
 };
 
@@ -66,8 +70,7 @@ const MemberTemplateContainer = styled.div`
   flex-shrink: 0;
   align-items: center;
 
-  margin-top: 1.2rem;
-  margin-left: 4rem;
+  padding: 0 2.4rem 0 4rem;
 
-  width: 109rem;
+  width: 100%;
 `;
