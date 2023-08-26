@@ -21,6 +21,8 @@ const PopOverMenu = (props: PopOverMenuProps) => {
         return '카테고리글 보러가기';
       case 'nav':
         return '해당 URL로 이동하기';
+      case 'member':
+        return '팀에서 제외하기';
       default:
         return '새창에서 보기';
     }
@@ -29,7 +31,7 @@ const PopOverMenu = (props: PopOverMenuProps) => {
   return (
     <PopOverMenuUI className="pop_over_menu">
       <button onMouseDown={onNavigateContentClick}>{navigateContent()}</button>
-      <button onMouseDown={onMutateButtonClick}>수정하기</button>
+      {pathName !== 'member' && <button onMouseDown={onMutateButtonClick}>수정하기</button>}
       <button onMouseDown={onDeleteButtonClick}>삭제하기</button>
     </PopOverMenuUI>
   );
