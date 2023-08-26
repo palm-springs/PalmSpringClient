@@ -1,3 +1,4 @@
+import { Dispatch, SetStateAction } from 'react';
 import { useParams, useRouter } from 'next/navigation';
 import { useRecoilState } from 'recoil';
 
@@ -18,6 +19,8 @@ interface IndivUploadContentListProps {
   job: string;
   createdAt: string;
   articleUrl: string;
+  deleteModalId: number | null;
+  setDeleteModalId: Dispatch<SetStateAction<number | null>>;
 }
 
 const IndivUploadContentList = (props: IndivUploadContentListProps) => {
@@ -25,18 +28,22 @@ const IndivUploadContentList = (props: IndivUploadContentListProps) => {
 
   const router = useRouter();
 
-  const { id, title, articleCategory, memberName, job, createdAt, articleUrl } = props;
+  const { id, title, articleCategory, memberName, job, createdAt, articleUrl, deleteModalId, setDeleteModalId } = props;
 
   const [dashboardModalState, setDashboardModalState] = useRecoilState(dashBoardModalState);
 
   const { mutate } = useDeleteArticle(team, id);
   return (
     <>
-      {dashboardModalState === 'deleteArticle' && (
+      {dashboardModalState === 'deleteArticle' && deleteModalId === id && (
         <DashboardContentDeleteModal
-          text="글을 삭제하시겠어어요?"
+          text="글을 삭제하시겠어요?"
           subText="글을 삭제할 시, 복구할 수 없습니다."
-          onDelete={() => mutate()}
+          onDelete={() => {
+            mutate();
+            setDashboardModalState('');
+            setDeleteModalId(null);
+          }}
         />
       )}
       <DashBoardContent
@@ -50,7 +57,10 @@ const IndivUploadContentList = (props: IndivUploadContentListProps) => {
         onTitleClick={() => {
           window.location.href = `https://${team}.palms.blog/content/article/${articleUrl}/${String(id)}`;
         }}
-        onDeleteClick={() => setDashboardModalState('deleteArticle')}
+        onDeleteClick={() => {
+          setDashboardModalState('deleteArticle');
+          setDeleteModalId(id);
+        }}
       />
     </>
   );

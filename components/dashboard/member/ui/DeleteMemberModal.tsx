@@ -54,6 +54,7 @@ const ModalWrapper = styled.div`
   position: relative;
   flex-direction: column;
   align-items: center;
+  justify-content: center;
 
   border-radius: 2rem;
 
@@ -67,6 +68,7 @@ const ModalWrapper = styled.div`
 `;
 
 const MainText = styled.h3`
+  text-align: center;
   ${({ theme }) => theme.fonts.Heading3_Semibold};
   color: ${({ theme }) => theme.colors.grey_900};
 `;

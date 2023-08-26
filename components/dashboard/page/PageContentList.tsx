@@ -1,9 +1,11 @@
 'use client';
 
-import React from 'react';
+import React, { useState } from 'react';
 import { useParams, useRouter } from 'next/navigation';
+import { useSetRecoilState } from 'recoil';
 
 import EmptyLanding from '@/components/common/ui/EmptyLanding';
+import { pageDataState } from '@/components/editor/states/atom';
 import { useGetPageList } from '@/hooks/dashboard';
 
 import DashBoardContent from '../components/DashBoardContent';
@@ -16,6 +18,10 @@ const PageContentList = () => {
 
   const data = useGetPageList(blogUrl);
 
+  const setPageDataState = useSetRecoilState(pageDataState);
+
+  const [deleteContentId, setDeleteContentId] = useState<string>('');
+
   const router = useRouter();
 
   if (!data || data.data.length === 0)
@@ -25,7 +31,13 @@ const PageContentList = () => {
         message1="작성된 페이지가 없어요."
         message2="새 페이지를 만들어보세요."
         buttonText="새 페이지 만들기"
-        buttonClick={() => router.push(`/${blogUrl}/editor/page`)}
+        buttonClick={() => {
+          router.push(`/${blogUrl}/editor/page`);
+          setPageDataState((prev) => ({
+            ...prev,
+            title: '',
+          }));
+        }}
       />
     );
 
@@ -43,6 +55,8 @@ const PageContentList = () => {
             isLinked={isLinked}
             pageUrl={pageUrl}
             createdAt={createdAt}
+            deleteContentId={deleteContentId}
+            setDeleteContentId={setDeleteContentId}
           />
         );
       })}

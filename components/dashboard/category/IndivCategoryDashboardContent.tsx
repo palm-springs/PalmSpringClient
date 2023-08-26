@@ -81,6 +81,7 @@ const IndivCategoryDashboardContent = (props: IndivCategoryDashboardContentProps
         }}
         onDeleteClick={() => {
           setModalState('deleteCategory');
+          setCurrentModalId(id);
         }}
       />
       {modalState === 'updateCategory' && currentModalId === id && (
@@ -95,11 +96,15 @@ const IndivCategoryDashboardContent = (props: IndivCategoryDashboardContentProps
           />
         </ModalPortal>
       )}
-      {modalState === 'deleteCategory' && (
+      {modalState === 'deleteCategory' && currentModalId === id && (
         <DashboardContentDeleteModal
-          text="카테고리를 삭제하시겠어어요?"
+          text="카테고리를 삭제하시겠어요?"
           subText="카테고리를 삭제할 시, 복구할 수 없습니다."
-          onDelete={() => deleteCategory()}
+          onDelete={() => {
+            deleteCategory();
+            setModalState('');
+            setCurrentModalId(null);
+          }}
         />
       )}
     </>
