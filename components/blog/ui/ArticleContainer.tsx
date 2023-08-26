@@ -70,10 +70,13 @@ const ArticleContainer = (props: ArticleContainerProps) => {
   //아티클 리스트가 없고 블로그 대문이 없을 때
   if (articleListData.length === 0 && !thumbnail)
     return (
-      <DefaultTextContainer className={MOBILE ? 'mobile' : ''}>
-        <DefaultTitle className={MOBILE ? 'mobile' : ''}>{team}</DefaultTitle>
-        <DefaultSubText className={MOBILE ? 'mobile' : ''}>등록된 글이 없습니다</DefaultSubText>
-      </DefaultTextContainer>
+      <>
+        <DefaultTextContainer className={MOBILE ? 'mobile' : ''}>
+          <DefaultTitle className={MOBILE ? 'mobile' : ''}>{team}</DefaultTitle>
+          <DefaultSubText className={MOBILE ? 'mobile' : ''}>등록된 글이 없습니다</DefaultSubText>
+        </DefaultTextContainer>
+        {MOBILE && <MobileStickyBtn />}
+      </>
     );
 
   //아티클 리스트가 있고 블로그 대문이 없을 때
@@ -89,8 +92,8 @@ const ArticleContainer = (props: ArticleContainerProps) => {
         </CategoryBtnWrapper>
         <ArticleWrapper>
           <ArticleList articleList={articleListData} />
-          {MOBILE && <MobileStickyBtn />}
         </ArticleWrapper>
+        {MOBILE && <MobileStickyBtn />}
       </>
     );
 };

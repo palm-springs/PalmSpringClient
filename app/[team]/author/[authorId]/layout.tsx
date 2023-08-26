@@ -1,21 +1,33 @@
 'use client';
 
 import React from 'react';
+import { useMediaQuery } from 'react-responsive';
 import { useParams } from 'next/navigation';
 
-import { getBlogHeaderInfo } from '@/api/blogHome';
+import MobileStickyBtn from '@/components/blog/MobileStickyBtn';
 import BlogFooter from '@/components/common/BlogFooter';
 import BlogHeader from '@/components/common/BlogHeader';
+import LoadingLottie from '@/components/common/ui/LoadingLottie';
+import { useGetBlogHeaderInfo } from '@/hooks/blogHome';
 
-const AuthorPageLayout = async ({ children }: { children: React.ReactElement }) => {
+const AuthorPageLayout = ({ children }: { children: React.ReactElement }) => {
   const { team } = useParams();
+  const MOBILE = useMediaQuery({
+    query: '(min-width : 375px) and (max-width:768px)',
+  });
+  const res = useGetBlogHeaderInfo(team);
+
+  if (!res) return <LoadingLottie width={10} height={10} fit />;
+
   const {
     data: { logo, blogName, navList },
-  } = await getBlogHeaderInfo(team);
+  } = res;
+
   return (
     <>
       <BlogHeader logo={logo} blogName={blogName} navList={navList} />
       <main>{children}</main>
+      {MOBILE && <MobileStickyBtn />}
       <BlogFooter />
     </>
   );
