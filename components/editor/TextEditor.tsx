@@ -1,6 +1,6 @@
 'use client';
 
-import { DragEventHandler } from 'react';
+import { DragEventHandler, useEffect, useState } from 'react';
 import { Editor, EditorContent } from '@tiptap/react';
 import styled from 'styled-components';
 
@@ -11,13 +11,35 @@ interface editorProps {
 }
 
 //텍스트 에디터 안에 ref가 안써짐 -> 터치영역 포커스 이동 몬함...
-const TextEditor = ({ editor, handleDragOver, handleDrop }: editorProps) => (
-  <TouchContainer id="dropzone" onDrop={handleDrop} onDragOver={handleDragOver} style={{ height: 'fit-content' }}>
-    <EditorContainer>
-      <TextEditorUI editor={editor} />
-    </EditorContainer>
-  </TouchContainer>
-);
+const TextEditor = ({ editor, handleDragOver, handleDrop }: editorProps) => {
+  // const [editorHeight, setEditorHeight] = useState<number>(650);
+
+  const [long, setlong] = useState<boolean>(false);
+
+  useEffect(() => {
+    const handleScroll = () => {
+      if (window.scrollY >= 143) {
+        setlong(true);
+        // setEditorHeight((prev) => prev + window.scrollY);
+      } else {
+        setlong(false);
+      }
+    };
+
+    window.addEventListener('scroll', handleScroll);
+    return () => {
+      window.removeEventListener('scroll', handleScroll);
+    };
+  }, []);
+
+  return (
+    <TouchContainer id="dropzone" onDrop={handleDrop} onDragOver={handleDragOver} style={{ height: 'fit-content' }}>
+      <EditorContainer>
+        <TextEditorUI editor={editor} $long={long} />
+      </EditorContainer>
+    </TouchContainer>
+  );
+};
 
 export default TextEditor;
 
@@ -32,7 +54,7 @@ const EditorContainer = styled.div`
   height: fit-content;
 `;
 
-const TextEditorUI = styled(EditorContent)`
+const TextEditorUI = styled(EditorContent)<{ $long: boolean }>`
   ${({ theme }) => theme.fonts.Body1_Regular};
   width: 72.2rem;
   height: fit-content;
@@ -50,5 +72,10 @@ const TextEditorUI = styled(EditorContent)`
     color: ${({ theme }) => theme.colors.grey_600};
     content: attr(data-placeholder);
     pointer-events: none;
+  }
+  .ProseMirror {
+    min-height: ${({ $long }) => ($long ? '850px' : '650px')};
+    max-height: ${({ $long }) => ($long ? '750px' : '650px')};
+    overflow: scroll;
   }
 `;

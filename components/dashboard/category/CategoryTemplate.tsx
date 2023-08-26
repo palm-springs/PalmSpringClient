@@ -41,8 +41,6 @@ const CategoryTemplate = () => {
             buttonHandler={() => {
               mutate();
               setModalState('');
-              setNewCategoryName('');
-              setNewCategoryDescription('');
             }}
             onModalCloseBtnClick={() => {
               setModalState('');
