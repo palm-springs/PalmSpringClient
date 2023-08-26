@@ -53,7 +53,6 @@ const ArticleContainer = styled(Link)`
   justify-content: space-between;
 
   width: 100%;
-  height: 17rem;
 
   &.hover {
     transform: translateY(0.8rem);
