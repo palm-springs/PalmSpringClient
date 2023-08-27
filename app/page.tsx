@@ -197,6 +197,30 @@ const why_they_use_container = css`
   }
 `;
 
+const go_blog_button = css`
+  display: flex;
+  position: fixed;
+  bottom: 75px;
+  left: 50%;
+  align-items: center;
+  justify-content: center;
+  transform: translate(-50%, 0);
+  z-index: 999;
+  border-radius: 26px;
+
+  background: radial-gradient(95.78% 95.78% at 50% 50%, rgba(18, 35, 54, 0.8) 0%, rgba(26, 49, 75, 0.67) 100%);
+  width: 223px;
+  height: 52px;
+
+  color: white;
+  font-family: Pretendard;
+
+  font-size: 18px;
+  font-size: 1.8rem;
+  font-weight: 600;
+  font-style: normal;
+`;
+
 const Home = () => {
   useEffect(() => {
     AOS.init({
@@ -551,6 +575,9 @@ const Home = () => {
         </div>
       </main>
       <Footer />
+      <a href="https://official.palms.blog/home">
+        <button css={go_blog_button}>팜스프링 블로그 보러가기</button>
+      </a>
     </div>
   );
 };
