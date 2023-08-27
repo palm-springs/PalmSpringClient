@@ -5,6 +5,9 @@ import { styled } from 'styled-components';
 export const TextEditorStyle = styled.div`
   .ProseMirror {
     position: absolute;
+    * {
+      word-wrap: break-word;
+    }
 
     p {
       ${({ theme }) => theme.fonts.Body1_Regular};
