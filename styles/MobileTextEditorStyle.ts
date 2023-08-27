@@ -8,18 +8,27 @@ export const MobileTextEditorStyle = styled.div`
       ${({ theme }) => theme.mobileFonts.Body1_Regular};
       padding-bottom: 0.8rem;
       width: calc(100vw - 4rem);
+      overflow: hidden;
+      text-overflow: clip;
+      word-break: break-all;
     }
 
     h1 {
       ${({ theme }) => theme.mobileFonts.Markdown_H1};
       padding: 4rem 0 0.4rem;
       width: calc(100vw - 4rem);
+      overflow: hidden;
+      text-overflow: clip;
+      word-break: break-all;
     }
 
     h2 {
       ${({ theme }) => theme.mobileFonts.Markdown_H2};
       padding: 3.2 0 0.4rem;
       width: calc(100vw - 4rem);
+      overflow: hidden;
+      text-overflow: clip;
+      word-break: break-all;
     }
 
     h3 {
@@ -27,41 +36,65 @@ export const MobileTextEditorStyle = styled.div`
       margin-top: 2.4rem;
       padding: 2.4rem 0 0.4rem;
       width: calc(100vw - 4rem);
+      overflow: hidden;
+      text-overflow: clip;
+      word-break: break-all;
     }
 
     ul {
       margin: 2.4rem 0 0.4rem 4rem;
       width: calc(100vw - 4rem);
+      overflow: hidden;
       list-style-type: disc;
+      text-overflow: clip;
+      word-break: break-all;
     }
 
     ol {
       margin: 2.4rem 0 0.4rem 4rem;
       width: calc(100vw - 4rem);
+      overflow: hidden;
       list-style-type: decimal;
+      text-overflow: clip;
+      word-break: break-all;
     }
 
     u {
+      overflow: hidden;
       text-decoration: underline;
+      text-overflow: clip;
+      word-break: break-all;
     }
 
     hr {
       border: 1px solid ${({ theme }) => theme.colors.grey_300};
       width: calc(100vw - 4rem);
+      overflow: hidden;
+      text-overflow: clip;
+      word-break: break-all;
     }
 
     strong {
       ${({ theme }) => theme.fonts.Body1_Semibold};
       width: calc(100vw - 4rem);
+      overflow: hidden;
+      text-overflow: clip;
+      word-break: break-all;
     }
 
     s {
       width: calc(100vw - 4rem);
+      overflow: hidden;
       text-decoration: line-through;
+      text-overflow: clip;
+      word-break: break-all;
     }
 
     em {
       width: calc(100vw - 4rem);
+      overflow: hidden;
+      text-overflow: clip;
+      word-break: break-all;
       font-style: italic;
     }
 
@@ -70,6 +103,10 @@ export const MobileTextEditorStyle = styled.div`
       background-color: ${({ theme }) => theme.colors.grey_200};
       padding: 0.3rem 0.6rem;
       box-decoration-break: clone;
+      width: calc(100vw - 4rem);
+      overflow: hidden;
+      text-overflow: clip;
+      word-break: break-all;
     }
 
     pre {
@@ -78,14 +115,19 @@ export const MobileTextEditorStyle = styled.div`
       background: ${({ theme }) => theme.colors.grey_100};
       padding: 1.6rem 2rem;
       width: calc(100vw - 4rem);
+      height: fit-content;
+      overflow: hidden;
+      overflow-y: scroll;
+      text-overflow: clip;
+      line-height: 1.5;
+      word-break: break-all;
       color: #383a41;
       font-family: 'Fira Mono', monospace;
-      /* 이거 코드블럭만 피라모노! */
 
       code {
         background: none;
         padding: 0;
-        width: calc(100vw - 4rem);
+        line-height: 1.4;
         color: inherit;
         font-size: 1.4rem;
       }

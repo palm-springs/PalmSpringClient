@@ -5,11 +5,18 @@ import { styled } from 'styled-components';
 export const TextEditorStyle = styled.div`
   .ProseMirror {
     position: absolute;
+    width: calc(100vw - 45rem);
+    overflow: hidden;
+    text-overflow: clip;
+    word-break: break-all;
 
     p {
       ${({ theme }) => theme.fonts.Body1_Regular};
       padding-bottom: 0.8rem;
-      width: 72rem;
+      width: calc(100vw - 45rem);
+      overflow: hidden;
+      text-overflow: clip;
+      word-break: break-all;
     }
 
     h1 {
@@ -80,6 +87,7 @@ export const TextEditorStyle = styled.div`
       padding: 1.6rem 2rem;
       width: 72rem;
       overflow-y: scroll;
+      line-height: 1.4;
       color: #383a41;
       font-family: 'Fira Mono', monospace;
       code {
