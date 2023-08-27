@@ -25,11 +25,21 @@ export const GlobalStyle = createGlobalStyle`
     overflow: visible;
   }
 
-
   * {
     box-sizing: border-box;
     word-break: keep-all;
 }
+
+  code {
+    overflow-x: scroll;
+    * {
+      white-space: normal;
+      word-break: normal;
+    }
+  }
+
+
+
 
 *::-webkit-scrollbar {
     display: none;
