@@ -228,7 +228,7 @@ const Home = () => {
             align-items: center;
           `}>
           <img src="/images/landing-main-image.png" alt="example landing main" css={example_image} />
-          <a href="https://tally.so/r/npd4MJ" target="_blank" rel="noopener noreferrer">
+          <a href="https://walla.my/palmspring_mind" target="_blank" rel="noopener noreferrer">
             <button css={main_button}>온보딩 예약하기</button>
           </a>
         </div>
@@ -545,7 +545,7 @@ const Home = () => {
             ]}>
             이제, 우리 팀 이야기를 세상에 전하세요.
           </h1>
-          <a href="https://tally.so/r/npd4MJ" target="_blank" rel="noopener noreferrer">
+          <a href="https://walla.my/palmspring_mind" target="_blank" rel="noopener noreferrer">
             <button css={main_button}>온보딩 예약하기</button>
           </a>
         </div>

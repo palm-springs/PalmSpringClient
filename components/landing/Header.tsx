@@ -141,7 +141,7 @@ const Header = () => {
             ]}>
             팜스프링팀
           </Link>
-          <a href="https://tally.so/r/npd4MJ" target="_blank" rel="noopener noreferrer">
+          <a href="https://walla.my/palmspring_mind" target="_blank" rel="noopener noreferrer">
             <button css={header_button}>온보딩 예약하기</button>
           </a>
         </div>
