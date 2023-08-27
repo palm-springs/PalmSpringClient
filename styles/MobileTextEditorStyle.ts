@@ -78,10 +78,11 @@ export const MobileTextEditorStyle = styled.div`
       background: ${({ theme }) => theme.colors.grey_100};
       padding: 1.6rem 2rem;
       width: calc(100vw - 4rem);
+      /* 이거 코드블럭만 피라모노! */
+      white-space: pre-wrap;
+      word-break: break-all;
       color: #383a41;
       font-family: 'Fira Mono', monospace;
-      /* 이거 코드블럭만 피라모노! */
-
       code {
         background: none;
         padding: 0;

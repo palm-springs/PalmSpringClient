@@ -80,6 +80,8 @@ export const TextEditorStyle = styled.div`
       padding: 1.6rem 2rem;
       width: 72rem;
       overflow-y: scroll;
+      white-space: pre-wrap;
+      word-break: break-all;
       color: #383a41;
       font-family: 'Fira Mono', monospace;
       code {
