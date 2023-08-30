@@ -575,7 +575,7 @@ const Home = () => {
         </div>
       </main>
       <Footer />
-      <a href="https://official.palms.blog/home">
+      <a href="https://palms.blog/official/home">
         <button css={go_blog_button}>팜스프링 블로그 보러가기</button>
       </a>
     </div>
