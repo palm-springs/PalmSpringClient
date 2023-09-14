@@ -173,6 +173,9 @@ const TitleBox = styled.article`
   margin: 3.2rem 0 1.2rem;
   width: 100%;
 
+  overflow: hidden;
+  word-break: break-all;
+
   color: ${({ theme }) => theme.colors.grey_950};
 
   &.mobile {
@@ -187,6 +190,9 @@ const DescriptionBox = styled.article`
 
   margin-bottom: 2.8rem;
   width: 100%;
+
+  overflow: hidden;
+  word-break: break-all;
 
   color: ${({ theme }) => theme.colors.grey_950};
 

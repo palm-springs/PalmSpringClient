@@ -4,6 +4,10 @@ import { styled } from 'styled-components';
 
 export const MobileTextEditorStyle = styled.div`
   .ProseMirror {
+    * {
+      word-wrap: break-word;
+    }
+
     p {
       ${({ theme }) => theme.mobileFonts.Body1_Regular};
       padding-bottom: 0.8rem;
@@ -70,6 +74,7 @@ export const MobileTextEditorStyle = styled.div`
       background-color: ${({ theme }) => theme.colors.grey_200};
       padding: 0.3rem 0.6rem;
       box-decoration-break: clone;
+      overflow-x: scroll;
     }
 
     pre {
@@ -87,6 +92,7 @@ export const MobileTextEditorStyle = styled.div`
         background: none;
         padding: 0;
         width: calc(100vw - 4rem);
+        overflow-x: scroll;
         color: inherit;
         font-size: 1.4rem;
       }
