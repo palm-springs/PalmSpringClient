@@ -25,6 +25,8 @@ export default function RootLayout({ children }: { children: React.ReactNode }) 
   return (
     <html lang="ko">
       <head>
+        <title>palmspring</title>
+        <meta name="description" content="성장하는 조직을 위한 팀 블로그 빌더" />
         <link
           rel="stylesheet preload"
           as="style"
