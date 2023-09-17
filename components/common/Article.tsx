@@ -2,6 +2,7 @@
 
 import React from 'react';
 import Link from 'next/link';
+import { useParams } from 'next/navigation';
 import styled from 'styled-components';
 
 import useGetCategory from '@/hooks/useGetCategory';
@@ -19,9 +20,10 @@ const Article = (props: ArticleProps) => {
   } = props;
 
   const selectedCategory = useGetCategory();
+  const { team } = useParams();
 
   return (
-    <ArticleContainer href={`/content/article/${articleUrl}/${id}`} className={noHover ? '' : 'hover'}>
+    <ArticleContainer href={`/${team}/content/article/${articleUrl}/${id}`} className={noHover ? '' : 'hover'}>
       <ArticleInfo>
         <EditorInputTitle className="title">{title}</EditorInputTitle>
         <ArticleDescription className="description">{description}</ArticleDescription>

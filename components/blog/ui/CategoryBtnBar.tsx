@@ -12,7 +12,7 @@ interface CategoryBtnBarProps {
   LiteralList: string[];
 }
 const CategoryBtnBar = (props: CategoryBtnBarProps) => {
-  const { category } = useParams();
+  const { team, category } = useParams();
   const { LiteralList } = props;
   const SELECTED = useGetCategory();
   const MOBILE = useMediaQuery({
@@ -23,7 +23,7 @@ const CategoryBtnBar = (props: CategoryBtnBarProps) => {
     if (MOBILE)
       return (
         <MobileCategoryBtn
-          href={`/home/${eachCategory}`}
+          href={`/${team}/home/${eachCategory}`}
           key={eachCategory}
           type="button"
           className={eachCategory === decodeURI(category) ? 'selected' : ''}>
@@ -33,7 +33,7 @@ const CategoryBtnBar = (props: CategoryBtnBarProps) => {
     else
       return (
         <CategoryBtn
-          href={`/home/${eachCategory}`}
+          href={`/${team}/home/${eachCategory}`}
           key={eachCategory}
           type="button"
           className={eachCategory === decodeURI(category) ? 'selected' : ''}>
@@ -45,7 +45,7 @@ const CategoryBtnBar = (props: CategoryBtnBarProps) => {
   if (MOBILE)
     return (
       <CategoryBtnBarContainer className="mobile">
-        <MobileCategoryBtn href={`/home`} type="button" className={SELECTED === 'home' ? 'selected' : ''}>
+        <MobileCategoryBtn href={`/${team}/home`} type="button" className={SELECTED === 'home' ? 'selected' : ''}>
           전체
         </MobileCategoryBtn>
         {CATEGORY_LIST}
@@ -54,7 +54,7 @@ const CategoryBtnBar = (props: CategoryBtnBarProps) => {
   else
     return (
       <CategoryBtnBarContainer>
-        <CategoryBtn href={`/home`} type="button" className={SELECTED === 'home' ? 'selected' : ''}>
+        <CategoryBtn href={`/${team}/home`} type="button" className={SELECTED === 'home' ? 'selected' : ''}>
           전체
         </CategoryBtn>
         {CATEGORY_LIST}
@@ -72,6 +72,7 @@ const CategoryBtnBarContainer = styled.div`
 
   padding: 7.2rem 0 4.8rem;
   width: 72rem;
+
   &.mobile {
     padding: 2.8rem 2.4rem 2.2rem;
     width: 100%;

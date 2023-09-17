@@ -27,7 +27,7 @@ const BlogNav = () => {
       {navList &&
         navList.map(({ navUrl, name, isPage, id }) => (
           <PageBtn key={navUrl}>
-            <Link href={isPage ? `/content/page/${navUrl}/${id}` : `${navUrl}`}>{name}</Link>
+            <Link href={isPage ? `/${team}/content/page/${navUrl}/${id}` : `${navUrl}`}>{name}</Link>
           </PageBtn>
         ))}
       {/* 밑의 버튼은 구독자 기능 생성 후 다시 넣어줄 예정 */}
