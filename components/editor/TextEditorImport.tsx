@@ -19,8 +19,7 @@ import Placeholder from '@tiptap/extension-placeholder';
 import Strike from '@tiptap/extension-strike';
 import Text from '@tiptap/extension-text';
 import Underline from '@tiptap/extension-underline';
-import { Content, Editor, useEditor } from '@tiptap/react';
-import StarterKit from '@tiptap/starter-kit';
+import { Editor, useEditor } from '@tiptap/react';
 import js from 'highlight.js/lib/languages/javascript';
 import ts from 'highlight.js/lib/languages/typescript';
 import html from 'highlight.js/lib/languages/xml';
@@ -38,16 +37,11 @@ lowlight.registerLanguage('ts', ts);
 
 import { useRecoilState } from 'recoil';
 
-import { getUpdateArticleContent, postArticleList } from '@/api/article';
+import { postArticleList } from '@/api/article';
 import { postPageDraft } from '@/api/page';
 import TextEditor from '@/components/editor/TextEditor';
 import ToolBox from '@/components/editor/ui/ToolBox';
-import {
-  useGetUpdateArticleContent,
-  useUpdateArticleContent,
-  useUpdateTempArticleDraft,
-  useUpdateTempPageDraft,
-} from '@/hooks/editor';
+import { useUpdateTempArticleDraft, useUpdateTempPageDraft } from '@/hooks/editor';
 import { UpdateArticleProps } from '@/types/article';
 import { UpdatePageProps } from '@/types/page';
 import { getImageMultipartData } from '@/utils/getImageMultipartData';
@@ -81,7 +75,7 @@ const TextEditorBuild = (props: TextEditorBuildprops) => {
     console.log(imageArr);
   }, [imageArr]);
 
-  // tiptap 라이브러리 내장 에디터 관련 기능 extentions.
+  // tiptap 라이브러리 내장 에디터 관련 기능  extensions.
   const editor = useEditor({
     extensions: [
       Document,

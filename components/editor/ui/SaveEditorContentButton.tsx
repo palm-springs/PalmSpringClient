@@ -2,8 +2,8 @@
 
 import React, { useState } from 'react';
 import { toast, Toaster } from 'react-hot-toast';
-import { useParams, usePathname, useRouter } from 'next/navigation';
-import { useRecoilState, useRecoilValue } from 'recoil';
+import { useRouter } from 'next/navigation';
+import { useRecoilValue } from 'recoil';
 import styled from 'styled-components';
 
 import ModalPortal from '@/components/common/ModalPortal';
@@ -26,7 +26,6 @@ interface editorProps {
 const SaveEditorContentButton = (props: editorProps) => {
   const [isModal, setIsModal] = useState(false);
   const { handleOnClickDraft, handleOnClickPublish, isEdit, pageType } = props;
-  const { team } = useParams();
   const router = useRouter();
 
   const articleData = useRecoilValue(articleDataState);
