@@ -366,7 +366,7 @@ const TextEditorBuild = (props: TextEditorBuildprops) => {
         }));
       }
 
-      router.push(`/${team}/editor/page/${pageId}/publish`);
+      router.push(`/${team}/editor/page/${pageId}/edit/publish`);
     }
   };
 
@@ -393,6 +393,32 @@ const TextEditorBuild = (props: TextEditorBuildprops) => {
       }
 
       router.push(`/${team}/editor/article/${articleId}/draft/publish`);
+    }
+  };
+
+  //page 임시저장 수정시 발행하기로 내용가지고 이동
+  const handleUpdateDraftPagePublish = () => {
+    if (editor) {
+      const newContent = document.querySelector('[contenteditable="true"]')!.innerHTML;
+      setExtractedHTML(newContent);
+
+      if (imageArr.length === 0) {
+        setPageData((prevData) => ({
+          ...prevData,
+          title: pageTitle,
+          content: newContent,
+          images: [],
+        }));
+      } else {
+        setPageData((prevData) => ({
+          ...prevData,
+          title: pageTitle,
+          content: newContent,
+          images: imageArr,
+        }));
+      }
+
+      router.push(`/${team}/editor/page/${pageId}/draft/publish`);
     }
   };
 
@@ -424,14 +450,19 @@ const TextEditorBuild = (props: TextEditorBuildprops) => {
       ) : (
         <SaveEditorContentButton
           handleOnClickDraft={
-            //임시저장의 발행하기는 ? 어디임? -> 아 이거 어차피 넘김
             currentState === 'draft'
               ? handleTempPageDraft
               : currentState === 'edit'
               ? handleOnClickPageDraft
               : handleOnClickPageDraft
           }
-          handleOnClickPublish={currentState === 'edit' ? handleUpdateGoPagePublish : handleOnClickPagePublish}
+          handleOnClickPublish={
+            currentState === 'edit'
+              ? handleUpdateGoPagePublish
+              : currentState === 'draft'
+              ? handleUpdateDraftPagePublish
+              : handleOnClickPagePublish
+          }
           isEdit={currentState === 'edit' ? true : false} // edit이 아닌 경우는 draft 경우임
           pageData={pageData}
           pageType="page"

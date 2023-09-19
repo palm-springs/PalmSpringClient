@@ -10,7 +10,7 @@ import PublishTitle from '@/components/editor/publish/ui/PublishTitle';
 import ThumbnailInput from '@/components/editor/publish/ui/ThumbnailInput';
 import UrlCustom from '@/components/editor/publish/ui/UrlCustom';
 
-const ArticleDraftPublish = () => {
+const ArticleDraftPublishPage = () => {
   const [isDuplicate, setIsDuplicate] = useState<boolean | null>(false);
 
   return (
@@ -29,7 +29,7 @@ const ArticleDraftPublish = () => {
   );
 };
 
-export default ArticleDraftPublish;
+export default ArticleDraftPublishPage;
 
 const PublishContainer = styled.div`
   display: flex;

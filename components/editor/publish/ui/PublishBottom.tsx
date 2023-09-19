@@ -145,7 +145,7 @@ const PublishBottomButtons = (props: PublishBottomButtons) => {
             <BackButton type="button" onClick={handleBackButton}>
               뒤로가기
             </BackButton>
-            {pathName === `/${team}/editor/page/${pageId}/publish` ? (
+            {pathName === `/${team}/editor/page/${pageId}/edit/publish` ? (
               <PublishButton
                 type="button"
                 onClick={handleOnClickUpdatePagePublish}
@@ -155,7 +155,7 @@ const PublishBottomButtons = (props: PublishBottomButtons) => {
             ) : (
               <PublishButton
                 type="button"
-                onClick={isEdit ? handleTempPageUpdatePublish : handleOnClickPagePublish}
+                onClick={currentState === 'draft' ? handleTempPageUpdatePublish : handleOnClickPagePublish}
                 disabled={pageUrl === '' || isDuplicate || isDuplicate === null}>
                 글 발행하기
               </PublishButton>

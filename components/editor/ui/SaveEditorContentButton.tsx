@@ -69,7 +69,7 @@ const SaveEditorContentButton = (props: editorProps) => {
   };
 
   const modalRealCloseHandler = () => {
-    router.push(`/${team}/dashboard/upload`);
+    router.back();
   };
 
   return (
