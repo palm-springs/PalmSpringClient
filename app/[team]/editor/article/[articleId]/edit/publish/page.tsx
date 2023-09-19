@@ -14,7 +14,7 @@ import UrlCustom from '@/components/editor/publish/ui/UrlCustom';
 import { articleDataState } from '@/components/editor/states/atom';
 import { useGetUpdateArticleContent } from '@/hooks/editor';
 
-const UpdateArticlePublishPage = () => {
+const ArticleEditPublish = () => {
   const { team, articleId } = useParams();
   const [isDuplicate, setIsDuplicate] = useState<boolean | null>(false);
   const updateArticleEditContents = useGetUpdateArticleContent(team, Number(articleId)); // number 값 ArticleId로 바꿀거이
@@ -38,6 +38,7 @@ const UpdateArticlePublishPage = () => {
               />
               <PublishBottomButtons
                 pageType="article"
+                currentState="edit"
                 isDuplicate={isDuplicate}
                 articleData={updateArticleEditContents.data}
               />
@@ -58,7 +59,7 @@ const UpdateArticlePublishPage = () => {
   );
 };
 
-export default UpdateArticlePublishPage;
+export default ArticleEditPublish;
 
 const PublishContainer = styled.div`
   display: flex;

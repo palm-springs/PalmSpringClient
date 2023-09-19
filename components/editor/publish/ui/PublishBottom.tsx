@@ -21,11 +21,12 @@ interface PublishBottomButtons {
   isDuplicate: boolean | null;
   articleData?: UpdateArticleProps;
   isEdit?: boolean;
+  currentState?: string;
 }
 
 const PublishBottomButtons = (props: PublishBottomButtons) => {
   const router = useRouter();
-  const { pageType, isDuplicate, isEdit } = props;
+  const { pageType, isDuplicate, isEdit, currentState } = props;
   const pathName = usePathname();
 
   const [isDisabled, setIsDisabled] = useState(true);
@@ -103,7 +104,7 @@ const PublishBottomButtons = (props: PublishBottomButtons) => {
   };
 
   // 뒤로가기 -> 전 페이지로 바꾸는 걸로 바꾸기
-  const handleBackeButton = () => {
+  const handleBackButton = () => {
     router.back();
   };
 
@@ -112,10 +113,10 @@ const PublishBottomButtons = (props: PublishBottomButtons) => {
       return (
         <>
           <PublishBottomButtonsContainer>
-            <BackButton type="button" onClick={handleBackeButton}>
+            <BackButton type="button" onClick={handleBackButton}>
               뒤로가기
             </BackButton>
-            {pathName === `/${team}/editor/article/${articleId}/publish` ? (
+            {pathName === `/${team}/editor/article/${articleId}/edit/publish` ? (
               <PublishButton
                 type="button"
                 onClick={handleOnClickUpdateArticlePublish}
@@ -127,7 +128,7 @@ const PublishBottomButtons = (props: PublishBottomButtons) => {
             ) : (
               <PublishButton
                 type="button"
-                onClick={isEdit ? handleTempArticleUpdatePublish : handleOnClickArticlePublish}
+                onClick={currentState === 'draft' ? handleTempArticleUpdatePublish : handleOnClickArticlePublish}
                 disabled={
                   categoryId === -1 || description === '' || articleUrl === '' || isDuplicate || isDuplicate === null
                 }>
@@ -141,7 +142,7 @@ const PublishBottomButtons = (props: PublishBottomButtons) => {
       return (
         <>
           <PublishBottomButtonsContainer>
-            <BackButton type="button" onClick={handleBackeButton}>
+            <BackButton type="button" onClick={handleBackButton}>
               뒤로가기
             </BackButton>
             {pathName === `/${team}/editor/page/${pageId}/publish` ? (

@@ -231,7 +231,7 @@ const TextEditorBuild = (props: TextEditorBuildprops) => {
     }
   };
 
-  //article 임시저장시 임시저장put
+  //article 임시저장시 임시저장put --> article 임시저장 수정하기의 임시저장
   const handleTempArticleDraft = () => {
     if (editor) {
       const newContent = editor.getHTML();
@@ -287,7 +287,7 @@ const TextEditorBuild = (props: TextEditorBuildprops) => {
     }
   };
 
-  // article page 저장시 내용 가지고 발행하기 페이지로 이동
+  // article page 저장시 내용 가지고 발행하기 페이지로 이동-> article최초 발행하기
   const handleOnClickArticlePublish = () => {
     if (document === undefined) return;
     if (editor) {
@@ -340,7 +340,7 @@ const TextEditorBuild = (props: TextEditorBuildprops) => {
         }));
       }
 
-      router.push(`/${team}/editor/article/${articleId}/publish`);
+      router.push(`/${team}/editor/article/${articleId}/edit/publish`);
     }
   };
 
@@ -369,6 +369,33 @@ const TextEditorBuild = (props: TextEditorBuildprops) => {
       router.push(`/${team}/editor/page/${pageId}/publish`);
     }
   };
+
+  //article 임시저장 수정시 발행하기로 내용가지고 이동
+  const handleUpdateDraftArticlePublish = () => {
+    if (editor) {
+      const newContent = document.querySelector('[contenteditable="true"]')!.innerHTML;
+      setExtractedHTML(newContent);
+
+      if (imageArr.length === 0) {
+        setArticleData((prevData) => ({
+          ...prevData,
+          title: articleTitle,
+          content: newContent,
+          images: [],
+        }));
+      } else {
+        setArticleData((prevData) => ({
+          ...prevData,
+          title: articleTitle,
+          content: newContent,
+          images: imageArr,
+        }));
+      }
+
+      router.push(`/${team}/editor/article/${articleId}/draft/publish`);
+    }
+  };
+
   return (
     <>
       <ToolBox editor={editor} encodeFileToBase64={encodeFileToBase64} setLink={setLink} />
@@ -383,7 +410,13 @@ const TextEditorBuild = (props: TextEditorBuildprops) => {
               ? handleOnClickArticleDraft
               : handleOnClickArticleDraft
           }
-          handleOnClickPublish={currentState === 'edit' ? handleUpdateGoArticlePublish : handleOnClickArticlePublish}
+          handleOnClickPublish={
+            currentState === 'edit'
+              ? handleUpdateGoArticlePublish
+              : currentState === 'draft'
+              ? handleUpdateDraftArticlePublish
+              : handleOnClickArticlePublish
+          }
           isEdit={currentState === 'edit' ? true : false}
           articleData={articleData}
           pageType="article"
