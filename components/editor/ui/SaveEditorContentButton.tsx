@@ -24,7 +24,8 @@ interface editorProps {
 }
 
 const SaveEditorContentButton = (props: editorProps) => {
-  const [isModal, setIsModal] = useState(false);
+  const [isModal, setIsModal] = useState(false); // 모달 보이고 안보이고
+  const [saved, setSaved] = useState(false); // 임시저장된 여부
   const { handleOnClickDraft, handleOnClickPublish, isEdit, pageType } = props;
   const router = useRouter();
 
@@ -55,11 +56,16 @@ const SaveEditorContentButton = (props: editorProps) => {
   const handleDraftSaveButton = () => {
     handleOnClickDraft();
     notify();
+    setSaved(true); // 임시저장 버튼 누르면 저장 상태값 저장하기
   };
 
   const modalOpenHandler = () => {
-    setIsModal(!isModal);
-    document.body.style.overflow = 'hidden';
+    if (!saved) {
+      setIsModal(!isModal);
+      document.body.style.overflow = 'hidden';
+    } else {
+      router.back();
+    }
   };
 
   const modalCloseHandler = () => {
