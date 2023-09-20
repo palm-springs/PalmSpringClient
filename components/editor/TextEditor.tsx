@@ -34,7 +34,7 @@ const TextEditor = ({ editor, handleDragOver, handleDrop }: editorProps) => {
   return (
     <TouchContainer id="dropzone" onDrop={handleDrop} onDragOver={handleDragOver} style={{ height: 'fit-content' }}>
       <EditorContainer>
-        <TextEditorUI editor={editor} $long={long} />
+        <TextEditorUI editor={editor} $long={long} tabIndex={0} />
       </EditorContainer>
     </TouchContainer>
   );
@@ -55,25 +55,23 @@ const EditorContainer = styled.div`
 
 const TextEditorUI = styled(EditorContent)<{ $long: boolean }>`
   ${({ theme }) => theme.fonts.Body1_Regular};
+  outline: none;
   width: 72.2rem;
   height: fit-content;
   color: ${({ theme }) => theme.colors.grey_900};
-
   *:focus {
     outline: none;
   }
   .ProseMirror p.is-editor-empty:first-child::before {
     ${({ theme }) => theme.fonts.Body1_Regular};
     float: left;
-    /* height: 100rem; ->이거 넣으면 커서 위치가 글자 오른쪽 맨끝으로 이동됨, 근데 터치 영역이 전체 컨텐츠가 됨*/
-    /* height: 0; -> 이거 넣으면 커서 위치가 글자 처음에서 시작함, 근데 터치 영역이 한 줄로 제한됨 */
     height: 0;
     color: ${({ theme }) => theme.colors.grey_600};
     content: attr(data-placeholder);
     pointer-events: none;
   }
   .ProseMirror {
-    min-height: ${({ $long }) => ($long ? '850px' : '650px')};
+    min-height: ${({ $long }) => ($long ? 'calc(100vh -64px)' : '650px')};
     max-height: ${({ $long }) => ($long ? '750px' : '650px')};
     overflow: scroll;
   }
