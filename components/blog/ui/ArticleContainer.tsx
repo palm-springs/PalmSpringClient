@@ -42,7 +42,6 @@ const ArticleContainer = (props: ArticleContainerProps) => {
 
   const LiteralList = getLiteralCategoryList(FilteredCategoryList);
 
-  //데스크탑 뷰
   if (articleListData.length === 0 && thumbnail) {
     if (CategorySelected !== 'home') {
       //아티클 리스트가 없고 카테고리 선택 안되어있고 블로그 대문이 있을 때
@@ -66,7 +65,6 @@ const ArticleContainer = (props: ArticleContainerProps) => {
     }
   }
 
-  //데스크탑 뷰
   //아티클 리스트가 없고 블로그 대문이 없을 때
   if (articleListData.length === 0 && !thumbnail)
     return (

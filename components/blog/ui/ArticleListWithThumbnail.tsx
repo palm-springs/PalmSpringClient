@@ -60,7 +60,7 @@ const ArticleListWithThumbnail = (props: ArticleListWithThumbnailProps) => {
         <ContentInfoContainer>
           {contentListData && contentListData.thumbnail && (
             <Link href={`/${team}/content/article/${articleUrl}/${IndivContentId}`}>
-              <Image width="720" height="405" src={contentListData.thumbnail} alt="blog thumbnail" />
+              <ContentThumbnail width="720" height="405" src={contentListData.thumbnail} alt="content thumbnail" />
             </Link>
           )}
           <ContentInfo contentInfoData={contentListData} articleUrl={articleUrl} IndivContentId={IndivContentId} />
@@ -76,6 +76,10 @@ const ArticleListWithThumbnail = (props: ArticleListWithThumbnailProps) => {
 };
 
 export default ArticleListWithThumbnail;
+
+const ContentThumbnail = styled(Image)`
+  border-radius: 1.6rem;
+`;
 
 const ContentInfoContainer = styled.div`
   display: flex;
