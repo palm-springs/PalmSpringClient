@@ -15,7 +15,7 @@ import { useGetUpdateArticleContent } from '@/hooks/editor';
 const ArticleEditPublishPage = () => {
   const { team, articleId } = useParams();
   const [isDuplicate, setIsDuplicate] = useState<boolean | null>(false);
-  const updateArticleEditContents = useGetUpdateArticleContent(team, Number(articleId)); // number 값 ArticleId로 바꿀거이
+  const updateArticleEditContents = useGetUpdateArticleContent(team, Number(articleId));
 
   return (
     <AuthRequired>

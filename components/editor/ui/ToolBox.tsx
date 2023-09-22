@@ -55,58 +55,61 @@ const EditorMenuBar = ({ editor, encodeFileToBase64, setLink }: editorProps) => 
   }, []);
 
   return (
-    <IconContainer atTop={atTop}>
+    <IconContainer atTop={atTop} tabIndex={-1}>
       {visible && <Wrapper isVisible={visible} />}
-      <IconWrapper ref={iconWrapperRef}>
-        <ToolButton onClick={() => editor.chain().focus().toggleHeading({ level: 1 }).run()}>
+      <IconWrapper ref={iconWrapperRef} tabIndex={-1}>
+        <ToolButton tabIndex={-1} onClick={() => editor.chain().focus().toggleHeading({ level: 1 }).run()}>
           <H1Icon />
         </ToolButton>
-        <ToolButton onClick={() => editor.chain().focus().toggleHeading({ level: 2 }).run()}>
+        <ToolButton tabIndex={-1} onClick={() => editor.chain().focus().toggleHeading({ level: 2 }).run()}>
           <H2Icon />
         </ToolButton>
-        <ToolButton onClick={() => editor.chain().focus().toggleHeading({ level: 3 }).run()}>
+        <ToolButton tabIndex={-1} onClick={() => editor.chain().focus().toggleHeading({ level: 3 }).run()}>
           <H3Icon />
         </ToolButton>
-        <ToolButton onClick={() => editor.chain().focus().toggleBulletList().run()}>
+        <ToolButton tabIndex={-1} onClick={() => editor.chain().focus().toggleBulletList().run()}>
           <BulletIcon />
         </ToolButton>
-        <ToolButton onClick={() => editor.chain().focus().toggleOrderedList().run()}>
+        <ToolButton tabIndex={-1} onClick={() => editor.chain().focus().toggleOrderedList().run()}>
           <OrderIcon />
         </ToolButton>
         <GreyBar />
-        <ToolButton onClick={() => editor.chain().focus().toggleUnderline().run()}>
+        <ToolButton tabIndex={-1} onClick={() => editor.chain().focus().toggleUnderline().run()}>
           <UnderlineIcon />
         </ToolButton>
-        <ToolButton onClick={() => editor.chain().focus().toggleBold().run()}>
+        <ToolButton tabIndex={-1} onClick={() => editor.chain().focus().toggleBold().run()}>
           <BoldIcon />
         </ToolButton>
-        <ToolButton onClick={() => editor.chain().focus().toggleItalic().run()}>
+        <ToolButton tabIndex={-1} onClick={() => editor.chain().focus().toggleItalic().run()}>
           <ItalicIcon />
         </ToolButton>
-        <ToolButton onClick={() => editor.chain().focus().toggleStrike().run()}>
+        <ToolButton tabIndex={-1} onClick={() => editor.chain().focus().toggleStrike().run()}>
           <StrikeIcon />
         </ToolButton>
-        <ToolButton onClick={() => editor.chain().focus().toggleCode().run()}>
+        <ToolButton tabIndex={-1} onClick={() => editor.chain().focus().toggleCode().run()}>
           <CodeIcon />
         </ToolButton>
         <GreyBar />
-        <ToolButton onClick={() => editor.chain().focus().toggleBlockquote().run()}>
+        <ToolButton tabIndex={-1} onClick={() => editor.chain().focus().toggleBlockquote().run()}>
           <QuoteIcon />
         </ToolButton>
-        <ToolButton onClick={() => editor.chain().focus().setHorizontalRule().run()}>
+        <ToolButton tabIndex={-1} onClick={() => editor.chain().focus().setHorizontalRule().run()}>
           <HorizonIcon />
         </ToolButton>
-        <ToolButton>
+        <ToolButton tabIndex={-1}>
           <ImageInputLabel>
             <input type="file" onChange={(event) => encodeFileToBase64(event, editor)}></input>
             <ImageIcon />
           </ImageInputLabel>
         </ToolButton>
 
-        <ToolButton onClick={() => setLink({ editor })} className={editor.isActive('link') ? 'is-active' : ''}>
+        <ToolButton
+          tabIndex={-1}
+          onClick={() => setLink({ editor })}
+          className={editor.isActive('link') ? 'is-active' : ''}>
           <LinkIcon />
         </ToolButton>
-        <ToolButton onClick={() => editor.chain().focus().toggleCodeBlock().run()}>
+        <ToolButton tabIndex={-1} onClick={() => editor.chain().focus().toggleCodeBlock().run()}>
           <CodeBlockIcon />
         </ToolButton>
       </IconWrapper>

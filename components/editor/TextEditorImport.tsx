@@ -283,7 +283,7 @@ const TextEditorBuild = (props: TextEditorBuildprops) => {
 
   // article page 저장시 내용 가지고 발행하기 페이지로 이동-> article최초 발행하기
   const handleOnClickArticlePublish = () => {
-    if (document === undefined) return;
+    if (!document) return;
     if (editor) {
       const content = document.querySelector('[contenteditable="true"]')!.innerHTML;
       setExtractedHTML(content);
@@ -423,13 +423,7 @@ const TextEditorBuild = (props: TextEditorBuildprops) => {
 
       {pageType === 'article' ? (
         <SaveEditorContentButton
-          handleOnClickDraft={
-            currentState === 'draft'
-              ? handleTempArticleDraft
-              : currentState === 'edit'
-              ? handleOnClickArticleDraft
-              : handleOnClickArticleDraft
-          }
+          handleOnClickDraft={currentState === 'draft' ? handleTempArticleDraft : handleOnClickArticleDraft}
           handleOnClickPublish={
             currentState === 'edit'
               ? handleUpdateGoArticlePublish
@@ -443,13 +437,7 @@ const TextEditorBuild = (props: TextEditorBuildprops) => {
         />
       ) : (
         <SaveEditorContentButton
-          handleOnClickDraft={
-            currentState === 'draft'
-              ? handleTempPageDraft
-              : currentState === 'edit'
-              ? handleOnClickPageDraft
-              : handleOnClickPageDraft
-          }
+          handleOnClickDraft={currentState === 'draft' ? handleTempPageDraft : handleOnClickPageDraft}
           handleOnClickPublish={
             currentState === 'edit'
               ? handleUpdateGoPagePublish
