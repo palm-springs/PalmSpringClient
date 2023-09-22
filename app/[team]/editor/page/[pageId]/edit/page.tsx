@@ -10,7 +10,7 @@ import { TextEditorStyle } from '@/styles/TextEditorStyle';
 
 const EditPagePage = () => {
   const { team, pageId } = useParams();
-  const updatePageEditContents = useGetUpdatePageContent(team, Number(pageId)); // number 값 pageId로 바꿀거이
+  const updatePageEditContents = useGetUpdatePageContent(team, Number(pageId));
 
   return (
     <AuthRequired>

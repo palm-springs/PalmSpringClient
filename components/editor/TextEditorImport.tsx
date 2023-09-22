@@ -19,8 +19,7 @@ import Placeholder from '@tiptap/extension-placeholder';
 import Strike from '@tiptap/extension-strike';
 import Text from '@tiptap/extension-text';
 import Underline from '@tiptap/extension-underline';
-import { Content, Editor, useEditor } from '@tiptap/react';
-import StarterKit from '@tiptap/starter-kit';
+import { Editor, useEditor } from '@tiptap/react';
 import js from 'highlight.js/lib/languages/javascript';
 import ts from 'highlight.js/lib/languages/typescript';
 import html from 'highlight.js/lib/languages/xml';
@@ -38,16 +37,11 @@ lowlight.registerLanguage('ts', ts);
 
 import { useRecoilState } from 'recoil';
 
-import { getUpdateArticleContent, postArticleList } from '@/api/article';
+import { postArticleList } from '@/api/article';
 import { postPageDraft } from '@/api/page';
 import TextEditor from '@/components/editor/TextEditor';
 import ToolBox from '@/components/editor/ui/ToolBox';
-import {
-  useGetUpdateArticleContent,
-  useUpdateArticleContent,
-  useUpdateTempArticleDraft,
-  useUpdateTempPageDraft,
-} from '@/hooks/editor';
+import { useUpdateTempArticleDraft, useUpdateTempPageDraft } from '@/hooks/editor';
 import { UpdateArticleProps } from '@/types/article';
 import { UpdatePageProps } from '@/types/page';
 import { getImageMultipartData } from '@/utils/getImageMultipartData';
@@ -81,7 +75,7 @@ const TextEditorBuild = (props: TextEditorBuildprops) => {
     console.log(imageArr);
   }, [imageArr]);
 
-  // tiptap 라이브러리 내장 에디터 관련 기능 extentions.
+  // tiptap 라이브러리 내장 에디터 관련 기능  extensions.
   const editor = useEditor({
     extensions: [
       Document,
@@ -231,7 +225,7 @@ const TextEditorBuild = (props: TextEditorBuildprops) => {
     }
   };
 
-  //article 임시저장시 임시저장put
+  //article 임시저장시 임시저장put --> article 임시저장 수정하기의 임시저장
   const handleTempArticleDraft = () => {
     if (editor) {
       const newContent = editor.getHTML();
@@ -287,9 +281,9 @@ const TextEditorBuild = (props: TextEditorBuildprops) => {
     }
   };
 
-  // article page 저장시 내용 가지고 발행하기 페이지로 이동
+  // article page 저장시 내용 가지고 발행하기 페이지로 이동-> article최초 발행하기
   const handleOnClickArticlePublish = () => {
-    if (document === undefined) return;
+    if (!document) return;
     if (editor) {
       const content = document.querySelector('[contenteditable="true"]')!.innerHTML;
       setExtractedHTML(content);
@@ -340,7 +334,7 @@ const TextEditorBuild = (props: TextEditorBuildprops) => {
         }));
       }
 
-      router.push(`/${team}/editor/article/${articleId}/publish`);
+      router.push(`/${team}/editor/article/${articleId}/edit/publish`);
     }
   };
 
@@ -366,9 +360,62 @@ const TextEditorBuild = (props: TextEditorBuildprops) => {
         }));
       }
 
-      router.push(`/${team}/editor/page/${pageId}/publish`);
+      router.push(`/${team}/editor/page/${pageId}/edit/publish`);
     }
   };
+
+  //article 임시저장 수정시 발행하기로 내용가지고 이동
+  const handleUpdateDraftArticlePublish = () => {
+    if (editor) {
+      const newContent = document.querySelector('[contenteditable="true"]')!.innerHTML;
+      setExtractedHTML(newContent);
+
+      if (imageArr.length === 0) {
+        setArticleData((prevData) => ({
+          ...prevData,
+          title: articleTitle,
+          content: newContent,
+          images: [],
+        }));
+      } else {
+        setArticleData((prevData) => ({
+          ...prevData,
+          title: articleTitle,
+          content: newContent,
+          images: imageArr,
+        }));
+      }
+
+      router.push(`/${team}/editor/article/${articleId}/draft/publish`);
+    }
+  };
+
+  //page 임시저장 수정시 발행하기로 내용가지고 이동
+  const handleUpdateDraftPagePublish = () => {
+    if (editor) {
+      const newContent = document.querySelector('[contenteditable="true"]')!.innerHTML;
+      setExtractedHTML(newContent);
+
+      if (imageArr.length === 0) {
+        setPageData((prevData) => ({
+          ...prevData,
+          title: pageTitle,
+          content: newContent,
+          images: [],
+        }));
+      } else {
+        setPageData((prevData) => ({
+          ...prevData,
+          title: pageTitle,
+          content: newContent,
+          images: imageArr,
+        }));
+      }
+
+      router.push(`/${team}/editor/page/${pageId}/draft/publish`);
+    }
+  };
+
   return (
     <>
       <ToolBox editor={editor} encodeFileToBase64={encodeFileToBase64} setLink={setLink} />
@@ -376,29 +423,28 @@ const TextEditorBuild = (props: TextEditorBuildprops) => {
 
       {pageType === 'article' ? (
         <SaveEditorContentButton
-          handleOnClickDraft={
-            currentState === 'draft'
-              ? handleTempArticleDraft
-              : currentState === 'edit'
-              ? handleOnClickArticleDraft
-              : handleOnClickArticleDraft
+          handleOnClickDraft={currentState === 'draft' ? handleTempArticleDraft : handleOnClickArticleDraft}
+          handleOnClickPublish={
+            currentState === 'edit'
+              ? handleUpdateGoArticlePublish
+              : currentState === 'draft'
+              ? handleUpdateDraftArticlePublish
+              : handleOnClickArticlePublish
           }
-          handleOnClickPublish={currentState === 'edit' ? handleUpdateGoArticlePublish : handleOnClickArticlePublish}
           isEdit={currentState === 'edit' ? true : false}
           articleData={articleData}
           pageType="article"
         />
       ) : (
         <SaveEditorContentButton
-          handleOnClickDraft={
-            //임시저장의 발행하기는 ? 어디임? -> 아 이거 어차피 넘김
-            currentState === 'draft'
-              ? handleTempPageDraft
-              : currentState === 'edit'
-              ? handleOnClickPageDraft
-              : handleOnClickPageDraft
+          handleOnClickDraft={currentState === 'draft' ? handleTempPageDraft : handleOnClickPageDraft}
+          handleOnClickPublish={
+            currentState === 'edit'
+              ? handleUpdateGoPagePublish
+              : currentState === 'draft'
+              ? handleUpdateDraftPagePublish
+              : handleOnClickPagePublish
           }
-          handleOnClickPublish={currentState === 'edit' ? handleUpdateGoPagePublish : handleOnClickPagePublish}
           isEdit={currentState === 'edit' ? true : false} // edit이 아닌 경우는 draft 경우임
           pageData={pageData}
           pageType="page"

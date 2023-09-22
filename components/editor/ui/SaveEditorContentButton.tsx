@@ -2,8 +2,8 @@
 
 import React, { useState } from 'react';
 import { toast, Toaster } from 'react-hot-toast';
-import { useParams, usePathname, useRouter } from 'next/navigation';
-import { useRecoilState, useRecoilValue } from 'recoil';
+import { useRouter } from 'next/navigation';
+import { useRecoilValue } from 'recoil';
 import styled from 'styled-components';
 
 import ModalPortal from '@/components/common/ModalPortal';
@@ -24,9 +24,9 @@ interface editorProps {
 }
 
 const SaveEditorContentButton = (props: editorProps) => {
-  const [isModal, setIsModal] = useState(false);
+  const [isModal, setIsModal] = useState(false); // 모달 보이고 안보이고
+  const [saved, setSaved] = useState(false); // 임시저장된 여부
   const { handleOnClickDraft, handleOnClickPublish, isEdit, pageType } = props;
-  const { team } = useParams();
   const router = useRouter();
 
   const articleData = useRecoilValue(articleDataState);
@@ -56,11 +56,16 @@ const SaveEditorContentButton = (props: editorProps) => {
   const handleDraftSaveButton = () => {
     handleOnClickDraft();
     notify();
+    setSaved(true); // 임시저장 버튼 누르면 저장 상태값 저장하기
   };
 
   const modalOpenHandler = () => {
-    setIsModal(!isModal);
-    document.body.style.overflow = 'hidden';
+    if (!saved) {
+      setIsModal(!isModal);
+      document.body.style.overflow = 'hidden';
+    } else {
+      router.back();
+    }
   };
 
   const modalCloseHandler = () => {
@@ -69,7 +74,7 @@ const SaveEditorContentButton = (props: editorProps) => {
   };
 
   const modalRealCloseHandler = () => {
-    router.push(`/${team}/dashboard/upload`);
+    router.back();
   };
 
   return (
