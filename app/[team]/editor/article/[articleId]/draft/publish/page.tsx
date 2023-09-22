@@ -35,7 +35,6 @@ const PublishContainer = styled.div`
   display: flex;
   align-items: center;
   justify-content: center;
-  /* width: 100vw; */
 `;
 
 const ArticlePublishContainer = styled.div`
@@ -45,5 +44,4 @@ const ArticlePublishContainer = styled.div`
   justify-content: center;
   padding: 8.1rem 45rem;
   width: 54rem;
-  /* height: 100vh; */
 `;

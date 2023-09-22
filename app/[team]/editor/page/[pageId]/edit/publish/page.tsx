@@ -13,7 +13,7 @@ import { useGetUpdatePageContent } from '@/hooks/editor';
 const PageEditPublishPage = () => {
   const { team, pageId } = useParams();
   const [isDuplicate, setIsDuplicate] = useState<boolean | null>(false);
-  const updatePageEditContents = useGetUpdatePageContent(team, Number(pageId)); // number 값 pageId로 바꿀거이
+  const updatePageEditContents = useGetUpdatePageContent(team, Number(pageId));
 
   return (
     <AuthRequired>

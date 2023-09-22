@@ -10,7 +10,7 @@ import { TextEditorStyle } from '@/styles/TextEditorStyle';
 
 const EditArticlePage = () => {
   const { team, articleId } = useParams();
-  const updateArticleEditContents = useGetUpdateArticleContent(team, Number(articleId)); // number 값 articleId로 바꿀거이
+  const updateArticleEditContents = useGetUpdateArticleContent(team, Number(articleId));
   return (
     <AuthRequired>
       <TextEditorStyle>

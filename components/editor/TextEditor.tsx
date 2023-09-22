@@ -32,8 +32,13 @@ const TextEditor = ({ editor, handleDragOver, handleDrop }: editorProps) => {
     };
   }, []);
   return (
-    <TouchContainer id="dropzone" onDrop={handleDrop} onDragOver={handleDragOver} style={{ height: 'fit-content' }}>
-      <EditorContainer>
+    <TouchContainer
+      tabIndex={-1}
+      id="dropzone"
+      onDrop={handleDrop}
+      onDragOver={handleDragOver}
+      style={{ height: 'fit-content' }}>
+      <EditorContainer tabIndex={-1}>
         <TextEditorUI editor={editor} $long={long} tabIndex={0} />
       </EditorContainer>
     </TouchContainer>
