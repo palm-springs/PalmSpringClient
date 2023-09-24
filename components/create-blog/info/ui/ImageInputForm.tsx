@@ -49,7 +49,7 @@ const ImageInputForm = (props: ImageInputFormProps) => {
         {type === 'thumbnail' && <span>대문 이미지 권장 크기는 1440*500 입니다</span>}
       </InputTitle>
 
-      <ImageContainer className={type}>
+      <ImageContainer className={type} isImgSrc={imgSrc ? true : false}>
         {imgSrc ? (
           <>
             <img src={imgSrc} alt={`${type} 이미지`} />
@@ -72,32 +72,33 @@ const ImageInputForm = (props: ImageInputFormProps) => {
 export default ImageInputForm;
 
 // img input 입력  컨테이너
-const ImageContainer = styled.div`
+const ImageContainer = styled.div<{ isImgSrc: boolean }>`
+  position: relative;
   margin-top: 0.8rem;
   cursor: pointer;
+
+  width: ${({ isImgSrc }) => (isImgSrc ? 'min-content' : '100%')};
   &.logo {
     height: 11.6rem;
   }
   &.thumbnail {
     height: 13.9rem;
+    object-fit: cover;
   }
 
   & > div {
-    width: 100%;
     height: 100%;
   }
 
   & > img {
     border-radius: 0.8rem;
     height: 100%;
-
-    object-fit: contain;
   }
 `;
 
 const CloseButton = styled.button`
-  position: relative;
-  right: 3.6rem;
+  position: absolute;
+  right: 1.2rem;
   width: 2.4rem;
   height: 2.4rem;
   &.logo {
