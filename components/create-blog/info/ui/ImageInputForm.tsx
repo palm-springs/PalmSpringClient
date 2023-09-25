@@ -49,7 +49,7 @@ const ImageInputForm = (props: ImageInputFormProps) => {
         {type === 'thumbnail' && <span>대문 이미지 권장 크기는 1440*500 입니다</span>}
       </InputTitle>
 
-      <ImageContainer className={type} isImgSrc={imgSrc ? true : false}>
+      <ImageContainer className={type} isImgSrc={!!imgSrc}>
         {imgSrc ? (
           <>
             <img src={imgSrc} alt={`${type} 이미지`} />
