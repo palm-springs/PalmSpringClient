@@ -36,9 +36,7 @@ const UserProfile = () => {
   return (
     <UserProfileContainer>
       <ProfileInputLabel>
-        <ImageGuideContainer>
-          <ImageGuideTitle>프로필 사진</ImageGuideTitle>
-        </ImageGuideContainer>
+        <ImageGuideTitle>프로필 사진</ImageGuideTitle>
 
         {thumbnail ? (
           <>
@@ -90,14 +88,8 @@ const UsersProfilesInput = styled(InputPlusButtonIcon)`
   left: 60.8rem;
 `;
 
-const ImageGuideContainer = styled.div`
-  display: flex;
-  align-items: center;
-  margin: 2.4rem 0 0.8rem 0;
-`;
-
 const ImageGuideTitle = styled.h1`
-  margin: -9rem 9.3rem 0 0;
+  margin-right: 9.3rem;
   ${({ theme }) => theme.fonts.Body2_Semibold};
   color: ${({ theme }) => theme.colors.grey_950};
 `;
