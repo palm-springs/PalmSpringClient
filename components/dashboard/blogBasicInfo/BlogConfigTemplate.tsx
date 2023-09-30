@@ -12,6 +12,10 @@ import BlogInfoDeleteButton from './BlogDeleteButton';
 import BlogDescribeText from './BlogDescribeText';
 import BlogLogoImage from './BlogLogoImage';
 import BlogMainImage from './BlogMainImge';
+import BlogMetaDataDesciption from './BlogMetaDataDescription';
+import BlogMetaDataDescription from './BlogMetaDataDescription';
+import BlogMetaDataImage from './BlogMetaDataImage';
+import BlogMetaDataTitle from './BlogMetaDataTitle';
 import BlogName from './BlogName';
 import BlogSubHeading from './BlogSubHeading';
 import BlogUrl from './BlogUrl';
@@ -162,6 +166,9 @@ const BlogConfigTemplate = () => {
           mainHeaderText={'메타데이터 설정'}
           subHeaderText={'카카오톡, 페이스북 등으로 블로그의 링크를 공유할 때 뜨는 제목, 설명, 이미지 정보입니다'}
         />
+        <BlogMetaDataImage />
+        <BlogMetaDataTitle />
+        <BlogMetaDataDescription />
         <BlogInfoDeleteButton />
         <BlogSaveButton type="button" disabled={blogConfig.blogName === ''} onClick={postBlogConfig}>
           저장하기

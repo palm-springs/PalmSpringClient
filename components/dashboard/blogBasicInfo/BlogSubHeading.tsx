@@ -23,15 +23,19 @@ const BlogSubHeading = ({ mainHeaderText, subHeaderText }: BlogSubHeadingProps) 
 export default BlogSubHeading;
 
 const MainHeaderText = styled.h3`
-  ${({ theme }) => theme.fonts.Heading3_Semibold};
   margin: 2.1rem 0 1.8rem;
+  ${({ theme }) => theme.fonts.Heading3_Semibold};
+  color: ${({ theme }) => theme.colors.grey_900};
 `;
 
 const SubHeaderText = styled.p`
+  ${({ theme }) => theme.fonts.Body1_Regular};
   margin: 0.6rem 0 3.1rem;
+  color: ${({ theme }) => theme.colors.grey_900};
 `;
 
 const FirstMainHeaderText = styled.h3`
   ${({ theme }) => theme.fonts.Heading3_Semibold};
   margin-top: 5.4rem;
+  color: ${({ theme }) => theme.colors.grey_900};
 `;
