@@ -15,6 +15,7 @@ import BlogMainImage from './BlogMainImge';
 import BlogMetaDataDesciption from './BlogMetaDataDescription';
 import BlogMetaDataDescription from './BlogMetaDataDescription';
 import BlogMetaDataImage from './BlogMetaDataImage';
+import MetaDataPreview from './BlogMetaDataPreview';
 import BlogMetaDataTitle from './BlogMetaDataTitle';
 import BlogName from './BlogName';
 import BlogSubHeading from './BlogSubHeading';
@@ -169,6 +170,7 @@ const BlogConfigTemplate = () => {
         <BlogMetaDataImage />
         <BlogMetaDataTitle />
         <BlogMetaDataDescription />
+        <MetaDataPreview />
         <BlogInfoDeleteButton />
         <BlogSaveButton type="button" disabled={blogConfig.blogName === ''} onClick={postBlogConfig}>
           저장하기
