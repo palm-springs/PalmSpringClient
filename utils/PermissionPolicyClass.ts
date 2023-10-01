@@ -1,9 +1,16 @@
 export type RoleType = '소유자' | '관리자' | '편집자';
 
-// <T extends boolean, S extends ((roles: RoleType[]) => T)>
-
 class PermissionPolicyChecker {
   private static instance: PermissionPolicyChecker;
+
+  // 싱글톤 패턴 적용
+  static getInstance(role: RoleType) {
+    if (!PermissionPolicyChecker.instance) {
+      PermissionPolicyChecker.instance = new PermissionPolicyChecker(role);
+    }
+    return PermissionPolicyChecker.instance;
+  }
+
   /**
    * 권한은 크게 두 종류로 나눌 수 있습니다.
    * 1. 해당 권한인 경우에만 가능한 것
@@ -11,21 +18,21 @@ class PermissionPolicyChecker {
    *
    * 이를 위해 메서드를 두 가지로 분리했습니다.
    */
-  private _role: RoleType;
+  private readonly _role: RoleType;
 
   constructor(role: RoleType) {
     this._role = role;
   }
 
   // 이 권한을 가진 경우만 가능합니다.
-  private eligible(roles: RoleType[]) {
+  private eligible = (roles: RoleType[]) => {
     return roles.includes(this._role);
-  }
+  };
 
   // 이 권한을 가진 경우만 불가능합니다.
-  private ineligible(roles: RoleType[]) {
+  private ineligible = (roles: RoleType[]) => {
     return !roles.includes(this._role);
-  }
+  };
 
   // 업로드된 글 삭제
   get deleteUploadedContent() {
@@ -70,14 +77,6 @@ class PermissionPolicyChecker {
   // 관리자 임명하기
   get appointManager() {
     return this.eligible(['소유자']);
-  }
-
-  // 싱글톤 패턴 적용
-  static getInstance(role: RoleType) {
-    if (!PermissionPolicyChecker.instance) {
-      PermissionPolicyChecker.instance = new PermissionPolicyChecker(role);
-    }
-    return PermissionPolicyChecker.instance;
   }
 }
 
