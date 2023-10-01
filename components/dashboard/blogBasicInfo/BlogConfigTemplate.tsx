@@ -6,6 +6,7 @@ import { styled } from 'styled-components';
 import { putBlogConfig } from '@/api/blog';
 import LoadingLottie from '@/components/common/ui/LoadingLottie';
 import { useGetBlogInfo } from '@/hooks/blog';
+import usePerMissionPolicy from '@/hooks/usePermissionPolicy';
 import { getImageMultipartData } from '@/utils/getImageMultipartData';
 
 import BlogInfoDeleteButton from './BlogDeleteButton';
@@ -26,6 +27,8 @@ const BlogConfigTemplate = () => {
   const { team } = useParams();
 
   const res = useGetBlogInfo(team);
+
+  const { modifyBlogInfo, deleteBlog } = usePerMissionPolicy();
 
   const [blogConfig, setBlogConfig] = useState<BlogConfigProps>({
     blogName: '블로그 이름을 불러오는 중입니다...',
@@ -121,6 +124,7 @@ const BlogConfigTemplate = () => {
       <BlogBasicInfoContainer>
         <BlogUrl blogUrl={res.data.url} />
         <BlogName
+          readonly={!modifyBlogInfo}
           blogName={blogConfig.blogName}
           setBlogName={(v) =>
             setBlogConfig((prev) => ({
@@ -130,6 +134,7 @@ const BlogConfigTemplate = () => {
           }
         />
         <BlogLogoImage
+          readonly={!modifyBlogInfo}
           setFile={(v) =>
             setBlogConfig((prev) => ({
               ...prev,
@@ -139,6 +144,7 @@ const BlogConfigTemplate = () => {
           file={blogConfig.blogLogoImage as string}
         />
         <BlogMainImage
+          readonly={!modifyBlogInfo}
           setFile={(v) =>
             setBlogConfig((prev) => ({
               ...prev,
@@ -148,6 +154,7 @@ const BlogConfigTemplate = () => {
           file={blogConfig.blogMainImage as string}
         />
         <BlogDescribeText
+          readonly={!modifyBlogInfo}
           describeText={blogConfig.blogDescribeText}
           setDescribeText={(v) =>
             setBlogConfig((prev) => ({
@@ -156,10 +163,12 @@ const BlogConfigTemplate = () => {
             }))
           }
         />
-        <BlogInfoDeleteButton />
-        <BlogSaveButton type="button" disabled={blogConfig.blogName === ''} onClick={postBlogConfig}>
-          저장하기
-        </BlogSaveButton>
+        {deleteBlog && <BlogInfoDeleteButton />}
+        {modifyBlogInfo && (
+          <BlogSaveButton type="button" disabled={blogConfig.blogName === ''} onClick={postBlogConfig}>
+            저장하기
+          </BlogSaveButton>
+        )}
       </BlogBasicInfoContainer>
     </>
   );
