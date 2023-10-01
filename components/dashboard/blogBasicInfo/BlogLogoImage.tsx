@@ -8,10 +8,11 @@ import { CloseIcon, UploadIcon } from '@/public/icons';
 interface BlogLogoImageProps {
   file: string;
   setFile: (v: File | null) => void;
+  readonly: boolean;
 }
 
 const BlogLogoImage = (props: BlogLogoImageProps) => {
-  const { file, setFile } = props;
+  const { file, setFile, readonly } = props;
 
   const [preLoadImg, setPreLoadImg] = useState<string>('');
 
@@ -29,6 +30,7 @@ const BlogLogoImage = (props: BlogLogoImageProps) => {
       </ImageGuideContainer>
       <BlogLogoUploadLabel>
         <input
+          readOnly={readonly}
           ref={inputImgRef}
           type="file"
           onChange={(e: ChangeEvent<HTMLInputElement>) => {

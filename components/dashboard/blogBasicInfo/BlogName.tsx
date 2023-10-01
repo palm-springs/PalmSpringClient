@@ -6,14 +6,15 @@ import styled from 'styled-components';
 interface BlogNameProps {
   blogName: string;
   setBlogName: (v: string) => void;
+  readonly: boolean;
 }
 
 const BlogName = (props: BlogNameProps) => {
-  const { blogName, setBlogName } = props;
+  const { blogName, setBlogName, readonly } = props;
   return (
     <BlogNameContainer>
       <BlogNameTitle>블로그 이름</BlogNameTitle>
-      <BlogNameText value={blogName} onChange={(e) => setBlogName(e.target.value)} />
+      <BlogNameText value={blogName} onChange={(e) => setBlogName(e.target.value)} readOnly={readonly} />
     </BlogNameContainer>
   );
 };
