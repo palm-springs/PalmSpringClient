@@ -1,4 +1,4 @@
-import React, { Dispatch, SetStateAction } from 'react';
+import { Dispatch, SetStateAction } from 'react';
 import { useRouter } from 'next/navigation';
 
 import LoadingLottie from '@/components/common/ui/LoadingLottie';
@@ -20,28 +20,32 @@ const BlogList = (props: BlogListProps) => {
 
   const router = useRouter();
 
+  if (!res) {
+    return (
+      <BlogListContainer>
+        <LoadingLottie width={4} height={4} />
+      </BlogListContainer>
+    );
+  }
+
   return (
     <BlogListContainer>
-      {res ? (
-        <>
-          {res.data.joinBlogList.map(({ name, url }, idx) => {
-            return (
-              <IndivBlog
-                isCurrentBlog={idx === currentBlog}
-                innerText={name}
-                key={name}
-                handleChange={() => {
-                  setCurrentBlog(idx);
-                  router.push(`/${url}/dashboard/upload`);
-                }}
-              />
-            );
-          })}
-          <MakeNewBlogContainer onClick={() => router.push('/create-blog')} />
-        </>
-      ) : (
-        <LoadingLottie width={4} height={4} />
-      )}
+      <>
+        {res.data.joinBlogList.map(({ name, url }, idx) => {
+          return (
+            <IndivBlog
+              isCurrentBlog={idx === currentBlog}
+              innerText={name}
+              key={name}
+              handleChange={() => {
+                setCurrentBlog(idx);
+                router.push(`/${url}/dashboard/upload`);
+              }}
+            />
+          );
+        })}
+        <MakeNewBlogContainer onClick={() => router.push('/create-blog')} />
+      </>
     </BlogListContainer>
   );
 };
