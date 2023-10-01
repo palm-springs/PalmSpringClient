@@ -77,7 +77,7 @@ export const useGetUserInfo = () => {
     if (!userValue && isSuccess) {
       setUserState({
         ...data.data,
-        role: '소유자',
+        role: '편집자',
       });
     }
   }, [isSuccess, data]);

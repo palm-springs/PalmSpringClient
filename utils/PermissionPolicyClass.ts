@@ -78,6 +78,10 @@ class PermissionPolicyChecker {
   get appointManager() {
     return this.eligible(['소유자']);
   }
+
+  get modifyBlogInfo() {
+    return this.eligible(['소유자', '관리자']);
+  }
 }
 
 export default PermissionPolicyChecker;
