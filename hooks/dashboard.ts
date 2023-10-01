@@ -1,4 +1,6 @@
+import { useEffect } from 'react';
 import { useMutation, useQuery, useQueryClient } from '@tanstack/react-query';
+import { useRecoilState } from 'recoil';
 
 import {
   deleteArticle,
@@ -18,6 +20,7 @@ import {
   updateNavigation,
   updateUserInfo,
 } from '@/api/dashboard';
+import userState from '@/recoil/atom/user';
 import { UserBasicInfo } from '@/types/user';
 
 import { QUERY_KEY_ARTICLE } from './editor';
@@ -66,7 +69,19 @@ export const useGetTempSavedList = (blogUrl: string) => {
 };
 
 export const useGetUserInfo = () => {
-  const { data } = useQuery([QUERY_KEY_DASHBOARD.getUserInfo], () => getUserInfo());
+  const { data, isSuccess } = useQuery([QUERY_KEY_DASHBOARD.getUserInfo], () => getUserInfo());
+
+  const [userValue, setUserState] = useRecoilState(userState);
+
+  useEffect(() => {
+    if (!userValue && isSuccess) {
+      setUserState({
+        ...data.data,
+        role: '관리자',
+      });
+    }
+  }, [isSuccess, data]);
+
   return data;
 };
 
