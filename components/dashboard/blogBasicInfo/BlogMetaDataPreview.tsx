@@ -30,8 +30,8 @@ const MetaDataPreview = () => {
 export default MetaDataPreview;
 
 const PreviewHeader = styled.h1`
-  color: ${({ theme }) => theme.colors.dimmed};
   ${({ theme }) => theme.mobileFonts.Button};
+  color: ${({ theme }) => theme.colors.dimmed};
 `;
 
 const MetaDataPreviewContainer = styled.div`
@@ -57,8 +57,8 @@ const PreviewBlogUrl = styled.p`
 `;
 
 const PreviewDescription = styled.p`
-  margin-top: 1.5rem;
   ${({ theme }) => theme.fonts.Body2_Regular};
+  margin-top: 1.5rem;
   width: 22.8rem;
   overflow: hidden;
   text-overflow: ellipsis;

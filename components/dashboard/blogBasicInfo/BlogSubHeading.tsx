@@ -8,23 +8,21 @@ interface BlogSubHeadingProps {
 }
 
 const BlogSubHeading = ({ mainHeaderText, subHeaderText }: BlogSubHeadingProps) => {
-  if (subHeaderText) {
-    return (
-      <>
-        <FirstMainHeaderText>{mainHeaderText}</FirstMainHeaderText>
-        <SubHeaderText>{subHeaderText}</SubHeaderText>
-      </>
-    );
-  } else {
-    return <MainHeaderText>{mainHeaderText}</MainHeaderText>;
-  }
+  return subHeaderText ? (
+    <>
+      <FirstMainHeaderText>{mainHeaderText}</FirstMainHeaderText>
+      <SubHeaderText>{subHeaderText}</SubHeaderText>
+    </>
+  ) : (
+    <MainHeaderText>{mainHeaderText}</MainHeaderText>
+  );
 };
 
 export default BlogSubHeading;
 
 const MainHeaderText = styled.h3`
-  margin: 2.1rem 0 1.8rem;
   ${({ theme }) => theme.fonts.Heading3_Semibold};
+  margin: 2.1rem 0 1.8rem;
   color: ${({ theme }) => theme.colors.grey_900};
 `;
 
