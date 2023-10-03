@@ -1,5 +1,5 @@
 'use client';
-import { useRef, useState } from 'react';
+import { Dispatch, SetStateAction, useRef, useState } from 'react';
 import styled from 'styled-components';
 
 import { emailData } from '@/types/member';
@@ -11,12 +11,13 @@ interface AddMemberFormProps {
   height: string;
   paddingUD: string;
   paddingLR: string;
+  emailList: emailData[];
+  setEmailList: Dispatch<SetStateAction<emailData[]>>;
 }
 
 const AddMemberForm = (props: AddMemberFormProps) => {
-  const { width, height, paddingUD, paddingLR } = props;
+  const { width, height, paddingUD, paddingLR, emailList, setEmailList } = props;
 
-  const [emailList, setEmailList] = useState<emailData[]>([]);
   const [isError, setIsError] = useState(false);
 
   const emailInputRef = useRef<HTMLInputElement>(null);
@@ -66,6 +67,7 @@ const AddMemberFormContainer = styled.div<{
   $paddingUD: string;
   $paddingLR: string;
 }>`
+  margin-top: 0.8rem;
   border: 1px solid ${({ theme }) => theme.colors.grey_500};
   border-radius: 0.8rem;
 

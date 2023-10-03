@@ -6,6 +6,7 @@ import styled from 'styled-components';
 
 import { postCreateBlog } from '@/api/blog';
 import AddMemberForm from '@/components/common/ui/AddMemberForm';
+import { emailData } from '@/types/member';
 
 import { createBlogDataState, progressState } from '../../states/atom';
 
@@ -13,6 +14,8 @@ const CreateMemberLanding = () => {
   const [containerState, setContainerState] = useState('');
   const [progress, setProgress] = useRecoilState(progressState);
   const [blogData, setBlogData] = useRecoilState(createBlogDataState);
+
+  const [emailList, setEmailList] = useState<emailData[]>([]);
 
   const router = useRouter();
 
@@ -45,7 +48,14 @@ const CreateMemberLanding = () => {
           <span>팀원의 이메일을 입력하세요 </span>
           <span>쉼표, 엔터, 스페이스바로 메일 주소를 구분할 수 있습니다</span>
         </SubTitleContainer>
-        <AddMemberForm width={'40'} height={'17.2'} paddingUD={'2'} paddingLR={'2.4'} />
+        <AddMemberForm
+          width={'40'}
+          height={'17.2'}
+          paddingUD={'2'}
+          paddingLR={'2.4'}
+          emailList={emailList}
+          setEmailList={setEmailList}
+        />
         <ButtonContainer>
           <PreviousButton type="button" onClick={() => setProgress(-2)}>
             이전으로
@@ -118,7 +128,7 @@ const SubTitleContainer = styled.div`
   display: flex;
   flex-direction: column;
   align-items: center;
-  margin-bottom: 3.2rem;
+  margin-bottom: 2.3rem;
 
   & > span {
     ${({ theme }) => theme.fonts.Body2_Regular};

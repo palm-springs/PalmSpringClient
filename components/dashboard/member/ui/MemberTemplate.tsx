@@ -9,6 +9,7 @@ import ModalPortal from '@/components/common/ModalPortal';
 import AddMemberForm from '@/components/common/ui/AddMemberForm';
 import DashboardCreateModal from '@/components/common/ui/DashboardCreateModal';
 import { useGetMemberInfo } from '@/hooks/dashboard';
+import { emailData } from '@/types/member';
 
 import Line from '../../components/ui/Line';
 import { dashBoardModalState } from '../../state/modalState';
@@ -19,7 +20,7 @@ import MemberListHeader from './MemberListHeader';
 const MemberTemplate = () => {
   const [modalState, setModalState] = useRecoilState(dashBoardModalState);
 
-  const [emailBox, setEmailBox] = useState<string[]>([]);
+  const [emailList, setEmailList] = useState<emailData[]>([]);
 
   const { team } = useParams();
 
@@ -45,14 +46,14 @@ const MemberTemplate = () => {
                 setModalState('');
               }}
               onModalCloseBtnClick={() => setModalState('')}
-              disabled={emailBox.length === 0}>
+              disabled={emailList.length === 0}>
               <AddMemberForm
-                emailBox={emailBox}
-                setEmailBox={setEmailBox}
                 width={'40'}
                 height={'9.8'}
                 paddingLR="1.2"
                 paddingUD="1.2"
+                emailList={emailList}
+                setEmailList={setEmailList}
               />
             </DashboardCreateModal>
           </ModalPortal>
