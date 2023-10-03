@@ -10,13 +10,14 @@ import EmailBox from './EmailBox';
 interface AddMemberInputProps {
   emailInputRef: RefObject<HTMLInputElement>;
   setIsError: Dispatch<SetStateAction<boolean>>;
+  emailList: emailData[];
+  setEmailList: Dispatch<SetStateAction<emailData[]>>;
 }
 
 const AddMemberInput = (props: AddMemberInputProps) => {
-  const { emailInputRef, setIsError } = props;
+  const { emailInputRef, setIsError, emailList, setEmailList } = props;
 
   const [emailValue, setEmailValue] = useState('');
-  const [emailList, setEmailList] = useState<emailData[]>([]);
 
   // 입력된 값의 구분 key 여부
   const isDivisionKey = useRef(false);

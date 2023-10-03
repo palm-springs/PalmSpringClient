@@ -2,6 +2,8 @@
 import { useRef, useState } from 'react';
 import styled from 'styled-components';
 
+import { emailData } from '@/types/member';
+
 import AddMemberInput from './AddMemberInput';
 
 interface AddMemberFormProps {
@@ -13,11 +15,20 @@ interface AddMemberFormProps {
 
 const AddMemberForm = (props: AddMemberFormProps) => {
   const { width, height, paddingUD, paddingLR } = props;
+
+  const [emailList, setEmailList] = useState<emailData[]>([]);
   const [isError, setIsError] = useState(false);
+
   const emailInputRef = useRef<HTMLInputElement>(null);
 
   const handleOnClick = () => {
     emailInputRef.current && emailInputRef.current.focus();
+  };
+
+  const removeAllError = () => {
+    const newEmailList = emailList.filter(({ verification }) => !!verification);
+    setEmailList(newEmailList);
+    setIsError(false);
   };
 
   return (
@@ -28,13 +39,18 @@ const AddMemberForm = (props: AddMemberFormProps) => {
         $paddingUD={paddingUD}
         $paddingLR={paddingLR}
         onClick={handleOnClick}>
-        <AddMemberInput emailInputRef={emailInputRef} setIsError={setIsError} />
+        <AddMemberInput
+          emailInputRef={emailInputRef}
+          setIsError={setIsError}
+          emailList={emailList}
+          setEmailList={setEmailList}
+        />
       </AddMemberFormContainer>
       <ErrorContainer>
         {isError && (
           <>
             <ErrorMsg> 올바른 이메일 형식을 입력해주세요.</ErrorMsg>
-            <RemoveErrorButton>오류 제거하기</RemoveErrorButton>
+            <RemoveErrorButton onClick={removeAllError}>오류 제거하기</RemoveErrorButton>
           </>
         )}
       </ErrorContainer>
