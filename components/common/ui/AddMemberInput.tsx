@@ -2,18 +2,21 @@
 import { ChangeEvent, Dispatch, KeyboardEvent, RefObject, SetStateAction, useRef, useState } from 'react';
 import styled from 'styled-components';
 
+import { emailData } from '@/types/member';
+import checkEmailForm from '@/utils/checkEmailForm';
+
 import EmailBox from './EmailBox';
 
 interface AddMemberInputProps {
-  emailBox: string[];
-  setEmailBox: Dispatch<SetStateAction<string[]>>;
   emailInputRef: RefObject<HTMLInputElement>;
+  setIsError: Dispatch<SetStateAction<boolean>>;
 }
 
 const AddMemberInput = (props: AddMemberInputProps) => {
-  const { emailBox: emailList, setEmailBox: setEmailList, emailInputRef } = props;
+  const { emailInputRef, setIsError } = props;
 
   const [emailValue, setEmailValue] = useState('');
+  const [emailList, setEmailList] = useState<emailData[]>([]);
 
   // 입력된 값의 구분 key 여부
   const isDivisionKey = useRef(false);
@@ -35,8 +38,10 @@ const AddMemberInput = (props: AddMemberInputProps) => {
     if (key === 'Enter' || key === ' ' || key === ',') {
       isDivisionKey.current = true;
       if (emailValue !== '') {
-        setEmailList([...emailList, emailValue]);
+        const newEmailList = [...emailList, { emailValue, verification: checkEmailForm(emailValue) }];
+        setEmailList(newEmailList);
         setEmailValue('');
+        setIsError(!newEmailList.find(({ verification }) => !verification) ? false : true);
       }
     }
   };
@@ -45,12 +50,19 @@ const AddMemberInput = (props: AddMemberInputProps) => {
   const handleCloseClick = (targetIdx: number) => {
     const newEmailList = emailList.filter((_, idx) => idx !== targetIdx);
     setEmailList(newEmailList);
+    setIsError(!newEmailList.find(({ verification }) => !verification) ? false : true);
   };
 
-  /** email 중복 입력이 안된다는 가정 하에 구현 */
   // 입력된 email 렌더링
-  const EmailBoxList = emailList.map((email, idx) => {
-    return <EmailBox key={`${email}_${idx}`} email={email} handleCloseClick={() => handleCloseClick(idx)} />;
+  const EmailBoxList = emailList.map((emailData, idx) => {
+    return (
+      <EmailBox
+        key={`${emailData.emailValue}_${idx}`}
+        emailData={emailData}
+        idx={idx}
+        handleCloseClick={handleCloseClick}
+      />
+    );
   });
 
   return (
