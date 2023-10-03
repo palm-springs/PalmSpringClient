@@ -77,21 +77,29 @@ const ImageContainer = styled.div<{ isImgSrc: boolean }>`
   margin-top: 0.8rem;
   cursor: pointer;
 
-  width: ${({ isImgSrc }) => (isImgSrc ? 'min-content' : '100%')};
-  &.logo {
-    height: 11.6rem;
-  }
-  &.thumbnail {
-    height: 13.9rem;
-    object-fit: cover;
-  }
-
-  & > div {
-    height: 100%;
-  }
+  width: ${({ isImgSrc }) => (isImgSrc ? 'min-content' : '40rem')};
 
   & > img {
     border-radius: 0.8rem;
+  }
+
+  &.logo {
+    height: 11.6rem;
+    & > img {
+      max-width: 40rem;
+      max-height: 100%;
+      object-fit: contain;
+    }
+  }
+  &.thumbnail {
+    height: 13.9rem;
+    & > img {
+      width: 40rem;
+      height: 100%;
+    }
+  }
+
+  & > div {
     height: 100%;
   }
 `;
