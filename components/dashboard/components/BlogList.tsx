@@ -28,10 +28,12 @@ const BlogList = (props: BlogListProps) => {
     );
   }
 
+  const userData = res.data;
+
   return (
     <BlogListContainer>
       <>
-        {res.data.joinBlogList.map(({ name, url }, idx) => {
+        {userData.joinBlogList.map(({ name, url }, idx) => {
           return (
             <IndivBlog
               isCurrentBlog={idx === currentBlog}
