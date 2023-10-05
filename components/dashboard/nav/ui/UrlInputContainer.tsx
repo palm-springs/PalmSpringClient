@@ -51,12 +51,16 @@ const UrlInputUI = styled.button`
     }
   }
   input {
+    ${({ theme }) => theme.fonts.Body2_Regular};
     border: 1px solid ${({ theme }) => theme.colors.grey_400};
     border-radius: 0.8rem;
     cursor: pointer;
     padding: 1rem 1.2rem;
     width: 100%;
     height: 3.75rem;
+    &::placeholder {
+      color: ${({ theme }) => theme.colors.grey_600};
+    }
   }
 `;
 

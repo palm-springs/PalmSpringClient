@@ -34,8 +34,8 @@ const ModalPortalUI = styled.article`
   flex-direction: column;
   margin-bottom: 2rem;
   width: 100%;
-  height: 4.6rem;
   span {
+    margin-top: 1.2rem;
     margin-bottom: 0.8rem;
     ${({ theme }) => theme.fonts.Body2_Semibold};
     color: ${({ theme }) => theme.colors.grey_900};

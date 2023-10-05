@@ -32,7 +32,7 @@ const DashboardCreateModal = ({
         </MainHeaderContainer>
         {subText && <SubText>{subText}</SubText>}
         {children}
-        <RightBottomButton disabled={disabled} onClick={buttonHandler}>
+        <RightBottomButton disabled={disabled} onClick={buttonHandler} $isInvitation={buttonText === '초대하기'}>
           {buttonText}
         </RightBottomButton>
       </ModalWrapper>
@@ -42,9 +42,9 @@ const DashboardCreateModal = ({
 
 export default DashboardCreateModal;
 
-const RightBottomButton = styled.button<{ disabled: boolean }>`
+const RightBottomButton = styled.button<{ disabled: boolean; $isInvitation: boolean }>`
   align-self: flex-end;
-  margin-top: 2.4rem;
+  margin-top: ${({ $isInvitation }) => ($isInvitation ? '0' : '2.4rem')};
   ${({ theme }) => theme.fonts.Button_large};
   margin-left: 1.6rem;
   border-radius: 0.8rem;
@@ -67,7 +67,6 @@ const ModalCloseBtn = styled(IcClose24Icon)`
 `;
 
 const MainText = styled.h3`
-  margin-bottom: 1.2rem;
   ${({ theme }) => theme.fonts.Heading3_Semibold};
   color: ${({ theme }) => theme.colors.grey_900};
 `;
