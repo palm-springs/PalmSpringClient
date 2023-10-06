@@ -6,3 +6,8 @@ export interface MemberProps {
   role: string;
   thumbnail: string;
 }
+
+export interface emailData {
+  emailValue: string;
+  verification: boolean;
+}

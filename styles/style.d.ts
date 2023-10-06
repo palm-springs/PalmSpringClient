@@ -28,6 +28,7 @@ declare module 'styled-components' {
       red: string;
       red_hover: string;
       background_red: string;
+      red_alpha_20: string;
     };
     fonts: {
       Title: SerializedStyles;

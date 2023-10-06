@@ -27,6 +27,7 @@ const colors = {
   red: '#FF5454',
   red_hover: '#D45858',
   background_red: 'rgba(255, 84, 84, 0.30)',
+  red_alpha_20: 'rgba(255, 84, 84, 0.30)',
 };
 
 const fonts = {

@@ -2,19 +2,25 @@
 import styled from 'styled-components';
 
 import { CloseIcon } from '@/public/icons';
+import { emailData } from '@/types/member';
 
 interface EmailBoxProps {
-  email: string;
-  handleCloseClick: (email: string) => void;
+  emailData: emailData;
+  idx: number;
+  handleCloseClick: (targetIdx: number) => void;
 }
 
 const EmailBox = (props: EmailBoxProps) => {
-  const { email, handleCloseClick } = props;
+  const {
+    emailData: { emailValue, verification },
+    idx,
+    handleCloseClick,
+  } = props;
 
   return (
-    <EmailBoxContainer>
-      <div>{email}</div>
-      <CloseButton type="button" onClick={() => handleCloseClick(email)}>
+    <EmailBoxContainer verification={verification}>
+      <div>{emailValue}</div>
+      <CloseButton type="button" onClick={() => handleCloseClick(idx)}>
         <CloseIcon />
       </CloseButton>
     </EmailBoxContainer>
@@ -23,13 +29,13 @@ const EmailBox = (props: EmailBoxProps) => {
 
 export default EmailBox;
 
-const EmailBoxContainer = styled.div`
+const EmailBoxContainer = styled.div<{ verification: boolean }>`
   display: flex;
   position: relative;
   align-items: center;
 
   border-radius: 0.8rem;
-  background-color: ${({ theme }) => theme.colors.grey_300};
+  background-color: ${({ theme, verification }) => (verification ? theme.colors.grey_300 : theme.colors.red_alpha_20)};
 
   padding: 0.7rem 2.9rem 0.7rem 1rem;
 
