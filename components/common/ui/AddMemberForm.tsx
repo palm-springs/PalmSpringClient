@@ -27,7 +27,7 @@ const AddMemberForm = (props: AddMemberFormProps) => {
   };
 
   const removeAllError = () => {
-    const newEmailList = emailList.filter(({ verification }) => !!verification);
+    const newEmailList = emailList.filter(({ verification }) => verification);
     setEmailList(newEmailList);
     setIsError(false);
   };
@@ -90,12 +90,12 @@ const ErrorContainer = styled.div`
   height: 2.4rem;
 `;
 
-const ErrorMsg = styled.div`
+const ErrorMsg = styled.span`
   ${({ theme }) => theme.fonts.Caption};
   color: ${({ theme }) => theme.colors.red};
 `;
 
-const RemoveErrorButton = styled.div`
+const RemoveErrorButton = styled.button`
   ${({ theme }) => theme.fonts.Caption};
   cursor: pointer;
   text-decoration: underline;
