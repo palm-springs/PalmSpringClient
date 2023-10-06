@@ -13,6 +13,7 @@ export const getImageMultipartData = async (value: File) => {
 export const getContentImageMultipartData = async (value: File, blogUrl: string) => {
   const formData = new FormData();
   formData.append('image', value);
+  formData.append('blogUrl', blogUrl);
 
   const { data } = await uploadContentImage(blogUrl, formData);
   return data;

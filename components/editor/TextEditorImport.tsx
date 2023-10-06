@@ -44,7 +44,7 @@ import ToolBox from '@/components/editor/ui/ToolBox';
 import { useUpdateTempArticleDraft, useUpdateTempPageDraft } from '@/hooks/editor';
 import { UpdateArticleProps } from '@/types/article';
 import { UpdatePageProps } from '@/types/page';
-import { getImageMultipartData } from '@/utils/getImageMultipartData';
+import { getContentImageMultipartData } from '@/utils/getImageMultipartData';
 
 import { articleDataState, pageDataState } from './states/atom';
 
@@ -128,7 +128,7 @@ const TextEditorBuild = (props: TextEditorBuildprops) => {
       return null;
     }
     const file = files[0];
-    const imgUrl = (await getImageMultipartData(file)) as string;
+    const imgUrl = (await getContentImageMultipartData(file, team)) as string;
     setImageArr((prev) => [...prev, imgUrl]);
 
     const reader = new FileReader();
@@ -172,7 +172,7 @@ const TextEditorBuild = (props: TextEditorBuildprops) => {
       const files = event.dataTransfer.files;
       if (files.length > 0) {
         const file = files[0];
-        const imgUrl = await getImageMultipartData(file);
+        const imgUrl = await getContentImageMultipartData(file, team);
         imageArr.push(imgUrl);
 
         editor.chain().focus().setImage({ src: imgUrl }).run(); // 이미지를 에디터에 삽입
