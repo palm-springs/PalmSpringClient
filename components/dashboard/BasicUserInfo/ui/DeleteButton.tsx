@@ -5,6 +5,7 @@ import styled from 'styled-components';
 import { updateWithdrawPlatform, updateWithdrawTeam } from '@/api/user';
 import ModalPortal from '@/components/common/ModalPortal';
 import DashboardDeleteModal from '@/components/common/ui/DashboardDeleteModal';
+import usePerMissionPolicy from '@/hooks/usePermissionPolicy';
 
 const DeleteButton = () => {
   const { team } = useParams();
@@ -12,6 +13,8 @@ const DeleteButton = () => {
 
   const [isModalOpen, setIsModalOpen] = useState(false);
   const [modalType, setModalType] = useState('');
+
+  const { withdrawPalmSpring, resignCurrentTeam } = usePerMissionPolicy();
 
   // 팜스프링 탈퇴 함수
   const handleWithdrawPlatform = async () => {
@@ -57,12 +60,16 @@ const DeleteButton = () => {
           />
         </ModalPortal>
       )}
-      <LeavingPalms type="button" onClick={() => handleModalType('platform')}>
-        팜스프링 탈퇴하기
-      </LeavingPalms>
-      <LeavingBlog type="button" onClick={() => handleModalType('team')}>
-        블로그에서 나가기
-      </LeavingBlog>
+      {withdrawPalmSpring && (
+        <LeavingPalms type="button" onClick={() => handleModalType('platform')}>
+          팜스프링 탈퇴하기
+        </LeavingPalms>
+      )}
+      {resignCurrentTeam && (
+        <LeavingBlog type="button" onClick={() => handleModalType('team')}>
+          블로그에서 나가기
+        </LeavingBlog>
+      )}
     </DeleteButtonContainer>
   );
 };

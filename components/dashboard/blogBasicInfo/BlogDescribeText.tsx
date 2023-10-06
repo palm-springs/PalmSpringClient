@@ -5,10 +5,11 @@ import styled from 'styled-components';
 interface BlogDescribeTextProps {
   describeText: string;
   setDescribeText: (v: string) => void;
+  readonly: boolean;
 }
 
 const BlogDescribeText = (props: BlogDescribeTextProps) => {
-  const { describeText, setDescribeText } = props;
+  const { describeText, setDescribeText, readonly } = props;
 
   const getCurInputTextLineCnt = useCallback((text: string) => {
     const lines = text?.split(/\r|\r\n|\n/);
@@ -25,6 +26,7 @@ const BlogDescribeText = (props: BlogDescribeTextProps) => {
         <BlogDescribeContent>메인 홈에 나타나는 설명입니다.</BlogDescribeContent>
       </BlogDescribeTitleContainer>
       <BlogDescribeTextarea
+        readOnly={readonly}
         $isScrollable={isScrollable}
         value={describeText}
         onChange={(e) => setDescribeText(e.target.value)}

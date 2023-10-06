@@ -1,3 +1,5 @@
+import { RoleType } from '@/utils/PermissionPolicyClass';
+
 export interface UserInfoProps {
   name: string;
   email: string;
@@ -6,6 +8,7 @@ export interface UserInfoProps {
     name: string;
     url: string;
   }>;
+  role: RoleType;
 }
 
 export interface UserBasicInfo {
