@@ -210,9 +210,6 @@ const TextEditorBuild = (props: TextEditorBuildprops) => {
       const content = editor.getHTML();
       setExtractedHTML(content);
 
-      console.log(imageArr);
-      console.log(imageArr.length);
-
       if (imageArr.length === 0) {
         postPageDraft(team, { title: pageTitle, content, images: [] });
       } else {
