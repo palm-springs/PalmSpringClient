@@ -7,6 +7,7 @@ import { useResetRecoilState } from 'recoil';
 import { accessTokenState } from '@/components/auth/states/atom';
 import LoadingLottie from '@/components/common/ui/LoadingLottie';
 import { useGetUserInfo } from '@/hooks/dashboard';
+import userState from '@/recoil/atom/user';
 
 import DashBoardFooterContainer from './ui/DashBoardFooterContainer';
 import DashBoardProfileContainer from './ui/DashBoardProfileContainer';
@@ -16,6 +17,7 @@ import DashBoardNavBtn from './DashBoardNavBtn';
 const DashBoardFooter = () => {
   const [isPopOverMenuOpen, setIsPopOverMenuOpen] = useState<boolean>(false);
   const resetAccessToken = useResetRecoilState(accessTokenState);
+  const resetUserState = useResetRecoilState(userState);
   const sessionStorage = typeof window !== 'undefined' ? window.sessionStorage : undefined;
 
   const router = useRouter();
@@ -26,6 +28,7 @@ const DashBoardFooter = () => {
 
   const handleLogOut = () => {
     resetAccessToken();
+    resetUserState();
     sessionStorage?.removeItem('userToken');
     router.push('/auth');
   };
