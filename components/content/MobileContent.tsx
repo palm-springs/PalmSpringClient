@@ -25,6 +25,6 @@ export default MobileContent;
 const ContentContainer = styled.section`
   position: relative !important;
 
-  margin-top: 8.4rem;
+  margin-top: 4rem;
   width: calc(100vw - 4rem);
 `;

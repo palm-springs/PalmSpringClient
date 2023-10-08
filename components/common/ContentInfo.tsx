@@ -64,9 +64,9 @@ const ContentInfo = (props: ContentInfoProps) => {
         )}
         {name && (
           <WriterBox>
-            <WriterInfo href={`/${team}/author/${id}`}>
+            <WriterInfo href={`/${team}/author/${id}`} className="mobile">
               {thumbnail ? <WriterProfilePic src={thumbnail} alt="writer profile pic" /> : <NoUserProfileIcon />}
-              <WriterDetailBox>
+              <WriterDetailBox className="mobile">
                 <WriterNameBox>
                   <WriterDetail className="mobile">{name}</WriterDetail>
                   <WriterDetail className="mobile">&nbsp;·&nbsp;{job}</WriterDetail>
@@ -210,12 +210,20 @@ const WriterInfo = styled(Link)`
   justify-content: flex-start;
 
   width: 100%;
+
+  &.mobile {
+    gap: 0.8rem;
+  }
 `;
 
 const WriterDetailBox = styled.div`
   display: flex;
   flex-direction: column;
   align-items: flex-start;
+
+  &.mobile {
+    gap: 0.1rem;
+  }
 `;
 
 const WriterDetail = styled.div`

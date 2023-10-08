@@ -110,7 +110,7 @@ const CategoryBtn = styled(Link)`
 `;
 
 const MobileCategoryBtn = styled(Link)`
-  ${({ theme }) => theme.mobileFonts.Body2_Semibold};
+  ${({ theme }) => theme.mobileFonts.Body2_Regular};
 
   display: flex;
   align-items: center;

@@ -19,7 +19,7 @@ const AuthorInfo = (props: AuthorInfoComponentProps) => {
   });
 
   return (
-    <AuthorInfoContainer>
+    <AuthorInfoContainer className={MOBILE ? 'mobile' : ''}>
       <AuthorProfile src={thumbnail} alt="author profile pic" />
       <AuthorName className={MOBILE ? 'mobile' : ''}>{nickname}</AuthorName>
       <AuthorPosition className={MOBILE ? 'mobile' : ''}>{job}</AuthorPosition>
@@ -37,6 +37,10 @@ const AuthorInfoContainer = styled.div`
   justify-content: center;
 
   margin-top: 6rem;
+
+  &.mobile {
+    margin-top: 4rem;
+  }
 `;
 
 const AuthorProfile = styled.img`
@@ -52,6 +56,7 @@ const AuthorName = styled.div`
 
   &.mobile {
     ${({ theme }) => theme.mobileFonts.Title1};
+    margin-top: 1.6rem;
   }
 `;
 
@@ -61,6 +66,7 @@ const AuthorPosition = styled.div`
 
   &.mobile {
     ${({ theme }) => theme.mobileFonts.Title2};
+    font-weight: 400;
   }
 `;
 
@@ -74,5 +80,6 @@ const AuthorDescription = styled.div`
 
   &.mobile {
     ${({ theme }) => theme.mobileFonts.Body2_Regular};
+    margin-top: 1.2rem;
   }
 `;
