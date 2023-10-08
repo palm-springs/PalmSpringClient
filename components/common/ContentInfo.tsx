@@ -172,7 +172,7 @@ const TitleBox = styled.article`
   display: flex;
   justify-content: flex-start;
 
-  margin: 3.2rem 0 1.2rem;
+  margin: 3.2rem 0 0.8rem;
   width: 100%;
 
   overflow: hidden;
@@ -205,7 +205,7 @@ const DescriptionBox = styled.article`
 
 const WriterInfo = styled(Link)`
   display: flex;
-  gap: 2rem;
+  gap: 1.6rem;
   align-items: center;
   justify-content: flex-start;
 
@@ -215,7 +215,6 @@ const WriterInfo = styled(Link)`
 const WriterDetailBox = styled.div`
   display: flex;
   flex-direction: column;
-  gap: 0.4rem;
   align-items: flex-start;
 `;
 

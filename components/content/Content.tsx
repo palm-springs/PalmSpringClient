@@ -25,7 +25,6 @@ export default Content;
 const ContentContainer = styled.section`
   position: relative !important;
 
-  margin-top: 8.4rem;
-  padding: 0 2.4rem;
+  margin-top: 6rem;
   width: 72rem;
 `;
