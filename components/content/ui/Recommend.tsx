@@ -39,7 +39,7 @@ const RecommendContainer = styled.section`
     display: flex;
     flex-direction: column;
     align-items: center;
-    margin-top: 8rem;
+    margin-top: 4rem;
     padding: 0 2.4rem;
     width: 100%;
   }
@@ -56,7 +56,7 @@ const RecommendTitle = styled.div`
   color: ${({ theme }) => theme.colors.grey_900};
 
   &.mobile {
-    ${({ theme }) => theme.mobileFonts.Markdown_H2};
+    ${({ theme }) => theme.mobileFonts.Title3};
     margin-bottom: 2.2rem;
 
     width: 100%;

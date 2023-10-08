@@ -124,7 +124,7 @@ const ContentPageContainer = styled.section`
   display: flex;
   flex-direction: column;
   align-items: center;
-  margin: 11.8rem 36rem;
+  margin: 12rem 36rem;
 
   &.mobile {
     margin: 0;
@@ -143,7 +143,7 @@ const LinkBtn = styled.button`
   border-radius: 0.8rem;
   background-color: ${({ theme }) => theme.colors.grey_200};
   padding: 1rem 2rem;
-  height: 3.2rem;
+  height: 3.6rem;
 
   color: ${({ theme }) => theme.colors.grey_900};
 

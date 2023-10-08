@@ -1,7 +1,6 @@
 import { useRouter } from 'next/navigation';
 import { useSetRecoilState } from 'recoil';
 
-import client from '@/api';
 import { postSocialLogin } from '@/api/auth';
 import { getUserInfoAfterLogin } from '@/api/dashboard';
 import { useGetAccessToken } from '@/hooks/auth';

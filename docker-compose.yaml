@@ -1,0 +1,7 @@
+version: '3.1'
+
+services:
+  next:
+    image: 039174979026.dkr.ecr.ap-northeast-2.amazonaws.com/palmspring-client
+    ports:
+      - 3000:3000

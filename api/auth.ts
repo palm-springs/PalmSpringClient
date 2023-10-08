@@ -9,7 +9,9 @@ import client, { refreshAxiosInstance } from '.';
 export const getAccessToken = async (props: getAccessTokenProps) => {
   const { clientId, clientSecret, code } = props;
   const { data } = await axios.post<googleAccessTokenResponse>(
-    `https://oauth2.googleapis.com/token?code=${code}&client_id=${clientId}&client_secret=${clientSecret}&redirect_uri=${process.env.NEXT_PUBLIC_GOOGLE_REDIRECT_URI}&
+    `https://oauth2.googleapis.com/token?code=${code}&client_id=${clientId}&client_secret=${clientSecret}&redirect_uri=${
+      process.env.NODE_ENV === 'production' ? 'https://www.palms.blog/loading' : 'http://localhost:3000/loading'
+    }&
 grant_type=authorization_code`,
     {
       headers: { 'content-type': 'application/x-www-form-urlencoded' },

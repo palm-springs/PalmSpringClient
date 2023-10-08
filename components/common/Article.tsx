@@ -30,7 +30,6 @@ const Article = (props: ArticleProps) => {
         <DetailBox>
           {selectedCategory === 'home' && <CategoryBtn>{articleCategory.categoryName}</CategoryBtn>}
           <ArticleDetail>{memberName}</ArticleDetail>
-          <ArticleDetail>&nbsp;·&nbsp;{job}</ArticleDetail>
           <Bar>|</Bar>
           <ArticleDetail>{createdAt}</ArticleDetail>
         </DetailBox>
@@ -75,7 +74,8 @@ const ArticleContainer = styled(Link)`
 const ArticleInfo = styled.article`
   display: flex;
   flex-direction: column;
-  justify-content: center;
+  justify-content: flex-start;
+  padding-top: 0.4rem;
 
   width: 72rem;
 `;
@@ -91,7 +91,7 @@ const EditorInputTitle = styled.article`
   overflow: hidden;
   text-overflow: ellipsis;
   white-space: wrap;
-  word-break: break-all;
+  word-break: keep-all;
 
   -webkit-line-clamp: 2;
   -webkit-box-orient: vertical;
@@ -109,7 +109,7 @@ const ArticleDescription = styled.div`
   overflow: hidden;
   text-overflow: ellipsis;
   white-space: wrap;
-  word-break: break-all;
+  word-break: keep-all;
 
   -webkit-line-clamp: 2;
   -webkit-box-orient: vertical;
