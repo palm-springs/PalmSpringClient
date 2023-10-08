@@ -33,7 +33,6 @@ export default AuthorInfo;
 const AuthorInfoContainer = styled.div`
   display: flex;
   flex-direction: column;
-  gap: 0.8rem;
   align-items: center;
   justify-content: center;
 
@@ -57,7 +56,7 @@ const AuthorName = styled.div`
 `;
 
 const AuthorPosition = styled.div`
-  ${({ theme }) => theme.fonts.Heading3_Semibold};
+  ${({ theme }) => theme.fonts.Heading3_Regular};
   color: ${({ theme }) => theme.colors.grey_900};
 
   &.mobile {
