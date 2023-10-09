@@ -5,10 +5,11 @@ export interface UserInfoProps {
   email: string;
   thumbnail: string;
   joinBlogList: Array<{
-    name: string;
-    url: string;
+    blogName: string;
+    blogUrl: string;
+    role: RoleType;
   }>;
-  role: RoleType;
+  currentUserRole: RoleType | null;
 }
 
 export interface UserBasicInfo {
