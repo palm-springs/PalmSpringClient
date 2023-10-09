@@ -1,8 +1,10 @@
 import { useEffect } from 'react';
 import { useMutation, useQuery, useQueryClient } from '@tanstack/react-query';
+import { useParams } from 'next/navigation';
 import { useRecoilState } from 'recoil';
 
 import {
+  delegateUserRole,
   deleteArticle,
   deleteCategory,
   deleteNavigation,
@@ -20,6 +22,7 @@ import {
   updateNavigation,
   updateUserInfo,
 } from '@/api/dashboard';
+import { deleteMember } from '@/api/user';
 import userState from '@/recoil/atom/user';
 import { UserBasicInfo } from '@/types/user';
 
@@ -43,6 +46,8 @@ export const QUERY_KEY_DASHBOARD = {
   getUserBasicInfo: 'getUserBasicInfo',
   deleteArticle: 'deleteArticle',
   updateUserInfo: 'updateUserInfo',
+  deleteMember: 'deleteMember',
+  delegateUserRole: 'delegateUserRole',
 };
 
 export const useGetNavList = (blogUrl: string) => {
@@ -73,11 +78,15 @@ export const useGetUserInfo = () => {
 
   const [userValue, setUserState] = useRecoilState(userState);
 
+  const { team } = useParams();
+
+  console.log(team);
+
   useEffect(() => {
     if (!userValue && isSuccess) {
       setUserState({
         ...data.data,
-        role: '편집자',
+        currentUserRole: data.data.joinBlogList.find(({ blogUrl }) => blogUrl === team)?.role ?? null,
       });
     }
   }, [isSuccess, data]);
@@ -201,5 +210,36 @@ export const useDeleteArticle = (blogUrl: string, id: number) => {
       queryClient.invalidateQueries([QUERY_KEY_ARTICLE.getArticleList]);
     },
   });
+  return mutation;
+};
+
+export const useDeleteMember = (blogUrl: string, memberId: string, email: string) => {
+  const queryClient = useQueryClient();
+
+  const mutation = useMutation([QUERY_KEY_DASHBOARD.deleteMember], () => deleteMember(blogUrl, memberId, email), {
+    onSuccess: () => {
+      queryClient.invalidateQueries([QUERY_KEY_DASHBOARD.getMemberInfo]);
+    },
+  });
+  return mutation;
+};
+
+export const useDelegateUserRole = (
+  blogUrl: string,
+  memberId: string,
+  email: string,
+  role: 'OWNER' | 'MANAGER' | 'EDITOR',
+) => {
+  const queryClient = useQueryClient();
+
+  const mutation = useMutation(
+    [QUERY_KEY_DASHBOARD.delegateUserRole],
+    () => delegateUserRole(blogUrl, memberId, email, role),
+    {
+      onSuccess: () => {
+        queryClient.invalidateQueries([QUERY_KEY_DASHBOARD.getMemberInfo]);
+      },
+    },
+  );
   return mutation;
 };
