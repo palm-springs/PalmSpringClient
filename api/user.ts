@@ -9,7 +9,7 @@ export const getCurrentUserInfo = async () => {
 };
 
 export const updateWithdrawTeam = async (blogUrl: string) => {
-  const { data } = await client.put<Response<UserInfoProps>>(`/api/v2/dashboard/user/me/out/${blogUrl}`);
+  const { data } = await client.put<Response<UserInfoProps>>(`/api/v2/dashboard/user/team/out/self/${blogUrl}`);
   return data;
 };
 
@@ -20,5 +20,13 @@ export const updateWithdrawPlatform = async () => {
 
 export const getCheckUserIdDuplication = async (blogUrl: string, memberUrl: string) => {
   const { data } = await client.get(`/api/v2/dashboard/user/check/exist/in/${blogUrl}?memberUrl=${memberUrl}`);
+  return data;
+};
+
+export const deleteMember = async (blogUrl: string, memberId: string, email: string) => {
+  const { data } = await client.put(`/api/v2/dashboard/user/team/out/${blogUrl}`, {
+    memberId,
+    email,
+  });
   return data;
 };

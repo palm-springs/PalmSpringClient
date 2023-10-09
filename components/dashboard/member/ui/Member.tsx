@@ -1,6 +1,6 @@
 'use client';
 
-import React, { Dispatch, SetStateAction, useState } from 'react';
+import React, { Dispatch, SetStateAction } from 'react';
 import Image from 'next/image';
 import styled from 'styled-components';
 
@@ -17,6 +17,8 @@ import Manager from './Manager';
 // import { IcClose24Icon, IcUserIcon } from '@/public/icons';
 
 interface MemberComponentProps {
+  memberId: string;
+  role: string;
   email: string;
   job: string;
   nickname: string;
@@ -26,7 +28,7 @@ interface MemberComponentProps {
 }
 
 const Member = (props: MemberComponentProps) => {
-  const { email, job, nickname, thumbnail, showPopOver, setShowPopOver } = props;
+  const { memberId, role, email, job, nickname, thumbnail, showPopOver, setShowPopOver } = props;
 
   return (
     <MemberContainer>
@@ -56,7 +58,9 @@ const Member = (props: MemberComponentProps) => {
             }}>
             <CharmMenuMeatballIcon />
           </MenuBtnContainer>
-          {showPopOver === email && <PopOver nickname={nickname} />}
+          {showPopOver === email && (
+            <PopOver memberRole={role} nickname={nickname} memberId={memberId} memberEmail={email} />
+          )}
         </>
       </MemberInnerContent>
     </MemberContainer>
