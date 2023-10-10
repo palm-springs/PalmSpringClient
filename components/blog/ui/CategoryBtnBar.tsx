@@ -70,7 +70,7 @@ const CategoryBtnBarContainer = styled.div`
   gap: 1.2rem;
   justify-content: flex-start;
 
-  padding: 7.2rem 0 4.8rem;
+  padding: 6rem 0 4.8rem;
   width: 72rem;
 
   &.mobile {
@@ -110,7 +110,7 @@ const CategoryBtn = styled(Link)`
 `;
 
 const MobileCategoryBtn = styled(Link)`
-  ${({ theme }) => theme.mobileFonts.Body2_Semibold};
+  ${({ theme }) => theme.mobileFonts.Body2_Regular};
 
   display: flex;
   align-items: center;

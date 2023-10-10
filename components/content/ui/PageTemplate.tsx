@@ -63,7 +63,7 @@ const ContentPageContainer = styled.section`
   flex-direction: column;
   align-items: center;
 
-  margin: 11.8rem 36rem;
+  margin: 12rem 36rem;
 
   &.mobile {
     margin: 0;

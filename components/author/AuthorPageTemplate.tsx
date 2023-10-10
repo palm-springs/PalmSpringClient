@@ -79,6 +79,7 @@ const Line = styled.div`
   height: 1px;
 
   &.mobile {
+    margin: 4rem 0;
     width: calc(100vw - 4.8rem);
   }
 `;

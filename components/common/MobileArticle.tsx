@@ -43,7 +43,7 @@ const ArticleThumbnail = styled.img`
   margin-bottom: 1.2rem;
   border-radius: 1.2rem;
   width: calc(100vw - 4.8rem);
-  height: calc(100vw * 9 / 16);
+  height: calc((100vw - 4.8rem) * 9 / 16);
   object-fit: cover;
 `;
 
@@ -74,7 +74,7 @@ const EditorInputTitle = styled.article`
   overflow: hidden;
   text-overflow: ellipsis;
   white-space: wrap;
-  word-break: break-all;
+  word-break: keep-all;
 
   -webkit-line-clamp: 2;
   -webkit-box-orient: vertical;
@@ -90,7 +90,7 @@ const ArticleDescription = styled.div`
   overflow: hidden;
   text-overflow: ellipsis;
   white-space: wrap;
-  word-break: break-all;
+  word-break: keep-all;
 
   -webkit-line-clamp: 2;
   -webkit-box-orient: vertical;
