@@ -138,7 +138,8 @@ const Wrapper = styled.div<{ isVisible?: boolean }>`
   z-index: 10;
   margin-left: -35.9rem;
   background-color: ${({ theme }) => theme.colors.grey_100};
-  width: 100vw;
+  /* 바로 아래 div가 72rem 으로 고정되어있어야해서 width를 100vw, 100% 하면 그 이상 모니터 크기에서 되지 않아 최대 사이즈 1920으로 했습니다 ? -> 좀 더 생각해보기*/
+  width: 192rem;
   height: 4.8rem;
 `;
 
