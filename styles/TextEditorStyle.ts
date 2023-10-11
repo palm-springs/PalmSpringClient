@@ -29,7 +29,6 @@ export const TextEditorStyle = styled.div`
 
     h3 {
       ${({ theme }) => theme.editor.Edit_h3};
-      margin-top: 2.4rem;
       padding: 2.4rem 0 0.4rem;
       width: 72rem;
     }
@@ -51,7 +50,7 @@ export const TextEditorStyle = styled.div`
       text-decoration: underline;
     }
 
-    hr {
+    hr.ProseMirror-selectednode {
       border: 1px solid ${({ theme }) => theme.colors.grey_300};
       width: 72rem;
     }
