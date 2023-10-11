@@ -33,15 +33,15 @@ const BlogList = (props: BlogListProps) => {
   return (
     <BlogListContainer>
       <>
-        {userData.joinBlogList.map(({ name, url }, idx) => {
+        {userData.joinBlogList.map(({ blogName, blogUrl }, idx) => {
           return (
             <IndivBlog
               isCurrentBlog={idx === currentBlog}
-              innerText={name}
-              key={name}
+              innerText={blogName}
+              key={blogName}
               handleChange={() => {
                 setCurrentBlog(idx);
-                router.push(`/${url}/dashboard/upload`);
+                router.push(`/${blogUrl}/dashboard/upload`);
               }}
             />
           );
