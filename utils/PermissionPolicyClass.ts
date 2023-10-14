@@ -74,11 +74,22 @@ class PermissionPolicyChecker {
     return this.eligible(['소유자']);
   }
 
+  // 소유자 권한 위임하기
+  get appointOwner() {
+    return this.eligible(['소유자']);
+  }
+
   // 관리자 임명하기
   get appointManager() {
     return this.eligible(['소유자']);
   }
 
+  // 편집자 임명하기
+  get appointEditor() {
+    return this.eligible(['소유자', '관리자']);
+  }
+
+  // 블로그 정보 수정하기
   get modifyBlogInfo() {
     return this.eligible(['소유자', '관리자']);
   }
