@@ -30,6 +30,8 @@ interface MemberComponentProps {
 const Member = (props: MemberComponentProps) => {
   const { memberId, role, email, job, nickname, thumbnail, showPopOver, setShowPopOver } = props;
 
+  const memberRole = role === 'OWNER' ? '소유자' : role === 'MANAGER' ? '관리자' : '편집자';
+
   return (
     <MemberContainer>
       <MemberInnerContent>
@@ -42,10 +44,11 @@ const Member = (props: MemberComponentProps) => {
                 <Image src={MemberExampleImg} alt="member profile photo" width={36} height={36} />
               )}
               <Name> {nickname} </Name>
-              {job === 'Team Manager' && <Manager />}
+              {role === 'OWNER' && <Manager />}
             </NameBox>
             <Position> {job} </Position>
             <Email> {email} </Email>
+            <Role>{memberRole}</Role>
           </MemberInfoBox>
           <MenuBtnContainer
             onBlur={() => setShowPopOver('')}
@@ -185,6 +188,12 @@ const Position = styled.div`
 `;
 
 const Email = styled.div`
+  width: 24.4rem;
+  ${({ theme }) => theme.fonts.Body3_Regular};
+  color: ${({ theme }) => theme.colors.grey_700};
+`;
+
+const Role = styled.div`
   ${({ theme }) => theme.fonts.Body3_Regular};
   color: ${({ theme }) => theme.colors.grey_700};
 `;
