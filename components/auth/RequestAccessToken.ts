@@ -1,7 +1,6 @@
 import { useRouter } from 'next/navigation';
 import { useSetRecoilState } from 'recoil';
 
-import client from '@/api';
 import { postSocialLogin } from '@/api/auth';
 import { getUserInfoAfterLogin } from '@/api/dashboard';
 import { useGetAccessToken } from '@/hooks/auth';
@@ -27,7 +26,7 @@ const RequestAccessToken = async (props: getAccessTokenProps) => {
       if (joinBlogList.length === 0) {
         router.push('/no-team/dashboard');
       } else {
-        router.push(`/${joinBlogList[0].url}/dashboard/upload`);
+        router.push(`/${joinBlogList[0].blogUrl}/dashboard/upload`);
       }
     }
   }
