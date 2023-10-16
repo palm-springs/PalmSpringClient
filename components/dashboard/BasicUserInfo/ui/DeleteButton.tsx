@@ -31,7 +31,7 @@ const DeleteButton = () => {
     if (joinBlogList.length === 0) {
       router.push('/no-team/dashboard');
     } else {
-      router.push(`/${joinBlogList[0].url}/dashboard/upload`);
+      router.push(`/${joinBlogList[0].blogUrl}/dashboard/upload`);
     }
   };
 
