@@ -50,11 +50,10 @@ export const TextEditorStyle = styled.div`
       text-decoration: underline;
     }
 
-    hr.ProseMirror-selectednode {
+    hr {
       border: 1px solid ${({ theme }) => theme.colors.grey_300};
-      width: 72rem;
+      width: 100%;
     }
-
     strong {
       ${({ theme }) => theme.fonts.Body1_Semibold};
     }
