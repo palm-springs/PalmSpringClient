@@ -31,7 +31,9 @@ const InviteAcceptForm = () => {
         <TextInput placeholder="직책을 입력해주세요" />
       </TextInputForm>
 
-      <AcceptButton type="button">완료</AcceptButton>
+      <AcceptButton type="button" disabled={true}>
+        수락하기
+      </AcceptButton>
     </InviteAcceptFormContainer>
   );
 };
@@ -100,14 +102,15 @@ const TextAreaInput = styled.textarea`
   }
 `;
 
-const AcceptButton = styled.button`
+const AcceptButton = styled.button<{ disabled: boolean }>`
   ${({ theme }) => theme.fonts.Button_medium};
   margin: 3.2rem 0 11.4rem;
 
   border: none;
   border-radius: 0.8rem;
 
-  background-color: ${({ theme }) => theme.colors.green};
+  background-color: ${({ disabled, theme }) => (disabled ? theme.colors.background_green : theme.colors.green)};
+  cursor: ${({ disabled }) => (disabled ? 'default' : 'pointer')};
   width: 100%;
   height: 3.6rem;
 
