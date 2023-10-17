@@ -1,6 +1,8 @@
 'use client';
 import styled from 'styled-components';
 
+import { RequiredCircleIcon } from '@/public/icons';
+
 import InputTitle from './InputTitle';
 interface TextInputFormProps {
   type: string;
@@ -13,7 +15,10 @@ const TextInputForm = (props: TextInputFormProps) => {
 
   return (
     <Label>
-      <InputTitle>{text}</InputTitle>
+      <TitleContainer>
+        <InputTitle>{text}</InputTitle>
+        {(type === 'id' || type === 'name') && <RequiredIcon className={type} />}
+      </TitleContainer>
       <InputContainer className={type}>{children}</InputContainer>
     </Label>
   );
@@ -25,8 +30,19 @@ const Label = styled.label`
   display: flex;
   flex-direction: column;
   margin-top: 3.2rem;
-
   width: 100%;
+`;
+
+const TitleContainer = styled.div`
+  display: flex;
+  gap: 0.8rem;
+  margin-bottom: 0.8rem;
+`;
+
+const RequiredIcon = styled(RequiredCircleIcon)`
+  &.id {
+    margin-top: 0.2rem;
+  }
 `;
 
 // text input 입력  컨테이너
