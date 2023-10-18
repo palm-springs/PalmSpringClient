@@ -170,8 +170,9 @@ export const TextEditorStyle = styled.div`
     img {
       margin-top: 2.4rem 0 0.8rem 0;
       border-radius: 16px;
-      width: 72rem;
+      width: 100%;
       height: auto;
+      max-height: 40.9rem;
 
       &.ProseMirror-selectednode {
         border: 2px solid ${({ theme }) => theme.colors.green};
