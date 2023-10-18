@@ -132,7 +132,7 @@ const ThumbnailInputLabel = styled.label`
   align-items: center;
   justify-content: center;
   border: none;
-  border-radius: 0.5rem;
+  border-radius: 1.25rem;
   background-color: ${({ theme }) => theme.colors.grey_100};
   width: 54rem;
   height: 30.375rem;

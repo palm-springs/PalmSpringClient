@@ -29,7 +29,6 @@ export const TextEditorStyle = styled.div`
 
     h3 {
       ${({ theme }) => theme.editor.Edit_h3};
-      margin-top: 2.4rem;
       padding: 2.4rem 0 0.4rem;
       width: 72rem;
     }
@@ -53,9 +52,8 @@ export const TextEditorStyle = styled.div`
 
     hr {
       border: 1px solid ${({ theme }) => theme.colors.grey_300};
-      width: 72rem;
+      width: 100%;
     }
-
     strong {
       ${({ theme }) => theme.fonts.Body1_Semibold};
     }
@@ -171,11 +169,14 @@ export const TextEditorStyle = styled.div`
 
     img {
       margin-top: 2.4rem 0 0.8rem 0;
-      width: 72rem;
+      border-radius: 16px;
+      width: 100%;
       height: auto;
+      max-height: 40.9rem;
 
       &.ProseMirror-selectednode {
-        outline: 2px solid ${({ theme }) => theme.colors.green};
+        border: 2px solid ${({ theme }) => theme.colors.green};
+        border-radius: 16px;
       }
     }
 

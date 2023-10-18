@@ -28,7 +28,6 @@ export const MobileTextEditorStyle = styled.div`
 
     h3 {
       ${({ theme }) => theme.mobileFonts.Markdown_H3};
-      margin-top: 2.4rem;
       padding: 2.4rem 0 0.4rem;
       width: calc(100vw - 4rem);
     }
