@@ -60,7 +60,7 @@ const DashBoardContentContainer = (props: DashBoardContentContainerProps) => {
   return (
     <DashBoardContentUI $isContentBar={id === '컨텐츠바'}>
       {email && <Email email={email} />}
-      {pathName === 'page' ? (
+      {pathName === 'page' || pathName === 'upload' || pathName === 'tempsaved' ? (
         <PageContentWrapper $isContentBar={id === '컨텐츠바'}>
           {content && <Content onTitleClick={onTitleClick} content={content} />}
           {url && <Url url={url} />}
