@@ -3,19 +3,24 @@ import { styled } from 'styled-components';
 
 interface CreatedAtProps {
   createdAt: string;
+  isContentBar?: boolean;
 }
 
 const CreatedAt = (props: CreatedAtProps) => {
-  const { createdAt } = props;
+  const { createdAt, isContentBar } = props;
 
-  return <CreatedAtUI>{createdAt.length > 10 ? createdAt.slice(0, 10) : createdAt}</CreatedAtUI>;
+  return (
+    <CreatedAtUI $isContentBar={isContentBar ?? false}>
+      {createdAt.length > 10 ? createdAt.slice(0, 10) : createdAt}
+    </CreatedAtUI>
+  );
 };
 
 export default CreatedAt;
 
-const CreatedAtUI = styled.span`
+const CreatedAtUI = styled.span<{ $isContentBar: boolean }>`
   ${({ theme }) => theme.fonts.Body3_Regular};
-  width: 13rem;
+  width: ${({ $isContentBar }) => ($isContentBar ? '72rem' : '13rem')};
   overflow: hidden;
   text-overflow: ellipsis;
   white-space: nowrap;

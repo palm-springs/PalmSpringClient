@@ -60,14 +60,31 @@ const DashBoardContentContainer = (props: DashBoardContentContainerProps) => {
   return (
     <DashBoardContentUI $isContentBar={id === '컨텐츠바'}>
       {email && <Email email={email} />}
-      {content && <Content onTitleClick={onTitleClick} content={content} />}
-      {url && <Url url={url} />}
-      {tabType && <TabType tabType={tabType} />}
-      {author && <Author author={author} />}
-      {position && <Position position={position} />}
-      {description && <Description description={description} />}
-      {draft !== undefined ? <Draft draft={draft} /> : <></>}
-      {createdAt && <CreatedAt createdAt={createdAt} />}
+      {pathName === 'page' ? (
+        <PageContentWrapper $isContentBar={id === '컨텐츠바'}>
+          {content && <Content onTitleClick={onTitleClick} content={content} />}
+          {url && <Url url={url} />}
+          {tabType && <TabType tabType={tabType} />}
+          {author && <Author author={author} />}
+          {position && <Position position={position} />}
+          {description && <Description description={description} />}
+          <div className="page_content">
+            {draft !== undefined ? <Draft draft={draft} /> : <></>}
+            {createdAt && <CreatedAt createdAt={createdAt} />}
+          </div>
+        </PageContentWrapper>
+      ) : (
+        <>
+          {content && <Content onTitleClick={onTitleClick} content={content} />}
+          {url && <Url url={url} />}
+          {tabType && <TabType tabType={tabType} />}
+          {author && <Author author={author} />}
+          {position && <Position position={position} />}
+          {description && <Description description={description} />}
+          {draft !== undefined ? <Draft draft={draft} /> : <></>}
+          {createdAt && <CreatedAt createdAt={createdAt} />}
+        </>
+      )}
       {newsLetter && <NewsLetter newsLetter={newsLetter} />}
       {id !== '컨텐츠바' && (
         <>
@@ -106,7 +123,7 @@ const DashBoardContentContainer = (props: DashBoardContentContainerProps) => {
 
 export default DashBoardContentContainer;
 
-const DashBoardContentUI = styled.article<{ $isContentBar: boolean }>`
+const DashBoardContentUI = styled.div<{ $isContentBar: boolean }>`
   display: flex;
   position: relative;
   align-items: center;
@@ -158,5 +175,17 @@ const BtnContainer = styled.button<{ $isContentBar: boolean }>`
   height: 2.4rem;
   &:hover {
     background: ${({ theme }) => theme.colors.grey_300};
+  }
+`;
+
+const PageContentWrapper = styled.div<{ $isContentBar: boolean }>`
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  margin-right: 11rem;
+  width: 100%;
+
+  .page_content {
+    display: ${({ $isContentBar }) => $isContentBar && 'flex'};
   }
 `;
