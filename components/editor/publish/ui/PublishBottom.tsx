@@ -181,13 +181,14 @@ const PublishButton = styled.button<{ disabled: boolean }>`
   cursor: ${({ disabled }) => (disabled ? 'default' : 'pointer')};
   padding: 1rem 2.6rem;
   color: ${({ theme }) => theme.colors.grey_0};
-  ${({ theme }) => theme.fonts.Body2_Regular};
+  ${({ theme }) => theme.fonts.Button_large};
+  font-weight: bold;
 `;
 
 const BackButton = styled.button`
+  ${({ theme }) => theme.fonts.Body1_Regular};
   height: 4.2rem;
   color: ${({ theme }) => theme.colors.grey_700};
-  ${({ theme }) => theme.fonts.Body2_Regular};
 `;
 
 const PublishBottomButtonsContainer = styled.div`

@@ -87,6 +87,7 @@ const TextEditorBuild = (props: TextEditorBuildprops) => {
       }),
       Placeholder.configure({
         placeholder: '내용을 입력해주세요',
+        showOnlyWhenEditable: false,
       }),
       ListItem,
       BulletList.configure({
