@@ -18,6 +18,7 @@ import Manager from './Manager';
 // import { IcClose24Icon, IcUserIcon } from '@/public/icons';
 
 interface MemberComponentProps {
+  memberId: string;
   email: string;
   job: string;
   role: RoleType;
@@ -28,7 +29,9 @@ interface MemberComponentProps {
 }
 
 const Member = (props: MemberComponentProps) => {
-  const { email, job, role, nickname, thumbnail, showPopOver, setShowPopOver } = props;
+  const { memberId, role, email, job, nickname, thumbnail, showPopOver, setShowPopOver } = props;
+
+  const memberRole = role === 'OWNER' ? '소유자' : role === 'MANAGER' ? '관리자' : '편집자';
 
   return (
     <MemberContainer>
@@ -46,6 +49,7 @@ const Member = (props: MemberComponentProps) => {
             </NameBox>
             <Position> {role} </Position>
             <Email> {email} </Email>
+            <Role>{memberRole}</Role>
           </MemberInfoBox>
           <MenuBtnContainer
             onBlur={() => setShowPopOver('')}
@@ -58,7 +62,9 @@ const Member = (props: MemberComponentProps) => {
             }}>
             <CharmMenuMeatballIcon />
           </MenuBtnContainer>
-          {showPopOver === email && <PopOver nickname={nickname} />}
+          {showPopOver === email && (
+            <PopOver memberRole={role} nickname={nickname} memberId={memberId} memberEmail={email} />
+          )}
         </>
       </MemberInnerContent>
     </MemberContainer>
@@ -183,6 +189,12 @@ const Position = styled.div`
 `;
 
 const Email = styled.div`
+  width: 24.4rem;
+  ${({ theme }) => theme.fonts.Body3_Regular};
+  color: ${({ theme }) => theme.colors.grey_700};
+`;
+
+const Role = styled.div`
   ${({ theme }) => theme.fonts.Body3_Regular};
   color: ${({ theme }) => theme.colors.grey_700};
 `;

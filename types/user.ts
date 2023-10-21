@@ -9,7 +9,7 @@ export interface UserInfoProps {
     blogUrl: string;
     role: RoleType;
   }>;
-  role: RoleType;
+  currentUserRole: RoleType | null;
 }
 
 export interface UserBasicInfo {
