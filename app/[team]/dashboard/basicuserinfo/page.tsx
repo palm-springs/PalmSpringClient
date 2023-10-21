@@ -48,5 +48,6 @@ const BasicUserInfoContainer = styled.div`
   display: flex;
   flex-direction: column;
   margin-left: 4rem;
+  height: 100vh;
   overflow-y: scroll;
 `;
