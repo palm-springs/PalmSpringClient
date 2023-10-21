@@ -1,8 +1,10 @@
 import { Dispatch, SetStateAction } from 'react';
 import { useRouter } from 'next/navigation';
+import { useSetRecoilState } from 'recoil';
 
 import LoadingLottie from '@/components/common/ui/LoadingLottie';
 import { useGetUserInfo } from '@/hooks/dashboard';
+import userState from '@/recoil/atom/user';
 
 import BlogListContainer from './ui/BlogListContainer';
 import IndivBlog from './ui/IndivBlog';
@@ -20,6 +22,8 @@ const BlogList = (props: BlogListProps) => {
 
   const router = useRouter();
 
+  const setUserValue = useSetRecoilState(userState);
+
   if (!res) {
     return (
       <BlogListContainer>
@@ -33,7 +37,7 @@ const BlogList = (props: BlogListProps) => {
   return (
     <BlogListContainer>
       <>
-        {userData.joinBlogList.map(({ blogName, blogUrl }, idx) => {
+        {userData.joinBlogList.map(({ blogName, blogUrl, role }, idx) => {
           return (
             <IndivBlog
               isCurrentBlog={idx === currentBlog}
@@ -41,6 +45,16 @@ const BlogList = (props: BlogListProps) => {
               key={blogName}
               handleChange={() => {
                 setCurrentBlog(idx);
+                setUserValue((prev) => {
+                  if (prev === null) {
+                    router.push('/auth');
+                    return prev;
+                  }
+                  return {
+                    ...prev,
+                    currentUserRole: role,
+                  };
+                });
                 router.push(`/${blogUrl}/dashboard/upload`);
               }}
             />
