@@ -17,13 +17,14 @@ const MemberList = () => {
   const res = useGetMemberInfo(team);
   if (!res || !res.data) return <LoadingLottie width={5} height={5} fit />;
 
-  const MemberList = res?.data.map(({ email, id, job, nickname, thumbnail }) => {
+  const MemberList = res?.data.map(({ email, id, role, job, nickname, thumbnail }) => {
     return (
       <Member
         key={id}
         thumbnail={thumbnail}
         nickname={nickname}
         job={job}
+        role={role}
         email={email}
         showPopOver={showPopOver}
         setShowPopOver={setShowPopOver}

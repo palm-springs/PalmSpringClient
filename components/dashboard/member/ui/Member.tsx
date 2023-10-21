@@ -1,11 +1,12 @@
 'use client';
 
-import React, { Dispatch, SetStateAction, useState } from 'react';
+import React, { Dispatch, SetStateAction } from 'react';
 import Image from 'next/image';
 import styled from 'styled-components';
 
 import { CharmMenuMeatballIcon } from '@/public/icons';
 import { MemberExampleImg } from '@/public/images';
+import { RoleType } from '@/utils/PermissionPolicyClass';
 
 import PopOver from '../PopOver';
 
@@ -19,6 +20,7 @@ import Manager from './Manager';
 interface MemberComponentProps {
   email: string;
   job: string;
+  role: RoleType;
   nickname: string;
   thumbnail: string;
   showPopOver: string;
@@ -26,7 +28,7 @@ interface MemberComponentProps {
 }
 
 const Member = (props: MemberComponentProps) => {
-  const { email, job, nickname, thumbnail, showPopOver, setShowPopOver } = props;
+  const { email, job, role, nickname, thumbnail, showPopOver, setShowPopOver } = props;
 
   return (
     <MemberContainer>
@@ -40,9 +42,9 @@ const Member = (props: MemberComponentProps) => {
                 <Image src={MemberExampleImg} alt="member profile photo" width={36} height={36} />
               )}
               <Name> {nickname} </Name>
-              {job === 'Team Manager' && <Manager />}
+              {role === 'OWNER' && <Manager />}
             </NameBox>
-            <Position> {job} </Position>
+            <Position> {role} </Position>
             <Email> {email} </Email>
           </MemberInfoBox>
           <MenuBtnContainer

@@ -6,6 +6,7 @@ import { useParams } from 'next/navigation';
 import styled from 'styled-components';
 
 import ModalPortal from '@/components/common/ModalPortal';
+import usePerMissionPolicy from '@/hooks/usePermissionPolicy';
 
 import DeleteMemberModal from './ui/DeleteMemberModal';
 
@@ -17,6 +18,8 @@ const PopOver = (prop: PopOverProp) => {
   const { nickname } = prop;
   const { team: blogUrl } = useParams();
   const [showModal, setShowModal] = useState(false);
+
+  const { expelEditor, expelManager, appointManager } = usePerMissionPolicy();
 
   return (
     <>
@@ -34,6 +37,36 @@ const PopOver = (prop: PopOverProp) => {
       )}
       <PopOverContainer>
         <LinkText href={`https://${blogUrl}.palms.blog/author/${nickname}`}>팀원이 쓴 글로 이동하기</LinkText>
+        <ModalText
+          type="button"
+          onMouseDown={(e) => {
+            e.preventDefault();
+          }}
+          onClick={() => {
+            setShowModal(true);
+          }}>
+          팀에서 제외하기
+        </ModalText>
+        <ModalText
+          type="button"
+          onMouseDown={(e) => {
+            e.preventDefault();
+          }}
+          onClick={() => {
+            setShowModal(true);
+          }}>
+          팀에서 제외하기
+        </ModalText>
+        <ModalText
+          type="button"
+          onMouseDown={(e) => {
+            e.preventDefault();
+          }}
+          onClick={() => {
+            setShowModal(true);
+          }}>
+          팀에서 제외하기
+        </ModalText>
         <ModalText
           type="button"
           onMouseDown={(e) => {
