@@ -76,7 +76,7 @@ class PermissionPolicyChecker {
 
   // 소유자 권한 위임하기
   get appointOwner() {
-    return this.eligible(['소유자']);
+    return this.eligible(['OWNER']);
   }
 
   // 관리자 임명하기
@@ -86,7 +86,7 @@ class PermissionPolicyChecker {
 
   // 편집자 임명하기
   get appointEditor() {
-    return this.eligible(['소유자', '관리자']);
+    return this.eligible(['OWNER', 'MANAGER']);
   }
 
   // 블로그 정보 수정하기
