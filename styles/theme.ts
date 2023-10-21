@@ -132,6 +132,7 @@ const fonts = {
     font-weight: 700;
     font-style: normal;
   `,
+
   Button_medium: css`
     letter-spacing: -0.003125em;
     font-family: 'Pretendard';

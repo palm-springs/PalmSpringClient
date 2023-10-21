@@ -60,7 +60,7 @@ const LeftBottomButton = styled.button`
   height: 4.2rem;
   color: ${({ theme }) => theme.colors.grey_700};
   &:hover {
-    background-color: ${({ theme }) => theme.colors.grey_500};
+    background-color: ${({ theme }) => theme.colors.grey_200};
   }
 `;
 

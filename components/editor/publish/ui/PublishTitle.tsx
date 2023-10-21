@@ -42,7 +42,6 @@ const PublishTitle = (props: PublishTitleprops) => {
 export default PublishTitle;
 
 const TitleWrapper = styled.div`
-  margin: 2.4rem 0;
   width: 54rem;
 `;
 
