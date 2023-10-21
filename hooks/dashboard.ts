@@ -80,12 +80,12 @@ export const useGetUserInfo = () => {
 
   const { team } = useParams();
 
-  console.log(team);
-
   useEffect(() => {
     if (!userValue && isSuccess) {
+      const currentUserBlog = data.data.joinBlogList.find(({ blogUrl }) => blogUrl === team);
       setUserState({
         ...data.data,
+        currentUserRole: currentUserBlog ? currentUserBlog.role : null,
       });
     }
   }, [isSuccess, data]);
