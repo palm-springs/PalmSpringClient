@@ -2,14 +2,17 @@
 
 import React, { useState } from 'react';
 import Link from 'next/link';
-import { useParams } from 'next/navigation';
+import { useParams, useRouter } from 'next/navigation';
 import { useRecoilValue } from 'recoil';
 import styled from 'styled-components';
 
 import ModalPortal from '@/components/common/ModalPortal';
+import EmptyLanding from '@/components/common/ui/EmptyLanding';
 import { useDeleteMember } from '@/hooks/dashboard';
 import usePerMissionPolicy from '@/hooks/usePermissionPolicy';
+import userState from '@/recoil/atom/user';
 import userRoleSelector from '@/recoil/selector/userRoleSelector';
+import { RoleType } from '@/utils/PermissionPolicyClass';
 
 import DeleteMemberModal from './ui/DeleteMemberModal';
 
@@ -17,16 +20,23 @@ interface PopOverProp {
   nickname: string;
   memberId: string;
   memberEmail: string;
-  memberRole: string;
+  memberRole: RoleType;
 }
 
 const PopOver = (prop: PopOverProp) => {
   const { nickname, memberId, memberEmail, memberRole } = prop;
   const { team: blogUrl } = useParams();
   const [showModal, setShowModal] = useState(false);
+  const router = useRouter();
 
-  const { expelEditor, expelManager, appointManager } = usePerMissionPolicy();
+  const { expelManager, expelEditor, appointManager, appointOwner, appointEditor } = usePerMissionPolicy();
   const { mutate } = useDeleteMember(blogUrl, memberId, memberEmail);
+  const userValue = useRecoilValue(userState);
+
+  if (userValue === null) {
+    router.push('/auth');
+    return <></>;
+  }
 
   return (
     <>
@@ -45,30 +55,81 @@ const PopOver = (prop: PopOverProp) => {
       )}
       <PopOverContainer>
         <LinkText href={`https://${blogUrl}.palms.blog/author/${nickname}`}>팀원이 쓴 글로 이동하기</LinkText>
-        {memberRole === 'EDITOR' && expelEditor ? (
-          <ModalText
-            type="button"
-            onMouseDown={(e) => {
-              e.preventDefault();
-            }}
-            onClick={() => {
-              setShowModal(true);
-            }}>
-            팀에서 제외하기
-          </ModalText>
-        ) : memberRole === 'MANAGER' && expelManager ? (
-          <ModalText
-            type="button"
-            onMouseDown={(e) => {
-              e.preventDefault();
-            }}
-            onClick={() => {
-              setShowModal(true);
-            }}>
-            팀에서 제외하기
-          </ModalText>
-        ) : (
-          <></>
+        {memberEmail !== userValue.email && (
+          <>
+            {memberRole === 'EDITOR' && expelEditor && (
+              <ModalText
+                type="button"
+                onMouseDown={(e) => {
+                  e.preventDefault();
+                }}
+                onClick={() => {
+                  setShowModal(true);
+                }}>
+                이 편집자 추방하기
+              </ModalText>
+            )}
+            {memberRole === 'MANAGER' && expelManager && (
+              <ModalText
+                type="button"
+                onMouseDown={(e) => {
+                  e.preventDefault();
+                }}
+                onClick={() => {
+                  setShowModal(true);
+                }}>
+                이 관리자 추방하기
+              </ModalText>
+            )}
+            {memberRole !== 'MANAGER' && appointManager && (
+              <ModalText
+                type="button"
+                onMouseDown={(e) => {
+                  e.preventDefault();
+                }}
+                onClick={() => {
+                  setShowModal(true);
+                }}>
+                관리자로 임명하기
+              </ModalText>
+            )}
+            {memberRole !== 'EDITOR' && appointEditor && (
+              <ModalText
+                type="button"
+                onMouseDown={(e) => {
+                  e.preventDefault();
+                }}
+                onClick={() => {
+                  setShowModal(true);
+                }}>
+                편집자로 임명하기
+              </ModalText>
+            )}
+            {memberRole === 'MANAGER' && appointOwner && (
+              <ModalText
+                type="button"
+                onMouseDown={(e) => {
+                  e.preventDefault();
+                }}
+                onClick={() => {
+                  setShowModal(true);
+                }}>
+                소유권 이전하기
+              </ModalText>
+            )}
+            {memberRole === 'EDITOR' && expelEditor && (
+              <ModalText
+                type="button"
+                onMouseDown={(e) => {
+                  e.preventDefault();
+                }}
+                onClick={() => {
+                  setShowModal(true);
+                }}>
+                팀에서 제외하기
+              </ModalText>
+            )}
+          </>
         )}
       </PopOverContainer>
     </>
