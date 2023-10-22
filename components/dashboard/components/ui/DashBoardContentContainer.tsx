@@ -56,33 +56,38 @@ const DashBoardContentContainer = (props: DashBoardContentContainerProps) => {
 
   const pathName = useGetLastPathName();
 
+  const ContentsBeforeDraft = () => (
+    <>
+      {content && <Content onTitleClick={onTitleClick} content={content} />}
+      {url && <Url url={url} />}
+      {tabType && <TabType tabType={tabType} />}
+      {author && <Author author={author} />}
+      {position && <Position position={position} />}
+      {description && <Description description={description} />}
+    </>
+  );
+
+  const ContentsWithDraft = () => (
+    <>
+      {draft !== undefined ? <Draft draft={draft} /> : <></>}
+      {createdAt && <CreatedAt createdAt={createdAt} />}
+    </>
+  );
   // 날짜 포맷팅은 나중에 raw 데이터가 어떻게 날아오는지 확인하고 합시다!
   return (
     <DashBoardContentUI $isContentBar={id === '컨텐츠바'}>
       {email && <Email email={email} />}
       {pathName === 'page' || pathName === 'upload' || pathName === 'tempsaved' ? (
         <PageContentWrapper $isContentBar={id === '컨텐츠바'}>
-          {content && <Content onTitleClick={onTitleClick} content={content} />}
-          {url && <Url url={url} />}
-          {tabType && <TabType tabType={tabType} />}
-          {author && <Author author={author} />}
-          {position && <Position position={position} />}
-          {description && <Description description={description} />}
+          <ContentsBeforeDraft />
           <div className="page_content">
-            {draft !== undefined ? <Draft draft={draft} /> : <></>}
-            {createdAt && <CreatedAt createdAt={createdAt} />}
+            <ContentsWithDraft />
           </div>
         </PageContentWrapper>
       ) : (
         <>
-          {content && <Content onTitleClick={onTitleClick} content={content} />}
-          {url && <Url url={url} />}
-          {tabType && <TabType tabType={tabType} />}
-          {author && <Author author={author} />}
-          {position && <Position position={position} />}
-          {description && <Description description={description} />}
-          {draft !== undefined ? <Draft draft={draft} /> : <></>}
-          {createdAt && <CreatedAt createdAt={createdAt} />}
+          <ContentsBeforeDraft />
+          <ContentsWithDraft />
         </>
       )}
       {newsLetter && <NewsLetter newsLetter={newsLetter} />}
@@ -123,7 +128,7 @@ const DashBoardContentContainer = (props: DashBoardContentContainerProps) => {
 
 export default DashBoardContentContainer;
 
-const DashBoardContentUI = styled.div<{ $isContentBar: boolean }>`
+const DashBoardContentUI = styled.article<{ $isContentBar: boolean }>`
   display: flex;
   position: relative;
   align-items: center;
