@@ -17,14 +17,7 @@ interface NavSelectorContainerProps {
 }
 
 const NavSelectorContainer = (props: NavSelectorContainerProps) => {
-  const {
-    setIsSelectorOpen,
-    setNewNavigationSelector,
-    setNewNavigationUrl,
-    pageList,
-    newNavigationName,
-    setNewNavigationName,
-  } = props;
+  const { setIsSelectorOpen, setNewNavigationSelector, setNewNavigationUrl, pageList, setNewNavigationName } = props;
 
   // 페이지가 맞고 isDraft가 아닌 것
   const filteredPageList = pageList.filter(({ isDraft }) => !isDraft);
@@ -40,12 +33,11 @@ const NavSelectorContainer = (props: NavSelectorContainerProps) => {
         }}>
         직접 입력
       </IndivContentUI>
-      {filteredPageList.map(({ id, title: name, pageUrl }) => (
+      {filteredPageList.map(({ id, title: name }) => (
         <IndivContentUI
           type="button"
           key={id}
           onClick={() => {
-            console.log(name);
             setNewNavigationUrl(name);
             setNewNavigationName(name);
             setNewNavigationSelector(name);
@@ -75,7 +67,7 @@ const NavSelectorUI = styled.section`
   padding: 0.8rem;
   width: 100%;
   max-height: 20.8rem;
-  overflow: hidden;
+  overflow: scroll;
 `;
 
 const IndivContentUI = styled.button`
