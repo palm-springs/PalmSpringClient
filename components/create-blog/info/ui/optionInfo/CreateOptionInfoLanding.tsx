@@ -168,6 +168,10 @@ const PreviousButton = styled.button`
   ${({ theme }) => theme.fonts.Body1_Regular};
   margin-left: 0.3rem;
   color: ${({ theme }) => theme.colors.grey_700};
+
+  &:hover {
+    text-decoration: underline;
+  }
 `;
 
 const NextButton = styled.button`
@@ -178,4 +182,8 @@ const NextButton = styled.button`
   width: 9.6rem;
   height: 3.6rem;
   color: ${({ theme }) => theme.colors.grey_0};
+
+  &:hover {
+    background-color: ${({ theme }) => theme.colors.green_hover};
+  }
 `;
