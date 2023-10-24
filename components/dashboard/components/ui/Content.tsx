@@ -23,6 +23,7 @@ const Content = (props: ContentProps) => {
 export default Content;
 
 const ContentUI = styled.button<{ $isPathNavOrCategory: boolean }>`
+  margin-right: 2rem;
   ${({ theme }) => theme.fonts.Body3_Semibold};
   width: ${({ $isPathNavOrCategory }) => ($isPathNavOrCategory ? '9.2rem' : '30vw')};
   overflow: hidden;

@@ -31,19 +31,11 @@ const NavUrlInput = (props: NavUrlInputProps) => {
 
   const [isSelectorOpen, setIsSelectorOpen] = useState<boolean>(false);
 
-  // const navList = useGetNavList(blogUrl);
-
   const pageList = useGetPageList(blogUrl);
-
-  // if (!navList) return <div>로더</div>;
 
   return (
     <NavUrlInputContainer>
-      <UrlInputContainer
-        setIsSelectorOpen={setIsSelectorOpen}
-        state={newNavigationSelector}
-        // setState={setNewNavigationSelector}
-      />
+      <UrlInputContainer setIsSelectorOpen={setIsSelectorOpen} state={newNavigationSelector} />
       {newNavigationSelector === '직접 입력' && <TextInput state={newNavigationUrl} setState={setNewNavigationUrl} />}
       {isSelectorOpen && pageList && (
         <NavSelectorContainer
@@ -51,7 +43,6 @@ const NavUrlInput = (props: NavUrlInputProps) => {
           newNavigationSelector={newNavigationSelector}
           setNewNavigationSelector={setNewNavigationSelector}
           pageList={pageList.data}
-          // navSelectorContent={navList.data}
           newNavigationUrl={newNavigationUrl}
           setNewNavigationUrl={setNewNavigationUrl}
           newNavigationName={newNavigationName}

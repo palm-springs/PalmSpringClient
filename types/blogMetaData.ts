@@ -1,5 +1,5 @@
 export interface BlogMetaData {
-  image: string;
+  image: string | null;
   title: string;
   description: string;
 }

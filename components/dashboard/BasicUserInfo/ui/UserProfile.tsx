@@ -39,12 +39,12 @@ const UserProfile = () => {
         <ImageGuideTitle>프로필 사진</ImageGuideTitle>
 
         {thumbnail ? (
-          <>
+          <ProfileContainer>
             <ImageUserBox src={thumbnail} alt="user profile" />
             <UsersProfilesDeleteButton type="button" onClick={handleOnDeleteImg}>
               <UserProfileDeleteIcon />
             </UsersProfilesDeleteButton>
-          </>
+          </ProfileContainer>
         ) : (
           <ImageLabel>
             <UsersProfilesInputBackground />
@@ -67,15 +67,22 @@ const ImageUserBox = styled.img`
 
 const UsersProfilesDeleteButton = styled.button`
   position: absolute;
-  top: 25rem;
-  left: 60.8rem;
+  right: 0;
+  bottom: 0;
 `;
 
 const ImageLabel = styled.label`
+  position: relative;
   cursor: pointer;
   & > input {
     display: none;
   }
+`;
+
+const ProfileContainer = styled.div`
+  position: relative;
+  width: 15.6rem;
+  height: 15.6rem;
 `;
 
 const UsersProfilesInputBackground = styled(UsersProfilesInputIcon)`
@@ -84,13 +91,15 @@ const UsersProfilesInputBackground = styled(UsersProfilesInputIcon)`
 
 const UsersProfilesInput = styled(InputPlusButtonIcon)`
   position: absolute;
-  top: 25rem;
-  left: 60.8rem;
+
+  right: 0;
+  bottom: 0;
 `;
 
 const ImageGuideTitle = styled.h1`
   margin-right: 9.3rem;
   ${({ theme }) => theme.fonts.Body2_Semibold};
+  height: 100%;
   color: ${({ theme }) => theme.colors.grey_950};
 `;
 
@@ -103,4 +112,5 @@ const ProfileInputLabel = styled.div`
 const UserProfileContainer = styled.div`
   display: flex;
   flex-direction: column;
+  height: 15.6rem;
 `;

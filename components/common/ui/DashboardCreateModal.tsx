@@ -2,7 +2,7 @@
 import React, { Dispatch, SetStateAction } from 'react';
 import styled from 'styled-components';
 
-import { IcClose24Icon } from '@/public/icons';
+import { IcClose32Icon } from '@/public/icons';
 
 interface DashboardCreateModalProps {
   mainText: string;
@@ -62,7 +62,7 @@ const MainHeaderContainer = styled.section`
   justify-content: space-between;
 `;
 
-const ModalCloseBtn = styled(IcClose24Icon)`
+const ModalCloseBtn = styled(IcClose32Icon)`
   cursor: pointer;
 `;
 
@@ -84,7 +84,7 @@ const ModalWrapper = styled.div`
   border-radius: 2rem;
   box-shadow: 0px 15px 22px 0px rgba(64, 71, 79, 0.15), 0px 4px 4px 0px rgba(67, 78, 90, 0.12);
   background-color: ${({ theme }) => theme.colors.grey_0};
-  padding: 2rem 2.4rem;
+  padding: 2rem 2.8rem;
   width: 45.6rem;
   height: auto;
 `;
