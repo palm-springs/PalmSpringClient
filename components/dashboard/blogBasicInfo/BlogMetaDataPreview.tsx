@@ -68,7 +68,7 @@ const PreviewDescription = styled.p`
 
 const PreviewTitle = styled.p`
   ${({ theme }) => theme.mobileFonts.Markdown_H2};
-  margin-top: 2.8rem;
+  margin-top: 2.4rem;
   color: ${({ theme }) => theme.colors.grey_1000};
 `;
 

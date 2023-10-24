@@ -20,6 +20,10 @@ const BlogMetaDataImage = () => {
     }
   };
 
+  const handleOnDeleteImage = () => {
+    setBlogMetaData((prev) => ({ ...prev, image: null }));
+  };
+
   return (
     <BlogMetaImageContainer>
       <ImageGuideContainer>
@@ -33,6 +37,9 @@ const BlogMetaDataImage = () => {
         <ImageLabel>
           <input type="file" onChange={handleOnMetaImageChange} />
           <ImageUpload src={image} alt="meta data image" />
+          <DeleteImageButton onClick={handleOnDeleteImage}>
+            <CloseIcon />
+          </DeleteImageButton>
         </ImageLabel>
       ) : (
         // 메타 이미지 없을때 초기상황
@@ -49,6 +56,15 @@ const BlogMetaDataImage = () => {
 };
 
 export default BlogMetaDataImage;
+const DeleteImageButton = styled.div`
+  position: relative;
+  top: -21.3rem;
+  left: 63.3rem;
+  border: none;
+  background: none;
+  width: 2rem;
+  height: 2rem;
+`;
 
 const ImageUpload = styled.img`
   margin-left: 1.8rem;

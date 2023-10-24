@@ -23,7 +23,7 @@ const BlogDescribeText = (props: BlogDescribeTextProps) => {
     <BlogDescribeContainer>
       <BlogDescribeTitleContainer>
         <BlogDescribeTitle>블로그 설명</BlogDescribeTitle>
-        <BlogDescribeContent>메인 홈에 나타나는 설명입니다.</BlogDescribeContent>
+        <BlogDescribeContent>메인 홈에 나타나는 설명입니다</BlogDescribeContent>
       </BlogDescribeTitleContainer>
       <BlogDescribeTextarea
         readOnly={readonly}
