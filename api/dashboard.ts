@@ -125,3 +125,17 @@ export const updateUserInfo = async (blogUrl: string, userInfo: UserBasicInfo) =
   );
   return data;
 };
+
+export const delegateUserRole = async (
+  blogUrl: string,
+  memberId: string,
+  email: string,
+  role: 'OWNER' | 'MANAGER' | 'EDITOR',
+) => {
+  const { data } = await client.put(`/api/v2/dashboard/user/team/delegate/${blogUrl}`, {
+    memberId,
+    email,
+    role,
+  });
+  return data;
+};

@@ -1,4 +1,4 @@
-export type RoleType = '소유자' | '관리자' | '편집자';
+export type RoleType = 'OWNER' | 'MANAGER' | 'EDITOR';
 
 class PermissionPolicyChecker {
   private static instance: PermissionPolicyChecker;
@@ -36,51 +36,62 @@ class PermissionPolicyChecker {
 
   // 업로드된 글 삭제
   get deleteUploadedContent() {
-    return this.eligible(['소유자', '관리자']);
+    return this.eligible(['OWNER', 'MANAGER']);
   }
 
   // 임시저장한 글 삭제
   get deleteNonUploadedContent() {
-    return this.eligible(['소유자', '관리자']);
+    return this.eligible(['OWNER', 'MANAGER']);
   }
 
   // 팜스프링 탈퇴하기
   get withdrawPalmSpring() {
-    return this.ineligible(['소유자']);
+    return this.ineligible(['OWNER']);
   }
 
   // 블로그 나가기(팀 퇴사하기)
   get resignCurrentTeam() {
-    return this.ineligible(['소유자']);
+    return this.ineligible(['OWNER']);
   }
 
   // 블로그 삭제하기
   get deleteBlog() {
-    return this.eligible(['소유자']);
+    return this.eligible(['OWNER']);
   }
 
   // 팀원 초대하기
   get inviteNewMember() {
-    return this.eligible(['소유자', '관리자']);
+    return this.eligible(['OWNER', 'MANAGER']);
   }
 
   // 편집자 추방하기
   get expelEditor() {
-    return this.eligible(['소유자', '관리자']);
+    return this.eligible(['OWNER', 'MANAGER']);
   }
 
   // 관리자 추방하기
   get expelManager() {
-    return this.eligible(['소유자']);
+    return this.eligible(['OWNER']);
+  }
+
+  // 소유자 권한 위임하기
+  get appointOwner() {
+    return this.eligible(['OWNER']);
   }
 
   // 관리자 임명하기
   get appointManager() {
-    return this.eligible(['소유자']);
+    return this.eligible(['OWNER']);
   }
 
+  // 편집자 임명하기
+  get appointEditor() {
+    return this.eligible(['OWNER', 'MANAGER']);
+  }
+
+  // 블로그 정보 수정하기
   get modifyBlogInfo() {
-    return this.eligible(['소유자', '관리자']);
+    return this.eligible(['OWNER', 'MANAGER']);
   }
 }
 

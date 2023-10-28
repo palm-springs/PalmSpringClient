@@ -4,7 +4,7 @@ import React from 'react';
 import styled from 'styled-components';
 
 const Manager = () => {
-  return <ManagerContainer>관리자</ManagerContainer>;
+  return <ManagerContainer>소유자</ManagerContainer>;
 };
 
 export default Manager;

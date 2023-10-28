@@ -1,11 +1,12 @@
 'use client';
 
-import React, { Dispatch, SetStateAction, useState } from 'react';
+import React, { Dispatch, SetStateAction } from 'react';
 import Image from 'next/image';
 import styled from 'styled-components';
 
 import { CharmMenuMeatballIcon } from '@/public/icons';
 import { MemberExampleImg } from '@/public/images';
+import { RoleType } from '@/utils/PermissionPolicyClass';
 
 import PopOver from '../PopOver';
 
@@ -17,8 +18,10 @@ import Manager from './Manager';
 // import { IcClose24Icon, IcUserIcon } from '@/public/icons';
 
 interface MemberComponentProps {
+  memberId: string;
   email: string;
   job: string;
+  role: RoleType;
   nickname: string;
   thumbnail: string;
   showPopOver: string;
@@ -26,7 +29,9 @@ interface MemberComponentProps {
 }
 
 const Member = (props: MemberComponentProps) => {
-  const { email, job, nickname, thumbnail, showPopOver, setShowPopOver } = props;
+  const { memberId, role, email, job, nickname, thumbnail, showPopOver, setShowPopOver } = props;
+
+  const memberRole = role === 'OWNER' ? '소유자' : role === 'MANAGER' ? '관리자' : '편집자';
 
   return (
     <MemberContainer>
@@ -40,10 +45,11 @@ const Member = (props: MemberComponentProps) => {
                 <Image src={MemberExampleImg} alt="member profile photo" width={36} height={36} />
               )}
               <Name> {nickname} </Name>
-              {job === 'Team Manager' && <Manager />}
+              {role === 'OWNER' && <Manager />}
             </NameBox>
-            <Position> {job} </Position>
+            <Position> {role} </Position>
             <Email> {email} </Email>
+            <Role>{memberRole}</Role>
           </MemberInfoBox>
           <MenuBtnContainer
             onBlur={() => setShowPopOver('')}
@@ -56,7 +62,9 @@ const Member = (props: MemberComponentProps) => {
             }}>
             <CharmMenuMeatballIcon />
           </MenuBtnContainer>
-          {showPopOver === email && <PopOver nickname={nickname} />}
+          {showPopOver === email && (
+            <PopOver memberRole={role} nickname={nickname} memberId={memberId} memberEmail={email} />
+          )}
         </>
       </MemberInnerContent>
     </MemberContainer>
@@ -181,6 +189,12 @@ const Position = styled.div`
 `;
 
 const Email = styled.div`
+  width: 24.4rem;
+  ${({ theme }) => theme.fonts.Body3_Regular};
+  color: ${({ theme }) => theme.colors.grey_700};
+`;
+
+const Role = styled.div`
   ${({ theme }) => theme.fonts.Body3_Regular};
   color: ${({ theme }) => theme.colors.grey_700};
 `;
