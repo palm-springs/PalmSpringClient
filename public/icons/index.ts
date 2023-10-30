@@ -13,6 +13,7 @@ export { default as Grid01Icon } from './grid-01.svg';
 export { default as BoldIcon } from './ic_Bold.svg';
 export { default as CloseIcon } from './ic_close.svg';
 export { default as IcClose24Icon } from './ic_close_24.svg';
+export { default as IcClose32Icon } from './ic_close_32.svg';
 export { default as MobileCloseIcon } from './ic_close_mobile.svg';
 export { default as UserProfileDeleteIcon } from './ic_deleteprofileimage.svg';
 export { default as EssentialCircleIcon } from './ic_essential_circle.svg';

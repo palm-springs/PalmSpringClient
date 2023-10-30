@@ -17,10 +17,12 @@ const MemberList = () => {
   const res = useGetMemberInfo(team);
   if (!res || !res.data) return <LoadingLottie width={5} height={5} fit />;
 
-  const MemberList = res?.data.map(({ email, id, job, nickname, thumbnail }) => {
+  const MemberList = res?.data.map(({ email, id, job, nickname, thumbnail, role }) => {
     return (
       <Member
         key={id}
+        role={role}
+        memberId={String(id)}
         thumbnail={thumbnail}
         nickname={nickname}
         job={job}

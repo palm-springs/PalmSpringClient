@@ -56,18 +56,40 @@ const DashBoardContentContainer = (props: DashBoardContentContainerProps) => {
 
   const pathName = useGetLastPathName();
 
-  // 날짜 포맷팅은 나중에 raw 데이터가 어떻게 날아오는지 확인하고 합시다!
-  return (
-    <DashBoardContentUI $isContentBar={id === '컨텐츠바'}>
-      {email && <Email email={email} />}
+  const ContentsBeforeDraft = () => (
+    <>
       {content && <Content onTitleClick={onTitleClick} content={content} />}
       {url && <Url url={url} />}
       {tabType && <TabType tabType={tabType} />}
       {author && <Author author={author} />}
       {position && <Position position={position} />}
       {description && <Description description={description} />}
+    </>
+  );
+
+  const ContentsWithDraft = () => (
+    <>
       {draft !== undefined ? <Draft draft={draft} /> : <></>}
       {createdAt && <CreatedAt createdAt={createdAt} />}
+    </>
+  );
+  // 날짜 포맷팅은 나중에 raw 데이터가 어떻게 날아오는지 확인하고 합시다!
+  return (
+    <DashBoardContentUI $isContentBar={id === '컨텐츠바'}>
+      {email && <Email email={email} />}
+      {pathName === 'page' || pathName === 'upload' || pathName === 'tempsaved' ? (
+        <PageContentWrapper $isContentBar={id === '컨텐츠바'}>
+          <ContentsBeforeDraft />
+          <div className="page_content">
+            <ContentsWithDraft />
+          </div>
+        </PageContentWrapper>
+      ) : (
+        <>
+          <ContentsBeforeDraft />
+          <ContentsWithDraft />
+        </>
+      )}
       {newsLetter && <NewsLetter newsLetter={newsLetter} />}
       {id !== '컨텐츠바' && (
         <>
@@ -158,5 +180,17 @@ const BtnContainer = styled.button<{ $isContentBar: boolean }>`
   height: 2.4rem;
   &:hover {
     background: ${({ theme }) => theme.colors.grey_300};
+  }
+`;
+
+const PageContentWrapper = styled.div<{ $isContentBar: boolean }>`
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  margin-right: 11rem;
+  width: 100%;
+
+  .page_content {
+    display: ${({ $isContentBar }) => $isContentBar && 'flex'};
   }
 `;

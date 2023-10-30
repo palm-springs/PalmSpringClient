@@ -44,9 +44,7 @@ const DashBoardFooter = () => {
             email={res.data.email}
           />
           <DashBoardNavBtn />
-          {isPopOverMenuOpen && (
-            <FooterPopOverMenuContainer innerText="팜스프링 로그아웃" handleOnClick={handleLogOut} />
-          )}
+          {isPopOverMenuOpen && <FooterPopOverMenuContainer innerText="로그아웃" handleOnClick={handleLogOut} />}
         </>
       ) : (
         <LoadingLottie height={4} width={4} fit={false} />

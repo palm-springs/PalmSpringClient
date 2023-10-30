@@ -7,9 +7,9 @@ export interface UserInfoProps {
   joinBlogList: Array<{
     blogName: string;
     blogUrl: string;
-    role: string;
+    role: RoleType;
   }>;
-  role: RoleType;
+  currentUserRole: RoleType | null;
 }
 
 export interface UserBasicInfo {

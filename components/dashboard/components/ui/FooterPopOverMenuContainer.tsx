@@ -11,7 +11,7 @@ const FooterPopOverMenuContainer = (props: FooterPopOverMenuContainerProps) => {
 
   return (
     <FooterPopOverMenuUI id="popovermenu" onClick={handleOnClick}>
-      {innerText}
+      <span>{innerText}</span>
     </FooterPopOverMenuUI>
   );
 };
@@ -34,5 +34,16 @@ const FooterPopOverMenuUI = styled.article`
   background: ${({ theme }) => theme.colors.grey_0};
 
   cursor: pointer;
-  padding: 1.6rem 2.4rem;
+  padding: 0.4rem 0.8rem;
+  width: 16.2rem;
+
+  span {
+    border-radius: 0.8rem;
+    padding: 1.2rem 1.6rem 1.2rem 1.2rem;
+    width: 14.6rem;
+    &:hover {
+      transition: 0.3s ease-in-out;
+      background: ${({ theme }) => theme.colors.grey_100};
+    }
+  }
 `;

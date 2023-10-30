@@ -27,6 +27,9 @@ interface BlogConfigProps {
   blogLogoImage: File | string | null;
   blogMainImage: File | string | null;
   blogDescribeText: string;
+  // metaThumbnail: string | null;
+  // metaName: string | null;
+  // metaDescription: string | null;
 }
 
 const BlogConfigTemplate = () => {
@@ -111,6 +114,9 @@ const BlogConfigTemplate = () => {
         description: blogConfig.blogDescribeText,
         logo: typeof logoImage === 'string' ? logoImage : null,
         thumbnail: typeof mainImage === 'string' ? mainImage : null,
+        // metaThumbnail: string | null;
+        // metaName: string | null;
+        // metaDescription: string | null;
       });
       sucessNotify();
     } catch (err) {
