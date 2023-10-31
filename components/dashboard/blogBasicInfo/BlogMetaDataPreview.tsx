@@ -8,17 +8,21 @@ import { blogMetaDataState } from '../state/blogMetaData';
 const MetaDataPreview = () => {
   const [blogMetaData, setBlogMetaData] = useRecoilState(blogMetaDataState);
 
-  const { image, title, description } = blogMetaData;
+  const { metaThumbnail, metaName, metaDescription } = blogMetaData;
 
   return (
     <MetaDataPreviewContainer>
       <PreviewHeader>미리보기</PreviewHeader>
       <MetaDataPreviewBoxContainer>
-        {image ? <PreviewImage src={image} alt="meta data image" /> : <NonePreviewImage></NonePreviewImage>}
+        {metaThumbnail ? (
+          <PreviewImage src={metaThumbnail} alt="meta data image" />
+        ) : (
+          <NonePreviewImage></NonePreviewImage>
+        )}
         {/* 14.2 */}
         <PreviewBottomContainer>
-          <PreviewTitle>{title}</PreviewTitle>
-          <PreviewDescription>{description}</PreviewDescription>
+          <PreviewTitle>{metaName}</PreviewTitle>
+          <PreviewDescription>{metaDescription}</PreviewDescription>
           {/* url 자리임 -> 데이터 받아서 교체*/}
           <PreviewBlogUrl>Parmspring.com</PreviewBlogUrl>
         </PreviewBottomContainer>

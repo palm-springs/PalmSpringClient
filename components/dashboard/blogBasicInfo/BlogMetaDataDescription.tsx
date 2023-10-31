@@ -7,18 +7,19 @@ import styled from 'styled-components';
 import { blogMetaDataState } from '../state/blogMetaData';
 
 const BlogMetaDataDescription = () => {
-  const [{ description }, setBlogMetaData] = useRecoilState(blogMetaDataState);
+  const [{ metaDescription }, setBlogMetaData] = useRecoilState(blogMetaDataState);
 
   const handleOnMetaDescriptionChange = (e: ChangeEvent<HTMLTextAreaElement>) => {
     const { value } = e.currentTarget;
-    setBlogMetaData((prev) => ({ ...prev, description: value }));
+    setBlogMetaData((prev) => ({ ...prev, metaDescription: value }));
+    console.log(value);
   };
 
   return (
     <BlogMetaDataDescriptionContainer>
       <MetaDataDescriptionTitle>메타데이터 설명</MetaDataDescriptionTitle>
       <MetaDataDescriptionTextarea
-        value={description}
+        value={metaDescription}
         placeholder="메타데이터 설명을 입력하세요"
         onChange={handleOnMetaDescriptionChange}
       />

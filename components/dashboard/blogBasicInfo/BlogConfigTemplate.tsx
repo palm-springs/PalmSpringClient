@@ -115,9 +115,9 @@ const BlogConfigTemplate = () => {
         description: blogConfig.blogDescribeText,
         logo: typeof logoImage === 'string' ? logoImage : null,
         thumbnail: typeof mainImage === 'string' ? mainImage : null,
-        metaThumbnail: blogMetaConfig.image,
-        metaName: blogMetaConfig.title,
-        metaDescription: blogMetaConfig.description,
+        metaThumbnail: blogMetaConfig.metaThumbnail,
+        metaName: blogMetaConfig.metaName,
+        metaDescription: blogMetaConfig.metaDescription,
       });
       sucessNotify();
     } catch (err) {
