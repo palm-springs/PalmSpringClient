@@ -3,20 +3,27 @@ import { useState } from 'react';
 import { useRecoilState } from 'recoil';
 import styled from 'styled-components';
 
-import { ProfilePhotoIcon } from '@/public/icons';
+import { Loader01Icon, ProfilePhotoIcon } from '@/public/icons';
 import { UserBasicInfo } from '@/types/user';
+import CheckUserIdDuplication from '@/utils/checkUserIdDuplication';
 
 import { invitedUserDataState } from '../states/userData';
 
+import TextIdInputForm from './TextIdInputForm';
 import TextInputForm from './TextInputForm';
 const InviteAcceptForm = () => {
   // focus state
+  const [isUrlDuplicate, setIsDuplicate] = useState<boolean | null>(false);
   const [focus, setFocus] = useState({ nickname: false, url: false, description: false, job: false });
   const [{ nickname, url, description, job }, setInvitedUserData] = useRecoilState(invitedUserDataState);
 
   const handleOnChange = (e: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement>) => {
     const { value, id } = e.currentTarget;
     setInvitedUserData((prev: UserBasicInfo) => ({ ...prev, [id]: value }));
+
+    if (id === 'url') {
+      CheckUserIdDuplication('palmspring_official', value, setIsDuplicate);
+    }
   };
 
   return (
@@ -39,8 +46,8 @@ const InviteAcceptForm = () => {
         />
       </TextInputForm>
 
-      <TextInputForm type={'id'} text={'ID'} isFocus={focus.url}>
-        <div>/@timi/author/</div>
+      <TextIdInputForm text={'ID'} isFocus={focus.url} isDuplicate={isUrlDuplicate}>
+        <div className="urlText">/@timi/author/</div>
         <TextInput
           id={'url'}
           onFocus={() => setFocus({ ...focus, url: true })}
@@ -48,7 +55,12 @@ const InviteAcceptForm = () => {
           value={url as string}
           onChange={handleOnChange}
         />
-      </TextInputForm>
+        {isUrlDuplicate === null && url !== '' && <Loader01Icon />}
+        {isUrlDuplicate && <Message>이미 사용 중인 URL입니다. 다른 ID 입력해주세요.</Message>}
+        {isUrlDuplicate === false && url !== '' && url !== null && (
+          <Message className="success">사용 가능한 ID입니다.</Message>
+        )}
+      </TextIdInputForm>
 
       <TextInputForm type={'description'} text={'한 줄 소개'} isFocus={focus.description}>
         <TextAreaInput
@@ -72,7 +84,7 @@ const InviteAcceptForm = () => {
         />
       </TextInputForm>
 
-      <AcceptButton type="button" disabled={true}>
+      <AcceptButton type="button" disabled={!nickname || !url || isUrlDuplicate || isUrlDuplicate === null}>
         수락하기
       </AcceptButton>
     </InviteAcceptFormContainer>
@@ -80,6 +92,20 @@ const InviteAcceptForm = () => {
 };
 
 export default InviteAcceptForm;
+
+const Message = styled.div`
+  ${({ theme }) => theme.fonts.Caption};
+  position: absolute;
+  top: 4.9rem;
+  left: 0;
+
+  width: 100%;
+  color: ${({ theme }) => theme.colors.red};
+
+  &.success {
+    color: ${({ theme }) => theme.colors.green};
+  }
+`;
 
 const InviteAcceptFormContainer = styled.div`
   display: flex;

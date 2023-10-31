@@ -15,10 +15,10 @@ const TextInputForm = (props: TextInputFormProps) => {
   const { type, text, children, isFocus } = props;
 
   return (
-    <Label>
+    <Label className={type}>
       <TitleContainer>
         <InputTitle>{text}</InputTitle>
-        {(type === 'id' || type === 'name') && <RequiredIcon className={type} />}
+        {type === 'name' && <RequiredCircleIcon />}
       </TitleContainer>
       <InputContainer className={type} $isFocus={isFocus}>
         {children}
@@ -42,28 +42,16 @@ const TitleContainer = styled.div`
   margin-bottom: 0.8rem;
 `;
 
-const RequiredIcon = styled(RequiredCircleIcon)`
-  &.id {
-    margin-top: 0.2rem;
-  }
-`;
-
 // text input 입력  컨테이너
 const InputContainer = styled.div<{ $isFocus: boolean }>`
+  position: relative;
   border: 1px solid ${({ theme, $isFocus }) => ($isFocus ? theme.colors.grey_700 : theme.colors.grey_400)};
   border-radius: 0.8rem;
   padding: 1rem 1.2rem;
   width: 100%;
   height: 4.6rem;
-  &.id {
-    display: flex;
-    align-items: center;
-  }
+
   &.description {
     height: 8.6rem;
-  }
-  & > div {
-    ${({ theme }) => theme.fonts.Body2_Regular};
-    color: ${({ theme }) => theme.colors.grey_600};
   }
 `;
