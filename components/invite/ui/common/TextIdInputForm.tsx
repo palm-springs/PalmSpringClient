@@ -1,7 +1,10 @@
 'use client';
+import { useRecoilValue } from 'recoil';
 import styled from 'styled-components';
 
 import { RequiredCircleIcon } from '@/public/icons';
+
+import { invitedUserDataState } from '../../states/userData';
 
 import InputTitle from './InputTitle';
 interface TextInputFormProps {
@@ -13,6 +16,7 @@ interface TextInputFormProps {
 
 const TextIdInputForm = (props: TextInputFormProps) => {
   const { text, children, isFocus, isDuplicate } = props;
+  const { url } = useRecoilValue(invitedUserDataState);
 
   return (
     <Label>
@@ -20,10 +24,7 @@ const TextIdInputForm = (props: TextInputFormProps) => {
         <InputTitle>{text}</InputTitle>
         <RequiredIcon />
       </TitleContainer>
-      <InputContainer
-        id={isDuplicate === null ? '' : isDuplicate ? 'failed' : 'success'}
-        $isFocus={isFocus}
-        $isDuplicate={isDuplicate}>
+      <InputContainer id={!url || isDuplicate === null ? '' : isDuplicate ? 'failed' : 'success'} $isFocus={isFocus}>
         {children}
       </InputContainer>
     </Label>
@@ -50,13 +51,11 @@ const RequiredIcon = styled(RequiredCircleIcon)`
 `;
 
 // text input 입력  컨테이너
-const InputContainer = styled.div<{ $isFocus: boolean; $isDuplicate: boolean | null }>`
+const InputContainer = styled.div<{ $isFocus: boolean }>`
   display: flex;
   position: relative;
   align-items: center;
-  border: 1px solid
-    ${({ theme, $isDuplicate, $isFocus }) =>
-      $isDuplicate === null && $isFocus ? theme.colors.grey_700 : theme.colors.grey_400};
+  border: 1px solid ${({ theme, $isFocus }) => ($isFocus ? theme.colors.grey_700 : theme.colors.grey_400)};
   border-radius: 0.8rem;
   padding: 1rem 1.2rem;
   width: 100%;
