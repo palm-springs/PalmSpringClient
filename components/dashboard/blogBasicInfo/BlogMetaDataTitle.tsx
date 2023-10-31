@@ -6,7 +6,14 @@ import styled from 'styled-components';
 
 import { blogMetaDataState } from '../state/blogMetaData';
 
+// interface BlogMetaDataTitle {
+//   metaName: string | null;
+//   setMetaName: (v: string) => void;
+//   readonly: boolean;
+// }
+
 const BlogMetaDataTitle = () => {
+  // const { metaName, setMetaName, readonly } = props;
   const [{ title }, setBlogMetaData] = useRecoilState(blogMetaDataState);
 
   const handleOnMetaTitleChange = (e: ChangeEvent<HTMLTextAreaElement>) => {

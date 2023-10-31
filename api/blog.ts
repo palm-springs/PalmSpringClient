@@ -8,9 +8,9 @@ interface BlogConfigRequestBodyProps {
   description: string | null;
   thumbnail: string | null;
   logo: string | null;
-  // metaThumbnail: string | null;
-  // metaName: string | null;
-  // metaDescription: string | null;
+  metaThumbnail: string | null;
+  metaName: string | null;
+  metaDescription: string | null;
 }
 
 interface BlogInfoProps {
