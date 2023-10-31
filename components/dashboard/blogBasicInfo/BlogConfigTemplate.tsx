@@ -88,6 +88,12 @@ const BlogConfigTemplate = () => {
       blogDescribeText: res.data.description,
       blogMainImage: res.data.thumbnail,
     }));
+    setBlogMetaConfig((pre) => ({
+      ...pre,
+      metaThumbnail: res.data.metaThumbnail,
+      metaName: res.data.metaDescription,
+      metaDescription: res.data.metaDescription,
+    }));
   }, [res]);
 
   if (!res || !res.data) return <LoadingLottie width={10} height={10} />;
@@ -184,7 +190,7 @@ const BlogConfigTemplate = () => {
         <BlogMetaDataImage />
         <BlogMetaDataTitle />
         <BlogMetaDataDescription />
-        <MetaDataPreview />
+        <MetaDataPreview blogUrl={res.data.url} />
         {deleteBlog && <BlogInfoDeleteButton />}
         {modifyBlogInfo && (
           <BlogSaveButton type="button" disabled={blogConfig.blogName === ''} onClick={postBlogConfig}>

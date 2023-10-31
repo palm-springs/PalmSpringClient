@@ -5,7 +5,12 @@ import styled from 'styled-components';
 
 import { blogMetaDataState } from '../state/blogMetaData';
 
-const MetaDataPreview = () => {
+interface metaBlogUrlProps {
+  blogUrl: string | null;
+}
+
+const MetaDataPreview = (props: metaBlogUrlProps) => {
+  const { blogUrl } = props;
   const [blogMetaData, setBlogMetaData] = useRecoilState(blogMetaDataState);
 
   const { metaThumbnail, metaName, metaDescription } = blogMetaData;
@@ -24,7 +29,7 @@ const MetaDataPreview = () => {
           <PreviewTitle>{metaName}</PreviewTitle>
           <PreviewDescription>{metaDescription}</PreviewDescription>
           {/* url 자리임 -> 데이터 받아서 교체*/}
-          <PreviewBlogUrl>Parmspring.com</PreviewBlogUrl>
+          <PreviewBlogUrl>{blogUrl && `${blogUrl}.com`}</PreviewBlogUrl>
         </PreviewBottomContainer>
       </MetaDataPreviewBoxContainer>
     </MetaDataPreviewContainer>
@@ -50,8 +55,10 @@ const MetaDataPreviewBoxContainer = styled.div`
 `;
 
 const PreviewBottomContainer = styled.div`
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
   margin-left: 3rem;
-  height: 14.2rem;
 `;
 
 const PreviewBlogUrl = styled.p`

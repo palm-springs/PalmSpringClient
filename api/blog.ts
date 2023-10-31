@@ -19,6 +19,9 @@ interface BlogInfoProps {
   thumbnail: string;
   logo: string;
   description: string;
+  metaThumbnail: string | null;
+  metaName: string;
+  metaDescription: string;
 }
 
 //블로그 정보 가져오기 - 반영 완
