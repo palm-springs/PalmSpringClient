@@ -91,7 +91,7 @@ const BlogConfigTemplate = () => {
     setBlogMetaConfig((pre) => ({
       ...pre,
       metaThumbnail: res.data.metaThumbnail,
-      metaName: res.data.metaDescription,
+      metaName: res.data.metaName,
       metaDescription: res.data.metaDescription,
     }));
   }, [res]);
