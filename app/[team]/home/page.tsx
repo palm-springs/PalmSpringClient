@@ -1,6 +1,7 @@
 // all 카테고리 페이지
 //여기서 동적 태그 작업
 import React from 'react';
+import { Metadata } from 'next';
 import { Head } from 'next/document';
 
 import { getBlogInfo } from '@/api/blog';
@@ -8,7 +9,7 @@ import { getBlogArticleList, getBlogMainImg } from '@/api/blogHome';
 import ArticleContainer from '@/components/blog/ui/ArticleContainer';
 
 // 메타데이터 끼면 에러생김 --> 공문 보고 다시 해보기
-export const metadata = {
+export const metadata: Metadata = {
   openGraph: {
     title: 'Next.js',
     description: 'The React Framework for the Web',
@@ -23,9 +24,6 @@ const BlogMainPage = async ({ params }: { params: { team: string } }) => {
 
   return (
     <>
-      <Head>
-        <title></title>
-      </Head>
       <ArticleContainer articleListData={articleListData} thumbnail={thumbnail} description={description} />
     </>
   );
