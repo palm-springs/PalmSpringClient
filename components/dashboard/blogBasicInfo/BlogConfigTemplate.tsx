@@ -81,6 +81,7 @@ const BlogConfigTemplate = () => {
 
   useEffect(() => {
     if (!res || !res.data) return;
+    // console.log(res.data);
     setBlogConfig((prev) => ({
       ...prev,
       blogName: res.data.name,
@@ -88,8 +89,8 @@ const BlogConfigTemplate = () => {
       blogDescribeText: res.data.description,
       blogMainImage: res.data.thumbnail,
     }));
-    setBlogMetaConfig((pre) => ({
-      ...pre,
+    setBlogMetaConfig((prev) => ({
+      ...prev,
       metaThumbnail: res.data.metaThumbnail,
       metaName: res.data.metaName,
       metaDescription: res.data.metaDescription,

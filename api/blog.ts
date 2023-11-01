@@ -19,7 +19,7 @@ interface BlogInfoProps {
   thumbnail: string;
   logo: string;
   description: string;
-  metaThumbnail: string | null;
+  metaThumbnail: string;
   metaName: string;
   metaDescription: string;
 }
