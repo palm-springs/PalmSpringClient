@@ -29,3 +29,12 @@ export interface UserBasicInfoProps {
   description: string;
   job: string;
 }
+
+export interface UserInvite {
+  failCount: number;
+  failEmails: string[];
+}
+
+export interface InviteRequestBody {
+  inviteEmails: string[];
+}

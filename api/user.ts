@@ -1,5 +1,5 @@
 import { Response } from '@/types/common';
-import { UserInfoProps } from '@/types/user';
+import { InviteRequestBody, UserInfoProps, UserInvite } from '@/types/user';
 
 import client from '.';
 
@@ -28,5 +28,11 @@ export const deleteMember = async (blogUrl: string, memberId: string, email: str
     memberId,
     email,
   });
+  return data;
+};
+
+// 팀원 초대하기
+export const postMemberInvite = async (blogUrl: string, requestBody: InviteRequestBody) => {
+  const { data } = await client.post<Response<UserInvite>>(`/api/v2/dashboard/user/invite/${blogUrl}`, requestBody);
   return data;
 };
