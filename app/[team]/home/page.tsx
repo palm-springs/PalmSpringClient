@@ -14,6 +14,7 @@ export const metadata: Metadata = {
     title: '보이나',
     description: '여기여기여기',
     type: 'website',
+    url: 'https://palm-spring-client-git-feat-276metadataapi-palm-spring-client.vercel.app/bongzzi/home',
   },
 };
 const BlogMainPage = async ({ params }: { params: { team: string } }) => {
