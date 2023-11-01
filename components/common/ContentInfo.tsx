@@ -3,7 +3,6 @@
 import React from 'react';
 import { useMediaQuery } from 'react-responsive';
 import Link from 'next/link';
-import { useParams } from 'next/navigation';
 import styled from 'styled-components';
 
 import useGetIfContentPage from '@/hooks/useGetIfContentPage';
@@ -34,7 +33,6 @@ const ContentInfo = (props: ContentInfoProps) => {
   });
 
   const { contentInfoData, IndivContentId, articleUrl } = props;
-  const { team } = useParams();
 
   const ifContent = useGetIfContentPage();
   const ifPage = useGetIfPage();
@@ -56,7 +54,7 @@ const ContentInfo = (props: ContentInfoProps) => {
           </ContentDetailBox>
         ) : (
           <ContentDetailBox>
-            <Link href={`/${team}/content/article/${articleUrl}/${IndivContentId}`}>
+            <Link href={`/content/article/${articleUrl}/${IndivContentId}`}>
               <TitleBox className="mobile">{title}</TitleBox>
               {description && <DescriptionBox className="mobile">{description}</DescriptionBox>}
             </Link>
@@ -64,7 +62,7 @@ const ContentInfo = (props: ContentInfoProps) => {
         )}
         {name && (
           <WriterBox>
-            <WriterInfo href={`/${team}/author/${id}`} className="mobile">
+            <WriterInfo href={`/author/${id}`} className="mobile">
               {thumbnail ? <WriterProfilePic src={thumbnail} alt="writer profile pic" /> : <NoUserProfileIcon />}
               <WriterDetailBox className="mobile">
                 <WriterNameBox>
@@ -88,7 +86,7 @@ const ContentInfo = (props: ContentInfoProps) => {
           </ContentDetailBox>
         ) : (
           <ContentDetailBox>
-            <Link href={`/${team}/content/article/${articleUrl}/${IndivContentId}`}>
+            <Link href={`/content/article/${articleUrl}/${IndivContentId}`}>
               <TitleBox>{title}</TitleBox>
               {description && <DescriptionBox>{description}</DescriptionBox>}
             </Link>
@@ -96,7 +94,7 @@ const ContentInfo = (props: ContentInfoProps) => {
         )}
         {name && (
           <WriterBox>
-            <WriterInfo href={`/${team}/author/${id}`}>
+            <WriterInfo href={`/author/${id}`}>
               {thumbnail ? <WriterProfilePic src={thumbnail} alt="writer profile pic" /> : <NoUserProfileIcon />}
               <WriterDetailBox>
                 <WriterNameBox>
