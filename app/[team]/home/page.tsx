@@ -11,8 +11,8 @@ import ArticleContainer from '@/components/blog/ui/ArticleContainer';
 // 메타데이터 끼면 에러생김 --> 공문 보고 다시 해보기
 export const metadata: Metadata = {
   openGraph: {
-    title: 'Next.js',
-    description: 'The React Framework for the Web',
+    title: '보이나',
+    description: '여기여기여기',
     type: 'website',
   },
 };
