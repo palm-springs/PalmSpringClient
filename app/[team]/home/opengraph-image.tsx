@@ -24,7 +24,9 @@ export default async function Image({ params }: { params: { team: string } }) {
           backgroundPosition: 'center',
           backgroundRepeat: 'no-repeat',
           backgroundSize: 'cover',
-        }}></div>
+        }}>
+        {post.data.metaName}
+      </div>
     ),
     {
       ...size,

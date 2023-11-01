@@ -1,6 +1,7 @@
 // all 카테고리 페이지
 //여기서 동적 태그 작업
 import React from 'react';
+import { Head } from 'next/document';
 
 import { getBlogInfo } from '@/api/blog';
 import { getBlogArticleList, getBlogMainImg } from '@/api/blogHome';
