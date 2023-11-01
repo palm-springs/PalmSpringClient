@@ -56,3 +56,12 @@ export const getBlogAuthorDetail = async (blogUrl: string, memberId: number) => 
   const { data } = await client.get<Response<AuthorInfoProps>>(`/api/v2/view/author/${blogUrl}/detail/${memberId}`);
   return data;
 };
+
+//뉴스레터 구독하기 post
+export const postSubscriber = async (blogId: number, thumbnail: string, articleTitle: string) => {
+  const { data } = await client.post<Response<null>>(`/api/v2/ses/send/newsletter/${blogId}`, {
+    thumbnail,
+    articleTitle,
+  });
+  return data;
+};
