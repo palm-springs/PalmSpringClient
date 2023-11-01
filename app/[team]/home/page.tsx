@@ -7,8 +7,14 @@ import { getBlogInfo } from '@/api/blog';
 import { getBlogArticleList, getBlogMainImg } from '@/api/blogHome';
 import ArticleContainer from '@/components/blog/ui/ArticleContainer';
 
-//메타데이터 끼면 에러생김 --> 공문 보고 다시 해보기
-
+// 메타데이터 끼면 에러생김 --> 공문 보고 다시 해보기
+export const metadata = {
+  openGraph: {
+    title: 'Next.js',
+    description: 'The React Framework for the Web',
+    type: 'website',
+  },
+};
 const BlogMainPage = async ({ params }: { params: { team: string } }) => {
   const {
     data: { thumbnail, description },
@@ -17,6 +23,9 @@ const BlogMainPage = async ({ params }: { params: { team: string } }) => {
 
   return (
     <>
+      <Head>
+        <title></title>
+      </Head>
       <ArticleContainer articleListData={articleListData} thumbnail={thumbnail} description={description} />
     </>
   );

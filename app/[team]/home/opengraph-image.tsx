@@ -2,7 +2,7 @@ import { ImageResponse } from 'next/server';
 
 import { getBlogInfo } from '@/api/blog';
 
-// export const runtime = 'edge';
+export const runtime = 'edge';
 
 export const alt = 'About Acme';
 export const size = {
