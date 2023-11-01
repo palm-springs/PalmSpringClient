@@ -31,12 +31,12 @@ const nextConfig = {
     // config.output.filename = 'static/chunks/[name]-[chunkhash].js';
     return config;
   },
-  generateBuildId: async () => {
-    // eslint-disable-next-line @typescript-eslint/no-var-requires
-    const nextBuildId = require('next-build-id');
-    // You can, for example, get the latest git commit hash here
-    return nextBuildId({ dir: __dirname });
-  },
+  // generateBuildId: async () => {
+  //   // eslint-disable-next-line @typescript-eslint/no-var-requires
+  //   const nextBuildId = require('next-build-id');
+  //   // You can, for example, get the latest git commit hash here
+  //   return nextBuildId({ dir: __dirname });
+  // },
   generateEtags: false,
 };
 
