@@ -1,3 +1,5 @@
+import exp from 'constants';
+
 import { createBlogData } from '@/types/blogInfo';
 import { Response } from '@/types/common';
 
@@ -23,6 +25,19 @@ interface BlogInfoProps {
   metaName: string;
   metaDescription: string;
 }
+
+interface MetaBlogInfoProps {
+  blogUrl: string;
+  metaThumbnail: string;
+  metaName: string;
+  metaDescription: string;
+}
+
+//외부에서 블로그 정보 가져오기- 서브도메인
+export const getMetaBlogInfo = async (blogUrl: string) => {
+  const { data } = await client.get<Response<MetaBlogInfoProps>>(`/api/v2/view/blog/${blogUrl}/home`);
+  return data;
+};
 
 //블로그 정보 가져오기 - 반영 완
 export const getBlogInfo = async (blogUrl: string) => {
