@@ -11,15 +11,16 @@ import TextIdInputForm from './common/TextIdInputForm';
 
 interface UserIdProps extends InviteInfoProps {
   isDuplicate: boolean | null;
+  blogUrl: string;
 }
 
 const UserId = (props: UserIdProps) => {
-  const { isFocus, handleOnChange, handleOnFocus, isDuplicate } = props;
+  const { isFocus, handleOnChange, handleOnFocus, isDuplicate, blogUrl } = props;
   const { url } = useRecoilValue(invitedUserDataState);
 
   return (
     <TextIdInputForm text={'ID'} isFocus={isFocus} isDuplicate={isDuplicate}>
-      <div className="urlText">/@timi/author/</div>
+      <div className="urlText">/@{blogUrl}/author/</div>
       <TextInput
         id={'url'}
         onFocus={() => handleOnFocus('url', true)}

@@ -35,6 +35,16 @@ export interface UserInvite {
   failEmails: string[];
 }
 
+export interface UserInviteInfo {
+  blogName: string;
+  blogUrl: string;
+}
+
 export interface InviteRequestBody {
   inviteEmails: string[];
+}
+export interface InviteInfoProps {
+  isFocus: boolean;
+  handleOnChange: (e: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement>) => void;
+  handleOnFocus: (type: string, value: boolean) => void;
 }

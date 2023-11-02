@@ -1,8 +1,10 @@
 'use client';
 import { useState } from 'react';
+import { useRouter } from 'next/navigation';
 import { useRecoilState } from 'recoil';
 import styled from 'styled-components';
 
+import { updateUserInfo } from '@/api/dashboard';
 import { UserBasicInfo } from '@/types/user';
 import CheckUserIdDuplication from '@/utils/checkUserIdDuplication';
 
@@ -14,11 +16,19 @@ import UserName from './UserName';
 import UserPosition from './UserPosition';
 import UserProfile from './UserProfile';
 
-const InviteAcceptForm = () => {
+interface InviteAcceptFormProps {
+  blogUrl: string;
+  blogName: string;
+}
+
+const InviteAcceptForm = (props: InviteAcceptFormProps) => {
+  const { blogUrl, blogName } = props;
+  const router = useRouter();
+
   // states
   const [focus, setFocus] = useState({ nickname: false, url: false, description: false, job: false });
   const [isUrlDuplicate, setIsDuplicate] = useState<boolean | null>(false);
-  const [{ nickname, url }, setInvitedUserData] = useRecoilState(invitedUserDataState);
+  const [invitedUserData, setInvitedUserData] = useRecoilState(invitedUserDataState);
 
   // event handle func
   const handleOnInputChange = (e: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement>) => {
@@ -26,7 +36,7 @@ const InviteAcceptForm = () => {
     setInvitedUserData((prev: UserBasicInfo) => ({ ...prev, [id]: value }));
 
     if (id === 'url') {
-      CheckUserIdDuplication('palmspring_official', value, setIsDuplicate);
+      CheckUserIdDuplication(blogUrl, value, setIsDuplicate);
     }
   };
 
@@ -34,14 +44,22 @@ const InviteAcceptForm = () => {
     setFocus({ ...focus, [type]: value });
   };
 
+  const handleOnAcceptClick = async () => {
+    const { code } = await updateUserInfo(blogUrl, invitedUserData);
+    if (code === 200) {
+      router.replace(`${blogUrl}/dashboard/upload`);
+    }
+  };
+
   return (
     <InviteAcceptFormContainer>
-      <TeamName>햇살티미단</TeamName>
+      <TeamName>{blogName}</TeamName>
       <Title>초대 수락하기</Title>
 
       <UserProfile />
       <UserName isFocus={focus.nickname} handleOnChange={handleOnInputChange} handleOnFocus={handleOnFocus} />
       <UserId
+        blogUrl={blogUrl}
         isFocus={focus.url}
         handleOnChange={handleOnInputChange}
         handleOnFocus={handleOnFocus}
@@ -50,7 +68,10 @@ const InviteAcceptForm = () => {
       <UserDescription isFocus={focus.description} handleOnChange={handleOnInputChange} handleOnFocus={handleOnFocus} />
       <UserPosition isFocus={focus.job} handleOnChange={handleOnInputChange} handleOnFocus={handleOnFocus} />
 
-      <AcceptButton type="button" disabled={!nickname || !url || isUrlDuplicate || isUrlDuplicate === null}>
+      <AcceptButton
+        type="button"
+        disabled={!invitedUserData.nickname || !invitedUserData.url || isUrlDuplicate || isUrlDuplicate === null}
+        onClick={handleOnAcceptClick}>
         수락하기
       </AcceptButton>
     </InviteAcceptFormContainer>

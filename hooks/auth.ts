@@ -1,7 +1,7 @@
 import { useMutation, useQuery, useQueryClient } from '@tanstack/react-query';
 
 import { getAccessToken } from '@/api/auth';
-import { postMemberInvite } from '@/api/user';
+import { getMemberInvite, postMemberInvite } from '@/api/user';
 import { getAccessTokenProps } from '@/types/auth';
 import { InviteRequestBody } from '@/types/user';
 
@@ -19,4 +19,9 @@ export const usePostMemberInvite = (blogUrl: string, requestBody: InviteRequestB
       queryClient.invalidateQueries([QUERY_KEY_DASHBOARD.getMemberInfo]);
     },
   });
+};
+
+export const useGetMemberInvite = (code: string | null) => {
+  const { data } = useQuery(['invite'], () => getMemberInvite(code));
+  return data;
 };
