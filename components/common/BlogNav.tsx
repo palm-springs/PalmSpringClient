@@ -1,6 +1,6 @@
 'use client';
 
-import React from 'react';
+import React, { useState } from 'react';
 import Link from 'next/link';
 import { useParams } from 'next/navigation';
 import styled from 'styled-components';
@@ -14,6 +14,7 @@ import LoadingLottie from './ui/LoadingLottie';
 
 const BlogNav = () => {
   const { team } = useParams();
+  const [modalIsOpen, setModalIsOpen] = useState(false);
 
   const res = useGetBlogHeaderInfo(team);
 
@@ -31,8 +32,7 @@ const BlogNav = () => {
             <Link href={isPage ? `/${team}/content/page/${navUrl}/${id}` : `${navUrl}`}>{name}</Link>
           </PageBtn>
         ))}
-      {/* 밑의 버튼은 구독자 기능 생성 후 다시 넣어줄 예정 */}
-      <SubscribeBtn />
+      <SubscribeBtn modalIsOpen={modalIsOpen} setModalIsOpen={setModalIsOpen} team={team} />
     </BlogNavContainer>
   );
 };

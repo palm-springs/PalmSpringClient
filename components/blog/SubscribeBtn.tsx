@@ -1,35 +1,62 @@
 'use client';
 
-import React, { useState } from 'react';
+import React, { useRef, useState } from 'react';
 import styled from 'styled-components';
 
 import { postSubscriber } from '@/api/blogHome';
+import { IcClose32Icon } from '@/public/icons';
 
-const SubscribeBtn = () => {
-  const [modalIsOpen, setModalIsOpen] = useState(false);
+interface subscribeBtnProps {
+  modalIsOpen: boolean;
+  setModalIsOpen: React.Dispatch<React.SetStateAction<boolean>>;
+  team: string;
+}
 
-  const handleSubscribe = () => {
-    setModalIsOpen(true);
-    // postSubscriber(email);
+const SubscribeBtn = (subscribeBtnProps: subscribeBtnProps) => {
+  const { modalIsOpen, setModalIsOpen, team } = subscribeBtnProps;
+
+  const [email, setEmail] = useState('');
+  const modalRef = useRef<HTMLDivElement>(null);
+
+  const requestBody = {
+    email: email,
+    blogUrl: team,
   };
 
-  const handleModalClose = () => {
-    setModalIsOpen(true);
+  const handleSubscribe = () => {
+    postSubscriber(requestBody);
+    setModalIsOpen(false);
+  };
+
+  const handleModalCloseBtn = () => {
+    setModalIsOpen(false);
+  };
+
+  const handleModalClose = (e: React.MouseEvent<HTMLElement>) => {
+    !modalRef.current?.contains(e.target as Node) && setModalIsOpen(false);
+  };
+
+  const saveEmail = (e: React.ChangeEvent<HTMLInputElement>) => {
+    setEmail(e.target.value);
+  };
+
+  const resetEmail = () => {
+    setEmail('');
   };
 
   return (
     <>
       {modalIsOpen ? (
         <ModalBackground onClick={handleModalClose}>
-          <EmailModal>
+          <EmailModal ref={modalRef}>
             <ModalTitleWrapper>
-              <ModalTitle>블로그 이름 아티클 구독하기</ModalTitle>
-              <ModalCloseBtn>X</ModalCloseBtn>
+              <ModalTitle>{team} 아티클 구독하기</ModalTitle>
+              <ModalCloseBtn onClick={handleModalCloseBtn} />
             </ModalTitleWrapper>
             <ModalEmailTitle>이메일</ModalEmailTitle>
-            <ModalEmailInput></ModalEmailInput>
+            <ModalEmailInput type="text" value={email} onChange={saveEmail}></ModalEmailInput>
             <ModalBtnWrapper>
-              <ModalSubmitBtn>구독</ModalSubmitBtn>
+              <ModalSubmitBtn onClick={handleSubscribe}>구독</ModalSubmitBtn>
             </ModalBtnWrapper>
           </EmailModal>
         </ModalBackground>
@@ -37,7 +64,14 @@ const SubscribeBtn = () => {
         <></>
       )}
 
-      <SubscribeBtnContainer onClick={handleSubscribe}>팀 소식 받아보기</SubscribeBtnContainer>
+      <SubscribeBtnContainer
+        type="button"
+        onClick={() => {
+          setModalIsOpen(true);
+          resetEmail();
+        }}>
+        팀 소식 받아보기
+      </SubscribeBtnContainer>
     </>
   );
 };
@@ -45,7 +79,11 @@ const SubscribeBtn = () => {
 export default SubscribeBtn;
 
 const ModalBackground = styled.div`
+  position: fixed;
+  top: 0;
+  left: 0;
   z-index: 1;
+
   background-color: rgba(64, 71, 79, 0.5);
   width: 100vw;
   height: 100vh;
@@ -54,22 +92,25 @@ const ModalBackground = styled.div`
 const EmailModal = styled.div`
   display: flex;
   position: fixed;
-  top: 50%;
-  right: 50%;
+  top: calc(100vh / 3);
+  right: calc(100vw / 3);
   flex-direction: column;
   z-index: 2;
+
   border-radius: 2rem;
   background-color: ${({ theme }) => theme.colors.grey_0};
+
   padding: 2rem 2.8rem;
 `;
 
 const ModalTitleWrapper = styled.div`
   display: flex;
-  gap: 8.8rem;
+  justify-content: space-between;
 `;
 
-const ModalCloseBtn = styled.div``;
-
+const ModalCloseBtn = styled(IcClose32Icon)`
+  cursor: pointer;
+`;
 const ModalTitle = styled.span`
   ${({ theme }) => theme.fonts.Heading3_Semibold};
 
@@ -85,8 +126,10 @@ const ModalEmailTitle = styled.span`
 
 const ModalEmailInput = styled.input`
   margin-top: 0.8rem;
+
   border: 1px solid ${({ theme }) => theme.colors.grey_700};
   border-radius: 0.8rem;
+
   padding: 1rem 1.2rem;
   width: 40rem;
 `;
@@ -94,6 +137,7 @@ const ModalEmailInput = styled.input`
 const ModalBtnWrapper = styled.div`
   display: flex;
   justify-content: flex-end;
+
   margin-top: 2.4rem;
 `;
 
@@ -102,9 +146,11 @@ const ModalSubmitBtn = styled.button`
 
   border-radius: 0.8rem;
   background-color: ${({ theme }) => theme.colors.grey_900};
+
   padding: 1rem 2.6rem;
   width: 8.4rem;
   height: 4.2rem;
+
   color: ${({ theme }) => theme.colors.grey_0};
 `;
 
