@@ -28,6 +28,7 @@ export async function generateMetadata({ params, searchParams }: Props, parent: 
     openGraph: {
       title: product.data.metaName,
       description: product.data.metaDescription,
+      images: [{ url: product.data.metaThumbnail }],
       type: 'website',
       url: `https://palm-spring-client-git-feat-276metadataapi-palm-spring-client.vercel.app/${blogUrl}/home`,
     },
