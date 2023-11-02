@@ -1,5 +1,5 @@
 import { Response } from '@/types/common';
-import { InviteRequestBody, UserInfoProps, UserInvite } from '@/types/user';
+import { InviteRequestBody, UserInfoProps, UserInvite, UserInviteInfo } from '@/types/user';
 
 import client from '.';
 
@@ -34,5 +34,23 @@ export const deleteMember = async (blogUrl: string, memberId: string, email: str
 // 팀원 초대하기
 export const postMemberInvite = async (blogUrl: string, requestBody: InviteRequestBody) => {
   const { data } = await client.post<Response<UserInvite>>(`/api/v2/dashboard/user/invite/${blogUrl}`, requestBody);
+  return data;
+};
+// 초대 조회하기
+export const getMemberInvite = async (code: string | null) => {
+  if (!code) return;
+  const { data } = await client
+    .get<Response<UserInviteInfo>>(`/api/v2/dashboard/user/invite?code=${code}`)
+    .catch((e) => {
+      console.log(e.response.status);
+      if (e.response.status === 403) {
+        console.log(403);
+        return { message: null, code: 403, data: null };
+      } else if (e.response.status === 404) {
+        console.log(404);
+        return { message: null, code: 404, data: null };
+      }
+      return { message: null, code: 400, data: null };
+    });
   return data;
 };
