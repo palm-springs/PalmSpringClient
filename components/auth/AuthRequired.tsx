@@ -1,7 +1,7 @@
 'use client';
-import { useEffect } from 'react';
+import { useCallback, useEffect } from 'react';
 import axios, { AxiosError } from 'axios';
-import { useRouter } from 'next/navigation';
+import { usePathname, useRouter, useSearchParams } from 'next/navigation';
 import { useResetRecoilState, useSetRecoilState } from 'recoil';
 
 import client, { refreshAxiosInstance } from '@/api';
@@ -9,22 +9,30 @@ import { getRefreshToken } from '@/api/auth';
 
 import { accessTokenState } from './states/atom';
 
+// 로그인이 필요한 페이지에 대해 로그인 검사
 const AuthRequired = ({ children }: { children: React.ReactNode }) => {
   const router = useRouter();
+  const pathname = usePathname();
+  const searchParams = useSearchParams();
+
   const sessionStorage = typeof window !== 'undefined' ? window.sessionStorage : undefined;
   const setAccessToken = useSetRecoilState(accessTokenState);
   const resetAccessToken = useResetRecoilState(accessTokenState);
+  const paramsCode = searchParams.get('code');
 
   useEffect(() => {
     console.log('useEffect');
+    // sessionStorage에서 token 가져오기
     const accessToken = sessionStorage?.getItem('userToken');
     if (accessToken) {
       const { accessTokenState } = JSON.parse(accessToken);
-      console.log(accessTokenState);
       axios.defaults.headers.common.Authorization = `Bearer ${accessTokenState}`;
       client.defaults.headers.common.Authorization = `Bearer ${accessTokenState}`;
     } else {
-      router.push('/auth');
+      console.log('야야야야ㅑ야야야야야');
+      const params = `?code=${paramsCode}`;
+      sessionStorage?.setItem('redirectUrl', `${pathname}${paramsCode && params}`);
+      router.push(`/auth`);
     }
   }, []);
 
@@ -44,13 +52,17 @@ const AuthRequired = ({ children }: { children: React.ReactNode }) => {
     console.log('here');
     client.interceptors.response.use(
       (response) => {
+        console.log(response.status);
         console.log('response 성공');
         return response;
       },
       async (error) => {
         const { config } = error;
+        console.log(error.response.status);
+        console.log('야 에러임');
 
         if (!error.response) {
+          console.log(error);
           console.log('Access Token is expired.');
           const newAccessToken = await refresh();
           config.headers.Authorization = `Bearer ${newAccessToken}`;
