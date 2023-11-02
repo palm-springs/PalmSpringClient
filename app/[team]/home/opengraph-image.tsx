@@ -2,8 +2,6 @@ import { ImageResponse } from 'next/server';
 
 import { getMetaBlogInfo } from '@/api/blog';
 
-export const runtime = 'edge';
-
 export const alt = 'About Acme';
 export const size = {
   width: 1200,
@@ -18,14 +16,25 @@ export default async function Image({ params }: { params: { team: string } }) {
     (
       <div
         style={{
-          background: `${post.data.metaThumbnail}`,
           width: '100%',
           height: '100%',
-          backgroundPosition: 'center',
-          backgroundRepeat: 'no-repeat',
-          backgroundSize: 'cover',
+          display: 'flex',
+          alignItems: 'center',
+          justifyContent: 'center',
         }}>
-        {post.data.metaName}
+        <img
+          src={post.data.metaThumbnail}
+          style={{
+            position: 'absolute',
+            top: 0,
+            right: 0,
+            bottom: 0,
+            left: 0,
+            width: '100%',
+            objectFit: 'cover',
+          }}
+          alt=""
+        />
       </div>
     ),
     {
