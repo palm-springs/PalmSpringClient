@@ -37,7 +37,7 @@ export default function RootLayout({ children }: { children: React.ReactNode }) 
           property="og:image"
           content="https://user-images.githubusercontent.com/97084864/273285983-041a2713-43c1-4d30-9195-6fc212838957.png"
         />
-        <meta property="og:description" content="조직을 위한 팀 블로그 빌더" />
+        <meta property="og:description" content="성장하는 조직을 위한 팀 블로그 빌더" />
 
         <link
           rel="stylesheet preload"
