@@ -20,10 +20,9 @@ export async function generateMetadata({ params, searchParams }: Props, parent: 
   // const product = await getBlogInfo(team);
   const product = await getMetaBlogInfo(team);
   const blogUrl = product.data.blogUrl;
-  const metaTitle = product.data.metaName ? product.data.metaName : 'palmspring';
 
   return {
-    title: metaTitle,
+    title: product.data.metaName,
     description: product.data.metaDescription,
     openGraph: {
       title: product.data.metaName,
