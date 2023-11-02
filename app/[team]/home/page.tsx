@@ -8,7 +8,6 @@ import { useRecoilValue } from 'recoil';
 import { getMetaBlogInfo } from '@/api/blog';
 import { getBlogArticleList, getBlogMainImg } from '@/api/blogHome';
 import ArticleContainer from '@/components/blog/ui/ArticleContainer';
-// import { useGetBlogInfo } from '@/hooks/blog';
 
 type Props = {
   params: { team: string };
@@ -29,18 +28,10 @@ export async function generateMetadata({ params, searchParams }: Props, parent: 
       title: product.data.metaName,
       description: product.data.metaDescription,
       type: 'website',
-      url: `https://palm-spring-client-git-feat-276metadataapi-palm-spring-client.vercel.app/${blogUrl}/home`,
+      url: `${blogUrl}.com`,
     },
   };
 }
-// export const metadata: Metadata = {
-//   openGraph: {
-//     title: '보이나',
-//     description: '여기여기여기',
-//     type: 'website',
-//     url: 'https://palm-spring-client-git-feat-276metadataapi-palm-spring-client.vercel.app/bongzzi/home',
-//   },
-// };
 const BlogMainPage = async ({ params }: { params: { team: string } }) => {
   const {
     data: { thumbnail, description },
