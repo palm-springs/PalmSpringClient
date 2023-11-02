@@ -22,7 +22,6 @@ export async function generateMetadata({ params, searchParams }: Props, parent: 
   const product = await getMetaBlogInfo(team);
   const blogUrl = product.data.blogUrl;
 
-  const previousImages = (await parent).openGraph?.images || [];
   return {
     title: product.data.metaName,
     description: product.data.metaDescription,
@@ -31,7 +30,6 @@ export async function generateMetadata({ params, searchParams }: Props, parent: 
       description: product.data.metaDescription,
       type: 'website',
       url: `https://palm-spring-client-git-feat-276metadataapi-palm-spring-client.vercel.app/${blogUrl}/home`,
-      images: [product.data.metaThumbnail, ...previousImages],
     },
   };
 }
