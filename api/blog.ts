@@ -1,5 +1,3 @@
-import exp from 'constants';
-
 import { createBlogData } from '@/types/blogInfo';
 import { Response } from '@/types/common';
 

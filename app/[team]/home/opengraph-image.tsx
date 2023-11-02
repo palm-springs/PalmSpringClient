@@ -1,6 +1,6 @@
 import { ImageResponse } from 'next/server';
 
-import { getBlogInfo } from '@/api/blog';
+import { getMetaBlogInfo } from '@/api/blog';
 
 export const runtime = 'edge';
 
@@ -12,7 +12,7 @@ export const size = {
 export const contentType = 'image/png';
 
 export default async function Image({ params }: { params: { team: string } }) {
-  const post = await getBlogInfo(params.team);
+  const post = await getMetaBlogInfo(params.team);
 
   return new ImageResponse(
     (
