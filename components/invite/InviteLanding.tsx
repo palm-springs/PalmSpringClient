@@ -20,9 +20,8 @@ const InviteAcceptLanding = () => {
   const code = searchParams.get('code');
   const data = useGetMemberInvite(code);
 
+  // code parmeter 없을 때
   if (!code) return <InviteNotFound />;
-
-  console.log(data);
 
   if (data) {
     // 초대 사용자와 로그인 사용자 불일치

@@ -1,10 +1,11 @@
 'use client';
-import { useState } from 'react';
+import { useEffect, useState } from 'react';
 import { useRouter } from 'next/navigation';
 import { useRecoilState } from 'recoil';
 import styled from 'styled-components';
 
 import { updateUserInfo } from '@/api/dashboard';
+import { useGetUserBasicInfo } from '@/hooks/dashboard';
 import { UserBasicInfo } from '@/types/user';
 import CheckUserIdDuplication from '@/utils/checkUserIdDuplication';
 
@@ -29,6 +30,16 @@ const InviteAcceptForm = (props: InviteAcceptFormProps) => {
   const [focus, setFocus] = useState({ nickname: false, url: false, description: false, job: false });
   const [isUrlDuplicate, setIsDuplicate] = useState<boolean | null>(false);
   const [invitedUserData, setInvitedUserData] = useRecoilState(invitedUserDataState);
+
+  const data = useGetUserBasicInfo(blogUrl);
+  useEffect(() => {
+    if (data) {
+      const {
+        data: { thumbnail },
+      } = data;
+      setInvitedUserData({ ...invitedUserData, thumbnail });
+    }
+  }, []);
 
   // event handle func
   const handleOnInputChange = (e: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement>) => {

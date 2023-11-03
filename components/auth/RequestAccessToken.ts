@@ -28,13 +28,11 @@ const RequestAccessToken = (props: getAccessTokenProps) => {
           sessionStorage?.removeItem('redirectUrl');
           router.replace(redirectUrl);
         } else {
-          const {
-            data: { joinBlogList },
-          } = await getUserInfoAfterLogin('', accessToken);
-          if (joinBlogList.length === 0) {
+          const { data } = await getUserInfoAfterLogin('', accessToken);
+          if (!data.joinBlogList || data.joinBlogList.length === 0) {
             router.push('/no-team/dashboard');
           } else {
-            router.push(`/${joinBlogList[0].blogUrl}/dashboard/upload`);
+            router.push(`/${data.joinBlogList[0].blogUrl}/dashboard/upload`);
           }
         }
       }
