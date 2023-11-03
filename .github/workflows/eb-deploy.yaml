@@ -24,7 +24,7 @@ jobs:
       - name: Push New ECR
         run: |
           aws ecr get-login-password --region ap-northeast-2 | docker login --username AWS --password-stdin 039174979026.dkr.ecr.ap-northeast-2.amazonaws.com
-          docker build --platform linux/amd64 -t palmspring-client .
+          docker build --platform linux/amd64 -t palmspring-client --build-arg NEXT_PUBLIC_GOOGLE_REDIRECT_URI=${{ secrets.NEXT_PUBLIC_GOOGLE_REDIRECT_URI }} --build-arg NEXT_PUBLIC_GOOGLE_CLIENT_ID=${{ secrets.NEXT_PUBLIC_GOOGLE_CLIENT_ID }} --build-arg NEXT_PUBLIC_GOOGLE_CLIENT_SECRET=${{ secrets.NEXT_PUBLIC_GOOGLE_CLIENT_SECRET }} --build-arg NEXT_PUBLIC_BASE_URL=${{ secrets.NEXT_PUBLIC_BASE_URL }} .
           docker tag palmspring-client:latest 039174979026.dkr.ecr.ap-northeast-2.amazonaws.com/palmspring-client:latest
           docker push 039174979026.dkr.ecr.ap-northeast-2.amazonaws.com/palmspring-client:latest
 
@@ -36,5 +36,6 @@ jobs:
           application_name: palmspring
           environment_name: Palmspring-env
           version_label: github-action-${{ steps.current-time.outputs.formattedTime }}
+          use_existing_version_if_available: true
           region: ap-northeast-2
           deployment_package: docker-compose.yaml
