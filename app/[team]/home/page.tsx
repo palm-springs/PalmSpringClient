@@ -2,8 +2,6 @@
 //여기서 동적 태그 작업
 import React from 'react';
 import { Metadata, ResolvingMetadata } from 'next';
-import { Head } from 'next/document';
-import { useRecoilValue } from 'recoil';
 
 import { getMetaBlogInfo } from '@/api/blog';
 import { getBlogArticleList, getBlogMainImg } from '@/api/blogHome';

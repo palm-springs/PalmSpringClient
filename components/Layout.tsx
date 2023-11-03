@@ -24,21 +24,19 @@ const Layout = ({ children }: { children: React.ReactNode }) => {
   );
 
   return (
-    <div>
-      <body className={inter.className}>
-        <QueryClientProvider client={queryClient}>
-          <RecoilRoot>
-            <StyledComponentsRegistry>
-              <ThemeProvider theme={theme}>
-                <GlobalStyle />
-                {children}
-                <div id="modal-root"></div>
-              </ThemeProvider>
-            </StyledComponentsRegistry>
-          </RecoilRoot>
-        </QueryClientProvider>
-      </body>
-    </div>
+    <body className={inter.className}>
+      <QueryClientProvider client={queryClient}>
+        <RecoilRoot>
+          <StyledComponentsRegistry>
+            <ThemeProvider theme={theme}>
+              <GlobalStyle />
+              {children}
+              <div id="modal-root"></div>
+            </ThemeProvider>
+          </StyledComponentsRegistry>
+        </RecoilRoot>
+      </QueryClientProvider>
+    </body>
   );
 };
 
