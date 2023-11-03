@@ -25,7 +25,7 @@ export default function RootLayout({ children }: { children: React.ReactNode }) 
   return (
     <html lang="ko">
       <head>
-        {/* <title>palmspring</title> */}
+        {/* <title>palmspring</title>
         <meta name="description" content="성장하는 조직을 위한 팀 블로그 빌더" />
 
         <meta property="og:title" content="palmspring | 팜스프링" />
@@ -44,7 +44,7 @@ export default function RootLayout({ children }: { children: React.ReactNode }) 
           as="style"
           type="text/css"
           href="https://cdn.jsdelivr.net/gh/orioncactus/pretendard/dist/web/static/pretendard.css"
-        />
+        /> */}
       </head>
       <body className={inter.className}>
         <QueryClientProvider client={queryClient}>
