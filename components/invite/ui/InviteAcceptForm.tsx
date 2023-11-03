@@ -39,7 +39,7 @@ const InviteAcceptForm = (props: InviteAcceptFormProps) => {
       } = data;
       setInvitedUserData({ ...invitedUserData, thumbnail });
     }
-  }, []);
+  }, [data]);
 
   // event handle func
   const handleOnInputChange = (e: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement>) => {

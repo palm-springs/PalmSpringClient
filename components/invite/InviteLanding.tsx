@@ -27,7 +27,7 @@ const InviteAcceptLanding = () => {
     // 초대 사용자와 로그인 사용자 불일치
     if (data.code === 403) {
       sessionStorage?.setItem('redirectUrl', `${pathname}?code=${code}`);
-      router.push(`/auth`);
+      router.push(`/auth?state=userMismatch`);
     }
     // 유효하지 않은 초대 링크
     else if (data.code === 404) {
