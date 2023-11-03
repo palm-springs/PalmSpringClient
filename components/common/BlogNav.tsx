@@ -1,6 +1,6 @@
 'use client';
 
-import React, { useState } from 'react';
+import React from 'react';
 import Link from 'next/link';
 import { useParams } from 'next/navigation';
 import styled from 'styled-components';
@@ -14,7 +14,6 @@ import LoadingLottie from './ui/LoadingLottie';
 
 const BlogNav = () => {
   const { team } = useParams();
-  const [modalIsOpen, setModalIsOpen] = useState(false);
 
   const res = useGetBlogHeaderInfo(team);
 
@@ -32,7 +31,7 @@ const BlogNav = () => {
             <Link href={isPage ? `/${team}/content/page/${navUrl}/${id}` : `${navUrl}`}>{name}</Link>
           </PageBtn>
         ))}
-      <SubscribeBtn modalIsOpen={modalIsOpen} setModalIsOpen={setModalIsOpen} team={team} />
+      <SubscribeBtn team={team} />
     </BlogNavContainer>
   );
 };

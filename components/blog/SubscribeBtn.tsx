@@ -7,15 +7,15 @@ import { postSubscriber } from '@/api/blogHome';
 import { IcClose32Icon } from '@/public/icons';
 
 interface subscribeBtnProps {
-  modalIsOpen: boolean;
-  setModalIsOpen: React.Dispatch<React.SetStateAction<boolean>>;
   team: string;
 }
 
 const SubscribeBtn = (subscribeBtnProps: subscribeBtnProps) => {
-  const { modalIsOpen, setModalIsOpen, team } = subscribeBtnProps;
+  const { team } = subscribeBtnProps;
 
   const [email, setEmail] = useState('');
+  const [modalIsOpen, setModalIsOpen] = useState(false);
+
   const modalRef = useRef<HTMLDivElement>(null);
 
   const requestBody = {
