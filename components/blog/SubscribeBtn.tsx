@@ -67,6 +67,7 @@ const SubscribeBtn = (subscribeBtnProps: subscribeBtnProps) => {
       <SubscribeBtnContainer
         type="button"
         onClick={() => {
+          document.body.style.overflowY = 'hidden';
           setModalIsOpen(true);
           resetEmail();
         }}>
