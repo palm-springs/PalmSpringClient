@@ -1,6 +1,7 @@
 import React, { useEffect, useState } from 'react';
 import { toast, Toaster } from 'react-hot-toast';
 import { useParams } from 'next/navigation';
+import { useRecoilState } from 'recoil';
 import { styled } from 'styled-components';
 
 import { putBlogConfig } from '@/api/blog';
@@ -8,6 +9,8 @@ import LoadingLottie from '@/components/common/ui/LoadingLottie';
 import { useGetBlogInfo } from '@/hooks/blog';
 import usePerMissionPolicy from '@/hooks/usePermissionPolicy';
 import { getImageMultipartData } from '@/utils/getImageMultipartData';
+
+import { blogMetaDataState } from '../state/blogMetaData';
 
 import BlogInfoDeleteButton from './BlogDeleteButton';
 import BlogDescribeText from './BlogDescribeText';
@@ -27,9 +30,6 @@ interface BlogConfigProps {
   blogLogoImage: File | string | null;
   blogMainImage: File | string | null;
   blogDescribeText: string;
-  // metaThumbnail: string | null;
-  // metaName: string | null;
-  // metaDescription: string | null;
 }
 
 const BlogConfigTemplate = () => {
@@ -45,6 +45,7 @@ const BlogConfigTemplate = () => {
     blogMainImage: null,
     blogDescribeText: '블로그 설명을 불러오는 중입니다...',
   });
+  const [blogMetaConfig, setBlogMetaConfig] = useRecoilState(blogMetaDataState);
 
   const sucessNotify = () =>
     toast.success('블로그 정보를 수정했습니다!', {
@@ -87,6 +88,12 @@ const BlogConfigTemplate = () => {
       blogDescribeText: res.data.description,
       blogMainImage: res.data.thumbnail,
     }));
+    setBlogMetaConfig((prev) => ({
+      ...prev,
+      metaThumbnail: res.data.metaThumbnail,
+      metaName: res.data.metaName,
+      metaDescription: res.data.metaDescription,
+    }));
   }, [res]);
 
   if (!res || !res.data) return <LoadingLottie width={10} height={10} />;
@@ -114,9 +121,9 @@ const BlogConfigTemplate = () => {
         description: blogConfig.blogDescribeText,
         logo: typeof logoImage === 'string' ? logoImage : null,
         thumbnail: typeof mainImage === 'string' ? mainImage : null,
-        // metaThumbnail: string | null;
-        // metaName: string | null;
-        // metaDescription: string | null;
+        metaThumbnail: blogMetaConfig.metaThumbnail,
+        metaName: blogMetaConfig.metaName,
+        metaDescription: blogMetaConfig.metaDescription,
       });
       sucessNotify();
     } catch (err) {
@@ -183,7 +190,7 @@ const BlogConfigTemplate = () => {
         <BlogMetaDataImage />
         <BlogMetaDataTitle />
         <BlogMetaDataDescription />
-        <MetaDataPreview />
+        <MetaDataPreview blogUrl={res.data.url} />
         {deleteBlog && <BlogInfoDeleteButton />}
         {modifyBlogInfo && (
           <BlogSaveButton type="button" disabled={blogConfig.blogName === ''} onClick={postBlogConfig}>

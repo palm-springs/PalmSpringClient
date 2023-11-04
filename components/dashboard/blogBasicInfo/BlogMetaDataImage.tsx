@@ -9,19 +9,19 @@ import { getImageMultipartData } from '@/utils/getImageMultipartData';
 import { blogMetaDataState } from '../state/blogMetaData';
 
 const BlogMetaDataImage = () => {
-  const [{ image }, setBlogMetaData] = useRecoilState(blogMetaDataState);
+  const [{ metaThumbnail }, setBlogMetaData] = useRecoilState(blogMetaDataState);
 
   const handleOnMetaImageChange = async (e: ChangeEvent<HTMLInputElement>) => {
     const { files } = e.currentTarget;
 
     if (files) {
       const blogMetaImage = await getImageMultipartData(files[0]);
-      setBlogMetaData((prev) => ({ ...prev, image: blogMetaImage }));
+      setBlogMetaData((prev) => ({ ...prev, metaThumbnail: blogMetaImage }));
     }
   };
 
   const handleOnDeleteImage = () => {
-    setBlogMetaData((prev) => ({ ...prev, image: null }));
+    setBlogMetaData((prev) => ({ ...prev, metaThumbnail: null }));
   };
 
   return (
@@ -32,11 +32,11 @@ const BlogMetaDataImage = () => {
           이미지 권장 크기는 <p>500*500 입니다</p>
         </ImageGuideContent>
       </ImageGuideContainer>
-      {image ? (
+      {metaThumbnail ? (
         // 메타 이미지 있으면 삭제할 수 있게 함
         <ImageLabel>
           <input type="file" onChange={handleOnMetaImageChange} />
-          <ImageUpload src={image} alt="meta data image" />
+          <ImageUpload src={metaThumbnail} alt="meta data image" />
           <DeleteImageButton onClick={handleOnDeleteImage}>
             <CloseIcon />
           </DeleteImageButton>
