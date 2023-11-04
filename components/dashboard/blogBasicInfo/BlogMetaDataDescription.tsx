@@ -12,7 +12,6 @@ const BlogMetaDataDescription = () => {
   const handleOnMetaDescriptionChange = (e: ChangeEvent<HTMLTextAreaElement>) => {
     const { value } = e.currentTarget;
     setBlogMetaData((prev) => ({ ...prev, metaDescription: value }));
-    console.log(value);
   };
 
   return (

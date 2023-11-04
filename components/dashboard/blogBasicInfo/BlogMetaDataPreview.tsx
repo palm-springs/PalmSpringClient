@@ -19,16 +19,11 @@ const MetaDataPreview = (props: metaBlogUrlProps) => {
     <MetaDataPreviewContainer>
       <PreviewHeader>미리보기</PreviewHeader>
       <MetaDataPreviewBoxContainer>
-        {metaThumbnail ? (
-          <PreviewImage src={metaThumbnail} alt="meta data image" />
-        ) : (
-          <NonePreviewImage></NonePreviewImage>
-        )}
+        {metaThumbnail ? <PreviewImage src={metaThumbnail} alt="meta data image" /> : <NonePreviewImage />}
         {/* 14.2 */}
         <PreviewBottomContainer>
           <PreviewTitle>{metaName}</PreviewTitle>
           <PreviewDescription>{metaDescription}</PreviewDescription>
-          {/* url 자리임 -> 데이터 받아서 교체*/}
           <PreviewBlogUrl>{blogUrl && `${blogUrl}.com`}</PreviewBlogUrl>
         </PreviewBottomContainer>
       </MetaDataPreviewBoxContainer>

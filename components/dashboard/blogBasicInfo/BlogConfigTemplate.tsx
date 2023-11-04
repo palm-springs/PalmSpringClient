@@ -81,7 +81,6 @@ const BlogConfigTemplate = () => {
 
   useEffect(() => {
     if (!res || !res.data) return;
-    // console.log(res.data);
     setBlogConfig((prev) => ({
       ...prev,
       blogName: res.data.name,

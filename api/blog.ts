@@ -24,11 +24,8 @@ interface BlogInfoProps {
   metaDescription: string;
 }
 
-interface MetaBlogInfoProps {
+interface MetaBlogInfoProps extends BlogInfoProps {
   blogUrl: string;
-  metaThumbnail: string;
-  metaName: string;
-  metaDescription: string;
 }
 
 //외부에서 블로그 정보 가져오기- 서브도메인
