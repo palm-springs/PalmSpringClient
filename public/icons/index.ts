@@ -27,6 +27,7 @@ export { default as NoUserProfileIcon } from './ic_no_user_profile.svg';
 export { default as IcPlusIcon } from './ic_plus.svg';
 export { default as UsersProfileIcon } from './ic_profile_input_icon.svg';
 export { default as UsersProfilesInputIcon } from './ic_profile_input_icon.svg';
+export { default as RequiredCircleIcon } from './ic_required_green.svg';
 export { default as StrikeIcon } from './ic_Strike.svg';
 export { default as UploadIcon } from './ic_upload.svg';
 export { default as InputPlusButtonIcon } from './ic_uploadprofileimage.svg';

@@ -29,3 +29,22 @@ export interface UserBasicInfoProps {
   description: string;
   job: string;
 }
+
+export interface UserInvite {
+  failCount: number;
+  failEmails: string[];
+}
+
+export interface UserInviteInfo {
+  blogName: string;
+  blogUrl: string;
+}
+
+export interface InviteRequestBody {
+  inviteEmails: string[];
+}
+export interface InviteInfoProps {
+  isFocus: boolean;
+  handleOnChange: (e: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement>) => void;
+  handleOnFocus: (type: string, value: boolean) => void;
+}
