@@ -29,6 +29,7 @@ const AuthRequired = ({ children }: { children: React.ReactNode }) => {
       axios.defaults.headers.common.Authorization = `Bearer ${accessTokenState}`;
       client.defaults.headers.common.Authorization = `Bearer ${accessTokenState}`;
     } else {
+      // token 없으면 redirectUrl 저장
       console.log('야야야야ㅑ야야야야야');
       const params = `?code=${paramsCode}`;
       sessionStorage?.setItem('redirectUrl', `${pathname}${paramsCode && params}`);

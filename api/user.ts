@@ -42,12 +42,9 @@ export const getMemberInvite = async (code: string | null) => {
   const { data } = await client
     .get<Response<UserInviteInfo>>(`/api/v2/dashboard/user/invite?code=${code}`)
     .catch((e) => {
-      console.log(e.response.status);
       if (e.response.status === 403) {
-        console.log(403);
         return { message: null, code: 403, data: null };
       } else if (e.response.status === 404) {
-        console.log(404);
         return { message: null, code: 404, data: null };
       }
       return { message: null, code: 400, data: null };
