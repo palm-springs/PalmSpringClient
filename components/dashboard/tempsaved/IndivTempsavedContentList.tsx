@@ -31,6 +31,17 @@ const IndivTempsavedContentList = (props: IndivTempsavedContentListProps) => {
 
   return (
     <>
+      {modalState === 'deleteArticle' && deleteModalId === id && (
+        <DashboardContentDeleteModal
+          text="글을 삭제하시겠어요?"
+          subText="글을 삭제할 시, 복구할 수 없습니다."
+          onDelete={() => {
+            mutate();
+            setModalState('');
+            setDeleteModalId(null);
+          }}
+        />
+      )}
       <DashBoardContent
         key={id}
         id={String(id)}
@@ -40,19 +51,11 @@ const IndivTempsavedContentList = (props: IndivTempsavedContentListProps) => {
         createdAt={createdAt}
         onTitleClick={() => router.push(`/${blogUrl}/editor/article/${id}/draft`)}
         onMutateClick={() => router.push(`/${blogUrl}/editor/article/${id}/draft`)}
-        onDeleteClick={() => setModalState('deleteArticle')}
+        onDeleteClick={() => {
+          setModalState('deleteArticle');
+          setDeleteModalId(id);
+        }}
       />
-      {modalState === 'deleteArticle' && deleteModalId === id && (
-        <DashboardContentDeleteModal
-          text="글을 삭제하시겠어요?"
-          subText="글을 삭제할 시, 복구할 수 없습니다."
-          onDelete={() => {
-            mutate();
-            setModalState('');
-            setDeleteModalId(id);
-          }}
-        />
-      )}
     </>
   );
 };
