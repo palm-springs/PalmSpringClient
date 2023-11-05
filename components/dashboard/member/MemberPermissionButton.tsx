@@ -78,7 +78,7 @@ const MemberPermissionButton = (props: MemberPermissionButtonProps) => {
     }
   };
 
-  const { mutate } = useDelegateUserRole(blogUrl, memberId, memberEmail, matchCondition2Role());
+  const { mutate: delegateUserRole } = useDelegateUserRole(blogUrl, memberId, memberEmail, matchCondition2Role());
 
   const { mutate: deleteMember } = useDeleteMember(blogUrl, memberId, memberEmail);
 
@@ -93,7 +93,7 @@ const MemberPermissionButton = (props: MemberPermissionButtonProps) => {
         if (condition === 'expelEditor' || condition === 'expelManager') {
           deleteMember();
         } else {
-          mutate();
+          delegateUserRole();
         }
       }}>
       {matchCondition2Text()}
