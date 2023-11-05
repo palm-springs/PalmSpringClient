@@ -33,6 +33,8 @@ const SubscribeBtn = (subscribeBtnProps: subscribeBtnProps) => {
   };
 
   const handleModalClose = (e: React.MouseEvent<HTMLElement>) => {
+    document.body.style.overflowY = 'scroll';
+
     !modalRef.current?.contains(e.target as Node) && setModalIsOpen(false);
   };
 
