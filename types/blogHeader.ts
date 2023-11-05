@@ -8,3 +8,8 @@ export interface HeaderProps {
     isPage: boolean;
   }[];
 }
+
+export interface subscribeData {
+  email: string;
+  blogUrl: string;
+}

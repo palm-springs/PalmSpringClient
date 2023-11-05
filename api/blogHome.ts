@@ -1,6 +1,6 @@
 import { ArticleData } from '@/types/article';
 import { AuthorInfoProps } from '@/types/author';
-import { HeaderProps } from '@/types/blogHeader';
+import { HeaderProps, subscribeData } from '@/types/blogHeader';
 import { BlogImgProps } from '@/types/blogMainImg';
 import { Response } from '@/types/common';
 import { ContentProps } from '@/types/content';
@@ -69,5 +69,11 @@ export const getBlogArticleDetail = async (blogUrl: string, articleId: number) =
 //블로그용 글쓴이 정보 가져오기
 export const getBlogAuthorDetail = async (blogUrl: string, memberId: number) => {
   const { data } = await client.get<Response<AuthorInfoProps>>(`/api/v2/view/author/${blogUrl}/detail/${memberId}`);
+  return data;
+};
+
+//뉴스레터 구독하기 post
+export const postSubscriber = async (requestBody: subscribeData) => {
+  const { data } = await client.post(`/api/v2/view/subscribe`, requestBody);
   return data;
 };

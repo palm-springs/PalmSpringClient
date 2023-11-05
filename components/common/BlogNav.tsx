@@ -8,7 +8,8 @@ import styled from 'styled-components';
 import PageBtn from '@/components/blog/PageBtn';
 import { useGetBlogHeaderInfo } from '@/hooks/blogHome';
 
-// import SubscribeBtn from '../blog/SubscribeBtn';
+import SubscribeBtn from '../blog/SubscribeBtn';
+
 import LoadingLottie from './ui/LoadingLottie';
 
 const BlogNav = () => {
@@ -30,8 +31,7 @@ const BlogNav = () => {
             <Link href={isPage ? `/content/page/${navUrl}/${id}` : `${navUrl}`}>{name}</Link>
           </PageBtn>
         ))}
-      {/* 밑의 버튼은 구독자 기능 생성 후 다시 넣어줄 예정 */}
-      {/* <SubscribeBtn /> */}
+      <SubscribeBtn team={team} />
     </BlogNavContainer>
   );
 };
