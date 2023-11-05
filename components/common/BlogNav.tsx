@@ -28,7 +28,7 @@ const BlogNav = () => {
       {navList &&
         navList.map(({ navUrl, name, isPage, id }) => (
           <PageBtn key={navUrl}>
-            <Link href={isPage ? `/${team}/content/page/${navUrl}/${id}` : `${navUrl}`}>{name}</Link>
+            <Link href={isPage ? `/content/page/${navUrl}/${id}` : `${navUrl}`}>{name}</Link>
           </PageBtn>
         ))}
       <SubscribeBtn team={team} />

@@ -173,11 +173,20 @@ const PreviousButton = styled.button`
 const NextButton = styled.button<{ disabled: boolean }>`
   ${({ theme }) => theme.fonts.Button_medium};
   border-radius: 0.8rem;
-  background-color: ${({ theme, disabled }) => (disabled ? theme.colors.background_green : theme.colors.green)};
+  background-color: ${({ theme }) => theme.colors.green};
 
-  cursor: ${({ disabled }) => (disabled ? 'default' : 'pointer')};
+  cursor: pointer;
 
   width: 10.3rem;
   height: 3.6rem;
   color: ${({ theme }) => theme.colors.grey_0};
+
+  &:disabled {
+    background-color: ${({ theme }) => theme.colors.background_green};
+    cursor: default;
+  }
+
+  &:not(:disabled):hover {
+    background-color: ${({ theme }) => theme.colors.green_hover};
+  }
 `;

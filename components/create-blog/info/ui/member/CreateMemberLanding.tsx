@@ -5,6 +5,7 @@ import { useRecoilState } from 'recoil';
 import styled from 'styled-components';
 
 import { postCreateBlog } from '@/api/blog';
+import { postMemberInvite } from '@/api/user';
 import AddMemberForm from '@/components/common/ui/AddMemberForm';
 import { emailData } from '@/types/member';
 
@@ -15,7 +16,8 @@ const CreateMemberLanding = () => {
   const [progress, setProgress] = useRecoilState(progressState);
   const [blogData, setBlogData] = useRecoilState(createBlogDataState);
 
-  const [emailList, setEmailList] = useState<emailData[]>([]);
+  const [emailData, setEmailData] = useState<emailData[]>([]);
+  const [isError, setIsError] = useState(false);
 
   const router = useRouter();
 
@@ -27,6 +29,7 @@ const CreateMemberLanding = () => {
     }
   }, [progress]);
 
+  // 블로그 생성 & 초대 API
   const handleOnCreateClick = async () => {
     const { description } = blogData;
     if (description === '') {
@@ -34,7 +37,13 @@ const CreateMemberLanding = () => {
     }
     const { code } = await postCreateBlog(blogData);
     if (code === 201) {
-      router.replace('/create-blog/success');
+      const emailList = emailData.map(({ emailValue }) => {
+        return emailValue;
+      });
+      const { code } = await postMemberInvite(blogData.url, { inviteEmails: emailList });
+      if (code === 201) {
+        router.replace('/create-blog/success');
+      }
     }
   };
 
@@ -53,14 +62,16 @@ const CreateMemberLanding = () => {
           height={'17.2'}
           paddingUD={'2'}
           paddingLR={'2.4'}
-          emailList={emailList}
-          setEmailList={setEmailList}
+          emailList={emailData}
+          setEmailList={setEmailData}
+          isError={isError}
+          setIsError={setIsError}
         />
         <ButtonContainer>
           <PreviousButton type="button" onClick={() => setProgress(-2)}>
             이전으로
           </PreviousButton>
-          <InviteButton type="button" onClick={handleOnCreateClick}>
+          <InviteButton type="button" onClick={handleOnCreateClick} disabled={isError}>
             시작하기
           </InviteButton>
         </ButtonContainer>
@@ -152,8 +163,12 @@ const InviteButton = styled.button`
   height: 3.6rem;
 
   color: ${({ theme }) => theme.colors.grey_0};
+  &:disabled {
+    background-color: ${({ theme }) => theme.colors.background_green};
+    cursor: default;
+  }
 
-  &:hover {
+  &:not(:disabled):hover {
     background-color: ${({ theme }) => theme.colors.green_hover};
   }
 `;

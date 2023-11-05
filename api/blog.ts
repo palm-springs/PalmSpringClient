@@ -8,9 +8,9 @@ interface BlogConfigRequestBodyProps {
   description: string | null;
   thumbnail: string | null;
   logo: string | null;
-  // metaThumbnail: string | null;
-  // metaName: string | null;
-  // metaDescription: string | null;
+  metaThumbnail: string | null;
+  metaName: string | null;
+  metaDescription: string | null;
 }
 
 interface BlogInfoProps {
@@ -19,7 +19,20 @@ interface BlogInfoProps {
   thumbnail: string;
   logo: string;
   description: string;
+  metaThumbnail: string;
+  metaName: string;
+  metaDescription: string;
 }
+
+interface MetaBlogInfoProps extends BlogInfoProps {
+  blogUrl: string;
+}
+
+//외부에서 블로그 정보 가져오기- 서브도메인
+export const getMetaBlogInfo = async (blogUrl: string) => {
+  const { data } = await client.get<Response<MetaBlogInfoProps>>(`/api/v2/view/blog/${blogUrl}/home`);
+  return data;
+};
 
 //블로그 정보 가져오기 - 반영 완
 export const getBlogInfo = async (blogUrl: string) => {

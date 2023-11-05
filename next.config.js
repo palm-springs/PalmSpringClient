@@ -1,6 +1,7 @@
 /** @type {import('next').NextConfig} */
 
 const nextConfig = {
+  output: 'standalone',
   typescript: {
     // !! WARN !!
     // Dangerously allow production builds to successfully complete even if
@@ -37,7 +38,6 @@ const nextConfig = {
   //   // You can, for example, get the latest git commit hash here
   //   return nextBuildId({ dir: __dirname });
   // },
-  generateEtags: false,
 };
 
 module.exports = nextConfig;

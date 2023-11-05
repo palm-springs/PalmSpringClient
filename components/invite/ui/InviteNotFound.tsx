@@ -1,24 +1,23 @@
 'use client';
-
 import styled from 'styled-components';
 
 import { Error404Img } from '@/public/images';
 
-const NotFound = () => {
+const InviteNotFound = () => {
   return (
     <Error404Container>
       <Error404Img />
-      <MainMessage>페이지가 존재하지 않습니다.</MainMessage>
+      <MainMessage>유효하지 않은 초대 링크입니다.</MainMessage>
       <SubMessage>
-        요청하신 페이지가 사라졌거나,
+        링크가 유효하지 않습니다.
         <br />
-        일시적으로 사용이 중단되었어요.
+        초대 링크를 다시 한번 확인해주세요.
       </SubMessage>
     </Error404Container>
   );
 };
 
-export default NotFound;
+export default InviteNotFound;
 
 const Error404Container = styled.div`
   display: flex;

@@ -2,7 +2,6 @@
 
 import React from 'react';
 import Link from 'next/link';
-import { useParams } from 'next/navigation';
 import styled from 'styled-components';
 interface LogoProp {
   logo: string | null;
@@ -11,10 +10,9 @@ interface LogoProp {
 
 const HeaderLogo = (prop: LogoProp) => {
   const { logo, blogName } = prop;
-  const { team } = useParams();
 
   return (
-    <Link href={`/${team}/home`}>
+    <Link href={`/home`}>
       {logo ? (
         <>
           <img src={logo} alt="team logo icon" height={24} />
