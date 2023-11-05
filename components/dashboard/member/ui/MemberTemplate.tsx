@@ -77,7 +77,6 @@ const MemberTemplateContainer = styled.div`
   flex-direction: column;
   flex-shrink: 0;
   align-items: center;
-
   padding: 0 2.4rem 0 4rem;
 
   width: 100%;

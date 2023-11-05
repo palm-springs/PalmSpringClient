@@ -4,7 +4,7 @@ import React from 'react';
 import { useParams } from 'next/navigation';
 import styled from 'styled-components';
 
-import { useDelegateUserRole } from '@/hooks/dashboard';
+import { useDelegateUserRole, useDeleteMember } from '@/hooks/dashboard';
 import usePerMissionPolicy from '@/hooks/usePermissionPolicy';
 import { RoleType } from '@/utils/PermissionPolicyClass';
 
@@ -25,7 +25,7 @@ const MemberPermissionButton = (props: MemberPermissionButtonProps) => {
 
   const { team: blogUrl } = useParams();
 
-  const { appointManager, appointOwner, appointEditor } = usePerMissionPolicy();
+  const { appointManager, appointOwner, appointEditor, expelEditor, expelManager } = usePerMissionPolicy();
 
   const matchCondition2Text = (): string => {
     switch (condition) {
@@ -52,6 +52,10 @@ const MemberPermissionButton = (props: MemberPermissionButtonProps) => {
         return 'MANAGER';
       case 'appointOwner':
         return 'OWNER';
+      case 'expelEditor':
+        return 'EDITOR';
+      case 'expelManager':
+        return 'MANAGER';
       default:
         return 'EDITOR';
     }
@@ -65,12 +69,18 @@ const MemberPermissionButton = (props: MemberPermissionButtonProps) => {
         return memberRole !== 'MANAGER' && appointManager;
       case 'appointOwner':
         return memberRole === 'MANAGER' && appointOwner;
+      case 'expelEditor':
+        return memberRole === 'EDITOR' && expelEditor;
+      case 'expelManager':
+        return memberRole === 'MANAGER' && expelManager;
       default:
         return false;
     }
   };
 
-  const { mutate } = useDelegateUserRole(blogUrl, memberId, memberEmail, matchCondition2Role());
+  const { mutate: delegateUserRole } = useDelegateUserRole(blogUrl, memberId, memberEmail, matchCondition2Role());
+
+  const { mutate: deleteMember } = useDeleteMember(blogUrl, memberId, memberEmail);
 
   if (!checkCondition()) return <></>;
   return (
@@ -80,7 +90,11 @@ const MemberPermissionButton = (props: MemberPermissionButtonProps) => {
         e.preventDefault();
       }}
       onClick={() => {
-        mutate();
+        if (condition === 'expelEditor' || condition === 'expelManager') {
+          deleteMember();
+        } else {
+          delegateUserRole();
+        }
       }}>
       {matchCondition2Text()}
     </ModalText>

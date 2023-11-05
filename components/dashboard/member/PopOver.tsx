@@ -57,28 +57,24 @@ const PopOver = (prop: PopOverProp) => {
         {memberEmail !== userValue.email && (
           <>
             {memberRole === 'EDITOR' && expelEditor && (
-              <ModalText
-                type="button"
-                onMouseDown={(e) => {
-                  e.preventDefault();
+              <MemberPermissionButton
+                condition="expelEditor"
+                memberInfo={{
+                  memberId,
+                  memberEmail,
+                  memberRole,
                 }}
-                onClick={() => {
-                  setShowModal(true);
-                }}>
-                이 편집자 추방하기
-              </ModalText>
+              />
             )}
             {memberRole === 'MANAGER' && expelManager && (
-              <ModalText
-                type="button"
-                onMouseDown={(e) => {
-                  e.preventDefault();
+              <MemberPermissionButton
+                condition="expelManager"
+                memberInfo={{
+                  memberId,
+                  memberEmail,
+                  memberRole,
                 }}
-                onClick={() => {
-                  setShowModal(true);
-                }}>
-                이 관리자 추방하기
-              </ModalText>
+              />
             )}
             <MemberPermissionButton
               condition="appointEditor"

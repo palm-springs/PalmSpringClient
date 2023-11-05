@@ -5,6 +5,7 @@ import { Metadata, ResolvingMetadata } from 'next';
 
 import { getMetaBlogInfo } from '@/api/blog';
 import { getBlogArticleList, getBlogMainImg } from '@/api/blogHome';
+import NotFound from '@/app/not-found';
 import ArticleContainer from '@/components/blog/ui/ArticleContainer';
 
 type Props = {
@@ -37,10 +38,16 @@ export async function generateMetadata({ params }: Props): Promise<Metadata | nu
 }
 
 const BlogMainPage = async ({ params }: { params: { team: string } }) => {
+  const blogMainRes = await getBlogMainImg(params.team);
+  const blogArticleRes = await getBlogArticleList(params.team, '');
+
+  if (!blogMainRes || !blogArticleRes) return <NotFound />;
+
   const {
     data: { thumbnail, description },
-  } = await getBlogMainImg(params.team);
-  const { data: articleListData } = await getBlogArticleList(params.team, '');
+  } = blogMainRes;
+
+  const { data: articleListData } = blogArticleRes;
   return <ArticleContainer articleListData={articleListData} thumbnail={thumbnail} description={description} />;
 };
 

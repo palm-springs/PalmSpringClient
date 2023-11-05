@@ -39,8 +39,7 @@ const MemberList = () => {
 export default MemberList;
 
 const MemberListContainer = styled.div`
-  display: flex;
-  flex-direction: column;
-
   width: 100%;
+  height: calc(100vh - 20rem);
+  overflow: scroll;
 `;
