@@ -42,18 +42,26 @@ const DashboardCreateModal = ({
 
 export default DashboardCreateModal;
 
-const RightBottomButton = styled.button<{ disabled: boolean; $isInvitation: boolean }>`
-  align-self: flex-end;
-  margin-top: ${({ $isInvitation }) => ($isInvitation ? '0' : '2.4rem')};
+const RightBottomButton = styled.button<{ $isInvitation: boolean }>`
   ${({ theme }) => theme.fonts.Button_large};
+  align-self: flex-end;
+
+  margin-top: ${({ $isInvitation }) => ($isInvitation ? '0' : '2.4rem')};
   margin-left: 1.6rem;
+
   border-radius: 0.8rem;
-  background-color: ${({ theme, disabled }) => (disabled ? theme.colors.background_green : theme.colors.green)};
+  background-color: ${({ theme }) => theme.colors.green};
+
   width: 11.5rem;
   height: 4.2rem;
+
   color: ${({ theme }) => theme.colors.grey_0};
-  &:hover {
-    background-color: ${({ theme, disabled }) => !disabled && theme.colors.green_hover};
+  &:disabled {
+    background-color: ${({ theme }) => theme.colors.background_green};
+    cursor: default;
+  }
+  &:not(:disabled):hover {
+    background-color: ${({ theme }) => theme.colors.green_hover};
   }
 `;
 

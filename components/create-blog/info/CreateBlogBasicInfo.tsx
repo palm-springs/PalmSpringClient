@@ -4,9 +4,9 @@ import CreateBlogLanding from './ui/CreateBlogLanding';
 
 const CreateBlogBasicInfo = () => {
   return (
-    // <AuthRequired>
-    <CreateBlogLanding />
-    // </AuthRequired>
+    <AuthRequired>
+      <CreateBlogLanding />
+    </AuthRequired>
   );
 };
 

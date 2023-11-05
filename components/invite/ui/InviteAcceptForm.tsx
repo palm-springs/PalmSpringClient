@@ -1,37 +1,90 @@
 'use client';
+import { useEffect, useState } from 'react';
+import { useRouter } from 'next/navigation';
+import { useRecoilState } from 'recoil';
 import styled from 'styled-components';
 
-import { ProfilePhotoIcon } from '@/public/icons';
+import { updateUserInfo } from '@/api/dashboard';
+import { useGetUserBasicInfo } from '@/hooks/dashboard';
+import { UserBasicInfo } from '@/types/user';
+import CheckUserIdDuplication from '@/utils/checkUserIdDuplication';
 
-import TextInputForm from './TextInputForm';
-const InviteAcceptForm = () => {
+import { invitedUserDataState } from '../states/userData';
+
+import UserDescription from './UserDescription';
+import UserId from './UserId';
+import UserName from './UserName';
+import UserPosition from './UserPosition';
+import UserProfile from './UserProfile';
+
+interface InviteAcceptFormProps {
+  blogUrl: string;
+  blogName: string;
+}
+
+const InviteAcceptForm = (props: InviteAcceptFormProps) => {
+  const { blogUrl, blogName } = props;
+  const router = useRouter();
+
+  // states
+  const [focus, setFocus] = useState({ nickname: false, url: false, description: false, job: false });
+  const [isUrlDuplicate, setIsDuplicate] = useState<boolean | null>(false);
+  const [invitedUserData, setInvitedUserData] = useRecoilState(invitedUserDataState);
+
+  const data = useGetUserBasicInfo(blogUrl);
+  useEffect(() => {
+    if (data) {
+      const {
+        data: { thumbnail },
+      } = data;
+      setInvitedUserData({ ...invitedUserData, thumbnail });
+    }
+  }, [data]);
+
+  // event handle func
+  const handleOnInputChange = (e: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement>) => {
+    const { value, id } = e.currentTarget;
+    setInvitedUserData((prev: UserBasicInfo) => ({ ...prev, [id]: value }));
+
+    if (id === 'url') {
+      CheckUserIdDuplication(blogUrl, value, setIsDuplicate);
+    }
+  };
+
+  const handleOnFocus = (type: string, value: boolean) => {
+    setFocus({ ...focus, [type]: value });
+  };
+
+  const handleOnAcceptClick = async () => {
+    const { code } = await updateUserInfo(blogUrl, invitedUserData);
+    if (code === 200) {
+      router.replace(`${blogUrl}/dashboard/upload`);
+    }
+  };
+
   return (
     <InviteAcceptFormContainer>
-      <TeamName>햇살티미단</TeamName>
+      <TeamName>{blogName}</TeamName>
       <Title>초대 수락하기</Title>
-      <Label>
-        <ProfilePhotoIcon />
-        <input type="file" />
-      </Label>
 
-      <TextInputForm type={'name'} text={'이름'}>
-        <TextInput placeholder="이름을 입력해주세요" />
-      </TextInputForm>
+      <UserProfile />
+      <UserName isFocus={focus.nickname} handleOnChange={handleOnInputChange} handleOnFocus={handleOnFocus} />
+      <UserId
+        blogUrl={blogUrl}
+        isFocus={focus.url}
+        handleOnChange={handleOnInputChange}
+        handleOnFocus={handleOnFocus}
+        isDuplicate={isUrlDuplicate}
+      />
+      <UserDescription isFocus={focus.description} handleOnChange={handleOnInputChange} handleOnFocus={handleOnFocus} />
+      <UserPosition isFocus={focus.job} handleOnChange={handleOnInputChange} handleOnFocus={handleOnFocus} />
 
-      <TextInputForm type={'id'} text={'ID'}>
-        <div>/@timi/author/</div>
-        <TextInput />
-      </TextInputForm>
-
-      <TextInputForm type={'description'} text={'한 줄 소개'}>
-        <TextAreaInput placeholder="한 줄 소개를 입력해주세요" />
-      </TextInputForm>
-
-      <TextInputForm type={'position'} text={'직책'}>
-        <TextInput placeholder="직책을 입력해주세요" />
-      </TextInputForm>
-
-      <AcceptButton type="button">완료</AcceptButton>
+      <AcceptButton
+        type="button"
+        disabled={!invitedUserData.nickname || !invitedUserData.url || isUrlDuplicate || isUrlDuplicate === null}
+        onClick={handleOnAcceptClick}>
+        수락하기
+      </AcceptButton>
     </InviteAcceptFormContainer>
   );
 };
@@ -61,51 +114,15 @@ const Title = styled.h2`
   color: ${({ theme }) => theme.colors.grey_900};
 `;
 
-const Label = styled.label`
-  margin-top: 3.2rem;
-
-  cursor: pointer;
-
-  & > input {
-    display: none;
-  }
-`;
-// input (text)
-const TextInput = styled.input`
-  ${({ theme }) => theme.fonts.Body2_Regular};
-  border: none;
-  padding: 0;
-  width: 100%;
-  height: 100%;
-  &::placeholder {
-    color: ${({ theme }) => theme.colors.grey_600};
-  }
-  &:focus {
-    outline: none;
-    border: 1px solid ${({ theme }) => theme.colors.grey_700};
-  }
-`;
-
-// input (textarea)
-const TextAreaInput = styled.textarea`
-  ${({ theme }) => theme.fonts.Body2_Regular};
-  border: none;
-  width: 100%;
-  height: 100%;
-  resize: none;
-  &::placeholder {
-    color: ${({ theme }) => theme.colors.grey_600};
-  }
-`;
-
-const AcceptButton = styled.button`
+const AcceptButton = styled.button<{ disabled: boolean }>`
   ${({ theme }) => theme.fonts.Button_medium};
   margin: 3.2rem 0 11.4rem;
 
   border: none;
   border-radius: 0.8rem;
 
-  background-color: ${({ theme }) => theme.colors.green};
+  background-color: ${({ disabled, theme }) => (disabled ? theme.colors.background_green : theme.colors.green)};
+  cursor: ${({ disabled }) => (disabled ? 'default' : 'pointer')};
   width: 100%;
   height: 3.6rem;
 

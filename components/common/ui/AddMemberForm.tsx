@@ -13,12 +13,12 @@ interface AddMemberFormProps {
   paddingLR: string;
   emailList: emailData[];
   setEmailList: Dispatch<SetStateAction<emailData[]>>;
+  isError: boolean;
+  setIsError: Dispatch<SetStateAction<boolean>>;
 }
 
 const AddMemberForm = (props: AddMemberFormProps) => {
-  const { width, height, paddingUD, paddingLR, emailList, setEmailList } = props;
-
-  const [isError, setIsError] = useState(false);
+  const { width, height, paddingUD, paddingLR, emailList, setEmailList, isError, setIsError } = props;
 
   const emailInputRef = useRef<HTMLInputElement>(null);
 
@@ -39,7 +39,8 @@ const AddMemberForm = (props: AddMemberFormProps) => {
         $height={height}
         $paddingUD={paddingUD}
         $paddingLR={paddingLR}
-        onClick={handleOnClick}>
+        onClick={handleOnClick}
+        $isError={isError}>
         <AddMemberInput
           emailInputRef={emailInputRef}
           setIsError={setIsError}
@@ -66,9 +67,10 @@ const AddMemberFormContainer = styled.div<{
   $height: string;
   $paddingUD: string;
   $paddingLR: string;
+  $isError: boolean;
 }>`
   margin-top: 0.8rem;
-  border: 1px solid ${({ theme }) => theme.colors.grey_500};
+  border: 1px solid ${({ theme, $isError }) => ($isError ? theme.colors.red : theme.colors.grey_500)};
   border-radius: 0.8rem;
 
   padding: ${({ $paddingUD, $paddingLR }) => `${$paddingUD}rem ${$paddingLR}rem`};
@@ -85,6 +87,7 @@ const AddMemberFormContainer = styled.div<{
 const ErrorContainer = styled.div`
   display: flex;
   gap: 0.4rem;
+  align-items: center;
   margin: 0.6rem 0 0.4rem;
   width: 100%;
   height: 2.4rem;
