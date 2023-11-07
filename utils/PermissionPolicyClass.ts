@@ -44,6 +44,10 @@ class PermissionPolicyChecker {
     return this.eligible(['OWNER', 'MANAGER']);
   }
 
+  get createCategory() {
+    return this.eligible(['OWNER']);
+  }
+
   // 팜스프링 탈퇴하기
   get withdrawPalmSpring() {
     return this.ineligible(['OWNER']);

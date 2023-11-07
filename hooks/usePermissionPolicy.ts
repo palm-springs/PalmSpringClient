@@ -14,7 +14,7 @@ const usePerMissionPolicy = () => {
     throw new Error('유저가 없습니다. 다시 로그인해주세요!');
   }
 
-  const UserPermissionPolicyChecker = userRole && PermissionPolicyChecker.getInstance(userRole);
+  const UserPermissionPolicyChecker = PermissionPolicyChecker.getInstance(userRole);
 
   return UserPermissionPolicyChecker;
 };

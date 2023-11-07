@@ -7,6 +7,7 @@ import { useRecoilState, useSetRecoilState } from 'recoil';
 import { articleDataState, pageDataState } from '@/components/editor/states/atom';
 import mapPageType2HeaderInfo from '@/constants/mapPageType2HeaderInfo';
 import useGetLastPathName from '@/hooks/useGetLastPathName';
+import usePerMissionPolicy from '@/hooks/usePermissionPolicy';
 import { dashBoardPageType } from '@/types/dashboard';
 
 import { dashBoardModalState } from '../state/modalState';
@@ -29,11 +30,16 @@ const DashBoardHeader = () => {
 
   const setPageDataState = useSetRecoilState(pageDataState);
 
+  const { createCategory } = usePerMissionPolicy();
+
+  const canCreateCategory = pathName === 'category' && createCategory;
+
   return (
     <DashBoardHeaderContainer>
       <HeaderContainer
         title={title}
         buttonInnerText={buttonInnerText}
+        canCreateCategory={canCreateCategory}
         onButtonClick={() => {
           if (pathName === 'blogconfignav' || pathName === 'blogdirectnav') return;
           if (pathName === 'upload' || pathName === 'tempsaved') {
