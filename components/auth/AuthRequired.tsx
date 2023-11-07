@@ -30,7 +30,6 @@ const AuthRequired = ({ children }: { children: React.ReactNode }) => {
       client.defaults.headers.common.Authorization = `Bearer ${accessTokenState}`;
     } else {
       // token 없으면 redirectUrl 저장
-      console.log('야야야야ㅑ야야야야야');
       const params = `?code=${paramsCode}`;
       sessionStorage?.setItem('redirectUrl', `${pathname}${paramsCode && params}`);
       router.push(`/auth`);
@@ -60,7 +59,6 @@ const AuthRequired = ({ children }: { children: React.ReactNode }) => {
       async (error) => {
         const { config } = error;
         console.log(error.response.status);
-        console.log('야 에러임');
 
         if (!error.response) {
           console.log(error);
