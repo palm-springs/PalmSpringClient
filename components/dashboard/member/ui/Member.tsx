@@ -45,7 +45,7 @@ const Member = (props: MemberComponentProps) => {
                 <Image src={MemberExampleImg} alt="member profile photo" width={36} height={36} />
               )}
               <Name> {nickname} </Name>
-              {role === 'OWNER' && <Manager />}
+              {/* {role === 'OWNER' && <Manager />} */}
             </NameBox>
             <Position> {role} </Position>
             <Email> {email} </Email>
