@@ -10,7 +10,6 @@ import { RoleType } from '@/utils/PermissionPolicyClass';
 
 import PopOver from '../PopOver';
 
-import Manager from './Manager';
 //이 주석들도 모두 나중에 사용할 예정이라 일단 놔뒀습니다,,
 // import CancelInviteModal from './CancelInviteModal';
 // import Pending from './Pending';
@@ -45,7 +44,6 @@ const Member = (props: MemberComponentProps) => {
                 <Image src={MemberExampleImg} alt="member profile photo" width={36} height={36} />
               )}
               <Name> {nickname} </Name>
-              {role === 'OWNER' && <Manager />}
             </NameBox>
             <Position> {role} </Position>
             <Email> {email} </Email>

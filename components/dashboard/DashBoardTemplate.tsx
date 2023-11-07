@@ -2,6 +2,9 @@
 
 import React, { useEffect } from 'react';
 import { useParams, useRouter } from 'next/navigation';
+import { useRecoilValue } from 'recoil';
+
+import userState from '@/recoil/atom/user';
 
 import DashBoardHeader from './components/DashBoardHeader';
 import DashBoardNav from './components/DashBoardNav';
@@ -20,6 +23,8 @@ const DashBoardTemplate = (props: DashBoardTemplateProps) => {
 
   const router = useRouter();
 
+  const userRole = useRecoilValue(userState);
+
   useEffect(() => {
     if (!team && window.location.host !== '/no-team/dashboard') {
       router.push(`/no-team/dashboard`);
@@ -30,7 +35,7 @@ const DashBoardTemplate = (props: DashBoardTemplateProps) => {
     <DashboardContextProvider>
       <DashBoardContainer>
         <DashBoardNav />
-        {!noHeader && <DashBoardHeader />}
+        {!noHeader && userRole && <DashBoardHeader />}
         {children}
       </DashBoardContainer>
     </DashboardContextProvider>
