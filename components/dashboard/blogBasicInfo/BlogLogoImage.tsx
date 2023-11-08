@@ -85,7 +85,6 @@ const DeleteImageButton = styled.button`
 const UploadText = styled.p`
   ${({ theme }) => theme.fonts.Body2_Semibold};
   margin-left: 0.6rem;
-  width: 14.8rem;
   color: ${({ theme }) => theme.colors.grey_700};
 `;
 
