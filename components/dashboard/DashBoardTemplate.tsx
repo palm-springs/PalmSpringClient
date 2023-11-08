@@ -35,8 +35,12 @@ const DashBoardTemplate = (props: DashBoardTemplateProps) => {
     <DashboardContextProvider>
       <DashBoardContainer>
         <DashBoardNav />
-        {!noHeader && userRole && <DashBoardHeader />}
-        {children}
+        {userRole && (
+          <>
+            {!noHeader && <DashBoardHeader />}
+            {children}
+          </>
+        )}
       </DashBoardContainer>
     </DashboardContextProvider>
   );
