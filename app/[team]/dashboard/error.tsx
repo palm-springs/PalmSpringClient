@@ -2,6 +2,6 @@
 
 import NotFound from '@/app/not-found';
 
-export default function Error() {
+export default function DashboardErrorBoundaryPage() {
   return <NotFound />;
 }
