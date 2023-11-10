@@ -32,6 +32,8 @@ const PopOver = (prop: PopOverProp) => {
   const { mutate } = useDeleteMember(blogUrl, memberId, memberEmail);
   const userValue = useRecoilValue(userState);
 
+  const isUserCanDeleteMember = (memberRole === 'EDITOR' && expelEditor) || (memberRole === 'MANAGER' && expelManager);
+
   if (userValue === null) {
     router.push('/auth');
     return <></>;
@@ -56,27 +58,19 @@ const PopOver = (prop: PopOverProp) => {
         <LinkText href={`https://${blogUrl}.palms.blog/author/${nickname}`}>팀원이 쓴 글로 이동하기</LinkText>
         {memberEmail !== userValue.email && (
           <>
-            {memberRole === 'EDITOR' && expelEditor && (
-              <MemberPermissionButton
-                condition="expelEditor"
-                memberInfo={{
-                  memberId,
-                  memberEmail,
-                  memberRole,
+            {isUserCanDeleteMember && (
+              <ModalText
+                type="button"
+                onMouseDown={(e) => {
+                  e.preventDefault();
                 }}
-              />
+                onClick={() => {
+                  setShowModal(true);
+                }}>
+                팀에서 제외하기
+              </ModalText>
             )}
-            {memberRole === 'MANAGER' && expelManager && (
-              <MemberPermissionButton
-                condition="expelManager"
-                memberInfo={{
-                  memberId,
-                  memberEmail,
-                  memberRole,
-                }}
-              />
-            )}
-            <MemberPermissionButton
+            {/* <MemberPermissionButton
               condition="appointEditor"
               memberInfo={{
                 memberId,
@@ -91,7 +85,7 @@ const PopOver = (prop: PopOverProp) => {
                 memberEmail,
                 memberRole,
               }}
-            />
+            /> */}
             <MemberPermissionButton
               condition="appointOwner"
               memberInfo={{
