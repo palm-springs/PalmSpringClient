@@ -4,10 +4,11 @@ import React, { Dispatch, SetStateAction } from 'react';
 import Image from 'next/image';
 import styled from 'styled-components';
 
-import { ArrowDownIcon, CharmMenuMeatballIcon } from '@/public/icons';
+import { ArrowDownSmallIcon, CharmMenuMeatballIcon } from '@/public/icons';
 import { MemberExampleImg } from '@/public/images';
 import { RoleType } from '@/utils/PermissionPolicyClass';
 
+import MemberPermissionPopOver from '../MemberPermissionPopOver';
 import PopOver from '../PopOver';
 
 //이 주석들도 모두 나중에 사용할 예정이라 일단 놔뒀습니다,,
@@ -65,14 +66,17 @@ const Member = (props: MemberComponentProps) => {
               type="button"
               onBlur={() => setIsPermissionModalOpen('')}
               onClick={() => {
-                if (showPopOver === email) {
+                if (isPermissionModalOpen === email) {
                   setIsPermissionModalOpen('');
                 } else {
                   setIsPermissionModalOpen(email);
                 }
               }}>
               <Role>
-                {memberRole} {isUserCanEditIndivMemberPermission && <ArrowDownIcon />}
+                {memberRole} {isUserCanEditIndivMemberPermission && <ArrowDownSmallIcon />}
+                {isPermissionModalOpen === email && (
+                  <MemberPermissionPopOver memberRole={role} memberId={memberId} memberEmail={email} />
+                )}
               </Role>
             </button>
           </MemberInfoBox>
@@ -90,7 +94,6 @@ const Member = (props: MemberComponentProps) => {
           {showPopOver === email && (
             <PopOver memberRole={role} nickname={nickname} memberId={memberId} memberEmail={email} />
           )}
-          {isPermissionModalOpen && <div></div>}
         </>
       </MemberInnerContent>
     </MemberContainer>
@@ -221,6 +224,10 @@ const Email = styled.div`
 `;
 
 const Role = styled.div`
+  display: flex;
+  position: relative;
+  gap: 0.2rem;
+  align-items: center;
   ${({ theme }) => theme.fonts.Body3_Regular};
   color: ${({ theme }) => theme.colors.grey_700};
 `;
