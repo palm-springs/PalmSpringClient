@@ -1,12 +1,14 @@
 'use client';
-import React, { useState } from 'react';
+import React from 'react';
+import { useQueryClient } from '@tanstack/react-query';
 import { useParams, usePathname, useRouter } from 'next/navigation';
-import { useRecoilState, useRecoilValue, useResetRecoilState, useSetRecoilState } from 'recoil';
+import { useRecoilValue, useResetRecoilState } from 'recoil';
 import styled from 'styled-components';
 
 import { postArticleCreateList } from '@/api/article';
 import { postPageCreate } from '@/api/page';
 import {
+  QUERY_KEY_ARTICLE,
   useUpdateArticleContent,
   useUpdatePageContent,
   useUpdateTempArticleDraft,
@@ -26,10 +28,10 @@ interface PublishBottomButtons {
 
 const PublishBottomButtons = (props: PublishBottomButtons) => {
   const router = useRouter();
-  const { pageType, isDuplicate, isEdit, currentState } = props;
+  const { pageType, isDuplicate, currentState } = props;
   const pathName = usePathname();
 
-  const [isDisabled, setIsDisabled] = useState(true);
+  const queryClient = useQueryClient();
 
   const articleData = useRecoilValue(articleDataState);
   const { categoryId, description, articleUrl } = articleData;
@@ -44,36 +46,51 @@ const PublishBottomButtons = (props: PublishBottomButtons) => {
   const draftArticleMutation = useUpdateTempArticleDraft(team);
   const draftPageMutation = useUpdateTempPageDraft(team);
 
-  const [updatedArticleData, setUpdatedArticleData] = useRecoilState(articleDataState);
-  const [updatedPageData, setUpdatedPageData] = useRecoilState(pageDataState);
+  const updatedArticleData = useRecoilValue(articleDataState);
+  const updatedPageData = useRecoilValue(pageDataState);
 
   const resetArticleData = useResetRecoilState(articleDataState);
   const resetPageData = useResetRecoilState(pageDataState);
 
   //아티클 최종 발행하기
-  const handleOnClickArticlePublish = () => {
-    postArticleCreateList(team, articleData);
+  const handleOnClickArticlePublish = async () => {
+    await postArticleCreateList(team, articleData);
+    queryClient.invalidateQueries([QUERY_KEY_ARTICLE.getArticleList]);
     resetArticleData();
     router.push(`/${team}/dashboard/upload`);
   };
 
   //아티클 최종 수정하기
   const handleOnClickUpdateArticlePublish = () => {
-    updateArticleMutation.mutate({
-      ...updatedArticleData,
-      id: Number(articleId),
-    });
+    updateArticleMutation.mutate(
+      {
+        ...updatedArticleData,
+        id: Number(articleId),
+      },
+      {
+        onSuccess: () => {
+          queryClient.invalidateQueries([QUERY_KEY_ARTICLE.getArticleList]);
+        },
+      },
+    );
     resetArticleData();
     router.push(`/${team}/dashboard/upload`);
   };
 
   //임시저장 아티클 수정하기 후 최종 발행하기
   const handleTempArticleUpdatePublish = () => {
-    draftArticleMutation.mutate({
-      ...updatedArticleData,
-      id: Number(articleId),
-      isPublish: true,
-    });
+    draftArticleMutation.mutate(
+      {
+        ...updatedArticleData,
+        id: Number(articleId),
+        isPublish: true,
+      },
+      {
+        onSuccess: () => {
+          queryClient.invalidateQueries([QUERY_KEY_ARTICLE.getArticleList]);
+        },
+      },
+    );
     resetArticleData();
     router.push(`/${team}/dashboard/upload`);
   };
