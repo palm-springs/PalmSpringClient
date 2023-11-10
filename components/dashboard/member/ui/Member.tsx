@@ -4,7 +4,7 @@ import React, { Dispatch, SetStateAction } from 'react';
 import Image from 'next/image';
 import styled from 'styled-components';
 
-import { CharmMenuMeatballIcon } from '@/public/icons';
+import { ArrowDownIcon, CharmMenuMeatballIcon } from '@/public/icons';
 import { MemberExampleImg } from '@/public/images';
 import { RoleType } from '@/utils/PermissionPolicyClass';
 
@@ -25,10 +25,24 @@ interface MemberComponentProps {
   thumbnail: string;
   showPopOver: string;
   setShowPopOver: Dispatch<SetStateAction<string>>;
+  isUserCanEditIndivMemberPermission?: boolean;
+  isPermissionModalOpen: string;
+  setIsPermissionModalOpen: Dispatch<SetStateAction<string>>;
 }
 
 const Member = (props: MemberComponentProps) => {
-  const { memberId, role, email, job, nickname, thumbnail, showPopOver, setShowPopOver } = props;
+  const {
+    memberId,
+    role,
+    email,
+    nickname,
+    thumbnail,
+    showPopOver,
+    setShowPopOver,
+    isUserCanEditIndivMemberPermission,
+    isPermissionModalOpen,
+    setIsPermissionModalOpen,
+  } = props;
 
   const memberRole = role === 'OWNER' ? '소유자' : role === 'MANAGER' ? '관리자' : '편집자';
 
@@ -47,7 +61,20 @@ const Member = (props: MemberComponentProps) => {
             </NameBox>
             <Position> {role} </Position>
             <Email> {email} </Email>
-            <Role>{memberRole}</Role>
+            <button
+              type="button"
+              onBlur={() => setIsPermissionModalOpen('')}
+              onClick={() => {
+                if (showPopOver === email) {
+                  setIsPermissionModalOpen('');
+                } else {
+                  setIsPermissionModalOpen(email);
+                }
+              }}>
+              <Role>
+                {memberRole} {isUserCanEditIndivMemberPermission && <ArrowDownIcon />}
+              </Role>
+            </button>
           </MemberInfoBox>
           <MenuBtnContainer
             onBlur={() => setShowPopOver('')}
@@ -63,6 +90,7 @@ const Member = (props: MemberComponentProps) => {
           {showPopOver === email && (
             <PopOver memberRole={role} nickname={nickname} memberId={memberId} memberEmail={email} />
           )}
+          {isPermissionModalOpen && <div></div>}
         </>
       </MemberInnerContent>
     </MemberContainer>
