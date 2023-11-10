@@ -16,7 +16,7 @@ const DashBoardNavBtn = () => {
 
   const handleOnNewPage = () => {
     resetPageData();
-    router.push(`/${blogUrl}/editor/page`);
+    router.push(`/${blogUrl}/editor/article`);
   };
 
   return <DashBoardNavBtnContainer onDashboardClick={handleOnNewPage}>새 글 작성하기</DashBoardNavBtnContainer>;
