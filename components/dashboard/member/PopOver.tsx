@@ -55,7 +55,7 @@ const PopOver = (prop: PopOverProp) => {
         </ModalPortal>
       )}
       <PopOverContainer>
-        <LinkText href={`https://${blogUrl}.palms.blog/author/${nickname}`}>팀원이 쓴 글로 이동하기</LinkText>
+        <LinkText href={`https://${blogUrl}.palms.blog/author/${nickname}`}>프로필 보기</LinkText>
         {memberEmail !== userValue.email && (
           <>
             {isUserCanDeleteMember && (
