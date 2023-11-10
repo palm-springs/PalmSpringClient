@@ -32,7 +32,7 @@ const DashBoardHeader = () => {
 
   const { createCategory } = usePerMissionPolicy();
 
-  const canCreateCategory = pathName === 'category' && createCategory;
+  const canCreateCategory = pathName === 'category' ? createCategory : true;
 
   return (
     <DashBoardHeaderContainer>
