@@ -8,6 +8,7 @@ import CodeBlockLowlight from '@tiptap/extension-code-block-lowlight';
 import Document from '@tiptap/extension-document';
 import Dropcursor from '@tiptap/extension-dropcursor';
 import Heading from '@tiptap/extension-heading';
+import History from '@tiptap/extension-history';
 import HorizontalRule from '@tiptap/extension-horizontal-rule';
 import Image from '@tiptap/extension-image';
 import Italic from '@tiptap/extension-italic';
@@ -118,6 +119,9 @@ const TextEditorBuild = (props: TextEditorBuildprops) => {
         autolink: true,
         openOnClick: true,
         linkOnPaste: true,
+      }),
+      History.configure({
+        depth: 10,
       }),
     ],
     content: articleData ? articleData.content : pageData ? pageData.content : '',

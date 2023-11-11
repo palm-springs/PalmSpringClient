@@ -26,6 +26,7 @@
     "@tiptap/extension-dropcursor": "^2.0.3",
     "@tiptap/extension-heading": "^2.0.3",
     "@tiptap/extension-highlight": "^2.1.7",
+    "@tiptap/extension-history": "^2.1.12",
     "@tiptap/extension-horizontal-rule": "^2.1.11",
     "@tiptap/extension-image": "^2.0.3",
     "@tiptap/extension-italic": "^2.0.3",
