@@ -136,10 +136,8 @@ const Wrapper = styled.div<{ isVisible?: boolean }>`
   transition: width 1s ease;
   opacity: ${({ isVisible }) => (isVisible ? 1 : 0)};
   z-index: 10;
-  margin-left: -35.9rem;
   background-color: ${({ theme }) => theme.colors.grey_100};
-  /* 바로 아래 div가 72rem 으로 고정되어있어야해서 width를 100vw, 100% 하면 그 이상 모니터 크기에서 되지 않아 최대 사이즈 1920으로 했습니다 ? -> 좀 더 생각해보기*/
-  width: 192rem;
+  width: 100vw;
   height: 4.8rem;
 `;
 
@@ -167,12 +165,15 @@ const IconWrapper = styled.div`
   } */
 `;
 
+//여기에ㅔ toolbar에 조건문 붙여서 -> position 속성이 fixed가되면 width 값을 100vw, display: flex, jus-> centerd로 바꾼다
 const IconContainer = styled.div<{ atTop: boolean }>`
+  display: flex;
   position: ${({ atTop }) => atTop && 'sticky'};
   top: 0;
+  justify-content: center;
   z-index: 30;
   margin: 4.4rem 0 1.6rem;
-  width: ${({ atTop }) => atTop && '72.2rem'};
+  width: ${({ atTop }) => (atTop ? '100vw' : '72.2rem')};
   height: 100%;
 `;
 
