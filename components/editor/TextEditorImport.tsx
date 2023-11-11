@@ -9,7 +9,6 @@ import Document from '@tiptap/extension-document';
 import Dropcursor from '@tiptap/extension-dropcursor';
 import Heading from '@tiptap/extension-heading';
 import History from '@tiptap/extension-history';
-import HorizontalRule from '@tiptap/extension-horizontal-rule';
 import Image from '@tiptap/extension-image';
 import Italic from '@tiptap/extension-italic';
 import Link from '@tiptap/extension-link';
@@ -36,6 +35,7 @@ lowlight.registerLanguage('css', css);
 lowlight.registerLanguage('js', js);
 lowlight.registerLanguage('ts', ts);
 
+import HorizontalRule from '@tiptap/extension-horizontal-rule';
 import { useRecoilState } from 'recoil';
 
 import { postArticleList } from '@/api/article';
