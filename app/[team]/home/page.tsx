@@ -44,11 +44,18 @@ const BlogMainPage = async ({ params }: { params: { team: string } }) => {
   if (!blogMainRes || !blogArticleRes) return <NotFound />;
 
   const {
-    data: { thumbnail, description },
+    data: { thumbnail, description, blogName },
   } = blogMainRes;
 
   const { data: articleListData } = blogArticleRes;
-  return <ArticleContainer articleListData={articleListData} thumbnail={thumbnail} description={description} />;
+  return (
+    <ArticleContainer
+      articleListData={articleListData}
+      thumbnail={thumbnail}
+      description={description}
+      blogName={blogName}
+    />
+  );
 };
 
 export default BlogMainPage;
