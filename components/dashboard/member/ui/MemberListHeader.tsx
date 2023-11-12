@@ -9,6 +9,7 @@ const MemberListHeader = () => {
       <Name>이름</Name>
       <Position>직책</Position>
       <Email>이메일</Email>
+      <Role>권한</Role>
     </MemberListHeaderContainer>
   );
 };
@@ -36,6 +37,11 @@ const Position = styled.div`
   color: ${({ theme }) => theme.colors.grey_700};
 `;
 const Email = styled.div`
+  width: 24.4rem;
   ${({ theme }) => theme.fonts.Body3_Semibold};
+  color: ${({ theme }) => theme.colors.grey_700};
+`;
+const Role = styled.div`
+  ${({ theme }) => theme.fonts.Body3_Regular};
   color: ${({ theme }) => theme.colors.grey_700};
 `;
