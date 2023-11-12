@@ -70,22 +70,6 @@ const PopOver = (prop: PopOverProp) => {
                 팀에서 제외하기
               </ModalText>
             )}
-            {/* <MemberPermissionButton
-              condition="appointEditor"
-              memberInfo={{
-                memberId,
-                memberEmail,
-                memberRole,
-              }}
-            />
-            <MemberPermissionButton
-              condition="appointManager"
-              memberInfo={{
-                memberId,
-                memberEmail,
-                memberRole,
-              }}
-            /> */}
             <MemberPermissionButton
               condition="appointOwner"
               memberInfo={{
