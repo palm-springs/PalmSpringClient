@@ -15,7 +15,7 @@ interface ArticleProps {
 const Article = (props: ArticleProps) => {
   const {
     noHover,
-    article: { id, title, description, memberName, job, createdAt, thumbnail, articleCategory, articleUrl },
+    article: { id, title, description, memberName, createdAt, thumbnail, articleCategory, articleUrl },
   } = props;
 
   const selectedCategory = useGetCategory();
