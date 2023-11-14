@@ -1,5 +1,6 @@
 'use client';
 import { useEffect, useState } from 'react';
+import { useRouter } from 'next/navigation';
 import { useRecoilState } from 'recoil';
 import styled from 'styled-components';
 
@@ -11,6 +12,7 @@ import { addressDuplicateState, createBlogDataState, invalidTextState, progressS
 import TextInputForm from '../TextInputForm';
 
 const CreateBasicInfoLanding = () => {
+  const router = useRouter();
   const [progress, setProgress] = useRecoilState(progressState);
 
   const [containerState, setContainerState] = useState('');
@@ -76,7 +78,12 @@ const CreateBasicInfoLanding = () => {
         </TextInputForm>
 
         <ButtonContainer>
-          <PreviousButton>이전으로</PreviousButton>
+          <PreviousButton
+            onClick={() => {
+              router.back();
+            }}>
+            이전으로
+          </PreviousButton>
           <NextButton
             type="button"
             onClick={() => setProgress(2)}
