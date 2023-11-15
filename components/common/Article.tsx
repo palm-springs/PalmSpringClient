@@ -22,7 +22,7 @@ const Article = (props: ArticleProps) => {
 
   return (
     <ArticleContainer href={`/content/article/${articleUrl}/${id}`} className={noHover ? '' : 'hover'}>
-      <ArticleInfo>
+      <ArticleInfo $thumbnail={thumbnail}>
         <EditorInputTitle className="title">{title}</EditorInputTitle>
         <ArticleDescription className="description">{description}</ArticleDescription>
         <DetailBox>
@@ -41,6 +41,7 @@ export default Article;
 
 const ArticleThumbnail = styled.img`
   border-radius: 1.2rem;
+
   width: 22.8rem;
   height: 17rem;
   object-fit: cover;
@@ -69,13 +70,13 @@ const ArticleContainer = styled(Link)`
   }
 `;
 
-const ArticleInfo = styled.article`
+const ArticleInfo = styled.article<{ $thumbnail: string | undefined }>`
   display: flex;
   flex-direction: column;
   justify-content: flex-start;
   padding-top: 0.4rem;
 
-  width: 72rem;
+  width: ${({ $thumbnail }) => ($thumbnail ? '46rem' : '100%')};
 `;
 
 const EditorInputTitle = styled.article`
