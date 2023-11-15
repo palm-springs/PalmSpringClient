@@ -28,7 +28,7 @@ export const GlobalStyle = createGlobalStyle`
   * {
     box-sizing: border-box;
     word-break: keep-all;
-}
+  }
 
   code {
     overflow-x: scroll;
@@ -37,18 +37,11 @@ export const GlobalStyle = createGlobalStyle`
       word-break: normal;
     }
   }
-
-
-
-
-*::-webkit-scrollbar {
-    display: none;
-}
-
-a {
-        text-decoration: none;
-        color: inherit;
-      }
+  
+  a {
+    text-decoration: none;
+    color: inherit;
+  }
 
 *::marker {
 	font-size: 1.8rem;

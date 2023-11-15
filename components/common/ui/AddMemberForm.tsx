@@ -77,7 +77,20 @@ const AddMemberFormContainer = styled.div<{
   width: ${({ $width }) => `${$width}rem`};
   height: ${({ $height }) => `${$height}rem`};
 
-  overflow-y: auto;
+  overflow-y: scroll;
+
+  &::-webkit-scrollbar {
+    border-radius: 0 0.8rem 0.8rem 0;
+    background-color: ${({ theme }) => theme.colors.grey_100};
+
+    width: 1.5rem;
+  }
+  &::-webkit-scrollbar-thumb {
+    border: 0.35rem solid ${({ theme }) => theme.colors.grey_100};
+
+    border-radius: 0.8rem;
+    background-color: ${({ theme }) => theme.colors.grey_400};
+  }
 
   &:hover {
     cursor: text;
