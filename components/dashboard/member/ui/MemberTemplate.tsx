@@ -36,6 +36,7 @@ const MemberTemplate = () => {
   const handleOnClickInvite = () => {
     inviteMember();
     setModalState('');
+    setEmailDataList([]);
   };
   useEffect(() => {
     res && console.log(res.data);
