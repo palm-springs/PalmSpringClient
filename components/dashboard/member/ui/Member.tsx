@@ -4,10 +4,11 @@ import React, { Dispatch, SetStateAction } from 'react';
 import Image from 'next/image';
 import styled from 'styled-components';
 
-import { CharmMenuMeatballIcon } from '@/public/icons';
+import { ArrowDownSmallIcon, CharmMenuMeatballIcon } from '@/public/icons';
 import { MemberExampleImg } from '@/public/images';
 import { RoleType } from '@/utils/PermissionPolicyClass';
 
+import MemberPermissionPopOver from '../MemberPermissionPopOver';
 import PopOver from '../PopOver';
 
 //이 주석들도 모두 나중에 사용할 예정이라 일단 놔뒀습니다,,
@@ -25,10 +26,24 @@ interface MemberComponentProps {
   thumbnail: string;
   showPopOver: string;
   setShowPopOver: Dispatch<SetStateAction<string>>;
+  isUserCanEditIndivMemberPermission?: boolean;
+  isPermissionModalOpen: string;
+  setIsPermissionModalOpen: Dispatch<SetStateAction<string>>;
 }
 
 const Member = (props: MemberComponentProps) => {
-  const { memberId, role, email, job, nickname, thumbnail, showPopOver, setShowPopOver } = props;
+  const {
+    memberId,
+    role,
+    email,
+    nickname,
+    thumbnail,
+    showPopOver,
+    setShowPopOver,
+    isUserCanEditIndivMemberPermission,
+    isPermissionModalOpen,
+    setIsPermissionModalOpen,
+  } = props;
 
   const memberRole = role === 'OWNER' ? '소유자' : role === 'MANAGER' ? '관리자' : '편집자';
 
@@ -47,7 +62,23 @@ const Member = (props: MemberComponentProps) => {
             </NameBox>
             <Position> {role} </Position>
             <Email> {email} </Email>
-            <Role>{memberRole}</Role>
+            <button
+              type="button"
+              onBlur={() => setIsPermissionModalOpen('')}
+              onClick={() => {
+                if (isPermissionModalOpen === email) {
+                  setIsPermissionModalOpen('');
+                } else {
+                  setIsPermissionModalOpen(email);
+                }
+              }}>
+              <Role>
+                {memberRole} {isUserCanEditIndivMemberPermission && <ArrowDownSmallIcon />}
+                {isPermissionModalOpen === email && (
+                  <MemberPermissionPopOver memberRole={role} memberId={memberId} memberEmail={email} />
+                )}
+              </Role>
+            </button>
           </MemberInfoBox>
           <MenuBtnContainer
             onBlur={() => setShowPopOver('')}
@@ -193,6 +224,10 @@ const Email = styled.div`
 `;
 
 const Role = styled.div`
+  display: flex;
+  position: relative;
+  gap: 0.2rem;
+  align-items: center;
   ${({ theme }) => theme.fonts.Body3_Regular};
   color: ${({ theme }) => theme.colors.grey_700};
 `;
