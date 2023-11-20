@@ -12,10 +12,17 @@ const CategoryPage = async ({ params }: { params: { category: string; team: stri
   const articleListData = data.filter(({ articleCategory }) => articleCategory.categoryName === categoryName);
 
   const {
-    data: { thumbnail, description },
+    data: { thumbnail, description, blogName },
   } = await getBlogMainImg(params.team);
 
-  return <ArticleContainer articleListData={articleListData} thumbnail={thumbnail} description={description} />;
+  return (
+    <ArticleContainer
+      articleListData={articleListData}
+      thumbnail={thumbnail}
+      description={description}
+      blogName={blogName}
+    />
+  );
 };
 
 export default CategoryPage;

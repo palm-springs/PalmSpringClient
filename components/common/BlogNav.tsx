@@ -20,7 +20,7 @@ const BlogNav = () => {
   if (!res) return <LoadingLottie width={10} height={10} fit />;
 
   const {
-    data: { navList },
+    data: { navList, blogName },
   } = res;
 
   return (
@@ -31,7 +31,7 @@ const BlogNav = () => {
             <Link href={isPage ? `/content/page/${navUrl}/${id}` : `${navUrl}`}>{name}</Link>
           </PageBtn>
         ))}
-      <SubscribeBtn team={team} />
+      <SubscribeBtn blogName={blogName} team={team} />
     </BlogNavContainer>
   );
 };
