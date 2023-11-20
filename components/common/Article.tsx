@@ -22,7 +22,7 @@ const Article = (props: ArticleProps) => {
 
   return (
     <ArticleContainer href={`/content/article/${articleUrl}/${id}`} className={noHover ? '' : 'hover'}>
-      <ArticleInfo $thumbnail={thumbnail}>
+      <ArticleInfo $thumbnail={thumbnail ?? ''}>
         <EditorInputTitle className="title">{title}</EditorInputTitle>
         <ArticleDescription className="description">{description}</ArticleDescription>
         <DetailBox>
@@ -70,7 +70,7 @@ const ArticleContainer = styled(Link)`
   }
 `;
 
-const ArticleInfo = styled.article<{ $thumbnail: string | undefined }>`
+const ArticleInfo = styled.article<{ $thumbnail: string }>`
   display: flex;
   flex-direction: column;
   justify-content: flex-start;
