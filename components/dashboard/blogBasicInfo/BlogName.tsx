@@ -23,6 +23,7 @@ export default BlogName;
 
 const BlogNameContainer = styled.div`
   display: flex;
+  align-items: center;
   margin-top: 3.2rem;
   width: 100%;
 `;
@@ -30,7 +31,7 @@ const BlogNameContainer = styled.div`
 const BlogNameTitle = styled.div`
   margin-right: 9.3rem;
   ${({ theme }) => theme.fonts.Body2_Semibold};
-  margin-bottom: 0.8rem;
+  margin-bottom: 0.5rem;
   white-space: nowrap;
   color: ${({ theme }) => theme.colors.grey_950};
 `;
