@@ -33,6 +33,11 @@ const MemberTemplate = () => {
   });
   const { mutate: inviteMember } = usePostMemberInvite(team, { inviteEmails: emailList });
 
+  const handleOnClickInvite = () => {
+    inviteMember();
+    setModalState('');
+    setEmailDataList([]);
+  };
   useEffect(() => {
     res && console.log(res.data);
   }, [res]);
@@ -49,7 +54,7 @@ const MemberTemplate = () => {
               mainText="팀원 초대하기"
               buttonText="초대하기"
               subText="쉼표, 엔터, 스페이스바로 메일 주소를 구분할 수 있습니다"
-              buttonHandler={inviteMember}
+              buttonHandler={handleOnClickInvite}
               onModalCloseBtnClick={() => setModalState('')}
               disabled={emailDataList.length === 0 || isError}>
               <AddMemberForm
