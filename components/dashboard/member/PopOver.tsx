@@ -59,7 +59,7 @@ const PopOver = (prop: PopOverProp) => {
           onMouseDown={(e) => {
             e.preventDefault();
           }}
-          href={`https://${blogUrl}.palms.blog/author/${nickname}`}
+          href={`https://${blogUrl}.palms.blog/author/${memberId}`}
           target="_blank">
           프로필 보기
         </LinkText>
