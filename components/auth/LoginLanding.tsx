@@ -12,9 +12,9 @@ import { authClientInfo } from '@/types/auth';
 
 const LoginLanding = (props: authClientInfo) => {
   const { clientId } = props;
-  const redirectState = useSearchParams().get('state');
+  const redirectState = useSearchParams().get('userState');
 
-  const errorNotify = () => {
+  const inviteErrorNotify = () => {
     toast.error('초대된 사용자가 아닙니다. 다시 로그인해주세요.', {
       duration: 3000,
       id: 'error on modifying invite link',
@@ -32,9 +32,32 @@ const LoginLanding = (props: authClientInfo) => {
     });
   };
 
+  const noUserErrorNotify = () => {
+    toast.error('로그인이 필요합니다.', {
+      duration: 3000,
+      id: 'error on modifying invite link',
+      style: {
+        padding: '1.6rem 2rem',
+        borderRadius: '3.2rem',
+        background: '#343A40',
+        color: '#fff',
+        fontSize: '1.4rem',
+        fontFamily: 'Pretendard',
+        fontStyle: 'normal',
+        fontWeight: '700',
+        letterSpacing: '-0.028rem',
+      },
+    });
+  };
+
   useEffect(() => {
-    if (redirectState === 'userMismatch') {
-      errorNotify();
+    switch (redirectState) {
+      case 'inviteMismatch':
+        inviteErrorNotify();
+        break;
+      case 'noUser':
+        noUserErrorNotify();
+        break;
     }
   }, []);
   // 구글 로그인창 호출
