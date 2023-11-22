@@ -55,7 +55,14 @@ const PopOver = (prop: PopOverProp) => {
         </ModalPortal>
       )}
       <PopOverContainer>
-        <LinkText href={`https://${blogUrl}.palms.blog/author/${nickname}`}>프로필 보기</LinkText>
+        <LinkText
+          onMouseDown={(e) => {
+            e.preventDefault();
+          }}
+          href={`https://${blogUrl}.palms.blog/author/${nickname}`}
+          target="_blank">
+          프로필 보기
+        </LinkText>
         {memberEmail !== userValue.email && (
           <>
             {isUserCanDeleteMember && (
