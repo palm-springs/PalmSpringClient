@@ -7,11 +7,12 @@ import { postSubscriber } from '@/api/blogHome';
 import { IcClose32Icon } from '@/public/icons';
 
 interface subscribeBtnProps {
+  blogName: string;
   team: string;
 }
 
 const SubscribeBtn = (subscribeBtnProps: subscribeBtnProps) => {
-  const { team } = subscribeBtnProps;
+  const { blogName, team } = subscribeBtnProps;
 
   const [email, setEmail] = useState('');
   const [modalIsOpen, setModalIsOpen] = useState(false);
@@ -52,7 +53,7 @@ const SubscribeBtn = (subscribeBtnProps: subscribeBtnProps) => {
         <ModalBackground onClick={handleModalClose}>
           <EmailModal ref={modalRef}>
             <ModalTitleWrapper>
-              <ModalTitle>{team} 아티클 구독하기</ModalTitle>
+              <ModalTitle>{blogName} 아티클 구독하기</ModalTitle>
               <ModalCloseBtn onClick={handleModalCloseBtn} />
             </ModalTitleWrapper>
             <ModalEmailTitle>이메일</ModalEmailTitle>

@@ -34,13 +34,12 @@ const BlogMetaDataImage = () => {
       </ImageGuideContainer>
       {metaThumbnail ? (
         // 메타 이미지 있으면 삭제할 수 있게 함
-        <ImageLabel>
-          <input type="file" onChange={handleOnMetaImageChange} />
+        <MetaImageContainer>
           <ImageUpload src={metaThumbnail} alt="meta data image" />
-          <DeleteImageButton onClick={handleOnDeleteImage}>
+          <DeleteImageButton type="button" onClick={handleOnDeleteImage}>
             <CloseIcon />
           </DeleteImageButton>
-        </ImageLabel>
+        </MetaImageContainer>
       ) : (
         // 메타 이미지 없을때 초기상황
         <ImageLabel>
@@ -56,14 +55,15 @@ const BlogMetaDataImage = () => {
 };
 
 export default BlogMetaDataImage;
-const DeleteImageButton = styled.div`
+
+const MetaImageContainer = styled.div`
   position: relative;
-  top: -21.3rem;
-  left: 63.3rem;
-  border: none;
-  background: none;
-  width: 2rem;
-  height: 2rem;
+`;
+
+const DeleteImageButton = styled.button`
+  position: absolute;
+  top: 1.2rem;
+  right: 1.2rem;
 `;
 
 const ImageUpload = styled.img`

@@ -18,6 +18,25 @@ const BlogMainImage = (props: BlogMainImageProps) => {
 
   const inputImgRef = useRef<HTMLInputElement>(null);
 
+  const handleOnMainImageChange = (e: ChangeEvent<HTMLInputElement>) => {
+    if (!e.target?.files) return;
+    const file = e.target.files[0];
+    const reader = new FileReader();
+    reader.readAsDataURL(file);
+    reader.onloadend = () => {
+      setPreLoadImg(reader.result as string);
+    };
+    setFile(file);
+  };
+
+  const handleOnDeleteMainImage = () => {
+    setFile(null);
+    setPreLoadImg('');
+    if (inputImgRef.current) {
+      inputImgRef.current.value = '';
+    }
+  };
+
   useEffect(() => {
     if (!file) return;
     setPreLoadImg(file);
@@ -31,49 +50,31 @@ const BlogMainImage = (props: BlogMainImageProps) => {
           대문 이미지 권장 크기는 <p>1920*1080 입니다</p>
         </ImageGuideContent>
       </ImageGuideContainer>
-      <BlogMainUploadLabel>
-        <input
-          readOnly={readonly}
-          ref={inputImgRef}
-          type="file"
-          onChange={(e: ChangeEvent<HTMLInputElement>) => {
-            const file = e.target?.files![0];
-            if (!file) return;
-            const reader = new FileReader();
-            reader.readAsDataURL(file);
-            reader.onloadend = () => {
-              setPreLoadImg(reader.result as string);
-            };
-            setFile(file);
-          }}
-        />
-        {preLoadImg !== '' ? (
+      {preLoadImg ? (
+        <BlogMainImageDeleteContainer>
           <PreLoadImg src={preLoadImg} alt="블로그 메인 이미지" />
-        ) : (
+          <DeleteImageButton type="button" onClick={handleOnDeleteMainImage}>
+            <CloseIcon />
+          </DeleteImageButton>
+        </BlogMainImageDeleteContainer>
+      ) : (
+        <BlogMainUploadLabel>
+          <input readOnly={readonly} ref={inputImgRef} type="file" onChange={handleOnMainImageChange} />
           <BlogMainUpload>
             <UploadIcon />
             <UploadText>업로드하기</UploadText>
           </BlogMainUpload>
-        )}
-        {preLoadImg !== '' && (
-          <DeleteImageButton
-            type="button"
-            onClick={() => {
-              setFile(null);
-              setPreLoadImg('');
-              if (inputImgRef.current) {
-                inputImgRef.current.value = '';
-              }
-            }}>
-            <CloseIcon />
-          </DeleteImageButton>
-        )}
-      </BlogMainUploadLabel>
+        </BlogMainUploadLabel>
+      )}
     </BlogMainImageContainer>
   );
 };
 
 export default BlogMainImage;
+
+const BlogMainImageDeleteContainer = styled.div`
+  position: relative;
+`;
 
 const DeleteImageButton = styled.button`
   position: absolute;

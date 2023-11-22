@@ -34,6 +34,6 @@ const SubHeaderText = styled.p`
 
 const FirstMainHeaderText = styled.h3`
   ${({ theme }) => theme.fonts.Heading3_Semibold};
-  margin-top: 5.4rem;
+  margin-top: 16rem;
   color: ${({ theme }) => theme.colors.grey_900};
 `;
