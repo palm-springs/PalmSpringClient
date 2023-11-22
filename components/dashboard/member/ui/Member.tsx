@@ -1,21 +1,19 @@
 'use client';
 
-import React, { Dispatch, SetStateAction } from 'react';
+import React, { Dispatch, SetStateAction, useState } from 'react';
 import Image from 'next/image';
 import styled from 'styled-components';
 
-import { ArrowDownSmallIcon, CharmMenuMeatballIcon } from '@/public/icons';
+import ModalPortal from '@/components/common/ModalPortal';
+import { ArrowDownSmallIcon, CharmMenuMeatballIcon, IcClose24Icon, IcUserIcon } from '@/public/icons';
 import { MemberExampleImg } from '@/public/images';
 import { RoleType } from '@/utils/PermissionPolicyClass';
 
 import MemberPermissionPopOver from '../MemberPermissionPopOver';
 import PopOver from '../PopOver';
 
-//이 주석들도 모두 나중에 사용할 예정이라 일단 놔뒀습니다,,
-// import CancelInviteModal from './CancelInviteModal';
-// import Pending from './Pending';
-// import ModalPortal from '@/components/common/ModalPortal';
-// import { IcClose24Icon, IcUserIcon } from '@/public/icons';
+import CancelInviteModal from './CancelInviteModal';
+import Pending from './Pending';
 
 interface MemberComponentProps {
   memberId: string;
@@ -45,84 +43,121 @@ const Member = (props: MemberComponentProps) => {
     setIsPermissionModalOpen,
   } = props;
 
+  const [showCancelInviteModal, setShowCancelInviteModal] = useState<boolean>(false);
+
   const memberRole = role === 'OWNER' ? '소유자' : role === 'MANAGER' ? '관리자' : '편집자';
 
+  const modalCloseHandler = () => {
+    setShowCancelInviteModal(false);
+  };
+
+  if (!nickname)
+    return (
+      <>
+        <MemberContainer>
+          <NameBox>
+            <IcUserIcon />
+            <Email>{email} </Email>
+            <Pending />
+          </NameBox>
+          <MenuBtnContainer>
+            <IcClose24Icon onClick={() => setShowCancelInviteModal(!showCancelInviteModal)} />
+          </MenuBtnContainer>
+        </MemberContainer>
+        {showCancelInviteModal && (
+          <ModalPortal>
+            <CancelInviteModal
+              text={'초대를 취소하시겠어요?'}
+              subText={`${email}`}
+              leftButtonText={'유지하기'}
+              rightButtonText={'초대 취소'}
+              leftHandler={modalCloseHandler}
+            />
+          </ModalPortal>
+        )}
+      </>
+    );
+
   return (
-    <MemberContainer>
-      <MemberInnerContent>
-        <>
-          <MemberInfoBox>
-            <NameBox className="member">
-              {thumbnail ? (
-                <MemberProfile src={thumbnail} alt="member profile pic" />
-              ) : (
-                <Image src={MemberExampleImg} alt="member profile photo" width={36} height={36} />
-              )}
-              <Name> {nickname} </Name>
-            </NameBox>
-            <Position> {role} </Position>
-            <Email> {email} </Email>
-            <button
-              type="button"
-              onBlur={() => setIsPermissionModalOpen('')}
+    <>
+      <MemberContainer>
+        <MemberInnerContent>
+          <>
+            <MemberInfoBox>
+              <NameBox className="member">
+                {thumbnail ? (
+                  <MemberProfile src={thumbnail} alt="member profile pic" />
+                ) : (
+                  <Image src={MemberExampleImg} alt="member profile photo" width={36} height={36} />
+                )}
+                <Name> {nickname} </Name>
+              </NameBox>
+              <Position> {role} </Position>
+              <Email> {email} </Email>
+              <button
+                type="button"
+                onBlur={() => setIsPermissionModalOpen('')}
+                onClick={() => {
+                  if (isPermissionModalOpen === email) {
+                    setIsPermissionModalOpen('');
+                  } else {
+                    setIsPermissionModalOpen(email);
+                  }
+                }}>
+                <Role>
+                  {memberRole} {isUserCanEditIndivMemberPermission && <ArrowDownSmallIcon />}
+                  {isPermissionModalOpen === email && (
+                    <MemberPermissionPopOver memberRole={role} memberId={memberId} memberEmail={email} />
+                  )}
+                </Role>
+              </button>
+            </MemberInfoBox>
+            <MenuBtnContainer
+              onBlur={() => setShowPopOver('')}
               onClick={() => {
-                if (isPermissionModalOpen === email) {
-                  setIsPermissionModalOpen('');
+                if (showPopOver === email) {
+                  setShowPopOver('');
                 } else {
-                  setIsPermissionModalOpen(email);
+                  setShowPopOver(email);
                 }
               }}>
-              <Role>
-                {memberRole} {isUserCanEditIndivMemberPermission && <ArrowDownSmallIcon />}
-                {isPermissionModalOpen === email && (
-                  <MemberPermissionPopOver memberRole={role} memberId={memberId} memberEmail={email} />
-                )}
-              </Role>
-            </button>
-          </MemberInfoBox>
-          <MenuBtnContainer
-            onBlur={() => setShowPopOver('')}
-            onClick={() => {
-              if (showPopOver === email) {
-                setShowPopOver('');
-              } else {
-                setShowPopOver(email);
-              }
-            }}>
-            <CharmMenuMeatballIcon />
-          </MenuBtnContainer>
-          {showPopOver === email && (
-            <PopOver memberRole={role} nickname={nickname} memberId={memberId} memberEmail={email} />
-          )}
-        </>
-      </MemberInnerContent>
-    </MemberContainer>
+              <CharmMenuMeatballIcon />
+            </MenuBtnContainer>
+            {showPopOver === email && (
+              <PopOver memberRole={role} nickname={nickname} memberId={memberId} memberEmail={email} />
+            )}
+          </>
+        </MemberInnerContent>
+      </MemberContainer>
+    </>
   );
 };
 
 //밑의 코드는 수락대기중인 멤버가 생기면 다시 사용할 코드입니다.
 // {role === '수락대기중' ? (
-//   <>
-//     <MemberInfoBox>
-//       <NameBox>
-//         <IcUserIcon />
-//         <Email>{email} </Email>
-//         <Pending />
-//       </NameBox>
-//     </MemberInfoBox>
-//     <IcClose24Icon onClick={() => setShowCancelInviteModal(!showCancelInviteModal)} />
-//     {showCancelInviteModal && (
-//       <ModalPortal>
-//         <CancelInviteModal
-//           text={'초대를 취소하시겠어요?'}
-//           subText={`${email}`}
-//           leftButtonText={'유지하기'}
-//           rightButtonText={'초대 취소'}
-//           leftHandler={modalCloseHandler}
-//         />
-//       </ModalPortal>
-//     )}
-//   </>
+{
+  /* <>
+  <MemberInfoBox>
+    <NameBox>
+      <IcUserIcon />
+      <Email>{email} </Email>
+      <Pending />
+    </NameBox>
+  </MemberInfoBox>
+  <IcClose24Icon onClick={() => setShowCancelInviteModal(!showCancelInviteModal)} />
+  {showCancelInviteModal && (
+    <ModalPortal>
+      <CancelInviteModal
+        text={'초대를 취소하시겠어요?'}
+        subText={`${email}`}
+        leftButtonText={'유지하기'}
+        rightButtonText={'초대 취소'}
+        leftHandler={modalCloseHandler}
+      />
+    </ModalPortal>
+  )}
+</>; */
+}
 // ) : (
 //   <>
 //     <MemberInfoBox>
@@ -159,6 +194,7 @@ const MemberProfile = styled.img`
 const MemberInfoBox = styled.div`
   display: flex;
   align-items: center;
+  height: 5.2rem;
 `;
 
 const MemberContainer = styled.div`
