@@ -1,10 +1,9 @@
-import axios from 'axios';
+import axios, { isAxiosError } from 'axios';
 
 import { getAccessTokenProps, googleAccessTokenResponse, jwtAccessTokenResponse } from '@/types/auth';
 import { Response } from '@/types/common';
 
 import client, { refreshAxiosInstance } from '.';
-
 // 구글 액세스 토큰 발급
 export const getAccessToken = async (props: getAccessTokenProps) => {
   const { clientId, clientSecret, code } = props;
@@ -23,14 +22,21 @@ grant_type=authorization_code`,
 
 // JWT 토큰 발급
 export const postSocialLogin = async (platform: string, AccessToken: string) => {
-  const { data } = await client.post<Response<jwtAccessTokenResponse>>(
-    `/api/v2/auth/social/login/${platform}`,
-    {
-      accessToken: AccessToken,
-    },
-    { withCredentials: true },
-  );
-  return data;
+  try {
+    const { data } = await client.post<Response<jwtAccessTokenResponse>>(
+      `/api/v2/auth/social/login/${platform}`,
+      {
+        accessToken: AccessToken,
+      },
+      { withCredentials: true },
+    );
+    return data;
+  } catch (err) {
+    if (isAxiosError(err)) {
+      return err.response.data;
+    }
+    return;
+  }
 };
 
 // 리프레시 토큰 재발급

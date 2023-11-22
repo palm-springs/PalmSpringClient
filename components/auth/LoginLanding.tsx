@@ -50,6 +50,24 @@ const LoginLanding = (props: authClientInfo) => {
     });
   };
 
+  const wrongPlatformNotify = () => {
+    toast.error('Gmail 계정만 사용 가능합니다.', {
+      duration: 3000,
+      id: 'error on modifying invite link',
+      style: {
+        padding: '1.6rem 2rem',
+        borderRadius: '3.2rem',
+        background: '#343A40',
+        color: '#fff',
+        fontSize: '1.4rem',
+        fontFamily: 'Pretendard',
+        fontStyle: 'normal',
+        fontWeight: '700',
+        letterSpacing: '-0.028rem',
+      },
+    });
+  };
+
   useEffect(() => {
     switch (redirectState) {
       case 'inviteMismatch':
@@ -57,6 +75,9 @@ const LoginLanding = (props: authClientInfo) => {
         break;
       case 'noUser':
         noUserErrorNotify();
+        break;
+      case 'wrongPlatform':
+        wrongPlatformNotify();
         break;
     }
   }, []);
