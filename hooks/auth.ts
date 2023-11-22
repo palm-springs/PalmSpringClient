@@ -12,11 +12,12 @@ export const useGetAccessToken = (props: getAccessTokenProps) => {
   return data;
 };
 
-export const usePostMemberInvite = (blogUrl: string, requestBody: InviteRequestBody) => {
+export const usePostMemberInvite = (blogUrl: string, requestBody: InviteRequestBody, handleEmailList: () => void) => {
   const queryClient = useQueryClient();
   return useMutation(() => postMemberInvite(blogUrl, requestBody), {
     onSuccess() {
       queryClient.invalidateQueries([QUERY_KEY_DASHBOARD.getMemberInfo]);
+      handleEmailList();
     },
   });
 };

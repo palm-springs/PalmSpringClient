@@ -31,13 +31,18 @@ const MemberTemplate = () => {
   const emailList = emailDataList.map(({ emailValue }) => {
     return emailValue;
   });
-  const { mutate: inviteMember } = usePostMemberInvite(team, { inviteEmails: emailList });
+
+  const resetEmailDataList = () => {
+    setEmailDataList([]);
+  };
+
+  const { mutate: inviteMember } = usePostMemberInvite(team, { inviteEmails: emailList }, resetEmailDataList);
 
   const handleOnClickInvite = () => {
     inviteMember();
     setModalState('');
-    setEmailDataList([]);
   };
+
   useEffect(() => {
     res && console.log(res.data);
   }, [res]);

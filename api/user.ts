@@ -33,7 +33,7 @@ export const deleteMember = async (blogUrl: string, memberId: string, email: str
 
 // 팀원 초대하기
 export const postMemberInvite = async (blogUrl: string, requestBody: InviteRequestBody) => {
-  const { data } = await client.post<Response<UserInvite>>(`/api/v2/dashboard/user/invite/${blogUrl}`, requestBody);
+  const { data } = await client.post<Response<null>>(`/api/v2/dashboard/user/invite/${blogUrl}`, requestBody);
   return data;
 };
 // 초대 조회하기

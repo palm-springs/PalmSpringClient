@@ -33,7 +33,7 @@ export const postSocialLogin = async (platform: string, AccessToken: string) => 
     return data;
   } catch (err) {
     if (isAxiosError(err)) {
-      return err.response.data;
+      return err.response?.data;
     }
     return;
   }
