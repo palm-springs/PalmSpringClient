@@ -1,5 +1,5 @@
 import { Response } from '@/types/common';
-import { InviteRequestBody, UserInfoProps, UserInvite, UserInviteInfo } from '@/types/user';
+import { DeleteRequestBody, InviteRequestBody, UserInfoProps, UserInviteInfo } from '@/types/user';
 
 import client from '.';
 
@@ -36,6 +36,7 @@ export const postMemberInvite = async (blogUrl: string, requestBody: InviteReque
   const { data } = await client.post<Response<null>>(`/api/v2/dashboard/user/invite/${blogUrl}`, requestBody);
   return data;
 };
+
 // 초대 조회하기
 export const getMemberInvite = async (code: string | null) => {
   if (!code) return;
@@ -49,5 +50,13 @@ export const getMemberInvite = async (code: string | null) => {
       }
       return { message: null, code: 400, data: null };
     });
+  return data;
+};
+
+// 초대 삭제하기
+export const deleteInvite = async (blogUrl: string, requestBody: DeleteRequestBody) => {
+  const { data } = await client.delete<Response<null>>(`/api/v2/dashboard/user/invite/${blogUrl}`, {
+    data: { ...requestBody },
+  });
   return data;
 };

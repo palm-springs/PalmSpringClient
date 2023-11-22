@@ -2,9 +2,11 @@
 
 import React, { Dispatch, SetStateAction, useState } from 'react';
 import Image from 'next/image';
+import { useParams } from 'next/navigation';
 import styled from 'styled-components';
 
 import ModalPortal from '@/components/common/ModalPortal';
+import { useDeleteInvite } from '@/hooks/auth';
 import { ArrowDownSmallIcon, CharmMenuMeatballIcon, IcClose24Icon, IcUserIcon } from '@/public/icons';
 import { MemberExampleImg } from '@/public/images';
 import { RoleType } from '@/utils/PermissionPolicyClass';
@@ -46,8 +48,14 @@ const Member = (props: MemberComponentProps) => {
   const [showCancelInviteModal, setShowCancelInviteModal] = useState<boolean>(false);
 
   const memberRole = role === 'OWNER' ? '소유자' : role === 'MANAGER' ? '관리자' : '편집자';
+  const { team } = useParams();
+  const { mutate: cancelInvite } = useDeleteInvite(team, { id: Number(memberId), email });
 
   const modalCloseHandler = () => {
+    setShowCancelInviteModal(false);
+  };
+  const handleDeleteInvite = () => {
+    cancelInvite();
     setShowCancelInviteModal(false);
   };
 
@@ -72,6 +80,7 @@ const Member = (props: MemberComponentProps) => {
               leftButtonText={'유지하기'}
               rightButtonText={'초대 취소'}
               leftHandler={modalCloseHandler}
+              rightHandler={handleDeleteInvite}
             />
           </ModalPortal>
         )}
