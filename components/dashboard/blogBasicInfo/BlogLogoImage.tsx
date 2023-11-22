@@ -18,6 +18,25 @@ const BlogLogoImage = (props: BlogLogoImageProps) => {
 
   const inputImgRef = useRef<HTMLInputElement>(null);
 
+  const handleOnLogoImageChange = (e: ChangeEvent<HTMLInputElement>) => {
+    if (!e.target?.files) return;
+    const file = e.target.files[0];
+    const reader = new FileReader();
+    reader.readAsDataURL(file);
+    reader.onloadend = () => {
+      setPreLoadImg(reader.result as string);
+    };
+    setFile(file);
+  };
+
+  const handleOnDeleteLogoImage = () => {
+    setFile(null);
+    setPreLoadImg('');
+    if (inputImgRef.current) {
+      inputImgRef.current.value = '';
+    }
+  };
+
   useEffect(() => {
     if (!file) return;
     setPreLoadImg(file);
@@ -28,64 +47,41 @@ const BlogLogoImage = (props: BlogLogoImageProps) => {
       <ImageGuideContainer>
         <ImageGuideTitle>블로그 로고 이미지</ImageGuideTitle>
       </ImageGuideContainer>
-      <BlogLogoUploadLabel>
-        <input
-          readOnly={readonly}
-          ref={inputImgRef}
-          type="file"
-          onChange={(e: ChangeEvent<HTMLInputElement>) => {
-            if (!e.target?.files) return;
-            const file = e.target.files[0];
-            const reader = new FileReader();
-            reader.readAsDataURL(file);
-            reader.onloadend = () => {
-              setPreLoadImg(reader.result as string);
-            };
-            setFile(file);
-          }}
-        />
-        {preLoadImg !== '' ? (
+      {preLoadImg ? (
+        <LogoImageContainer>
           <PreLoadImg src={preLoadImg} alt="블로그 로고 이미지" />
-        ) : (
+          <DeleteImageButton type="button" onClick={handleOnDeleteLogoImage}>
+            <CloseIcon />
+          </DeleteImageButton>
+        </LogoImageContainer>
+      ) : (
+        <BlogLogoUploadLabel>
+          <input readOnly={readonly} ref={inputImgRef} type="file" onChange={handleOnLogoImageChange} />
           <BlogLogoUpload>
             <UploadIcon />
             <UploadText>업로드하기</UploadText>
           </BlogLogoUpload>
-        )}
-        {preLoadImg !== '' && (
-          <DeleteImageButton
-            type="button"
-            onClick={() => {
-              setFile(null);
-              setPreLoadImg('');
-              if (inputImgRef.current) {
-                inputImgRef.current.value = '';
-              }
-            }}>
-            <CloseIcon />
-          </DeleteImageButton>
-        )}
-      </BlogLogoUploadLabel>
+        </BlogLogoUploadLabel>
+      )}
     </BlogLogoImageContainer>
   );
 };
 
 export default BlogLogoImage;
 
+const LogoImageContainer = styled.div`
+  position: relative;
+`;
+
 const DeleteImageButton = styled.button`
   position: absolute;
   top: 1.2rem;
   right: 1.2rem;
-  border: none;
-  background: none;
-  width: 2rem;
-  height: 2rem;
 `;
 
 const UploadText = styled.p`
   ${({ theme }) => theme.fonts.Body2_Semibold};
   margin-left: 0.6rem;
-  width: 14.8rem;
   color: ${({ theme }) => theme.colors.grey_700};
 `;
 

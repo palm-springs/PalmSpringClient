@@ -22,6 +22,7 @@ interface ArticleContainerProps {
   articleListData: ArticleData[];
   thumbnail: string | null;
   description: string | null;
+  blogName: string;
 }
 
 const ArticleContainer = (props: ArticleContainerProps) => {
@@ -34,7 +35,7 @@ const ArticleContainer = (props: ArticleContainerProps) => {
     query: '(min-width : 375px) and (max-width:768px)',
   });
 
-  const { articleListData, thumbnail, description } = props;
+  const { articleListData, thumbnail, description, blogName } = props;
   const FilteredCategoryList = useGetBlogCategoryList(team);
   const CategorySelected = useGetCategory();
 
@@ -70,7 +71,7 @@ const ArticleContainer = (props: ArticleContainerProps) => {
     return (
       <>
         <DefaultTextContainer className={MOBILE ? 'mobile' : ''}>
-          <DefaultTitle className={MOBILE ? 'mobile' : ''}>{team}</DefaultTitle>
+          <DefaultTitle className={MOBILE ? 'mobile' : ''}>{blogName}</DefaultTitle>
           <DefaultSubText className={MOBILE ? 'mobile' : ''}>등록된 글이 없습니다</DefaultSubText>
         </DefaultTextContainer>
         {MOBILE && <MobileStickyBtn />}
