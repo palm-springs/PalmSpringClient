@@ -1,7 +1,7 @@
 'use client';
 
 import { useEffect } from 'react';
-import toast, { Toaster } from 'react-hot-toast';
+import { Toaster } from 'react-hot-toast';
 import Image from 'next/image';
 import { useSearchParams } from 'next/navigation';
 import styled from 'styled-components';
@@ -9,64 +9,17 @@ import styled from 'styled-components';
 import { LogoIcon } from '@/public/icons';
 import { GoogleImg } from '@/public/images';
 import { authClientInfo } from '@/types/auth';
+import { createToast } from '@/utils/lib/toast';
 
 const LoginLanding = (props: authClientInfo) => {
   const { clientId } = props;
   const redirectState = useSearchParams().get('userState');
 
-  const inviteErrorNotify = () => {
-    toast.error('초대된 사용자가 아닙니다. 다시 로그인해주세요.', {
-      duration: 3000,
-      id: 'error on modifying invite link',
-      style: {
-        padding: '1.6rem 2rem',
-        borderRadius: '3.2rem',
-        background: '#343A40',
-        color: '#fff',
-        fontSize: '1.4rem',
-        fontFamily: 'Pretendard',
-        fontStyle: 'normal',
-        fontWeight: '700',
-        letterSpacing: '-0.028rem',
-      },
-    });
-  };
+  const inviteErrorNotify = createToast('초대된 사용자가 아닙니다. 다시 로그인해주세요.', 'invalid invited error');
 
-  const noUserErrorNotify = () => {
-    toast.error('로그인이 필요합니다.', {
-      duration: 3000,
-      id: 'error on modifying invite link',
-      style: {
-        padding: '1.6rem 2rem',
-        borderRadius: '3.2rem',
-        background: '#343A40',
-        color: '#fff',
-        fontSize: '1.4rem',
-        fontFamily: 'Pretendard',
-        fontStyle: 'normal',
-        fontWeight: '700',
-        letterSpacing: '-0.028rem',
-      },
-    });
-  };
+  const noUserErrorNotify = createToast('로그인이 필요합니다.', 'no user');
 
-  const wrongPlatformNotify = () => {
-    toast.error('Gmail 계정만 사용 가능합니다.', {
-      duration: 3000,
-      id: 'error on modifying invite link',
-      style: {
-        padding: '1.6rem 2rem',
-        borderRadius: '3.2rem',
-        background: '#343A40',
-        color: '#fff',
-        fontSize: '1.4rem',
-        fontFamily: 'Pretendard',
-        fontStyle: 'normal',
-        fontWeight: '700',
-        letterSpacing: '-0.028rem',
-      },
-    });
-  };
+  const wrongPlatformNotify = createToast('Gmail 계정만 사용 가능합니다.', 'login platform');
 
   useEffect(() => {
     switch (redirectState) {
