@@ -6,6 +6,7 @@ import { useResetRecoilState, useSetRecoilState } from 'recoil';
 
 import client, { refreshAxiosInstance } from '@/api';
 import { getRefreshToken } from '@/api/auth';
+import { LoginUserState } from '@/types/auth';
 
 import { accessTokenState } from './states/atom';
 
@@ -33,7 +34,7 @@ const AuthRequired = ({ children }: { children: React.ReactNode }) => {
       console.log('사용자 X');
       const redirectUrl = pathname === '/invite' ? `${pathname}?code=${paramsCode}` : `${pathname}`;
       sessionStorage?.setItem('redirectUrl', redirectUrl);
-      router.push(`/auth?userState=noUser`);
+      router.push(`/auth?userState=${LoginUserState.NO_USER}`);
     }
   }, []);
 

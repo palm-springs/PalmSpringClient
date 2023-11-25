@@ -3,6 +3,7 @@ import React from 'react';
 import { usePathname, useRouter, useSearchParams } from 'next/navigation';
 
 import { useGetMemberInvite } from '@/hooks/auth';
+import { LoginUserState } from '@/types/auth';
 
 import LoadingLottie from '../common/ui/LoadingLottie';
 
@@ -27,7 +28,7 @@ const InviteAcceptLanding = () => {
     // 초대 사용자와 로그인 사용자 불일치
     if (data.code === 403) {
       sessionStorage?.setItem('redirectUrl', `${pathname}?code=${code}`);
-      router.push(`/auth?userState=inviteMismatch`);
+      router.push(`/auth?userState=${LoginUserState.INVITE_MISMATCH}`);
     }
     // 유효하지 않은 초대 링크
     else if (data.code === 404) {

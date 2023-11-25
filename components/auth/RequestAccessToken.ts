@@ -5,7 +5,7 @@ import { useSetRecoilState } from 'recoil';
 import { postSocialLogin } from '@/api/auth';
 import { getUserInfoAfterLogin } from '@/api/dashboard';
 import { useGetAccessToken } from '@/hooks/auth';
-import { getAccessTokenProps } from '@/types/auth';
+import { getAccessTokenProps, LoginUserState } from '@/types/auth';
 
 import { accessTokenState } from './states/atom';
 
@@ -37,7 +37,7 @@ const RequestAccessToken = (props: getAccessTokenProps) => {
           }
         }
       } else {
-        router.replace('/auth?userState=wrongPlatform');
+        router.replace(`/auth?userState=${LoginUserState.WRONG_PLATFORM}`);
       }
     }
   };

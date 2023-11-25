@@ -8,7 +8,7 @@ import styled from 'styled-components';
 
 import { LogoIcon } from '@/public/icons';
 import { GoogleImg } from '@/public/images';
-import { authClientInfo } from '@/types/auth';
+import { authClientInfo, LoginUserState } from '@/types/auth';
 import { createToast } from '@/utils/lib/toast';
 
 const LoginLanding = (props: authClientInfo) => {
@@ -23,13 +23,13 @@ const LoginLanding = (props: authClientInfo) => {
 
   useEffect(() => {
     switch (redirectState) {
-      case 'inviteMismatch':
+      case LoginUserState.INVITE_MISMATCH:
         inviteErrorNotify();
         break;
-      case 'noUser':
+      case LoginUserState.NO_USER:
         noUserErrorNotify();
         break;
-      case 'wrongPlatform':
+      case LoginUserState.WRONG_PLATFORM:
         wrongPlatformNotify();
         break;
     }
