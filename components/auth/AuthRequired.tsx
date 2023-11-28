@@ -6,6 +6,7 @@ import { useResetRecoilState, useSetRecoilState } from 'recoil';
 
 import client, { refreshAxiosInstance } from '@/api';
 import { getRefreshToken } from '@/api/auth';
+import { LoginUserState } from '@/types/auth';
 
 import { accessTokenState } from './states/atom';
 
@@ -18,10 +19,10 @@ const AuthRequired = ({ children }: { children: React.ReactNode }) => {
   const sessionStorage = typeof window !== 'undefined' ? window.sessionStorage : undefined;
   const setAccessToken = useSetRecoilState(accessTokenState);
   const resetAccessToken = useResetRecoilState(accessTokenState);
+
   const paramsCode = searchParams.get('code');
 
   useEffect(() => {
-    console.log('useEffect');
     // sessionStorage에서 token 가져오기
     const accessToken = sessionStorage?.getItem('userToken');
     if (accessToken) {
@@ -30,10 +31,10 @@ const AuthRequired = ({ children }: { children: React.ReactNode }) => {
       client.defaults.headers.common.Authorization = `Bearer ${accessTokenState}`;
     } else {
       // token 없으면 redirectUrl 저장
-      console.log('야야야야ㅑ야야야야야');
-      const params = `?code=${paramsCode}`;
-      sessionStorage?.setItem('redirectUrl', `${pathname}${paramsCode && params}`);
-      router.push(`/auth`);
+      console.log('사용자 X');
+      const redirectUrl = pathname === '/invite' ? `${pathname}?code=${paramsCode}` : `${pathname}`;
+      sessionStorage?.setItem('redirectUrl', redirectUrl);
+      router.push(`/auth?userState=${LoginUserState.NO_USER}`);
     }
   }, []);
 

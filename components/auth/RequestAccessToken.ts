@@ -5,7 +5,7 @@ import { useSetRecoilState } from 'recoil';
 import { postSocialLogin } from '@/api/auth';
 import { getUserInfoAfterLogin } from '@/api/dashboard';
 import { useGetAccessToken } from '@/hooks/auth';
-import { getAccessTokenProps } from '@/types/auth';
+import { getAccessTokenProps, LoginUserState } from '@/types/auth';
 
 import { accessTokenState } from './states/atom';
 
@@ -20,10 +20,11 @@ const RequestAccessToken = (props: getAccessTokenProps) => {
   const login = async () => {
     if (platformData) {
       const data = await postSocialLogin('google', platformData?.access_token);
-      const { accessToken } = data.data;
-      setAccessToken(accessToken);
+      if (!data) return;
 
       if (data.code === 200) {
+        const { accessToken } = data.data;
+        setAccessToken(accessToken);
         if (redirectUrl) {
           sessionStorage?.removeItem('redirectUrl');
           router.replace(redirectUrl);
@@ -35,6 +36,8 @@ const RequestAccessToken = (props: getAccessTokenProps) => {
             router.push(`/${data.joinBlogList[0].blogUrl}/dashboard/upload`);
           }
         }
+      } else {
+        router.replace(`/auth?userState=${LoginUserState.WRONG_PLATFORM}`);
       }
     }
   };

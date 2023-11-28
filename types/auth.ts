@@ -20,3 +20,9 @@ export interface jwtAccessTokenResponse {
   grantType: string;
   refreshToken: string;
 }
+
+export enum LoginUserState {
+  NO_USER = 'noUser',
+  WRONG_PLATFORM = 'wrongPlatform',
+  INVITE_MISMATCH = 'inviteMismatch',
+}

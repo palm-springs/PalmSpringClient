@@ -48,3 +48,8 @@ export interface InviteInfoProps {
   handleOnChange: (e: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement>) => void;
   handleOnFocus: (type: string, value: boolean) => void;
 }
+
+export interface DeleteRequestBody {
+  id: number;
+  email: string;
+}
