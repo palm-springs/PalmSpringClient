@@ -30,9 +30,37 @@ const DashBoardHeader = () => {
 
   const setPageDataState = useSetRecoilState(pageDataState);
 
-  const { createCategory } = usePerMissionPolicy();
+  const { createCategory, inviteNewMember } = usePerMissionPolicy();
 
   const canCreateCategory = pathName === 'category' ? createCategory : true;
+
+  const canInviteMember = pathName === 'member' ? inviteNewMember : true;
+
+  const handleHeaderButtonClickEvent = () => {
+    onButtonClickActionName && setModalStateValue(onButtonClickActionName);
+    switch (pathName) {
+      case 'blogdirectnav':
+      case 'blogconfignav':
+        return;
+      case 'upload':
+      case 'tempsaved':
+        router.push(`/${team}/editor/article`);
+        setArticleDataState((prev) => ({
+          ...prev,
+          title: '',
+        }));
+        return;
+      case 'page':
+        router.push(`/${team}/editor/page`);
+        setPageDataState((prev) => ({
+          ...prev,
+          title: '',
+        }));
+        return;
+      default:
+        return;
+    }
+  };
 
   return (
     <DashBoardHeaderContainer>
@@ -40,25 +68,8 @@ const DashBoardHeader = () => {
         title={title}
         buttonInnerText={buttonInnerText}
         canCreateCategory={canCreateCategory}
-        onButtonClick={() => {
-          if (pathName === 'blogconfignav' || pathName === 'blogdirectnav') return;
-          if (pathName === 'upload' || pathName === 'tempsaved') {
-            router.push(`/${team}/editor/article`);
-            setArticleDataState((prev) => ({
-              ...prev,
-              title: '',
-            }));
-            return;
-          } else if (pathName === 'page') {
-            router.push(`/${team}/editor/page`);
-            setPageDataState((prev) => ({
-              ...prev,
-              title: '',
-            }));
-            return;
-          }
-          onButtonClickActionName && setModalStateValue(onButtonClickActionName);
-        }}
+        canInviteMember={canInviteMember}
+        onButtonClick={handleHeaderButtonClickEvent}
       />
     </DashBoardHeaderContainer>
   );
