@@ -7,7 +7,6 @@ import useGetLastPathName from '@/hooks/useGetLastPathName';
 import { CharmMenuMeatballIcon, IcClose24Icon } from '@/public/icons';
 
 import { PickContextPropsType } from '../../context/dashboardContext';
-import PopOverMenu from '../../upload/components/ui/PopOverMenu';
 import { DashBoardContentProps } from '../DashBoardContent';
 
 import Author from './Author';
@@ -17,6 +16,7 @@ import Description from './Description';
 import Draft from './Draft';
 import Email from './Email';
 import NewsLetter from './NewsLetter';
+import PopOverMenu from './PopOverMenu';
 import Position from './Position';
 import TabType from './TabType';
 import Url from './Url';
