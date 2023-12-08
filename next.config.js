@@ -23,6 +23,15 @@ const nextConfig = {
     ],
   },
   reactStrictMode: true,
+  async redirects() {
+    return [
+      {
+        source: '/:team/dashboard',
+        destination: '/:team/dashboard/upload',
+        permanent: true,
+      },
+    ];
+  },
   webpack: (config) => {
     config.module.rules.push({
       test: /\.svg$/i,
