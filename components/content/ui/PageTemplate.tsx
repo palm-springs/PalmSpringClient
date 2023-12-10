@@ -1,11 +1,11 @@
 'use client';
 
 import React, { useEffect } from 'react';
-import { useMediaQuery } from 'react-responsive';
 import styled from 'styled-components';
 
 import PageContentInfo from '@/components/common/PageContentInfo';
 import Content from '@/components/content/Content';
+import useCheckMobile from '@/hooks/useCheckMobile';
 
 import MobileContent from '../MobileContent';
 
@@ -26,9 +26,7 @@ const PageTemplate = (props: ContentTemplateProps) => {
     data: { title, thumbnail, content },
   } = props;
 
-  const MOBILE = useMediaQuery({
-    query: '(min-width : 375px) and (max-width:768px)',
-  });
+  const MOBILE = useCheckMobile();
 
   return (
     <ContentPageContainer className={MOBILE ? 'mobile' : ''}>

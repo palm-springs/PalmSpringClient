@@ -1,7 +1,6 @@
 'use client';
 
 import React from 'react';
-import { useMediaQuery } from 'react-responsive';
 import Image from 'next/image';
 import Link from 'next/link';
 import { useParams } from 'next/navigation';
@@ -11,6 +10,7 @@ import ArticleList from '@/components/common/ArticleList';
 import ContentInfo from '@/components/common/ContentInfo';
 import LoadingLottie from '@/components/common/ui/LoadingLottie';
 import { useGetBlogArticleDetail, useGetBlogCategoryList } from '@/hooks/blogHome';
+import useCheckMobile from '@/hooks/useCheckMobile';
 import { ArticleData } from '@/types/article';
 import { getLiteralCategoryList } from '@/utils/getLiteralCategoryList';
 
@@ -31,9 +31,7 @@ const ArticleListWithThumbnail = (props: ArticleListWithThumbnailProps) => {
   const FilteredArticleList = articleList.filter(
     ({ articleCategory }) => articleCategory.categoryName === categoryName,
   );
-  const MOBILE = useMediaQuery({
-    query: '(min-width : 375px) and (max-width:768px)',
-  });
+  const MOBILE = useCheckMobile();
 
   const IndivContentId = articleList[0].id;
   const articleUrl = articleList[0].articleUrl;

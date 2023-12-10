@@ -2,13 +2,13 @@
 
 import React, { useEffect } from 'react';
 import toast, { Toaster } from 'react-hot-toast';
-import { useMediaQuery } from 'react-responsive';
 import styled from 'styled-components';
 
 import ContentInfo from '@/components/common/ContentInfo';
 import Content from '@/components/content/Content';
 import Bar from '@/components/content/ui/Bar';
 import Recommend from '@/components/content/ui/Recommend';
+import useCheckMobile from '@/hooks/useCheckMobile';
 import { ContentProps } from '@/types/content';
 
 import MobileContent from '../MobileContent';
@@ -26,9 +26,7 @@ const ArticleTemplate = (props: ArticleTemplateProps) => {
     data: { thumbnail, title, description, teamMember, content },
   } = props;
 
-  const MOBILE = useMediaQuery({
-    query: '(min-width : 375px) and (max-width:768px)',
-  });
+  const MOBILE = useCheckMobile();
 
   const notify = () =>
     toast.success('링크가 복사되었습니다', {

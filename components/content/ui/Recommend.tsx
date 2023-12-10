@@ -1,21 +1,19 @@
 'use client';
 
 import React from 'react';
-import { useMediaQuery } from 'react-responsive';
 import { useParams } from 'next/navigation';
 import styled from 'styled-components';
 
 import LoadingLottie from '@/components/common/ui/LoadingLottie';
 import { useGetBlogArticleList } from '@/hooks/blogHome';
+import useCheckMobile from '@/hooks/useCheckMobile';
 
 import ArticleBox from './ArticleBox';
 
 const Recommend = () => {
   const { team } = useParams();
 
-  const MOBILE = useMediaQuery({
-    query: '(min-width : 375px) and (max-width:768px)',
-  });
+  const MOBILE = useCheckMobile();
 
   const data = useGetBlogArticleList(team, '');
   const recommendArticle = data?.data.slice(0, 3);

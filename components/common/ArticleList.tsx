@@ -1,10 +1,10 @@
 'use client';
 
 import React from 'react';
-import { useMediaQuery } from 'react-responsive';
 import { useParams } from 'next/navigation';
 import styled from 'styled-components';
 
+import useCheckMobile from '@/hooks/useCheckMobile';
 import { ArticleData } from '@/types/article';
 
 import Article from './Article';
@@ -24,9 +24,7 @@ const ArticleList = (prop: ArticleListProp) => {
     ({ articleCategory }) => articleCategory.categoryName === categoryName,
   );
 
-  const MOBILE = useMediaQuery({
-    query: '(min-width : 375px) and (max-width:768px)',
-  });
+  const MOBILE = useCheckMobile();
 
   if (MOBILE)
     return (

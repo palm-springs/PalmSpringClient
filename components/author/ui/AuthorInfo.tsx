@@ -1,8 +1,9 @@
 'use client';
 
 import React from 'react';
-import { useMediaQuery } from 'react-responsive';
 import styled from 'styled-components';
+
+import useCheckMobile from '@/hooks/useCheckMobile';
 
 interface AuthorInfoComponentProps {
   thumbnail: string;
@@ -14,9 +15,7 @@ interface AuthorInfoComponentProps {
 const AuthorInfo = (props: AuthorInfoComponentProps) => {
   const { thumbnail, nickname, job, description } = props;
 
-  const MOBILE = useMediaQuery({
-    query: '(min-width : 375px) and (max-width:768px)',
-  });
+  const MOBILE = useCheckMobile();
 
   return (
     <AuthorInfoContainer className={MOBILE ? 'mobile' : ''}>
