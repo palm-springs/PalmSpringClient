@@ -10,25 +10,16 @@ import { PageData } from '@/types/page';
 import client from '.';
 
 //블로그 header 정보 가져오기 - 반영 완 -b
+
 export const getBlogHeaderInfo = async (blogUrl: string) => {
-  try {
-    const { data } = await client.get<Response<HeaderProps>>(`/api/v2/view/meta/${blogUrl}/header`);
-    return data;
-  } catch (err) {
-    console.warn(err);
-    return;
-  }
+  const { data } = await client.get<Response<HeaderProps>>(`/api/v2/view/meta/${blogUrl}/header`);
+  return data;
 };
 
 // blog 대문 이미지와 한 줄 소개 가져오기 - 반영 완 -b
 export const getBlogMainImg = async (blogUrl: string) => {
-  try {
-    const { data } = await client.get<Response<BlogImgProps>>(`/api/v2/view/meta/${blogUrl}/thumbnail`);
-    return data;
-  } catch (err) {
-    console.warn(err);
-    return;
-  }
+  const { data } = await client.get<Response<BlogImgProps>>(`/api/v2/view/meta/${blogUrl}/thumbnail`);
+  return data;
 };
 
 //블로그용 카테고리 가져오기 - 반영 완 - 새로 생김 -b
@@ -39,17 +30,12 @@ export const getBlogCategoryList = async (blogUrl: string) => {
 
 //블로그용 아티클 리스트 가져오기 - 반영 완 -b
 export const getBlogArticleList = async (blogUrl: string, categoryId: string | null) => {
-  try {
-    const { data } = await client.get<Response<ArticleData[]>>(
-      categoryId
-        ? `/api/v2/view/article/${blogUrl}/list?categoryId=${categoryId}`
-        : `/api/v2/view/article/${blogUrl}/list`,
-    );
-    return data;
-  } catch (err) {
-    console.warn(err);
-    return;
-  }
+  const { data } = await client.get<Response<ArticleData[]>>(
+    categoryId
+      ? `/api/v2/view/article/${blogUrl}/list?categoryId=${categoryId}`
+      : `/api/v2/view/article/${blogUrl}/list`,
+  );
+  return data;
 };
 
 //블로그용 페이지 상세 정보 가져오기 -b
