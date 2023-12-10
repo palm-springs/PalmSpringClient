@@ -24,12 +24,16 @@ interface ArticleListWithThumbnailProps {
 
 const ArticleListWithThumbnail = (props: ArticleListWithThumbnailProps) => {
   const { articleList } = props;
+  const { team, category } = useParams();
 
+  const categoryName = decodeURI(category);
+
+  const FilteredArticleList = articleList.filter(
+    ({ articleCategory }) => articleCategory.categoryName === categoryName,
+  );
   const MOBILE = useMediaQuery({
     query: '(min-width : 375px) and (max-width:768px)',
   });
-
-  const { team } = useParams();
 
   const IndivContentId = articleList[0].id;
   const articleUrl = articleList[0].articleUrl;
@@ -51,7 +55,7 @@ const ArticleListWithThumbnail = (props: ArticleListWithThumbnailProps) => {
           <CategoryBtnBar LiteralList={LiteralList} />
         </CategoryBtnWrapper>
         <ArticleWrapper>
-          <ArticleList articleList={articleList} />
+          <ArticleList articleList={category ? FilteredArticleList : articleList} />
         </ArticleWrapper>
         {MOBILE && <MobileStickyBtn />}
       </>
@@ -71,7 +75,7 @@ const ArticleListWithThumbnail = (props: ArticleListWithThumbnailProps) => {
           <CategoryBtnBar LiteralList={LiteralList} />
         </CategoryBtnWrapper>
         <ArticleWrapper>
-          <ArticleList articleList={articleList} />
+          <ArticleList articleList={category ? FilteredArticleList : articleList} />
         </ArticleWrapper>
       </>
     );

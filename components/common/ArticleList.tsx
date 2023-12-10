@@ -2,6 +2,7 @@
 
 import React from 'react';
 import { useMediaQuery } from 'react-responsive';
+import { useParams } from 'next/navigation';
 import styled from 'styled-components';
 
 import { ArticleData } from '@/types/article';
@@ -15,6 +16,13 @@ interface ArticleListProp {
 
 const ArticleList = (prop: ArticleListProp) => {
   const { articleList } = prop;
+  const { category } = useParams();
+
+  const categoryName = decodeURI(category);
+
+  const FilteredArticleList = articleList.filter(
+    ({ articleCategory }) => articleCategory.categoryName === categoryName,
+  );
 
   const MOBILE = useMediaQuery({
     query: '(min-width : 375px) and (max-width:768px)',
@@ -31,9 +39,9 @@ const ArticleList = (prop: ArticleListProp) => {
   else
     return (
       <ArticleListContainer>
-        {articleList.map((article) => (
-          <Article key={article.id} article={article} />
-        ))}
+        {category
+          ? FilteredArticleList.map((article) => <Article key={article.id} article={article} />)
+          : articleList.map((article) => <Article key={article.id} article={article} />)}
       </ArticleListContainer>
     );
 };

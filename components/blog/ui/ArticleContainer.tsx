@@ -29,6 +29,7 @@ const ArticleContainer = (props: ArticleContainerProps) => {
   useEffect(() => {
     window.scrollTo({ top: 0, left: 0, behavior: 'auto' });
   }, []);
+
   const { team } = useParams();
 
   const MOBILE = useMediaQuery({
