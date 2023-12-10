@@ -9,6 +9,7 @@ import { styled } from 'styled-components';
 
 import ArticleList from '@/components/common/ArticleList';
 import ContentInfo from '@/components/common/ContentInfo';
+import LoadingLottie from '@/components/common/ui/LoadingLottie';
 import { useGetBlogArticleDetail, useGetBlogCategoryList } from '@/hooks/blogHome';
 import { ArticleData } from '@/types/article';
 import { getLiteralCategoryList } from '@/utils/getLiteralCategoryList';
@@ -36,7 +37,8 @@ const ArticleListWithThumbnail = (props: ArticleListWithThumbnailProps) => {
 
   const FilteredCategoryList = useGetBlogCategoryList(team);
 
-  if (!FilteredCategoryList || FilteredCategoryList.data.length === 0 || !res) return <div>로더</div>;
+  if (!FilteredCategoryList || FilteredCategoryList.data.length === 0 || !res)
+    return <LoadingLottie width={10} height={10} fit />;
 
   const { data: contentListData } = res;
 
@@ -79,6 +81,7 @@ export default ArticleListWithThumbnail;
 
 const ContentThumbnail = styled(Image)`
   border-radius: 1.6rem;
+  object-fit: cover;
 `;
 
 const ContentInfoContainer = styled.div`
