@@ -10,7 +10,7 @@ const FooterPopOverMenuContainer = (props: FooterPopOverMenuContainerProps) => {
   const { innerText, handleOnClick } = props;
 
   return (
-    <FooterPopOverMenuUI id="popovermenu" onClick={handleOnClick}>
+    <FooterPopOverMenuUI id="popovermenu" onMouseDown={handleOnClick}>
       <span>{innerText}</span>
     </FooterPopOverMenuUI>
   );
