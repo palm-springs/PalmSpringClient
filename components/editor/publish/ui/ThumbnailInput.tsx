@@ -106,6 +106,8 @@ const CustomImage = styled.img`
 
   height: 30.4rem;
   max-height: 100%;
+
+  object-fit: cover;
 `;
 
 const ThumbnailTitleContainer = styled.div`
