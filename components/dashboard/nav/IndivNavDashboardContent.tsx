@@ -2,6 +2,7 @@ import { Dispatch, SetStateAction, useState } from 'react';
 import { useRecoilState } from 'recoil';
 
 import ModalPortal from '@/components/common/ModalPortal';
+import { DOMAIN_NAME } from '@/constants/palmspringInfo';
 import { useDeleteNavigation } from '@/hooks/dashboard';
 
 import DashBoardContent from '../components/DashBoardContent';
@@ -42,7 +43,7 @@ const IndivNavDashboardContent = (props: IndivNavDashboardContentProps) => {
         url={url}
         onTitleClick={() => {
           if (isPage) {
-            window.location.href = `https://${blogUrl}.palms.blog/content/page/${url}/${id}`;
+            window.location.href = `https://${blogUrl}.${DOMAIN_NAME}/content/page/${url}/${id}`;
             return;
           }
           if (typeof window !== 'undefined') {

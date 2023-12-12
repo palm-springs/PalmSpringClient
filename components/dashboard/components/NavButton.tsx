@@ -3,6 +3,7 @@
 import React, { useEffect } from 'react';
 import { useParams, useRouter } from 'next/navigation';
 
+import { DOMAIN_NAME } from '@/constants/palmspringInfo';
 import useGetLastPathName from '@/hooks/useGetLastPathName';
 import { dashBoardPageType } from '@/types/dashboard';
 
@@ -31,7 +32,7 @@ const NavButton = (props: NavButtonProps) => {
       onNavButtonClick={() => {
         if (currentPageType === 'blogdirectnav') {
           if (!window) return;
-          window.location.href = `https://${team}.palms.blog/home`;
+          window.location.href = `https://${team}.${DOMAIN_NAME}/home`;
           // router.push(`/${team}/home`);
         } else {
           router.push(currentPageType);
