@@ -6,7 +6,7 @@ import { useResetRecoilState, useSetRecoilState } from 'recoil';
 
 import client, { refreshAxiosInstance } from '@/api';
 import { getRefreshToken } from '@/api/auth';
-import { LoginUserState } from '@/types/auth';
+import { LoginUserState } from '@/constants/Auth';
 
 import { accessTokenState } from './states/atom';
 

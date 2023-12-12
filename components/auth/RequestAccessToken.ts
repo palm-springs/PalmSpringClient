@@ -4,8 +4,9 @@ import { useSetRecoilState } from 'recoil';
 
 import { postSocialLogin } from '@/api/auth';
 import { getUserInfoAfterLogin } from '@/api/dashboard';
+import { LoginUserState } from '@/constants/Auth';
 import { useGetAccessToken } from '@/hooks/auth';
-import { getAccessTokenProps, LoginUserState } from '@/types/auth';
+import { getAccessTokenProps } from '@/types/auth';
 
 import { accessTokenState } from './states/atom';
 

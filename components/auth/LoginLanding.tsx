@@ -6,9 +6,10 @@ import Image from 'next/image';
 import { useSearchParams } from 'next/navigation';
 import styled from 'styled-components';
 
+import { LoginUserState } from '@/constants/Auth';
 import { LogoIcon } from '@/public/icons';
 import { GoogleImg } from '@/public/images';
-import { authClientInfo, LoginUserState } from '@/types/auth';
+import { authClientInfo } from '@/types/auth';
 import { createToast } from '@/utils/lib/toast';
 
 const LoginLanding = (props: authClientInfo) => {
