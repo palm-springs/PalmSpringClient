@@ -1,17 +1,12 @@
+/* stylelint-disable CssSyntaxError */
 /** @type {import('next').NextConfig} */
 
 const nextConfig = {
   output: 'standalone',
   typescript: {
-    // !! WARN !!
-    // Dangerously allow production builds to successfully complete even if
-    // your project has type errors.
-    // !! WARN !!
     ignoreBuildErrors: true,
   },
   eslint: {
-    // Warning: This allows production builds to successfully complete even if
-    // your project has ESLint errors.
     ignoreDuringBuilds: true,
   },
   images: {
@@ -29,6 +24,14 @@ const nextConfig = {
         source: '/:team/dashboard',
         destination: '/:team/dashboard/upload',
         permanent: true,
+      },
+    ];
+  },
+  async rewrites() {
+    return [
+      {
+        source: '/api/subscribe',
+        destination: `${process.env.NEXT_PUBLIC_BASE_URL}/api/v2/view/subscribe`,
       },
     ];
   },
