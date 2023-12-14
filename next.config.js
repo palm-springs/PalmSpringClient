@@ -27,14 +27,6 @@ const nextConfig = {
       },
     ];
   },
-  async rewrites() {
-    return [
-      {
-        source: '/api/subscribe',
-        destination: `${process.env.NEXT_PUBLIC_BASE_URL}/api/v2/view/subscribe`,
-      },
-    ];
-  },
   webpack: (config) => {
     config.module.rules.push({
       test: /\.svg$/i,
