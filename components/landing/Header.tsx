@@ -65,6 +65,8 @@ const Header = () => {
   const [position, setPosition] = useState(0);
   const [screenX, setScreenX] = useState<number>(0);
 
+  const GOOGLE_END_POINT = 'https://accounts.google.com/o/oauth2/v2/auth';
+
   useEffect(() => {
     setScreenX(document.body.scrollWidth);
     window.addEventListener('scroll', onScroll);
@@ -103,7 +105,10 @@ const Header = () => {
           `}>
           {screenX >= 768 && (
             <Link
-              href="/auth"
+              href={`${GOOGLE_END_POINT}?client_id=${process.env.NEXT_PUBLIC_GOOGLE_CLIENT_ID}&redirect_uri=${
+                // process.env.NODE_ENV === 'production' ? 'https://palms.blog/loading' : 'http://localhost:3000/loading'
+                process.env.NEXT_PUBLIC_GOOGLE_REDIRECT_URI
+              }&response_type=code&scope=email profile`}
               css={[
                 header_button,
                 css`
