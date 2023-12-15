@@ -1,15 +1,21 @@
 import axios, { isAxiosError } from 'axios';
 
+import { TEST_REDIRECT_URI } from '@/constants/Auth';
 import { getAccessTokenProps, googleAccessTokenResponse, jwtAccessTokenResponse } from '@/types/auth';
 import { Response } from '@/types/common';
 
 import client, { refreshAxiosInstance } from '.';
+
+// 테스트용
+const redirectUri = process.env.NEXT_PUBLIC_GOOGLE_REDIRECT_URI;
+// const redirectUri = TEST_REDIRECT_URI;
+
 // 구글 액세스 토큰 발급
 export const getAccessToken = async (props: getAccessTokenProps) => {
   const { clientId, clientSecret, code } = props;
+
   const { data } = await axios.post<googleAccessTokenResponse>(
-    `https://oauth2.googleapis.com/token?code=${code}&client_id=${clientId}&client_secret=${clientSecret}&redirect_uri=https://palm-spring-client-git-refactor-277login-palm-spring-client.vercel.app/loading&
-grant_type=authorization_code`,
+    `https://oauth2.googleapis.com/token?code=${code}&client_id=${clientId}&client_secret=${clientSecret}&redirect_uri=${redirectUri}&grant_type=authorization_code`,
     {
       headers: { 'content-type': 'application/x-www-form-urlencoded' },
     },

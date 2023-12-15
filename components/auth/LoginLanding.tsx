@@ -6,11 +6,15 @@ import Image from 'next/image';
 import { useSearchParams } from 'next/navigation';
 import styled from 'styled-components';
 
-import { LoginUserState } from '@/constants/Auth';
+import { LoginUserState, TEST_REDIRECT_URI } from '@/constants/Auth';
 import { LogoIcon } from '@/public/icons';
 import { GoogleImg } from '@/public/images';
 import { authClientInfo } from '@/types/auth';
 import { createToast } from '@/utils/lib/toast';
+
+// 테스트용
+const redirectUri = process.env.NEXT_PUBLIC_GOOGLE_REDIRECT_URI;
+// const redirectUri = TEST_REDIRECT_URI;
 
 const LoginLanding = (props: authClientInfo) => {
   const { clientId } = props;
@@ -52,7 +56,7 @@ const LoginLanding = (props: authClientInfo) => {
           <LogoIcon />
           <LoginText>우리 팀 이야기를 세상에 전달하는 방법</LoginText>
           <LoginButton
-            href={`${GOOGLE_END_POINT}?client_id=${clientId}&redirect_uri=https://palm-spring-client-git-refactor-277login-palm-spring-client.vercel.app/loading&response_type=code&scope=email profile`}>
+            href={`${GOOGLE_END_POINT}?client_id=${clientId}&redirect_uri=${redirectUri}&response_type=code&scope=email profile`}>
             <Image src={GoogleImg} alt="구글 로고" />
             <span>구글로 시작하기</span>
           </LoginButton>

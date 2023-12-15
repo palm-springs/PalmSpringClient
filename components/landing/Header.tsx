@@ -7,6 +7,8 @@ import { css } from '@emotion/react';
 import Link from 'next/link';
 import { usePathname } from 'next/navigation';
 
+import { TEST_REDIRECT_URI } from '@/constants/Auth';
+
 import 'aos/dist/aos.css';
 
 const header = (position: number) => {
@@ -60,6 +62,10 @@ const header_button = css`
   }
 `;
 
+// 테스트용
+const redirectUri = process.env.NEXT_PUBLIC_GOOGLE_REDIRECT_URI;
+// const redirectUri = TEST_REDIRECT_URI;
+
 const Header = () => {
   const pathname = usePathname();
   const [position, setPosition] = useState(0);
@@ -105,7 +111,7 @@ const Header = () => {
           `}>
           {screenX >= 768 && (
             <Link
-              href={`${GOOGLE_END_POINT}?client_id=${process.env.NEXT_PUBLIC_GOOGLE_CLIENT_ID}&redirect_uri=https://palm-spring-client-git-refactor-277login-palm-spring-client.vercel.app/loading&response_type=code&scope=email profile`}
+              href={`${GOOGLE_END_POINT}?client_id=${process.env.NEXT_PUBLIC_GOOGLE_CLIENT_ID}&redirect_uri=${redirectUri}&response_type=code&scope=email profile`}
               css={[
                 header_button,
                 css`
