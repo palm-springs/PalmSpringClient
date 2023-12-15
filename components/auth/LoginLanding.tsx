@@ -54,7 +54,7 @@ const LoginLanding = (props: authClientInfo) => {
           <LoginButton
             href={`${GOOGLE_END_POINT}?client_id=${clientId}&redirect_uri=${
               // process.env.NODE_ENV === 'production' ? 'https://palms.blog/loading' : 'http://localhost:3000/loading'
-              process.env.NEXT_PUBLIC_GOOGLE_REDIRECT_URI
+              `https://palm-spring-client-git-refactor-277login-palm-spring-client.vercel.app/loading`
             }&response_type=code&scope=email profile`}>
             <Image src={GoogleImg} alt="구글 로고" />
             <span>구글로 시작하기</span>

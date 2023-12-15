@@ -105,10 +105,9 @@ const Header = () => {
           `}>
           {screenX >= 768 && (
             <Link
-              href={`${GOOGLE_END_POINT}?client_id=${process.env.NEXT_PUBLIC_GOOGLE_CLIENT_ID}&redirect_uri=${
-                // process.env.NODE_ENV === 'production' ? 'https://palms.blog/loading' : 'http://localhost:3000/loading'
-                process.env.NEXT_PUBLIC_GOOGLE_REDIRECT_URI
-              }&response_type=code&scope=email profile`}
+              href={`${GOOGLE_END_POINT}?client_id=${
+                process.env.NEXT_PUBLIC_GOOGLE_CLIENT_ID
+              }&redirect_uri=${`https://palm-spring-client-git-refactor-277login-palm-spring-client.vercel.app/loading`}&response_type=code&scope=email profile`}
               css={[
                 header_button,
                 css`
