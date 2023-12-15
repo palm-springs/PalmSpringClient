@@ -52,10 +52,7 @@ const LoginLanding = (props: authClientInfo) => {
           <LogoIcon />
           <LoginText>우리 팀 이야기를 세상에 전달하는 방법</LoginText>
           <LoginButton
-            href={`${GOOGLE_END_POINT}?client_id=${clientId}&redirect_uri=${
-              // process.env.NODE_ENV === 'production' ? 'https://palms.blog/loading' : 'http://localhost:3000/loading'
-              `https://palm-spring-client-git-refactor-277login-palm-spring-client.vercel.app/loading`
-            }&response_type=code&scope=email profile`}>
+            href={`${GOOGLE_END_POINT}?client_id=${clientId}&redirect_uri=https://palm-spring-client-git-refactor-277login-palm-spring-client.vercel.app/loading&response_type=code&scope=email profile`}>
             <Image src={GoogleImg} alt="구글 로고" />
             <span>구글로 시작하기</span>
           </LoginButton>
