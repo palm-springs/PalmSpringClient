@@ -8,10 +8,7 @@ import client, { refreshAxiosInstance } from '.';
 export const getAccessToken = async (props: getAccessTokenProps) => {
   const { clientId, clientSecret, code } = props;
   const { data } = await axios.post<googleAccessTokenResponse>(
-    `https://oauth2.googleapis.com/token?code=${code}&client_id=${clientId}&client_secret=${clientSecret}&redirect_uri=${
-      // process.env.NODE_ENV === 'production' ? 'https://palms.blog/loading' : 'http://localhost:3000/loading'
-      process.env.NEXT_PUBLIC_GOOGLE_REDIRECT_URI
-    }&
+    `https://oauth2.googleapis.com/token?code=${code}&client_id=${clientId}&client_secret=${clientSecret}&redirect_uri=https://palm-spring-client-git-refactor-277login-palm-spring-client.vercel.app/loading&
 grant_type=authorization_code`,
     {
       headers: { 'content-type': 'application/x-www-form-urlencoded' },
