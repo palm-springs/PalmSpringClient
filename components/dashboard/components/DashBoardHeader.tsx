@@ -2,13 +2,14 @@
 
 import React from 'react';
 import { useParams, useRouter } from 'next/navigation';
-import { useRecoilState, useSetRecoilState } from 'recoil';
+import { useSetRecoilState } from 'recoil';
 
 import { articleDataState, pageDataState } from '@/components/editor/states/atom';
 import mapPageType2HeaderInfo from '@/constants/mapPageType2HeaderInfo';
 import useGetLastPathName from '@/hooks/useGetLastPathName';
 import usePerMissionPolicy from '@/hooks/usePermissionPolicy';
 import { dashBoardPageType } from '@/types/dashboard';
+import checkRenderDashboardPermissionButton from '@/utils/checkRenderDashboardPermissionButton';
 
 import { dashBoardModalState } from '../state/modalState';
 
@@ -24,17 +25,18 @@ const DashBoardHeader = () => {
 
   const { title, buttonInnerText, onButtonClickActionName } = mapPageType2HeaderInfo[pathName];
 
-  const [, setModalStateValue] = useRecoilState<modalStateProps>(dashBoardModalState);
+  const permissionPolicyChecker = usePerMissionPolicy();
+
+  const { renderHeaderButton: isRenderHeaderButton } = checkRenderDashboardPermissionButton(
+    pathName,
+    permissionPolicyChecker,
+  );
+
+  const setModalStateValue = useSetRecoilState(dashBoardModalState);
 
   const setArticleDataState = useSetRecoilState(articleDataState);
 
   const setPageDataState = useSetRecoilState(pageDataState);
-
-  const { createCategory, inviteNewMember } = usePerMissionPolicy();
-
-  const canCreateCategory = pathName === 'category' ? createCategory : true;
-
-  const canInviteMember = pathName === 'member' ? inviteNewMember : true;
 
   const handleHeaderButtonClickEvent = () => {
     onButtonClickActionName && setModalStateValue(onButtonClickActionName);
@@ -67,8 +69,7 @@ const DashBoardHeader = () => {
       <HeaderContainer
         title={title}
         buttonInnerText={buttonInnerText}
-        canCreateCategory={canCreateCategory}
-        canInviteMember={canInviteMember}
+        isRenderHeaderButton={isRenderHeaderButton}
         onButtonClick={handleHeaderButtonClickEvent}
       />
     </DashBoardHeaderContainer>
