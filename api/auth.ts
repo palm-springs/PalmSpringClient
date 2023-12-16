@@ -6,8 +6,8 @@ import { Response } from '@/types/common';
 
 import client, { refreshAxiosInstance } from '.';
 
-// 테스트용
 const redirectUri = process.env.NEXT_PUBLIC_GOOGLE_REDIRECT_URI;
+// 브랜치테스트용
 // const redirectUri = TEST_REDIRECT_URI;
 
 // 구글 액세스 토큰 발급

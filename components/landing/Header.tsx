@@ -62,8 +62,8 @@ const header_button = css`
   }
 `;
 
-// 테스트용
 const redirectUri = process.env.NEXT_PUBLIC_GOOGLE_REDIRECT_URI;
+// 브랜치테스트용
 // const redirectUri = TEST_REDIRECT_URI;
 
 const Header = () => {
