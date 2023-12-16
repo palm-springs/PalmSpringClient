@@ -36,9 +36,21 @@ const AuthRequired = ({ children }: { children: React.ReactNode }) => {
     return accessToken;
   };
 
-  // api 요청에 대한 응답에 따른 조건분기처리
-  const setAxiosResInterceptor = () => {
-    client.interceptors.response.use(
+  // Authorization, interceptor
+  const setAuthorization = async () => {
+    if (accessToken) {
+      client.defaults.headers.common.Authorization = `Bearer ${accessToken}`;
+    } else {
+      const newAccessToken = await refresh();
+      client.defaults.headers.common.Authorization = `Bearer ${newAccessToken}`;
+    }
+  };
+
+  useEffect(() => {
+    setAuthorization();
+
+    // api 요청에 대한 응답에 따른 조건분기처리
+    const clientInterceptor = client.interceptors.response.use(
       (response) => {
         console.log('로그인 정상 & response 성공');
         return response;
@@ -61,11 +73,9 @@ const AuthRequired = ({ children }: { children: React.ReactNode }) => {
         return error.response;
       },
     );
-  };
 
-  // reissue api 요청에 대한 응답에 따른 조건분기처리
-  const setRefreshResInterceptor = () => {
-    refreshAxiosInstance.interceptors.response.use(
+    // reissue api 요청에 대한 응답에 따른 조건분기처리
+    const refreshInterceptor = refreshAxiosInstance.interceptors.response.use(
       (response) => {
         console.log('refresh 성공');
         return response;
@@ -81,27 +91,11 @@ const AuthRequired = ({ children }: { children: React.ReactNode }) => {
         return Promise.reject(error);
       },
     );
-  };
-
-  // Authorization, interceptor
-  const setAuthorization = async () => {
-    if (accessToken) {
-      client.defaults.headers.common.Authorization = `Bearer ${accessToken}`;
-    } else {
-      const newAccessToken = await refresh();
-      client.defaults.headers.common.Authorization = `Bearer ${newAccessToken}`;
-    }
-    setAxiosResInterceptor();
-    setRefreshResInterceptor();
-  };
-
-  useEffect(() => {
-    setAuthorization();
 
     return () => {
       console.log('interceptor 제거 위치');
-      // client.interceptors.request.eject(requestInterceptor);
-      // client.interceptors.response.eject(responseInterceptor);
+      client.interceptors.response.eject(clientInterceptor);
+      refreshAxiosInstance.interceptors.request.eject(refreshInterceptor);
     };
   }, []);
 
