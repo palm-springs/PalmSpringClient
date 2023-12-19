@@ -35,30 +35,30 @@ const main = css`
   }
 `;
 const title = css`
-  margin: 20px 0 0 0;
   text-shadow: 0 0 20px rgba(0, 0, 0, 0.08);
   line-height: 1.3;
   word-break: keep-all;
-  font-size: 80px;
+  font-size: 48px;
   font-weight: 700;
   @media (max-width: 575px) {
     font-size: 40px;
   }
 `;
 const subtitle = css`
-  color: #adb5bd;
-  font-size: 32px;
+  margin: 20px 0 0 0;
+  color: #8898a7;
+  font-size: 26px;
   font-weight: 500;
   @media (max-width: 575px) {
     font-size: 20px;
   }
 `;
 const main_button = css`
-  transition: 0.2s;
+  transition: 0.3s;
   margin-top: 48px;
-  border-radius: 20px;
+  border-radius: 16px;
   background: #343a40;
-  padding: 20px 30px;
+  padding: 16px 28px;
   color: #fff;
   font-size: 24px;
   font-weight: 600;
@@ -73,7 +73,8 @@ const main_button = css`
 `;
 const example_image = css`
   margin-top: 80px;
-  width: 1002px;
+  width: 100%;
+  max-width: 900px;
   @media (max-width: 575px) {
     margin-top: 40px;
     width: 100%;
@@ -101,9 +102,9 @@ const feature_image_container = css`
   }
 `;
 const feature_title = css`
-  width: 500px;
+  width: 420px;
   line-height: 140%;
-  font-size: 36px;
+  font-size: 28px;
   font-weight: 700;
   @media (max-width: 575px) {
     width: 100%;
@@ -111,29 +112,31 @@ const feature_title = css`
   }
 `;
 const link_container = css`
+  width: 100%;
   & > h1 {
     margin: 60px 0 0 0;
-    font-size: 52px;
+    font-size: 36px;
     font-weight: bold;
   }
   @media (max-width: 575px) {
     & > h1 {
       margin: 40px auto 0 auto;
       width: 100%;
-      font-size: 36px;
+      font-size: 28px;
     }
   }
 `;
 const link_wrapper = css`
   display: flex;
+  flex-wrap: wrap;
   gap: 20px;
   justify-content: center;
   & > a {
     transition: all 0.1s linear;
-    opacity: 0.5;
+    opacity: 1;
     font-size: 24px;
     &:hover {
-      opacity: 1;
+      opacity: 0.6;
     }
     & > img {
       border-radius: 24px;
@@ -177,7 +180,7 @@ const why_they_use_container = css`
   & > div {
     border-radius: 24px;
     box-shadow: 0 0 16px 0 rgba(0, 0, 0, 0.08);
-    padding: 76px 0;
+    padding: 60px 16px;
     width: 400px;
     text-align: center;
   }
@@ -202,9 +205,10 @@ const go_blog_button = css`
   z-index: 999;
   border-radius: 26px;
 
-  background: radial-gradient(95.78% 95.78% at 50% 50%, rgba(18, 35, 54, 0.8) 0%, rgba(26, 49, 75, 0.67) 100%);
+  background: radial-gradient(95.78% 95.78% at 50% 50%, rgba(18, 35, 54, 0.7) 0%, rgba(26, 49, 75, 0.57) 100%);
   width: 223px;
   height: 52px;
+  backdrop-filter: blur(18px);
 
   color: white;
   font-family: Pretendard;
@@ -228,14 +232,14 @@ const Home = () => {
       <div css={gradient_background} />
       <Header />
       <main css={main}>
-        <h3 data-aos="fade-up" data-aos-duration="800" css={subtitle}>
-          성장하는 조직을 위한 팀 블로그 빌더
-        </h3>
-        <h1 data-aos="fade-up" data-aos-duration="800" data-aos-delay="600" css={title}>
+        <h1 data-aos="fade-up" data-aos-duration="800" css={title}>
           우리 팀 이야기를
           <br />
           세상에 전하는 방법
         </h1>
+        <h3 data-aos="fade-up" data-aos-duration="800" data-aos-delay="600" css={subtitle}>
+          성장하는 조직을 위한 팀 블로그 빌더, 팜스프링
+        </h3>
         <div
           data-aos="fade-up"
           data-aos-duration="800"
@@ -253,6 +257,7 @@ const Home = () => {
         <div
           css={css`
             margin-top: 220px;
+            width: 100%;
           `}>
           <div css={link_container} data-aos="fade-up">
             <div css={link_wrapper}>
@@ -299,7 +304,7 @@ const Home = () => {
               <div
                 css={css`
                   color: #868e96;
-                  font-size: 44px;
+                  font-size: 36px;
                   font-weight: 700;
                 `}>
                 방문자 수
@@ -319,6 +324,9 @@ const Home = () => {
                   margin-top: 24px;
                   line-height: 160%;
                   color: #adb5bd;
+                  font-size: 18px;
+                  font-weight: 500;
+                  line-height: 1.4;
                 `}>
                 블로그를 운영하는 기업은 그렇지 않은 기업 대비
                 <br />
@@ -343,7 +351,7 @@ const Home = () => {
               <div
                 css={css`
                   color: #868e96;
-                  font-size: 44px;
+                  font-size: 36px;
                   font-weight: 700;
                 `}>
                 트래픽 확산
@@ -363,6 +371,9 @@ const Home = () => {
                   margin-top: 24px;
                   line-height: 160%;
                   color: #adb5bd;
+                  font-size: 18px;
+                  font-weight: 500;
+                  line-height: 1.4;
                 `}>
                 블로그를 운영하는 기업은 그렇지 않은 기업 대비
                 <br />
@@ -387,7 +398,7 @@ const Home = () => {
               <div
                 css={css`
                   color: #868e96;
-                  font-size: 44px;
+                  font-size: 36px;
                   font-weight: 700;
                 `}>
                 고객 유치
@@ -407,6 +418,9 @@ const Home = () => {
                   margin-top: 24px;
                   line-height: 160%;
                   color: #adb5bd;
+                  font-size: 18px;
+                  font-weight: 500;
+                  line-height: 1.4;
                 `}>
                 블로그를 운영하는 기업은 그렇지 않은 기업 대비
                 <br />
@@ -438,7 +452,7 @@ const Home = () => {
             <div
               css={css`
                 margin-top: 20px;
-                font-size: 24px;
+                font-size: 20px;
               `}></div>
           </div>
         </div>
@@ -474,12 +488,12 @@ const Home = () => {
                 `,
                 feature_title,
               ]}>
-              노션처럼 쉽고 강력한 에디터로 검색 엔진 최적화까지 누려보세요.
+              노션처럼 쉽고 강력한 에디터로 <br/>검색 엔진 최적화까지 누려보세요.
             </div>
             <div
               css={css`
                 margin-top: 20px;
-                font-size: 24px;
+                font-size: 20px;
               `}></div>
           </div>
         </div>
@@ -504,7 +518,7 @@ const Home = () => {
                 css`
                   width: 520px;
                   @media (max-width: 575px) {
-                    font-size: 26px;
+                    font-size: 20px;
                   }
                 `,
                 feature_title,
@@ -536,7 +550,7 @@ const Home = () => {
                 css`
                   width: 520px;
                   @media (max-width: 575px) {
-                    font-size: 26px;
+                    font-size: 20px;
                   }
                 `,
                 feature_title,
@@ -558,7 +572,7 @@ const Home = () => {
             css={[
               title,
               css`
-                font-size: 64px;
+                font-size: 40px;
               `,
             ]}>
             이제, 우리 팀 이야기를 세상에 전하세요.

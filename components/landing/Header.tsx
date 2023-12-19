@@ -84,7 +84,7 @@ const Header = () => {
       css={header(position)}
       data-aos={pathname !== '/team' && 'fade'}
       data-aos-duration="800"
-      data-aos-delay="2000"
+      data-aos-delay="200"
       data-aos-once="true">
       <div css={header_inside}>
         <Link href="/">
