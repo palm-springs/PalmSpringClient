@@ -2,6 +2,8 @@
 import React from 'react';
 import styled from 'styled-components';
 
+import { DOMAIN_NAME } from '@/constants/palmspringInfo';
+
 interface BlogUrlProps {
   blogUrl: string | null;
 }
@@ -12,7 +14,9 @@ const BlogUrl = (props: BlogUrlProps) => {
   return (
     <BlogUrlContainer>
       <BlogUrlTitle>블로그 주소</BlogUrlTitle>
-      <BlogUrlText>{blogUrl ? `https://${blogUrl}.palms.blog/home` : '블로그 주소를 불러오는 중입니다...'}</BlogUrlText>
+      <BlogUrlText>
+        {blogUrl ? `https://${blogUrl}.${DOMAIN_NAME}/home` : '블로그 주소를 불러오는 중입니다...'}
+      </BlogUrlText>
     </BlogUrlContainer>
   );
 };

@@ -18,7 +18,6 @@ const DashBoardFooter = () => {
   const [isPopOverMenuOpen, setIsPopOverMenuOpen] = useState<boolean>(false);
   const resetAccessToken = useResetRecoilState(accessTokenState);
   const resetUserState = useResetRecoilState(userState);
-  const sessionStorage = typeof window !== 'undefined' ? window.sessionStorage : undefined;
 
   const router = useRouter();
 
@@ -29,7 +28,6 @@ const DashBoardFooter = () => {
   const handleLogOut = () => {
     resetAccessToken();
     resetUserState();
-    sessionStorage?.removeItem('userToken');
     router.push('/auth');
   };
 

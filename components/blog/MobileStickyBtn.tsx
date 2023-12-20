@@ -2,11 +2,12 @@ import React from 'react';
 import Link from 'next/link';
 import styled from 'styled-components';
 
+import { DOMAIN_NAME } from '@/constants/palmspringInfo';
 import { MobileBtnLogo } from '@/public/icons';
 
 const MobileStickyBtn = () => {
   return (
-    <BtnContainer href="https://palms.blog/">
+    <BtnContainer href={`https://${DOMAIN_NAME}/`}>
       <BtnWrapper>
         <MobileBtnLogo />
         Made in Palmspring

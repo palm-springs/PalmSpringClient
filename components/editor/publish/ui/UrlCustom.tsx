@@ -5,6 +5,7 @@ import router from 'next/router';
 import { useRecoilState } from 'recoil';
 import styled from 'styled-components';
 
+import { DOMAIN_NAME } from '@/constants/palmspringInfo';
 import { EssentialCircleIcon, Loader01Icon } from '@/public/icons';
 import { UpdateArticleProps } from '@/types/article';
 import { UpdatePageProps } from '@/types/page';
@@ -70,7 +71,9 @@ const UrlCustom = (props: UrlCustomProps) => {
           </UrlTitleContainer>
 
           <PublishInputForm isFocus={isAddressFocus} isDuplicate={isDuplicate}>
-            <div>/@{team}/content/</div>
+            <div>
+              {team}.{DOMAIN_NAME}/content/
+            </div>
             <TextInput
               onFocus={() => setIsAddressFocus(true)}
               onBlur={() => setIsAddressFocus(false)}
@@ -92,7 +95,9 @@ const UrlCustom = (props: UrlCustomProps) => {
           </UrlTitleContainer>
 
           <PublishInputForm isFocus={isAddressFocus} isDuplicate={isDuplicate}>
-            <div>/@{team}/content/</div>
+            <div>
+              {team}.{DOMAIN_NAME}/content/
+            </div>
             <TextInput
               onFocus={() => setIsAddressFocus(true)}
               onBlur={() => setIsAddressFocus(false)}
