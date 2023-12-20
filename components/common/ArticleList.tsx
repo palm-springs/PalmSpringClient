@@ -1,9 +1,10 @@
 'use client';
 
 import React from 'react';
-import { useMediaQuery } from 'react-responsive';
+import { useParams } from 'next/navigation';
 import styled from 'styled-components';
 
+import useCheckMobile from '@/hooks/useCheckMobile';
 import { ArticleData } from '@/types/article';
 
 import Article from './Article';
@@ -15,10 +16,16 @@ interface ArticleListProp {
 
 const ArticleList = (prop: ArticleListProp) => {
   const { articleList } = prop;
+  const { category } = useParams();
 
-  const MOBILE = useMediaQuery({
-    query: '(min-width : 375px) and (max-width:768px)',
-  });
+  const categoryName = decodeURI(category);
+
+  const filteredArticleList = articleList.filter(
+    ({ articleCategory }) => articleCategory.categoryName === categoryName,
+  );
+
+  const MOBILE = useCheckMobile();
+  const targetList = category ? filteredArticleList : articleList;
 
   if (MOBILE)
     return (
@@ -31,7 +38,7 @@ const ArticleList = (prop: ArticleListProp) => {
   else
     return (
       <ArticleListContainer>
-        {articleList.map((article) => (
+        {targetList.map((article) => (
           <Article key={article.id} article={article} />
         ))}
       </ArticleListContainer>

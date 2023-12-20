@@ -1,11 +1,11 @@
 'use client';
 
 import React from 'react';
-import { useMediaQuery } from 'react-responsive';
 import styled from 'styled-components';
 
 import Article from '@/components/common/Article';
 import MobileArticle from '@/components/common/MobileArticle';
+import useCheckMobile from '@/hooks/useCheckMobile';
 import { ArticleData } from '@/types/article';
 
 interface ArticleBoxProps {
@@ -15,9 +15,7 @@ interface ArticleBoxProps {
 const ArticleBox = (props: ArticleBoxProps) => {
   const { recommendArticle } = props;
 
-  const MOBILE = useMediaQuery({
-    query: '(min-width : 375px) and (max-width:768px)',
-  });
+  const MOBILE = useCheckMobile();
 
   const ArticleList = recommendArticle.map((article) => {
     if (MOBILE) return <MobileArticle key={article.id} article={article} />;

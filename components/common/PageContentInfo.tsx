@@ -1,10 +1,10 @@
 'use client';
 
 import React from 'react';
-import { useMediaQuery } from 'react-responsive';
 import Link from 'next/link';
 import styled from 'styled-components';
 
+import useCheckMobile from '@/hooks/useCheckMobile';
 import useGetIfContentPage from '@/hooks/useGetIfContentPage';
 
 import LoadingLottie from './ui/LoadingLottie';
@@ -19,9 +19,7 @@ interface PageContentInfoProps {
 }
 
 const PageContentInfo = (props: PageContentInfoProps) => {
-  const MOBILE = useMediaQuery({
-    query: '(min-width : 375px) and (max-width:768px)',
-  });
+  const MOBILE = useCheckMobile();
 
   const { contentInfoData, IndivContentId, articleUrl } = props;
 

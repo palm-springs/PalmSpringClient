@@ -1,8 +1,9 @@
 'use client';
 
 import React, { useEffect } from 'react';
-import { useMediaQuery } from 'react-responsive';
 import styled from 'styled-components';
+
+import useCheckMobile from '@/hooks/useCheckMobile';
 
 import ArticleList from '../common/ArticleList';
 
@@ -23,9 +24,8 @@ const AuthorPageTemplate = (props: AuthorPageTemplateProps) => {
     window.scrollTo({ top: 0, left: 0, behavior: 'auto' });
   }, []);
 
-  const MOBILE = useMediaQuery({
-    query: '(min-width : 375px) and (max-width:768px)',
-  });
+  const MOBILE = useCheckMobile();
+
   const {
     authorData: { thumbnail, nickname, job, description, articles },
   } = props;
@@ -33,8 +33,8 @@ const AuthorPageTemplate = (props: AuthorPageTemplateProps) => {
   return (
     <AuthorPageTemplateContainer className={MOBILE ? 'mobile' : ''}>
       <AuthorInfo thumbnail={thumbnail} nickname={nickname} job={job} description={description} />
-      {articles.length !== 0 && <Line className={MOBILE ? 'mobile' : ''} />}
-      <AuthorArticle className={MOBILE ? 'mobile' : ''}>작성한 아티클</AuthorArticle>
+      {articles.length && <Line className={MOBILE ? 'mobile' : ''} />}
+      {articles.length && <AuthorArticle className={MOBILE ? 'mobile' : ''}>작성한 아티클</AuthorArticle>}
       <ArticleList articleList={articles} />
     </AuthorPageTemplateContainer>
   );

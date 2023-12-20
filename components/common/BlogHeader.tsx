@@ -1,9 +1,9 @@
 'use client';
 
 import React, { useState } from 'react';
-import { useMediaQuery } from 'react-responsive';
 import styled from 'styled-components';
 
+import useCheckMobile from '@/hooks/useCheckMobile';
 import { HamburgerIcon } from '@/public/icons';
 import { HeaderProps } from '@/types/blogHeader';
 
@@ -15,9 +15,7 @@ const BlogHeader = (props: HeaderProps) => {
   const { logo, blogName } = props;
   const [isMenuOpen, setIsMenuOpen] = useState(false);
 
-  const MOBILE = useMediaQuery({
-    query: '(min-width : 375px) and (max-width:768px)',
-  });
+  const MOBILE = useCheckMobile();
 
   const sidebarToggle = () => setIsMenuOpen(!isMenuOpen);
 

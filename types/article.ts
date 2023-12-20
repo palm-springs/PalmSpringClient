@@ -14,11 +14,11 @@ export interface ArticleData {
   id: number;
   thumbnail?: string;
   title: string;
-  articleUrl: string;
   description: string;
   memberName: string;
   job: string;
   createdAt: string;
+  articleUrl: string;
   articleCategory: {
     categoryId: number;
     categoryName: string;

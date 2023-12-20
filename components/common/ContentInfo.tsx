@@ -1,10 +1,10 @@
 'use client';
 
 import React from 'react';
-import { useMediaQuery } from 'react-responsive';
 import Link from 'next/link';
 import styled from 'styled-components';
 
+import useCheckMobile from '@/hooks/useCheckMobile';
 import useGetIfContentPage from '@/hooks/useGetIfContentPage';
 import useGetIfPage from '@/hooks/useGetIfPage';
 import { NoUserProfileIcon } from '@/public/icons';
@@ -28,9 +28,7 @@ interface ContentInfoProps {
 }
 
 const ContentInfo = (props: ContentInfoProps) => {
-  const MOBILE = useMediaQuery({
-    query: '(min-width : 375px) and (max-width:768px)',
-  });
+  const MOBILE = useCheckMobile();
 
   const { contentInfoData, IndivContentId, articleUrl } = props;
 

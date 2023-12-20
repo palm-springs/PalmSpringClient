@@ -1,8 +1,9 @@
 'use client';
 
 import React from 'react';
-import { useMediaQuery } from 'react-responsive';
 import styled from 'styled-components';
+
+import useCheckMobile from '@/hooks/useCheckMobile';
 
 interface BlogMainImgProps {
   thumbnail: string | null;
@@ -12,9 +13,7 @@ interface BlogMainImgProps {
 const BlogImg = (props: BlogMainImgProps) => {
   const { thumbnail, description } = props;
 
-  const MOBILE = useMediaQuery({
-    query: '(min-width : 375px) and (max-width:768px)',
-  });
+  const MOBILE = useCheckMobile();
 
   return (
     //블로그 대문 이미지가 있는 경우에만 블로그 소개글이 같이 나타납니다

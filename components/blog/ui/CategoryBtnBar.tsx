@@ -1,11 +1,11 @@
 'use client';
 
 import React from 'react';
-import { useMediaQuery } from 'react-responsive';
 import Link from 'next/link';
 import { useParams } from 'next/navigation';
 import styled from 'styled-components';
 
+import useCheckMobile from '@/hooks/useCheckMobile';
 import useGetCategory from '@/hooks/useGetCategory';
 
 interface CategoryBtnBarProps {
@@ -15,9 +15,7 @@ const CategoryBtnBar = (props: CategoryBtnBarProps) => {
   const { category } = useParams();
   const { LiteralList } = props;
   const SELECTED = useGetCategory();
-  const MOBILE = useMediaQuery({
-    query: '(min-width : 375px) and (max-width:768px)',
-  });
+  const MOBILE = useCheckMobile();
 
   const CATEGORY_LIST = LiteralList.map((eachCategory) => {
     if (MOBILE)

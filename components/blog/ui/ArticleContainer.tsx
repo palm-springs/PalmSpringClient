@@ -1,13 +1,13 @@
 'use client';
 
 import React, { useEffect } from 'react';
-import { useMediaQuery } from 'react-responsive';
 import { useParams } from 'next/navigation';
 import styled from 'styled-components';
 
 import ArticleList from '@/components/common/ArticleList';
 import LoadingLottie from '@/components/common/ui/LoadingLottie';
 import { useGetBlogCategoryList } from '@/hooks/blogHome';
+import useCheckMobile from '@/hooks/useCheckMobile';
 import useGetCategory from '@/hooks/useGetCategory';
 import { ArticleData } from '@/types/article';
 import { getLiteralCategoryList } from '@/utils/getLiteralCategoryList';
@@ -29,11 +29,10 @@ const ArticleContainer = (props: ArticleContainerProps) => {
   useEffect(() => {
     window.scrollTo({ top: 0, left: 0, behavior: 'auto' });
   }, []);
+
   const { team } = useParams();
 
-  const MOBILE = useMediaQuery({
-    query: '(min-width : 375px) and (max-width:768px)',
-  });
+  const MOBILE = useCheckMobile();
 
   const { articleListData, thumbnail, description, blogName } = props;
   const FilteredCategoryList = useGetBlogCategoryList(team);
