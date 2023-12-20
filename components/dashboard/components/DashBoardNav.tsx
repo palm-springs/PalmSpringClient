@@ -15,7 +15,7 @@ const DashBoardNav = () => {
   const [currentBlog, setCurrentBlog] = useState<number>(0);
 
   return (
-    <DashBoardNavContainer>
+    <DashBoardNavContainer onBlur={() => setIsBlogListOpen(false)}>
       <DashBoardTitle
         isBlogOpen={isBlogListOpen}
         setIsBlogListOpen={setIsBlogListOpen}

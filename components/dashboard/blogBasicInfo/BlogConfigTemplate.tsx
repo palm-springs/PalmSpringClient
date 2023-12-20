@@ -46,7 +46,7 @@ const BlogConfigTemplate = () => {
   });
   const [blogMetaConfig, setBlogMetaConfig] = useRecoilState(blogMetaDataState);
 
-  const sucessNotify = () =>
+  const successNotify = () =>
     toast.success('블로그 정보를 수정했습니다!', {
       id: 'blog config modified',
       style: {
@@ -124,7 +124,7 @@ const BlogConfigTemplate = () => {
         metaName: blogMetaConfig.metaName,
         metaDescription: blogMetaConfig.metaDescription,
       });
-      sucessNotify();
+      successNotify();
     } catch (err) {
       errorNotify();
     }

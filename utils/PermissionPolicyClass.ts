@@ -44,10 +44,6 @@ class PermissionPolicyChecker {
     return this.eligible(['OWNER', 'MANAGER']);
   }
 
-  get createCategory() {
-    return this.eligible(['OWNER']);
-  }
-
   // 팜스프링 탈퇴하기
   get withdrawPalmSpring() {
     return this.ineligible(['OWNER']);
@@ -61,6 +57,41 @@ class PermissionPolicyChecker {
   // 블로그 삭제하기
   get deleteBlog() {
     return this.eligible(['OWNER']);
+  }
+
+  // 카테고리 생성하기
+  get createCategory() {
+    return this.eligible(['OWNER', 'MANAGER']);
+  }
+
+  // 카테고리 수정하기
+  get updateCategory() {
+    return this.eligible(['OWNER', 'MANAGER']);
+  }
+
+  // 카테고리 삭제하기
+  get deleteCategory() {
+    return this.eligible(['OWNER', 'MANAGER']);
+  }
+
+  // 네비게이션 생성하기
+  get createNavigation() {
+    return this.eligible(['OWNER', 'MANAGER']);
+  }
+
+  // 네비게이션 수정하기
+  get updateNavigation() {
+    return this.eligible(['OWNER', 'MANAGER']);
+  }
+
+  // 네비게이션 삭제하기
+  get deleteNavigation() {
+    return this.eligible(['OWNER', 'MANAGER']);
+  }
+
+  // 팀원 삭제하기
+  get deleteMember() {
+    return this.eligible(['OWNER', 'MANAGER']);
   }
 
   // 팀원 초대하기

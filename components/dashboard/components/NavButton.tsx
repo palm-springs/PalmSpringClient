@@ -1,14 +1,14 @@
 'use client';
 
-import React, { useEffect } from 'react';
+import React from 'react';
 import { useParams, useRouter } from 'next/navigation';
 
-import { DOMAIN_NAME } from '@/constants/palmspringInfo';
 import useGetLastPathName from '@/hooks/useGetLastPathName';
 import { dashBoardPageType } from '@/types/dashboard';
 
 import mapPageType2Component from '../../../constants/mapPageType2Component';
 
+import BlogDirectNavButton from './ui/BlogDirectNavButton';
 import NavButtonContainer from './ui/NavButtonContainer';
 import SideBarContent from './ui/SideBarContent';
 
@@ -27,16 +27,21 @@ const NavButton = (props: NavButtonProps) => {
 
   const { innerText, icon } = mapPageType2Component[currentPageType];
 
+  if (currentPageType === 'blogdirectnav') {
+    return (
+      <BlogDirectNavButton target="_blank" href={`https://${team}.palms.blog/home`}>
+        <SideBarContent currentPage={pageType === currentPageType}>
+          {icon}
+          {innerText}
+        </SideBarContent>
+      </BlogDirectNavButton>
+    );
+  }
+
   return (
     <NavButtonContainer
       onNavButtonClick={() => {
-        if (currentPageType === 'blogdirectnav') {
-          if (!window) return;
-          window.location.href = `https://${team}.${DOMAIN_NAME}/home`;
-          // router.push(`/${team}/home`);
-        } else {
-          router.push(currentPageType);
-        }
+        router.push(currentPageType);
       }}
       disabled={pageType === 'dashboard' || innerText === '구독자'}>
       <SideBarContent currentPage={pageType === currentPageType}>

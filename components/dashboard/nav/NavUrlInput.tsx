@@ -1,7 +1,7 @@
 import React, { Dispatch, SetStateAction, useState } from 'react';
 import { useParams } from 'next/navigation';
 
-import { useGetNavList, useGetPageList } from '@/hooks/dashboard';
+import { useGetPageList } from '@/hooks/dashboard';
 
 import NavSelectorContainer from './ui/NavSelectorContainer';
 import NavUrlInputContainer from './ui/NavUrlInputContainer';
@@ -35,7 +35,10 @@ const NavUrlInput = (props: NavUrlInputProps) => {
 
   return (
     <NavUrlInputContainer>
-      <UrlInputContainer setIsSelectorOpen={setIsSelectorOpen} state={newNavigationSelector} />
+      <UrlInputContainer
+        setIsSelectorOpen={setIsSelectorOpen}
+        state={newNavigationSelector === '직접 입력' ? newNavigationSelector : newNavigationUrl}
+      />
       {newNavigationSelector === '직접 입력' && <TextInput state={newNavigationUrl} setState={setNewNavigationUrl} />}
       {isSelectorOpen && pageList && (
         <NavSelectorContainer
