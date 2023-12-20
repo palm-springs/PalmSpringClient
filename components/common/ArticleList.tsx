@@ -20,11 +20,12 @@ const ArticleList = (prop: ArticleListProp) => {
 
   const categoryName = decodeURI(category);
 
-  const FilteredArticleList = articleList.filter(
+  const filteredArticleList = articleList.filter(
     ({ articleCategory }) => articleCategory.categoryName === categoryName,
   );
 
   const MOBILE = useCheckMobile();
+  const targetList = category ? filteredArticleList : articleList;
 
   if (MOBILE)
     return (
@@ -37,9 +38,9 @@ const ArticleList = (prop: ArticleListProp) => {
   else
     return (
       <ArticleListContainer>
-        {category
-          ? FilteredArticleList.map((article) => <Article key={article.id} article={article} />)
-          : articleList.map((article) => <Article key={article.id} article={article} />)}
+        {targetList.map((article) => (
+          <Article key={article.id} article={article} />
+        ))}
       </ArticleListContainer>
     );
 };
