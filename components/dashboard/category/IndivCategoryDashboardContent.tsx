@@ -3,6 +3,7 @@ import { toast, Toaster } from 'react-hot-toast';
 import { useRecoilState } from 'recoil';
 
 import ModalPortal from '@/components/common/ModalPortal';
+import { DOMAIN_NAME } from '@/constants/palmspringInfo';
 import { useDeleteCategory } from '@/hooks/dashboard';
 
 import DashBoardContent from '../components/DashBoardContent';
@@ -71,7 +72,7 @@ const IndivCategoryDashboardContent = (props: IndivCategoryDashboardContentProps
         url={categoryUrl}
         description={description}
         onTitleClick={() => {
-          window.location.href = `https://${blogUrl}.palms.blog/${blogUrl}/home/${categoryUrl}`;
+          window.location.href = `https://${blogUrl}.${DOMAIN_NAME}/${blogUrl}/home/${categoryUrl}`;
         }}
         onMutateClick={() => {
           setModalState('updateCategory');

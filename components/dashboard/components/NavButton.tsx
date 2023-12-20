@@ -1,7 +1,6 @@
 'use client';
 
 import React from 'react';
-import Link from 'next/link';
 import { useParams, useRouter } from 'next/navigation';
 
 import useGetLastPathName from '@/hooks/useGetLastPathName';

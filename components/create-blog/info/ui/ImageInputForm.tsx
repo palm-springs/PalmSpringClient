@@ -96,6 +96,7 @@ const ImageContainer = styled.div<{ isImgSrc: boolean }>`
     & > img {
       width: 40rem;
       height: 100%;
+      object-fit: cover;
     }
   }
 
