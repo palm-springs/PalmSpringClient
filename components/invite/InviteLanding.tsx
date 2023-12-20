@@ -2,8 +2,8 @@
 import React from 'react';
 import { usePathname, useRouter, useSearchParams } from 'next/navigation';
 
+import { LoginUserState } from '@/constants/Auth';
 import { useGetMemberInvite } from '@/hooks/auth';
-import { LoginUserState } from '@/types/auth';
 
 import LoadingLottie from '../common/ui/LoadingLottie';
 

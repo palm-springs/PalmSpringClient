@@ -3,6 +3,8 @@ import React from 'react';
 import { useRecoilState } from 'recoil';
 import styled from 'styled-components';
 
+import { DOMAIN_NAME } from '@/constants/palmspringInfo';
+
 import { blogMetaDataState } from '../state/blogMetaData';
 
 interface metaBlogUrlProps {
@@ -24,7 +26,7 @@ const MetaDataPreview = (props: metaBlogUrlProps) => {
         <PreviewBottomContainer>
           <PreviewTitle>{metaName}</PreviewTitle>
           <PreviewDescription>{metaDescription}</PreviewDescription>
-          <PreviewBlogUrl>{blogUrl && `${blogUrl}.com`}</PreviewBlogUrl>
+          <PreviewBlogUrl>{blogUrl && `${blogUrl}.${DOMAIN_NAME}`}</PreviewBlogUrl>
         </PreviewBottomContainer>
       </MetaDataPreviewBoxContainer>
     </MetaDataPreviewContainer>

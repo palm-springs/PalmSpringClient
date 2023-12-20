@@ -1,5 +1,4 @@
 import React, { Dispatch, SetStateAction } from 'react';
-import { useParams } from 'next/navigation';
 import { styled } from 'styled-components';
 
 import { PageListProps } from '@/types/dashboard';
@@ -20,7 +19,7 @@ const NavSelectorContainer = (props: NavSelectorContainerProps) => {
   const { setIsSelectorOpen, setNewNavigationSelector, setNewNavigationUrl, pageList, setNewNavigationName } = props;
 
   // 페이지가 맞고 isDraft가 아닌 것
-  const filteredPageList = pageList.filter(({ isDraft }) => !isDraft);
+  const filteredPageList = pageList.filter(({ isDraft, isLinked }) => !isDraft && !isLinked);
 
   return (
     <NavSelectorUI>

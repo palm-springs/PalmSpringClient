@@ -4,6 +4,7 @@ import React, { useEffect } from 'react';
 import { useParams, useRouter } from 'next/navigation';
 import { useRecoilValue } from 'recoil';
 
+import mapPageType2Component from '@/constants/mapPageType2Component';
 import userState from '@/recoil/atom/user';
 
 import DashBoardHeader from './components/DashBoardHeader';
@@ -25,10 +26,20 @@ const DashBoardTemplate = (props: DashBoardTemplateProps) => {
 
   const userRole = useRecoilValue(userState);
 
+  const prefetchDashboardData = () => {
+    const prefetchPath = Object.keys(mapPageType2Component);
+    // RSC prefetch
+    for (const key of prefetchPath) {
+      if (key === 'blogdirectnav') continue;
+      router.prefetch(`/[team]/dashboard/${key}`);
+    }
+  };
+
   useEffect(() => {
     if (!team && window.location.host !== '/no-team/dashboard') {
       router.push(`/no-team/dashboard`);
     }
+    prefetchDashboardData();
   }, []);
 
   return (

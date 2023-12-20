@@ -11,7 +11,7 @@ const IndivBlog = (props: IndivBlogProps) => {
   const { isCurrentBlog, innerText, handleChange } = props;
 
   return (
-    <IndivBlogUI $isCurrentBlog={isCurrentBlog} onClick={handleChange}>
+    <IndivBlogUI $isCurrentBlog={isCurrentBlog} onMouseDown={handleChange}>
       {innerText}
     </IndivBlogUI>
   );

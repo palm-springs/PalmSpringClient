@@ -3,6 +3,7 @@ import { toast, Toaster } from 'react-hot-toast';
 import { useRouter } from 'next/navigation';
 import { useRecoilState } from 'recoil';
 
+import { DOMAIN_NAME } from '@/constants/palmspringInfo';
 import { useDeletePage } from '@/hooks/dashboard';
 import theme from '@/styles/theme';
 
@@ -67,7 +68,7 @@ const IndivPageContent = (props: IndivPageContentProps) => {
           if (isDraft) {
             router.push(`/${blogUrl}/editor/page/${id}/draft`);
           } else {
-            window.location.href = `https://${blogUrl}.palms.blog/content/page/${pageUrl}/${id}`;
+            window.location.href = `https://${blogUrl}.${DOMAIN_NAME}/content/page/${pageUrl}/${id}`;
           }
         }}
         onMutateClick={() => {

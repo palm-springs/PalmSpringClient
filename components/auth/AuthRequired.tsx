@@ -1,72 +1,70 @@
 'use client';
-import { useCallback, useEffect } from 'react';
-import axios, { AxiosError } from 'axios';
+import { useEffect } from 'react';
+import axios from 'axios';
 import { usePathname, useRouter, useSearchParams } from 'next/navigation';
-import { useResetRecoilState, useSetRecoilState } from 'recoil';
+import { useRecoilState, useResetRecoilState } from 'recoil';
 
 import client, { refreshAxiosInstance } from '@/api';
 import { getRefreshToken } from '@/api/auth';
-import { LoginUserState } from '@/types/auth';
+import { LoginUserState } from '@/constants/Auth';
 
 import { accessTokenState } from './states/atom';
 
 // 로그인이 필요한 페이지에 대해 로그인 검사
 const AuthRequired = ({ children }: { children: React.ReactNode }) => {
+  // url
   const router = useRouter();
   const pathname = usePathname();
-  const searchParams = useSearchParams();
+  const paramsCode = useSearchParams().get('code');
 
+  // sessionStorage
   const sessionStorage = typeof window !== 'undefined' ? window.sessionStorage : undefined;
-  const setAccessToken = useSetRecoilState(accessTokenState);
+
+  // recoil access token
+  const [accessToken, setAccessToken] = useRecoilState(accessTokenState);
   const resetAccessToken = useResetRecoilState(accessTokenState);
 
-  const paramsCode = searchParams.get('code');
-
-  useEffect(() => {
-    // sessionStorage에서 token 가져오기
-    const accessToken = sessionStorage?.getItem('userToken');
-    if (accessToken) {
-      const { accessTokenState } = JSON.parse(accessToken);
-      axios.defaults.headers.common.Authorization = `Bearer ${accessTokenState}`;
-      client.defaults.headers.common.Authorization = `Bearer ${accessTokenState}`;
-    } else {
-      // token 없으면 redirectUrl 저장
-      console.log('사용자 X');
-      const redirectUrl = pathname === '/invite' ? `${pathname}?code=${paramsCode}` : `${pathname}`;
-      sessionStorage?.setItem('redirectUrl', redirectUrl);
-      router.push(`/auth?userState=${LoginUserState.NO_USER}`);
-    }
-  }, []);
-
-  // access token 재발급 요청 함수
+  // access token 재발급 요청 함수 (reissue)
   const refresh = async () => {
-    console.log('refresh');
+    console.log('reissue 요청');
     const {
       data: { accessToken },
     } = await getRefreshToken();
 
     setAccessToken(accessToken);
-    console.log(`바꾸는거 : ${accessToken}`);
+    console.log(`reissue해와서 recoil set : ${accessToken}`);
     return accessToken;
   };
 
+  // Authorization, interceptor
+  const setAuthorization = async () => {
+    if (accessToken) {
+      client.defaults.headers.common.Authorization = `Bearer ${accessToken}`;
+    } else {
+      const newAccessToken = await refresh();
+      client.defaults.headers.common.Authorization = `Bearer ${newAccessToken}`;
+    }
+  };
+
   useEffect(() => {
-    console.log('here');
-    client.interceptors.response.use(
+    setAuthorization();
+
+    // api 요청에 대한 응답에 따른 조건분기처리
+    const clientInterceptor = client.interceptors.response.use(
       (response) => {
-        console.log(response.status);
-        console.log('response 성공');
+        console.log('로그인 정상 & response 성공');
         return response;
       },
       async (error) => {
         const { config } = error;
         console.log(error.response.status);
-        console.log('야 에러임');
+        console.log('로그인 비정상 & api 요청 response 에러');
 
         if (!error.response) {
           console.log(error);
           console.log('Access Token is expired.');
           const newAccessToken = await refresh();
+
           config.headers.Authorization = `Bearer ${newAccessToken}`;
           return client(config);
         }
@@ -76,24 +74,28 @@ const AuthRequired = ({ children }: { children: React.ReactNode }) => {
       },
     );
 
-    refreshAxiosInstance.interceptors.response.use(
+    // reissue api 요청에 대한 응답에 따른 조건분기처리
+    const refreshInterceptor = refreshAxiosInstance.interceptors.response.use(
       (response) => {
-        console.log('refresh response 성공');
+        console.log('refresh 성공');
         return response;
       },
       async (error) => {
         console.log('Refresh Token is expired.');
         resetAccessToken();
-        sessionStorage?.removeItem('userToken');
-        router.push('/auth');
+
+        const redirectUrl = pathname === '/invite' ? `${pathname}?code=${paramsCode}` : `${pathname}`;
+        sessionStorage?.setItem('redirectUrl', redirectUrl);
+        router.push(`/auth?userState=${LoginUserState.NO_USER}`); // 로그인이 필요합니다.
+
         return Promise.reject(error);
       },
     );
 
     return () => {
       console.log('interceptor 제거 위치');
-      // client.interceptors.request.eject(requestInterceptor);
-      // client.interceptors.response.eject(responseInterceptor);
+      client.interceptors.response.eject(clientInterceptor);
+      refreshAxiosInstance.interceptors.request.eject(refreshInterceptor);
     };
   }, []);
 

@@ -2,6 +2,7 @@ import { Dispatch, SetStateAction } from 'react';
 import { useParams, useRouter } from 'next/navigation';
 import { useRecoilState } from 'recoil';
 
+import { DOMAIN_NAME } from '@/constants/palmspringInfo';
 import { useDeleteArticle } from '@/hooks/dashboard';
 
 import DashBoardContent from '../../components/DashBoardContent';
@@ -55,7 +56,7 @@ const IndivUploadContentList = (props: IndivUploadContentListProps) => {
         createdAt={createdAt}
         onMutateClick={() => router.push(`/${team}/editor/article/${String(id)}/edit`)}
         onTitleClick={() => {
-          window.location.href = `https://${team}.palms.blog/content/article/${articleUrl}/${String(id)}`;
+          window.location.href = `https://${team}.${DOMAIN_NAME}/content/article/${articleUrl}/${String(id)}`;
         }}
         onDeleteClick={() => {
           setDashboardModalState('deleteArticle');

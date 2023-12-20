@@ -2,13 +2,14 @@
 
 import React from 'react';
 import { useParams, useRouter } from 'next/navigation';
-import { useRecoilState, useSetRecoilState } from 'recoil';
+import { useSetRecoilState } from 'recoil';
 
 import { articleDataState, pageDataState } from '@/components/editor/states/atom';
 import mapPageType2HeaderInfo from '@/constants/mapPageType2HeaderInfo';
 import useGetLastPathName from '@/hooks/useGetLastPathName';
 import usePerMissionPolicy from '@/hooks/usePermissionPolicy';
 import { dashBoardPageType } from '@/types/dashboard';
+import checkRenderDashboardPermissionButton from '@/utils/checkRenderDashboardPermissionButton';
 
 import { dashBoardModalState } from '../state/modalState';
 
@@ -24,41 +25,52 @@ const DashBoardHeader = () => {
 
   const { title, buttonInnerText, onButtonClickActionName } = mapPageType2HeaderInfo[pathName];
 
-  const [, setModalStateValue] = useRecoilState<modalStateProps>(dashBoardModalState);
+  const permissionPolicyChecker = usePerMissionPolicy();
+
+  const { renderHeaderButton: isRenderHeaderButton } = checkRenderDashboardPermissionButton(
+    pathName,
+    permissionPolicyChecker,
+  );
+
+  const setModalStateValue = useSetRecoilState(dashBoardModalState);
 
   const setArticleDataState = useSetRecoilState(articleDataState);
 
   const setPageDataState = useSetRecoilState(pageDataState);
 
-  const { createCategory } = usePerMissionPolicy();
-
-  const canCreateCategory = pathName === 'category' ? createCategory : true;
+  const handleHeaderButtonClickEvent = () => {
+    onButtonClickActionName && setModalStateValue(onButtonClickActionName);
+    switch (pathName) {
+      case 'blogdirectnav':
+      case 'blogconfignav':
+        return;
+      case 'upload':
+      case 'tempsaved':
+        router.push(`/${team}/editor/article`);
+        setArticleDataState((prev) => ({
+          ...prev,
+          title: '',
+        }));
+        return;
+      case 'page':
+        router.push(`/${team}/editor/page`);
+        setPageDataState((prev) => ({
+          ...prev,
+          title: '',
+        }));
+        return;
+      default:
+        return;
+    }
+  };
 
   return (
     <DashBoardHeaderContainer>
       <HeaderContainer
         title={title}
         buttonInnerText={buttonInnerText}
-        canCreateCategory={canCreateCategory}
-        onButtonClick={() => {
-          if (pathName === 'blogconfignav' || pathName === 'blogdirectnav') return;
-          if (pathName === 'upload' || pathName === 'tempsaved') {
-            router.push(`/${team}/editor/article`);
-            setArticleDataState((prev) => ({
-              ...prev,
-              title: '',
-            }));
-            return;
-          } else if (pathName === 'page') {
-            router.push(`/${team}/editor/page`);
-            setPageDataState((prev) => ({
-              ...prev,
-              title: '',
-            }));
-            return;
-          }
-          onButtonClickActionName && setModalStateValue(onButtonClickActionName);
-        }}
+        isRenderHeaderButton={isRenderHeaderButton}
+        onButtonClick={handleHeaderButtonClickEvent}
       />
     </DashBoardHeaderContainer>
   );

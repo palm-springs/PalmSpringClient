@@ -4,10 +4,11 @@ import React, { Dispatch, SetStateAction } from 'react';
 import { css, styled } from 'styled-components';
 
 import useGetLastPathName from '@/hooks/useGetLastPathName';
+import usePerMissionPolicy from '@/hooks/usePermissionPolicy';
 import { CharmMenuMeatballIcon, IcClose24Icon } from '@/public/icons';
+import checkRenderDashboardPermissionButton from '@/utils/checkRenderDashboardPermissionButton';
 
 import { PickContextPropsType } from '../../context/dashboardContext';
-import PopOverMenu from '../../upload/components/ui/PopOverMenu';
 import { DashBoardContentProps } from '../DashBoardContent';
 
 import Author from './Author';
@@ -17,6 +18,7 @@ import Description from './Description';
 import Draft from './Draft';
 import Email from './Email';
 import NewsLetter from './NewsLetter';
+import PopOverMenu from './PopOverMenu';
 import Position from './Position';
 import TabType from './TabType';
 import Url from './Url';
@@ -55,6 +57,13 @@ const DashBoardContentContainer = (props: DashBoardContentContainerProps) => {
   const isModalOpen = modalOpenContentId === id;
 
   const pathName = useGetLastPathName();
+
+  const permissionPolicyChecker = usePerMissionPolicy();
+
+  const { renderPopOverButton: isRenderPopOverButton } = checkRenderDashboardPermissionButton(
+    pathName,
+    permissionPolicyChecker,
+  );
 
   const ContentsBeforeDraft = () => (
     <>
@@ -117,6 +126,7 @@ const DashBoardContentContainer = (props: DashBoardContentContainerProps) => {
               onNavigateContentClick={onTitleClick}
               onMutateButtonClick={onMutateClick}
               onDeleteButtonClick={onDeleteClick}
+              isRenderPopOverButton={isRenderPopOverButton}
               pathName={pathName}
             />
           )}

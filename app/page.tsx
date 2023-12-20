@@ -7,6 +7,7 @@ import AOS from 'aos';
 import client from '@/api';
 import Footer from '@/components/landing/Footer';
 import Header from '@/components/landing/Header';
+import { DOMAIN_NAME } from '@/constants/palmspringInfo';
 
 import 'aos/dist/aos.css';
 
@@ -569,7 +570,7 @@ const Home = () => {
         </div>
       </main>
       <Footer />
-      <a href="https://palms.blog/official/home">
+      <a href={`https://${DOMAIN_NAME}/official/home`}>
         <button css={go_blog_button}>팜스프링 블로그 보러가기</button>
       </a>
     </div>

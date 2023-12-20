@@ -1,18 +1,21 @@
 import axios, { isAxiosError } from 'axios';
 
+import { TEST_REDIRECT_URI } from '@/constants/Auth';
 import { getAccessTokenProps, googleAccessTokenResponse, jwtAccessTokenResponse } from '@/types/auth';
 import { Response } from '@/types/common';
 
 import client, { refreshAxiosInstance } from '.';
+
+const redirectUri = process.env.NEXT_PUBLIC_GOOGLE_REDIRECT_URI;
+// 브랜치테스트용
+// const redirectUri = TEST_REDIRECT_URI;
+
 // 구글 액세스 토큰 발급
 export const getAccessToken = async (props: getAccessTokenProps) => {
   const { clientId, clientSecret, code } = props;
+
   const { data } = await axios.post<googleAccessTokenResponse>(
-    `https://oauth2.googleapis.com/token?code=${code}&client_id=${clientId}&client_secret=${clientSecret}&redirect_uri=${
-      // process.env.NODE_ENV === 'production' ? 'https://palms.blog/loading' : 'http://localhost:3000/loading'
-      process.env.NEXT_PUBLIC_GOOGLE_REDIRECT_URI
-    }&
-grant_type=authorization_code`,
+    `https://oauth2.googleapis.com/token?code=${code}&client_id=${clientId}&client_secret=${clientSecret}&redirect_uri=${redirectUri}&grant_type=authorization_code`,
     {
       headers: { 'content-type': 'application/x-www-form-urlencoded' },
     },

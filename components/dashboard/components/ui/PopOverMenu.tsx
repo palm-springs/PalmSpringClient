@@ -10,10 +10,17 @@ interface PopOverMenuProps {
   onMutateButtonClick?: React.MouseEventHandler<HTMLButtonElement>;
   onDeleteButtonClick?: React.MouseEventHandler<HTMLButtonElement>;
   pathName: dashBoardPageType | 'dashboard';
+  isRenderPopOverButton?: boolean;
 }
 
 const PopOverMenu = (props: PopOverMenuProps) => {
-  const { onNavigateContentClick, onMutateButtonClick, pathName, onDeleteButtonClick } = props;
+  const {
+    onNavigateContentClick,
+    onMutateButtonClick,
+    pathName,
+    onDeleteButtonClick,
+    isRenderPopOverButton = true,
+  } = props;
 
   const navigateContent = () => {
     switch (pathName) {
@@ -31,8 +38,12 @@ const PopOverMenu = (props: PopOverMenuProps) => {
   return (
     <PopOverMenuUI className="pop_over_menu">
       <button onMouseDown={onNavigateContentClick}>{navigateContent()}</button>
-      {pathName !== 'member' && <button onMouseDown={onMutateButtonClick}>수정하기</button>}
-      <button onMouseDown={onDeleteButtonClick}>삭제하기</button>
+      {isRenderPopOverButton && (
+        <>
+          {pathName !== 'member' && <button onMouseDown={onMutateButtonClick}>수정하기</button>}
+          <button onMouseDown={onDeleteButtonClick}>삭제하기</button>
+        </>
+      )}
     </PopOverMenuUI>
   );
 };

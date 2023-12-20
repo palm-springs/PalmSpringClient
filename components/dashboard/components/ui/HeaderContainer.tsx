@@ -6,7 +6,7 @@ import { dashBoardHeaderButtonVisibleState } from '../../state/modalState';
 
 interface UploadHeaderContainerProps {
   title: string;
-  canCreateCategory?: boolean;
+  isRenderHeaderButton?: boolean;
   buttonInnerText?: string;
   onButtonClick?: React.MouseEventHandler<HTMLButtonElement>;
 }
@@ -15,11 +15,12 @@ interface UploadHeaderContainerProps {
  *
  * @param title 페이지 타이틀
  * @param buttonInnerText 버튼 안에 들어갈 텍스트
+ * @param isRenderHeaderButton 헤더 버튼 렌더링 여부
  * @param onButtonClick 버튼 눌렀을 때 작동할 함수
  * @returns
  */
 const HeaderContainer = (props: UploadHeaderContainerProps) => {
-  const { title, buttonInnerText, onButtonClick, canCreateCategory = true } = props;
+  const { title, buttonInnerText, onButtonClick, isRenderHeaderButton = true } = props;
 
   const headerButtonState = useRecoilValue(dashBoardHeaderButtonVisibleState);
 
@@ -27,7 +28,7 @@ const HeaderContainer = (props: UploadHeaderContainerProps) => {
     <UploadHeaderUI>
       <HeaderContentWrapper>
         <span>{title}</span>
-        {canCreateCategory && buttonInnerText && headerButtonState && (
+        {isRenderHeaderButton && buttonInnerText && headerButtonState && (
           <button onClick={onButtonClick}>{buttonInnerText}</button>
         )}
       </HeaderContentWrapper>
