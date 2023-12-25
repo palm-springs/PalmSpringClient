@@ -2,7 +2,7 @@
 
 import React from 'react';
 import { useParams, useRouter } from 'next/navigation';
-import { useSetRecoilState } from 'recoil';
+import { useResetRecoilState, useSetRecoilState } from 'recoil';
 
 import { articleDataState, pageDataState } from '@/components/editor/states/atom';
 import mapPageType2HeaderInfo from '@/constants/mapPageType2HeaderInfo';
@@ -34,9 +34,9 @@ const DashBoardHeader = () => {
 
   const setModalStateValue = useSetRecoilState(dashBoardModalState);
 
-  const setArticleDataState = useSetRecoilState(articleDataState);
+  const resetPageDataState = useResetRecoilState(pageDataState);
 
-  const setPageDataState = useSetRecoilState(pageDataState);
+  const resetArticleDataState = useResetRecoilState(articleDataState);
 
   const handleHeaderButtonClickEvent = () => {
     onButtonClickActionName && setModalStateValue(onButtonClickActionName);
@@ -47,17 +47,11 @@ const DashBoardHeader = () => {
       case 'upload':
       case 'tempsaved':
         router.push(`/${team}/editor/article`);
-        setArticleDataState((prev) => ({
-          ...prev,
-          title: '',
-        }));
+        resetArticleDataState();
         return;
       case 'page':
         router.push(`/${team}/editor/page`);
-        setPageDataState((prev) => ({
-          ...prev,
-          title: '',
-        }));
+        resetPageDataState();
         return;
       default:
         return;
