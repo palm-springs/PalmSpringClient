@@ -9,7 +9,7 @@ interface PopOverMenuProps {
   onNavigateContentClick?: React.MouseEventHandler<HTMLButtonElement>;
   onMutateButtonClick?: React.MouseEventHandler<HTMLButtonElement>;
   onDeleteButtonClick?: React.MouseEventHandler<HTMLButtonElement>;
-  pathName: dashBoardPageType | 'dashboard';
+  pathName: dashBoardPageType | 'dashboard' | 'pageDraft';
   isRenderPopOverButton?: boolean;
 }
 
@@ -23,6 +23,7 @@ const PopOverMenu = (props: PopOverMenuProps) => {
   } = props;
 
   const navigateContent = () => {
+    console.log(pathName);
     switch (pathName) {
       case 'category':
         return '카테고리글 보러가기';
@@ -37,7 +38,9 @@ const PopOverMenu = (props: PopOverMenuProps) => {
 
   return (
     <PopOverMenuUI className="pop_over_menu">
-      <button onMouseDown={onNavigateContentClick}>{navigateContent()}</button>
+      {pathName !== 'tempsaved' && pathName !== 'pageDraft' && (
+        <button onMouseDown={onNavigateContentClick}>{navigateContent()}</button>
+      )}
       {isRenderPopOverButton && (
         <>
           {pathName !== 'member' && <button onMouseDown={onMutateButtonClick}>수정하기</button>}
@@ -65,7 +68,6 @@ const PopOverMenuUI = styled.article`
   background: ${({ theme }) => theme.colors.grey_0};
   padding: 0.8rem;
   width: fit-content;
-  height: 13.1rem;
   :nth-child(3) {
     color: ${({ theme }) => theme.colors.red};
   }

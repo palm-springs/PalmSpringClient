@@ -84,7 +84,7 @@ const DashBoardContentContainer = (props: DashBoardContentContainerProps) => {
   );
   // 날짜 포맷팅은 나중에 raw 데이터가 어떻게 날아오는지 확인하고 합시다!
   return (
-    <DashBoardContentUI $isContentBar={id === '컨텐츠바'}>
+    <DashBoardContentUI className={id === '컨텐츠바' ? 'contentBar' : ''} $isContentBar={id === '컨텐츠바'}>
       {email && <Email email={email} />}
       {pathName === 'page' || pathName === 'upload' || pathName === 'tempsaved' ? (
         <PageContentWrapper $isContentBar={id === '컨텐츠바'}>
@@ -127,7 +127,7 @@ const DashBoardContentContainer = (props: DashBoardContentContainerProps) => {
               onMutateButtonClick={onMutateClick}
               onDeleteButtonClick={onDeleteClick}
               isRenderPopOverButton={isRenderPopOverButton}
-              pathName={pathName}
+              pathName={pathName === 'page' && draft ? 'pageDraft' : pathName}
             />
           )}
         </>
@@ -157,23 +157,19 @@ const DashBoardContentUI = styled.article<{ $isContentBar: boolean }>`
     cursor: ${({ $isContentBar }) => !$isContentBar && 'pointer'} !important;
   }
 
-  span,
-  div,
-  div > span,
-  & > button {
+  &.contentBar span,
+  &.contentBar div,
+  &.contentBar div > span,
+  &.contentBar button {
+    border: none !important;
+    line-height: normal !important;
+    letter-spacing: -0.004rem !important;
     white-space: nowrap;
-    ${({ $isContentBar }) =>
-      $isContentBar &&
-      css`
-        border: none !important;
-        line-height: normal !important;
-        letter-spacing: -0.004rem !important;
-        color: ${({ theme }) => theme.colors.grey_700} !important;
-        font-family: Pretendard !important;
-        font-size: 1.4rem !important;
-        font-weight: 600 !important;
-        font-style: normal !important;
-      `};
+    color: ${({ theme }) => theme.colors.grey_700} !important;
+    font-family: Pretendard !important;
+    font-size: 1.4rem !important;
+    font-weight: 600 !important;
+    font-style: normal !important;
   }
 `;
 
