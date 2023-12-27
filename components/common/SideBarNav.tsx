@@ -25,7 +25,9 @@ const SideBarNav = () => {
       {navList &&
         navList.map(({ navUrl, name, isPage, id }) => (
           <NavBtn key={navUrl} type="button">
-            <NavLink href={isPage ? `/content/page/${navUrl}/${id}` : `${navUrl}`}>{name}</NavLink>
+            <NavLink href={isPage ? `/content/page/${navUrl}/${id}` : `${navUrl}`} target={isPage ? '_self' : '_blank'}>
+              {name}
+            </NavLink>
           </NavBtn>
         ))}
     </BlogNavContainer>
