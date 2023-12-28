@@ -3,6 +3,7 @@
 import React, { Dispatch, SetStateAction } from 'react';
 import { useParams } from 'next/navigation';
 
+import LoadingLottie from '@/components/common/ui/LoadingLottie';
 import { useGetBlogInfo } from '@/hooks/blog';
 import { ArrowDownIcon, ArrowUpIcon, SymbolIcon } from '@/public/icons';
 
@@ -27,10 +28,14 @@ const DashBoardTitle = (props: DashBoardTitleProps) => {
   return (
     <>
       <SymbolIcon />
-      <SideBarTitle onBlogListSelectorClick={() => setIsBlogListOpen((prev) => !prev)}>
-        {title ?? '블로그가 없어요.'}
-        {!isBlogOpen ? <ArrowDownIcon /> : <ArrowUpIcon />}
-      </SideBarTitle>
+      {res?.data ? (
+        <SideBarTitle onBlogListSelectorClick={() => setIsBlogListOpen((prev) => !prev)}>
+          {title ?? '블로그가 없어요.'}
+          {!isBlogOpen ? <ArrowDownIcon /> : <ArrowUpIcon />}
+        </SideBarTitle>
+      ) : (
+        <LoadingLottie height={4} width={4} fit={false} />
+      )}
     </>
   );
 };
