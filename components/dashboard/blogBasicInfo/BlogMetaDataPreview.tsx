@@ -41,7 +41,7 @@ const PreviewHeader = styled.h1`
 `;
 
 const MetaDataPreviewContainer = styled.div`
-  margin: 3.2rem 0 0 16.7rem;
+  margin: 3.2rem 0 14.9rem 16.7rem;
 `;
 
 const MetaDataPreviewBoxContainer = styled.div`
