@@ -2,13 +2,11 @@
 
 import { useEffect } from 'react';
 import { Toaster } from 'react-hot-toast';
-import Image from 'next/image';
 import { useSearchParams } from 'next/navigation';
 import styled from 'styled-components';
 
 import { LoginUserState, TEST_REDIRECT_URI } from '@/constants/Auth';
-import { LogoIcon } from '@/public/icons';
-import { GoogleImg } from '@/public/images';
+import { GoogleLogoIcon, LogoIcon } from '@/public/icons';
 import { authClientInfo } from '@/types/auth';
 import { createToast } from '@/utils/lib/toast';
 
@@ -57,7 +55,7 @@ const LoginLanding = (props: authClientInfo) => {
           <LoginText>우리 팀 이야기를 세상에 전달하는 방법</LoginText>
           <LoginButton
             href={`${GOOGLE_END_POINT}?client_id=${clientId}&redirect_uri=${redirectUri}&response_type=code&scope=email profile`}>
-            <Image src={GoogleImg} alt="구글 로고" />
+            <GoogleLogoIcon />
             <span>구글로 시작하기</span>
           </LoginButton>
         </LoginContainer>
@@ -104,6 +102,11 @@ const LoginButton = styled.a`
   background-color: ${({ theme }) => theme.colors.grey_0};
   width: 34.8rem;
   height: 5.6rem;
+
+  &:hover {
+    transition: 0.3s;
+    background-color: rgba(173, 181, 189, 0.15);
+  }
 
   & > span {
     ${({ theme }) => theme.fonts.Body1_Semibold};
