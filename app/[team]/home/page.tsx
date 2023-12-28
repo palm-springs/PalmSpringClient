@@ -40,8 +40,13 @@ export async function generateMetadata({ params }: Props): Promise<Metadata | nu
 const BlogMainPage = async ({ params }: { params: { team: string } }) => {
   const blogMainRes = await getBlogMainImg(params.team);
   const blogArticleRes = await getBlogArticleList(params.team, '');
+  console.log('page', blogMainRes);
+  console.log('page', blogArticleRes);
 
   if (!blogMainRes || !blogArticleRes) return <NotFound />;
+  if (blogMainRes.code === 404 || blogArticleRes.code === 404) return <NotFound />;
+  console.log('page', blogMainRes);
+  console.log('page', blogArticleRes);
 
   const {
     data: { thumbnail, description, blogName },
