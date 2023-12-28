@@ -17,10 +17,10 @@ type Props = {
 export async function generateMetadata({ params }: Props): Promise<Metadata | null> {
   const team = params.team;
   const product = await getMetaBlogInfo(team);
+
+  if (!product || product.code === 404) return null;
+
   const blogUrl = product.data.blogUrl;
-
-  if (!product) return null;
-
   const {
     data: { metaName: title, metaDescription: description },
   } = product;
@@ -40,13 +40,8 @@ export async function generateMetadata({ params }: Props): Promise<Metadata | nu
 const BlogMainPage = async ({ params }: { params: { team: string } }) => {
   const blogMainRes = await getBlogMainImg(params.team);
   const blogArticleRes = await getBlogArticleList(params.team, '');
-  console.log('page', blogMainRes);
-  console.log('page', blogArticleRes);
 
-  if (!blogMainRes || !blogArticleRes) return <NotFound />;
-  if (blogMainRes.code === 404 || blogArticleRes.code === 404) return <NotFound />;
-  console.log('page', blogMainRes);
-  console.log('page', blogArticleRes);
+  if (!blogMainRes || !blogArticleRes || blogMainRes.code === 404 || blogArticleRes.code === 404) return <NotFound />;
 
   const {
     data: { thumbnail, description, blogName },

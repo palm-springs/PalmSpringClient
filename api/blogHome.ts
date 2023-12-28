@@ -14,8 +14,15 @@ import client from '.';
 //블로그 header 정보 가져오기 - 반영 완 -b
 
 export const getBlogHeaderInfo = async (blogUrl: string) => {
-  const { data } = await client.get<Response<HeaderProps>>(`/api/v2/view/meta/${blogUrl}/header`);
-  return data;
+  try {
+    const { data } = await client.get<Response<HeaderProps>>(`/api/v2/view/meta/${blogUrl}/header`);
+    return data;
+  } catch (err) {
+    if (isAxiosError(err)) {
+      return err.response?.data;
+    }
+    return;
+  }
 };
 
 // blog 대문 이미지와 한 줄 소개 가져오기 - 반영 완 -b
@@ -24,7 +31,6 @@ export const getBlogMainImg = async (blogUrl: string) => {
     const { data } = await client.get<Response<BlogImgProps>>(`/api/v2/view/meta/${blogUrl}/thumbnail`);
     return data;
   } catch (err) {
-    console.log('getBlogMainImg Error');
     if (isAxiosError(err)) {
       return err.response?.data;
     }
@@ -48,7 +54,6 @@ export const getBlogArticleList = async (blogUrl: string, categoryId: string | n
     );
     return data;
   } catch (err) {
-    console.log('getBlogArticleList Error');
     if (isAxiosError(err)) {
       return err.response?.data;
     }

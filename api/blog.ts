@@ -1,3 +1,5 @@
+import { isAxiosError } from 'axios';
+
 import { createBlogData } from '@/types/blogInfo';
 import { Response } from '@/types/common';
 
@@ -30,8 +32,14 @@ interface MetaBlogInfoProps extends BlogInfoProps {
 
 //외부에서 블로그 정보 가져오기- 서브도메인
 export const getMetaBlogInfo = async (blogUrl: string) => {
-  const { data } = await client.get<Response<MetaBlogInfoProps>>(`/api/v2/view/blog/${blogUrl}/home`);
-  return data;
+  try {
+    const { data } = await client.get<Response<MetaBlogInfoProps>>(`/api/v2/view/blog/${blogUrl}/home`);
+    return data;
+  } catch (err) {
+    if (isAxiosError(err)) {
+      return err.response?.data;
+    }
+  }
 };
 
 //블로그 정보 가져오기 - 반영 완
