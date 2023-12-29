@@ -56,7 +56,6 @@ const PopOverMenuUI = styled.article`
   top: 4.2rem;
   right: 0;
   flex-direction: column;
-  gap: 1.2rem;
   justify-content: space-between;
   z-index: 100;
   border: 1px solid ${({ theme }) => theme.colors.grey_300};
@@ -65,7 +64,6 @@ const PopOverMenuUI = styled.article`
   background: ${({ theme }) => theme.colors.grey_0};
   padding: 0.8rem;
   width: fit-content;
-  height: 13.1rem;
   :nth-child(3) {
     color: ${({ theme }) => theme.colors.red};
   }
