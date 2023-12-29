@@ -8,7 +8,7 @@ import { getImageMultipartData } from '@/utils/getImageMultipartData';
 
 import { blogMetaDataState } from '../state/blogMetaData';
 
-const BlogMetaDataImage = () => {
+const BlogMetaDataImage = ({ readonly }: { readonly: boolean }) => {
   const [{ metaThumbnail }, setBlogMetaData] = useRecoilState(blogMetaDataState);
 
   const handleOnMetaImageChange = async (e: ChangeEvent<HTMLInputElement>) => {
@@ -36,14 +36,14 @@ const BlogMetaDataImage = () => {
         // 메타 이미지 있으면 삭제할 수 있게 함
         <MetaImageContainer>
           <ImageUpload src={metaThumbnail} alt="meta data image" />
-          <DeleteImageButton type="button" onClick={handleOnDeleteImage}>
+          <DeleteImageButton type="button" onClick={handleOnDeleteImage} disabled={readonly}>
             <CloseIcon />
           </DeleteImageButton>
         </MetaImageContainer>
       ) : (
         // 메타 이미지 없을때 초기상황
         <ImageLabel>
-          <input type="file" onChange={handleOnMetaImageChange} />
+          <input type="file" onChange={handleOnMetaImageChange} disabled={readonly} />
           <BlogMetaDataImageUpload>
             <UploadIcon />
             <UploadText>업로드하기</UploadText>

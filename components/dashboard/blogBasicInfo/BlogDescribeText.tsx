@@ -26,11 +26,11 @@ const BlogDescribeText = (props: BlogDescribeTextProps) => {
         <BlogDescribeContent>메인 홈에 나타나는 설명입니다</BlogDescribeContent>
       </BlogDescribeTitleContainer>
       <BlogDescribeTextarea
-        readOnly={readonly}
         $isScrollable={isScrollable}
         value={describeText}
         onChange={(e) => setDescribeText(e.target.value)}
         placeholder="블로그 설명을 입력하세요"
+        disabled={readonly}
       />
     </BlogDescribeContainer>
   );

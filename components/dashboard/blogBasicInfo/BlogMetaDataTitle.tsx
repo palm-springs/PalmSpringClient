@@ -6,7 +6,7 @@ import styled from 'styled-components';
 
 import { blogMetaDataState } from '../state/blogMetaData';
 
-const BlogMetaDataTitle = () => {
+const BlogMetaDataTitle = ({ readonly }: { readonly: boolean }) => {
   const [{ metaName }, setBlogMetaData] = useRecoilState(blogMetaDataState);
 
   const handleOnMetaTitleChange = (e: ChangeEvent<HTMLTextAreaElement>) => {
@@ -17,7 +17,12 @@ const BlogMetaDataTitle = () => {
   return (
     <BlogMetaDataTitleContainer>
       <MetaDataTitle>메타데이터 제목</MetaDataTitle>
-      <MetaDataTitleTextarea value={metaName} placeholder="Palmspring 기술 블로그" onChange={handleOnMetaTitleChange} />
+      <MetaDataTitleTextarea
+        value={metaName}
+        placeholder="Palmspring 기술 블로그"
+        onChange={handleOnMetaTitleChange}
+        disabled={readonly}
+      />
     </BlogMetaDataTitleContainer>
   );
 };

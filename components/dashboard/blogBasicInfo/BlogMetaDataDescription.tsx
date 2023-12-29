@@ -6,7 +6,7 @@ import styled from 'styled-components';
 
 import { blogMetaDataState } from '../state/blogMetaData';
 
-const BlogMetaDataDescription = () => {
+const BlogMetaDataDescription = ({ readonly }: { readonly: boolean }) => {
   const [{ metaDescription }, setBlogMetaData] = useRecoilState(blogMetaDataState);
 
   const handleOnMetaDescriptionChange = (e: ChangeEvent<HTMLTextAreaElement>) => {
@@ -21,6 +21,7 @@ const BlogMetaDataDescription = () => {
         value={metaDescription}
         placeholder="메타데이터 설명을 입력하세요"
         onChange={handleOnMetaDescriptionChange}
+        disabled={readonly}
       />
     </BlogMetaDataDescriptionContainer>
   );

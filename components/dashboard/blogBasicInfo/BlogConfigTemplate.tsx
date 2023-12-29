@@ -186,9 +186,9 @@ const BlogConfigTemplate = () => {
           mainHeaderText={'메타데이터 설정'}
           subHeaderText={'카카오톡, 페이스북 등으로 블로그의 링크를 공유할 때 뜨는 제목, 설명, 이미지 정보입니다'}
         />
-        <BlogMetaDataImage />
-        <BlogMetaDataTitle />
-        <BlogMetaDataDescription />
+        <BlogMetaDataImage readonly={!modifyBlogInfo} />
+        <BlogMetaDataTitle readonly={!modifyBlogInfo} />
+        <BlogMetaDataDescription readonly={!modifyBlogInfo} />
         <MetaDataPreview blogUrl={res.data.url} />
         {deleteBlog && <BlogInfoDeleteButton />}
         {modifyBlogInfo && (

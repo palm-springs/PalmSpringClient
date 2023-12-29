@@ -50,13 +50,13 @@ const BlogLogoImage = (props: BlogLogoImageProps) => {
       {preLoadImg ? (
         <LogoImageContainer>
           <PreLoadImg src={preLoadImg} alt="블로그 로고 이미지" />
-          <DeleteImageButton type="button" onClick={handleOnDeleteLogoImage}>
+          <DeleteImageButton type="button" onClick={handleOnDeleteLogoImage} disabled={readonly}>
             <CloseIcon />
           </DeleteImageButton>
         </LogoImageContainer>
       ) : (
         <BlogLogoUploadLabel>
-          <input readOnly={readonly} ref={inputImgRef} type="file" onChange={handleOnLogoImageChange} />
+          <input ref={inputImgRef} type="file" onChange={handleOnLogoImageChange} disabled={readonly} />
           <BlogLogoUpload>
             <UploadIcon />
             <UploadText>업로드하기</UploadText>
