@@ -9,20 +9,19 @@ const BlogHomeLayout = async ({ children, params }: { children: React.ReactEleme
   const blogHeaderInfoRes = await getBlogHeaderInfo(params.team);
 
   if (!blogHeaderInfoRes || blogHeaderInfoRes.code === 404) return <NotFound />;
+  if (!blogHeaderInfoRes.data) return <></>;
 
-  if (blogHeaderInfoRes.data) {
-    const {
-      data: { logo, blogName, navList },
-    } = blogHeaderInfoRes;
+  const {
+    data: { logo, blogName, navList },
+  } = blogHeaderInfoRes;
 
-    return (
-      <>
-        <BlogHeader logo={logo} blogName={blogName} navList={navList} />
-        <main>{children}</main>
-        <BlogFooter />
-      </>
-    );
-  }
+  return (
+    <>
+      <BlogHeader logo={logo} blogName={blogName} navList={navList} />
+      <main>{children}</main>
+      <BlogFooter />
+    </>
+  );
 };
 
 export default BlogHomeLayout;
