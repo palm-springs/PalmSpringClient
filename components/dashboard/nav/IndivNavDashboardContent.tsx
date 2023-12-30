@@ -43,11 +43,11 @@ const IndivNavDashboardContent = (props: IndivNavDashboardContentProps) => {
         url={url}
         onTitleClick={() => {
           if (isPage) {
-            window.location.href = `https://${blogUrl}.${DOMAIN_NAME}/content/page/${url}/${id}`;
+            window.open(`https://${blogUrl}.${DOMAIN_NAME}/content/page/${url}/${id}`);
             return;
           }
           if (typeof window !== 'undefined') {
-            window.location.href = url;
+            window.open(url);
           }
         }}
         onMutateClick={() => {

@@ -11,6 +11,7 @@ export { default as CheckBoxIcon } from './checkbox.svg';
 export { default as EmptyLogoIcon } from './emptyLogo.svg';
 export { default as File02Icon } from './file-02.svg';
 export { default as File04Icon } from './file-04.svg';
+export { default as GoogleLogoIcon } from './google_logo.svg';
 export { default as Grid01Icon } from './grid-01.svg';
 export { default as BoldIcon } from './ic_Bold.svg';
 export { default as CloseIcon } from './ic_close.svg';
