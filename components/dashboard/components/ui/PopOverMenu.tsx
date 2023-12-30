@@ -23,7 +23,6 @@ const PopOverMenu = (props: PopOverMenuProps) => {
   } = props;
 
   const navigateContent = () => {
-    console.log(pathName);
     switch (pathName) {
       case 'category':
         return '카테고리글 보러가기';
