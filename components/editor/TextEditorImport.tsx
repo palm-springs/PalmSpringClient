@@ -336,7 +336,7 @@ const TextEditorBuild = (props: TextEditorBuildprops) => {
         }));
       }
 
-      router.push(`/${team}//${articleId}/edit/publish`);
+      router.push(`/${team}/editor/article/${articleId}/edit/publish`);
     }
   };
 
