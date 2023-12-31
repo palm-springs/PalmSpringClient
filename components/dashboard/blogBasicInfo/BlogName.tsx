@@ -14,7 +14,7 @@ const BlogName = (props: BlogNameProps) => {
   return (
     <BlogNameContainer>
       <BlogNameTitle>블로그 이름</BlogNameTitle>
-      <BlogNameText value={blogName} onChange={(e) => setBlogName(e.target.value)} readOnly={readonly} />
+      <BlogNameText value={blogName} onChange={(e) => setBlogName(e.target.value)} disabled={readonly} />
     </BlogNameContainer>
   );
 };

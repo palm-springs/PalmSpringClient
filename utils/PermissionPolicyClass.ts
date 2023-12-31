@@ -59,6 +59,19 @@ class PermissionPolicyChecker {
     return this.eligible(['OWNER']);
   }
 
+  // 페이지 생성하기
+  get createPage() {
+    return this.eligible(['OWNER', 'MANAGER']);
+  }
+
+  // 페이지 수정하기
+  get updatePage() {
+    return this.eligible(['OWNER', 'MANAGER']);
+  }
+  // 페이지 삭제하기
+  get deletePage() {
+    return this.eligible(['OWNER', 'MANAGER']);
+  }
   // 카테고리 생성하기
   get createCategory() {
     return this.eligible(['OWNER', 'MANAGER']);

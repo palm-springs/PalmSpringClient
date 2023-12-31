@@ -15,7 +15,16 @@ const checkRenderDashboardPermissionButton = (
     deleteNavigation,
     inviteNewMember,
     deleteMember,
+    createPage,
+    updatePage,
+    deletePage,
   } = permissionPolicyChecker;
+
+  const canCreatePage = pathName === 'page' ? createPage : true;
+
+  const canUpdatePage = pathName === 'page' ? updatePage : true;
+
+  const canDeletePage = pathName === 'page' ? deletePage : true;
 
   const canCreateCategory = pathName === 'category' ? createCategory : true;
 
@@ -33,10 +42,16 @@ const checkRenderDashboardPermissionButton = (
 
   const canDeleteMember = pathName === 'member' ? deleteMember : true;
 
-  const renderHeaderButton = canCreateCategory && canCreateNavigation && canInviteMember;
+  const renderHeaderButton = canCreateCategory && canCreateNavigation && canInviteMember && canCreatePage;
 
   const renderPopOverButton =
-    canUpdateCategory && canDeleteCategory && canUpdateNavigation && canDeleteNavigation && canDeleteMember;
+    canUpdateCategory &&
+    canDeleteCategory &&
+    canUpdateNavigation &&
+    canDeleteNavigation &&
+    canDeleteMember &&
+    canUpdatePage &&
+    canDeletePage;
 
   return { renderHeaderButton, renderPopOverButton };
 };

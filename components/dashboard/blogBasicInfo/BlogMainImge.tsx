@@ -53,13 +53,13 @@ const BlogMainImage = (props: BlogMainImageProps) => {
       {preLoadImg ? (
         <BlogMainImageDeleteContainer>
           <PreLoadImg src={preLoadImg} alt="블로그 메인 이미지" />
-          <DeleteImageButton type="button" onClick={handleOnDeleteMainImage}>
+          <DeleteImageButton type="button" onClick={handleOnDeleteMainImage} disabled={readonly}>
             <CloseIcon />
           </DeleteImageButton>
         </BlogMainImageDeleteContainer>
       ) : (
         <BlogMainUploadLabel>
-          <input readOnly={readonly} ref={inputImgRef} type="file" onChange={handleOnMainImageChange} />
+          <input ref={inputImgRef} type="file" onChange={handleOnMainImageChange} disabled={readonly} />
           <BlogMainUpload>
             <UploadIcon />
             <UploadText>업로드하기</UploadText>
