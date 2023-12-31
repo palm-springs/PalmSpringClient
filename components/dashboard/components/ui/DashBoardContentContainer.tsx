@@ -6,7 +6,7 @@ import { css, styled } from 'styled-components';
 import useGetLastPathName from '@/hooks/useGetLastPathName';
 import usePerMissionPolicy from '@/hooks/usePermissionPolicy';
 import { CharmMenuMeatballIcon, IcClose24Icon } from '@/public/icons';
-import checkRenderDashboardPermissionButton from '@/utils/checkRenderDashboardPermissionButton';
+import checkRenderPermissionButton from '@/utils/checkRenderPermissionButton';
 
 import { PickContextPropsType } from '../../context/dashboardContext';
 import { DashBoardContentProps } from '../DashBoardContent';
@@ -60,10 +60,7 @@ const DashBoardContentContainer = (props: DashBoardContentContainerProps) => {
 
   const permissionPolicyChecker = usePerMissionPolicy();
 
-  const { renderPopOverButton: isRenderPopOverButton } = checkRenderDashboardPermissionButton(
-    pathName,
-    permissionPolicyChecker,
-  );
+  const { renderPopOverButton: isRenderPopOverButton } = checkRenderPermissionButton(pathName, permissionPolicyChecker);
 
   const ContentsBeforeDraft = () => (
     <>

@@ -9,7 +9,7 @@ import mapPageType2HeaderInfo from '@/constants/mapPageType2HeaderInfo';
 import useGetLastPathName from '@/hooks/useGetLastPathName';
 import usePerMissionPolicy from '@/hooks/usePermissionPolicy';
 import { dashBoardPageType } from '@/types/dashboard';
-import checkRenderDashboardPermissionButton from '@/utils/checkRenderDashboardPermissionButton';
+import checkRenderPermissionButton from '@/utils/checkRenderPermissionButton';
 
 import { dashBoardModalState } from '../state/modalState';
 
@@ -27,10 +27,7 @@ const DashBoardHeader = () => {
 
   const permissionPolicyChecker = usePerMissionPolicy();
 
-  const { renderHeaderButton: isRenderHeaderButton } = checkRenderDashboardPermissionButton(
-    pathName,
-    permissionPolicyChecker,
-  );
+  const { renderHeaderButton: isRenderHeaderButton } = checkRenderPermissionButton(pathName, permissionPolicyChecker);
 
   const setModalStateValue = useSetRecoilState(dashBoardModalState);
 
