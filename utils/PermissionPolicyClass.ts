@@ -68,7 +68,7 @@ class PermissionPolicyChecker {
   get updatePage() {
     return this.eligible(['OWNER', 'MANAGER']);
   }
-  // 페이지 삭제사기
+  // 페이지 삭제하기
   get deletePage() {
     return this.eligible(['OWNER', 'MANAGER']);
   }
