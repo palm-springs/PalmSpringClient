@@ -10,10 +10,9 @@ import LoadingLottie from '@/components/common/ui/LoadingLottie';
 import ArticleTemplate from '@/components/content/ui/ArticleTemplate';
 import { useGetBlogArticleDetail } from '@/hooks/blogHome';
 
-export const metadata = {
+export const metadata: Metadata = {
   title: '야야',
   description: '왜안되는데 개짱나아아아아ㅏ아앙',
-  type: 'website',
 };
 
 // type Props = {
