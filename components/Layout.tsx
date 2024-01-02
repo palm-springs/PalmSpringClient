@@ -18,6 +18,7 @@ const Layout = ({ children }: { children: React.ReactNode }) => {
       defaultOptions: {
         queries: {
           retry: 1,
+          cacheTime: 0,
         },
       },
     }),
