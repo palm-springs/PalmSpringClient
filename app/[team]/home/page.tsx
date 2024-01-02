@@ -13,7 +13,6 @@ type Props = {
   searchParams: { [key: string]: string | string[] | undefined };
 };
 
-// 메타데이터 끼면 에러생김 --> 공문 보고 다시 해보기
 export async function generateMetadata({ params }: Props): Promise<Metadata | null> {
   const team = params.team;
   const product = await getMetaBlogInfo(team);
