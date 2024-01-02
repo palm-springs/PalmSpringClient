@@ -8,33 +8,33 @@ import { getBlogArticleList, getBlogMainImg } from '@/api/blogHome';
 import NotFound from '@/app/not-found';
 import ArticleContainer from '@/components/blog/ui/ArticleContainer';
 
-type Props = {
-  params: { team: string };
-  searchParams: { [key: string]: string | string[] | undefined };
-};
+// type Props = {
+//   params: { team: string };
+//   searchParams: { [key: string]: string | string[] | undefined };
+// };
 
-export async function generateMetadata({ params }: Props): Promise<Metadata | null> {
-  const team = params.team;
-  const product = await getMetaBlogInfo(team);
+// export async function generateMetadata({ params }: Props): Promise<Metadata | null> {
+//   const team = params.team;
+//   const product = await getMetaBlogInfo(team);
 
-  if (!product || product.code === 404) return null;
+//   if (!product || product.code === 404) return null;
 
-  const blogUrl = product.data.blogUrl;
-  const {
-    data: { metaName: title, metaDescription: description },
-  } = product;
+//   const blogUrl = product.data.blogUrl;
+//   const {
+//     data: { metaName: title, metaDescription: description },
+//   } = product;
 
-  return {
-    title,
-    description,
-    openGraph: {
-      title,
-      description,
-      type: 'website',
-      url: `${blogUrl}.com`,
-    },
-  };
-}
+//   return {
+//     title,
+//     description,
+//     openGraph: {
+//       title,
+//       description,
+//       type: 'website',
+//       url: `${blogUrl}.com`,
+//     },
+//   };
+// }
 
 const BlogMainPage = async ({ params }: { params: { team: string } }) => {
   const blogMainRes = await getBlogMainImg(params.team);
