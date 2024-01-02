@@ -23,30 +23,30 @@ const DashBoardFooter = () => {
 
   const res = useGetUserInfo();
 
-  if (!res) return <LoadingLottie height={4} width={4} fit={false} />;
-
   const handleLogOut = () => {
     resetAccessToken();
     resetUserState();
     router.push('/auth');
   };
 
+  if (!res || !res?.data) {
+    return (
+      <DashBoardFooterContainer>
+        <LoadingLottie height={4} width={4} fit={false} />
+      </DashBoardFooterContainer>
+    );
+  }
+
   return (
     <DashBoardFooterContainer>
-      {res?.data ? (
-        <>
-          <DashBoardProfileContainer
-            setIsPopOverMenuOpen={setIsPopOverMenuOpen}
-            profileImgUrl={res.data.thumbnail}
-            userName={res.data.name}
-            email={res.data.email}
-          />
-          <DashBoardNavBtn />
-          {isPopOverMenuOpen && <FooterPopOverMenuContainer innerText="로그아웃" handleOnClick={handleLogOut} />}
-        </>
-      ) : (
-        <LoadingLottie height={4} width={4} fit={false} />
-      )}
+      <DashBoardProfileContainer
+        setIsPopOverMenuOpen={setIsPopOverMenuOpen}
+        profileImgUrl={res.data.thumbnail}
+        userName={res.data.name}
+        email={res.data.email}
+      />
+      <DashBoardNavBtn />
+      {isPopOverMenuOpen && <FooterPopOverMenuContainer innerText="로그아웃" handleOnClick={handleLogOut} />}
     </DashBoardFooterContainer>
   );
 };
