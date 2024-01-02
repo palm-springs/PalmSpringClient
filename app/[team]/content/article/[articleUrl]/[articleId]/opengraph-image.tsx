@@ -1,5 +1,6 @@
 import { ImageResponse } from 'next/server';
 
+import { getSingleArticleData } from '@/api/article';
 import { getMetaBlogInfo } from '@/api/blog';
 import { getBlogArticleList } from '@/api/blogHome';
 
@@ -10,8 +11,8 @@ export const size = {
 };
 export const contentType = 'image/png';
 
-export default async function Image({ params }: { params: { team: string; articleId: string } }) {
-  const post = await getBlogArticleList(params.team, params.articleId);
+export default async function Image({ params }: { params: { team: string; articleId: number } }) {
+  const post = await getSingleArticleData(params.team, params.articleId);
 
   return new ImageResponse(
     (
