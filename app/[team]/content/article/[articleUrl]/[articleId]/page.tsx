@@ -28,6 +28,8 @@ export async function generateMetadata({ params }: Props): Promise<Metadata | nu
   } = product;
 
   return {
+    title,
+    description,
     openGraph: {
       title,
       description,
