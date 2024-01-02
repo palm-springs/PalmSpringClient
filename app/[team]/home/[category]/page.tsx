@@ -8,14 +8,13 @@ import { getBlogArticleList, getBlogMainImg } from '@/api/blogHome';
 import ArticleContainer from '@/components/blog/ui/ArticleContainer';
 
 type Props = {
-  params: { team: string; articleId: number };
+  params: { team: string };
   searchParams: { [key: string]: string | string[] | undefined };
 };
 
 export async function generateMetadata({ params }: Props): Promise<Metadata | null> {
   const team = params.team;
-  const articleId = params.articleId;
-  const product = await getSingleArticleData(team, articleId);
+  const product = await getBlogArticleList(team, '');
 
   if (!product || product.code === 404) return null;
 
@@ -28,7 +27,7 @@ export async function generateMetadata({ params }: Props): Promise<Metadata | nu
     openGraph: {
       title,
       description,
-      type: 'website',
+      // type: 'website',
     },
   };
 }
