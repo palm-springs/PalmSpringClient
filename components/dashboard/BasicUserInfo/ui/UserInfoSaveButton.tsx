@@ -102,6 +102,7 @@ const SaveButton = styled.button<{ disabled: boolean }>`
   color: ${({ theme }) => theme.colors.grey_0};
 
   &:hover {
-    background-color: ${({ disabled, theme }) => (disabled ? theme.colors.background_green : theme.colors.green_hover)};
+    transition: 0.3s;
+    background-color: ${({ theme }) => theme.colors.green_hover};
   }
 `;

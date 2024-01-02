@@ -88,6 +88,7 @@ const Button = styled.button`
   color: ${({ theme }) => theme.colors.grey_0};
 
   &:hover {
+    transition: 0.3s;
     background-color: ${({ theme }) => theme.colors.green_hover};
   }
 `;
