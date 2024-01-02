@@ -10,33 +10,39 @@ import LoadingLottie from '@/components/common/ui/LoadingLottie';
 import ArticleTemplate from '@/components/content/ui/ArticleTemplate';
 import { useGetBlogArticleDetail } from '@/hooks/blogHome';
 
-type Props = {
-  params: { team: string; articleId: number };
-  searchParams: { [key: string]: string | string[] | undefined };
+export const metadata = {
+  title: '야야',
+  description: '왜안되는데 개짱나아아아아ㅏ아앙',
+  type: 'website',
 };
 
-export async function generateMetadata({ params }: Props): Promise<Metadata | null> {
-  const team = params.team;
-  const articleId = params.articleId;
-  const product = await getBlogArticleDetail(team, articleId);
+// type Props = {
+//   params: { team: string; articleId: number };
+//   searchParams: { [key: string]: string | string[] | undefined };
+// };
 
-  if (!product || product.code === 404) return null;
+// export async function generateMetadata({ params }: Props): Promise<Metadata | null> {
+//   const team = params.team;
+//   const articleId = params.articleId;
+//   const product = await getBlogArticleDetail(team, articleId);
 
-  // const blogUrl = product.data.blogUrl;
-  const {
-    data: { title, content: description },
-  } = product;
+//   if (!product || product.code === 404) return null;
 
-  return {
-    title,
-    description,
-    openGraph: {
-      title,
-      description,
-      type: 'website',
-    },
-  };
-}
+//   // const blogUrl = product.data.blogUrl;
+//   const {
+//     data: { title, content: description },
+//   } = product;
+
+//   return {
+//     title,
+//     description,
+//     openGraph: {
+//       title,
+//       description,
+//       type: 'website',
+//     },
+//   };
+// }
 
 const ContentPage = () => {
   const { team, articleId } = useParams();
