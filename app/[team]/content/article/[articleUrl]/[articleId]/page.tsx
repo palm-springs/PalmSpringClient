@@ -10,13 +10,14 @@ import ArticleTemplate from '@/components/content/ui/ArticleTemplate';
 import { useGetBlogArticleDetail } from '@/hooks/blogHome';
 
 type Props = {
-  params: { team: string };
+  params: { team: string; articleId: string };
   searchParams: { [key: string]: string | string[] | undefined };
 };
 
 export async function generateMetadata({ params }: Props): Promise<Metadata | null> {
   const team = params.team;
-  const product = await getBlogArticleList(team, '');
+  const articleId = params.articleId;
+  const product = await getBlogArticleList(team, articleId);
 
   if (!product || product.code === 404) return null;
 
