@@ -1,5 +1,6 @@
 /** @jsxImportSource @emotion/react */
 import { css } from '@emotion/react';
+import Link from 'next/link';
 
 const footer = css`
   background: #f2f4f6;
@@ -8,6 +9,10 @@ const footer = css`
   text-align: center;
   color: #868b94;
   font-size: 14px;
+  & > a {
+    display:inline-block;
+    margin-top:14px;
+  }
   @media (max-width: 575px) {
     padding: 60px 0;
     font-size: 12px;
@@ -26,6 +31,11 @@ const Footer = () => {
         `}>
         © 팜스프링 Palmspring
       </span>
+      <br />
+      <br />
+      <Link href="/team">
+        만든 사람들 소개
+      </Link>
     </footer>
   );
 };
