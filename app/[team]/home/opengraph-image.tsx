@@ -1,5 +1,6 @@
 import { ImageResponse } from 'next/server';
 
+import { getSingleArticleData } from '@/api/article';
 import { getMetaBlogInfo } from '@/api/blog';
 
 export const alt = 'About Acme';
@@ -9,8 +10,8 @@ export const size = {
 };
 export const contentType = 'image/png';
 
-export default async function Image({ params }: { params: { team: string } }) {
-  const post = await getMetaBlogInfo(params.team);
+export default async function Image({ params }: { params: { team: string; articleId: number } }) {
+  const post = await getSingleArticleData(params.team, params.articleId);
 
   return new ImageResponse(
     (
@@ -23,7 +24,7 @@ export default async function Image({ params }: { params: { team: string } }) {
           justifyContent: 'center',
         }}>
         <img
-          src={post.data.metaThumbnail}
+          src={post.data.thumbnail}
           style={{
             position: 'absolute',
             top: 0,
