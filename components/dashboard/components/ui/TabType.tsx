@@ -25,17 +25,16 @@ const TabTypeContainer = styled.div`
 `;
 
 const TabTypeUI = styled.div`
+  display: flex;
+  justify-content: center;
   border: 1px solid ${({ theme }) => theme.colors.grey_400};
-  border-radius: 2rem;
+  border-radius: 1rem;
+  padding: 0.6rem 0.8rem;
   width: fit-content;
   overflow: hidden;
   text-overflow: ellipsis;
   span {
     ${({ theme }) => theme.fonts.Body3_Regular};
-    display: inline-flex;
-    gap: 1rem;
-    align-items: center;
-    padding: 0.4rem 0.8rem;
     max-width: 6.5rem;
     overflow: hidden;
     text-overflow: ellipsis;
