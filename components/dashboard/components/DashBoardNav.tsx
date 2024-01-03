@@ -1,6 +1,6 @@
 'use client';
 
-import React, { useState } from 'react';
+import React, { useEffect, useRef, useState } from 'react';
 import styled from 'styled-components';
 
 import DashBoardNavContainer from './ui/DashBoardNavContainer';
@@ -14,14 +14,35 @@ const DashBoardNav = () => {
   const [isBlogListOpen, setIsBlogListOpen] = useState<boolean>(false);
 
   const [currentBlog, setCurrentBlog] = useState<number>(0);
+  const blogListRef = useRef<HTMLElement>(null);
+  const titleRef = useRef<HTMLDivElement>(null);
+
+  const handleClickBlogListOutside = (event: MouseEvent) => {
+    if (
+      titleRef.current &&
+      blogListRef.current &&
+      !titleRef.current.contains(event.target as Node) &&
+      !blogListRef.current.contains(event.target as Node)
+    ) {
+      setIsBlogListOpen(false);
+    }
+  };
+
+  useEffect(() => {
+    document.addEventListener('mousedown', handleClickBlogListOutside);
+    return () => {
+      document.removeEventListener('mousedown', handleClickBlogListOutside);
+    };
+  });
 
   return (
-    <DashBoardNavContainer onBlur={() => setIsBlogListOpen(false)}>
+    <DashBoardNavContainer>
       <DashBoardTitle
         isBlogOpen={isBlogListOpen}
         setIsBlogListOpen={setIsBlogListOpen}
         currentBlog={currentBlog}
         setCurrentBlog={setCurrentBlog}
+        titleRef={titleRef}
       />
       <NavButtonListContainer>
         <NavButton currentPageType="upload" />
@@ -38,7 +59,9 @@ const DashBoardNav = () => {
         <NavButton currentPageType="blogconfignav" />
         <NavButton currentPageType="basicuserinfo" />
       </NavButtonListContainer>
-      {isBlogListOpen && <BlogList currentBlog={currentBlog} setCurrentBlog={setCurrentBlog} />}
+      {isBlogListOpen && (
+        <BlogList currentBlog={currentBlog} setCurrentBlog={setCurrentBlog} blogListRef={blogListRef} />
+      )}
       <DashBoardFooter />
     </DashBoardNavContainer>
   );

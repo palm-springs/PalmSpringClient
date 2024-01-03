@@ -3,18 +3,8 @@
 import React from 'react';
 import { styled } from 'styled-components';
 
-const DashBoardNavContainer = ({
-  children,
-  onBlur,
-}: {
-  children: React.ReactNode;
-  onBlur: React.FocusEventHandler<HTMLElement>;
-}) => {
-  return (
-    <DashBoardNavUI tabIndex={0} onBlur={onBlur}>
-      {children}
-    </DashBoardNavUI>
-  );
+const DashBoardNavContainer = ({ children }: { children: React.ReactNode }) => {
+  return <DashBoardNavUI tabIndex={0}>{children}</DashBoardNavUI>;
 };
 
 export default DashBoardNavContainer;

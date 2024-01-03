@@ -1,8 +1,13 @@
-import React from 'react';
+import React, { RefObject } from 'react';
 import { styled } from 'styled-components';
 
-const BlogListContainer = ({ children }: { children: React.ReactNode }) => {
-  return <BlogListUI>{children}</BlogListUI>;
+interface BlogListContainerProps {
+  children: React.ReactNode;
+  blogListRef: RefObject<HTMLElement>;
+}
+const BlogListContainer = (props: BlogListContainerProps) => {
+  const { children, blogListRef } = props;
+  return <BlogListUI ref={blogListRef}>{children}</BlogListUI>;
 };
 
 export default BlogListContainer;
@@ -21,6 +26,7 @@ const BlogListUI = styled.section`
   border-radius: 0.8rem;
   box-shadow: 0px 2px 5px 0px rgba(0, 0, 0, 0.1);
   background: ${({ theme }) => theme.colors.grey_0};
+
   padding: 0.8rem;
   width: 25.4rem;
   max-height: 50rem;

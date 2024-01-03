@@ -1,5 +1,5 @@
 'use client';
-import React, { Dispatch, SetStateAction } from 'react';
+import React, { Dispatch, RefObject, SetStateAction } from 'react';
 import { useParams } from 'next/navigation';
 import styled from 'styled-components';
 
@@ -14,10 +14,11 @@ interface DashBoardTitleProps {
   setIsBlogListOpen: Dispatch<SetStateAction<boolean>>;
   currentBlog: number;
   setCurrentBlog: Dispatch<SetStateAction<number>>;
+  titleRef: RefObject<HTMLDivElement>;
 }
 
 const DashBoardTitle = (props: DashBoardTitleProps) => {
-  const { isBlogOpen, setIsBlogListOpen } = props;
+  const { isBlogOpen, setIsBlogListOpen, titleRef } = props;
 
   const { team } = useParams();
 
@@ -28,7 +29,7 @@ const DashBoardTitle = (props: DashBoardTitleProps) => {
   return (
     <>
       <SymbolIcon />
-      <TitleContainer>
+      <TitleContainer ref={titleRef}>
         {res?.data ? (
           <SideBarTitle onBlogListSelectorClick={() => setIsBlogListOpen((prev) => !prev)}>
             {title ?? '블로그가 없어요.'}
