@@ -29,12 +29,13 @@ const TabTypeUI = styled.div`
   justify-content: center;
   border: 1px solid ${({ theme }) => theme.colors.grey_400};
   border-radius: 1rem;
-  padding: 0.6rem 0.8rem;
+  padding: 0.5rem 0.7rem;
   width: fit-content;
   overflow: hidden;
   text-overflow: ellipsis;
   span {
     ${({ theme }) => theme.fonts.Body3_Regular};
+    padding: 0.2rem;
     max-width: 6.5rem;
     overflow: hidden;
     text-overflow: ellipsis;

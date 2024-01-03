@@ -47,3 +47,9 @@ export const getRefreshToken = async () => {
   const { data } = await refreshAxiosInstance.get(`/api/v2/auth/token/reissue`);
   return data;
 };
+
+// 로그아웃
+export const logout = async () => {
+  const { data } = await client.delete<Response<null>>(`/api/v2/auth/logout`);
+  return data;
+};

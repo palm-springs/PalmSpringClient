@@ -4,6 +4,7 @@ import React, { useState } from 'react';
 import { useParams, useRouter } from 'next/navigation';
 import { useResetRecoilState } from 'recoil';
 
+import { logout } from '@/api/auth';
 import { accessTokenState } from '@/components/auth/states/atom';
 import LoadingLottie from '@/components/common/ui/LoadingLottie';
 import { useGetUserInfo } from '@/hooks/dashboard';
@@ -23,7 +24,8 @@ const DashBoardFooter = () => {
 
   const res = useGetUserInfo();
 
-  const handleLogOut = () => {
+  const handleLogOut = async () => {
+    await logout();
     resetAccessToken();
     resetUserState();
     router.push('/auth');
