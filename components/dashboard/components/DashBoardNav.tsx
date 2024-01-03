@@ -26,14 +26,14 @@ const DashBoardNav = () => {
       <NavButtonListContainer>
         <NavButton currentPageType="upload" />
         <NavButton currentPageType="tempsaved" />
-        <Line />
+        <Line sideBar />
         <NavButton currentPageType="page" />
         <NavButton currentPageType="category" />
         <NavButton currentPageType="nav" />
-        <Line />
+        <Line sideBar />
         <NavButton currentPageType="member" />
         <NavButton currentPageType="subscriber" />
-        <Line />
+        <Line sideBar />
         <NavButton currentPageType="blogdirectnav" />
         <NavButton currentPageType="blogconfignav" />
         <NavButton currentPageType="basicuserinfo" />
