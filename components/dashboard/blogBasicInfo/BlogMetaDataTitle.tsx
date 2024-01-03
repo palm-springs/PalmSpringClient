@@ -40,6 +40,9 @@ const MetaDataTitleTextarea = styled.textarea`
   height: 4.6rem;
   resize: none;
   color: ${({ theme }) => theme.colors.grey_900};
+  &::-webkit-scrollbar {
+    display: none;
+  }
   &::placeholder {
     color: ${({ theme }) => theme.colors.grey_600};
   }

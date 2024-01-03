@@ -8,11 +8,10 @@ interface UploadTabBarContainerProps {
   categoryDataList: CategoryListProps[];
   currentCategory: string;
   setCurrentCategory: Dispatch<SetStateAction<string>>;
-  setCategory: Dispatch<SetStateAction<string>>;
 }
 
 const UploadTabBarContainer = (props: UploadTabBarContainerProps) => {
-  const { categoryDataList, currentCategory, setCurrentCategory, setCategory } = props;
+  const { categoryDataList, currentCategory, setCurrentCategory } = props;
 
   return (
     <UploadTabBarUI>
@@ -22,7 +21,6 @@ const UploadTabBarContainer = (props: UploadTabBarContainerProps) => {
           $currentTab={currentCategory === '전체'}
           onClick={() => {
             setCurrentCategory('전체');
-            setCategory('전체');
           }}>
           전체
         </UploadTabBarTextUI>
@@ -34,7 +32,6 @@ const UploadTabBarContainer = (props: UploadTabBarContainerProps) => {
               $currentTab={currentCategory === name}
               onClick={() => {
                 setCurrentCategory(name);
-                setCategory(name);
               }}>
               {name}
             </UploadTabBarTextUI>
@@ -57,7 +54,7 @@ const UploadTabBarUI = styled.section`
 
 const UploadTabBarTextUI = styled.span<{ $currentTab: boolean }>`
   transition: 0.3s ease-out;
-  border-bottom: ${({ theme, $currentTab }) => ($currentTab ? `2px solid ${theme.colors.grey_950}` : 0)};
+  border-bottom: ${({ theme, $currentTab }) => ($currentTab ? `3px solid ${theme.colors.grey_950}` : 0)};
   ${({ theme }) => theme.fonts.Body1_Semibold};
   cursor: pointer;
   height: 3.5rem;

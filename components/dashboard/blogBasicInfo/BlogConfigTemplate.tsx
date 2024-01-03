@@ -97,6 +97,16 @@ const BlogConfigTemplate = () => {
 
   if (!res || !res.data) return <LoadingLottie width={10} height={10} />;
 
+  const { name, logo, description, thumbnail, metaThumbnail, metaName, metaDescription } = res.data;
+  const isChanged =
+    name !== blogConfig.blogName ||
+    logo !== blogConfig.blogLogoImage ||
+    description !== blogConfig.blogDescribeText ||
+    thumbnail !== blogConfig.blogMainImage ||
+    metaThumbnail !== blogMetaConfig.metaThumbnail ||
+    metaName !== blogMetaConfig.metaName ||
+    metaDescription !== blogMetaConfig.metaDescription;
+
   const postBlogConfig = async () => {
     const logoS3 =
       blogConfig.blogLogoImage &&
@@ -192,7 +202,7 @@ const BlogConfigTemplate = () => {
         <MetaDataPreview blogUrl={res.data.url} />
         {deleteBlog && <BlogInfoDeleteButton />}
         {modifyBlogInfo && (
-          <BlogSaveButton type="button" disabled={blogConfig.blogName === ''} onClick={postBlogConfig}>
+          <BlogSaveButton type="button" disabled={blogConfig.blogName === '' || !isChanged} onClick={postBlogConfig}>
             저장하기
           </BlogSaveButton>
         )}
@@ -206,11 +216,27 @@ export default BlogConfigTemplate;
 const BlogBasicInfoContainer = styled.div`
   padding-left: 4rem;
   width: 100%;
-  overflow-y: scroll;
+  overflow-x: hidden;
+  /* overflow-y: scroll; */
+  /* &::-webkit-scrollbar {
+    display: none;
+  }
+  &::-webkit-scrollbar-thumb {
+    border: 2px solid transparent;
+    border-radius: 10px;
+    background-clip: padding-box;
+    background-color: #2f3542;
+  }
+  &::-webkit-scrollbar-track {
+    border-radius: 10px;
+    box-shadow: inset 0px 0px 5px white;
+    background-color: grey;
+  } */
 `;
 
-const BlogSaveButton = styled.button`
+const BlogSaveButton = styled.button<{ disabled: boolean }>`
   ${({ theme }) => theme.fonts.Button_medium};
+
   display: flex;
   position: absolute;
   top: 6.8rem;
@@ -218,11 +244,19 @@ const BlogSaveButton = styled.button`
   gap: 1rem;
   align-items: center;
   justify-content: center;
+
   margin-left: 104.1rem;
   border-radius: 0.8rem;
-  background-color: ${({ theme }) => theme.colors.green};
+  background-color: ${({ theme, disabled }) => (disabled ? theme.colors.background_green : theme.colors.green)};
+
+  cursor: ${({ disabled }) => (disabled ? 'default' : 'pointer')};
   padding: 1rem 2rem;
   width: 9.6rem;
   height: 3.6rem;
   color: ${({ theme }) => theme.colors.grey_0};
+
+  &:hover {
+    transition: 0.3s;
+    background-color: ${({ theme }) => theme.colors.green_hover};
+  }
 `;

@@ -1,6 +1,7 @@
 'use client';
 
-import React, { useState } from 'react';
+import React, { useEffect, useRef, useState } from 'react';
+import styled from 'styled-components';
 
 import DashBoardNavContainer from './ui/DashBoardNavContainer';
 import Line from './ui/Line';
@@ -13,32 +14,71 @@ const DashBoardNav = () => {
   const [isBlogListOpen, setIsBlogListOpen] = useState<boolean>(false);
 
   const [currentBlog, setCurrentBlog] = useState<number>(0);
+  const blogListRef = useRef<HTMLElement>(null);
+  const titleRef = useRef<HTMLDivElement>(null);
+
+  const handleClickBlogListOutside = (event: MouseEvent) => {
+    if (
+      titleRef.current &&
+      blogListRef.current &&
+      !titleRef.current.contains(event.target as Node) &&
+      !blogListRef.current.contains(event.target as Node)
+    ) {
+      setIsBlogListOpen(false);
+    }
+  };
+
+  useEffect(() => {
+    document.addEventListener('mousedown', handleClickBlogListOutside);
+    return () => {
+      document.removeEventListener('mousedown', handleClickBlogListOutside);
+    };
+  });
 
   return (
-    <DashBoardNavContainer onBlur={() => setIsBlogListOpen(false)}>
+    <DashBoardNavContainer>
       <DashBoardTitle
         isBlogOpen={isBlogListOpen}
         setIsBlogListOpen={setIsBlogListOpen}
         currentBlog={currentBlog}
         setCurrentBlog={setCurrentBlog}
+        titleRef={titleRef}
       />
-      <NavButton currentPageType="upload" />
-      <NavButton currentPageType="tempsaved" />
-      <Line />
-      <NavButton currentPageType="page" />
-      <NavButton currentPageType="category" />
-      <NavButton currentPageType="nav" />
-      <Line />
-      <NavButton currentPageType="member" />
-      <NavButton currentPageType="subscriber" />
-      <Line />
-      <NavButton currentPageType="blogdirectnav" />
-      <NavButton currentPageType="blogconfignav" />
-      <NavButton currentPageType="basicuserinfo" />
-      {isBlogListOpen && <BlogList currentBlog={currentBlog} setCurrentBlog={setCurrentBlog} />}
+      <NavButtonListContainer>
+        <NavButton currentPageType="upload" />
+        <NavButton currentPageType="tempsaved" />
+        <Line sideBar />
+        <NavButton currentPageType="page" />
+        <NavButton currentPageType="category" />
+        <NavButton currentPageType="nav" />
+        <Line sideBar />
+        <NavButton currentPageType="member" />
+        <NavButton currentPageType="subscriber" />
+        <Line sideBar />
+        <NavButton currentPageType="blogdirectnav" />
+        <NavButton currentPageType="blogconfignav" />
+        <NavButton currentPageType="basicuserinfo" />
+      </NavButtonListContainer>
+      {isBlogListOpen && (
+        <BlogList currentBlog={currentBlog} setCurrentBlog={setCurrentBlog} blogListRef={blogListRef} />
+      )}
       <DashBoardFooter />
     </DashBoardNavContainer>
   );
 };
 
 export default DashBoardNav;
+
+const NavButtonListContainer = styled.div`
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+
+  width: 100%;
+  height: calc(100vh - 24.6rem);
+  overflow-y: auto;
+
+  &::-webkit-scrollbar {
+    display: none;
+  }
+`;
