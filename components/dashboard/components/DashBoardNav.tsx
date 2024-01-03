@@ -1,6 +1,7 @@
 'use client';
 
 import React, { useState } from 'react';
+import styled from 'styled-components';
 
 import DashBoardNavContainer from './ui/DashBoardNavContainer';
 import Line from './ui/Line';
@@ -22,19 +23,21 @@ const DashBoardNav = () => {
         currentBlog={currentBlog}
         setCurrentBlog={setCurrentBlog}
       />
-      <NavButton currentPageType="upload" />
-      <NavButton currentPageType="tempsaved" />
-      <Line />
-      <NavButton currentPageType="page" />
-      <NavButton currentPageType="category" />
-      <NavButton currentPageType="nav" />
-      <Line />
-      <NavButton currentPageType="member" />
-      <NavButton currentPageType="subscriber" />
-      <Line />
-      <NavButton currentPageType="blogdirectnav" />
-      <NavButton currentPageType="blogconfignav" />
-      <NavButton currentPageType="basicuserinfo" />
+      <NavButtonListContainer>
+        <NavButton currentPageType="upload" />
+        <NavButton currentPageType="tempsaved" />
+        <Line />
+        <NavButton currentPageType="page" />
+        <NavButton currentPageType="category" />
+        <NavButton currentPageType="nav" />
+        <Line />
+        <NavButton currentPageType="member" />
+        <NavButton currentPageType="subscriber" />
+        <Line />
+        <NavButton currentPageType="blogdirectnav" />
+        <NavButton currentPageType="blogconfignav" />
+        <NavButton currentPageType="basicuserinfo" />
+      </NavButtonListContainer>
       {isBlogListOpen && <BlogList currentBlog={currentBlog} setCurrentBlog={setCurrentBlog} />}
       <DashBoardFooter />
     </DashBoardNavContainer>
@@ -42,3 +45,17 @@ const DashBoardNav = () => {
 };
 
 export default DashBoardNav;
+
+const NavButtonListContainer = styled.div`
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+
+  width: 100%;
+  height: calc(100vh - 24.6rem);
+  overflow-y: auto;
+
+  &::-webkit-scrollbar {
+    display: none;
+  }
+`;
