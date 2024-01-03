@@ -216,7 +216,22 @@ export default BlogConfigTemplate;
 const BlogBasicInfoContainer = styled.div`
   padding-left: 4rem;
   width: 100%;
-  overflow-y: scroll;
+  overflow-x: hidden;
+  /* overflow-y: scroll; */
+  /* &::-webkit-scrollbar {
+    display: none;
+  }
+  &::-webkit-scrollbar-thumb {
+    border: 2px solid transparent;
+    border-radius: 10px;
+    background-clip: padding-box;
+    background-color: #2f3542;
+  }
+  &::-webkit-scrollbar-track {
+    border-radius: 10px;
+    box-shadow: inset 0px 0px 5px white;
+    background-color: grey;
+  } */
 `;
 
 const BlogSaveButton = styled.button<{ disabled: boolean }>`

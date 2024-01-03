@@ -102,7 +102,8 @@ const SaveButton = styled.button<{ disabled: boolean }>`
   color: ${({ theme }) => theme.colors.grey_0};
 
   &:hover {
-    transition: 0.3s;
+    transition: 0.3s ease-out;
     background-color: ${({ theme }) => theme.colors.green_hover};
+    cursor: pointer;
   }
 `;

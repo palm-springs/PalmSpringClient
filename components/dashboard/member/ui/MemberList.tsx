@@ -56,5 +56,5 @@ export default MemberList;
 const MemberListContainer = styled.div`
   width: 100%;
   height: calc(100vh - 20rem);
-  overflow: scroll;
+  overflow-y: auto;
 `;
