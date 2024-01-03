@@ -59,11 +59,7 @@ const UploadTemplate = () => {
     />
   ) : (
     <DashBoardTemplateContainer>
-      <UploadTabBar
-        setCategory={setCategory}
-        currentCategory={[...filteredCategory]}
-        categoryListData={categoryData.data}
-      />
+      <UploadTabBar setCategory={setCategory} currentCategory={category} categoryListData={categoryData.data} />
       <Line />
       <UploadContentList category={filteredCategory} currentCategory={category} articleData={articleData} />
     </DashBoardTemplateContainer>

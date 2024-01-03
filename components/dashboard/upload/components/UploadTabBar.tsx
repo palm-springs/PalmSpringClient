@@ -9,23 +9,18 @@ import UploadTabBarContainer from './ui/UploadTabBarContainer';
 // type ArrayLiteral<T extends ReadonlyArray<any>> = T[number];
 export interface UploadTabBarProps {
   categoryListData: CategoryListProps[];
-  currentCategory: string[];
+  currentCategory: string;
   setCategory: Dispatch<SetStateAction<string>>;
 }
 
 const UploadTabBar = (props: UploadTabBarProps) => {
-  const {
-    currentCategory: [category],
-  } = props;
-
-  const [currentCategory, setCurrentCategory] = useState<string>('전체');
+  const { categoryListData, currentCategory, setCategory } = props;
 
   return (
     <UploadTabBarContainer
-      categoryDataList={props.categoryListData}
+      categoryDataList={categoryListData}
       currentCategory={currentCategory}
-      setCurrentCategory={setCurrentCategory}
-      setCategory={props.setCategory}
+      setCurrentCategory={setCategory}
     />
   );
 };
