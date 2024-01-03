@@ -34,7 +34,7 @@ const header_inside = css`
   max-width: 1200px;
   height: 60px;
   @media (max-width: 575px) {
-    padding: 0 8px 0 20px;
+    padding: 0 20px;
   }
 `;
 const logo = css`
@@ -55,14 +55,15 @@ const header_button = css`
   font-size: 16px;
   font-weight: 600;
   &:hover {
-    background: #19db7b;
+    background: #0C9B72;
   }
-  @media (max-width: 1200px) {
+  @media (max-width: 575px) {
     display: none;
   }
 `;
 
 const redirectUri = process.env.NEXT_PUBLIC_GOOGLE_REDIRECT_URI;
+const GOOGLE_END_POINT = 'https://accounts.google.com/o/oauth2/v2/auth';
 // 브랜치테스트용
 // const redirectUri = TEST_REDIRECT_URI;
 
@@ -70,8 +71,6 @@ const Header = () => {
   const pathname = usePathname();
   const [position, setPosition] = useState(0);
   const [screenX, setScreenX] = useState<number>(0);
-
-  const GOOGLE_END_POINT = 'https://accounts.google.com/o/oauth2/v2/auth';
 
   useEffect(() => {
     setScreenX(document.body.scrollWidth);
@@ -95,43 +94,62 @@ const Header = () => {
       data-aos-delay="200"
       data-aos-once="true">
       <div css={header_inside}>
-        <Link href="/">
-          <div css={logo}>
-            <img src="/images/palmspring_new_logo.png" alt="palmtree" />
-          </div>
-        </Link>
+        <div css={css`
+            display: flex;
+            align-items: center;
+        `}>
+            <Link href="/">
+                <div css={logo}>
+                    <img src="/images/palmspring_new_logo.png" alt="palmtree" />
+                </div>
+            </Link>
+            <a
+                href="https://official.palms.blog/home"
+                target='_blank'
+                rel="noreferrer noopener"
+                css={[
+                header_button,
+                css`
+                    font-weight:500;
+                    margin-left:20px;
+                    background: transparent;
+                    color: #8898a7;
+                    font-size: 16px;
+                    padding:10px 14px;
+                    &:hover {
+                        background:transparent;
+                        color: #343a40;
+                    }
+                `,
+                ]}>
+                팜스프링 블로그
+            </a>
+            <Link
+                href="/team"
+                css={[
+                header_button,
+                css`
+                    font-weight:500;
+                    background: transparent;
+                    color: #8898a7;
+                    font-size: 16px;
+                    &:hover {
+                        background:transparent;
+                        color: #343a40;
+                    }
+                `,
+                ]}>
+                만든 사람들
+            </Link>
+        </div>
         <div
           css={css`
             display: flex;
             gap: 12px;
             align-items: center;
-            @media (max-width: 1200px) {
-              display: flex;
-            }
           `}>
-          {screenX >= 768 && (
-            <Link
-              href={`${GOOGLE_END_POINT}?client_id=${process.env.NEXT_PUBLIC_GOOGLE_CLIENT_ID}&redirect_uri=${redirectUri}&response_type=code&scope=email profile`}
-              css={[
-                header_button,
-                css`
-                  background: transparent;
-                  color: #343a40;
-                  font-size: 16px;
-                  &:hover {
-                    background: rgba(0, 0, 0, 0.05);
-                    color: #19db7b;
-                  }
-                  @media (max-width: 1200px) {
-                    display: block;
-                  }
-                `,
-              ]}>
-              로그인
-            </Link>
-          )}
           <Link
-            href="/team"
+            href={`${GOOGLE_END_POINT}?client_id=${process.env.NEXT_PUBLIC_GOOGLE_CLIENT_ID}&redirect_uri=${redirectUri}&response_type=code&scope=email profile`}
             css={[
               header_button,
               css`
@@ -140,18 +158,22 @@ const Header = () => {
                 font-size: 16px;
                 &:hover {
                   background: rgba(0, 0, 0, 0.05);
-                  color: #19db7b;
-                }
-                @media (max-width: 1200px) {
-                  display: block;
+                  color: #0C9B72;
                 }
               `,
             ]}>
-            팜스프링팀
+            대시보드
           </Link>
-          <a href="https://walla.my/palmspring_mind" target="_blank" rel="noopener noreferrer">
-            <button css={header_button}>온보딩 예약하기</button>
-          </a>
+          <Link href={`${GOOGLE_END_POINT}?client_id=${process.env.NEXT_PUBLIC_GOOGLE_CLIENT_ID}&redirect_uri=${redirectUri}&response_type=code&scope=email profile`}>
+            <button css={[
+                header_button,
+                css`
+                    @media (max-width:575px){
+                        display:flex;
+                    }
+                `
+            ]}>회원가입</button>
+          </Link>
         </div>
       </div>
     </header>
