@@ -10,6 +10,7 @@ import Header from '@/components/landing/Header';
 import { DOMAIN_NAME } from '@/constants/palmspringInfo';
 
 import 'aos/dist/aos.css';
+import Link from 'next/link';
 
 const gradient_background = css`
   position: absolute;
@@ -24,6 +25,16 @@ const gradient_background = css`
     display: none;
   }
 `;
+const gradient_background_img = css`
+    position: absolute;
+    top: 0;
+    z-index: -10;
+    width: 100%;
+    user-select : none;
+    @media (max-width: 575px) {
+      display: none;
+    }
+`;
 const main = css`
   display: flex;
   flex-direction: column;
@@ -36,7 +47,7 @@ const main = css`
   }
 `;
 const title = css`
-  text-shadow: 0 0 20px rgba(0, 0, 0, 0.08);
+  // text-shadow: 0 0 20px rgba(0, 0, 0, 0.08);
   line-height: 1.3;
   word-break: keep-all;
   font-size: 48px;
@@ -64,8 +75,8 @@ const main_button = css`
   font-size: 24px;
   font-weight: 600;
   &:hover {
-    filter: drop-shadow(0 0 10px rgba(0, 0, 0, 0.16));
-    background: #19db7b;
+    // filter: drop-shadow(0 0 10px rgba(0, 0, 0, 0.16));
+    background: #0C9B72;
   }
   @media (max-width: 575px) {
     padding: 18px 26px;
@@ -88,15 +99,19 @@ const feature_image_container = css`
   align-items: center;
   transition: all 0.2s linear;
   cursor: default;
-  &:hover {
-    transform: scale(1.08);
-  }
+  background:#F1F5F9;
+  padding:24px 28px;
+  border:1px solid rgb(226 232 240 / 0.4);
+  border-radius:24px;
+  box-shadow: rgba(0, 0, 33, 0.03) 0px 16px 22.4px 4.8px, rgba(0, 0, 33, 0.03) 0px 3.2px 16px 0px, rgba(0, 0, 33, 0.03) 0px 0px 1px 0px;
   & > div:nth-of-type(2) {
     text-align: left;
   }
   @media (max-width: 575px) {
+    width:100%;
     flex-direction: column-reverse;
     gap: 10px;
+    padding:28px 14px;
     & > div:nth-of-type(2) {
       text-align: center !important;
     }
@@ -109,7 +124,7 @@ const feature_title = css`
   font-weight: 700;
   @media (max-width: 575px) {
     width: 100%;
-    font-size: 26px;
+    font-size: 22px;
   }
 `;
 const link_container = css`
@@ -118,6 +133,7 @@ const link_container = css`
     margin: 60px 0 0 0;
     font-size: 36px;
     font-weight: bold;
+    line-height:140%;
   }
   @media (max-width: 575px) {
     & > h1 {
@@ -141,7 +157,7 @@ const link_wrapper = css`
     }
     & > img {
       border-radius: 24px;
-      box-shadow: 0 0 16px 0 rgba(0, 0, 0, 0.08);
+      // box-shadow: 0 0 16px 0 rgba(0, 0, 0, 0.08);
       width: 100px;
     }
   }
@@ -153,7 +169,7 @@ const link_wrapper = css`
       font-size: 18px;
       & > img {
         border-radius: 20px;
-        box-shadow: 0 0 16px 0 rgba(0, 0, 0, 0.08);
+        // box-shadow: 0 0 16px 0 rgba(0, 0, 0, 0.08);
         width: 76px;
       }
     }
@@ -175,15 +191,19 @@ const feature_image = css`
 `;
 const why_they_use_container = css`
   display: flex;
-  gap: 32px;
+  gap: 20px;
   justify-content: center;
   margin-top: 80px;
   & > div {
     border-radius: 24px;
-    box-shadow: 0 0 16px 0 rgba(0, 0, 0, 0.08);
+    background:#F1F5F9;
+    border:1px solid rgb(226 232 240 / 0.4);
     padding: 60px 16px;
     width: 400px;
     text-align: center;
+    &:hover{
+        box-shadow: rgba(0, 0, 33, 0.07) 0px 16px 22.4px 4.8px, rgba(0, 0, 33, 0.05) 0px 3.2px 16px 0px, rgba(0, 0, 33, 0.07) 0px 0px 1px 0px;
+    }
   }
   @media (max-width: 575px) {
     flex-direction: column;
@@ -220,6 +240,9 @@ const go_blog_button = css`
   font-style: normal;
 `;
 
+const redirectUri = process.env.NEXT_PUBLIC_GOOGLE_REDIRECT_URI;
+const GOOGLE_END_POINT = 'https://accounts.google.com/o/oauth2/v2/auth';
+
 const Home = () => {
   useEffect(() => {
     AOS.init({
@@ -230,7 +253,8 @@ const Home = () => {
 
   return (
     <div style={{ width: '100%' }}>
-      <div css={gradient_background} />
+      {/* <div css={gradient_background} /> */}
+      <img src="/images/home_bg_gradient.png" alt="gradient_background" css={gradient_background_img} />
       <Header />
       <main css={main}>
         <h1 data-aos="fade-up" data-aos-duration="800" css={title}>
@@ -239,7 +263,7 @@ const Home = () => {
           세상에 전하는 방법
         </h1>
         <h3 data-aos="fade-up" data-aos-duration="800" data-aos-delay="600" css={subtitle}>
-          성장하는 조직을 위한 팀 블로그 빌더, 팜스프링
+          성장하는 조직을 위한 팀 블로그 빌더
         </h3>
         <div
           data-aos="fade-up"
@@ -251,9 +275,9 @@ const Home = () => {
             align-items: center;
           `}>
           <img src="/images/landing-main-image.png" alt="example landing main" css={example_image} />
-          <a href="https://walla.my/palmspring_mind" target="_blank" rel="noopener noreferrer">
-            <button css={main_button}>온보딩 예약하기</button>
-          </a>
+          <Link href={`${GOOGLE_END_POINT}?client_id=${process.env.NEXT_PUBLIC_GOOGLE_CLIENT_ID}&redirect_uri=${redirectUri}&response_type=code&scope=email profile`}>
+            <button css={main_button}>팀블로그 만들기</button>
+          </Link>
         </div>
         <div
           css={css`
@@ -295,16 +319,16 @@ const Home = () => {
                 &:hover {
                   transform: scale(1.05);
                   & > div:nth-of-type(2) {
-                    color: #19db7b;
+                    color: #0C9B72;
                   }
                   & > div:nth-of-type(3) {
-                    color: #000;
+                    color: rgb(30 41 59);
                   }
                 }
               `}>
               <div
                 css={css`
-                  color: #868e96;
+                  color: rgb(30 41 59);
                   font-size: 36px;
                   font-weight: 700;
                 `}>
@@ -316,6 +340,7 @@ const Home = () => {
                   margin-top: 16px;
                   font-size: 92px;
                   font-weight: 700;
+                  color:rgb(71 85 105);
                 `}>
                 +55%
               </div>
@@ -324,10 +349,13 @@ const Home = () => {
                   transition: all 0.1s linear;
                   margin-top: 24px;
                   line-height: 160%;
-                  color: #adb5bd;
+                  color:rgb(71 85 105);
                   font-size: 18px;
                   font-weight: 500;
                   line-height: 1.4;
+                  @media (max-width: 575px){
+                    font-size:16px;
+                  }
                 `}>
                 블로그를 운영하는 기업은 그렇지 않은 기업 대비
                 <br />
@@ -342,16 +370,16 @@ const Home = () => {
                 &:hover {
                   transform: scale(1.05);
                   & > div:nth-of-type(2) {
-                    color: #19db7b;
+                    color: #0C9B72;
                   }
                   & > div:nth-of-type(3) {
-                    color: #000;
+                    color: rgb(30 41 59);
                   }
                 }
               `}>
               <div
                 css={css`
-                  color: #868e96;
+                  color: rgb(30 41 59);
                   font-size: 36px;
                   font-weight: 700;
                 `}>
@@ -363,6 +391,7 @@ const Home = () => {
                   margin-top: 16px;
                   font-size: 92px;
                   font-weight: 700;
+                  color:rgb(71 85 105);
                 `}>
                 +97%
               </div>
@@ -371,10 +400,13 @@ const Home = () => {
                   transition: all 0.1s linear;
                   margin-top: 24px;
                   line-height: 160%;
-                  color: #adb5bd;
+                  color:rgb(71 85 105);
                   font-size: 18px;
                   font-weight: 500;
                   line-height: 1.4;
+                  @media (max-width: 575px){
+                    font-size:16px;
+                  }
                 `}>
                 블로그를 운영하는 기업은 그렇지 않은 기업 대비
                 <br />
@@ -389,16 +421,16 @@ const Home = () => {
                 &:hover {
                   transform: scale(1.05);
                   & > div:nth-of-type(2) {
-                    color: #19db7b;
+                    color: #0C9B72;
                   }
                   & > div:nth-of-type(3) {
-                    color: #000;
+                    color: rgb(30 41 59);
                   }
                 }
               `}>
               <div
                 css={css`
-                  color: #868e96;
+                  color: rgb(30 41 59);
                   font-size: 36px;
                   font-weight: 700;
                 `}>
@@ -410,6 +442,7 @@ const Home = () => {
                   margin-top: 16px;
                   font-size: 92px;
                   font-weight: 700;
+                  color:rgb(71 85 105);
                 `}>
                 +67%
               </div>
@@ -418,10 +451,13 @@ const Home = () => {
                   transition: all 0.1s linear;
                   margin-top: 24px;
                   line-height: 160%;
-                  color: #adb5bd;
+                  color:rgb(71 85 105);
                   font-size: 18px;
                   font-weight: 500;
                   line-height: 1.4;
+                  @media (max-width: 575px){
+                    font-size:16px;
+                  }
                 `}>
                 블로그를 운영하는 기업은 그렇지 않은 기업 대비
                 <br />
@@ -433,9 +469,9 @@ const Home = () => {
         <div
           css={[
             css`
-              margin-top: 220px;
+              margin-top: 200px;
               @media (max-width: 575px) {
-                margin-top: 180px;
+                margin-top: 140px;
               }
             `,
             feature_image_container,
@@ -463,6 +499,9 @@ const Home = () => {
             css`
               flex-direction: row-reverse;
               margin-top: 140px;
+              @media (max-width: 575px) {
+                margin-top: 80px;
+              }
             `,
           ]}
           data-aos="fade-up">
@@ -501,7 +540,10 @@ const Home = () => {
         <div
           css={[
             css`
-              margin-top: 140px;
+                margin-top: 140px;
+                @media (max-width: 575px) {
+                    margin-top: 80px;
+                }
             `,
             feature_image_container,
           ]}
@@ -535,6 +577,9 @@ const Home = () => {
             css`
               flex-direction: row-reverse;
               margin-top: 140px;
+              @media (max-width: 575px) {
+                  margin-top: 80px;
+              }
             `,
           ]}
           data-aos="fade-up">
@@ -578,15 +623,15 @@ const Home = () => {
             ]}>
             이제, 우리 팀 이야기를 세상에 전하세요.
           </h1>
-          <a href="https://walla.my/palmspring_mind" target="_blank" rel="noopener noreferrer">
-            <button css={main_button}>온보딩 예약하기</button>
-          </a>
+          <Link href={`${GOOGLE_END_POINT}?client_id=${process.env.NEXT_PUBLIC_GOOGLE_CLIENT_ID}&redirect_uri=${redirectUri}&response_type=code&scope=email profile`}>
+            <button css={main_button}>팀블로그 만들기</button>
+          </Link>
         </div>
       </main>
       <Footer />
-      <a href={`https://${DOMAIN_NAME}/official/home`}>
+      {/* <a href={`https://${DOMAIN_NAME}/official/home`}>
         <button css={go_blog_button}>팜스프링 블로그 보러가기</button>
-      </a>
+      </a> */}
     </div>
   );
 };
