@@ -9,12 +9,11 @@ export const GlobalStyle = createGlobalStyle`
     margin: 0 auto;
     width: 100%;
     height: 100vh; 
-    overflow-y :hidden ;
   }
   
-  .scroll::-webkit-scrollbar {
+  /* .scroll::-webkit-scrollbar {
   display: none;
-  }
+  } */
 
   /* body::-webkit-scrollbar {
       display: block;
