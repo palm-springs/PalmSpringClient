@@ -2,6 +2,7 @@
 
 import React from 'react';
 import { useParams } from 'next/navigation';
+import styled from 'styled-components';
 
 import MobileStickyBtn from '@/components/blog/MobileStickyBtn';
 import BlogFooter from '@/components/common/BlogFooter';
@@ -25,7 +26,7 @@ const ContentLayout = ({ children }: { children: React.ReactElement }) => {
   return (
     <>
       <BlogHeader logo={logo} blogName={blogName} navList={navList} />
-      <main>{children}</main>
+      <Main>{children}</Main>
       {MOBILE && <MobileStickyBtn />}
       <BlogFooter />
     </>
@@ -33,3 +34,7 @@ const ContentLayout = ({ children }: { children: React.ReactElement }) => {
 };
 
 export default ContentLayout;
+
+const Main = styled.main`
+  overflow-x: hidden;
+`;
