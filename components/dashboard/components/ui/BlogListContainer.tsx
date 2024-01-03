@@ -25,4 +25,8 @@ const BlogListUI = styled.section`
   width: 25.4rem;
   max-height: 50rem;
   overflow-y: scroll;
+
+  &::-webkit-scrollbar {
+    display: none;
+  }
 `;
