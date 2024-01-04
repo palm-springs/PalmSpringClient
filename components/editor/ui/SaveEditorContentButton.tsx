@@ -3,7 +3,7 @@
 import React, { useState } from 'react';
 import { toast, Toaster } from 'react-hot-toast';
 import { useRouter } from 'next/navigation';
-import { useRecoilValue } from 'recoil';
+import { useRecoilState, useRecoilValue } from 'recoil';
 import styled from 'styled-components';
 
 import ModalPortal from '@/components/common/ModalPortal';
@@ -29,13 +29,13 @@ const SaveEditorContentButton = (props: editorProps) => {
   const { handleOnClickDraft, handleOnClickPublish, isEdit, pageType } = props;
   const router = useRouter();
 
-  const articleData = useRecoilValue(articleDataState);
+  const articleData = useRecoilState(articleDataState);
 
-  const { title: articleTitle } = articleData;
+  const [{ title: articleTitle }] = articleData;
 
-  const pageData = useRecoilValue(pageDataState);
+  const pageData = useRecoilState(pageDataState);
 
-  const { title: pageTitle } = pageData;
+  const [{ title: pageTitle }] = pageData;
 
   const notify = () =>
     toast('글이 임시저장 되었습니다.', {
