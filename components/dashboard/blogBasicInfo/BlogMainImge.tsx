@@ -59,7 +59,13 @@ const BlogMainImage = (props: BlogMainImageProps) => {
         </BlogMainImageDeleteContainer>
       ) : (
         <BlogMainUploadLabel>
-          <input ref={inputImgRef} type="file" onChange={handleOnMainImageChange} disabled={readonly} />
+          <input
+            ref={inputImgRef}
+            type="file"
+            onChange={handleOnMainImageChange}
+            disabled={readonly}
+            accept=".jpg, .jpeg, .jpe, .png, .webp, .svg"
+          />
           <BlogMainUpload>
             <UploadIcon />
             <UploadText>업로드하기</UploadText>

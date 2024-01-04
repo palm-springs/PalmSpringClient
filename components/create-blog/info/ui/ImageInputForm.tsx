@@ -61,7 +61,7 @@ const ImageInputForm = (props: ImageInputFormProps) => {
           <Label>
             <UploadIcon />
             업로드하기
-            <input type="file" onChange={handleOnFileChange} />
+            <input type="file" onChange={handleOnFileChange} accept=".jpg, .jpeg, .jpe, .png, .webp, .svg" />
           </Label>
         )}
       </ImageContainer>

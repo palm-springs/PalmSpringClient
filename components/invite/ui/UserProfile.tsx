@@ -34,7 +34,7 @@ const UserProfile = () => {
   ) : (
     <Label>
       <ProfilePhotoIcon />
-      <input type="file" onChange={handleOnFileChange} />
+      <input type="file" onChange={handleOnFileChange} accept=".jpg, .jpeg, .jpe, .png, .webp, .svg" />
     </Label>
   );
 };

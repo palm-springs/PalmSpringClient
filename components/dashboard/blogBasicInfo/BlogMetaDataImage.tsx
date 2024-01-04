@@ -43,7 +43,12 @@ const BlogMetaDataImage = ({ readonly }: { readonly: boolean }) => {
       ) : (
         // 메타 이미지 없을때 초기상황
         <ImageLabel>
-          <input type="file" onChange={handleOnMetaImageChange} disabled={readonly} />
+          <input
+            type="file"
+            onChange={handleOnMetaImageChange}
+            disabled={readonly}
+            accept=".jpg, .jpeg, .jpe, .png, .webp, .svg"
+          />
           <BlogMetaDataImageUpload>
             <UploadIcon />
             <UploadText>업로드하기</UploadText>
