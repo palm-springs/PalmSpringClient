@@ -16,6 +16,7 @@ export const metadata: Metadata = {
   openGraph: {
     title: 'ㅁ메롱메롱멩로올올모렝로ㅔㅇㅁ',
     description: '아로오오오오오오ㅗㅇ',
+    type: 'website',
   },
 };
 
