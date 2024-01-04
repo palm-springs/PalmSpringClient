@@ -6,6 +6,7 @@ import { Metadata } from 'next';
 import { getBlogArticleDetail } from '@/api/blogHome';
 // import { useParams } from 'next/navigation';
 import LoadingLottie from '@/components/common/ui/LoadingLottie';
+import BlogArticleContent from '@/components/content/BlogArticle';
 import ArticleTemplate from '@/components/content/ui/ArticleTemplate';
 // import { useGetBlogArticleDetail } from '@/hooks/blogHome';
 
@@ -18,15 +19,8 @@ export const metadata: Metadata = {
   },
 };
 
-const ContentPage = async ({ params }: { params: { team: string; articleId: string } }) => {
-  // const { team, articleId } = useParams();
-
-  // const res = useGetBlogArticleDetail(params.team, Number(params.articleId));
-  const res = await getBlogArticleDetail(params.team, Number(params.articleId));
-
-  if (!res) return <LoadingLottie width={10} height={10} fit />;
-
-  return <ArticleTemplate data={res.data} />;
+const ContentPage = async () => {
+  return <BlogArticleContent />;
 };
 
 export default ContentPage;

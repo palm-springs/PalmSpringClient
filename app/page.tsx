@@ -324,10 +324,10 @@ const Home = () => {
                   transition: all 0.1s linear;
                   margin-top: 24px;
                   line-height: 160%;
+                  line-height: 1.4;
                   color: #adb5bd;
                   font-size: 18px;
                   font-weight: 500;
-                  line-height: 1.4;
                 `}>
                 블로그를 운영하는 기업은 그렇지 않은 기업 대비
                 <br />
@@ -371,10 +371,10 @@ const Home = () => {
                   transition: all 0.1s linear;
                   margin-top: 24px;
                   line-height: 160%;
+                  line-height: 1.4;
                   color: #adb5bd;
                   font-size: 18px;
                   font-weight: 500;
-                  line-height: 1.4;
                 `}>
                 블로그를 운영하는 기업은 그렇지 않은 기업 대비
                 <br />
@@ -418,10 +418,10 @@ const Home = () => {
                   transition: all 0.1s linear;
                   margin-top: 24px;
                   line-height: 160%;
+                  line-height: 1.4;
                   color: #adb5bd;
                   font-size: 18px;
                   font-weight: 500;
-                  line-height: 1.4;
                 `}>
                 블로그를 운영하는 기업은 그렇지 않은 기업 대비
                 <br />
@@ -489,7 +489,8 @@ const Home = () => {
                 `,
                 feature_title,
               ]}>
-              노션처럼 쉽고 강력한 에디터로 <br/>검색 엔진 최적화까지 누려보세요.
+              노션처럼 쉽고 강력한 에디터로 <br />
+              검색 엔진 최적화까지 누려보세요.
             </div>
             <div
               css={css`
