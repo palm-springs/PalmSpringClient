@@ -1,6 +1,6 @@
 'use client';
 
-import React, { useState } from 'react';
+import React, { useEffect, useState } from 'react';
 import { toast, Toaster } from 'react-hot-toast';
 import { useRouter } from 'next/navigation';
 import { useRecoilState, useRecoilValue } from 'recoil';
@@ -26,16 +26,17 @@ interface editorProps {
 const SaveEditorContentButton = (props: editorProps) => {
   const [isModal, setIsModal] = useState(false); // 모달 보이고 안보이고
   const [saved, setSaved] = useState(false); // 임시저장된 여부
+  const [isModified, setIsModified] = useState(false); // 내용 변경 여부
   const { handleOnClickDraft, handleOnClickPublish, isEdit, pageType } = props;
   const router = useRouter();
 
   const articleData = useRecoilState(articleDataState);
 
-  const [{ title: articleTitle }] = articleData;
+  const [{ title: articleTitle, content: articleContent }] = articleData;
 
   const pageData = useRecoilState(pageDataState);
 
-  const [{ title: pageTitle }] = pageData;
+  const [{ title: pageTitle, content: pageContent }] = pageData;
 
   const notify = () =>
     toast('글이 임시저장 되었습니다.', {
@@ -52,6 +53,14 @@ const SaveEditorContentButton = (props: editorProps) => {
         letterSpacing: '-0.028rem',
       },
     });
+
+  // useEffect(() => {
+  //   if (articleTitle !== '' || articleContent !== '') {
+  //     setIsModified(true);
+  //   } else {
+  //     setIsModified(false);
+  //   }
+  // });
 
   const handleDraftSaveButton = () => {
     handleOnClickDraft();
@@ -95,7 +104,7 @@ const SaveEditorContentButton = (props: editorProps) => {
           {isEdit ? (
             <NoneTemporary type="button" />
           ) : (
-            <TemporarySaveButton type="button" onClick={handleDraftSaveButton}>
+            <TemporarySaveButton type="button" onClick={handleDraftSaveButton} disabled={!isModified}>
               임시저장
             </TemporarySaveButton>
           )}
@@ -161,7 +170,7 @@ const NoneTemporary = styled.button`
   height: 3.6rem;
 `;
 
-const TemporarySaveButton = styled.button`
+const TemporarySaveButton = styled.button<{ disabled: boolean }>`
   display: inline-flex;
   flex-shrink: 0;
   gap: 1rem;
@@ -175,7 +184,7 @@ const TemporarySaveButton = styled.button`
   font-family: ${({ theme }) => theme.fonts.Button_medium};
   &:hover {
     border-radius: 0.8rem;
-    background: ${({ theme }) => theme.colors.grey_200};
+    background: ${({ theme, disabled }) => (disabled ? `none` : `${theme.colors.grey_200}`)};
     width: 9.6rem;
     height: 3.6rem;
   }
