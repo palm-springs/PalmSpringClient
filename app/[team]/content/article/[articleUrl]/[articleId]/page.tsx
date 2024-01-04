@@ -13,6 +13,10 @@ import { useGetBlogArticleDetail } from '@/hooks/blogHome';
 export const metadata: Metadata = {
   title: '야야',
   description: '왜안되는데 개짱나아아아아ㅏ아앙',
+  openGraph: {
+    title: 'ㅁ메롱메롱멩로올올모렝로ㅔㅇㅁ',
+    description: '아로오오오오오오ㅗㅇ',
+  },
 };
 
 // type Props = {
