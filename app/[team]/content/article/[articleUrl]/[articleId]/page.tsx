@@ -10,14 +10,15 @@ import LoadingLottie from '@/components/common/ui/LoadingLottie';
 import ArticleTemplate from '@/components/content/ui/ArticleTemplate';
 import { useGetBlogArticleDetail } from '@/hooks/blogHome';
 
-export const metadata: Metadata = {
-  title: '야야',
-  description: '왜안되는데 개짱나아아아아ㅏ아앙',
-  openGraph: {
-    title: 'ㅁ메롱메롱멩로올올모렝로ㅔㅇㅁ',
-    description: '아로오오오오오오ㅗㅇ',
-  },
-};
+//build 안됨 이유: use client 제거 해야함 -> 서버 컴포넌트에서만 메타 태그 가능함
+// export const metadata: Metadata = {
+//   title: '야야',
+//   description: '왜안되는데 개짱나아아아아ㅏ아앙',
+//   openGraph: {
+//     title: 'ㅁ메롱메롱멩로올올모렝로ㅔㅇㅁ',
+//     description: '아로오오오오오오ㅗㅇ',
+//   },
+// };
 
 // type Props = {
 //   params: { team: string; articleId: number };
