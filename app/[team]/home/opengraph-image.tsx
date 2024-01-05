@@ -9,9 +9,7 @@ export const size = {
 };
 export const contentType = 'image/png';
 
-export default async function Image({ params }: { params: { team: string } }) {
-  const post = await getMetaBlogInfo(params.team);
-
+export default function Image() {
   return new ImageResponse(
     (
       <div
@@ -23,7 +21,6 @@ export default async function Image({ params }: { params: { team: string } }) {
           justifyContent: 'center',
         }}>
         <img
-          src={post.data.metaThumbnail}
           style={{
             position: 'absolute',
             top: 0,
