@@ -36,4 +36,5 @@ const ArticleWrapper = styled.div`
   align-items: center;
   justify-content: center;
   width: 100vw;
+  overflow-x: hidden;
 `;
