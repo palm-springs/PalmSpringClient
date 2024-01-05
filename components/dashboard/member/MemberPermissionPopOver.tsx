@@ -1,20 +1,15 @@
 'use client';
 
-import React, { useState } from 'react';
-import Link from 'next/link';
+import React from 'react';
 import { useParams, useRouter } from 'next/navigation';
 import { useRecoilValue } from 'recoil';
 import styled from 'styled-components';
 
-import ModalPortal from '@/components/common/ModalPortal';
-import { useDelegateUserRole, useDeleteMember } from '@/hooks/dashboard';
+import { useDelegateUserRole } from '@/hooks/dashboard';
 import usePerMissionPolicy from '@/hooks/usePermissionPolicy';
 import { CheckIcon } from '@/public/icons';
 import userState from '@/recoil/atom/user';
 import { RoleType } from '@/utils/PermissionPolicyClass';
-
-import DeleteMemberModal from './ui/DeleteMemberModal';
-import MemberPermissionButton from './MemberPermissionButton';
 
 type ConditionType = 'expelManager' | 'expelEditor' | 'appointManager' | 'appointOwner' | 'appointEditor';
 
