@@ -61,7 +61,7 @@ const BlogLogoImage = (props: BlogLogoImageProps) => {
             type="file"
             onChange={handleOnLogoImageChange}
             disabled={readonly}
-            accept=".jpg, .jpeg, .jpe, .png, .webp, .svg"
+            accept=".jpg, .jpeg, .jpe, .png, .webp, .svg, .gif"
           />
           <BlogLogoUpload>
             <UploadIcon />

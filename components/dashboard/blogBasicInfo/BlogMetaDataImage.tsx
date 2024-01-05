@@ -47,7 +47,7 @@ const BlogMetaDataImage = ({ readonly }: { readonly: boolean }) => {
             type="file"
             onChange={handleOnMetaImageChange}
             disabled={readonly}
-            accept=".jpg, .jpeg, .jpe, .png, .webp, .svg"
+            accept=".jpg, .jpeg, .jpe, .png, .webp, .svg, .gif"
           />
           <BlogMetaDataImageUpload>
             <UploadIcon />
