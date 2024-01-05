@@ -1,7 +1,7 @@
 // all 카테고리 페이지
 //여기서 동적 태그 작업
 import React from 'react';
-import { Metadata, ResolvingMetadata } from 'next';
+import { Metadata } from 'next';
 
 import { getMetaBlogInfo } from '@/api/blog';
 import { getBlogArticleList, getBlogMainImg } from '@/api/blogHome';
@@ -22,7 +22,7 @@ export async function generateMetadata({ params }: Props): Promise<Metadata | nu
 
   const blogUrl = product.data.blogUrl;
   const {
-    data: { metaName: title, metaDescription: description },
+    data: { metaName: title, metaDescription: description, metaThumbnail },
   } = product;
 
   return {
@@ -31,6 +31,7 @@ export async function generateMetadata({ params }: Props): Promise<Metadata | nu
     openGraph: {
       title,
       description,
+      images: [{ url: metaThumbnail }],
       type: 'website',
       url: `${blogUrl}.com`,
     },
