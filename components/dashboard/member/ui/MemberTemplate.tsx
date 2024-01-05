@@ -47,6 +47,11 @@ const MemberTemplate = () => {
     res && console.log(res.data);
   }, [res]);
 
+  const subText = (
+    <span>
+      쉼표, 엔터, 스페이스바로 메일 주소를 구분할 수 있습니다. <br /> 현재 Gmail 계정만 초대 가능합니다.
+    </span>
+  );
   return (
     <>
       <Line />
@@ -58,7 +63,7 @@ const MemberTemplate = () => {
             <DashboardCreateModal
               mainText="팀원 초대하기"
               buttonText="초대하기"
-              subText="쉼표, 엔터, 스페이스바로 메일 주소를 구분할 수 있습니다. &nbsp;&nbsp; 현재 Gmail 계정만 초대 가능합니다."
+              subText={subText}
               buttonHandler={handleOnClickInvite}
               onModalCloseBtnClick={() => setModalState('')}
               disabled={emailDataList.length === 0 || isError}>

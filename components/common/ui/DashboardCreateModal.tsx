@@ -6,7 +6,7 @@ import { IcClose32Icon } from '@/public/icons';
 
 interface DashboardCreateModalProps {
   mainText: string;
-  subText?: string;
+  subText?: string | React.ReactNode;
   buttonText: string;
   disabled: boolean;
   onModalCloseBtnClick: Dispatch<SetStateAction<string>>;
