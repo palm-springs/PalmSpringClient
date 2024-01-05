@@ -30,7 +30,7 @@ export async function generateMetadata({ params }: Props): Promise<Metadata | nu
     openGraph: {
       title,
       description,
-      images: [`${metaThumbnail}`],
+      images: [{ url: metaThumbnail }],
       type: 'website',
       url: `${blogUrl}.com`,
     },
