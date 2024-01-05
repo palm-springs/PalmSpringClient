@@ -5,7 +5,7 @@ import { Toaster } from 'react-hot-toast';
 import { useSearchParams } from 'next/navigation';
 import styled from 'styled-components';
 
-import { LoginUserState, TEST_REDIRECT_URI } from '@/constants/Auth';
+import { LoginUserState } from '@/constants/Auth';
 import { GoogleLogoIcon, LogoIcon } from '@/public/icons';
 import { authClientInfo } from '@/types/auth';
 import { createToast } from '@/utils/lib/toast';
@@ -18,11 +18,26 @@ const LoginLanding = (props: authClientInfo) => {
   const { clientId } = props;
   const redirectState = useSearchParams().get('userState');
 
-  const inviteErrorNotify = createToast('초대된 사용자가 아닙니다. 다시 로그인해주세요.', 'invalid invited error');
+  const inviteErrorNotify = createToast({
+    type: 'ERROR',
+    message: '초대된 사용자가 아닙니다. 다시 로그인해주세요.',
+    id: 'error on invalid invited error',
+    duration: 3000,
+  });
 
-  const noUserErrorNotify = createToast('로그인이 필요합니다.', 'no user');
+  const noUserErrorNotify = createToast({
+    type: 'ERROR',
+    message: '로그인이 필요합니다.',
+    id: 'error on no user',
+    duration: 3000,
+  });
 
-  const wrongPlatformNotify = createToast('Gmail 계정만 사용 가능합니다.', 'login platform');
+  const wrongPlatformNotify = createToast({
+    type: 'ERROR',
+    message: 'Gmail 계정만 사용 가능합니다.',
+    id: 'error on ogin platform',
+    duration: 3000,
+  });
 
   useEffect(() => {
     switch (redirectState) {

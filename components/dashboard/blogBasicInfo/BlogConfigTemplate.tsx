@@ -9,6 +9,7 @@ import LoadingLottie from '@/components/common/ui/LoadingLottie';
 import { useGetBlogInfo } from '@/hooks/blog';
 import usePerMissionPolicy from '@/hooks/usePermissionPolicy';
 import { getImageMultipartData } from '@/utils/getImageMultipartData';
+import { createToast } from '@/utils/lib/toast';
 
 import { blogMetaDataState } from '../state/blogMetaData';
 
@@ -46,37 +47,16 @@ const BlogConfigTemplate = () => {
   });
   const [blogMetaConfig, setBlogMetaConfig] = useRecoilState(blogMetaDataState);
 
-  const successNotify = () =>
-    toast.success('블로그 정보를 수정했습니다!', {
-      id: 'blog config modified',
-      style: {
-        padding: '1.6rem 2rem',
-        borderRadius: '3.2rem',
-        background: '#343A40',
-        color: '#fff',
-        fontSize: '1.4rem',
-        fontFamily: 'Pretendard',
-        fontStyle: 'normal',
-        fontWeight: '700',
-        letterSpacing: '-0.028rem',
-      },
-    });
-
-  const errorNotify = () =>
-    toast.error('블로그 정보를 수정에 실패했습니다!', {
-      id: 'error on modifying blog config',
-      style: {
-        padding: '1.6rem 2rem',
-        borderRadius: '3.2rem',
-        background: '#343A40',
-        color: '#fff',
-        fontSize: '1.4rem',
-        fontFamily: 'Pretendard',
-        fontStyle: 'normal',
-        fontWeight: '700',
-        letterSpacing: '-0.028rem',
-      },
-    });
+  const successNotify = createToast({
+    type: 'NORMAL',
+    message: '블로그 정보를 수정했습니다!',
+    id: 'error on blog config modified',
+  });
+  const errorNotify = createToast({
+    type: 'ERROR',
+    message: '블로그 정보 수정에 실패했습니다!',
+    id: 'error on modifying blog config',
+  });
 
   useEffect(() => {
     if (!res || !res.data) return;
