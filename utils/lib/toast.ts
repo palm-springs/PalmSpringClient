@@ -1,22 +1,12 @@
 import toast from 'react-hot-toast';
 
-interface CommonToastProps {
+interface ToastProps {
   type: 'ERROR' | 'NORMAL';
   message: string;
   id: string;
   background?: string;
-}
-interface ErrorToastProps extends CommonToastProps {
-  type: 'ERROR';
   duration?: number;
 }
-
-interface NormalToastProps extends CommonToastProps {
-  type: 'NORMAL';
-  duration?: number;
-}
-
-type ToastType = NormalToastProps | ErrorToastProps;
 
 const basicToastStyle = {
   padding: '1.6rem 2rem',
@@ -29,31 +19,26 @@ const basicToastStyle = {
   letterSpacing: '-0.028rem',
 };
 
-export const createToast = (props: ToastType) => {
-  if (props.type === 'ERROR') {
-    const { message, id, duration, background } = props;
-    return () => {
-      toast.error(message, {
-        duration: duration,
-        id,
-        style: {
-          ...basicToastStyle,
-          background: background ?? '#343A40',
-        },
-      });
-    };
+const toastConfig = ({ duration, id, background }: Omit<ToastProps, 'type' | 'message'>) => ({
+  duration,
+  id,
+  style: {
+    ...basicToastStyle,
+    background: background ?? '#343A40',
+  },
+});
+
+export const createToast = (props: ToastProps) => {
+  const { type, message, ...rest } = props;
+
+  switch (type) {
+    case 'ERROR':
+      return () => {
+        toast.error(message, toastConfig(rest));
+      };
+    case 'NORMAL':
+      return () => {
+        toast.success(message, toastConfig(rest));
+      };
   }
-
-  const { id, message, background, duration } = props;
-
-  return () => {
-    toast.success(message, {
-      duration,
-      id,
-      style: {
-        ...basicToastStyle,
-        background: background ?? '#343A40',
-      },
-    });
-  };
 };
