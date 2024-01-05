@@ -22,7 +22,7 @@ export async function generateMetadata({ params }: Props): Promise<Metadata | nu
 
   const blogUrl = product.data.blogUrl;
   const {
-    data: { metaName: title, metaDescription: description, metaThumbnail },
+    data: { metaName: title, metaDescription: description, thumbnail },
   } = product;
 
   return {
@@ -31,7 +31,7 @@ export async function generateMetadata({ params }: Props): Promise<Metadata | nu
     openGraph: {
       title,
       description,
-      images: [{ url: metaThumbnail }],
+      images: [{ url: thumbnail }],
       type: 'website',
       url: `${blogUrl}.com`,
     },
