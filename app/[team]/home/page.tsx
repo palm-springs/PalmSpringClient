@@ -31,7 +31,11 @@ export async function generateMetadata({ params }: Props): Promise<Metadata | nu
     openGraph: {
       title,
       description,
-      images: [{ url: metaThumbnail }],
+      images: [
+        {
+          url: `https://s3.ap-northeast-2.amazonaws.com/palm-springs-product-bucket/official/image/7687a4c2-4eca-4069-a8fb-9b6efd0730c1.png`,
+        },
+      ],
       type: 'website',
       url: `${blogUrl}.com`,
     },
