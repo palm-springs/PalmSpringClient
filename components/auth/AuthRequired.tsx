@@ -27,13 +27,15 @@ const AuthRequired = ({ children }: { children: React.ReactNode }) => {
   // access token 재발급 요청 함수 (reissue)
   const refresh = async () => {
     console.log('reissue 요청');
-    const {
-      data: { accessToken },
-    } = await getRefreshToken();
+    const { code, data } = await getRefreshToken();
 
-    setAccessToken(accessToken);
-    console.log(`reissue해와서 recoil set : ${accessToken}`);
-    return accessToken;
+    if (code === 201) {
+      setAccessToken(data.accessToken);
+      console.log(`reissue해와서 recoil set : ${data.accessToken}`);
+      return data.accessToken;
+    } else {
+      return;
+    }
   };
 
   // Authorization, interceptor
@@ -42,7 +44,11 @@ const AuthRequired = ({ children }: { children: React.ReactNode }) => {
       client.defaults.headers.common.Authorization = `Bearer ${accessToken}`;
     } else {
       const newAccessToken = await refresh();
-      client.defaults.headers.common.Authorization = `Bearer ${newAccessToken}`;
+      if (newAccessToken) {
+        client.defaults.headers.common.Authorization = `Bearer ${newAccessToken}`;
+      } else {
+        router.push(`/auth?userState=${LoginUserState.NO_USER}`);
+      }
     }
   };
 
