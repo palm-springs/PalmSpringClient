@@ -1,6 +1,7 @@
 'use client';
 
 import React, { ChangeEvent, useEffect } from 'react';
+import { Toaster } from 'react-hot-toast';
 import { useParams } from 'next/navigation';
 import { useRecoilState } from 'recoil';
 import styled from 'styled-components';
@@ -50,9 +51,9 @@ const ThumbnailInput = (props: ThumbnailInputProps) => {
       const reader = new FileReader();
       reader.onload = () => {
         if (pageType === 'article') {
-          setArticleData((prev) => ({ ...prev, thumbnail }));
+          thumbnail && setArticleData((prev) => ({ ...prev, thumbnail }));
         } else {
-          setPageData((prev) => ({ ...prev, thumbnail }));
+          thumbnail && setPageData((prev) => ({ ...prev, thumbnail }));
         }
       };
       reader.readAsDataURL(file);
@@ -63,6 +64,14 @@ const ThumbnailInput = (props: ThumbnailInputProps) => {
     case `article`:
       return (
         <>
+          <Toaster
+            position="bottom-center"
+            reverseOrder={false}
+            containerClassName=""
+            containerStyle={{
+              bottom: 80,
+            }}
+          />
           <ThumbnailInputLabel>
             <input
               type="file"
@@ -87,6 +96,14 @@ const ThumbnailInput = (props: ThumbnailInputProps) => {
     case `page`:
       return (
         <>
+          <Toaster
+            position="bottom-center"
+            reverseOrder={false}
+            containerClassName=""
+            containerStyle={{
+              bottom: 80,
+            }}
+          />
           <ThumbnailInputLabel>
             <input
               type="file"

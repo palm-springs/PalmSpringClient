@@ -21,7 +21,7 @@ const BlogMetaDataImage = ({ readonly }: { readonly: boolean }) => {
       if (blogMetaImage === imageErrorCase.sizeError) {
         imageSizeErrorNotify();
       } else {
-        setBlogMetaData((prev) => ({ ...prev, metaThumbnail: blogMetaImage }));
+        blogMetaImage && setBlogMetaData((prev) => ({ ...prev, metaThumbnail: blogMetaImage }));
       }
     }
   };

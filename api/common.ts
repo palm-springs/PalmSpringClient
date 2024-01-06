@@ -11,9 +11,7 @@ export const uploadImage = async (formData: FormData) => {
     });
     return data;
   } catch (err) {
-    if (isAxiosError(err)) {
-      return err.response?.data;
-    }
+    return { code: 406, message: 'payload Too Large', data: null };
   }
 };
 

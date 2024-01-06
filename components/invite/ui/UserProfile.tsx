@@ -1,5 +1,6 @@
 'use client';
 import { ChangeEvent } from 'react';
+import { Toaster } from 'react-hot-toast';
 import { useRecoilState } from 'recoil';
 import styled from 'styled-components';
 
@@ -21,7 +22,7 @@ const UserProfile = () => {
       if (remoteImgUrl === imageErrorCase.sizeError) {
         imageSizeErrorNotify();
       } else {
-        setInvitedUserData((prev) => ({ ...prev, thumbnail: remoteImgUrl }));
+        remoteImgUrl && setInvitedUserData((prev) => ({ ...prev, thumbnail: remoteImgUrl }));
       }
     }
   };
@@ -30,18 +31,34 @@ const UserProfile = () => {
     setInvitedUserData((prev) => ({ ...prev, thumbnail: null }));
   };
 
-  return thumbnail ? (
-    <ProfileContainer>
-      <ImageUserBox src={thumbnail} alt="user profile" />
-      <UsersProfilesDeleteButton type="button" onClick={handleOnDeleteImg}>
-        <UserProfileDeleteIcon />
-      </UsersProfilesDeleteButton>
-    </ProfileContainer>
-  ) : (
-    <Label>
-      <ProfilePhotoIcon />
-      <input type="file" onChange={handleOnFileChange} accept=".jpg, .jpeg, .jpe, .png, .webp, .svg, .gif" />
-    </Label>
+  const profile = () => {
+    return thumbnail ? (
+      <ProfileContainer>
+        <ImageUserBox src={thumbnail} alt="user profile" />
+        <UsersProfilesDeleteButton type="button" onClick={handleOnDeleteImg}>
+          <UserProfileDeleteIcon />
+        </UsersProfilesDeleteButton>
+      </ProfileContainer>
+    ) : (
+      <Label>
+        <ProfilePhotoIcon />
+        <input type="file" onChange={handleOnFileChange} accept=".jpg, .jpeg, .jpe, .png, .webp, .svg, .gif" />
+      </Label>
+    );
+  };
+
+  return (
+    <>
+      <Toaster
+        position="bottom-center"
+        reverseOrder={false}
+        containerClassName=""
+        containerStyle={{
+          bottom: 80,
+        }}
+      />
+      {profile}
+    </>
   );
 };
 

@@ -1,5 +1,5 @@
 'use client';
-import React, { ChangeEvent, useState } from 'react';
+import React, { ChangeEvent } from 'react';
 import { useParams } from 'next/navigation';
 import { useRecoilState } from 'recoil';
 import styled from 'styled-components';
@@ -25,13 +25,8 @@ const UserProfile = () => {
       if (remoteImgUrl === imageErrorCase.sizeError) {
         imageSizeErrorNotify();
       } else {
-        setUserInfoData((prev) => ({ ...prev, thumbnail: remoteImgUrl }));
+        remoteImgUrl && setUserInfoData((prev) => ({ ...prev, thumbnail: remoteImgUrl }));
       }
-
-      // reader.readAsDataURL(files[0] as Blob);
-      // reader.onloadend = () => {
-      //   setImgSrc();
-      // };
     }
   };
 
@@ -40,26 +35,28 @@ const UserProfile = () => {
   };
 
   return (
-    <UserProfileContainer>
-      <ProfileInputLabel>
-        <ImageGuideTitle>프로필 사진</ImageGuideTitle>
+    <>
+      <UserProfileContainer>
+        <ProfileInputLabel>
+          <ImageGuideTitle>프로필 사진</ImageGuideTitle>
 
-        {thumbnail ? (
-          <ProfileContainer>
-            <ImageUserBox src={thumbnail} alt="user profile" />
-            <UsersProfilesDeleteButton type="button" onClick={handleOnDeleteImg}>
-              <UserProfileDeleteIcon />
-            </UsersProfilesDeleteButton>
-          </ProfileContainer>
-        ) : (
-          <ImageLabel>
-            <UsersProfilesInputBackground />
-            <UsersProfilesInput />
-            <input type="file" onChange={handleOnFileChange} accept=".jpg, .jpeg, .jpe, .png, .webp, .svg, .gif" />
-          </ImageLabel>
-        )}
-      </ProfileInputLabel>
-    </UserProfileContainer>
+          {thumbnail ? (
+            <ProfileContainer>
+              <ImageUserBox src={thumbnail} alt="user profile" />
+              <UsersProfilesDeleteButton type="button" onClick={handleOnDeleteImg}>
+                <UserProfileDeleteIcon />
+              </UsersProfilesDeleteButton>
+            </ProfileContainer>
+          ) : (
+            <ImageLabel>
+              <UsersProfilesInputBackground />
+              <UsersProfilesInput />
+              <input type="file" onChange={handleOnFileChange} accept=".jpg, .jpeg, .jpe, .png, .webp, .svg, .gif" />
+            </ImageLabel>
+          )}
+        </ProfileInputLabel>
+      </UserProfileContainer>
+    </>
   );
 };
 

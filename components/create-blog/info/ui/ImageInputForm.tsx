@@ -1,6 +1,7 @@
 'use client';
 
 import { ChangeEvent, useState } from 'react';
+import { Toaster } from 'react-hot-toast';
 import { useParams } from 'next/navigation';
 import { useSetRecoilState } from 'recoil';
 import styled from 'styled-components';
@@ -50,6 +51,14 @@ const ImageInputForm = (props: ImageInputFormProps) => {
 
   return (
     <div>
+      <Toaster
+        position="bottom-center"
+        reverseOrder={false}
+        containerClassName=""
+        containerStyle={{
+          bottom: 80,
+        }}
+      />
       <InputTitle>
         블로그 {type === 'logo' ? '로고' : '대문'} 이미지
         {type === 'thumbnail' && <span>대문 이미지 권장 크기는 1440*500 입니다</span>}
