@@ -4,8 +4,10 @@ import { useParams } from 'next/navigation';
 import { useRecoilState } from 'recoil';
 import styled from 'styled-components';
 
+import { imageErrorCase } from '@/constants/image';
 import { InputPlusButtonIcon, UserProfileDeleteIcon, UsersProfilesInputIcon } from '@/public/icons';
 import { getImageMultipartData } from '@/utils/getImageMultipartData';
+import { imageSizeErrorNotify } from '@/utils/imageSizeErrorNotify';
 
 import { userInfoState } from '../state/user';
 
@@ -20,7 +22,11 @@ const UserProfile = () => {
     // const reader = new FileReader();
     if (files) {
       const remoteImgUrl = await getImageMultipartData(files[0]);
-      setUserInfoData((prev) => ({ ...prev, thumbnail: remoteImgUrl }));
+      if (remoteImgUrl === imageErrorCase.sizeError) {
+        imageSizeErrorNotify();
+      } else {
+        setUserInfoData((prev) => ({ ...prev, thumbnail: remoteImgUrl }));
+      }
 
       // reader.readAsDataURL(files[0] as Blob);
       // reader.onloadend = () => {

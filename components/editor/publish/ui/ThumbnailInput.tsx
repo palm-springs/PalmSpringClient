@@ -5,10 +5,12 @@ import { useParams } from 'next/navigation';
 import { useRecoilState } from 'recoil';
 import styled from 'styled-components';
 
+import { imageErrorCase } from '@/constants/image';
 import { ThumbnailIcon } from '@/public/icons';
 import { UpdateArticleProps } from '@/types/article';
 import { UpdatePageProps } from '@/types/page';
 import { getImageMultipartData } from '@/utils/getImageMultipartData';
+import { imageSizeErrorNotify } from '@/utils/imageSizeErrorNotify';
 
 import { articleDataState, pageDataState } from '../../states/atom';
 
@@ -40,17 +42,21 @@ const ThumbnailInput = (props: ThumbnailInputProps) => {
     }
     const file = files[0];
     const thumbnail = await getImageMultipartData(file);
-    console.log(thumbnail);
+    if (thumbnail === imageErrorCase.sizeError) {
+      imageSizeErrorNotify();
+    } else {
+      console.log(thumbnail);
 
-    const reader = new FileReader();
-    reader.onload = () => {
-      if (pageType === 'article') {
-        setArticleData((prev) => ({ ...prev, thumbnail }));
-      } else {
-        setPageData((prev) => ({ ...prev, thumbnail }));
-      }
-    };
-    reader.readAsDataURL(file);
+      const reader = new FileReader();
+      reader.onload = () => {
+        if (pageType === 'article') {
+          setArticleData((prev) => ({ ...prev, thumbnail }));
+        } else {
+          setPageData((prev) => ({ ...prev, thumbnail }));
+        }
+      };
+      reader.readAsDataURL(file);
+    }
   };
 
   switch (pageType) {

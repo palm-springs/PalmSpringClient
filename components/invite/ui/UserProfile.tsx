@@ -3,8 +3,10 @@ import { ChangeEvent } from 'react';
 import { useRecoilState } from 'recoil';
 import styled from 'styled-components';
 
+import { imageErrorCase } from '@/constants/image';
 import { ProfilePhotoIcon, UserProfileDeleteIcon } from '@/public/icons';
 import { getImageMultipartData } from '@/utils/getImageMultipartData';
+import { imageSizeErrorNotify } from '@/utils/imageSizeErrorNotify';
 
 import { invitedUserDataState } from '../states/userData';
 
@@ -16,7 +18,11 @@ const UserProfile = () => {
 
     if (files) {
       const remoteImgUrl = await getImageMultipartData(files[0]);
-      setInvitedUserData((prev) => ({ ...prev, thumbnail: remoteImgUrl }));
+      if (remoteImgUrl === imageErrorCase.sizeError) {
+        imageSizeErrorNotify();
+      } else {
+        setInvitedUserData((prev) => ({ ...prev, thumbnail: remoteImgUrl }));
+      }
     }
   };
 

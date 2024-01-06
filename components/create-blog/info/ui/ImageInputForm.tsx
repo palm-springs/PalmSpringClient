@@ -5,8 +5,10 @@ import { useParams } from 'next/navigation';
 import { useSetRecoilState } from 'recoil';
 import styled from 'styled-components';
 
+import { imageErrorCase } from '@/constants/image';
 import { IcClose24Icon, UploadIcon } from '@/public/icons';
 import { getImageMultipartData } from '@/utils/getImageMultipartData';
+import { imageSizeErrorNotify } from '@/utils/imageSizeErrorNotify';
 
 import { createBlogDataState } from '../states/atom';
 
@@ -33,12 +35,16 @@ const ImageInputForm = (props: ImageInputFormProps) => {
     const reader = new FileReader();
     if (files) {
       const remoteImgUrl = await getImageMultipartData(files[0]);
-      setBlogData((prev) => ({ ...prev, [type]: remoteImgUrl }));
+      if (remoteImgUrl === imageErrorCase.sizeError) {
+        imageSizeErrorNotify();
+      } else {
+        setBlogData((prev) => ({ ...prev, [type]: remoteImgUrl }));
 
-      reader.readAsDataURL(files[0] as Blob);
-      reader.onloadend = () => {
-        setImgSrc(reader.result as string);
-      };
+        reader.readAsDataURL(files[0] as Blob);
+        reader.onloadend = () => {
+          setImgSrc(reader.result as string);
+        };
+      }
     }
   };
 

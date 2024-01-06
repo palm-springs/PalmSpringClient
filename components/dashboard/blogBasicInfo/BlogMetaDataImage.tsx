@@ -3,8 +3,10 @@ import React, { ChangeEvent } from 'react';
 import { useRecoilState } from 'recoil';
 import styled from 'styled-components';
 
+import { imageErrorCase } from '@/constants/image';
 import { CloseIcon, UploadIcon } from '@/public/icons';
 import { getImageMultipartData } from '@/utils/getImageMultipartData';
+import { imageSizeErrorNotify } from '@/utils/imageSizeErrorNotify';
 
 import { blogMetaDataState } from '../state/blogMetaData';
 
@@ -16,7 +18,11 @@ const BlogMetaDataImage = ({ readonly }: { readonly: boolean }) => {
 
     if (files) {
       const blogMetaImage = await getImageMultipartData(files[0]);
-      setBlogMetaData((prev) => ({ ...prev, metaThumbnail: blogMetaImage }));
+      if (blogMetaImage === imageErrorCase.sizeError) {
+        imageSizeErrorNotify();
+      } else {
+        setBlogMetaData((prev) => ({ ...prev, metaThumbnail: blogMetaImage }));
+      }
     }
   };
 
