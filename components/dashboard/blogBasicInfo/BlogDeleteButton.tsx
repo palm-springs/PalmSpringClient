@@ -46,4 +46,7 @@ const BlogDeleteButton = styled.p`
   ${({ theme }) => theme.fonts.Body2_Regular};
   cursor: pointer;
   color: ${({ theme }) => theme.colors.grey_700};
+  &:hover {
+    text-decoration-line: underline;
+  }
 `;
