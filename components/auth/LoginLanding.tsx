@@ -119,7 +119,7 @@ const LoginButton = styled.a`
   height: 5.6rem;
 
   &:hover {
-    transition: 0.3s;
+    transition: 0.3s ease-out;
     background-color: rgba(173, 181, 189, 0.15);
   }
 
