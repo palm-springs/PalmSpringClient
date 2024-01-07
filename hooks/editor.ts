@@ -34,31 +34,47 @@ export const useGetArticleList = (blogUrl: string, categoryId: string) => {
 };
 
 export const useGetSingleArticleData = (blogUrl: string, articleId: number) => {
-  const { data } = useQuery([QUERY_KEY_ARTICLE.getSingleArticleData, blogUrl, articleId], () =>
-    getSingleArticleData(blogUrl, articleId),
+  const { data } = useQuery(
+    [QUERY_KEY_ARTICLE.getSingleArticleData, blogUrl, articleId],
+    () => getSingleArticleData(blogUrl, articleId),
+    {
+      cacheTime: 0,
+    },
   );
   return data;
 };
 
 export const useGetSinglePageData = (blogUrl: string, pageUrl: string) => {
-  const { data } = useQuery([QUERY_KEY_ARTICLE.getSinglePageData, blogUrl, pageUrl], () =>
-    getSinglePageData(blogUrl, pageUrl),
+  const { data } = useQuery(
+    [QUERY_KEY_ARTICLE.getSinglePageData, blogUrl, pageUrl],
+    () => getSinglePageData(blogUrl, pageUrl),
+    {
+      cacheTime: 0,
+    },
   );
   return data;
 };
 
 // 아티클 수정하기 get
 export const useGetUpdateArticleContent = (blogUrl: string, articleId: number) => {
-  const { data } = useQuery([QUERY_KEY_ARTICLE.getUpdateArticleContent, blogUrl, articleId], () =>
-    getUpdateArticleContent(blogUrl, articleId),
+  const { data } = useQuery(
+    [QUERY_KEY_ARTICLE.getUpdateArticleContent, blogUrl, articleId],
+    () => getUpdateArticleContent(blogUrl, articleId),
+    {
+      cacheTime: 0,
+    },
   );
   return data;
 };
 
 // 페이지 수정하기 get
 export const useGetUpdatePageContent = (blogUrl: string, pageId: number) => {
-  const { data } = useQuery([QUERY_KEY_ARTICLE.getUpdateArticleContent, blogUrl, pageId], () =>
-    getUpdatePageContent(blogUrl, pageId),
+  const { data } = useQuery(
+    [QUERY_KEY_ARTICLE.getUpdateArticleContent, blogUrl, pageId],
+    () => getUpdatePageContent(blogUrl, pageId),
+    {
+      cacheTime: 0,
+    },
   );
   return data;
 };

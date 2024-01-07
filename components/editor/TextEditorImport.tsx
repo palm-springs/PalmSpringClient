@@ -73,6 +73,7 @@ const TextEditorBuild = (props: TextEditorBuildprops) => {
   const [updatedPageData, setUpdatedPageData] = useRecoilState(pageDataState);
   const [currentContent, setCurrentContent] = useState('');
 
+  console.log(articleData);
   useEffect(() => {
     console.log(imageArr, articleData, pageData, currentContent);
   }, [imageArr, articleData, pageData, currentContent]);
@@ -243,7 +244,6 @@ const TextEditorBuild = (props: TextEditorBuildprops) => {
           images: [],
           isPublish: false,
         });
-        // setCurrentContent(newContent);
       } else {
         draftArticleMutation.mutate({
           ...updatedArticleData,
@@ -253,7 +253,6 @@ const TextEditorBuild = (props: TextEditorBuildprops) => {
           isPublish: false,
           images: imageArr,
         });
-        // setCurrentContent(newContent);
       }
       console.log('아아아앙', newContent);
     }
@@ -425,12 +424,7 @@ const TextEditorBuild = (props: TextEditorBuildprops) => {
   return (
     <>
       <ToolBox editor={editor} encodeFileToBase64={encodeFileToBase64} setLink={setLink} />
-      <TextEditor
-        editor={editor}
-        handleDrop={handleDrop}
-        handleDragOver={handleDragOver}
-       
-      />
+      <TextEditor editor={editor} handleDrop={handleDrop} handleDragOver={handleDragOver} />
 
       {pageType === 'article' ? (
         <SaveEditorContentButton

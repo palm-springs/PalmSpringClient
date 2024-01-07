@@ -77,10 +77,12 @@ const TextEditorUI = styled(EditorContent)<{ $long: boolean }>`
     pointer-events: none;
   }
   .ProseMirror {
+    /* overflow: scroll; */
+    /* 아예 바닥에 붙음 */
+    -ms-overflow-style: none;
     /* 이거지우고 max-heigth 값 위에 올랐을때만 750px로 바꾸니까 자동으로 올라가면 됩니다? 이게 맞나? 아닐까봐 아직 못지움 */
     /* min-height: ${({ $long }) => ($long ? 'calc(100vh -64px)' : '650px')}; */
     /* max-height: ${({ $long }) => ($long ? '750px' : '650px')}; */
-    max-height: ${({ $long }) => $long && '750px'};
-    overflow: scroll;
+    /* max-height: ${({ $long }) => $long && '750px'}; */
   }
 `;
