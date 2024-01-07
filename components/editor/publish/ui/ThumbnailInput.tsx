@@ -46,8 +46,6 @@ const ThumbnailInput = (props: ThumbnailInputProps) => {
     if (thumbnail === imageErrorCase.sizeError) {
       imageSizeErrorNotify();
     } else {
-      console.log(thumbnail);
-
       const reader = new FileReader();
       reader.onload = () => {
         if (pageType === 'article') {

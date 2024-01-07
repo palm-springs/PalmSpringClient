@@ -31,8 +31,6 @@ const NavContentList = () => {
       </LoadingContainer>
     );
 
-  console.log(data);
-
   return data.data.length === 0 ? (
     <EmptyLanding
       header={true}

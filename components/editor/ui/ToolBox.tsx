@@ -40,7 +40,6 @@ const EditorMenuBar = ({ editor, encodeFileToBase64, setLink }: editorProps) => 
       setAtTop(window.scrollY >= 143);
       setVisible(window.scrollY >= 143);
       if (iconWrapperRef.current === null) return;
-      console.log(iconWrapperRef.current?.style.top);
       const { current } = iconWrapperRef;
       if (window.scrollY >= 143) {
         current.style.position = 'fixed';

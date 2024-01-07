@@ -17,12 +17,10 @@ const LandingAuth = ({ children }: { children: React.ReactNode }) => {
 
   // access token 재발급 요청 함수 (reissue)
   const refresh = async () => {
-    console.log('reissue 요청');
     const { code, data } = await getRefreshToken();
 
     if (code === 201) {
       setAccessToken(data.accessToken);
-      console.log(`reissue해와서 recoil set : ${data.accessToken}`);
       return data.accessToken;
     } else {
       return;
