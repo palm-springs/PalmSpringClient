@@ -10,6 +10,8 @@ import { GlobalStyle } from '@/styles/GlobalStyle';
 import theme from '@/styles/theme';
 import StyledComponentsRegistry from '@/utils/lib/registry';
 
+import Analytics from './Analytics';
+
 const inter = Inter({ subsets: ['latin'] });
 
 const Layout = ({ children }: { children: React.ReactNode }) => {
@@ -31,6 +33,7 @@ const Layout = ({ children }: { children: React.ReactNode }) => {
             <ThemeProvider theme={theme}>
               <GlobalStyle />
               {children}
+              <Analytics />
               <div id="modal-root"></div>
             </ThemeProvider>
           </StyledComponentsRegistry>
