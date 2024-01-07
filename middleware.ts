@@ -15,9 +15,11 @@ export const middleware = (request: NextRequest) => {
         const { data } = await getUserInfoAfterLogin('', newAccessToken);
 
         if (!data.joinBlogList || data.joinBlogList.length === 0) {
-          redirect('/no-team/dashboard/upload');
+          return NextResponse.redirect(new URL(`https://palms.blog/no-team/dashboard/upload`, request.url));
         } else {
-          redirect(`/${data.joinBlogList[0].blogUrl}/dashboard/upload`);
+          return NextResponse.redirect(
+            new URL(`https://palms.blog/${data.joinBlogList[0].blogUrl}/dashboard/upload`, request.url),
+          );
         }
       }
     }
