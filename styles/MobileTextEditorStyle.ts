@@ -40,8 +40,16 @@ export const MobileTextEditorStyle = styled.div`
 
     ol {
       margin: 2.4rem 0 0.4rem 4rem;
-      width: calc(100vw - 4rem);
+      width: calc(100vw - 8rem);
       list-style-type: decimal;
+    }
+
+    li {
+      width: calc(100vw - 10rem);
+
+      & > p {
+        width: 100%;
+      }
     }
 
     u {
@@ -170,7 +178,12 @@ export const MobileTextEditorStyle = styled.div`
 
       p {
         padding-top: 0.2rem;
-        width: calc(100vw - 4rem);
+        width: calc(100vw - 6rem);
+        /* width: calc(100vw - 5.8rem); */
+      }
+
+      pre {
+        width: calc(100vw - 6rem);
       }
     }
 

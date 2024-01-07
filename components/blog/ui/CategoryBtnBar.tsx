@@ -21,9 +21,8 @@ const CategoryBtnBar = (props: CategoryBtnBarProps) => {
     if (MOBILE)
       return (
         <MobileCategoryBtn
-          href={`/home/${eachCategory}`}
+          href={{ pathname: `/home/${eachCategory}`, hash: '/' }}
           key={eachCategory}
-          type="button"
           className={eachCategory === decodeURI(category) ? 'selected' : ''}>
           {eachCategory}
         </MobileCategoryBtn>
@@ -31,9 +30,8 @@ const CategoryBtnBar = (props: CategoryBtnBarProps) => {
     else
       return (
         <CategoryBtn
-          href={`/home/${eachCategory}`}
+          href={{ pathname: `/home/${eachCategory}`, hash: '/' }}
           key={eachCategory}
-          type="button"
           className={eachCategory === decodeURI(category) ? 'selected' : ''}>
           {eachCategory}
         </CategoryBtn>
@@ -43,7 +41,7 @@ const CategoryBtnBar = (props: CategoryBtnBarProps) => {
   if (MOBILE)
     return (
       <CategoryBtnBarContainer className="mobile">
-        <MobileCategoryBtn href={`/home`} type="button" className={SELECTED === 'home' ? 'selected' : ''}>
+        <MobileCategoryBtn href={{ pathname: `/home`, hash: '/' }} className={SELECTED === 'home' ? 'selected' : ''}>
           전체
         </MobileCategoryBtn>
         {CATEGORY_LIST}
@@ -51,8 +49,8 @@ const CategoryBtnBar = (props: CategoryBtnBarProps) => {
     );
   else
     return (
-      <CategoryBtnBarContainer>
-        <CategoryBtn href={`/home`} type="button" className={SELECTED === 'home' ? 'selected' : ''}>
+      <CategoryBtnBarContainer id="/">
+        <CategoryBtn href={{ pathname: `/home`, hash: '/' }} className={SELECTED === 'home' ? 'selected' : ''}>
           전체
         </CategoryBtn>
         {CATEGORY_LIST}
@@ -67,8 +65,7 @@ const CategoryBtnBarContainer = styled.div`
   flex-wrap: wrap;
   gap: 1.2rem;
   justify-content: flex-start;
-
-  padding: 6rem 0 4.8rem;
+  padding: 8rem 0 4.8rem;
   width: 72rem;
 
   &.mobile {

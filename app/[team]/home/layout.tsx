@@ -18,7 +18,7 @@ const BlogHomeLayout = async ({ children, params }: { children: React.ReactEleme
   return (
     <>
       <BlogHeader logo={logo} blogName={blogName} navList={navList} />
-      <main>{children}</main>
+      <main style={{ overflowX: 'hidden' }}>{children}</main>
       <BlogFooter />
     </>
   );
