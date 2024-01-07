@@ -17,10 +17,10 @@ type Props = {
 export async function generateMetadata({ params }: Props): Promise<Metadata | null> {
   const team = params.team;
   const product = await getMetaBlogInfo(team);
-
-  if (!product || product.code === 404) return null;
-
   const blogUrl = product.data.blogUrl;
+
+  if (!product) return null;
+
   const {
     data: { metaName: title, metaDescription: description },
   } = product;

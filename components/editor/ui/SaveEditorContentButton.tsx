@@ -1,13 +1,14 @@
 'use client';
 
-import React, { useState } from 'react';
+import React, { useEffect, useState } from 'react';
 import { toast, Toaster } from 'react-hot-toast';
-import { useRouter } from 'next/navigation';
-import { useRecoilValue } from 'recoil';
+import { useParams, useRouter } from 'next/navigation';
+import { useRecoilState, useRecoilValue } from 'recoil';
 import styled from 'styled-components';
 
 import ModalPortal from '@/components/common/ModalPortal';
 import DashboardDeleteModal from '@/components/common/ui/DashboardDeleteModal';
+import { useGetUpdateArticleContent } from '@/hooks/editor';
 import { UpdateArticleProps } from '@/types/article';
 import { UpdatePageProps } from '@/types/page';
 
@@ -24,6 +25,7 @@ interface editorProps {
 }
 
 const SaveEditorContentButton = (props: editorProps) => {
+  const { team, articleId } = useParams();
   const [isModal, setIsModal] = useState(false); // 모달 보이고 안보이고
   const [saved, setSaved] = useState(false); // 임시저장된 여부
   const { handleOnClickDraft, handleOnClickPublish, isEdit, pageType } = props;
@@ -190,16 +192,13 @@ const SaveButton = styled.button<{ disabled: boolean }>`
 
   margin-left: 0.8rem;
   border-radius: 0.8rem;
-  /* background-color: ${({ theme }) => theme.colors.grey_900}; */
-  background-color: ${({ theme, disabled }) => (disabled ? `${theme.colors.grey_900}30` : theme.colors.grey_900)};
+  background-color: ${({ theme }) => theme.colors.grey_900};
   cursor: ${({ disabled }) => (disabled ? 'default' : 'pointer')};
   padding: 1rem 2rem;
   height: 3.6rem;
   color: ${({ theme }) => theme.colors.grey_0};
   font-family: ${({ theme }) => theme.fonts.Button_medium};
   &:hover {
-    background-color: ${({ theme }) => theme.colors.grey_800};
-    width: 9.6rem;
-    height: 3.6rem;
+    background-color: ${({ theme, disabled }) => (disabled ? `none` : theme.colors.grey_800)};
   }
 `;

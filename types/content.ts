@@ -1,7 +1,7 @@
 export interface ContentProps {
-  thumbnail: string | null;
+  thumbnail: string;
   title: string;
-  description: string | null;
+  description: string;
   teamMember: {
     id: number;
     thumbnail: string | null;

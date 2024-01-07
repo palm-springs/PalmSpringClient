@@ -5,7 +5,7 @@ import { CreatePageProps } from '@/types/page';
 
 export const articleDataState = atom<CreateArticleProps>({
   key: 'articleDataState',
-  default: { title: '', content: '', images: [''], thumbnail: null, description: '', categoryId: -1, articleUrl: '' },
+  default: { title: '', content: '', images: [''], thumbnail: null, description: '', categoryId: null, articleUrl: '' },
 });
 
 export const pageDataState = atom<CreatePageProps>({

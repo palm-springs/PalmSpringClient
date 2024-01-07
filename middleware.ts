@@ -10,7 +10,8 @@ export const middleware = (request: NextRequest) => {
     // eslint-disable-next-line @typescript-eslint/no-non-null-assertion, @typescript-eslint/no-non-null-asserted-optional-chain
     const subdomain = request.headers.get('host')?.split('.')[0]!;
     return NextResponse.rewrite(new URL(`/${subdomain}${request.nextUrl.clone().pathname}`, request.url));
-  } else {
+  }
+  else {
     const pathName = request.nextUrl.clone().pathname;
     const teamName = pathName.split('/')[1];
     const index = pathName.indexOf('/', 1);

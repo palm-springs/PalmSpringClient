@@ -1,3 +1,5 @@
+import { isAxiosError } from 'axios';
+
 import {
   ArticleData,
   CreateArticleProps,
@@ -18,10 +20,16 @@ export const getArticleList = async (blogUrl: string, categoryId: string | null)
 };
 
 export const getSingleArticleData = async (blogUrl: string, articleId: number) => {
-  const { data } = await client.get<Response<SingleArticleData>>(
-    `/api/v2/dashboard/article/detail/${blogUrl}?articleId=${articleId}`,
-  );
-  return data;
+  try {
+    const { data } = await client.get<Response<SingleArticleData>>(
+      `/api/v2/dashboard/article/detail/${blogUrl}?articleId=${articleId}`,
+    );
+    return data;
+  } catch (err) {
+    if (isAxiosError(err)) {
+      return err.response?.data;
+    }
+  }
 };
 
 interface postArticleListRequest {

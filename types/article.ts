@@ -30,7 +30,7 @@ export interface CreateArticleProps {
   content: string;
   images: string[] | null;
   thumbnail: string | null;
-  categoryId: number;
+  categoryId: number | null;
   description: string;
   articleUrl: string;
 }
@@ -40,7 +40,7 @@ export interface UpdateArticleProps {
   content: string;
   images: string[] | null;
   thumbnail: string | null;
-  categoryId: number;
+  categoryId: number | null;
   description?: string;
   articleUrl: string;
 }
@@ -49,7 +49,7 @@ export interface UpdateArticleContentProps {
   id: number;
   title: string;
   content: string;
-  categoryId: number;
+  categoryId: number | null;
   images: string[] | null;
   description?: string;
   thumbnail: string | null;
@@ -62,7 +62,7 @@ export interface UpdateTempArticleDraftProps {
   content: string;
   images: string[] | null;
   thumbnail: string | null;
-  categoryId: number;
+  categoryId: number | null;
   description: string | null;
   articleUrl: string;
   isPublish: boolean;
