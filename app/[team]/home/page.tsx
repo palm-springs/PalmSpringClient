@@ -17,12 +17,12 @@ type Props = {
 export async function generateMetadata({ params }: Props): Promise<Metadata | null> {
   const team = params.team;
   const product = await getMetaBlogInfo(team);
-
-  if (!product || product.code === 404) return null;
-
   const blogUrl = product.data.blogUrl;
+
+  if (!product) return null;
+
   const {
-    data: { metaName: title, metaDescription: description, metaThumbnail },
+    data: { metaName: title, metaDescription: description },
   } = product;
 
   return {
@@ -31,11 +31,6 @@ export async function generateMetadata({ params }: Props): Promise<Metadata | nu
     openGraph: {
       title,
       description,
-      images: [
-        {
-          url: `https://s3.ap-northeast-2.amazonaws.com/palm-springs-product-bucket/official/image/7687a4c2-4eca-4069-a8fb-9b6efd0730c1.png`,
-        },
-      ],
       type: 'website',
       url: `${blogUrl}.com`,
     },
