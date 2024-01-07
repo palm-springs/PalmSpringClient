@@ -6,29 +6,32 @@ import { getUserInfoAfterLogin } from './api/dashboard';
 import client from './api';
 
 export const middleware = (request: NextRequest) => {
-  const checkUser = async () => {
-    const { code, data } = await getRefreshToken();
-    if (code === 201) {
-      const newAccessToken = data.accessToken;
-      if (newAccessToken) {
-        client.defaults.headers.common.Authorization = `Bearer ${newAccessToken}`;
-        const { data } = await getUserInfoAfterLogin('', newAccessToken);
+  // const checkUser = async () => {
+  //   const data = await getRefreshToken();
+  //   console.log(data);
+  // if (data.code === 201) {
+  //   console.log('1212줄임~');
+  //   const newAccessToken = data.accessToken;
+  //   if (newAccessToken) {
+  //     client.defaults.headers.common.Authorization = `Bearer ${newAccessToken}`;
+  //     const { data } = await getUserInfoAfterLogin('', newAccessToken);
 
-        if (!data.joinBlogList || data.joinBlogList.length === 0) {
-          return NextResponse.redirect(new URL(`https://palms.blog/no-team/dashboard/upload`, request.url));
-        } else {
-          return NextResponse.redirect(
-            new URL(`https://palms.blog/${data.joinBlogList[0].blogUrl}/dashboard/upload`, request.url),
-          );
-        }
-      }
-    }
-  };
+  //     if (!data.joinBlogList || data.joinBlogList.length === 0) {
+  //       return NextResponse.redirect(new URL(`https://palms.blog/no-team/dashboard/upload`, request.url));
+  //     } else {
+  //       return NextResponse.redirect(
+  //         new URL(`https://palms.blog/${data.joinBlogList[0].blogUrl}/dashboard/upload`, request.url),
+  //       );
+  //     }
+  //   }
+  // }
+  // };
 
-  if (request.nextUrl.pathname === '/') {
-    checkUser();
-    return;
-  }
+  // if (request.nextUrl.pathname === '/') {
+  //   console.log('들어오긴함');
+  //   checkUser();
+  //   return;
+  // }
 
   const isSubdomain =
     request.nextUrl.pathname.startsWith('/home') ||

@@ -4,8 +4,11 @@ import { useEffect } from 'react';
 import { css } from '@emotion/react';
 import AOS from 'aos';
 import Link from 'next/link';
+import { redirect } from 'next/navigation';
 
 import client from '@/api';
+import { getRefreshToken } from '@/api/auth';
+import { getUserInfoAfterLogin } from '@/api/dashboard';
 import Footer from '@/components/landing/Footer';
 import Header from '@/components/landing/Header';
 import { DOMAIN_NAME } from '@/constants/palmspringInfo';
@@ -247,6 +250,27 @@ const redirectUri = process.env.NEXT_PUBLIC_GOOGLE_REDIRECT_URI;
 const GOOGLE_END_POINT = 'https://accounts.google.com/o/oauth2/v2/auth';
 
 const Home = () => {
+  const checkUser = async () => {
+    const data = await getRefreshToken();
+    console.log(data);
+    if (data.code === 201) {
+      console.log('1212줄임~');
+      const newAccessToken = data.accessToken;
+      if (newAccessToken) {
+        client.defaults.headers.common.Authorization = `Bearer ${newAccessToken}`;
+        const { data } = await getUserInfoAfterLogin('', newAccessToken);
+
+        if (!data.joinBlogList || data.joinBlogList.length === 0) {
+          redirect(`/no-team/dashboard/upload`);
+        } else {
+          redirect(`/${data.joinBlogList[0].blogUrl}/dashboard/upload`);
+        }
+      }
+    }
+  };
+
+  checkUser();
+
   useEffect(() => {
     AOS.init({
       offset: 200,
