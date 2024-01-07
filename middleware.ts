@@ -1,6 +1,33 @@
+import { redirect } from 'next/navigation';
 import { NextRequest, NextResponse } from 'next/server';
 
+import { getRefreshToken } from './api/auth';
+import { getUserInfoAfterLogin } from './api/dashboard';
+import client from './api';
+
 export const middleware = (request: NextRequest) => {
+  const checkUser = async () => {
+    const { code, data } = await getRefreshToken();
+    if (code === 201) {
+      const newAccessToken = data.accessToken;
+      if (newAccessToken) {
+        client.defaults.headers.common.Authorization = `Bearer ${newAccessToken}`;
+        const { data } = await getUserInfoAfterLogin('', newAccessToken);
+
+        if (!data.joinBlogList || data.joinBlogList.length === 0) {
+          redirect('/no-team/dashboard/upload');
+        } else {
+          redirect(`/${data.joinBlogList[0].blogUrl}/dashboard/upload`);
+        }
+      }
+    }
+  };
+
+  if (request.nextUrl.pathname === '/') {
+    checkUser();
+    return;
+  }
+
   const isSubdomain =
     request.nextUrl.pathname.startsWith('/home') ||
     request.nextUrl.pathname.startsWith('/content') ||
@@ -22,6 +49,7 @@ export const middleware = (request: NextRequest) => {
 
 export const config = {
   matcher: [
+    '/',
     '/home/:path*',
     '/content/:path*',
     '/author/:path*',

@@ -247,8 +247,6 @@ const redirectUri = process.env.NEXT_PUBLIC_GOOGLE_REDIRECT_URI;
 const GOOGLE_END_POINT = 'https://accounts.google.com/o/oauth2/v2/auth';
 
 const Home = () => {
-  useCheckAuthValidation();
-
   useEffect(() => {
     AOS.init({
       offset: 200,
