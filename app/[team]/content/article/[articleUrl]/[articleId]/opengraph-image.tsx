@@ -1,6 +1,6 @@
 import { ImageResponse } from 'next/server';
 
-import { useGetUpdateArticleContent } from '@/hooks/editor';
+import { getBlogArticleDetail } from '@/api/blogHome';
 
 export const alt = 'About Acme';
 export const size = {
@@ -10,7 +10,7 @@ export const size = {
 export const contentType = 'image/png';
 
 export default async function Image({ params }: { params: { team: string; articleId: number } }) {
-  const post = await useGetUpdateArticleContent(params.team, params.articleId);
+  const post = await getBlogArticleDetail(params.team, params.articleId);
 
   return new ImageResponse(
     (
