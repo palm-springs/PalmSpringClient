@@ -11,14 +11,14 @@ export const middleware = (request: NextRequest) => {
     const subdomain = request.headers.get('host')?.split('.')[0]!;
     return NextResponse.rewrite(new URL(`/${subdomain}${request.nextUrl.clone().pathname}`, request.url));
   }
-  // else {
-  //   const pathName = request.nextUrl.clone().pathname;
-  //   const teamName = pathName.split('/')[1];
-  //   const index = pathName.indexOf('/', 1);
-  //   const targetPathName = pathName.slice(index);
+  else {
+    const pathName = request.nextUrl.clone().pathname;
+    const teamName = pathName.split('/')[1];
+    const index = pathName.indexOf('/', 1);
+    const targetPathName = pathName.slice(index);
 
-  //   return NextResponse.redirect(new URL(`https://${teamName}.palms.blog/${targetPathName}`, request.url));
-  // }
+    return NextResponse.redirect(new URL(`https://${teamName}.palms.blog/${targetPathName}`, request.url));
+  }
 };
 
 export const config = {
