@@ -248,7 +248,6 @@ const TextEditorBuild = (props: TextEditorBuildprops) => {
           images: imageArr,
         });
       }
-      console.log('아아아앙', newContent);
     }
   };
 
