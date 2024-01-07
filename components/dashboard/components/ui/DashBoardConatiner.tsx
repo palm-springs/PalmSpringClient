@@ -25,22 +25,5 @@ const DashBoardContainerUI = styled.section`
   }
   @media screen and (max-width: 1024px) {
     width: 1024px;
-    overflow-x: scroll;
-    &::-webkit-scrollbar {
-      display: block;
-      width: 100vw;
-      height: 10px;
-    }
-    &::-webkit-scrollbar-thumb {
-      border: 2px solid transparent;
-      border-radius: 10px;
-      background-clip: padding-box;
-      background-color: #2f3542;
-    }
-    &::-webkit-scrollbar-track {
-      border-radius: 10px;
-      box-shadow: inset 0px 0px 5px white;
-      background-color: grey;
-    }
   }
 `;

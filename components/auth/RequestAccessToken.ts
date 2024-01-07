@@ -32,7 +32,7 @@ const RequestAccessToken = (props: getAccessTokenProps) => {
         } else {
           const { data } = await getUserInfoAfterLogin('', accessToken);
           if (!data.joinBlogList || data.joinBlogList.length === 0) {
-            router.push('/no-team/dashboard');
+            router.push('/no-team/dashboard/upload');
           } else {
             router.push(`/${data.joinBlogList[0].blogUrl}/dashboard/upload`);
           }

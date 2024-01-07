@@ -1,4 +1,4 @@
-import { Dispatch, SetStateAction } from 'react';
+import { Dispatch, RefObject, SetStateAction } from 'react';
 import { useRouter } from 'next/navigation';
 import { useSetRecoilState } from 'recoil';
 
@@ -13,10 +13,11 @@ import MakeNewBlogContainer from './ui/MakeNewBlogContainer';
 interface BlogListProps {
   currentBlog: number;
   setCurrentBlog: Dispatch<SetStateAction<number>>;
+  blogListRef: RefObject<HTMLElement>;
 }
 
 const BlogList = (props: BlogListProps) => {
-  const { currentBlog, setCurrentBlog } = props;
+  const { currentBlog, setCurrentBlog, blogListRef } = props;
 
   const res = useGetUserInfo();
 
@@ -26,7 +27,7 @@ const BlogList = (props: BlogListProps) => {
 
   if (!res) {
     return (
-      <BlogListContainer>
+      <BlogListContainer blogListRef={blogListRef}>
         <LoadingLottie width={4} height={4} />
       </BlogListContainer>
     );
@@ -35,7 +36,7 @@ const BlogList = (props: BlogListProps) => {
   const userData = res.data;
 
   return (
-    <BlogListContainer>
+    <BlogListContainer blogListRef={blogListRef}>
       <>
         {userData.joinBlogList.map(({ blogName, blogUrl, role }, idx) => {
           return (

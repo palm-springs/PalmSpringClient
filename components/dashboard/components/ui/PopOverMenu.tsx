@@ -43,7 +43,9 @@ const PopOverMenu = (props: PopOverMenuProps) => {
       {isRenderPopOverButton && (
         <>
           {pathName !== 'member' && <button onMouseDown={onMutateButtonClick}>수정하기</button>}
-          <button onMouseDown={onDeleteButtonClick}>삭제하기</button>
+          <button className="delete-button" onMouseDown={onDeleteButtonClick}>
+            삭제하기
+          </button>
         </>
       )}
     </PopOverMenuUI>
@@ -66,9 +68,7 @@ const PopOverMenuUI = styled.article`
   background: ${({ theme }) => theme.colors.grey_0};
   padding: 0.8rem;
   width: fit-content;
-  :nth-child(3) {
-    color: ${({ theme }) => theme.colors.red};
-  }
+
   button {
     display: flex;
     align-items: center;
@@ -84,5 +84,9 @@ const PopOverMenuUI = styled.article`
     &:hover {
       background: ${({ theme }) => theme.colors.grey_100};
     }
+  }
+
+  button.delete-button {
+    color: ${({ theme }) => theme.colors.red};
   }
 `;

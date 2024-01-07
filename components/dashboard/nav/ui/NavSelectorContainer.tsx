@@ -67,6 +67,9 @@ const NavSelectorUI = styled.section`
   width: 100%;
   max-height: 20.8rem;
   overflow: scroll;
+  &::-webkit-scrollbar {
+    display: none;
+  }
 `;
 
 const IndivContentUI = styled.button`

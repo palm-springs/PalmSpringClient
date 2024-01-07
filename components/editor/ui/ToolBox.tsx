@@ -40,7 +40,6 @@ const EditorMenuBar = ({ editor, encodeFileToBase64, setLink }: editorProps) => 
       setAtTop(window.scrollY >= 143);
       setVisible(window.scrollY >= 143);
       if (iconWrapperRef.current === null) return;
-      console.log(iconWrapperRef.current?.style.top);
       const { current } = iconWrapperRef;
       if (window.scrollY >= 143) {
         current.style.position = 'fixed';
@@ -98,7 +97,10 @@ const EditorMenuBar = ({ editor, encodeFileToBase64, setLink }: editorProps) => 
         </ToolButton>
         <ToolButton tabIndex={-1}>
           <ImageInputLabel>
-            <input type="file" onChange={(event) => encodeFileToBase64(event, editor)}></input>
+            <input
+              type="file"
+              onChange={(event) => encodeFileToBase64(event, editor)}
+              accept=".jpg, .jpeg, .jpe, .png, .webp, .svg, .gif"></input>
             <ImageIcon />
           </ImageInputLabel>
         </ToolButton>

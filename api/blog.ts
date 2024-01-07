@@ -44,8 +44,14 @@ export const getMetaBlogInfo = async (blogUrl: string) => {
 
 //블로그 정보 가져오기 - 반영 완
 export const getBlogInfo = async (blogUrl: string) => {
-  const { data } = await client.get<Response<BlogInfoProps>>(`/api/v2/dashboard/blog/admin/info/${blogUrl}`);
-  return data;
+  try {
+    const { data } = await client.get<Response<BlogInfoProps>>(`/api/v2/dashboard/blog/admin/info/${blogUrl}`);
+    return data;
+  } catch (err) {
+    if (isAxiosError(err)) {
+      return err.response?.data;
+    }
+  }
   // {{BASE_URL}}/api/v2/dashboard/blog/admin/info/{blogUrl}
 };
 
