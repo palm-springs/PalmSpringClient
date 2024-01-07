@@ -26,12 +26,12 @@ const Home = () => {
           redirect(`https://palms.blog/${data.joinBlogList[0].blogUrl}/dashboard/upload`);
         }
       }
+    } else {
+      return <LandingPage />;
     }
   };
 
   checkUser();
-
-  return <LandingPage />;
 };
 
 export default Home;
