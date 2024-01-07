@@ -1,11 +1,12 @@
 import { Dispatch, SetStateAction } from 'react';
-import { toast, Toaster } from 'react-hot-toast';
+import { Toaster } from 'react-hot-toast';
 import { useRouter } from 'next/navigation';
 import { useRecoilState } from 'recoil';
 
 import { DOMAIN_NAME } from '@/constants/palmspringInfo';
 import { useDeletePage } from '@/hooks/dashboard';
 import theme from '@/styles/theme';
+import { createToast } from '@/utils/lib/toast';
 
 import DashBoardContent from '../components/DashBoardContent';
 import DashboardContentDeleteModal from '../components/DashboardContentDeleteModal';
@@ -32,21 +33,12 @@ const IndivPageContent = (props: IndivPageContentProps) => {
 
   const [modalState, setModalState] = useRecoilState(dashBoardModalState);
 
-  const notify = () =>
-    toast.error('네비게이션 연결을 해제하고 다시 시도해주세요!', {
-      id: 'has linked nav',
-      style: {
-        padding: '1.6rem 2rem',
-        borderRadius: '3.2rem',
-        background: theme.colors.background_red,
-        color: '#fff',
-        fontSize: '1.4rem',
-        fontFamily: 'Pretendard',
-        fontStyle: 'normal',
-        fontWeight: '700',
-        letterSpacing: '-0.028rem',
-      },
-    });
+  const hasConnectionErrorNotify = createToast({
+    type: 'ERROR',
+    message: '네비게이션 연결을 해제하고 다시 시도해주세요!',
+    id: 'already has connection',
+    background: theme.colors.background_red,
+  });
 
   return (
     <>
@@ -89,7 +81,8 @@ const IndivPageContent = (props: IndivPageContentProps) => {
           subText="페이지를 삭제할 시, 복구할 수 없습니다."
           onDelete={() => {
             if (isLinked) {
-              notify();
+              hasConnectionErrorNotify();
+              setModalState('');
               return;
             }
             mutate();
