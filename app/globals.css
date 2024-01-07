@@ -1,3 +1,5 @@
+@import url('https://cdn.jsdelivr.net/gh/orioncactus/pretendard/dist/web/static/pretendard-dynamic-subset.css');
+
 @font-face {
   font-family: 'Pretendard';
   font-weight: 100;
@@ -108,8 +110,12 @@
   box-sizing: border-box;
   margin: 0;
   padding: 0;
+}
+
+html, body {
   font-family: 'Pretendard', sans-serif;
 }
+
 body {
   --2px: 2px;
   --4px: 4px;
