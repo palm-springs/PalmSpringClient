@@ -54,7 +54,6 @@ export const middleware = (request: NextRequest) => {
 
 export const config = {
   matcher: [
-    '/',
     '/home/:path*',
     '/content/:path*',
     '/author/:path*',
