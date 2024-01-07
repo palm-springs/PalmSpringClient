@@ -255,10 +255,12 @@ const Home = () => {
     console.log(data);
     if (data.code === 201) {
       console.log('1212줄임~');
-      const newAccessToken = data.accessToken;
+      const newAccessToken = data.data.accessToken;
       if (newAccessToken) {
         client.defaults.headers.common.Authorization = `Bearer ${newAccessToken}`;
         const { data } = await getUserInfoAfterLogin('', newAccessToken);
+
+        console.log(data);
 
         if (!data.joinBlogList || data.joinBlogList.length === 0) {
           redirect(`/no-team/dashboard/upload`);
