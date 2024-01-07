@@ -1,15 +1,15 @@
 'use client';
 import React, { useEffect } from 'react';
-import { redirect, useRouter } from 'next/navigation';
+import { useRouter } from 'next/navigation';
 import { useRecoilState } from 'recoil';
 
 import client from '@/api';
 import { getRefreshToken } from '@/api/auth';
 import { getUserInfoAfterLogin } from '@/api/dashboard';
 
-import { accessTokenState } from '../components/auth/states/atom';
+import { accessTokenState } from './states/atom';
 
-export const useCheckAuthValidation = async () => {
+const LandingAuth = ({ children }: { children: React.ReactNode }) => {
   const router = useRouter();
 
   // recoil access token
@@ -30,15 +30,25 @@ export const useCheckAuthValidation = async () => {
   };
 
   // check Auth and redirect to dashboard
-  const newAccessToken = await refresh();
-  if (newAccessToken) {
-    client.defaults.headers.common.Authorization = `Bearer ${newAccessToken}`;
-    const { data } = await getUserInfoAfterLogin('', newAccessToken);
+  const checkAuthValidation = async () => {
+    const newAccessToken = await refresh();
+    if (newAccessToken) {
+      client.defaults.headers.common.Authorization = `Bearer ${newAccessToken}`;
+      const { data } = await getUserInfoAfterLogin('', newAccessToken);
 
-    if (!data.joinBlogList || data.joinBlogList.length === 0) {
-      redirect('/no-team/dashboard/upload');
-    } else {
-      redirect(`/${data.joinBlogList[0].blogUrl}/dashboard/upload`);
+      if (!data.joinBlogList || data.joinBlogList.length === 0) {
+        router.push('/no-team/dashboard/upload');
+      } else {
+        router.push(`/${data.joinBlogList[0].blogUrl}/dashboard/upload`);
+      }
     }
-  }
+  };
+
+  useEffect(() => {
+    checkAuthValidation();
+  }, []);
+
+  return <div>{children}</div>;
 };
+
+export default LandingAuth;
