@@ -19,7 +19,6 @@ const ModalPortalContainer = (props: ModalPortalContainerProps) => {
         placeholder={placeholder}
         onChange={(e) => {
           setState(e.target.value);
-          console.log(e.target.value);
         }}
         value={state}
       />

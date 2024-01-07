@@ -72,10 +72,6 @@ const TextEditorBuild = (props: TextEditorBuildprops) => {
   const [updatedArticleData, setUpdatedArticleData] = useRecoilState(articleDataState);
   const [updatedPageData, setUpdatedPageData] = useRecoilState(pageDataState);
 
-  useEffect(() => {
-    console.log(imageArr);
-  }, [imageArr]);
-
   // tiptap 라이브러리 내장 에디터 관련 기능  extensions.
   const editor = useEditor({
     extensions: [

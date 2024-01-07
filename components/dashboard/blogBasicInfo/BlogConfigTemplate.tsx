@@ -29,8 +29,8 @@ import BlogUrl from './BlogUrl';
 
 interface BlogConfigProps {
   blogName: string;
-  blogLogoImage: File | string | null;
-  blogMainImage: File | string | null;
+  blogLogoImage: string | null;
+  blogMainImage: string | null;
   blogDescribeText: string;
 }
 
@@ -90,35 +90,13 @@ const BlogConfigTemplate = () => {
     metaDescription !== blogMetaConfig.metaDescription;
 
   const postBlogConfig = async () => {
-    const logoS3 =
-      blogConfig.blogLogoImage &&
-      typeof blogConfig.blogLogoImage !== 'string' &&
-      ((await getImageMultipartData(blogConfig.blogLogoImage)) as string);
-
-    if (logoS3 === imageErrorCase.sizeError) {
-      imageSizeErrorNotify();
-      return;
-    }
-    const logoImage = logoS3 ? logoS3 : blogConfig.blogLogoImage;
-
-    const mainS3 =
-      blogConfig.blogMainImage &&
-      typeof blogConfig.blogMainImage !== 'string' &&
-      ((await getImageMultipartData(blogConfig.blogMainImage)) as string);
-    if (mainS3 === imageErrorCase.sizeError) {
-      imageSizeErrorNotify();
-      return;
-    }
-    const mainImage = mainS3 ? mainS3 : blogConfig.blogMainImage;
-    // 기본적으로 로고 이미지가 null인 경우, string인 경우, File인 경우가 있다.
-
     try {
       // axios를 이용한 post 요청. 헤더를 multipart/form-data 로 한다.
       await putBlogConfig(team, {
         name: blogConfig.blogName,
         description: blogConfig.blogDescribeText,
-        logo: typeof logoImage === 'string' ? logoImage : null,
-        thumbnail: typeof mainImage === 'string' ? mainImage : null,
+        logo: blogConfig.blogLogoImage,
+        thumbnail: blogConfig.blogMainImage,
         metaThumbnail: blogMetaConfig.metaThumbnail,
         metaName: blogMetaConfig.metaName,
         metaDescription: blogMetaConfig.metaDescription,

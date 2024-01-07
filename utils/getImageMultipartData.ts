@@ -7,7 +7,6 @@ export const getImageMultipartData = async (value: File) => {
   formData.append('image', value);
 
   const data = await uploadImage(formData);
-  console.log(data);
   if (data.code === 201) return data.data;
   else if (data.code === 406 || data.code === 413) return imageErrorCase.sizeError;
 };
