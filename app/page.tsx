@@ -3,12 +3,13 @@ import { redirect } from 'next/navigation';
 import client from '@/api';
 import { getRefreshToken } from '@/api/auth';
 import { getUserInfoAfterLogin } from '@/api/dashboard';
-import LandingPage from '@/components/landing/LandigPage';
+import LandingPage from '@/components/landing/LandingPage';
 
 import 'aos/dist/aos.css';
 
 const Home = async () => {
   const data = await getRefreshToken();
+  console.log('HOME', data);
 
   if (data.code === 201) {
     console.log('1212줄임~');
@@ -25,9 +26,9 @@ const Home = async () => {
         redirect(`/${data.joinBlogList[0].blogUrl}/dashboard/upload`);
       }
     }
+  } else {
+    return <LandingPage />;
   }
-
-  return <LandingPage />;
 };
 
 export default Home;
