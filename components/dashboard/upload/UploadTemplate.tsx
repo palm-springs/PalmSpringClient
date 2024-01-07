@@ -34,34 +34,48 @@ const UploadTemplate = () => {
 
   const articleData = useGetArticleList(blogUrl, category === '전체' ? '' : String(currentCategoryId));
 
-  if (!categoryData || !articleData)
+  if (!categoryData) {
     return (
       <LoadingContainer>
         <LoadingLottie width={10} height={10} />
       </LoadingContainer>
     );
+  }
 
-  const filteredCategory = getLiteralCategoryList(categoryData);
+  const render = () => {
+    if (!articleData)
+      return (
+        <LoadingContainer>
+          <LoadingLottie width={10} height={10} />
+        </LoadingContainer>
+      );
 
-  return articleData.data.length === 0 ? (
-    <EmptyLanding
-      header={true}
-      message1="업로드된 글이 없어요."
-      message2="새 글을 작성해보세요."
-      buttonText="새 글 작성하기"
-      buttonClick={() => {
-        router.push(`/${blogUrl}/editor/article`);
-        setArticleDataState((prev) => ({
-          ...prev,
-          title: '',
-        }));
-      }}
-    />
-  ) : (
+    const filteredCategory = getLiteralCategoryList(categoryData);
+
+    return articleData.data.length === 0 ? (
+      <EmptyLanding
+        header={true}
+        message1="업로드된 글이 없어요."
+        message2="새 글을 작성해보세요."
+        buttonText="새 글 작성하기"
+        buttonClick={() => {
+          router.push(`/${blogUrl}/editor/article`);
+          setArticleDataState((prev) => ({
+            ...prev,
+            title: '',
+          }));
+        }}
+      />
+    ) : (
+      <UploadContentList category={filteredCategory} currentCategory={category} articleData={articleData} />
+    );
+  };
+
+  return (
     <DashBoardTemplateContainer>
       <UploadTabBar setCategory={setCategory} currentCategory={category} categoryListData={categoryData.data} />
       <Line />
-      <UploadContentList category={filteredCategory} currentCategory={category} articleData={articleData} />
+      {render()}
     </DashBoardTemplateContainer>
   );
 };

@@ -56,7 +56,13 @@ const BlogLogoImage = (props: BlogLogoImageProps) => {
         </LogoImageContainer>
       ) : (
         <BlogLogoUploadLabel>
-          <input ref={inputImgRef} type="file" onChange={handleOnLogoImageChange} disabled={readonly} />
+          <input
+            ref={inputImgRef}
+            type="file"
+            onChange={handleOnLogoImageChange}
+            disabled={readonly}
+            accept=".jpg, .jpeg, .jpe, .png, .webp, .svg, .gif"
+          />
           <BlogLogoUpload>
             <UploadIcon />
             <UploadText>업로드하기</UploadText>

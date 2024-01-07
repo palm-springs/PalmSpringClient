@@ -29,8 +29,11 @@ const NavButton = (props: NavButtonProps) => {
 
   if (currentPageType === 'blogdirectnav') {
     return (
-      <BlogDirectNavButton target="_blank" href={`https://${team}.palms.blog/home`}>
-        <SideBarContent currentPage={pageType === currentPageType}>
+      <BlogDirectNavButton
+        target="_blank"
+        href={`https://${team}.palms.blog/home`}
+        disabled={innerText === '구독자' || !team}>
+        <SideBarContent currentPage={pageType === currentPageType} disabled={innerText === '구독자' || !team}>
           {icon}
           {innerText}
         </SideBarContent>
@@ -43,8 +46,8 @@ const NavButton = (props: NavButtonProps) => {
       onNavButtonClick={() => {
         router.push(currentPageType);
       }}
-      disabled={pageType === 'dashboard' || innerText === '구독자'}>
-      <SideBarContent currentPage={pageType === currentPageType}>
+      disabled={innerText === '구독자' || !team}>
+      <SideBarContent currentPage={pageType === currentPageType} disabled={innerText === '구독자' || !team}>
         {icon}
         {innerText}
       </SideBarContent>

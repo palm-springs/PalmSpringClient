@@ -1,12 +1,14 @@
 'use client';
 
 import React, { useEffect, useRef, useState } from 'react';
+import { usePathname } from 'next/navigation';
 import styled from 'styled-components';
 
 import DashBoardNavContainer from './ui/DashBoardNavContainer';
 import Line from './ui/Line';
 import BlogList from './BlogList';
 import DashBoardFooter from './DashBoardFooter';
+import DashBoardNoTeamTitle from './DashBoardNoTeamTitle';
 import DashBoardTitle from './DashBoardTitle';
 import NavButton from './NavButton';
 
@@ -16,6 +18,8 @@ const DashBoardNav = () => {
   const [currentBlog, setCurrentBlog] = useState<number>(0);
   const blogListRef = useRef<HTMLElement>(null);
   const titleRef = useRef<HTMLDivElement>(null);
+
+  const pathName = usePathname();
 
   const handleClickBlogListOutside = (event: MouseEvent) => {
     if (
@@ -37,13 +41,23 @@ const DashBoardNav = () => {
 
   return (
     <DashBoardNavContainer>
-      <DashBoardTitle
-        isBlogOpen={isBlogListOpen}
-        setIsBlogListOpen={setIsBlogListOpen}
-        currentBlog={currentBlog}
-        setCurrentBlog={setCurrentBlog}
-        titleRef={titleRef}
-      />
+      {pathName.startsWith('/no-team') ? (
+        <DashBoardNoTeamTitle
+          isBlogOpen={isBlogListOpen}
+          setIsBlogListOpen={setIsBlogListOpen}
+          currentBlog={currentBlog}
+          setCurrentBlog={setCurrentBlog}
+          titleRef={titleRef}
+        />
+      ) : (
+        <DashBoardTitle
+          isBlogOpen={isBlogListOpen}
+          setIsBlogListOpen={setIsBlogListOpen}
+          currentBlog={currentBlog}
+          setCurrentBlog={setCurrentBlog}
+          titleRef={titleRef}
+        />
+      )}
       <NavButtonListContainer>
         <NavButton currentPageType="upload" />
         <NavButton currentPageType="tempsaved" />

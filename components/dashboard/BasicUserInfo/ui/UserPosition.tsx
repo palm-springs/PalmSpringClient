@@ -49,7 +49,7 @@ const UserPositionTextarea = styled.textarea`
 
 const UserPositionContainer = styled.div`
   display: flex;
-  margin: 3.2rem 0 29.7rem;
+  margin: 3.2rem 0 25rem;
 `;
 
 const UserPositionTitle = styled.span`

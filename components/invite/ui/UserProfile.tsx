@@ -1,10 +1,13 @@
 'use client';
 import { ChangeEvent } from 'react';
+import { Toaster } from 'react-hot-toast';
 import { useRecoilState } from 'recoil';
 import styled from 'styled-components';
 
+import { imageErrorCase } from '@/constants/image';
 import { ProfilePhotoIcon, UserProfileDeleteIcon } from '@/public/icons';
 import { getImageMultipartData } from '@/utils/getImageMultipartData';
+import { imageSizeErrorNotify } from '@/utils/imageSizeErrorNotify';
 
 import { invitedUserDataState } from '../states/userData';
 
@@ -16,7 +19,11 @@ const UserProfile = () => {
 
     if (files) {
       const remoteImgUrl = await getImageMultipartData(files[0]);
-      setInvitedUserData((prev) => ({ ...prev, thumbnail: remoteImgUrl }));
+      if (remoteImgUrl === imageErrorCase.sizeError) {
+        imageSizeErrorNotify();
+      } else {
+        remoteImgUrl && setInvitedUserData((prev) => ({ ...prev, thumbnail: remoteImgUrl }));
+      }
     }
   };
 
@@ -24,18 +31,34 @@ const UserProfile = () => {
     setInvitedUserData((prev) => ({ ...prev, thumbnail: null }));
   };
 
-  return thumbnail ? (
-    <ProfileContainer>
-      <ImageUserBox src={thumbnail} alt="user profile" />
-      <UsersProfilesDeleteButton type="button" onClick={handleOnDeleteImg}>
-        <UserProfileDeleteIcon />
-      </UsersProfilesDeleteButton>
-    </ProfileContainer>
-  ) : (
-    <Label>
-      <ProfilePhotoIcon />
-      <input type="file" onChange={handleOnFileChange} />
-    </Label>
+  const profile = () => {
+    return thumbnail ? (
+      <ProfileContainer>
+        <ImageUserBox src={thumbnail} alt="user profile" />
+        <UsersProfilesDeleteButton type="button" onClick={handleOnDeleteImg}>
+          <UserProfileDeleteIcon />
+        </UsersProfilesDeleteButton>
+      </ProfileContainer>
+    ) : (
+      <Label>
+        <ProfilePhotoIcon />
+        <input type="file" onChange={handleOnFileChange} accept=".jpg, .jpeg, .jpe, .png, .webp, .svg, .gif" />
+      </Label>
+    );
+  };
+
+  return (
+    <>
+      <Toaster
+        position="bottom-center"
+        reverseOrder={false}
+        containerClassName=""
+        containerStyle={{
+          bottom: 80,
+        }}
+      />
+      {profile}
+    </>
   );
 };
 

@@ -44,8 +44,14 @@ export const postSocialLogin = async (platform: string, AccessToken: string) => 
 
 // 리프레시 토큰 재발급
 export const getRefreshToken = async () => {
-  const { data } = await refreshAxiosInstance.get(`/api/v2/auth/token/reissue`);
-  return data;
+  try {
+    const { data } = await refreshAxiosInstance.get(`/api/v2/auth/token/reissue`);
+    return data;
+  } catch (err) {
+    if (isAxiosError(err)) {
+      return err.response?.data;
+    }
+  }
 };
 
 // 로그아웃

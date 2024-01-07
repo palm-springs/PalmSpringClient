@@ -6,9 +6,11 @@ import { styled } from 'styled-components';
 
 import { putBlogConfig } from '@/api/blog';
 import LoadingLottie from '@/components/common/ui/LoadingLottie';
+import { imageErrorCase } from '@/constants/image';
 import { useGetBlogInfo } from '@/hooks/blog';
 import usePerMissionPolicy from '@/hooks/usePermissionPolicy';
 import { getImageMultipartData } from '@/utils/getImageMultipartData';
+import { imageSizeErrorNotify } from '@/utils/imageSizeErrorNotify';
 import { createToast } from '@/utils/lib/toast';
 
 import { blogMetaDataState } from '../state/blogMetaData';
@@ -93,13 +95,20 @@ const BlogConfigTemplate = () => {
       typeof blogConfig.blogLogoImage !== 'string' &&
       ((await getImageMultipartData(blogConfig.blogLogoImage)) as string);
 
+    if (logoS3 === imageErrorCase.sizeError) {
+      imageSizeErrorNotify();
+      return;
+    }
     const logoImage = logoS3 ? logoS3 : blogConfig.blogLogoImage;
 
     const mainS3 =
       blogConfig.blogMainImage &&
       typeof blogConfig.blogMainImage !== 'string' &&
       ((await getImageMultipartData(blogConfig.blogMainImage)) as string);
-
+    if (mainS3 === imageErrorCase.sizeError) {
+      imageSizeErrorNotify();
+      return;
+    }
     const mainImage = mainS3 ? mainS3 : blogConfig.blogMainImage;
     // 기본적으로 로고 이미지가 null인 경우, string인 경우, File인 경우가 있다.
 
@@ -235,8 +244,8 @@ const BlogSaveButton = styled.button<{ disabled: boolean }>`
   height: 3.6rem;
   color: ${({ theme }) => theme.colors.grey_0};
 
-  &:hover {
-    transition: 0.3s;
+  &:not(:disabled):hover {
+    transition: 0.3s ease-out;
     background-color: ${({ theme }) => theme.colors.green_hover};
   }
 `;
