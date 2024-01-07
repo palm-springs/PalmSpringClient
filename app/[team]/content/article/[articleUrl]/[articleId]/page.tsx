@@ -1,19 +1,20 @@
 import React from 'react';
 import { Metadata } from 'next';
 
-import { getSingleArticleData } from '@/api/article';
+import { getBlogArticleDetail } from '@/api/blogHome';
 import BlogMeta from '@/components/blog/BlogMeta';
 
-export async function generateMetadata({
-  params,
-}: {
-  params: { team: string; articleId: number };
-}): Promise<Metadata | null> {
+type Props = {
+  params: { team: string; articleId: string };
+  searchParams: { [key: string]: string | string[] | undefined };
+};
+
+export async function generateMetadata({ params }: Props): Promise<Metadata | null> {
   const team = params.team;
   const articleId = params.articleId;
-
-  const product = await getSingleArticleData(team, Number(articleId));
-
+  console.log(team, articleId);
+  const product = await getBlogArticleDetail(team, Number(articleId));
+  console.log(product);
   if (!product) return null;
 
   const {
