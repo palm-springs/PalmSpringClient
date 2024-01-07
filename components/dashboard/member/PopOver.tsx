@@ -102,22 +102,34 @@ const PopOverContainer = styled.div`
   right: 0;
 
   flex-direction: column;
-  gap: 2rem;
-  align-items: flex-start;
-  z-index: 5;
+  justify-content: space-between;
+  z-index: 100;
 
   border: 1px solid ${({ theme }) => theme.colors.grey_500};
   border-radius: 0.8rem;
 
   box-shadow: 0 2px 5px 0 rgba(0, 0, 0, 0.1);
   background-color: ${({ theme }) => theme.colors.grey_0};
-  padding: 2rem 2.4rem;
+  padding: 0.8rem;
   width: fit-content;
 `;
 
 const LinkText = styled(Link)`
   ${({ theme }) => theme.fonts.Body3_Regular};
+  display: flex;
+  align-items: center;
+  transition: 0.3s ease-out;
+  border: none;
+  border-radius: 0.8rem;
+  background: none;
+  padding: 0 1rem;
+  width: 100%;
+  height: 4.2rem;
   color: ${({ theme }) => theme.colors.grey_900};
+
+  &:hover {
+    background: ${({ theme }) => theme.colors.grey_100};
+  }
 
   &.red {
     color: ${({ theme }) => theme.colors.red};
