@@ -79,31 +79,6 @@ const SaveEditorContentButton = (props: editorProps) => {
     router.back();
   };
 
-  //임시저장 조건분기
-
-  const res = useGetUpdateArticleContent(team, Number(articleId));
-
-  const [articleTempData, setArticleTempData] = useRecoilState(articleDataState);
-
-  useEffect(() => {
-    if (!res || !res.data) return;
-
-    setArticleTempData((prev) => ({
-      ...prev,
-      title: res.data.title,
-      content: res.data.content,
-      images: res.data.images,
-    }));
-  }, [res]);
-
-  if (!res || !res.data) return;
-
-  const { title, content } = res.data; //이전데이터
-
-  const isContentChanged = title !== articleTempData.title || content !== articleTempData.content;
-
-  console.log(content, articleTempData);
-
   return (
     <>
       <Toaster
@@ -122,7 +97,7 @@ const SaveEditorContentButton = (props: editorProps) => {
           {isEdit ? (
             <NoneTemporary type="button" />
           ) : (
-            <TemporarySaveButton type="button" onClick={handleDraftSaveButton} disabled={!isContentChanged}>
+            <TemporarySaveButton type="button" onClick={handleDraftSaveButton}>
               임시저장
             </TemporarySaveButton>
           )}
@@ -188,15 +163,13 @@ const NoneTemporary = styled.button`
   height: 3.6rem;
 `;
 
-const TemporarySaveButton = styled.button<{ disabled: boolean }>`
+const TemporarySaveButton = styled.button`
   display: inline-flex;
   flex-shrink: 0;
   gap: 1rem;
   align-items: center;
   justify-content: center;
-  opacity: ${({ disabled }) => (disabled ? '70%' : 'none')};
   margin-left: 48.5rem;
-  cursor: ${({ disabled }) => (disabled ? 'default' : 'pointer')};
   padding: 1rem 2rem;
   width: 9.6rem;
   height: 3.6rem;
@@ -204,7 +177,7 @@ const TemporarySaveButton = styled.button<{ disabled: boolean }>`
   font-family: ${({ theme }) => theme.fonts.Button_medium};
   &:hover {
     border-radius: 0.8rem;
-    background: ${({ theme, disabled }) => (disabled ? `none` : theme.colors.grey_200)};
+    background: ${({ theme }) => theme.colors.grey_200};
     width: 9.6rem;
     height: 3.6rem;
   }
