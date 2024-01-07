@@ -265,7 +265,8 @@ const Home = () => {
         if (!data.joinBlogList || data.joinBlogList.length === 0) {
           redirect(`/no-team/dashboard/upload`);
         } else {
-          redirect(`/${data.joinBlogList[0].blogUrl}/dashboard/upload`);
+          redirect(`/no-team/dashboard/upload`);
+          // redirect(`/${data.joinBlogList[0].blogUrl}/dashboard/upload`);
         }
       }
     }
