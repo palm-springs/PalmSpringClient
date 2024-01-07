@@ -1,20 +1,38 @@
-'use client';
-
 import React from 'react';
-import { useParams } from 'next/navigation';
+import { Metadata } from 'next';
 
-import LoadingLottie from '@/components/common/ui/LoadingLottie';
-import ArticleTemplate from '@/components/content/ui/ArticleTemplate';
-import { useGetBlogArticleDetail } from '@/hooks/blogHome';
+import { getSingleArticleData } from '@/api/article';
+import BlogMeta from '@/components/blog/BlogMeta';
+
+export async function generateMetadata({
+  params,
+}: {
+  params: { team: string; articleId: number };
+}): Promise<Metadata | null> {
+  const team = params.team;
+  const articleId = params.articleId;
+
+  const product = await getSingleArticleData(team, Number(articleId));
+
+  if (!product) return null;
+
+  const {
+    data: { title, description },
+  } = product;
+
+  return {
+    title,
+    description,
+    openGraph: {
+      title,
+      description,
+      type: 'website',
+    },
+  };
+}
 
 const ContentPage = () => {
-  const { team, articleId } = useParams();
-
-  const res = useGetBlogArticleDetail(team, Number(articleId));
-
-  if (!res) return <LoadingLottie width={10} height={10} fit />;
-
-  return <ArticleTemplate data={res.data} />;
+  return <BlogMeta />;
 };
 
 export default ContentPage;
