@@ -1,6 +1,5 @@
 'use client';
 import { useEffect } from 'react';
-import axios from 'axios';
 import { usePathname, useRouter, useSearchParams } from 'next/navigation';
 import { useRecoilState, useResetRecoilState } from 'recoil';
 
@@ -26,14 +25,14 @@ const AuthRequired = ({ children }: { children: React.ReactNode }) => {
 
   // access token 재발급 요청 함수 (reissue)
   const refresh = async () => {
-    console.log('reissue 요청');
-    const {
-      data: { accessToken },
-    } = await getRefreshToken();
+    const { code, data } = await getRefreshToken();
 
-    setAccessToken(accessToken);
-    console.log(`reissue해와서 recoil set : ${accessToken}`);
-    return accessToken;
+    if (code === 201) {
+      setAccessToken(data.accessToken);
+      return data.accessToken;
+    } else {
+      return;
+    }
   };
 
   // Authorization, interceptor
@@ -42,7 +41,11 @@ const AuthRequired = ({ children }: { children: React.ReactNode }) => {
       client.defaults.headers.common.Authorization = `Bearer ${accessToken}`;
     } else {
       const newAccessToken = await refresh();
-      client.defaults.headers.common.Authorization = `Bearer ${newAccessToken}`;
+      if (newAccessToken) {
+        client.defaults.headers.common.Authorization = `Bearer ${newAccessToken}`;
+      } else {
+        router.push(`/auth?userState=${LoginUserState.NO_USER}`);
+      }
     }
   };
 
@@ -52,24 +55,18 @@ const AuthRequired = ({ children }: { children: React.ReactNode }) => {
     // api 요청에 대한 응답에 따른 조건분기처리
     const clientInterceptor = client.interceptors.response.use(
       (response) => {
-        console.log('로그인 정상 & response 성공');
         return response;
       },
       async (error) => {
         const { config } = error;
-        console.log(error.response.status);
-        console.log('로그인 비정상 & api 요청 response 에러');
 
         if (!error.response) {
-          console.log(error);
-          console.log('Access Token is expired.');
           const newAccessToken = await refresh();
 
           config.headers.Authorization = `Bearer ${newAccessToken}`;
           return client(config);
         }
 
-        console.log('response 있다.');
         return error.response;
       },
     );
@@ -77,11 +74,9 @@ const AuthRequired = ({ children }: { children: React.ReactNode }) => {
     // reissue api 요청에 대한 응답에 따른 조건분기처리
     const refreshInterceptor = refreshAxiosInstance.interceptors.response.use(
       (response) => {
-        console.log('refresh 성공');
         return response;
       },
       async (error) => {
-        console.log('Refresh Token is expired.');
         resetAccessToken();
 
         const redirectUrl = pathname === '/invite' ? `${pathname}?code=${paramsCode}` : `${pathname}`;
@@ -93,7 +88,6 @@ const AuthRequired = ({ children }: { children: React.ReactNode }) => {
     );
 
     return () => {
-      console.log('interceptor 제거 위치');
       client.interceptors.response.eject(clientInterceptor);
       refreshAxiosInstance.interceptors.request.eject(refreshInterceptor);
     };

@@ -71,12 +71,6 @@ const TextEditorBuild = (props: TextEditorBuildprops) => {
   const draftPageMutation = useUpdateTempPageDraft(team);
   const [updatedArticleData, setUpdatedArticleData] = useRecoilState(articleDataState);
   const [updatedPageData, setUpdatedPageData] = useRecoilState(pageDataState);
-  const [currentContent, setCurrentContent] = useState('');
-
-  console.log(articleData);
-  useEffect(() => {
-    console.log(imageArr, articleData, pageData, currentContent);
-  }, [imageArr, articleData, pageData, currentContent]);
 
   // tiptap 라이브러리 내장 에디터 관련 기능  extensions.
   const editor = useEditor({

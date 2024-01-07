@@ -6,9 +6,12 @@ import { styled } from 'styled-components';
 
 import { putBlogConfig } from '@/api/blog';
 import LoadingLottie from '@/components/common/ui/LoadingLottie';
+import { imageErrorCase } from '@/constants/image';
 import { useGetBlogInfo } from '@/hooks/blog';
 import usePerMissionPolicy from '@/hooks/usePermissionPolicy';
 import { getImageMultipartData } from '@/utils/getImageMultipartData';
+import { imageSizeErrorNotify } from '@/utils/imageSizeErrorNotify';
+import { createToast } from '@/utils/lib/toast';
 
 import { blogMetaDataState } from '../state/blogMetaData';
 
@@ -26,8 +29,8 @@ import BlogUrl from './BlogUrl';
 
 interface BlogConfigProps {
   blogName: string;
-  blogLogoImage: File | string | null;
-  blogMainImage: File | string | null;
+  blogLogoImage: string | null;
+  blogMainImage: string | null;
   blogDescribeText: string;
 }
 
@@ -46,37 +49,16 @@ const BlogConfigTemplate = () => {
   });
   const [blogMetaConfig, setBlogMetaConfig] = useRecoilState(blogMetaDataState);
 
-  const successNotify = () =>
-    toast.success('블로그 정보를 수정했습니다!', {
-      id: 'blog config modified',
-      style: {
-        padding: '1.6rem 2rem',
-        borderRadius: '3.2rem',
-        background: '#343A40',
-        color: '#fff',
-        fontSize: '1.4rem',
-        fontFamily: 'Pretendard',
-        fontStyle: 'normal',
-        fontWeight: '700',
-        letterSpacing: '-0.028rem',
-      },
-    });
-
-  const errorNotify = () =>
-    toast.error('블로그 정보를 수정에 실패했습니다!', {
-      id: 'error on modifying blog config',
-      style: {
-        padding: '1.6rem 2rem',
-        borderRadius: '3.2rem',
-        background: '#343A40',
-        color: '#fff',
-        fontSize: '1.4rem',
-        fontFamily: 'Pretendard',
-        fontStyle: 'normal',
-        fontWeight: '700',
-        letterSpacing: '-0.028rem',
-      },
-    });
+  const successNotify = createToast({
+    type: 'NORMAL',
+    message: '블로그 정보를 수정했습니다!',
+    id: 'error on blog config modified',
+  });
+  const errorNotify = createToast({
+    type: 'ERROR',
+    message: '블로그 정보 수정에 실패했습니다!',
+    id: 'error on modifying blog config',
+  });
 
   useEffect(() => {
     if (!res || !res.data) return;
@@ -108,28 +90,13 @@ const BlogConfigTemplate = () => {
     metaDescription !== blogMetaConfig.metaDescription;
 
   const postBlogConfig = async () => {
-    const logoS3 =
-      blogConfig.blogLogoImage &&
-      typeof blogConfig.blogLogoImage !== 'string' &&
-      ((await getImageMultipartData(blogConfig.blogLogoImage)) as string);
-
-    const logoImage = logoS3 ? logoS3 : blogConfig.blogLogoImage;
-
-    const mainS3 =
-      blogConfig.blogMainImage &&
-      typeof blogConfig.blogMainImage !== 'string' &&
-      ((await getImageMultipartData(blogConfig.blogMainImage)) as string);
-
-    const mainImage = mainS3 ? mainS3 : blogConfig.blogMainImage;
-    // 기본적으로 로고 이미지가 null인 경우, string인 경우, File인 경우가 있다.
-
     try {
       // axios를 이용한 post 요청. 헤더를 multipart/form-data 로 한다.
       await putBlogConfig(team, {
         name: blogConfig.blogName,
         description: blogConfig.blogDescribeText,
-        logo: typeof logoImage === 'string' ? logoImage : null,
-        thumbnail: typeof mainImage === 'string' ? mainImage : null,
+        logo: blogConfig.blogLogoImage,
+        thumbnail: blogConfig.blogMainImage,
         metaThumbnail: blogMetaConfig.metaThumbnail,
         metaName: blogMetaConfig.metaName,
         metaDescription: blogMetaConfig.metaDescription,
@@ -255,8 +222,8 @@ const BlogSaveButton = styled.button<{ disabled: boolean }>`
   height: 3.6rem;
   color: ${({ theme }) => theme.colors.grey_0};
 
-  &:hover {
-    transition: 0.3s;
+  &:not(:disabled):hover {
+    transition: 0.3s ease-out;
     background-color: ${({ theme }) => theme.colors.green_hover};
   }
 `;

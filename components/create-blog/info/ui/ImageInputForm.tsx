@@ -1,12 +1,15 @@
 'use client';
 
 import { ChangeEvent, useState } from 'react';
+import { Toaster } from 'react-hot-toast';
 import { useParams } from 'next/navigation';
 import { useSetRecoilState } from 'recoil';
 import styled from 'styled-components';
 
+import { imageErrorCase } from '@/constants/image';
 import { IcClose24Icon, UploadIcon } from '@/public/icons';
 import { getImageMultipartData } from '@/utils/getImageMultipartData';
+import { imageSizeErrorNotify } from '@/utils/imageSizeErrorNotify';
 
 import { createBlogDataState } from '../states/atom';
 
@@ -33,17 +36,29 @@ const ImageInputForm = (props: ImageInputFormProps) => {
     const reader = new FileReader();
     if (files) {
       const remoteImgUrl = await getImageMultipartData(files[0]);
-      setBlogData((prev) => ({ ...prev, [type]: remoteImgUrl }));
+      if (remoteImgUrl === imageErrorCase.sizeError) {
+        imageSizeErrorNotify();
+      } else {
+        setBlogData((prev) => ({ ...prev, [type]: remoteImgUrl }));
 
-      reader.readAsDataURL(files[0] as Blob);
-      reader.onloadend = () => {
-        setImgSrc(reader.result as string);
-      };
+        reader.readAsDataURL(files[0] as Blob);
+        reader.onloadend = () => {
+          setImgSrc(reader.result as string);
+        };
+      }
     }
   };
 
   return (
     <div>
+      <Toaster
+        position="bottom-center"
+        reverseOrder={false}
+        containerClassName=""
+        containerStyle={{
+          bottom: 80,
+        }}
+      />
       <InputTitle>
         블로그 {type === 'logo' ? '로고' : '대문'} 이미지
         {type === 'thumbnail' && <span>대문 이미지 권장 크기는 1440*500 입니다</span>}
@@ -61,7 +76,7 @@ const ImageInputForm = (props: ImageInputFormProps) => {
           <Label>
             <UploadIcon />
             업로드하기
-            <input type="file" onChange={handleOnFileChange} />
+            <input type="file" onChange={handleOnFileChange} accept=".jpg, .jpeg, .jpe, .png, .webp, .svg, .gif" />
           </Label>
         )}
       </ImageContainer>

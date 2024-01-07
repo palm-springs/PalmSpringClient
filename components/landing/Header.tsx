@@ -55,7 +55,7 @@ const header_button = css`
   font-size: 16px;
   font-weight: 600;
   &:hover {
-    background: #0C9B72;
+    background: #0c9b72;
   }
   @media (max-width: 575px) {
     display: none;
@@ -94,53 +94,54 @@ const Header = () => {
       data-aos-delay="200"
       data-aos-once="true">
       <div css={header_inside}>
-        <div css={css`
+        <div
+          css={css`
             display: flex;
             align-items: center;
-        `}>
-            <Link href="/">
-                <div css={logo}>
-                    <img src="/images/palmspring_new_logo.png" alt="palmtree" />
-                </div>
-            </Link>
-            <a
-                href="https://official.palms.blog/home"
-                target='_blank'
-                rel="noreferrer noopener"
-                css={[
-                header_button,
-                css`
-                    font-weight:500;
-                    margin-left:20px;
-                    background: transparent;
-                    color: #8898a7;
-                    font-size: 16px;
-                    padding:10px 14px;
-                    &:hover {
-                        background:transparent;
-                        color: #343a40;
-                    }
-                `,
-                ]}>
-                팜스프링 블로그
-            </a>
-            <Link
-                href="/team"
-                css={[
-                header_button,
-                css`
-                    font-weight:500;
-                    background: transparent;
-                    color: #8898a7;
-                    font-size: 16px;
-                    &:hover {
-                        background:transparent;
-                        color: #343a40;
-                    }
-                `,
-                ]}>
-                만든 사람들
-            </Link>
+          `}>
+          <Link href="/">
+            <div css={logo}>
+              <img src="/images/palmspring_new_logo.png" alt="palmtree" />
+            </div>
+          </Link>
+          <a
+            href="https://official.palms.blog/home"
+            target="_blank"
+            rel="noreferrer noopener"
+            css={[
+              header_button,
+              css`
+                margin-left: 20px;
+                background: transparent;
+                padding: 10px 14px;
+                color: #8898a7;
+                font-size: 16px;
+                font-weight: 500;
+                &:hover {
+                  background: transparent;
+                  color: #343a40;
+                }
+              `,
+            ]}>
+            팜스프링 블로그
+          </a>
+          <Link
+            href="/team"
+            css={[
+              header_button,
+              css`
+                background: transparent;
+                color: #8898a7;
+                font-size: 16px;
+                font-weight: 500;
+                &:hover {
+                  background: transparent;
+                  color: #343a40;
+                }
+              `,
+            ]}>
+            만든 사람들
+          </Link>
         </div>
         <div
           css={css`
@@ -148,8 +149,8 @@ const Header = () => {
             gap: 12px;
             align-items: center;
           `}>
-          <Link
-            href={`${GOOGLE_END_POINT}?client_id=${process.env.NEXT_PUBLIC_GOOGLE_CLIENT_ID}&redirect_uri=${redirectUri}&response_type=code&scope=email profile`}
+          {/* <Link
+            href={`/loading`}
             css={[
               header_button,
               css`
@@ -158,21 +159,25 @@ const Header = () => {
                 font-size: 16px;
                 &:hover {
                   background: rgba(0, 0, 0, 0.05);
-                  color: #0C9B72;
+                  color: #0c9b72;
                 }
               `,
             ]}>
             대시보드
-          </Link>
-          <Link href={`${GOOGLE_END_POINT}?client_id=${process.env.NEXT_PUBLIC_GOOGLE_CLIENT_ID}&redirect_uri=${redirectUri}&response_type=code&scope=email profile`}>
-            <button css={[
+          </Link> */}
+          <Link
+            href={`${GOOGLE_END_POINT}?client_id=${process.env.NEXT_PUBLIC_GOOGLE_CLIENT_ID}&redirect_uri=${redirectUri}&response_type=code&scope=email profile`}>
+            <button
+              css={[
                 header_button,
                 css`
-                    @media (max-width:575px){
-                        display:flex;
-                    }
-                `
-            ]}>회원가입</button>
+                  @media (max-width: 575px) {
+                    display: flex;
+                  }
+                `,
+              ]}>
+              로그인
+            </button>
           </Link>
         </div>
       </div>

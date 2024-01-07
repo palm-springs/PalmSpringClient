@@ -30,15 +30,17 @@ const BasicUserInfoPage = () => {
   }, [data]);
 
   return (
-    <BasicUserInfoContainer>
-      <UserProfile />
-      <UserName />
-      <UserId isDuplicate={isDuplicate} setIsDuplicate={setIsDuplicate} previousUrl={data?.data?.url} />
-      <UserOneLiner />
-      <UserPosition />
+    <>
+      <BasicUserInfoContainer>
+        <UserProfile />
+        <UserName />
+        <UserId isDuplicate={isDuplicate} setIsDuplicate={setIsDuplicate} previousUrl={data?.data?.url} />
+        <UserOneLiner />
+        <UserPosition />
+        <UserInfoSaveButton userPreviousData={data} />
+      </BasicUserInfoContainer>
       <DeleteButton />
-      <UserInfoSaveButton userPreviousData={data} />
-    </BasicUserInfoContainer>
+    </>
   );
 };
 

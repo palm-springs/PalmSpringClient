@@ -12,6 +12,6 @@ export default Line;
 
 const LineUI = styled.hr<{ $isSideBar: boolean | undefined }>`
   margin: 0 0 0.8rem;
-  border: 1px solid ${({ theme }) => theme.colors.grey_300};
+  border: 0.5px solid ${({ theme }) => theme.colors.grey_300};
   width: ${({ $isSideBar }) => ($isSideBar ? 'calc(100% - 3.2rem)' : '100%')};
 `;

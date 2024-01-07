@@ -1,14 +1,17 @@
 'use client';
 
 import React, { ChangeEvent, useEffect } from 'react';
+import { Toaster } from 'react-hot-toast';
 import { useParams } from 'next/navigation';
 import { useRecoilState } from 'recoil';
 import styled from 'styled-components';
 
+import { imageErrorCase } from '@/constants/image';
 import { ThumbnailIcon } from '@/public/icons';
 import { UpdateArticleProps } from '@/types/article';
 import { UpdatePageProps } from '@/types/page';
 import { getImageMultipartData } from '@/utils/getImageMultipartData';
+import { imageSizeErrorNotify } from '@/utils/imageSizeErrorNotify';
 
 import { articleDataState, pageDataState } from '../../states/atom';
 
@@ -40,25 +43,40 @@ const ThumbnailInput = (props: ThumbnailInputProps) => {
     }
     const file = files[0];
     const thumbnail = await getImageMultipartData(file);
-    console.log(thumbnail);
-
-    const reader = new FileReader();
-    reader.onload = () => {
-      if (pageType === 'article') {
-        setArticleData((prev) => ({ ...prev, thumbnail }));
-      } else {
-        setPageData((prev) => ({ ...prev, thumbnail }));
-      }
-    };
-    reader.readAsDataURL(file);
+    if (thumbnail === imageErrorCase.sizeError) {
+      imageSizeErrorNotify();
+    } else {
+      const reader = new FileReader();
+      reader.onload = () => {
+        if (pageType === 'article') {
+          thumbnail && setArticleData((prev) => ({ ...prev, thumbnail }));
+        } else {
+          thumbnail && setPageData((prev) => ({ ...prev, thumbnail }));
+        }
+      };
+      reader.readAsDataURL(file);
+    }
   };
 
   switch (pageType) {
     case `article`:
       return (
         <>
+          <Toaster
+            position="bottom-center"
+            reverseOrder={false}
+            containerClassName=""
+            containerStyle={{
+              bottom: 80,
+            }}
+          />
           <ThumbnailInputLabel>
-            <input type="file" id="logo_input" onChange={(event) => encodeFileToBase64(event)} />
+            <input
+              type="file"
+              id="logo_input"
+              onChange={(event) => encodeFileToBase64(event)}
+              accept=".jpg, .jpeg, .jpe, .png, .webp, .svg, .gif"
+            />
             {articleThumbnail ? (
               <CustomImage src={articleThumbnail} alt="미리보기 이미지" />
             ) : (
@@ -76,8 +94,21 @@ const ThumbnailInput = (props: ThumbnailInputProps) => {
     case `page`:
       return (
         <>
+          <Toaster
+            position="bottom-center"
+            reverseOrder={false}
+            containerClassName=""
+            containerStyle={{
+              bottom: 80,
+            }}
+          />
           <ThumbnailInputLabel>
-            <input type="file" id="logo_input" onChange={(event) => encodeFileToBase64(event)} />
+            <input
+              type="file"
+              id="logo_input"
+              onChange={(event) => encodeFileToBase64(event)}
+              accept=".jpg, .jpeg, .jpe, .png, .webp, .svg, .gif"
+            />
             {pageThumbnail ? (
               <CustomImage src={pageThumbnail} alt="미리보기 이미지" />
             ) : (

@@ -3,11 +3,14 @@
 import React, { ChangeEvent, useEffect, useRef, useState } from 'react';
 import styled from 'styled-components';
 
+import { imageErrorCase } from '@/constants/image';
 import { CloseIcon, UploadIcon } from '@/public/icons';
+import { getImageMultipartData } from '@/utils/getImageMultipartData';
+import { imageSizeErrorNotify } from '@/utils/imageSizeErrorNotify';
 
 interface BlogMainImageProps {
   file: string;
-  setFile: (v: File | null) => void;
+  setFile: (v: string | null) => void;
   readonly: boolean;
 }
 
@@ -18,15 +21,17 @@ const BlogMainImage = (props: BlogMainImageProps) => {
 
   const inputImgRef = useRef<HTMLInputElement>(null);
 
-  const handleOnMainImageChange = (e: ChangeEvent<HTMLInputElement>) => {
-    if (!e.target?.files) return;
-    const file = e.target.files[0];
-    const reader = new FileReader();
-    reader.readAsDataURL(file);
-    reader.onloadend = () => {
-      setPreLoadImg(reader.result as string);
-    };
-    setFile(file);
+  const handleOnMainImageChange = async (e: ChangeEvent<HTMLInputElement>) => {
+    const { files } = e.currentTarget;
+
+    if (files) {
+      const blogMainImage = await getImageMultipartData(files[0]);
+      if (blogMainImage === imageErrorCase.sizeError) {
+        imageSizeErrorNotify();
+      } else {
+        blogMainImage && setFile(blogMainImage);
+      }
+    }
   };
 
   const handleOnDeleteMainImage = () => {
@@ -59,7 +64,13 @@ const BlogMainImage = (props: BlogMainImageProps) => {
         </BlogMainImageDeleteContainer>
       ) : (
         <BlogMainUploadLabel>
-          <input ref={inputImgRef} type="file" onChange={handleOnMainImageChange} disabled={readonly} />
+          <input
+            ref={inputImgRef}
+            type="file"
+            onChange={handleOnMainImageChange}
+            disabled={readonly}
+            accept=".jpg, .jpeg, .jpe, .png, .webp, .svg, .gif"
+          />
           <BlogMainUpload>
             <UploadIcon />
             <UploadText>업로드하기</UploadText>

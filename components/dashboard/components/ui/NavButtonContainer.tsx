@@ -21,4 +21,5 @@ export default NavButtonContainer;
 
 const NavButtonUI = styled.button`
   margin-bottom: 0.8rem;
+  color: ${({ theme }) => theme.colors.grey_900};
 `;

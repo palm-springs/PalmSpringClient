@@ -101,7 +101,7 @@ const SaveButton = styled.button<{ disabled: boolean }>`
   height: 3.6rem;
   color: ${({ theme }) => theme.colors.grey_0};
 
-  &:hover {
+  &:not(:disabled):hover {
     transition: 0.3s ease-out;
     background-color: ${({ theme }) => theme.colors.green_hover};
     cursor: pointer;

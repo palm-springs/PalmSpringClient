@@ -1,7 +1,7 @@
 'use client';
 
 import React, { useEffect } from 'react';
-import toast, { Toaster } from 'react-hot-toast';
+import { Toaster } from 'react-hot-toast';
 import styled from 'styled-components';
 
 import ContentInfo from '@/components/common/ContentInfo';
@@ -10,6 +10,7 @@ import Bar from '@/components/content/ui/Bar';
 import Recommend from '@/components/content/ui/Recommend';
 import useCheckMobile from '@/hooks/useCheckMobile';
 import { ContentProps } from '@/types/content';
+import { createToast } from '@/utils/lib/toast';
 
 import MobileContent from '../MobileContent';
 
@@ -28,26 +29,12 @@ const ArticleTemplate = (props: ArticleTemplateProps) => {
 
   const MOBILE = useCheckMobile();
 
-  const notify = () =>
-    toast.success('링크가 복사되었습니다', {
-      id: 'link copied',
-      style: {
-        padding: '1.6rem 2rem',
-        borderRadius: '3.2rem',
-        background: '#343A40',
-        color: '#fff',
-        fontSize: '1.4rem',
-        fontFamily: 'Pretendard',
-        fontStyle: 'normal',
-        fontWeight: '700',
-        letterSpacing: '-0.028rem',
-      },
-    });
+  const linkCopiedNotify = createToast({ type: 'ERROR', message: '링크가 복사되었습니다.', id: 'link copied' });
 
   const copyCurrentUrl = () => {
     if (typeof window !== undefined) {
       navigator.clipboard.writeText(window.location.href);
-      notify();
+      linkCopiedNotify();
     }
   };
 
