@@ -1,6 +1,5 @@
 import axios, { isAxiosError } from 'axios';
 
-import { TEST_REDIRECT_URI } from '@/constants/Auth';
 import { getAccessTokenProps, googleAccessTokenResponse, jwtAccessTokenResponse } from '@/types/auth';
 import { Response } from '@/types/common';
 

@@ -43,10 +43,6 @@ const SubscribeBtn = (subscribeBtnProps: subscribeBtnProps) => {
     setEmail(e.target.value);
   };
 
-  const resetEmail = () => {
-    setEmail('');
-  };
-
   return (
     <>
       {modalIsOpen ? (

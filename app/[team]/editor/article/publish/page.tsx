@@ -1,6 +1,5 @@
 'use client';
 import React, { useState } from 'react';
-import { useParams } from 'next/navigation';
 import styled from 'styled-components';
 
 import AuthRequired from '@/components/auth/AuthRequired';
@@ -12,8 +11,6 @@ import ThumbnailInput from '@/components/editor/publish/ui/ThumbnailInput';
 import UrlCustom from '@/components/editor/publish/ui/UrlCustom';
 
 const ArticlePublishPage = () => {
-  const { team } = useParams();
-
   const [isDuplicate, setIsDuplicate] = useState<boolean | null>(false);
 
   return (

@@ -1,13 +1,11 @@
 'use client';
 
 import { useEffect, useState } from 'react';
-import { useRouter } from 'next/navigation';
 import { useRecoilState } from 'recoil';
 
 import client from '@/api';
 import { getRefreshToken } from '@/api/auth';
 import { getUserInfoAfterLogin } from '@/api/dashboard';
-import LandingAuth from '@/components/auth/LandingAuth';
 import { accessTokenState } from '@/components/auth/states/atom';
 import LandingPage from '@/components/landing/LandingPage';
 

@@ -7,8 +7,6 @@ import { css } from '@emotion/react';
 import Link from 'next/link';
 import { usePathname } from 'next/navigation';
 
-import { TEST_REDIRECT_URI } from '@/constants/Auth';
-
 import 'aos/dist/aos.css';
 
 const header = (position: number) => {
@@ -67,7 +65,7 @@ const GOOGLE_END_POINT = 'https://accounts.google.com/o/oauth2/v2/auth';
 // 브랜치테스트용
 // const redirectUri = TEST_REDIRECT_URI;
 
-const Header = ({ dashboardUrl }: { dashboardUrl: string }) => {
+const Header = ({ dashboardUrl }: { dashboardUrl?: string }) => {
   const pathname = usePathname();
   const [position, setPosition] = useState(0);
   const [screenX, setScreenX] = useState<number>(0);

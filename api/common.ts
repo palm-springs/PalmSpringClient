@@ -1,5 +1,3 @@
-import { isAxiosError } from 'axios';
-
 import { Response } from '@/types/common';
 
 import client from '.';

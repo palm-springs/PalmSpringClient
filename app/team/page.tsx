@@ -1,11 +1,9 @@
 /** @jsxImportSource @emotion/react */
 'use client';
 
-import { useEffect } from 'react';
 import { BiLinkAlt, BiLogoGithub, BiLogoInstagram, BiLogoLinkedin } from 'react-icons/bi';
 import { css } from '@emotion/react';
 
-import client from '@/api';
 import Footer from '@/components/landing/Footer';
 import Header from '@/components/landing/Header';
 
@@ -16,7 +14,11 @@ const ourBelovedPM = [
     name: '김대덕',
     position: 'Team Leader',
     desc: '세상에 도움이 되는 삶을 살고 싶어요',
-    url: ['https://www.linkedin.com/in/daeduk-kim-712b88255/', 'https://dannykim.tistory.com/', 'https://disquiet.io/@_9911120'],
+    url: [
+      'https://www.linkedin.com/in/daeduk-kim-712b88255/',
+      'https://dannykim.tistory.com/',
+      'https://disquiet.io/@_9911120',
+    ],
   },
   {
     name: '양정윤',

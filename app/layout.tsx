@@ -1,6 +1,5 @@
 import { Metadata } from 'next';
 
-import { getMetaBlogInfo } from '@/api/blog';
 import Layout from '@/components/Layout';
 
 export const metadata: Metadata = {

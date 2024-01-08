@@ -4,6 +4,7 @@ class PermissionPolicyChecker {
   private static instance: PermissionPolicyChecker;
 
   // 싱글톤 패턴 적용
+  // SPA에서 싱글톤 적용 시 role에 따른 갱신 불가.
   static getInstance(role: RoleType) {
     if (!PermissionPolicyChecker.instance) {
       PermissionPolicyChecker.instance = new PermissionPolicyChecker(role);
@@ -72,6 +73,7 @@ class PermissionPolicyChecker {
   get deletePage() {
     return this.eligible(['OWNER', 'MANAGER']);
   }
+
   // 카테고리 생성하기
   get createCategory() {
     return this.eligible(['OWNER', 'MANAGER']);

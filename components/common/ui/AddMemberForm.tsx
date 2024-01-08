@@ -1,5 +1,5 @@
 'use client';
-import { Dispatch, SetStateAction, useRef, useState } from 'react';
+import { Dispatch, SetStateAction, useRef } from 'react';
 import styled from 'styled-components';
 
 import { emailData } from '@/types/member';

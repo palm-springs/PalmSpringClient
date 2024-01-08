@@ -23,7 +23,6 @@ const DashBoardTitle = (props: DashBoardTitleProps) => {
   const { team } = useParams();
 
   const res = useGetBlogInfo(team ?? '');
-  console.log(res);
 
   const title = res && res.data && res.data.name;
 
