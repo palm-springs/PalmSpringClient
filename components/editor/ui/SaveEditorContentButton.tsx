@@ -149,7 +149,6 @@ const ButtonContainer = styled.div`
 const ExitButton = styled.button<{ atTop: boolean }>`
   margin-left: 2rem;
   border: ${({ atTop }) => (atTop ? '1px' : '0px')} solid ${({ theme }) => theme.colors.grey_400};
-  /* border: 1px solid ${({ theme }) => theme.colors.grey_400}; */
   border-radius: 0.8rem;
   background: ${({ theme }) => theme.colors.grey_0};
   width: 8.2rem;
@@ -178,8 +177,6 @@ const TemporarySaveButton = styled.button<{ atTop: boolean }>`
   align-items: center;
   justify-content: center;
   margin-left: 48.5rem;
-
-  /* border: 1px solid ${({ theme }) => theme.colors.grey_400}; */
   border: ${({ atTop }) => (atTop ? '1px' : '0px')} solid ${({ theme }) => theme.colors.grey_400};
   border-radius: 0.8rem;
   background: ${({ theme }) => theme.colors.grey_0};
