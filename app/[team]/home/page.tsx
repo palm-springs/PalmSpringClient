@@ -10,7 +10,6 @@ import ArticleContainer from '@/components/blog/ui/ArticleContainer';
 
 type Props = {
   params: { team: string };
-  searchParams: { [key: string]: string | string[] | undefined };
 };
 
 // 메타데이터 끼면 에러생김 --> 공문 보고 다시 해보기

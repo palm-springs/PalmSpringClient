@@ -94,22 +94,24 @@ const SaveEditorContentButton = (props: editorProps) => {
           <ExitButton type="button" onClick={modalOpenHandler}>
             나가기
           </ExitButton>
-          {isEdit ? (
-            <NoneTemporary type="button" />
-          ) : (
-            <TemporarySaveButton type="button" onClick={handleDraftSaveButton}>
-              임시저장
-            </TemporarySaveButton>
-          )}
-          {pageType === 'article' ? (
-            <SaveButton type="button" onClick={handleOnClickPublish} disabled={articleTitle === ''}>
-              {isEdit ? '수정하기' : '발행하기'}
-            </SaveButton>
-          ) : (
-            <SaveButton type="button" onClick={handleOnClickPublish} disabled={pageTitle === ''}>
-              {isEdit ? '수정하기' : '발행하기'}
-            </SaveButton>
-          )}
+          <>
+            {isEdit ? (
+              <NoneTemporary type="button" />
+            ) : (
+              <TemporarySaveButton type="button" onClick={handleDraftSaveButton}>
+                임시저장
+              </TemporarySaveButton>
+            )}
+            {pageType === 'article' ? (
+              <SaveButton type="button" onClick={handleOnClickPublish} disabled={articleTitle === ''}>
+                {isEdit ? '수정하기' : '발행하기'}
+              </SaveButton>
+            ) : (
+              <SaveButton type="button" onClick={handleOnClickPublish} disabled={pageTitle === ''}>
+                {isEdit ? '수정하기' : '발행하기'}
+              </SaveButton>
+            )}
+          </>
         </>
       </ButtonContainer>
       {isModal && (
@@ -134,16 +136,17 @@ export default SaveEditorContentButton;
 const ButtonContainer = styled.div`
   display: flex;
   position: fixed;
-  bottom: 0;
+  top: 0;
   align-items: center;
   justify-content: center;
-  border-top: 1px solid #eee;
-  background: ${({ theme }) => theme.colors.grey_0};
   width: 100vw;
   height: 6.4rem;
 `;
 
 const ExitButton = styled.button`
+  border: 1px solid ${({ theme }) => theme.colors.grey_400};
+  border-radius: 0.8rem;
+  background: ${({ theme }) => theme.colors.grey_0};
   width: 8.2rem;
   height: 3.6rem;
   color: ${({ theme }) => theme.colors.grey_900};
@@ -170,6 +173,8 @@ const TemporarySaveButton = styled.button`
   align-items: center;
   justify-content: center;
   margin-left: 48.5rem;
+  border: 1px solid ${({ theme }) => theme.colors.grey_400};
+  border-radius: 0.8rem;
   padding: 1rem 2rem;
   width: 9.6rem;
   height: 3.6rem;

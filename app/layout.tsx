@@ -1,8 +1,10 @@
 import { Metadata } from 'next';
 
+import { getMetaBlogInfo } from '@/api/blog';
 import Layout from '@/components/Layout';
 
 export const metadata: Metadata = {
+  metadataBase: new URL('https://palms.blog'),
   title: 'palmspring',
   description: '성장하는 조직을 위한 팀 블로그 빌더',
   openGraph: {
