@@ -6,6 +6,7 @@ import PermissionPolicyChecker from '@/utils/PermissionPolicyClass';
 
 const usePerMissionPolicy = () => {
   const userValue = useRecoilValue(userState);
+  console.log(userValue);
 
   if (!userValue?.currentUserRole) {
     throw new Error('유저가 없습니다. 다시 로그인해주세요!');

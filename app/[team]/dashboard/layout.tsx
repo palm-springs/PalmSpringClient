@@ -19,6 +19,7 @@ const DashBoardLayout = ({ children }: { children: React.ReactNode }) => {
         currentUserRole: currentUserBlog.role,
       });
     }
+    console.log(userValue);
   }, [team]);
 
   return (
