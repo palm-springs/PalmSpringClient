@@ -29,7 +29,7 @@ const ArticleTemplate = (props: ArticleTemplateProps) => {
 
   const MOBILE = useCheckMobile();
 
-  const linkCopiedNotify = createToast({ type: 'ERROR', message: '링크가 복사되었습니다.', id: 'link copied' });
+  const linkCopiedNotify = createToast({ type: 'NORMAL', message: '링크가 복사되었습니다.', id: 'link copied' });
 
   const copyCurrentUrl = () => {
     if (typeof window !== undefined) {
