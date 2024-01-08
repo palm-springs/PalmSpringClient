@@ -21,10 +21,23 @@ jobs:
           aws-secret-access-key: ${{ secrets.AWS_SECRET_ACCESS_KEY }}
           aws-region: ap-northeast-2
 
+      - name: Create env file
+        run: |
+          touch .env
+          echo NEXT_PUBLIC_GOOGLE_CLIENT_ID=${{ secrets.NEXT_PUBLIC_GOOGLE_CLIENT_ID }} >> .env
+          echo NEXT_PUBLIC_GOOGLE_CLIENT_SECRET=${{ secrets.NEXT_PUBLIC_GOOGLE_CLIENT_SECRET }} >> .env
+          echo NEXT_PUBLIC_BASE_URL=${{secrets.NEXT_PUBLIC_BASE_URL}} >> .env
+          echo NEXT_PUBLIC_GOOGLE_REDIRECT_URI=${{secrets.NEXT_PUBLIC_GOOGLE_REDIRECT_URI}} >> .env
+          echo NEXT_PUBLIC_BASE_URL=${{secrets.NEXT_PUBLIC_BASE_URL}} >> .env
+          echo NEXT_PUBLIC_GA_ID=${{ secrets.NEXT_PUBLIC_GA_ID }} >> .env
+          echo NEXT_PUBLIC_GA_STREAM_ID=${{ secrets.NEXT_PUBLIC_GA_STREAM_ID }} >> .env
+
+          cat .env
+
       - name: Push New ECR
         run: |
           aws ecr get-login-password --region ap-northeast-2 | docker login --username AWS --password-stdin ${{ secrets.AWS_USER_ID }}.dkr.ecr.ap-northeast-2.amazonaws.com
-          docker build . --platform linux/amd64 -t palmspring-client --build-arg NEXT_PUBLIC_GOOGLE_REDIRECT_URI=${{ secrets.NEXT_PUBLIC_GOOGLE_REDIRECT_URI }} --build-arg NEXT_PUBLIC_GOOGLE_CLIENT_ID=${{ secrets.NEXT_PUBLIC_GOOGLE_CLIENT_ID }} --build-arg NEXT_PUBLIC_GOOGLE_CLIENT_SECRET=${{ secrets.NEXT_PUBLIC_GOOGLE_CLIENT_SECRET }} --build-arg NEXT_PUBLIC_BASE_URL=${{ secrets.NEXT_PUBLIC_BASE_URL }}
+          docker build . --platform linux/amd64 -t palmspring-client
           docker tag palmspring-client:latest ${{ secrets.AWS_USER_ID }}.dkr.ecr.ap-northeast-2.amazonaws.com/palmspring-client:latest
           docker push ${{ secrets.AWS_USER_ID }}.dkr.ecr.ap-northeast-2.amazonaws.com/palmspring-client:latest
 
@@ -33,10 +46,10 @@ jobs:
         with:
           aws_access_key: ${{ secrets.AWS_ACCESS_KEY_ID }}
           aws_secret_key: ${{ secrets.AWS_SECRET_ACCESS_KEY }}
-          application_name: palmspring
-          environment_name: Palmspring-env
+          application_name: palmspring-client-v1
+          environment_name: Palmspring-client-v1-env
           version_label: github-action-${{ steps.current-time.outputs.formattedTime }}
           use_existing_version_if_available: true
           region: ap-northeast-2
           deployment_package: docker-compose.yaml
-          wait_for_deployment: 60
+          wait_for_deployment: 120
