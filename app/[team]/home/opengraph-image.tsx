@@ -23,7 +23,10 @@ export default async function Image({ params }: { params: { team: string } }) {
           justifyContent: 'center',
         }}>
         <img
-          src={post.data.metaThumbnail}
+          src={
+            post.data.metaThumbnail ??
+            'https://github.com/palm-springs/PalmSpringClient/assets/108226647/bc6ac5c7-266f-4495-ad67-fc2b76a33576'
+          }
           style={{
             position: 'absolute',
             top: 0,
