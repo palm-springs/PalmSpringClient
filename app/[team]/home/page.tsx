@@ -27,9 +27,6 @@ export async function generateMetadata({ params }: Props): Promise<Metadata | nu
   return {
     title,
     description,
-    alternates: {
-      canonical: `https://${team}.palms.blog/home`,
-    },
     openGraph: {
       title,
       description,
