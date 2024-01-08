@@ -22,13 +22,15 @@ interface editorProps {
   articleData?: UpdateArticleProps;
   pageData?: UpdatePageProps;
   pageType?: string;
+  atTop: boolean;
+  setAtTop: React.Dispatch<React.SetStateAction<boolean>>;
 }
 
 const SaveEditorContentButton = (props: editorProps) => {
   const { team, articleId } = useParams();
   const [isModal, setIsModal] = useState(false); // 모달 보이고 안보이고
   const [saved, setSaved] = useState(false); // 임시저장된 여부
-  const { handleOnClickDraft, handleOnClickPublish, isEdit, pageType } = props;
+  const { handleOnClickDraft, handleOnClickPublish, isEdit, pageType, atTop, setAtTop } = props;
   const router = useRouter();
 
   const articleData = useRecoilValue(articleDataState);
@@ -91,14 +93,14 @@ const SaveEditorContentButton = (props: editorProps) => {
       />
       <ButtonContainer>
         <>
-          <ExitButton type="button" onClick={modalOpenHandler}>
+          <ExitButton type="button" onClick={modalOpenHandler} atTop={atTop}>
             나가기
           </ExitButton>
-          <>
+          <div>
             {isEdit ? (
               <NoneTemporary type="button" />
             ) : (
-              <TemporarySaveButton type="button" onClick={handleDraftSaveButton}>
+              <TemporarySaveButton type="button" onClick={handleDraftSaveButton} atTop={atTop}>
                 임시저장
               </TemporarySaveButton>
             )}
@@ -111,7 +113,7 @@ const SaveEditorContentButton = (props: editorProps) => {
                 {isEdit ? '수정하기' : '발행하기'}
               </SaveButton>
             )}
-          </>
+          </div>
         </>
       </ButtonContainer>
       {isModal && (
@@ -138,13 +140,15 @@ const ButtonContainer = styled.div`
   position: fixed;
   top: 0;
   align-items: center;
-  justify-content: center;
+  justify-content: space-between;
+  z-index: 1000;
   width: 100vw;
-  height: 6.4rem;
+  height: 4.8rem;
 `;
 
-const ExitButton = styled.button`
-  border: 1px solid ${({ theme }) => theme.colors.grey_400};
+const ExitButton = styled.button<{ atTop: boolean }>`
+  margin-left: 2rem;
+  border: ${({ atTop }) => (atTop ? '1px' : '0px')} solid ${({ theme }) => theme.colors.grey_400};
   border-radius: 0.8rem;
   background: ${({ theme }) => theme.colors.grey_0};
   width: 8.2rem;
@@ -166,20 +170,22 @@ const NoneTemporary = styled.button`
   height: 3.6rem;
 `;
 
-const TemporarySaveButton = styled.button`
+const TemporarySaveButton = styled.button<{ atTop: boolean }>`
   display: inline-flex;
   flex-shrink: 0;
   gap: 1rem;
   align-items: center;
   justify-content: center;
   margin-left: 48.5rem;
-  border: 1px solid ${({ theme }) => theme.colors.grey_400};
+  border: ${({ atTop }) => (atTop ? '1px' : '0px')} solid ${({ theme }) => theme.colors.grey_400};
   border-radius: 0.8rem;
+  background: ${({ theme }) => theme.colors.grey_0};
   padding: 1rem 2rem;
   width: 9.6rem;
   height: 3.6rem;
   color: ${({ theme }) => theme.colors.grey_900};
   font-family: ${({ theme }) => theme.fonts.Button_medium};
+
   &:hover {
     border-radius: 0.8rem;
     background: ${({ theme }) => theme.colors.grey_200};
@@ -188,12 +194,13 @@ const TemporarySaveButton = styled.button`
   }
 `;
 
-const SaveButton = styled.button<{ disabled: boolean }>`
+const SaveButton = styled.button`
   display: inline-flex;
   flex-shrink: 0;
   gap: 1rem;
   align-items: center;
   justify-content: center;
+  margin-right: 2rem;
 
   margin-left: 0.8rem;
   border-radius: 0.8rem;

@@ -26,10 +26,11 @@ interface editorProps {
   editor: Editor;
   encodeFileToBase64: (event: ChangeEvent<HTMLInputElement>, editor: Editor) => void;
   setLink: ({ editor }: { editor: Editor }) => void;
+  atTop: boolean;
+  setAtTop: React.Dispatch<React.SetStateAction<boolean>>;
 }
 
-const EditorMenuBar = ({ editor, encodeFileToBase64, setLink }: editorProps) => {
-  const [atTop, setAtTop] = useState(true);
+const EditorMenuBar = ({ editor, encodeFileToBase64, setLink, atTop, setAtTop }: editorProps) => {
   const [visible, setVisible] = useState(false);
 
   const iconWrapperRef = useRef<HTMLDivElement>(null);
