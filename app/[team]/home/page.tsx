@@ -16,7 +16,6 @@ type Props = {
 export async function generateMetadata({ params }: Props): Promise<Metadata | null> {
   const team = params.team;
   const product = await getMetaBlogInfo(team);
-  const blogUrl = product.data.blogUrl;
 
   if (!product) return null;
 
@@ -25,13 +24,16 @@ export async function generateMetadata({ params }: Props): Promise<Metadata | nu
   } = product;
 
   return {
+    alternates: {
+      canonical: `/${team}/home`,
+    },
     title,
     description,
     openGraph: {
       title,
       description,
       type: 'website',
-      url: `${blogUrl}.com`,
+      url: `${team}.palms.blog`,
     },
   };
 }
