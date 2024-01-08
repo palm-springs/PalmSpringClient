@@ -12,15 +12,12 @@ const DashBoardLayout = ({ children }: { children: React.ReactNode }) => {
   const { team } = useParams();
 
   useEffect(() => {
-    console.log('here!!!!!!!!!!!!!!!');
     const currentUserBlog = userValue?.joinBlogList.find(({ blogUrl }) => blogUrl === team);
     if (userValue && currentUserBlog) {
-      console.log('here???????????');
       setUserValue({
         ...userValue,
         currentUserRole: currentUserBlog.role,
       });
-      console.log(userValue);
     }
   }, [team]);
 
