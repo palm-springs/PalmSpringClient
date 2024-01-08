@@ -59,6 +59,8 @@ interface TextEditorBuildprops {
 const TextEditorBuild = (props: TextEditorBuildprops) => {
   const { pageType, currentState, articleData, pageData } = props;
   const { team, articleId, pageId } = useParams();
+  //atTop useState로 상위에서 내려주기 -> toolbox와 saveEditorButton 상태공유 위함!
+  const [atTop, setAtTop] = useState(true);
 
   const [{ title: articleTitle }, setArticleData] = useRecoilState(articleDataState); // 아티클 초기 타이틀 -> 복사 -> 새로운 title 갈아끼기
   const [{ title: pageTitle }, setPageData] = useRecoilState(pageDataState);
@@ -416,7 +418,13 @@ const TextEditorBuild = (props: TextEditorBuildprops) => {
 
   return (
     <>
-      <ToolBox editor={editor} encodeFileToBase64={encodeFileToBase64} setLink={setLink} />
+      <ToolBox
+        editor={editor}
+        encodeFileToBase64={encodeFileToBase64}
+        setLink={setLink}
+        atTop={atTop}
+        setAtTop={setAtTop}
+      />
       <TextEditor editor={editor} handleDrop={handleDrop} handleDragOver={handleDragOver} />
 
       {pageType === 'article' ? (
@@ -431,6 +439,8 @@ const TextEditorBuild = (props: TextEditorBuildprops) => {
           }
           isEdit={currentState === 'edit' ? true : false}
           articleData={articleData}
+          atTop={atTop}
+          setAtTop={setAtTop}
           pageType="article"
         />
       ) : (
@@ -445,6 +455,8 @@ const TextEditorBuild = (props: TextEditorBuildprops) => {
           }
           isEdit={currentState === 'edit' ? true : false} // edit이 아닌 경우는 draft 경우임
           pageData={pageData}
+          atTop={atTop}
+          setAtTop={setAtTop}
           pageType="page"
         />
       )}
