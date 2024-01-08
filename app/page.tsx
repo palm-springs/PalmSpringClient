@@ -38,7 +38,6 @@ const Home = () => {
 
       if (!data.joinBlogList || data.joinBlogList.length === 0) {
         setDashboardUrl('/no-team/dashboard/upload');
-        return '/no-team/dashboard/upload';
       } else {
         setDashboardUrl(`/${data.joinBlogList[0].blogUrl}/dashboard/upload`);
       }

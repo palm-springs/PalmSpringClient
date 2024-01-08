@@ -13,7 +13,9 @@ const QUERY_KEY_BLOG = {
 };
 
 export const useGetBlogInfo = (blogUrl: string) => {
-  const { data } = useQuery([QUERY_KEY_BLOG.getBlogInfo], () => getBlogInfo(blogUrl));
+  const { data } = useQuery([QUERY_KEY_BLOG.getBlogInfo], () => getBlogInfo(blogUrl), {
+    cacheTime: 0,
+  });
   return data;
 };
 
