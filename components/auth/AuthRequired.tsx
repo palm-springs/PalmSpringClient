@@ -5,7 +5,7 @@ import { useRecoilState, useResetRecoilState } from 'recoil';
 
 import client, { refreshAxiosInstance } from '@/api';
 import { getRefreshToken } from '@/api/auth';
-import { getUserInfo } from '@/api/dashboard';
+import { getUserInfo, getUserInfoAfterLogin } from '@/api/dashboard';
 import { LoginUserState } from '@/constants/Auth';
 
 import { accessTokenState } from './states/atom';
@@ -40,19 +40,6 @@ const AuthRequired = ({ children }: { children: React.ReactNode }) => {
   const setAuthorization = async () => {
     if (accessToken) {
       client.defaults.headers.common.Authorization = `Bearer ${accessToken}`;
-
-      if (pathname.startsWith('/no-team')) {
-        const getUser = async () => {
-          const { data } = await getUserInfo();
-          console.log('here');
-          if (!data.joinBlogList || data.joinBlogList.length === 0) {
-            return;
-          } else {
-            router.push(`/${data.joinBlogList[0].blogUrl}/dashboard/upload`);
-          }
-        };
-        getUser();
-      }
     } else {
       const newAccessToken = await refresh();
       if (newAccessToken) {

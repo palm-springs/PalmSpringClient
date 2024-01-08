@@ -68,7 +68,7 @@ const SubscribeBtn = (subscribeBtnProps: subscribeBtnProps) => {
       )}
 
       {/* 구독 기능 -> 다음 릴리즈 */}
-      <SubscribeBtnContainer
+      {/* <SubscribeBtnContainer
         type="button"
         onClick={() => {
           document.body.style.overflowY = 'hidden';
@@ -76,7 +76,7 @@ const SubscribeBtn = (subscribeBtnProps: subscribeBtnProps) => {
           resetEmail();
         }}>
         팀 소식 받아보기
-      </SubscribeBtnContainer>
+      </SubscribeBtnContainer> */}
     </>
   );
 };
@@ -159,21 +159,21 @@ const ModalSubmitBtn = styled.button`
   color: ${({ theme }) => theme.colors.grey_0};
 `;
 
-const SubscribeBtnContainer = styled.button`
-  ${({ theme }) => theme.fonts.Button_medium};
+// const SubscribeBtnContainer = styled.button`
+//   ${({ theme }) => theme.fonts.Button_medium};
 
-  display: flex;
-  align-items: center;
+//   display: flex;
+//   align-items: center;
 
-  border: none;
-  border-radius: 0.8rem;
-  background-color: ${({ theme }) => theme.colors.grey_900};
+//   border: none;
+//   border-radius: 0.8rem;
+//   background-color: ${({ theme }) => theme.colors.grey_900};
 
-  padding: 1rem 2rem;
-  height: 3.6rem;
-  color: ${({ theme }) => theme.colors.grey_0};
+//   padding: 1rem 2rem;
+//   height: 3.6rem;
+//   color: ${({ theme }) => theme.colors.grey_0};
 
-  &:hover {
-    background-color: ${({ theme }) => theme.colors.grey_800};
-  }
-`;
+//   &:hover {
+//     background-color: ${({ theme }) => theme.colors.grey_800};
+//   }
+// `;

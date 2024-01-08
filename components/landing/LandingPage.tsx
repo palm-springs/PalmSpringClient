@@ -282,9 +282,34 @@ const LandingPage = ({ dashboardUrl }: { dashboardUrl: string }) => {
           `}>
           <img src="/images/landing-main-image.png" alt="example landing main" css={example_image} />
           <Link
-            href={`${GOOGLE_END_POINT}?client_id=${process.env.NEXT_PUBLIC_GOOGLE_CLIENT_ID}&redirect_uri=${redirectUri}&response_type=code&scope=email profile`}>
+            href={`${GOOGLE_END_POINT}?client_id=${process.env.NEXT_PUBLIC_GOOGLE_CLIENT_ID}&redirect_uri=${redirectUri}&response_type=code&scope=email profile`}
+            css={css`
+              @media (max-width: 575px) {
+                display: none;
+              }
+            `}>
             <button css={main_button}>팀블로그 만들기</button>
           </Link>
+          <Link
+            href={`https://official.palms.blog/home`}
+            css={css`
+              @media (min-width: 575px) {
+                display: none;
+              }
+            `}>
+            <button css={main_button}>공식 블로그 보러가기</button>
+          </Link>
+          <div
+            css={css`
+              margin-top: 2.4rem;
+              font-size: 1.4rem;
+              color: #475569;
+              @media (min-width: 575px) {
+                display: none;
+              }
+            `}>
+            회원가입과 블로그 관리는 PC에서 할 수 있어요.
+          </div>
         </div>
         <div
           css={css`
@@ -632,9 +657,31 @@ const LandingPage = ({ dashboardUrl }: { dashboardUrl: string }) => {
             이제, 우리 팀 이야기를 세상에 전하세요.
           </h1>
           <Link
-            href={`${GOOGLE_END_POINT}?client_id=${process.env.NEXT_PUBLIC_GOOGLE_CLIENT_ID}&redirect_uri=${redirectUri}&response_type=code&scope=email profile`}>
+            href={`${GOOGLE_END_POINT}?client_id=${process.env.NEXT_PUBLIC_GOOGLE_CLIENT_ID}&redirect_uri=${redirectUri}&response_type=code&scope=email profile`}
+            css={css`
+              @media (max-width: 575px) {
+                display: none;
+              }
+            `}>
             <button css={main_button}>팀블로그 만들기</button>
           </Link>
+          <Link
+            href={`https://official.palms.blog/home`}
+            css={css`
+              @media (min-width: 575px) {
+                display: none;
+              }
+            `}>
+            <button css={main_button}>공식 블로그 보러가기</button>
+          </Link>
+          <div
+            css={css`
+              margin-top: 2.4rem;
+              font-size: 1.4rem;
+              color: #475569;
+            `}>
+            회원가입과 블로그 관리는 PC에서 할 수 있어요.
+          </div>
         </div>
       </main>
       <Footer />

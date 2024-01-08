@@ -30,7 +30,7 @@ const BasicUserInfoPage = () => {
   }, [data]);
 
   return (
-    <>
+    <PageContainer>
       <BasicUserInfoContainer>
         <UserProfile />
         <UserName />
@@ -40,16 +40,19 @@ const BasicUserInfoPage = () => {
         <UserInfoSaveButton userPreviousData={data} />
       </BasicUserInfoContainer>
       <DeleteButton />
-    </>
+    </PageContainer>
   );
 };
 
 export default BasicUserInfoPage;
 
+const PageContainer = styled.div`
+  height: 100vh;
+  overflow-y: scroll;
+`;
+
 const BasicUserInfoContainer = styled.div`
   display: flex;
   flex-direction: column;
   margin-left: 4rem;
-  height: 100vh;
-  overflow-y: scroll;
 `;
