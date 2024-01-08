@@ -94,7 +94,7 @@ const SaveEditorContentButton = (props: editorProps) => {
           <ExitButton type="button" onClick={modalOpenHandler}>
             나가기
           </ExitButton>
-          <>
+          <div>
             {isEdit ? (
               <NoneTemporary type="button" />
             ) : (
@@ -111,7 +111,7 @@ const SaveEditorContentButton = (props: editorProps) => {
                 {isEdit ? '수정하기' : '발행하기'}
               </SaveButton>
             )}
-          </>
+          </div>
         </>
       </ButtonContainer>
       {isModal && (
@@ -138,12 +138,14 @@ const ButtonContainer = styled.div`
   position: fixed;
   top: 0;
   align-items: center;
-  justify-content: center;
+  justify-content: space-between;
+  z-index: 1000;
   width: 100vw;
-  height: 6.4rem;
+  height: 4.8rem;
 `;
 
 const ExitButton = styled.button`
+  margin-left: 2rem;
   border: 1px solid ${({ theme }) => theme.colors.grey_400};
   border-radius: 0.8rem;
   background: ${({ theme }) => theme.colors.grey_0};
@@ -194,6 +196,7 @@ const SaveButton = styled.button<{ disabled: boolean }>`
   gap: 1rem;
   align-items: center;
   justify-content: center;
+  margin-right: 2rem;
 
   margin-left: 0.8rem;
   border-radius: 0.8rem;
