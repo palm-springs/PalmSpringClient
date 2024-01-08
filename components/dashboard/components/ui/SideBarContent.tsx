@@ -37,6 +37,7 @@ const SideBarContentContainer = styled.div<{ $currentPage: boolean; $disabled: b
   padding: 0rem 1.6rem;
   width: 25.4rem;
   height: 4rem;
+  color: ${({ $disabled, theme }) => ($disabled ? 'rgba(16, 16, 16, 0.3)' : theme.colors.grey_900)};
 
   &:hover {
     background: ${({ theme, $disabled }) => ($disabled ? null : theme.colors.grey_200)};
