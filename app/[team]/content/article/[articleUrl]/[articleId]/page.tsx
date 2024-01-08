@@ -5,12 +5,13 @@ import { getBlogArticleDetail } from '@/api/blogHome';
 import BlogMeta from '@/components/blog/BlogMeta';
 
 type Props = {
-  params: { team: string; articleId: string };
+  params: { team: string; articleUrl: string; articleId: string };
   searchParams: { [key: string]: string | string[] | undefined };
 };
 
 export async function generateMetadata({ params }: Props): Promise<Metadata | null> {
   const team = params.team;
+  const articleUrl = params.articleUrl;
   const articleId = params.articleId;
   const product = await getBlogArticleDetail(team, Number(articleId));
   if (!product) return null;
@@ -20,6 +21,9 @@ export async function generateMetadata({ params }: Props): Promise<Metadata | nu
   } = product;
 
   return {
+    alternates: {
+      canonical: `/${team}/content/article/${articleUrl}/${articleId}`,
+    },
     title,
     description,
     openGraph: {
