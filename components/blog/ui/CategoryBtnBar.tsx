@@ -21,7 +21,7 @@ const CategoryBtnBar = (props: CategoryBtnBarProps) => {
     if (MOBILE)
       return (
         <MobileCategoryBtn
-          href={{ pathname: `/home/${eachCategory}`, hash: '/' }}
+          href={`/home/${eachCategory}`}
           key={eachCategory}
           className={eachCategory === decodeURI(category) ? 'selected' : ''}>
           {eachCategory}
@@ -41,7 +41,7 @@ const CategoryBtnBar = (props: CategoryBtnBarProps) => {
   if (MOBILE)
     return (
       <CategoryBtnBarContainer className="mobile">
-        <MobileCategoryBtn href={{ pathname: `/home`, hash: '/' }} className={SELECTED === 'home' ? 'selected' : ''}>
+        <MobileCategoryBtn href={`/home`} className={SELECTED === 'home' ? 'selected' : ''}>
           전체
         </MobileCategoryBtn>
         {CATEGORY_LIST}
