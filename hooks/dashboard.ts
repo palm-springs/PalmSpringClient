@@ -76,15 +76,13 @@ export const useGetTempSavedList = (blogUrl: string) => {
 export const useGetUserInfo = () => {
   const { data, isSuccess } = useQuery([QUERY_KEY_DASHBOARD.getUserInfo], () => getUserInfo());
 
-  const [userValue, setUserState] = useRecoilState(userState);
+  const [, setUserState] = useRecoilState(userState);
 
   const { team } = useParams();
   console.log(team);
 
   useEffect(() => {
-    console.log('kakaaaaaaaaaaaaaakakak');
-    if (!userValue && isSuccess) {
-      console.log('herheeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeee');
+    if (isSuccess) {
       const currentUserBlog = data.data.joinBlogList.find(({ blogUrl }) => blogUrl === team);
       setUserState({
         ...data.data,
