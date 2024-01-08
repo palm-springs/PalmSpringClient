@@ -79,9 +79,12 @@ export const useGetUserInfo = () => {
   const [userValue, setUserState] = useRecoilState(userState);
 
   const { team } = useParams();
+  console.log(team);
 
   useEffect(() => {
+    console.log('kakaaaaaaaaaaaaaakakak');
     if (!userValue && isSuccess) {
+      console.log('herheeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeee');
       const currentUserBlog = data.data.joinBlogList.find(({ blogUrl }) => blogUrl === team);
       setUserState({
         ...data.data,
