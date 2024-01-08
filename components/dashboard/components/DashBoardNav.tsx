@@ -76,7 +76,7 @@ const DashBoardNav = () => {
       {isBlogListOpen && (
         <BlogList currentBlog={currentBlog} setCurrentBlog={setCurrentBlog} blogListRef={blogListRef} />
       )}
-      <DashBoardFooter />
+      {/* <DashBoardFooter /> */}
     </DashBoardNavContainer>
   );
 };
