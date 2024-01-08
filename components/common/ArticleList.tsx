@@ -52,7 +52,7 @@ const ArticleListContainer = styled.section`
   flex-direction: column;
   gap: 6rem;
   width: 72rem;
-  min-height: 40rem;
+  min-height: 50rem;
 
   &.mobile {
     align-items: center;
