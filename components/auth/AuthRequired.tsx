@@ -40,19 +40,6 @@ const AuthRequired = ({ children }: { children: React.ReactNode }) => {
   const setAuthorization = async () => {
     if (accessToken) {
       client.defaults.headers.common.Authorization = `Bearer ${accessToken}`;
-
-      if (pathname.startsWith('/no-team')) {
-        const getUser = async () => {
-          const { data } = await getUserInfoAfterLogin('', accessToken);
-
-          if (!data.joinBlogList || data.joinBlogList.length === 0) {
-            return;
-          } else {
-            router.push(`/${data.joinBlogList[0].blogUrl}/dashboard/upload`);
-          }
-        };
-        getUser();
-      }
     } else {
       const newAccessToken = await refresh();
       if (newAccessToken) {
