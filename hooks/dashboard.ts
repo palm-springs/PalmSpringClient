@@ -88,7 +88,7 @@ export const useGetUserInfo = () => {
         currentUserRole: currentUserBlog ? currentUserBlog.role : null,
       });
     }
-  }, [isSuccess, data]);
+  }, [isSuccess, data, team]);
 
   return data;
 };

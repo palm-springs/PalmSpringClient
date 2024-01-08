@@ -26,6 +26,7 @@ const DashBoardHeader = () => {
   const { title, buttonInnerText, onButtonClickActionName } = mapPageType2HeaderInfo[pathName];
 
   const permissionPolicyChecker = usePerMissionPolicy();
+  console.log(permissionPolicyChecker);
 
   const { renderHeaderButton: isRenderHeaderButton } = checkRenderPermissionButton(pathName, permissionPolicyChecker);
 
