@@ -67,7 +67,7 @@ const GOOGLE_END_POINT = 'https://accounts.google.com/o/oauth2/v2/auth';
 // 브랜치테스트용
 // const redirectUri = TEST_REDIRECT_URI;
 
-const Header = () => {
+const Header = ({ dashboardUrl }: { dashboardUrl: string }) => {
   const pathname = usePathname();
   const [position, setPosition] = useState(0);
   const [screenX, setScreenX] = useState<number>(0);
@@ -149,36 +149,35 @@ const Header = () => {
             gap: 12px;
             align-items: center;
           `}>
-          {/* <Link
-            href={`/loading`}
-            css={[
-              header_button,
-              css`
-                background: transparent;
-                color: #343a40;
-                font-size: 16px;
-                &:hover {
-                  background: rgba(0, 0, 0, 0.05);
-                  color: #0c9b72;
-                }
-              `,
-            ]}>
-            대시보드
-          </Link> */}
-          <Link
-            href={`${GOOGLE_END_POINT}?client_id=${process.env.NEXT_PUBLIC_GOOGLE_CLIENT_ID}&redirect_uri=${redirectUri}&response_type=code&scope=email profile`}>
-            <button
+          {dashboardUrl ? (
+            <Link
+              href={dashboardUrl}
               css={[
                 header_button,
                 css`
-                  @media (max-width: 575px) {
+                  @media (min-width: 575px) {
                     display: flex;
                   }
                 `,
               ]}>
-              로그인
-            </button>
-          </Link>
+              대시보드
+            </Link>
+          ) : (
+            <Link
+              href={`${GOOGLE_END_POINT}?client_id=${process.env.NEXT_PUBLIC_GOOGLE_CLIENT_ID}&redirect_uri=${redirectUri}&response_type=code&scope=email profile`}>
+              <button
+                css={[
+                  header_button,
+                  css`
+                    @media (min-width: 575px) {
+                      display: flex;
+                    }
+                  `,
+                ]}>
+                로그인
+              </button>
+            </Link>
+          )}
         </div>
       </div>
     </header>

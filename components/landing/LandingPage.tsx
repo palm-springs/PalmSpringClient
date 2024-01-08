@@ -249,7 +249,7 @@ const go_blog_button = css`
 const redirectUri = process.env.NEXT_PUBLIC_GOOGLE_REDIRECT_URI;
 const GOOGLE_END_POINT = 'https://accounts.google.com/o/oauth2/v2/auth';
 
-const LandingPage = () => {
+const LandingPage = ({ dashboardUrl }: { dashboardUrl: string }) => {
   useEffect(() => {
     AOS.init({
       offset: 200,
@@ -261,7 +261,7 @@ const LandingPage = () => {
     <div style={{ width: '100%' }}>
       {/* <div css={gradient_background} /> */}
       <img src="/images/home_bg_gradient.png" alt="gradient_background" css={gradient_background_img} />
-      <Header />
+      <Header dashboardUrl={dashboardUrl} />
       <main css={main}>
         <h1 data-aos="fade-up" data-aos-duration="800" css={title}>
           우리 팀 이야기를
