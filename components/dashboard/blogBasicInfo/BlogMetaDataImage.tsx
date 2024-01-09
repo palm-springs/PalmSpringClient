@@ -35,7 +35,7 @@ const BlogMetaDataImage = ({ readonly }: { readonly: boolean }) => {
       <ImageGuideContainer>
         <MetaDataHeader>메타데이터 이미지</MetaDataHeader>
         <ImageGuideContent>
-          이미지 권장 크기는 <p>500*500 입니다</p>
+          이미지 권장 크기는 <p>1200*630 입니다</p>
         </ImageGuideContent>
       </ImageGuideContainer>
       {metaThumbnail ? (
