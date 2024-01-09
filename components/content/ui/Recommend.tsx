@@ -21,12 +21,13 @@ const Recommend = () => {
     id !== articleId;
   });
 
-  const recommendArticle = filteredData.slice(0, 3);
+  const recommendArticle = filteredData?.slice(0, 3);
+
   if (!recommendArticle) return <LoadingLottie width={5} height={5} fit />;
 
   return (
     <RecommendContainer className={MOBILE ? 'mobile' : ''}>
-      <RecommendTitle className={MOBILE ? 'mobile' : ''}>추천 아티클</RecommendTitle>
+      <RecommendTitle className={MOBILE ? 'mobile' : ''}>최신 아티클</RecommendTitle>
       <ArticleBox recommendArticle={recommendArticle} />
     </RecommendContainer>
   );
