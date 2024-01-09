@@ -4,7 +4,8 @@ import { styled } from 'styled-components';
 
 export const TextEditorStyle = styled.div`
   .ProseMirror {
-    position: absolute;
+    margin: 0 auto;
+    width: 72.2rem;
     overscroll-behavior: contain;
     * {
       word-wrap: break-word;
