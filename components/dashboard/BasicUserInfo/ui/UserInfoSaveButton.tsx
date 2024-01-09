@@ -28,7 +28,9 @@ const UserInfoSaveButton = (props: UserInfoSaveButtonProps) => {
       const {
         data: { thumbnail, nickname, url, job, description },
       } = userPreviousData;
-      if (
+      if (userInfoDataState.url === '' || userInfoDataState.nickname === '') {
+        setIsDisabled(true);
+      } else if (
         thumbnail !== userInfoDataState.thumbnail ||
         nickname !== userInfoDataState.nickname ||
         url !== userInfoDataState.url ||

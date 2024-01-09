@@ -11,6 +11,12 @@ export const contentType = 'image/png';
 
 export default async function Image({ params }: { params: { team: string; articleId: number } }) {
   const post = await getBlogArticleDetail(params.team, params.articleId);
+  let ImageUrl =
+    'https://github.com/palm-springs/PalmSpringClient/assets/108226647/bc6ac5c7-266f-4495-ad67-fc2b76a33576';
+
+  if (!post.data.thumbnail) {
+    ImageUrl = post.data.thumbnail;
+  }
 
   return new ImageResponse(
     (
@@ -23,10 +29,7 @@ export default async function Image({ params }: { params: { team: string; articl
           justifyContent: 'center',
         }}>
         <img
-          src={
-            post.data.thumbnail ??
-            'https://github.com/palm-springs/PalmSpringClient/assets/108226647/bc6ac5c7-266f-4495-ad67-fc2b76a33576'
-          }
+          src={ImageUrl}
           style={{
             position: 'absolute',
             top: 0,

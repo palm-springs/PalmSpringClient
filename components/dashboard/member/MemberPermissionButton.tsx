@@ -106,5 +106,13 @@ export default MemberPermissionButton;
 const ModalText = styled.button`
   ${({ theme }) => theme.fonts.Body3_Regular};
 
+  border-radius: 0.8rem;
+  padding: 0 1rem;
+  height: 4.2rem;
+
   color: ${({ theme }) => theme.colors.red};
+
+  &:hover {
+    background: ${({ theme }) => theme.colors.grey_100};
+  }
 `;

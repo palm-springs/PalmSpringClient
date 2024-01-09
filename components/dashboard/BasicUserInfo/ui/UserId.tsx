@@ -35,9 +35,8 @@ const UserId = (props: UserIdCheckProps) => {
     <UserIdContainer>
       <UserIdTitle>ID</UserIdTitle>
       <InputWidthContainer>
-        <IdInputForm isFocus={isUserIdFocus} isDuplicate={isDuplicate} url={url} 
-            isChanged={previousUrl !== url}>
-          <div>/@{team}/author/</div>
+        <IdInputForm isFocus={isUserIdFocus} isDuplicate={isDuplicate} url={url} isChanged={previousUrl !== url}>
+          <div>/author/</div>
           <TextInput
             onFocus={() => setIsUserIdFocus(true)}
             onBlur={() => setIsUserIdFocus(false)}

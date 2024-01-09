@@ -9,20 +9,25 @@ import { TextEditorStyle } from '@/styles/TextEditorStyle';
 const CreateArticlePage = () => {
   return (
     <AuthRequired>
-      <TextEditorStyle className="editor">
-        <ArticleWrapper className="ProseMirror">
-          <EditorInputTitle pageType="article" />
-          <TextEditorBuild pageType="article" />
-        </ArticleWrapper>
-      </TextEditorStyle>
+      <TextEditorWrapper>
+        <TextEditorStyle className="editor">
+          <ArticleWrapper className="ProseMirror">
+            <EditorInputTitle pageType="article" />
+            <TextEditorBuild pageType="article" />
+          </ArticleWrapper>
+        </TextEditorStyle>
+      </TextEditorWrapper>
     </AuthRequired>
   );
 };
 
 export default CreateArticlePage;
 
+const TextEditorWrapper = styled.div``;
+
 const ArticleWrapper = styled.div`
   display: flex;
+  position: relative;
   flex-direction: column;
   align-items: center;
   justify-content: center;

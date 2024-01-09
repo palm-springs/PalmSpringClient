@@ -11,12 +11,17 @@ import useCheckMobile from '@/hooks/useCheckMobile';
 import ArticleBox from './ArticleBox';
 
 const Recommend = () => {
-  const { team } = useParams();
+  const { team, articleId } = useParams();
 
   const MOBILE = useCheckMobile();
 
   const data = useGetBlogArticleList(team, '');
-  const recommendArticle = data?.data.slice(0, 3);
+
+  const filteredData = data?.data.filter(({ id }) => {
+    id !== articleId;
+  });
+
+  const recommendArticle = filteredData.slice(0, 3);
   if (!recommendArticle) return <LoadingLottie width={5} height={5} fit />;
 
   return (

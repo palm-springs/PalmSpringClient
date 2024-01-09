@@ -21,12 +21,13 @@ interface PopOverProp {
   memberId: string;
   memberEmail: string;
   memberRole: RoleType;
+  showModal: boolean;
+  setShowModal: React.Dispatch<React.SetStateAction<boolean>>;
 }
 
 const PopOver = (prop: PopOverProp) => {
-  const { nickname, memberId, memberEmail, memberRole } = prop;
+  const { nickname, memberId, memberEmail, memberRole, showModal, setShowModal } = prop;
   const { team: blogUrl } = useParams();
-  const [showModal, setShowModal] = useState(false);
   const router = useRouter();
 
   const { expelManager, expelEditor } = usePerMissionPolicy();
@@ -40,6 +41,10 @@ const PopOver = (prop: PopOverProp) => {
     return <></>;
   }
 
+  const onClickDelete = () => {
+    mutate();
+    setShowModal(false);
+  };
   return (
     <>
       {showModal && (
@@ -51,7 +56,7 @@ const PopOver = (prop: PopOverProp) => {
             leftButtonText={'유지하기'}
             rightButtonText={'제외하기'}
             leftHandler={() => setShowModal(false)}
-            rightHandler={() => mutate()}
+            rightHandler={onClickDelete}
           />
         </ModalPortal>
       )}
@@ -117,6 +122,7 @@ const PopOverContainer = styled.div`
 const LinkText = styled(Link)`
   ${({ theme }) => theme.fonts.Body3_Regular};
   display: flex;
+
   align-items: center;
   transition: 0.3s ease-out;
   border: none;
@@ -138,6 +144,13 @@ const LinkText = styled(Link)`
 
 const ModalText = styled.button`
   ${({ theme }) => theme.fonts.Body3_Regular};
+  border-radius: 0.8rem;
+  padding: 0 1rem;
+  height: 4.2rem;
 
   color: ${({ theme }) => theme.colors.red};
+
+  &:hover {
+    background: ${({ theme }) => theme.colors.grey_100};
+  }
 `;

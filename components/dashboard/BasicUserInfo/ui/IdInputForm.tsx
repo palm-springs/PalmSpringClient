@@ -13,7 +13,9 @@ const IdInputForm = (props: UserIdCheckProps) => {
   const { children, isFocus, isDuplicate, url, isChanged } = props;
 
   return (
-    <InputContainer id={!url || !isChanged ? '' : isDuplicate ? 'failed' : 'success'} $isFocus={isFocus}>
+    <InputContainer
+      id={!url || !isChanged || isDuplicate === null ? '' : isDuplicate ? 'failed' : 'success'}
+      $isFocus={isFocus}>
       {children}
     </InputContainer>
   );
@@ -24,6 +26,7 @@ export default IdInputForm;
 // text input 입력  컨테이너
 const InputContainer = styled.div<{ $isFocus: boolean }>`
   display: flex;
+  position: relative;
   align-items: center;
   border: 1px solid;
 
@@ -50,7 +53,7 @@ const InputContainer = styled.div<{ $isFocus: boolean }>`
 
   & > svg {
     position: absolute;
-    right: 28.4rem;
+    right: 1rem;
     transform-origin: 50% 50%;
 
     animation: rotate_image 5s linear infinite;
