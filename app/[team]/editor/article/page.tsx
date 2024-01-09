@@ -9,7 +9,7 @@ import { TextEditorStyle } from '@/styles/TextEditorStyle';
 const CreateArticlePage = () => {
   return (
     <AuthRequired>
-      <TextEditorStyle>
+      <TextEditorStyle className="editor">
         <ArticleWrapper className="ProseMirror">
           <EditorInputTitle pageType="article" />
           <TextEditorBuild pageType="article" />
@@ -27,5 +27,4 @@ const ArticleWrapper = styled.div`
   align-items: center;
   justify-content: center;
   width: 100vw;
-  overflow-x: hidden;
 `;

@@ -14,7 +14,7 @@ const DraftPagePage = () => {
 
   return (
     <AuthRequired>
-      <TextEditorStyle>
+      <TextEditorStyle className="editor">
         <ArticleWrapper className="ProseMirror">
           {/* 데이터가 content 있는 페이지 */}
           {updatePageEditContents && (
