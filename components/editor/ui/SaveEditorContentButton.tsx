@@ -95,31 +95,27 @@ const SaveEditorContentButton = (props: editorProps) => {
           bottom: 50,
         }}
       />
-      <ButtonContainer>
-        <>
-          <ExitButton type="button" onClick={modalOpenHandler} atTop={atTop}>
-            나가기
-          </ExitButton>
-          <div>
-            {isEdit ? (
-              <NoneTemporary type="button" />
-            ) : (
-              <TemporarySaveButton type="button" onClick={handleDraftSaveButton} atTop={atTop}>
-                임시저장
-              </TemporarySaveButton>
-            )}
-            {pageType === 'article' ? (
-              <SaveButton type="button" onClick={handleOnClickPublish} disabled={articleTitle === ''}>
-                {isEdit ? '수정하기' : '발행하기'}
-              </SaveButton>
-            ) : (
-              <SaveButton type="button" onClick={handleOnClickPublish} disabled={pageTitle === ''}>
-                {isEdit ? '수정하기' : '발행하기'}
-              </SaveButton>
-            )}
-          </div>
-        </>
-      </ButtonContainer>
+      <ExitButton type="button" onClick={modalOpenHandler} atTop={atTop}>
+        나가기
+      </ExitButton>
+      <SaveButtonContainer>
+        {isEdit ? (
+          <NoneTemporary type="button" />
+        ) : (
+          <TemporarySaveButton type="button" onClick={handleDraftSaveButton} atTop={atTop}>
+            임시저장
+          </TemporarySaveButton>
+        )}
+        {pageType === 'article' ? (
+          <SaveButton type="button" onClick={handleOnClickPublish} disabled={articleTitle === ''}>
+            {isEdit ? '수정하기' : '발행하기'}
+          </SaveButton>
+        ) : (
+          <SaveButton type="button" onClick={handleOnClickPublish} disabled={pageTitle === ''}>
+            {isEdit ? '수정하기' : '발행하기'}
+          </SaveButton>
+        )}
+      </SaveButtonContainer>
       {isModal && (
         <ModalPortal>
           <DashboardDeleteModal
@@ -139,19 +135,19 @@ const SaveEditorContentButton = (props: editorProps) => {
 
 export default SaveEditorContentButton;
 
-const ButtonContainer = styled.div`
+const SaveButtonContainer = styled.div`
   display: flex;
   position: fixed;
-  top: 0;
-  align-items: center;
-  justify-content: space-between;
+  top: 0.6rem;
+  right: 2rem;
   z-index: 1000;
-  background-color: transparent;
-  width: 100vw;
-  height: 4.8rem;
 `;
 
 const ExitButton = styled.button<{ atTop: boolean }>`
+  position: fixed;
+  top: 0.6rem;
+  left: 2rem;
+  z-index: 1000;
   margin-left: 2rem;
   border: ${({ atTop }) => (atTop ? '1px' : '0px')} solid ${({ theme }) => theme.colors.grey_400};
   border-radius: 0.8rem;
