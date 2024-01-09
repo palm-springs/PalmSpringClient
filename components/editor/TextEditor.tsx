@@ -49,6 +49,7 @@ const TextEditor = ({ editor, handleDragOver, handleDrop, onChange }: editorProp
 export default TextEditor;
 
 const TouchContainer = styled.div`
+  /* 컨텐츠 영역 높이 조절-> 하단 푸터(나가기, 임시저장, 발행하기) 높이 */
   & div {
     height: calc(100vh - 6.7rem);
   }
