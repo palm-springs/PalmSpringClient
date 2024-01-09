@@ -19,7 +19,7 @@ const Recommend = () => {
   if (!data) return <LoadingLottie width={5} height={5} fit />;
 
   const filteredData = data.data.filter(({ id }) => {
-    return id !== articleId;
+    return id !== Number(articleId);
   });
 
   const recommendArticle = filteredData.slice(0, 3);
