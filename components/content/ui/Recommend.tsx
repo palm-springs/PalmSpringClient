@@ -18,15 +18,13 @@ const Recommend = () => {
   const data = useGetBlogArticleList(team, '');
 
   if (!data) return <LoadingLottie width={5} height={5} fit />;
-  console.log(data);
 
   const filteredData = data.data.filter(({ id }) => {
-    id !== articleId;
+    return id !== articleId;
   });
-  console.log(filteredData);
+
   const recommendArticle = filteredData.slice(0, 3);
 
-  console.log(recommendArticle);
   return (
     <RecommendContainer className={MOBILE ? 'mobile' : ''}>
       <RecommendTitle className={MOBILE ? 'mobile' : ''}>최신 아티클</RecommendTitle>
