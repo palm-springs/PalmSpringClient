@@ -28,7 +28,7 @@ const Recommend = () => {
 
   return (
     <RecommendContainer className={MOBILE ? 'mobile' : ''}>
-      <RecommendTitle className={MOBILE ? 'mobile' : ''}>추천 아티클</RecommendTitle>
+      {/* <RecommendTitle className={MOBILE ? 'mobile' : ''}>추천 아티클</RecommendTitle> */}
       <ArticleBox recommendArticle={recommendArticle} />
     </RecommendContainer>
   );
