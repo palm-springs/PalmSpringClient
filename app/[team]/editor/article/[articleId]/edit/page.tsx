@@ -13,7 +13,7 @@ const EditArticlePage = () => {
   const updateArticleEditContents = useGetUpdateArticleContent(team, Number(articleId));
   return (
     <AuthRequired>
-      <TextEditorStyle>
+      <TextEditorStyle className="editor">
         <ArticleWrapper className="ProseMirror">
           {/* 데이터가 content 있는 페이지 */}
           {updateArticleEditContents && (

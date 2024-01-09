@@ -14,7 +14,7 @@ const DraftArticlePage = () => {
 
   return (
     <AuthRequired>
-      <TextEditorStyle>
+      <TextEditorStyle className="editor">
         <ArticleWrapper className="ProseMirror">
           {/* 데이터가 content 있는 페이지 */}
           {updateArticleEditContents && (
@@ -37,5 +37,4 @@ const ArticleWrapper = styled.div`
   align-items: center;
   justify-content: center;
   width: 100vw;
-  overflow-x: hidden;
 `;

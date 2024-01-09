@@ -5,6 +5,7 @@ import { styled } from 'styled-components';
 export const TextEditorStyle = styled.div`
   .ProseMirror {
     position: absolute;
+    overscroll-behavior: contain;
     * {
       word-wrap: break-word;
     }
@@ -183,6 +184,15 @@ export const TextEditorStyle = styled.div`
       border-bottom: 0.8px solid ${({ theme }) => theme.colors.grey_700};
       text-decoration: none;
       color: ${({ theme }) => theme.colors.grey_700};
+    }
+  }
+
+  &.editor > .ProseMirror {
+    p {
+      ${({ theme }) => theme.fonts.Body1_Regular};
+      padding-bottom: 0.8rem;
+      width: 72rem;
+      letter-spacing: 0.3rem;
     }
   }
 `;

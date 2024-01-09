@@ -56,7 +56,6 @@ const EditorMenuBar = ({ editor, encodeFileToBase64, setLink, atTop, setAtTop }:
 
   return (
     <IconContainer atTop={atTop} tabIndex={-1}>
-      {visible && <Wrapper isVisible={visible} />}
       <IconWrapper ref={iconWrapperRef} tabIndex={-1}>
         <ToolButton tabIndex={-1} onClick={() => editor.chain().focus().toggleHeading({ level: 1 }).run()}>
           <H1Icon />
@@ -116,6 +115,7 @@ const EditorMenuBar = ({ editor, encodeFileToBase64, setLink, atTop, setAtTop }:
           <CodeBlockIcon />
         </ToolButton>
       </IconWrapper>
+      {visible && <Wrapper isVisible={visible} />}
     </IconContainer>
   );
 };

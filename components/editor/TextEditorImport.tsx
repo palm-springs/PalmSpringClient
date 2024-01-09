@@ -9,6 +9,7 @@ import Document from '@tiptap/extension-document';
 import Dropcursor from '@tiptap/extension-dropcursor';
 import Heading from '@tiptap/extension-heading';
 import History from '@tiptap/extension-history';
+import HorizontalRule from '@tiptap/extension-horizontal-rule';
 import Image from '@tiptap/extension-image';
 import Italic from '@tiptap/extension-italic';
 import Link from '@tiptap/extension-link';
@@ -20,27 +21,14 @@ import Strike from '@tiptap/extension-strike';
 import Text from '@tiptap/extension-text';
 import Underline from '@tiptap/extension-underline';
 import { Editor, useEditor } from '@tiptap/react';
-import js from 'highlight.js/lib/languages/javascript';
-import ts from 'highlight.js/lib/languages/typescript';
-import html from 'highlight.js/lib/languages/xml';
 import { lowlight } from 'lowlight';
 import { useParams, useRouter } from 'next/navigation';
-
-import SaveEditorContentButton from '@/components/editor/ui/SaveEditorContentButton';
-
-import css from 'highlight.js/lib/languages/css';
-
-lowlight.registerLanguage('html', html);
-lowlight.registerLanguage('css', css);
-lowlight.registerLanguage('js', js);
-lowlight.registerLanguage('ts', ts);
-
-import HorizontalRule from '@tiptap/extension-horizontal-rule';
 import { useRecoilState } from 'recoil';
 
 import { postArticleList } from '@/api/article';
 import { postPageDraft } from '@/api/page';
 import TextEditor from '@/components/editor/TextEditor';
+import SaveEditorContentButton from '@/components/editor/ui/SaveEditorContentButton';
 import ToolBox from '@/components/editor/ui/ToolBox';
 import { useUpdateTempArticleDraft, useUpdateTempPageDraft } from '@/hooks/editor';
 import { UpdateArticleProps } from '@/types/article';
