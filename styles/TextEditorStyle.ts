@@ -82,7 +82,7 @@ export const TextEditorStyle = styled.div`
       background: ${({ theme }) => theme.colors.grey_100};
       padding: 1.6rem 2rem;
       width: 72rem;
-      overflow-y: scroll;
+
       white-space: pre-wrap;
       word-break: break-all;
       color: #383a41;
@@ -193,6 +193,10 @@ export const TextEditorStyle = styled.div`
       ${({ theme }) => theme.fonts.Body1_Regular};
       padding-bottom: 0.8rem;
       width: 72rem;
+      letter-spacing: 0.3rem;
+    }
+    strong {
+      ${({ theme }) => theme.fonts.Body1_Semibold};
       letter-spacing: 0.3rem;
     }
   }
