@@ -1,5 +1,10 @@
-const MemberPage = () => {
-  return <div>멤버 관리 페이지입니다.</div>;
+//대시보드 팀원 페이지
+import React from 'react';
+
+import MemberTemplate from '@/components/dashboard/member/ui/MemberTemplate';
+
+const Page = async () => {
+  return <MemberTemplate />;
 };
 
-export default MemberPage;
+export default Page;

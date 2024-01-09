@@ -1,0 +1,27 @@
+import React from 'react';
+
+import { getBlogHeaderInfo } from '@/api/blogHome';
+import NotFound from '@/app/not-found';
+import BlogFooter from '@/components/common/BlogFooter';
+import BlogHeader from '@/components/common/BlogHeader';
+
+const BlogHomeLayout = async ({ children, params }: { children: React.ReactElement; params: { team: string } }) => {
+  const blogHeaderInfoRes = await getBlogHeaderInfo(params.team);
+
+  if (!blogHeaderInfoRes || blogHeaderInfoRes.code === 404) return <NotFound />;
+  if (!blogHeaderInfoRes.data) return <></>;
+
+  const {
+    data: { logo, blogName, navList },
+  } = blogHeaderInfoRes;
+
+  return (
+    <>
+      <BlogHeader logo={logo} blogName={blogName} navList={navList} />
+      <main style={{ overflowX: 'hidden' }}>{children}</main>
+      <BlogFooter />
+    </>
+  );
+};
+
+export default BlogHomeLayout;

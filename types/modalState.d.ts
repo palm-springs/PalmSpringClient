@@ -1,0 +1,16 @@
+type modalStateProps =
+  | 'createPage'
+  | 'createArticle'
+  | 'createCategory'
+  | 'createNavigation'
+  | 'createPage'
+  | 'createMember'
+  | 'createSubscriber'
+  | 'updateNavigation'
+  | 'updateCategory'
+  | 'deleteArticle'
+  | 'deletePage'
+  | 'deleteCategory'
+  | 'deleteNav'
+  | 'deleteBlog'
+  | '';
