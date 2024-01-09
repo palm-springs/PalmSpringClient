@@ -21,12 +21,13 @@ interface PopOverProp {
   memberId: string;
   memberEmail: string;
   memberRole: RoleType;
+  showModal: boolean;
+  setShowModal: React.Dispatch<React.SetStateAction<boolean>>;
 }
 
 const PopOver = (prop: PopOverProp) => {
-  const { nickname, memberId, memberEmail, memberRole } = prop;
+  const { nickname, memberId, memberEmail, memberRole, showModal, setShowModal } = prop;
   const { team: blogUrl } = useParams();
-  const [showModal, setShowModal] = useState(false);
   const router = useRouter();
 
   const { expelManager, expelEditor } = usePerMissionPolicy();
@@ -40,6 +41,10 @@ const PopOver = (prop: PopOverProp) => {
     return <></>;
   }
 
+  const onClickDelete = () => {
+    mutate();
+    setShowModal(false);
+  };
   return (
     <>
       {showModal && (
@@ -51,7 +56,7 @@ const PopOver = (prop: PopOverProp) => {
             leftButtonText={'유지하기'}
             rightButtonText={'제외하기'}
             leftHandler={() => setShowModal(false)}
-            rightHandler={() => mutate()}
+            rightHandler={onClickDelete}
           />
         </ModalPortal>
       )}

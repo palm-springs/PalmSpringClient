@@ -51,6 +51,8 @@ const Member = (props: MemberComponentProps) => {
   const { team } = useParams();
   const { mutate: cancelInvite } = useDeleteInvite(team, { id: Number(memberId), email });
 
+  const [showModal, setShowModal] = useState(false);
+
   const modalCloseHandler = () => {
     setShowCancelInviteModal(false);
   };
@@ -122,7 +124,9 @@ const Member = (props: MemberComponentProps) => {
               </button>
             </MemberInfoBox>
             <MenuBtnContainer
-              onBlur={() => setShowPopOver('')}
+              onBlur={() => {
+                if (!showModal) setShowPopOver('');
+              }}
               onClick={() => {
                 if (showPopOver === email) {
                   setShowPopOver('');
@@ -133,7 +137,14 @@ const Member = (props: MemberComponentProps) => {
               <CharmMenuMeatballIcon />
             </MenuBtnContainer>
             {showPopOver === email && (
-              <PopOver memberRole={role} nickname={nickname} memberId={memberId} memberEmail={email} />
+              <PopOver
+                memberRole={role}
+                nickname={nickname}
+                memberId={memberId}
+                memberEmail={email}
+                showModal={showModal}
+                setShowModal={setShowModal}
+              />
             )}
           </>
         </MemberInnerContent>

@@ -97,6 +97,9 @@ const RightBottomButton = styled.button`
   padding: 1rem 2.6rem;
   height: 4.2rem;
   color: ${({ theme }) => theme.colors.grey_0};
+  &:hover {
+    background-color: ${({ theme }) => theme.colors.red_hover};
+  }
 `;
 
 const LeftBottomButton = styled.button`
