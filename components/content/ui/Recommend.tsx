@@ -17,14 +17,16 @@ const Recommend = () => {
 
   const data = useGetBlogArticleList(team, '');
 
-  const filteredData = data?.data.filter(({ id }) => {
+  if (!data) return <LoadingLottie width={5} height={5} fit />;
+  console.log(data);
+
+  const filteredData = data.data.filter(({ id }) => {
     id !== articleId;
   });
+  console.log(filteredData);
+  const recommendArticle = filteredData.slice(0, 3);
 
-  const recommendArticle = filteredData?.slice(0, 3);
-
-  if (!recommendArticle) return <LoadingLottie width={5} height={5} fit />;
-
+  console.log(recommendArticle);
   return (
     <RecommendContainer className={MOBILE ? 'mobile' : ''}>
       <RecommendTitle className={MOBILE ? 'mobile' : ''}>최신 아티클</RecommendTitle>
