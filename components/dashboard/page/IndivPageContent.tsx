@@ -1,8 +1,9 @@
 import { Dispatch, SetStateAction } from 'react';
 import { Toaster } from 'react-hot-toast';
 import { useRouter } from 'next/navigation';
-import { useRecoilState } from 'recoil';
+import { useRecoilState, useResetRecoilState } from 'recoil';
 
+import { pageDataState } from '@/components/editor/states/atom';
 import { DOMAIN_NAME } from '@/constants/palmspringInfo';
 import { useDeletePage } from '@/hooks/dashboard';
 import theme from '@/styles/theme';
@@ -28,6 +29,7 @@ const IndivPageContent = (props: IndivPageContentProps) => {
   const { blogUrl, id, title, isDraft, isLinked, createdAt, pageUrl, deleteContentId, setDeleteContentId } = props;
 
   const router = useRouter();
+  const resetPageData = useResetRecoilState(pageDataState);
 
   const { mutate } = useDeletePage(blogUrl, Number(id));
 
@@ -58,6 +60,7 @@ const IndivPageContent = (props: IndivPageContentProps) => {
         createdAt={createdAt}
         onTitleClick={() => {
           if (isDraft) {
+            resetPageData();
             router.push(`/${blogUrl}/editor/page/${id}/draft`);
           } else {
             window.open(`https://${blogUrl}.${DOMAIN_NAME}/content/page/${pageUrl}/${id}`);
@@ -65,14 +68,17 @@ const IndivPageContent = (props: IndivPageContentProps) => {
         }}
         onMutateClick={() => {
           if (isDraft) {
+            resetPageData();
             router.push(`/${blogUrl}/editor/page/${id}/draft`);
           } else {
+            resetPageData();
             router.push(`/${blogUrl}/editor/page/${id}/edit`);
           }
         }}
         onDeleteClick={() => {
           setModalState('deletePage');
           setDeleteContentId(id);
+          resetPageData();
         }}
       />
       {modalState === 'deletePage' && deleteContentId === id && (

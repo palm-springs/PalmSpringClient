@@ -1,7 +1,8 @@
 import { Dispatch, SetStateAction } from 'react';
 import { useParams, useRouter } from 'next/navigation';
-import { useRecoilState } from 'recoil';
+import { useRecoilState, useResetRecoilState } from 'recoil';
 
+import { articleDataState } from '@/components/editor/states/atom';
 import { useDeleteArticle } from '@/hooks/dashboard';
 
 import DashBoardContent from '../components/DashBoardContent';
@@ -24,6 +25,7 @@ const IndivTempsavedContentList = (props: IndivTempsavedContentListProps) => {
   const router = useRouter();
 
   const { id, title, name, job, createdAt, deleteModalId, setDeleteModalId } = props;
+  const resetArticleData = useResetRecoilState(articleDataState);
 
   const [modalState, setModalState] = useRecoilState(dashBoardModalState);
 
@@ -49,9 +51,16 @@ const IndivTempsavedContentList = (props: IndivTempsavedContentListProps) => {
         author={name}
         position={job}
         createdAt={createdAt}
-        onTitleClick={() => router.push(`/${blogUrl}/editor/article/${id}/draft`)}
-        onMutateClick={() => router.push(`/${blogUrl}/editor/article/${id}/draft`)}
+        onTitleClick={() => {
+          resetArticleData();
+          router.push(`/${blogUrl}/editor/article/${id}/draft`);
+        }}
+        onMutateClick={() => {
+          resetArticleData();
+          router.push(`/${blogUrl}/editor/article/${id}/draft`);
+        }}
         onDeleteClick={() => {
+          resetArticleData();
           setModalState('deleteArticle');
           setDeleteModalId(id);
         }}

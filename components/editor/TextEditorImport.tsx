@@ -22,7 +22,7 @@ import Text from '@tiptap/extension-text';
 import Underline from '@tiptap/extension-underline';
 import { Editor, useEditor } from '@tiptap/react';
 import { lowlight } from 'lowlight';
-import { useParams, useRouter } from 'next/navigation';
+import { useParams, usePathname, useRouter } from 'next/navigation';
 import { useRecoilState } from 'recoil';
 
 import { postArticleList } from '@/api/article';
@@ -47,11 +47,12 @@ interface TextEditorBuildprops {
 const TextEditorBuild = (props: TextEditorBuildprops) => {
   const { pageType, currentState, articleData, pageData } = props;
   const { team, articleId, pageId } = useParams();
+  const pathName = usePathname();
   //atTop useState로 상위에서 내려주기 -> toolbox와 saveEditorButton 상태공유 위함!
   const [atTop, setAtTop] = useState(true);
 
-  const [{ title: articleTitle }, setArticleData] = useRecoilState(articleDataState); // 아티클 초기 타이틀 -> 복사 -> 새로운 title 갈아끼기
-  const [{ title: pageTitle }, setPageData] = useRecoilState(pageDataState);
+  const [{ title: articleTitle, content: articleContent }, setArticleData] = useRecoilState(articleDataState); // 아티클 초기 타이틀 -> 복사 -> 새로운 title 갈아끼기
+  const [{ title: pageTitle, content: pageContent }, setPageData] = useRecoilState(pageDataState);
 
   const [, setImageSrc] = useState('');
   const [extractedHTML, setExtractedHTML] = useState<string>('');
@@ -61,6 +62,18 @@ const TextEditorBuild = (props: TextEditorBuildprops) => {
   const draftPageMutation = useUpdateTempPageDraft(team);
   const [updatedArticleData, setUpdatedArticleData] = useRecoilState(articleDataState);
   const [updatedPageData, setUpdatedPageData] = useRecoilState(pageDataState);
+
+  const selectEditorContent = () => {
+    if (pathName.startsWith(`/${team}/editor/article`)) {
+      if (articleContent) return articleContent;
+      if (articleData) return articleData.content;
+    } else if (pathName.startsWith(`/${team}/editor/page`)) {
+      if (pageContent) return pageContent;
+      if (pageData) return pageData.content;
+    }
+    return '';
+  };
+  const editorContent = selectEditorContent();
 
   // tiptap 라이브러리 내장 에디터 관련 기능  extensions.
   const editor = useEditor({
@@ -110,7 +123,7 @@ const TextEditorBuild = (props: TextEditorBuildprops) => {
         depth: 10,
       }),
     ],
-    content: articleData ? articleData.content : pageData ? pageData.content : '',
+    content: editorContent,
   });
 
   const encodeFileToBase64 = async (event: ChangeEvent<HTMLInputElement>, editor: Editor) => {
