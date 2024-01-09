@@ -62,7 +62,7 @@ const DeleteButton = () => {
           />
         </ModalPortal>
       )}
-      <LeavingContainer className="palms">
+      {/* <LeavingContainer className="palms">
         {!withdrawPalmSpring && hoverTarget === 'LeavingPalms' && (
           <DisabledMessage className="palms">
             소유하고 있는 블로그가 있다면 팜스프링을 탈퇴할 수 없어요.
@@ -81,7 +81,7 @@ const DeleteButton = () => {
           팜스프링 탈퇴하기
         </LeavingPalms>
       </LeavingContainer>
-      <DivisionLine>|</DivisionLine>
+      <DivisionLine>|</DivisionLine> */}
       <LeavingContainer>
         {!resignCurrentTeam && hoverTarget === 'LeavingBlog' && (
           <DisabledMessage className="blog">내가 소유한 블로그에서는 나갈 수 없어요.</DisabledMessage>
@@ -175,7 +175,5 @@ const DisabledMessage = styled.div`
 const LeavingContainer = styled.div`
   position: relative;
 
-  &.palms {
-    margin-left: 5rem;
-  }
+  margin-left: 5rem;
 `;
