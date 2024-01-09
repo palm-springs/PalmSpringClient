@@ -9,7 +9,7 @@ import { TextEditorStyle } from '@/styles/TextEditorStyle';
 const CreateArticlePage = () => {
   return (
     <AuthRequired>
-      <TextEditorStyle>
+      <TextEditorStyle className="editor">
         <ArticleWrapper className="ProseMirror">
           <EditorInputTitle pageType="article" />
           <TextEditorBuild pageType="article" />

@@ -186,4 +186,13 @@ export const TextEditorStyle = styled.div`
       color: ${({ theme }) => theme.colors.grey_700};
     }
   }
+
+  &.editor > .ProseMirror {
+    p {
+      ${({ theme }) => theme.fonts.Body1_Regular};
+      padding-bottom: 0.8rem;
+      width: 72rem;
+      letter-spacing: 0.3rem;
+    }
+  }
 `;
