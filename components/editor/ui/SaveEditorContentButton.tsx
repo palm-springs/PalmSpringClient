@@ -81,6 +81,10 @@ const SaveEditorContentButton = (props: editorProps) => {
     router.back();
   };
 
+  useEffect(() => {
+    setAtTop(false);
+  }, []);
+
   return (
     <>
       <Toaster
@@ -142,6 +146,7 @@ const ButtonContainer = styled.div`
   align-items: center;
   justify-content: space-between;
   z-index: 1000;
+  background-color: transparent;
   width: 100vw;
   height: 4.8rem;
 `;
