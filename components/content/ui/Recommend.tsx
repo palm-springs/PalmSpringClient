@@ -16,7 +16,6 @@ const Recommend = () => {
   const MOBILE = useCheckMobile();
 
   const data = useGetBlogArticleList(team, '');
-
   if (!data) return <LoadingLottie width={5} height={5} fit />;
 
   const filteredData = data.data.filter(({ id }) => {
