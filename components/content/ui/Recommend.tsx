@@ -16,11 +16,13 @@ const Recommend = () => {
   const MOBILE = useCheckMobile();
 
   const data = useGetBlogArticleList(team, '');
+  console.log(data);
 
   const filteredData = data?.data.filter(({ id }) => {
     id !== articleId;
   });
 
+  console.log(filteredData);
   const recommendArticle = filteredData.slice(0, 3);
   if (!recommendArticle) return <LoadingLottie width={5} height={5} fit />;
 
