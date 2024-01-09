@@ -33,8 +33,8 @@ const AuthorPageTemplate = (props: AuthorPageTemplateProps) => {
   return (
     <AuthorPageTemplateContainer className={MOBILE ? 'mobile' : ''}>
       <AuthorInfo thumbnail={thumbnail} nickname={nickname} job={job} description={description} />
-      {articles.length && <Line className={MOBILE ? 'mobile' : ''} />}
-      {articles.length && <AuthorArticle className={MOBILE ? 'mobile' : ''}>작성한 아티클</AuthorArticle>}
+      {articles.length !== 0 && <Line className={MOBILE ? 'mobile' : ''} />}
+      {articles.length !== 0 && <AuthorArticle className={MOBILE ? 'mobile' : ''}>작성한 아티클</AuthorArticle>}
       <ArticleList articleList={articles} />
     </AuthorPageTemplateContainer>
   );
