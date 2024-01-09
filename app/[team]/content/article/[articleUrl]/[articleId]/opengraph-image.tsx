@@ -14,7 +14,7 @@ export default async function Image({ params }: { params: { team: string; articl
   let ImageUrl =
     'https://github.com/palm-springs/PalmSpringClient/assets/108226647/bc6ac5c7-266f-4495-ad67-fc2b76a33576';
 
-  if (!post.data.thumbnail) {
+  if (post.data.thumbnail !== null && !post.data.thumbnail) {
     ImageUrl = post.data.thumbnail;
   }
 
