@@ -78,6 +78,7 @@ const SaveEditorContentButton = (props: editorProps) => {
   };
 
   const modalRealCloseHandler = () => {
+    document.body.style.overflow = 'visible';
     router.back();
   };
 
