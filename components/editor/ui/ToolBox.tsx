@@ -100,7 +100,7 @@ const EditorMenuBar = ({ editor, encodeFileToBase64, setLink, atTop, setAtTop }:
             <input
               type="file"
               onChange={(event) => encodeFileToBase64(event, editor)}
-              accept=".jpg, .jpeg, .jpe, .png, .webp, .svg, .gif"></input>
+              accept=".jpg, .jpeg, .jpe, .png, .svg, .gif"></input>
             <ImageIcon />
           </ImageInputLabel>
         </ToolButton>

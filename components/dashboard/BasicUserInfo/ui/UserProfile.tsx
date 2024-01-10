@@ -51,7 +51,7 @@ const UserProfile = () => {
             <ImageLabel>
               <UsersProfilesInputBackground />
               <UsersProfilesInput />
-              <input type="file" onChange={handleOnFileChange} accept=".jpg, .jpeg, .jpe, .png, .webp, .svg, .gif" />
+              <input type="file" onChange={handleOnFileChange} accept=".jpg, .jpeg, .jpe, .png, .svg, .gif" />
             </ImageLabel>
           )}
         </ProfileInputLabel>

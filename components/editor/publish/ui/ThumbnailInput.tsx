@@ -75,7 +75,7 @@ const ThumbnailInput = (props: ThumbnailInputProps) => {
               type="file"
               id="logo_input"
               onChange={(event) => encodeFileToBase64(event)}
-              accept=".jpg, .jpeg, .jpe, .png, .webp, .svg, .gif"
+              accept=".jpg, .jpeg, .jpe, .png, .svg, .gif"
             />
             {articleThumbnail ? (
               <CustomImage src={articleThumbnail} alt="미리보기 이미지" />
@@ -107,7 +107,7 @@ const ThumbnailInput = (props: ThumbnailInputProps) => {
               type="file"
               id="logo_input"
               onChange={(event) => encodeFileToBase64(event)}
-              accept=".jpg, .jpeg, .jpe, .png, .webp, .svg, .gif"
+              accept=".jpg, .jpeg, .jpe, .png, .svg, .gif"
             />
             {pageThumbnail ? (
               <CustomImage src={pageThumbnail} alt="미리보기 이미지" />
