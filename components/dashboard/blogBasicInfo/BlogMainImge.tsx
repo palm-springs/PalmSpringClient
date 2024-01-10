@@ -69,7 +69,7 @@ const BlogMainImage = (props: BlogMainImageProps) => {
             type="file"
             onChange={handleOnMainImageChange}
             disabled={readonly}
-            accept=".jpg, .jpeg, .jpe, .png, .webp, .svg, .gif"
+            accept=".jpg, .jpeg, .jpe, .png, .svg, .gif"
           />
           <BlogMainUpload>
             <UploadIcon />

@@ -74,7 +74,7 @@ const TopToolBox = ({ editor, encodeFileToBase64, setLink }: editorProps) => {
           <input
             type="file"
             onChange={(event) => encodeFileToBase64(event, editor)}
-            accept=".jpg, .jpeg, .jpe, .png, .webp, .svg, .gif"></input>
+            accept=".jpg, .jpeg, .jpe, .png,  .svg, .gif"></input>
           <ImageIcon />
         </ImageInputLabel>
         <button onClick={() => setLink({ editor })} className={editor.isActive('link') ? 'is-active' : ''}>
