@@ -10,7 +10,7 @@ const MobileStickyBtn = () => {
     <BtnContainer href={`https://${DOMAIN_NAME}/`}>
       <BtnWrapper>
         <MobileBtnLogo />
-        Made in Palmspring
+        Built with Palmspring
       </BtnWrapper>
     </BtnContainer>
   );
