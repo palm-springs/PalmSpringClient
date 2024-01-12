@@ -30,7 +30,7 @@ const ArticleList = (prop: ArticleListProp) => {
   if (MOBILE)
     return (
       <ArticleListContainer className="mobile">
-        {articleList.map((article) => (
+        {targetList.map((article) => (
           <MobileArticle key={article.id} article={article} />
         ))}
       </ArticleListContainer>
