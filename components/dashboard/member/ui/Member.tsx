@@ -36,6 +36,7 @@ const Member = (props: MemberComponentProps) => {
     memberId,
     role,
     email,
+    job,
     nickname,
     thumbnail,
     showPopOver,
@@ -103,7 +104,7 @@ const Member = (props: MemberComponentProps) => {
                 )}
                 <Name> {nickname} </Name>
               </NameBox>
-              <Position> {role} </Position>
+              <Position> {job} </Position>
               <Email> {email} </Email>
               <button
                 type="button"
@@ -262,7 +263,7 @@ const Position = styled.div`
   ${({ theme }) => theme.fonts.Body3_Regular};
 
   margin-right: 2rem;
-  width: 8.4rem;
+  width: 12rem;
   height: 1.7rem;
 
   overflow: hidden;
