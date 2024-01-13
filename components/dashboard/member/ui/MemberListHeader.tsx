@@ -33,7 +33,7 @@ const Name = styled.div`
 `;
 const Position = styled.div`
   ${({ theme }) => theme.fonts.Body3_Semibold};
-  width: 10.4rem;
+  width: 14rem;
   color: ${({ theme }) => theme.colors.grey_700};
 `;
 const Email = styled.div`
