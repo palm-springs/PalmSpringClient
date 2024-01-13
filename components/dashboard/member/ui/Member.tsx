@@ -7,7 +7,13 @@ import styled from 'styled-components';
 
 import ModalPortal from '@/components/common/ModalPortal';
 import { useDeleteInvite } from '@/hooks/auth';
-import { ArrowDownSmallIcon, CharmMenuMeatballIcon, IcClose24Icon, IcUserIcon } from '@/public/icons';
+import {
+  ArrowDownSmallIcon,
+  CharmMenuMeatballIcon,
+  IcClose24Icon,
+  IcUserIcon,
+  NoUserProfileIcon,
+} from '@/public/icons';
 import { MemberExampleImg } from '@/public/images';
 import { RoleType } from '@/utils/PermissionPolicyClass';
 
@@ -97,11 +103,7 @@ const Member = (props: MemberComponentProps) => {
           <>
             <MemberInfoBox>
               <NameBox className="member">
-                {thumbnail ? (
-                  <MemberProfile src={thumbnail} alt="member profile pic" />
-                ) : (
-                  <Image src={MemberExampleImg} alt="member profile photo" width={36} height={36} />
-                )}
+                {thumbnail ? <MemberProfile src={thumbnail} alt="member profile pic" /> : <IcUserIcon />}
                 <Name> {nickname} </Name>
               </NameBox>
               <Position> {job} </Position>

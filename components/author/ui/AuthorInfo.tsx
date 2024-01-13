@@ -4,6 +4,7 @@ import React from 'react';
 import styled from 'styled-components';
 
 import useCheckMobile from '@/hooks/useCheckMobile';
+import { IcAuthorDefaultIcon } from '@/public/icons';
 
 interface AuthorInfoComponentProps {
   thumbnail: string;
@@ -19,7 +20,7 @@ const AuthorInfo = (props: AuthorInfoComponentProps) => {
 
   return (
     <AuthorInfoContainer className={MOBILE ? 'mobile' : ''}>
-      <AuthorProfile src={thumbnail} alt="author profile pic" />
+      {thumbnail ? <AuthorProfile src={thumbnail} alt="author profile pic" /> : <IcAuthorDefaultIcon />}
       <AuthorName className={MOBILE ? 'mobile' : ''}>{nickname}</AuthorName>
       <AuthorPosition className={MOBILE ? 'mobile' : ''}>{job}</AuthorPosition>
       <AuthorDescription className={MOBILE ? 'mobile' : ''}>{description}</AuthorDescription>
@@ -39,6 +40,11 @@ const AuthorInfoContainer = styled.div`
 
   &.mobile {
     margin-top: 4rem;
+  }
+
+  & > svg {
+    width: 16rem;
+    height: 16rem;
   }
 `;
 
