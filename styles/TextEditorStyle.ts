@@ -188,15 +188,8 @@ export const TextEditorStyle = styled.div`
   }
 
   &.editor > .ProseMirror {
-    p {
-      ${({ theme }) => theme.fonts.Body1_Regular};
-      padding-bottom: 0.8rem;
-      width: 72rem;
-      letter-spacing: 0.3rem;
-    }
-    strong {
-      ${({ theme }) => theme.fonts.Body1_Semibold};
-      letter-spacing: 0.3rem;
+    * {
+      font-family: sans-serif;
     }
   }
 `;

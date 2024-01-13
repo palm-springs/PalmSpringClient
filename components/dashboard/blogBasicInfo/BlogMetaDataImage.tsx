@@ -4,7 +4,7 @@ import { useRecoilState } from 'recoil';
 import styled from 'styled-components';
 
 import { imageErrorCase } from '@/constants/image';
-import { CloseIcon, UploadIcon } from '@/public/icons';
+import { IcClose24Icon, UploadIcon } from '@/public/icons';
 import { getImageMultipartData } from '@/utils/getImageMultipartData';
 import { imageSizeErrorNotify } from '@/utils/imageSizeErrorNotify';
 
@@ -43,7 +43,7 @@ const BlogMetaDataImage = ({ readonly }: { readonly: boolean }) => {
         <MetaImageContainer>
           <ImageUpload src={metaThumbnail} alt="meta data image" />
           <DeleteImageButton type="button" onClick={handleOnDeleteImage} disabled={readonly}>
-            <CloseIcon />
+            <IcClose24Icon />
           </DeleteImageButton>
         </MetaImageContainer>
       ) : (

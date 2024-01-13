@@ -85,7 +85,7 @@ const ThumbnailInput = (props: ThumbnailInputProps) => {
                   <ThumbnailIcon />
                   <ThumbnailInputTitle>업로드하기 (선택)</ThumbnailInputTitle>
                 </ThumbnailTitleContainer>
-                <ThumbnailInputInfo>커버 이미지 권장 크기는 1920*1080 이상입니다.</ThumbnailInputInfo>
+                <ThumbnailInputInfo>커버 이미지 권장 크기는 800*600 입니다.</ThumbnailInputInfo>
               </>
             )}
           </ThumbnailInputLabel>
@@ -117,7 +117,7 @@ const ThumbnailInput = (props: ThumbnailInputProps) => {
                   <ThumbnailIcon />
                   <ThumbnailInputTitle>업로드하기 (선택)</ThumbnailInputTitle>
                 </ThumbnailTitleContainer>
-                <ThumbnailInputInfo>커버 이미지 권장 크기는 1920*1080 이상입니다.</ThumbnailInputInfo>
+                <ThumbnailInputInfo>커버 이미지 권장 크기는 800*600 입니다.</ThumbnailInputInfo>
               </>
             )}
           </ThumbnailInputLabel>

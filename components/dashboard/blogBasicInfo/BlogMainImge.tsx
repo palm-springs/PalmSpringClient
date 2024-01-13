@@ -4,7 +4,7 @@ import React, { ChangeEvent, useEffect, useRef, useState } from 'react';
 import styled from 'styled-components';
 
 import { imageErrorCase } from '@/constants/image';
-import { CloseIcon, UploadIcon } from '@/public/icons';
+import { IcClose24Icon, UploadIcon } from '@/public/icons';
 import { getImageMultipartData } from '@/utils/getImageMultipartData';
 import { imageSizeErrorNotify } from '@/utils/imageSizeErrorNotify';
 
@@ -52,14 +52,14 @@ const BlogMainImage = (props: BlogMainImageProps) => {
       <ImageGuideContainer>
         <ImageGuideTitle>블로그 대문 이미지</ImageGuideTitle>
         <ImageGuideContent>
-          대문 이미지 권장 크기는 <p>1920*1080 입니다</p>
+          대문 이미지 권장 크기는 <p>1440*500 입니다</p>
         </ImageGuideContent>
       </ImageGuideContainer>
       {preLoadImg ? (
         <BlogMainImageDeleteContainer>
           <PreLoadImg src={preLoadImg} alt="블로그 메인 이미지" />
           <DeleteImageButton type="button" onClick={handleOnDeleteMainImage} disabled={readonly}>
-            <CloseIcon />
+            <IcClose24Icon />
           </DeleteImageButton>
         </BlogMainImageDeleteContainer>
       ) : (
