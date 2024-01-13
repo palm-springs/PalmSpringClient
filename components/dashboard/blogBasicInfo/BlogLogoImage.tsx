@@ -4,7 +4,7 @@ import React, { ChangeEvent, useEffect, useRef, useState } from 'react';
 import styled from 'styled-components';
 
 import { imageErrorCase } from '@/constants/image';
-import { CloseIcon, UploadIcon } from '@/public/icons';
+import { IcClose24Icon, UploadIcon } from '@/public/icons';
 import { getImageMultipartData } from '@/utils/getImageMultipartData';
 import { imageSizeErrorNotify } from '@/utils/imageSizeErrorNotify';
 
@@ -56,7 +56,7 @@ const BlogLogoImage = (props: BlogLogoImageProps) => {
         <LogoImageContainer>
           <PreLoadImg src={preLoadImg} alt="블로그 로고 이미지" />
           <DeleteImageButton type="button" onClick={handleOnDeleteLogoImage} disabled={readonly}>
-            <CloseIcon />
+            <IcClose24Icon />
           </DeleteImageButton>
         </LogoImageContainer>
       ) : (
@@ -146,6 +146,7 @@ const BlogLogoImageContainer = styled.div`
 const PreLoadImg = styled.img`
   margin-left: 1.8rem;
   border-radius: 0.8rem;
-  width: auto;
-  height: 14.6rem;
+
+  max-width: 64.5rem;
+  max-height: 14.6rem;
 `;
