@@ -165,12 +165,7 @@ const ExitButton = styled.button<{ atTop: boolean }>`
   }
 `;
 
-const NoneTemporary = styled.button`
-  margin-left: 48.5rem;
-  padding: 1rem 2rem;
-  width: 9.6rem;
-  height: 3.6rem;
-`;
+const NoneTemporary = styled.button``;
 
 const TemporarySaveButton = styled.button<{ atTop: boolean }>`
   display: inline-flex;
