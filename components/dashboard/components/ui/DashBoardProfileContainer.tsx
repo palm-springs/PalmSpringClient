@@ -48,6 +48,10 @@ const DashBoardProfileContainerUI = styled.article`
     margin: 0.8rem;
   }
 
+  & > svg {
+    margin: 0.8rem;
+  }
+
   div {
     display: flex;
     flex-direction: column;

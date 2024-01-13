@@ -35,6 +35,7 @@ export { default as StrikeIcon } from './ic_Strike.svg';
 export { default as UploadIcon } from './ic_upload.svg';
 export { default as InputPlusButtonIcon } from './ic_uploadprofileimage.svg';
 export { default as IcUserIcon } from './ic_user.svg';
+export { default as IcAuthorDefaultIcon } from './ic_user_160.svg';
 export { default as BulletIcon } from './icnBullet.svg';
 export { default as CodeIcon } from './icnCode.svg';
 export { default as CodeBlockIcon } from './icnCodeblock.svg';
