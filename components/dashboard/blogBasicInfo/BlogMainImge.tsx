@@ -52,7 +52,7 @@ const BlogMainImage = (props: BlogMainImageProps) => {
       <ImageGuideContainer>
         <ImageGuideTitle>블로그 대문 이미지</ImageGuideTitle>
         <ImageGuideContent>
-          대문 이미지 권장 크기는 <p>1920*1080 입니다</p>
+          대문 이미지 권장 크기는 <p>1440*500 입니다</p>
         </ImageGuideContent>
       </ImageGuideContainer>
       {preLoadImg ? (
