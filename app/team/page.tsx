@@ -16,8 +16,8 @@ const ourBelovedPM = [
     desc: '세상에 도움이 되는 삶을 살고 싶어요',
     url: [
       'https://www.linkedin.com/in/daeduk-kim-712b88255/',
-      'https://dannykim.tistory.com/',
-      'https://disquiet.io/@_9911120',
+      'https://instagram.com/_9911120',
+      'https://kimdaeduk.com',
     ],
   },
   {
@@ -30,21 +30,24 @@ const ourBelovedPM = [
 const ourBelovedDesigner = [
   {
     name: '권윤',
-    position: 'UX/UI Designer',
+    position: 'Product Designer',
     desc: 'Product Designer @Palmspring',
     url: ['https://doongzi.kr/yoon'],
   },
   {
     name: '김성은',
-    position: 'UX/UI Designer',
+    position: 'Product Designer',
     desc: '디자이너입니다.',
     url: ['https://instagram.com/sungeunarchive_'],
   },
   {
     name: '송승훈',
-    position: 'UX/UI Designer',
+    position: 'Product Designer',
     desc: '기술과 디자인의 조화로 윤택한 삶을 만들고 싶습니다.',
-    url: ['https://big-camel-a35.notion.site/Leo-Song-2023-29feffece20f4d1592b6630070c4adee?pvs=4'],
+    url: [
+      'https://big-camel-a35.notion.site/Leo-Song-2023-29feffece20f4d1592b6630070c4adee?pvs=4',
+      'https://www.linkedin.com/in/seunghoon-leo-song-9130b9279/',
+    ],
   },
 ];
 const ourBelovedFE = [
@@ -52,28 +55,29 @@ const ourBelovedFE = [
     name: '김서현',
     position: 'FE Engineer',
     desc: '사용자를 생각하는 개발자',
-    url: ['https://github.com/seobbang'],
+    url: ['https://github.com/seobbang', 'https://www.linkedin.com/in/seohyun-kim-9784ab29a/'],
   },
   {
     name: '오형근',
     position: 'FE Engineer',
     desc: '개발자 꿈나무입니다! 제가 궁금하시다면 깃헙을 봐주세요.',
-    url: [
-      'https://github.com/Geun-Oh',
-      'https://patch-strand-bb8.notion.site/F-E-Developer-7d29ae91483c4c4392d7efd31984550c?pvs=4',
-    ],
+    url: ['https://github.com/Geun-Oh', 'https://www.linkedin.com/in/hyeonggeun-oh-760a5b240'],
   },
   {
     name: '이시연',
     position: 'FE Engineer',
     desc: '코린이입니다! ٩(๑❛ᴗ❛๑)۶',
-    url: ['https://github.com/SynthiaLee', 'https://www.instagram.com/synthia_lee_/'],
+    url: [
+      'https://github.com/SynthiaLee',
+      'https://www.instagram.com/synthia_lee_/',
+      'https://www.linkedin.com/in/synthia-lee-4b2969232/',
+    ],
   },
   {
     name: '장명지',
     position: 'FE Engineer',
     desc: '🐶발도 좋아하고 개발도 좋아합니다.',
-    url: ['https://github.com/Dangpy', 'https://www.instagram.com/_myundi/'],
+    url: ['https://github.com/Dangpy', 'https://www.linkedin.com/in/myungji-jang-a84a752a8'],
   },
 ];
 const ourBelovedServer = [
@@ -91,7 +95,11 @@ const ourBelovedServer = [
     name: '장유진',
     position: 'BE Engineer',
     desc: '성장중인 개발자입니다. 긴장해라 네카라쿠배. 그리고 저는.. 더보기',
-    url: ['https://instagram.com/eu_jinchin'],
+    url: [
+      'https://instagram.com/eu_jinchin',
+      'https://github.com/jinchiim',
+      'www.linkedin.com/in/eugene-jang-27b922291',
+    ],
   },
 ];
 
