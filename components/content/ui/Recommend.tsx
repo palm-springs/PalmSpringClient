@@ -26,7 +26,7 @@ const Recommend = () => {
 
   return (
     <RecommendContainer className={MOBILE ? 'mobile' : ''}>
-      <RecommendTitle className={MOBILE ? 'mobile' : ''}>최신 아티클</RecommendTitle>
+      {recommendArticle.length !== 0 && <RecommendTitle className={MOBILE ? 'mobile' : ''}>최신 아티클</RecommendTitle>}
       <ArticleBox recommendArticle={recommendArticle} />
     </RecommendContainer>
   );
