@@ -65,7 +65,7 @@ const ContentInfo = (props: ContentInfoProps) => {
               <WriterDetailBox className="mobile">
                 <WriterNameBox>
                   <WriterDetail className="mobile">{name}</WriterDetail>
-                  <WriterDetail className="mobile">&nbsp;·&nbsp;{job}</WriterDetail>
+                  {job && <WriterDetail className="mobile">&nbsp;·&nbsp;{job}</WriterDetail>}
                 </WriterNameBox>
                 <WriterDetail className="date">{createdAt}</WriterDetail>
               </WriterDetailBox>
@@ -97,7 +97,7 @@ const ContentInfo = (props: ContentInfoProps) => {
               <WriterDetailBox>
                 <WriterNameBox>
                   <WriterDetail>{name}</WriterDetail>
-                  <WriterDetail>&nbsp;·&nbsp;{job}</WriterDetail>
+                  {job && <WriterDetail>&nbsp;·&nbsp;{job}</WriterDetail>}
                 </WriterNameBox>
                 <WriterDetail className="date">{createdAt}</WriterDetail>
               </WriterDetailBox>

@@ -80,11 +80,13 @@ const AuthorDescription = styled.div`
   margin-top: 1.6rem;
   width: 60rem;
   text-align: center;
-  word-break: keep-all;
+  word-wrap: break-word;
   color: ${({ theme }) => theme.colors.grey_700};
 
   &.mobile {
     ${({ theme }) => theme.mobileFonts.Body2_Regular};
     margin-top: 1.2rem;
+    width: 31.1rem;
+    word-wrap: break-word;
   }
 `;
