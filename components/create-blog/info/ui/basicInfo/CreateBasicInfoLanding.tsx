@@ -31,7 +31,7 @@ const CreateBasicInfoLanding = () => {
     setBlogData((prev: createBlogData) => ({ ...prev, [id]: value }));
 
     if (id === 'url') {
-      const checkAddressRule = /^[a-z0-9_]*$/.test(value);
+      const checkAddressRule = /^[a-z0-9-]*$/.test(value);
       if (checkAddressRule) {
         setInvalidText(false);
         CheckDuplication(value, setIsAddressDuplicate);
