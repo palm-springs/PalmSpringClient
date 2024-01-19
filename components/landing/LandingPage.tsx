@@ -291,7 +291,7 @@ const LandingPage = ({ dashboardUrl }: { dashboardUrl: string }) => {
             <button css={main_button}>팀블로그 만들기</button>
           </Link>
           <Link
-            href={`https://official.palms.blog/home`}
+            href={`https://palms.blog/official/home`}
             css={css`
               @media (min-width: 575px) {
                 display: none;
@@ -666,7 +666,7 @@ const LandingPage = ({ dashboardUrl }: { dashboardUrl: string }) => {
             <button css={main_button}>팀블로그 만들기</button>
           </Link>
           <Link
-            href={`https://official.palms.blog/home`}
+            href={`https://palms.blog/official/home`}
             css={css`
               @media (min-width: 575px) {
                 display: none;
