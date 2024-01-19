@@ -2,6 +2,7 @@
 
 import React from 'react';
 import Link from 'next/link';
+import { useParams } from 'next/navigation';
 import styled from 'styled-components';
 
 import useCheckMobile from '@/hooks/useCheckMobile';
@@ -28,6 +29,7 @@ interface ContentInfoProps {
 }
 
 const ContentInfo = (props: ContentInfoProps) => {
+  const { team } = useParams();
   const MOBILE = useCheckMobile();
 
   const { contentInfoData, IndivContentId, articleUrl } = props;
@@ -52,7 +54,7 @@ const ContentInfo = (props: ContentInfoProps) => {
           </ContentDetailBox>
         ) : (
           <ContentDetailBox>
-            <Link href={`/content/article/${articleUrl}/${IndivContentId}`}>
+            <Link href={`/${team}/content/article/${articleUrl}/${IndivContentId}`}>
               <TitleBox className="mobile">{title}</TitleBox>
               {description && <DescriptionBox className="mobile">{description}</DescriptionBox>}
             </Link>
@@ -60,7 +62,7 @@ const ContentInfo = (props: ContentInfoProps) => {
         )}
         {name && (
           <WriterBox>
-            <WriterInfo href={`/author/${id}`} className="mobile">
+            <WriterInfo href={`/${team}/author/${id}`} className="mobile">
               {thumbnail ? <WriterProfilePic src={thumbnail} alt="writer profile pic" /> : <NoUserProfileIcon />}
               <WriterDetailBox className="mobile">
                 <WriterNameBox>
@@ -84,7 +86,7 @@ const ContentInfo = (props: ContentInfoProps) => {
           </ContentDetailBox>
         ) : (
           <ContentDetailBox>
-            <Link href={`/content/article/${articleUrl}/${IndivContentId}`}>
+            <Link href={`/${team}/content/article/${articleUrl}/${IndivContentId}`}>
               <TitleBox>{title}</TitleBox>
               {description && <DescriptionBox>{description}</DescriptionBox>}
             </Link>

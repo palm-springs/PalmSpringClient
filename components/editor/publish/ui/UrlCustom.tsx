@@ -72,7 +72,7 @@ const UrlCustom = (props: UrlCustomProps) => {
 
           <PublishInputForm isFocus={isAddressFocus} isDuplicate={isDuplicate}>
             <div>
-              {team}.{DOMAIN_NAME}/content/
+              {DOMAIN_NAME}/{team}/content/
             </div>
             <TextInput
               onFocus={() => setIsAddressFocus(true)}
@@ -96,7 +96,7 @@ const UrlCustom = (props: UrlCustomProps) => {
 
           <PublishInputForm isFocus={isAddressFocus} isDuplicate={isDuplicate}>
             <div>
-              {team}.{DOMAIN_NAME}/content/
+              {DOMAIN_NAME}/{team}/content/
             </div>
             <TextInput
               onFocus={() => setIsAddressFocus(true)}

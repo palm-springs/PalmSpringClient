@@ -12,7 +12,7 @@ interface CategoryBtnBarProps {
   LiteralList: string[];
 }
 const CategoryBtnBar = (props: CategoryBtnBarProps) => {
-  const { category } = useParams();
+  const { category, team } = useParams();
   const { LiteralList } = props;
   const SELECTED = useGetCategory();
   const MOBILE = useCheckMobile();
@@ -21,7 +21,7 @@ const CategoryBtnBar = (props: CategoryBtnBarProps) => {
     if (MOBILE)
       return (
         <MobileCategoryBtn
-          href={`/home/${eachCategory}`}
+          href={`/${team}/home/${eachCategory}`}
           key={eachCategory}
           className={eachCategory === decodeURI(category) ? 'selected' : ''}>
           {eachCategory}
@@ -30,7 +30,7 @@ const CategoryBtnBar = (props: CategoryBtnBarProps) => {
     else
       return (
         <CategoryBtn
-          href={{ pathname: `/home/${eachCategory}`, hash: '/' }}
+          href={{ pathname: `/${team}/home/${eachCategory}`, hash: '/' }}
           key={eachCategory}
           className={eachCategory === decodeURI(category) ? 'selected' : ''}>
           {eachCategory}
@@ -41,7 +41,7 @@ const CategoryBtnBar = (props: CategoryBtnBarProps) => {
   if (MOBILE)
     return (
       <CategoryBtnBarContainer className="mobile">
-        <MobileCategoryBtn href={`/home`} className={SELECTED === 'home' ? 'selected' : ''}>
+        <MobileCategoryBtn href={`/${team}/home`} className={SELECTED === 'home' ? 'selected' : ''}>
           전체
         </MobileCategoryBtn>
         {CATEGORY_LIST}
@@ -50,7 +50,7 @@ const CategoryBtnBar = (props: CategoryBtnBarProps) => {
   else
     return (
       <CategoryBtnBarContainer id="/">
-        <CategoryBtn href={{ pathname: `/home`, hash: '/' }} className={SELECTED === 'home' ? 'selected' : ''}>
+        <CategoryBtn href={{ pathname: `/${team}/home`, hash: '/' }} className={SELECTED === 'home' ? 'selected' : ''}>
           전체
         </CategoryBtn>
         {CATEGORY_LIST}

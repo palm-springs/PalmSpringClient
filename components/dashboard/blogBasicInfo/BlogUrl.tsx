@@ -15,7 +15,7 @@ const BlogUrl = (props: BlogUrlProps) => {
     <BlogUrlContainer>
       <BlogUrlTitle>블로그 주소</BlogUrlTitle>
       <BlogUrlText>
-        {blogUrl ? `https://${blogUrl}.${DOMAIN_NAME}/home` : '블로그 주소를 불러오는 중입니다...'}
+        {blogUrl ? `https://${DOMAIN_NAME}/${blogUrl}/home` : '블로그 주소를 불러오는 중입니다...'}
       </BlogUrlText>
     </BlogUrlContainer>
   );

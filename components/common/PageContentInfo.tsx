@@ -2,6 +2,7 @@
 
 import React from 'react';
 import Link from 'next/link';
+import { useParams } from 'next/navigation';
 import styled from 'styled-components';
 
 import useCheckMobile from '@/hooks/useCheckMobile';
@@ -19,6 +20,7 @@ interface PageContentInfoProps {
 }
 
 const PageContentInfo = (props: PageContentInfoProps) => {
+  const { team } = useParams();
   const MOBILE = useCheckMobile();
 
   const { contentInfoData, IndivContentId, articleUrl } = props;
@@ -37,7 +39,7 @@ const PageContentInfo = (props: PageContentInfoProps) => {
           </ContentDetailBox>
         ) : (
           <ContentDetailBox>
-            <Link href={`/content/article/${articleUrl}/${IndivContentId}`}>
+            <Link href={`/${team}/content/article/${articleUrl}/${IndivContentId}`}>
               <TitleBox className="mobile">{title}</TitleBox>
               {description && <DescriptionBox className="mobile">{description}</DescriptionBox>}
             </Link>
@@ -55,7 +57,7 @@ const PageContentInfo = (props: PageContentInfoProps) => {
           </ContentDetailBox>
         ) : (
           <ContentDetailBox>
-            <Link href={`/content/article/${articleUrl}/${IndivContentId}`}>
+            <Link href={`/${team}/content/article/${articleUrl}/${IndivContentId}`}>
               <TitleBox>{title}</TitleBox>
               {description && <DescriptionBox>{description}</DescriptionBox>}
             </Link>

@@ -43,7 +43,7 @@ const IndivNavDashboardContent = (props: IndivNavDashboardContentProps) => {
         url={url}
         onTitleClick={() => {
           if (isPage) {
-            window.open(`https://${blogUrl}.${DOMAIN_NAME}/content/page/${url}/${id}`);
+            window.open(`https://${DOMAIN_NAME}/${blogUrl}/content/page/${url}/${id}`);
             return;
           }
           if (typeof window !== 'undefined') {
