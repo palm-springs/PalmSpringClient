@@ -103,7 +103,7 @@ const Header = ({ dashboardUrl }: { dashboardUrl?: string }) => {
             </div>
           </Link>
           <a
-            href="https://official.palms.blog/home"
+            href="https://palms.blog/official/home"
             target="_blank"
             rel="noreferrer noopener"
             css={[
