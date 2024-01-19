@@ -56,7 +56,7 @@ const IndivUploadContentList = (props: IndivUploadContentListProps) => {
         createdAt={createdAt}
         onMutateClick={() => router.push(`/${team}/editor/article/${String(id)}/edit`)}
         onTitleClick={() => {
-          window.open(`https://${team}.${DOMAIN_NAME}/content/article/${articleUrl}/${String(id)}`);
+          window.open(`https://${DOMAIN_NAME}/${team}/content/article/${articleUrl}/${String(id)}`);
         }}
         onDeleteClick={() => {
           setDashboardModalState('deleteArticle');

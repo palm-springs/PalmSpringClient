@@ -63,7 +63,7 @@ const ArticleListWithThumbnail = (props: ArticleListWithThumbnailProps) => {
       <>
         <ContentInfoContainer>
           {contentListData && contentListData.thumbnail && (
-            <Link href={`/content/article/${articleUrl}/${IndivContentId}`}>
+            <Link href={`/${team}/content/article/${articleUrl}/${IndivContentId}`}>
               <ContentThumbnail width="720" height="405" src={contentListData.thumbnail} alt="content thumbnail" />
             </Link>
           )}

@@ -65,7 +65,7 @@ const PopOver = (prop: PopOverProp) => {
           onMouseDown={(e) => {
             e.preventDefault();
           }}
-          href={`https://${blogUrl}.${DOMAIN_NAME}/author/${memberId}`}
+          href={`https://${DOMAIN_NAME}/${blogUrl}/author/${memberId}`}
           target="_blank">
           프로필 보기
         </LinkText>
