@@ -7,7 +7,7 @@ import { useRecoilState } from 'recoil';
 import styled from 'styled-components';
 
 import { imageErrorCase } from '@/constants/image';
-import { ThumbnailIcon } from '@/public/icons';
+import { IcClose24Icon, ThumbnailIcon } from '@/public/icons';
 import { UpdateArticleProps } from '@/types/article';
 import { UpdatePageProps } from '@/types/page';
 import { getImageMultipartData } from '@/utils/getImageMultipartData';
@@ -58,6 +58,13 @@ const ThumbnailInput = (props: ThumbnailInputProps) => {
     }
   };
 
+  const handleArticleThumbnailDel = () => {
+    setArticleData((prev) => ({ ...prev, thumbnail: null }));
+  };
+  const handlePageThumbnailDel = () => {
+    setPageData((prev) => ({ ...prev, thumbnail: null }));
+  };
+
   switch (pageType) {
     case `article`:
       return (
@@ -78,7 +85,12 @@ const ThumbnailInput = (props: ThumbnailInputProps) => {
               accept=".jpg, .jpeg, .jpe, .png, .svg, .gif"
             />
             {articleThumbnail ? (
-              <CustomImage src={articleThumbnail} alt="미리보기 이미지" />
+              <ThumbnailWrapper>
+                <CustomImage src={articleThumbnail} alt="미리보기 이미지" />
+                <DeleteImageButton type="button" onClick={handleArticleThumbnailDel}>
+                  <IcClose24Icon />
+                </DeleteImageButton>
+              </ThumbnailWrapper>
             ) : (
               <>
                 <ThumbnailTitleContainer>
@@ -110,7 +122,12 @@ const ThumbnailInput = (props: ThumbnailInputProps) => {
               accept=".jpg, .jpeg, .jpe, .png, .svg, .gif"
             />
             {pageThumbnail ? (
-              <CustomImage src={pageThumbnail} alt="미리보기 이미지" />
+              <ThumbnailWrapper>
+                <CustomImage src={pageThumbnail} alt="미리보기 이미지" />
+                <DeleteImageButton type="button" onClick={handlePageThumbnailDel}>
+                  <IcClose24Icon />
+                </DeleteImageButton>
+              </ThumbnailWrapper>
             ) : (
               <>
                 <ThumbnailTitleContainer>
@@ -129,6 +146,16 @@ const ThumbnailInput = (props: ThumbnailInputProps) => {
 };
 
 export default ThumbnailInput;
+
+const ThumbnailWrapper = styled.div`
+  position: relative;
+`;
+
+const DeleteImageButton = styled.button`
+  position: absolute;
+  top: 1.2rem;
+  right: 1.2rem;
+`;
 
 const CustomImage = styled.img`
   border-radius: 1.6rem;
