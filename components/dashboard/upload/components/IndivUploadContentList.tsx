@@ -1,7 +1,8 @@
 import { Dispatch, SetStateAction } from 'react';
 import { useParams, useRouter } from 'next/navigation';
-import { useRecoilState } from 'recoil';
+import { useRecoilState, useResetRecoilState } from 'recoil';
 
+import { articleDataState } from '@/components/editor/states/atom';
 import { DOMAIN_NAME } from '@/constants/palmspringInfo';
 import { useDeleteArticle } from '@/hooks/dashboard';
 
@@ -28,6 +29,7 @@ const IndivUploadContentList = (props: IndivUploadContentListProps) => {
   const { team } = useParams();
 
   const router = useRouter();
+  const resetArticleData = useResetRecoilState(articleDataState);
 
   const { id, title, articleCategory, memberName, job, createdAt, articleUrl, deleteModalId, setDeleteModalId } = props;
 
@@ -54,7 +56,10 @@ const IndivUploadContentList = (props: IndivUploadContentListProps) => {
         author={memberName}
         position={job}
         createdAt={createdAt}
-        onMutateClick={() => router.push(`/${team}/editor/article/${String(id)}/edit`)}
+        onMutateClick={() => {
+          router.push(`/${team}/editor/article/${String(id)}/edit`);
+          resetArticleData();
+        }}
         onTitleClick={() => {
           window.open(`https://${team}.${DOMAIN_NAME}/content/article/${articleUrl}/${String(id)}`);
         }}
