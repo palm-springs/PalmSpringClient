@@ -41,6 +41,10 @@ jobs:
           docker tag palmspring-client:latest ${{ secrets.AWS_USER_ID }}.dkr.ecr.ap-northeast-2.amazonaws.com/palmspring-client:latest
           docker push ${{ secrets.AWS_USER_ID }}.dkr.ecr.ap-northeast-2.amazonaws.com/palmspring-client:latest
 
+      - name: 버전 정보 추출
+        run: echo "##[set-output name=version;]$(echo '${{ github.event.head_commit.message }}' | egrep -o '[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}')"
+        id: extract_version_name
+
       - name: Deploy to EB
         uses: einaregilsson/beanstalk-deploy@v21
         with:
@@ -48,8 +52,8 @@ jobs:
           aws_secret_key: ${{ secrets.AWS_SECRET_ACCESS_KEY }}
           application_name: palmspring-client-v1
           environment_name: Palmspring-client-v1-env
-          version_label: github-action-${{ steps.current-time.outputs.formattedTime }}
-          use_existing_version_if_available: true
+          version_label: version-${{ steps.extract_version_name.outputs.version }}
+          use_existing_version_if_available: false
           region: ap-northeast-2
           deployment_package: docker-compose.yaml
           wait_for_deployment: 300
