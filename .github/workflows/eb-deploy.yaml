@@ -52,4 +52,4 @@ jobs:
           use_existing_version_if_available: true
           region: ap-northeast-2
           deployment_package: docker-compose.yaml
-          wait_for_deployment: 120
+          wait_for_deployment: 300
