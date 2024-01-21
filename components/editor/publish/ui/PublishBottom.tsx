@@ -138,7 +138,7 @@ const PublishBottomButtons = (props: PublishBottomButtons) => {
                 type="button"
                 onClick={handleOnClickUpdateArticlePublish}
                 disabled={
-                  categoryId === -1 || description === '' || articleUrl === '' || isDuplicate || isDuplicate === null
+                  categoryId === null || description === '' || articleUrl === '' || isDuplicate || isDuplicate === null
                 }>
                 글 수정하기
               </PublishButton>
@@ -147,7 +147,7 @@ const PublishBottomButtons = (props: PublishBottomButtons) => {
                 type="button"
                 onClick={currentState === 'draft' ? handleTempArticleUpdatePublish : handleOnClickArticlePublish}
                 disabled={
-                  categoryId === -1 || description === '' || articleUrl === '' || isDuplicate || isDuplicate === null
+                  categoryId === null || description === '' || articleUrl === '' || isDuplicate || isDuplicate === null
                 }>
                 글 발행하기
               </PublishButton>
