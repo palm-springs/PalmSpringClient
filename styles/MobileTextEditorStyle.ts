@@ -50,6 +50,10 @@ export const MobileTextEditorStyle = styled.div`
       & > p {
         width: 100%;
       }
+
+      & > ul > li {
+        width: calc(100vw - 14rem);
+      }
     }
 
     u {
