@@ -34,7 +34,8 @@ const ArticleContainer = (props: ArticleContainerProps) => {
   const FilteredCategoryList = useGetBlogCategoryList(team);
   const CategorySelected = useGetCategory();
 
-  if (!FilteredCategoryList || !CategorySelected) return <LoadingLottie width={10} height={10} fit />;
+  if (!FilteredCategoryList || !CategorySelected || !articleListData)
+    return <LoadingLottie width={10} height={10} fit />;
 
   const LiteralList = getLiteralCategoryList(FilteredCategoryList);
 
