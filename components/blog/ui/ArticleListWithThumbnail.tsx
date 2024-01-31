@@ -28,6 +28,7 @@ const ArticleListWithThumbnail = (props: ArticleListWithThumbnailProps) => {
 
   const categoryName = decodeURI(category);
 
+  console.log('ArticleListWithThumbNail', articleList);
   const FilteredArticleList = articleList.filter(
     ({ articleCategory }) => articleCategory.categoryName === categoryName,
   );
