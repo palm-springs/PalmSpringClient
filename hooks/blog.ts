@@ -13,7 +13,7 @@ const QUERY_KEY_BLOG = {
 };
 
 export const useGetBlogInfo = (blogUrl: string) => {
-  const { data } = useQuery([QUERY_KEY_BLOG.getBlogInfo], () => getBlogInfo(blogUrl));
+  const { data } = useQuery([QUERY_KEY_BLOG.getBlogInfo, blogUrl], () => getBlogInfo(blogUrl));
   return data;
 };
 
@@ -22,7 +22,7 @@ export const useDeleteBlog = (blogUrl: string) => {
 
   const router = useRouter();
 
-  return useMutation([QUERY_KEY_BLOG.deleteBlog], () => deleteBlog(blogUrl), {
+  return useMutation([QUERY_KEY_BLOG.deleteBlog, blogUrl], () => deleteBlog(blogUrl), {
     onSuccess: async () => {
       await queryClient.invalidateQueries([QUERY_KEY_DASHBOARD.getUserInfo]);
 

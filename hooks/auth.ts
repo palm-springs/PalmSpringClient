@@ -7,8 +7,13 @@ import { DeleteRequestBody, InviteRequestBody } from '@/types/user';
 
 import { QUERY_KEY_DASHBOARD } from './dashboard';
 
+const QUERY_KEY_AUTH = {
+  auth: 'auth',
+  invite: 'invite',
+};
+
 export const useGetAccessToken = (props: getAccessTokenProps) => {
-  const { data } = useQuery(['auth'], () => getAccessToken(props));
+  const { data } = useQuery([QUERY_KEY_AUTH.auth], () => getAccessToken(props));
   return data;
 };
 
@@ -23,7 +28,7 @@ export const usePostMemberInvite = (blogUrl: string, requestBody: InviteRequestB
 };
 
 export const useGetMemberInvite = (code: string | null) => {
-  const { data } = useQuery(['invite'], () => getMemberInvite(code));
+  const { data } = useQuery([QUERY_KEY_AUTH.invite, code], () => getMemberInvite(code));
   return data;
 };
 
