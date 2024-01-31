@@ -33,13 +33,13 @@ const ArticleContainer = (props: ArticleContainerProps) => {
   const { articleListData, thumbnail, description, blogName } = props;
   const FilteredCategoryList = useGetBlogCategoryList(team);
   const CategorySelected = useGetCategory();
+  console.log(articleListData);
 
-  if (!FilteredCategoryList || !CategorySelected || !articleListData)
-    return <LoadingLottie width={10} height={10} fit />;
+  if (!FilteredCategoryList || !CategorySelected) return <LoadingLottie width={10} height={10} fit />;
 
   const LiteralList = getLiteralCategoryList(FilteredCategoryList);
 
-  if (articleListData.length === 0 && thumbnail) {
+  if (articleListData?.length === 0 && thumbnail) {
     if (CategorySelected !== 'home') {
       //아티클 리스트가 없고 카테고리 선택 안되어있고 블로그 대문이 있을 때
       return (
@@ -63,7 +63,7 @@ const ArticleContainer = (props: ArticleContainerProps) => {
   }
 
   //아티클 리스트가 없고 블로그 대문이 없을 때
-  if (articleListData.length === 0 && !thumbnail)
+  if (articleListData?.length === 0 && !thumbnail)
     return (
       <>
         <DefaultTextContainer className={MOBILE ? 'mobile' : ''}>
@@ -75,10 +75,10 @@ const ArticleContainer = (props: ArticleContainerProps) => {
     );
 
   //아티클 리스트가 있고 블로그 대문이 없을 때
-  if (articleListData.length !== 0 && !thumbnail) return <ArticleListWithThumbnail articleList={articleListData} />;
+  if (articleListData?.length !== 0 && !thumbnail) return <ArticleListWithThumbnail articleList={articleListData} />;
 
   //아티클 리스트가 있고 블로그 대문이 있을 때
-  if (articleListData.length !== 0 && thumbnail)
+  if (articleListData?.length !== 0 && thumbnail)
     return (
       <>
         <BlogImg thumbnail={thumbnail} description={description} />
@@ -91,6 +91,8 @@ const ArticleContainer = (props: ArticleContainerProps) => {
         {MOBILE && <MobileStickyBtn />}
       </>
     );
+
+  return <LoadingLottie width={10} height={10} fit />;
 };
 
 export default ArticleContainer;
