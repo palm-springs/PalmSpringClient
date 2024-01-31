@@ -11,6 +11,7 @@ const QUERY_KEY_BLOG = {
   getBlogInfo: 'getBlogInfo',
   deleteBlog: 'deleteBlog',
 };
+// 주석
 
 export const useGetBlogInfo = (blogUrl: string) => {
   const { data } = useQuery([QUERY_KEY_BLOG.getBlogInfo, blogUrl], () => getBlogInfo(blogUrl));
