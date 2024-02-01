@@ -18,7 +18,6 @@ const Recommend = () => {
   const data = useGetBlogArticleList(team, '');
   if (!data) return <LoadingLottie width={5} height={5} fit />;
 
-  console.log('recommend.tsx', data, data.data);
   const filteredData = data.data?.filter(({ id }) => {
     return id !== Number(articleId);
   });

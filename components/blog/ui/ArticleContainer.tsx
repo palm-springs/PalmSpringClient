@@ -33,7 +33,6 @@ const ArticleContainer = (props: ArticleContainerProps) => {
   const { articleListData, thumbnail, description, blogName } = props;
   const FilteredCategoryList = useGetBlogCategoryList(team);
   const CategorySelected = useGetCategory();
-  console.log(articleListData);
 
   if (!FilteredCategoryList || !CategorySelected) return <LoadingLottie width={10} height={10} fit />;
 
