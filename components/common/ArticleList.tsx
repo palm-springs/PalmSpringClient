@@ -20,7 +20,6 @@ const ArticleList = (prop: ArticleListProp) => {
 
   const categoryName = decodeURI(category);
 
-  console.log('ArticleList', articleList);
   const filteredArticleList = articleList?.filter(
     ({ articleCategory }) => articleCategory.categoryName === categoryName,
   );

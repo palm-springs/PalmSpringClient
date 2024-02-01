@@ -58,15 +58,15 @@ const BlogHeaderContainer = styled.div`
   position: fixed;
   top: 0;
   align-items: center;
-  justify-content: space-around;
+  justify-content: space-between;
   backdrop-filter: blur(18px);
   z-index: 10;
 
   border-bottom: 1px solid ${({ theme }) => theme.colors.grey_300};
   background-color: rgba(255, 255, 255, 0.75);
-
-  padding: 1.2rem 0;
+  padding: 1.2rem max(calc((100vw - 100rem) / 2), 2.4rem);
   width: 100vw;
+  min-width: 72rem;
   height: 6rem;
 
   &.mobile {
@@ -74,6 +74,7 @@ const BlogHeaderContainer = styled.div`
     -webkit-backdrop-filter: blur(18px);
     justify-content: space-between;
     padding: 1.2rem 1.6rem 1.2rem 2.4rem;
+    min-width: 0;
   }
 `;
 
