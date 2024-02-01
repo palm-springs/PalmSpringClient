@@ -20,12 +20,15 @@ interface UrlCustomProps {
   pageType: string;
   isDuplicate: boolean | null;
   setIsDuplicate: Dispatch<SetStateAction<boolean | null>>;
+  isAddressRulePassed: boolean | null;
+  setIsAddressRulePassed: Dispatch<SetStateAction<boolean | null>>;
   pageData?: UpdatePageProps;
   articleData?: UpdateArticleProps;
 }
 
 const UrlCustom = (props: UrlCustomProps) => {
-  const { pageType, isDuplicate, setIsDuplicate, pageData, articleData } = props;
+  const { pageType, isDuplicate, setIsDuplicate, isAddressRulePassed, setIsAddressRulePassed, pageData, articleData } =
+    props;
   const { team } = useParams();
 
   const [{ articleUrl }, setArticleData] = useRecoilState(articleDataState);
@@ -49,9 +52,19 @@ const UrlCustom = (props: UrlCustomProps) => {
     }
   };
 
+  const checkAddressRulePassed = (value: string) => {
+    const checkAddressRule = /^[a-z0-9-]*$/.test(value);
+    if (checkAddressRule) {
+      setIsAddressRulePassed(true);
+    } else {
+      setIsAddressRulePassed(null);
+    }
+  };
+
   const handleOnChange = (e: React.ChangeEvent<HTMLInputElement>) => {
     const { value } = e.currentTarget;
     setArticleData((prev) => ({ ...prev, articleUrl: value }));
+    checkAddressRulePassed(value);
     checkDuplication(value);
   };
 
@@ -82,7 +95,7 @@ const UrlCustom = (props: UrlCustomProps) => {
             />
             {isDuplicate === null && articleUrl !== '' && <Loader01Icon />}
           </PublishInputForm>
-
+          {isAddressRulePassed === null && <Message>{'영문 소문자(a-z), 숫자(0-9), "-" 만 사용 가능해요.'}</Message>}
           {isDuplicate && <Message>이미 사용 중인 URL입니다. 다른 URL를 입력해주세요.</Message>}
         </UrlContainer>
       );
@@ -106,6 +119,7 @@ const UrlCustom = (props: UrlCustomProps) => {
             />
             {isDuplicate === null && pageUrl !== '' && <Loader01Icon />}
           </PublishInputForm>
+          {isAddressRulePassed === null && <Message>{'영문 소문자(a-z), 숫자(0-9), "-" 만 사용 가능해요.'}</Message>}
           {isDuplicate && <Message>이미 사용 중인 URL입니다. 다른 URL를 입력해주세요.</Message>}
         </UrlContainer>
       );

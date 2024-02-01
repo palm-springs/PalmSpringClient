@@ -10,14 +10,26 @@ import UrlCustom from '@/components/editor/publish/ui/UrlCustom';
 
 const PageDraftPublishPage = () => {
   const [isDuplicate, setIsDuplicate] = useState<boolean | null>(false);
+  const [isAddressRulePassed, setIsAddressRulePassed] = useState<boolean | null>(false);
 
   return (
     <AuthRequired>
       <PagePublishContainer>
         <ThumbnailInput pageType="page" />
         <PublishTitle pageType="page" />
-        <UrlCustom pageType="page" isDuplicate={isDuplicate} setIsDuplicate={setIsDuplicate} />
-        <PublishBottomButtons pageType="page" isDuplicate={isDuplicate} currentState="draft" />
+        <UrlCustom
+          pageType="page"
+          isDuplicate={isDuplicate}
+          setIsDuplicate={setIsDuplicate}
+          isAddressRulePassed={isAddressRulePassed}
+          setIsAddressRulePassed={setIsAddressRulePassed}
+        />
+        <PublishBottomButtons
+          pageType="page"
+          isDuplicate={isDuplicate}
+          isAddressRulePassed={isAddressRulePassed}
+          currentState="draft"
+        />
       </PagePublishContainer>
     </AuthRequired>
   );

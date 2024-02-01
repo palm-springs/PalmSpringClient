@@ -161,6 +161,7 @@ export const GlobalStyle = createGlobalStyle`
 
   code {
     overflow-x: scroll;
+    line-height: 1.5;
     * {
       white-space: normal;
       word-break: normal;
