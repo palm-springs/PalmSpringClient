@@ -8,7 +8,13 @@ import { Loader01Icon } from '@/public/icons';
 import { createBlogData } from '@/types/blogInfo';
 import CheckDuplication from '@/utils/checkUrlDuplication';
 
-import { addressDuplicateState, createBlogDataState, invalidTextState, progressState } from '../../states/atom';
+import {
+  addressDuplicateState,
+  createBlogDataState,
+  invalidTextState,
+  isReservedUrlState,
+  progressState,
+} from '../../states/atom';
 import TextInputForm from '../TextInputForm';
 
 const CreateBasicInfoLanding = () => {
@@ -17,6 +23,7 @@ const CreateBasicInfoLanding = () => {
 
   const [containerState, setContainerState] = useState('');
   const [isInvalidText, setInvalidText] = useRecoilState(invalidTextState);
+  const [isReservedUrl, setIsReservedUrl] = useRecoilState(isReservedUrlState);
 
   // focus state
   const [isNameFocus, setIsNameFocus] = useState(false);
@@ -34,7 +41,7 @@ const CreateBasicInfoLanding = () => {
       const checkAddressRule = /^[a-z0-9-]*$/.test(value);
       if (checkAddressRule) {
         setInvalidText(false);
-        CheckDuplication(value, setIsAddressDuplicate);
+        CheckDuplication(value, setIsReservedUrl, setIsAddressDuplicate);
       } else {
         setInvalidText(true);
       }
@@ -74,7 +81,7 @@ const CreateBasicInfoLanding = () => {
             onChange={handleOnChange}
             placeholder="블로그 주소를 입력해주세요"
           />
-          {!isInvalidText && isAddressDuplicate === null && url !== '' && <Loader01Icon />}
+          {!isInvalidText && !isReservedUrl && isAddressDuplicate === null && url !== '' && <Loader01Icon />}
         </TextInputForm>
 
         <ButtonContainer>
@@ -87,7 +94,9 @@ const CreateBasicInfoLanding = () => {
           <NextButton
             type="button"
             onClick={() => setProgress(2)}
-            disabled={isAddressDuplicate === null || !!isAddressDuplicate || name === '' || url === ''}>
+            disabled={
+              isAddressDuplicate === null || isReservedUrl || !!isAddressDuplicate || name === '' || url === ''
+            }>
             다음으로
           </NextButton>
         </ButtonContainer>
