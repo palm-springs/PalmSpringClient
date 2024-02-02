@@ -4,7 +4,7 @@ import styled from 'styled-components';
 
 import { DOMAIN_NAME } from '@/constants/palmspringInfo';
 
-import { addressDuplicateState, createBlogDataState, invalidTextState } from '../states/atom';
+import { addressDuplicateState, createBlogDataState, invalidTextState, isReservedUrlState } from '../states/atom';
 
 import InputMessage from './basicInfo/InputMessage';
 import InputTitle from './InputTitle';
@@ -18,12 +18,13 @@ const TextInputForm = (props: TextInputFormProps) => {
   const { type, children, isFocus } = props;
   const isAddressDuplicate = useRecoilValue(addressDuplicateState);
   const isInvalidText = useRecoilValue(invalidTextState);
+  const isReservedUrl = useRecoilValue(isReservedUrlState);
   const { url } = useRecoilValue(createBlogDataState);
 
   let id = '';
   if (url === '' || type !== '주소') {
     id = '';
-  } else if (isInvalidText) {
+  } else if (isInvalidText || isReservedUrl) {
     id = 'failed';
   } else if (isAddressDuplicate === null) {
     id = '';
@@ -45,7 +46,7 @@ const TextInputForm = (props: TextInputFormProps) => {
         </InputBox>
         {type === '주소' && <div>.{DOMAIN_NAME}</div>}
       </InputContainer>
-      {type === '주소' && (isInvalidText || isAddressDuplicate !== undefined) && <InputMessage />}
+      {type === '주소' && (isInvalidText || isReservedUrl || isAddressDuplicate !== undefined) && <InputMessage />}
     </Label>
   );
 };

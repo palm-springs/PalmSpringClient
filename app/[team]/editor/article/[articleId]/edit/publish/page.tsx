@@ -15,6 +15,7 @@ import { useGetUpdateArticleContent } from '@/hooks/editor';
 const ArticleEditPublishPage = () => {
   const { team, articleId } = useParams();
   const [isDuplicate, setIsDuplicate] = useState<boolean | null>(false);
+  const [isAddressRulePassed, setIsAddressRulePassed] = useState<boolean | null>(false);
   const updateArticleEditContents = useGetUpdateArticleContent(team, Number(articleId));
 
   return (
@@ -30,6 +31,8 @@ const ArticleEditPublishPage = () => {
               <UrlCustom
                 pageType="article"
                 isDuplicate={isDuplicate}
+                isAddressRulePassed={isAddressRulePassed}
+                setIsAddressRulePassed={setIsAddressRulePassed}
                 setIsDuplicate={setIsDuplicate}
                 articleData={updateArticleEditContents.data}
               />
@@ -38,6 +41,7 @@ const ArticleEditPublishPage = () => {
                 currentState="edit"
                 isDuplicate={isDuplicate}
                 articleData={updateArticleEditContents.data}
+                isAddressRulePassed={isAddressRulePassed}
               />
             </>
           )}
