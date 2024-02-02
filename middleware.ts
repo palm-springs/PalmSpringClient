@@ -1,8 +1,7 @@
 import { NextRequest, NextResponse } from 'next/server';
 
 export const middleware = (request: NextRequest) => {
-  const hostname = new URL(request.url).hostname;
-  const subdomain = hostname.split('.')[0];
+  const subdomain = request.headers.get('host')?.split('.')[0];
   const isSubdomain = subdomain !== 'palms';
   const pathWithoutAuthentication =
     request.nextUrl.pathname.startsWith('/home') ||
