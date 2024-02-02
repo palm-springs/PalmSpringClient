@@ -21,6 +21,7 @@ import { articleDataState, pageDataState } from '../../states/atom';
 interface PublishBottomButtons {
   pageType: string;
   isDuplicate: boolean | null;
+  isAddressRulePassed: boolean | null;
   articleData?: UpdateArticleProps;
   isEdit?: boolean;
   currentState?: string;
@@ -28,7 +29,7 @@ interface PublishBottomButtons {
 
 const PublishBottomButtons = (props: PublishBottomButtons) => {
   const router = useRouter();
-  const { pageType, isDuplicate, currentState } = props;
+  const { pageType, isDuplicate, currentState, isAddressRulePassed } = props;
   const pathName = usePathname();
 
   const queryClient = useQueryClient();
@@ -138,7 +139,13 @@ const PublishBottomButtons = (props: PublishBottomButtons) => {
                 type="button"
                 onClick={handleOnClickUpdateArticlePublish}
                 disabled={
-                  categoryId === null || description === '' || articleUrl === '' || isDuplicate || isDuplicate === null
+                  categoryId === null ||
+                  description === '' ||
+                  articleUrl === '' ||
+                  isDuplicate ||
+                  isDuplicate === null ||
+                  !isAddressRulePassed ||
+                  isAddressRulePassed === null
                 }>
                 글 수정하기
               </PublishButton>
@@ -147,7 +154,13 @@ const PublishBottomButtons = (props: PublishBottomButtons) => {
                 type="button"
                 onClick={currentState === 'draft' ? handleTempArticleUpdatePublish : handleOnClickArticlePublish}
                 disabled={
-                  categoryId === null || description === '' || articleUrl === '' || isDuplicate || isDuplicate === null
+                  categoryId === null ||
+                  description === '' ||
+                  articleUrl === '' ||
+                  isDuplicate ||
+                  isDuplicate === null ||
+                  !isAddressRulePassed ||
+                  isAddressRulePassed === null
                 }>
                 글 발행하기
               </PublishButton>
@@ -166,14 +179,26 @@ const PublishBottomButtons = (props: PublishBottomButtons) => {
               <PublishButton
                 type="button"
                 onClick={handleOnClickUpdatePagePublish}
-                disabled={pageUrl === '' || isDuplicate || isDuplicate === null}>
+                disabled={
+                  pageUrl === '' ||
+                  isDuplicate ||
+                  isDuplicate === null ||
+                  !isAddressRulePassed ||
+                  isAddressRulePassed === null
+                }>
                 글 수정하기
               </PublishButton>
             ) : (
               <PublishButton
                 type="button"
                 onClick={currentState === 'draft' ? handleTempPageUpdatePublish : handleOnClickPagePublish}
-                disabled={pageUrl === '' || isDuplicate || isDuplicate === null}>
+                disabled={
+                  pageUrl === '' ||
+                  isDuplicate ||
+                  isDuplicate === null ||
+                  !isAddressRulePassed ||
+                  isAddressRulePassed === null
+                }>
                 글 발행하기
               </PublishButton>
             )}
