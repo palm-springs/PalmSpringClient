@@ -7,7 +7,7 @@ import { RESERVED_URL_LIST } from '@/constants/reservedUrl';
 const CheckDuplication = debounce(
   async (
     addressValue: string,
-    setInvalidUrlState: Dispatch<SetStateAction<boolean>>,
+    setInvalidUrlState: Dispatch<SetStateAction<boolean | null>>,
     setIsDuplicateState: Dispatch<SetStateAction<boolean | null>>,
   ) => {
     if (addressValue === '') {
@@ -25,8 +25,9 @@ const CheckDuplication = debounce(
   500,
 );
 
-const checkReservedUrl = (addressValue: string, setState: Dispatch<SetStateAction<boolean>>) => {
+const checkReservedUrl = (addressValue: string, setState: Dispatch<SetStateAction<boolean | null>>) => {
   const isReservedUrl = RESERVED_URL_LIST.includes(addressValue);
+  setState(null);
   if (isReservedUrl) {
     setState(true);
   } else {
