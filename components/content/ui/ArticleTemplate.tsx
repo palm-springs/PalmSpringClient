@@ -2,6 +2,7 @@
 
 import React, { useEffect } from 'react';
 import { Toaster } from 'react-hot-toast';
+import Image from 'next/image';
 import styled from 'styled-components';
 
 import ContentInfo from '@/components/common/ContentInfo';
@@ -43,7 +44,13 @@ const ArticleTemplate = (props: ArticleTemplateProps) => {
       return (
         <ContentPageContainer className="mobile">
           {thumbnail ? (
-            <ArticleThumbnail className="mobile" src={thumbnail} alt="article content thumbnail" />
+            <ArticleThumbnail
+              className="mobile"
+              src={thumbnail}
+              alt="article content thumbnail"
+              width={720}
+              height={405}
+            />
           ) : (
             <Blank />
           )}
@@ -58,7 +65,7 @@ const ArticleTemplate = (props: ArticleTemplateProps) => {
     else
       return (
         <ContentPageContainer>
-          {thumbnail && <ArticleThumbnail src={thumbnail} alt="article content thumbnail" />}
+          {thumbnail && <ArticleThumbnail src={thumbnail} alt="article content thumbnail" width={720} height={405} />}
           <ContentInfo contentInfoData={{ title, description, teamMember }} />
           <Content content={content} />
           <LinkBtn onClick={copyCurrentUrl}>아티클 링크 복사하기</LinkBtn>
@@ -88,7 +95,7 @@ const Blank = styled.div`
   width: 100vw;
   height: 6rem;
 `;
-const ArticleThumbnail = styled.img`
+const ArticleThumbnail = styled(Image)`
   border-radius: 1.6rem;
   width: 72rem;
   height: 40.5rem;

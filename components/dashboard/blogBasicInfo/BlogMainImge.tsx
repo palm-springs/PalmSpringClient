@@ -1,6 +1,7 @@
 'use client';
 
 import React, { ChangeEvent, useEffect, useRef, useState } from 'react';
+import Image from 'next/image';
 import styled from 'styled-components';
 
 import { imageErrorCase } from '@/constants/image';
@@ -57,7 +58,7 @@ const BlogMainImage = (props: BlogMainImageProps) => {
       </ImageGuideContainer>
       {preLoadImg ? (
         <BlogMainImageDeleteContainer>
-          <PreLoadImg src={preLoadImg} alt="블로그 메인 이미지" />
+          <PreLoadImg src={preLoadImg} alt="블로그 메인 이미지" width={645} height={224} />
           <DeleteImageButton type="button" onClick={handleOnDeleteMainImage} disabled={readonly}>
             <IcClose24Icon />
           </DeleteImageButton>
@@ -160,7 +161,7 @@ const BlogMainImageContainer = styled.div`
   margin-top: 3.2rem;
 `;
 
-const PreLoadImg = styled.img`
+const PreLoadImg = styled(Image)`
   margin-left: 1.8rem;
   border-radius: 0.8rem;
   width: 64.5rem;

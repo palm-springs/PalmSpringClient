@@ -17,9 +17,9 @@ export const invalidTextState = atom<boolean>({
   default: false,
 });
 
-export const isReservedUrlState = atom<boolean>({
+export const isReservedUrlState = atom<boolean | null>({
   key: 'isReservedUrlState',
-  default: false,
+  default: null,
 });
 
 export const addressDuplicateState = atom<boolean | null>({

@@ -1,6 +1,7 @@
 'use client';
 
 import React, { useEffect } from 'react';
+import Image from 'next/image';
 import styled from 'styled-components';
 
 import PageContentInfo from '@/components/common/PageContentInfo';
@@ -30,7 +31,15 @@ const PageTemplate = (props: ContentTemplateProps) => {
 
   return (
     <ContentPageContainer className={MOBILE ? 'mobile' : ''}>
-      {thumbnail && <PageThumbnail className={MOBILE ? 'mobile' : ''} src={thumbnail} alt="page content thumbnail" />}
+      {thumbnail && (
+        <PageThumbnail
+          className={MOBILE ? 'mobile' : ''}
+          src={thumbnail}
+          alt="page content thumbnail"
+          width={720}
+          height={405}
+        />
+      )}
       <PageContentInfo contentInfoData={{ title }} />
       {MOBILE ? <MobileContent content={content} /> : <Content content={content} />}
     </ContentPageContainer>
@@ -39,7 +48,7 @@ const PageTemplate = (props: ContentTemplateProps) => {
 
 export default PageTemplate;
 
-const PageThumbnail = styled.img`
+const PageThumbnail = styled(Image)`
   border-radius: 1.6rem;
   width: 72rem;
   height: 40.5rem;

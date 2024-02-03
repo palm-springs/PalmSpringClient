@@ -2,6 +2,7 @@
 
 import React, { ChangeEvent, useEffect } from 'react';
 import { Toaster } from 'react-hot-toast';
+import Image from 'next/image';
 import { useParams } from 'next/navigation';
 import { useRecoilState } from 'recoil';
 import styled from 'styled-components';
@@ -86,7 +87,7 @@ const ThumbnailInput = (props: ThumbnailInputProps) => {
             />
             {articleThumbnail ? (
               <ThumbnailWrapper>
-                <CustomImage src={articleThumbnail} alt="미리보기 이미지" />
+                <CustomImage src={articleThumbnail} alt="미리보기 이미지" width={540} height={304} />
                 <DeleteImageButton type="button" onClick={handleArticleThumbnailDel}>
                   <IcClose24Icon />
                 </DeleteImageButton>
@@ -123,7 +124,7 @@ const ThumbnailInput = (props: ThumbnailInputProps) => {
             />
             {pageThumbnail ? (
               <ThumbnailWrapper>
-                <CustomImage src={pageThumbnail} alt="미리보기 이미지" />
+                <CustomImage src={pageThumbnail} alt="미리보기 이미지" width={540} height={304} />
                 <DeleteImageButton type="button" onClick={handlePageThumbnailDel}>
                   <IcClose24Icon />
                 </DeleteImageButton>
@@ -157,7 +158,7 @@ const DeleteImageButton = styled.button`
   right: 1.2rem;
 `;
 
-const CustomImage = styled.img`
+const CustomImage = styled(Image)`
   border-radius: 1.6rem;
   width: 54rem;
   max-width: 100%;

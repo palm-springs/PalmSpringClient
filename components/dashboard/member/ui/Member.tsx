@@ -103,7 +103,11 @@ const Member = (props: MemberComponentProps) => {
           <>
             <MemberInfoBox>
               <NameBox className="member">
-                {thumbnail ? <MemberProfile src={thumbnail} alt="member profile pic" /> : <IcUserIcon />}
+                {thumbnail ? (
+                  <MemberProfile src={thumbnail} alt="member profile pic" width={36} height={36} />
+                ) : (
+                  <IcUserIcon />
+                )}
                 <Name> {nickname} </Name>
               </NameBox>
               <Position> {job} </Position>
@@ -207,7 +211,7 @@ const Member = (props: MemberComponentProps) => {
 
 export default Member;
 
-const MemberProfile = styled.img`
+const MemberProfile = styled(Image)`
   border-radius: 50%;
 
   width: 3.6rem;
