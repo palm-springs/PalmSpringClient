@@ -36,9 +36,6 @@ const nextConfig = {
     // config.output.filename = 'static/chunks/[name]-[chunkhash].js';
     return config;
   },
-  compiler: {
-    styledComponents: true,
-  },
   // generateBuildId: async () => {
   //   // eslint-disable-next-line @typescript-eslint/no-var-requires
   //   const nextBuildId = require('next-build-id');
