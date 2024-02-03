@@ -6,7 +6,7 @@ on:
 jobs:
   build:
     runs-on: ubuntu-latest
-    if: contains(github.event.head_commit.message, 'RELEASE')
+    if: contains(github.event.head_commit.message,'RELEASE') || contains(github.event.head_commit.message,'HOTFIX')
     steps:
       - uses: actions/checkout@v2
       - name: 버전 정보 추출
