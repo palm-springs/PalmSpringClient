@@ -1,6 +1,7 @@
 'use client';
 
 import React from 'react';
+import Image from 'next/image';
 import Link from 'next/link';
 import styled from 'styled-components';
 
@@ -61,7 +62,11 @@ const ContentInfo = (props: ContentInfoProps) => {
         {name && (
           <WriterBox>
             <WriterInfo href={`/author/${id}`} className="mobile">
-              {thumbnail ? <WriterProfilePic src={thumbnail} alt="writer profile pic" /> : <NoUserProfileIcon />}
+              {thumbnail ? (
+                <WriterProfilePic src={thumbnail} alt="writer profile pic" width={50} height={50} />
+              ) : (
+                <NoUserProfileIcon />
+              )}
               <WriterDetailBox className="mobile">
                 <WriterNameBox>
                   <WriterDetail className="mobile">{name}</WriterDetail>
@@ -93,7 +98,11 @@ const ContentInfo = (props: ContentInfoProps) => {
         {name && (
           <WriterBox>
             <WriterInfo href={`/author/${id}`}>
-              {thumbnail ? <WriterProfilePic src={thumbnail} alt="writer profile pic" /> : <NoUserProfileIcon />}
+              {thumbnail ? (
+                <WriterProfilePic src={thumbnail} alt="writer profile pic" width={50} height={50} />
+              ) : (
+                <NoUserProfileIcon />
+              )}
               <WriterDetailBox>
                 <WriterNameBox>
                   <WriterDetail>{name}</WriterDetail>
@@ -119,7 +128,7 @@ const WriterBox = styled.article`
   }
 `;
 
-const WriterProfilePic = styled.img`
+const WriterProfilePic = styled(Image)`
   border-radius: 50%;
 
   width: 5rem;

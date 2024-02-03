@@ -1,6 +1,7 @@
 'use client';
 
 import React from 'react';
+import Image from 'next/image';
 import styled from 'styled-components';
 
 import useCheckMobile from '@/hooks/useCheckMobile';
@@ -20,7 +21,11 @@ const AuthorInfo = (props: AuthorInfoComponentProps) => {
 
   return (
     <AuthorInfoContainer className={MOBILE ? 'mobile' : ''}>
-      {thumbnail ? <AuthorProfile src={thumbnail} alt="author profile pic" /> : <IcAuthorDefaultIcon />}
+      {thumbnail ? (
+        <AuthorProfile src={thumbnail} alt="author profile pic" width={160} height={160} />
+      ) : (
+        <IcAuthorDefaultIcon />
+      )}
       <AuthorName className={MOBILE ? 'mobile' : ''}>{nickname}</AuthorName>
       <AuthorPosition className={MOBILE ? 'mobile' : ''}>{job}</AuthorPosition>
       <AuthorDescription className={MOBILE ? 'mobile' : ''}>{description}</AuthorDescription>
@@ -48,7 +53,7 @@ const AuthorInfoContainer = styled.div`
   }
 `;
 
-const AuthorProfile = styled.img`
+const AuthorProfile = styled(Image)`
   border-radius: 50%;
   width: 16rem;
   height: 16rem;

@@ -1,5 +1,6 @@
 'use client';
 import React, { ChangeEvent } from 'react';
+import Image from 'next/image';
 import { useParams } from 'next/navigation';
 import { useRecoilState } from 'recoil';
 import styled from 'styled-components';
@@ -42,7 +43,7 @@ const UserProfile = () => {
 
           {thumbnail ? (
             <ProfileContainer>
-              <ImageUserBox src={thumbnail} alt="user profile" />
+              <ImageUserBox src={thumbnail} alt="user profile" width={156} height={156} />
               <UsersProfilesDeleteButton type="button" onClick={handleOnDeleteImg}>
                 <UserProfileDeleteIcon />
               </UsersProfilesDeleteButton>
@@ -62,7 +63,7 @@ const UserProfile = () => {
 
 export default UserProfile;
 
-const ImageUserBox = styled.img`
+const ImageUserBox = styled(Image)`
   border-radius: 50%;
   width: 15.6rem;
   height: 15.6rem;

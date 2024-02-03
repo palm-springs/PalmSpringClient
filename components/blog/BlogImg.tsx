@@ -1,6 +1,7 @@
 'use client';
 
 import React from 'react';
+import Image from 'next/image';
 import styled from 'styled-components';
 
 import useCheckMobile from '@/hooks/useCheckMobile';
@@ -21,7 +22,7 @@ const BlogImg = (props: BlogMainImgProps) => {
       {thumbnail && (
         <>
           <BlogImgWrapper className={MOBILE ? 'mobile' : ''}>
-            <img src={thumbnail} alt="blog main" />
+            <Image src={thumbnail} alt="blog main" fill={true} />
             {description && <BlogInfo className={MOBILE ? 'mobile' : ''}>{description}</BlogInfo>}
           </BlogImgWrapper>
         </>
@@ -40,18 +41,14 @@ const BlogImgContainer = styled.div`
 `;
 
 const BlogImgWrapper = styled.div`
-  & > img {
-    width: 100%;
-    height: 50rem;
-
-    user-select: none;
-    -webkit-user-drag: none;
-    object-fit: cover;
-  }
-  &.mobile > img {
-    width: 100%;
+  position: relative;
+  width: 100%;
+  height: 50rem;
+  &.mobile {
     height: calc(100vw * (9 / 16));
+  }
 
+  & > img {
     user-select: none;
     -webkit-user-drag: none;
     object-fit: cover;

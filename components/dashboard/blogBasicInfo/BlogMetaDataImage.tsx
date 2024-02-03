@@ -1,5 +1,6 @@
 'use client';
 import React, { ChangeEvent } from 'react';
+import Image from 'next/image';
 import { useRecoilState } from 'recoil';
 import styled from 'styled-components';
 
@@ -41,7 +42,7 @@ const BlogMetaDataImage = ({ readonly }: { readonly: boolean }) => {
       {metaThumbnail ? (
         // 메타 이미지 있으면 삭제할 수 있게 함
         <MetaImageContainer>
-          <ImageUpload src={metaThumbnail} alt="meta data image" />
+          <ImageUpload src={metaThumbnail} alt="meta data image" width={645} height={224} />
           <DeleteImageButton type="button" onClick={handleOnDeleteImage} disabled={readonly}>
             <IcClose24Icon />
           </DeleteImageButton>
@@ -77,7 +78,7 @@ const DeleteImageButton = styled.button`
   right: 1.2rem;
 `;
 
-const ImageUpload = styled.img`
+const ImageUpload = styled(Image)`
   margin-left: 1.8rem;
   border-radius: 0.8rem;
   width: 64.5rem;

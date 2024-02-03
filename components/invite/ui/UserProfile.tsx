@@ -1,6 +1,7 @@
 'use client';
 import { ChangeEvent } from 'react';
 import { Toaster } from 'react-hot-toast';
+import Image from 'next/image';
 import { useRecoilState } from 'recoil';
 import styled from 'styled-components';
 
@@ -34,7 +35,7 @@ const UserProfile = () => {
   const profile = () => {
     return thumbnail ? (
       <ProfileContainer>
-        <ImageUserBox src={thumbnail} alt="user profile" />
+        <ImageUserBox src={thumbnail} alt="user profile" width={142} height={142} />
         <UsersProfilesDeleteButton type="button" onClick={handleOnDeleteImg}>
           <UserProfileDeleteIcon />
         </UsersProfilesDeleteButton>
@@ -83,7 +84,7 @@ const ProfileContainer = styled.div`
   height: 14.2rem;
 `;
 
-const ImageUserBox = styled.img`
+const ImageUserBox = styled(Image)`
   border-radius: 50%;
   width: 14.2rem;
   height: 14.2rem;

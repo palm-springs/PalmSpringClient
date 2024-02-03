@@ -1,6 +1,7 @@
 'use client';
 
 import React from 'react';
+import Image from 'next/image';
 import Link from 'next/link';
 import styled from 'styled-components';
 
@@ -32,14 +33,14 @@ const Article = (props: ArticleProps) => {
           <ArticleDetail>{createdAt}</ArticleDetail>
         </DetailBox>
       </ArticleInfo>
-      {thumbnail && <ArticleThumbnail src={thumbnail} alt="Article Thumbnail" />}
+      {thumbnail && <ArticleThumbnail src={thumbnail} alt="Article Thumbnail" width={228} height={170} />}
     </ArticleContainer>
   );
 };
 
 export default Article;
 
-const ArticleThumbnail = styled.img`
+const ArticleThumbnail = styled(Image)`
   border-radius: 1.2rem;
 
   width: 22.8rem;

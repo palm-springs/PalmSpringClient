@@ -1,5 +1,6 @@
 'use client';
 import React from 'react';
+import Image from 'next/image';
 import { useRecoilState } from 'recoil';
 import styled from 'styled-components';
 
@@ -21,7 +22,11 @@ const MetaDataPreview = (props: metaBlogUrlProps) => {
     <MetaDataPreviewContainer>
       <PreviewHeader>미리보기</PreviewHeader>
       <MetaDataPreviewBoxContainer>
-        {metaThumbnail ? <PreviewImage src={metaThumbnail} alt="meta data image" /> : <NonePreviewImage />}
+        {metaThumbnail ? (
+          <PreviewImage src={metaThumbnail} alt="meta data image" width={394} height={151} />
+        ) : (
+          <NonePreviewImage />
+        )}
         {/* 14.2 */}
         <PreviewBottomContainer>
           <PreviewTitle>{metaName}</PreviewTitle>
@@ -86,7 +91,7 @@ const NonePreviewImage = styled.div`
   height: 15.1rem;
 `;
 
-const PreviewImage = styled.img`
+const PreviewImage = styled(Image)`
   width: 39.4rem;
   height: 15.1rem;
   object-fit: cover;

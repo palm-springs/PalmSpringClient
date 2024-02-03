@@ -15,6 +15,7 @@ const nextConfig = {
         protocol: 'https',
         hostname: 's3.ap-northeast-2.amazonaws.com',
       },
+      { protocol: 'https', hostname: 'lh3.googleusercontent.com' },
     ],
   },
   reactStrictMode: true,

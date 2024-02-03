@@ -1,6 +1,7 @@
 'use client';
 
 import React from 'react';
+import Image from 'next/image';
 import Link from 'next/link';
 import styled from 'styled-components';
 
@@ -20,7 +21,9 @@ const MobileArticle = (props: ArticleProps) => {
 
   return (
     <ArticleContainer href={`/content/article/${articleUrl}/${id}`}>
-      {thumbnail && <ArticleThumbnail src={thumbnail} alt="Article Thumbnail" />}
+      <ArticleThumbnailContainer>
+        {thumbnail && <ArticleThumbnail src={thumbnail} alt="Article Thumbnail" fill={true} />}
+      </ArticleThumbnailContainer>
       <ArticleInfo>
         <EditorInputTitle>{title}</EditorInputTitle>
         <ArticleDescription>{description}</ArticleDescription>
@@ -37,11 +40,15 @@ const MobileArticle = (props: ArticleProps) => {
 
 export default MobileArticle;
 
-const ArticleThumbnail = styled.img`
+const ArticleThumbnailContainer = styled.div`
+  position: relative;
   margin-bottom: 1.2rem;
-  border-radius: 1.2rem;
   width: calc(100vw - 4.8rem);
   height: calc((100vw - 4.8rem) * 9 / 16);
+`;
+
+const ArticleThumbnail = styled(Image)`
+  border-radius: 1.2rem;
   object-fit: cover;
 `;
 
