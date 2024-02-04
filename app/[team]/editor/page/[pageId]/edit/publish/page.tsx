@@ -13,7 +13,7 @@ import { useGetUpdatePageContent } from '@/hooks/editor';
 const PageEditPublishPage = () => {
   const { team, pageId } = useParams();
   const [isDuplicate, setIsDuplicate] = useState<boolean | null>(false);
-  const [isAddressRulePassed, setIsAddressRulePassed] = useState<boolean | null>(null);
+  const [isAddressRulePassed, setIsAddressRulePassed] = useState<boolean | null>(false);
   const updatePageEditContents = useGetUpdatePageContent(team, Number(pageId));
 
   return (

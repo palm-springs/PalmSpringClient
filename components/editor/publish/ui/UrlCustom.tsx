@@ -71,6 +71,7 @@ const UrlCustom = (props: UrlCustomProps) => {
   const handleOnPageChange = (e: React.ChangeEvent<HTMLInputElement>) => {
     const { value } = e.currentTarget;
     setPageData((prev) => ({ ...prev, pageUrl: value }));
+    checkAddressRulePassed(value);
     checkDuplication(value);
   };
 
