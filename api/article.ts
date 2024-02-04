@@ -78,3 +78,5 @@ export const deleteArticle = async (blogUrl: string, articleId: string) => {
   const { data } = await client.delete(`/api/v2/dashboard/article/remove/${blogUrl}?articleId=${articleId}`);
   return data;
 };
+
+export const runtime = 'edge';

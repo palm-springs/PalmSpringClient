@@ -86,3 +86,5 @@ export const postSubscriber = async (requestBody: subscribeData) => {
   const { data } = await client.post(`/api/v2/view/subscribe`, requestBody);
   return data;
 };
+
+export const runtime = 'edge';

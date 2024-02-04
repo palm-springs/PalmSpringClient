@@ -58,3 +58,5 @@ export const logout = async () => {
   const { data } = await client.delete<Response<null>>(`/api/v2/auth/logout`);
   return data;
 };
+
+export const runtime = 'edge';
