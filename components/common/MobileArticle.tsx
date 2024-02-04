@@ -21,9 +21,11 @@ const MobileArticle = (props: ArticleProps) => {
 
   return (
     <ArticleContainer href={`/content/article/${articleUrl}/${id}`}>
-      <ArticleThumbnailContainer>
-        {thumbnail && <ArticleThumbnail src={thumbnail} alt="Article Thumbnail" fill={true} />}
-      </ArticleThumbnailContainer>
+      {thumbnail && (
+        <ArticleThumbnailContainer>
+          <ArticleThumbnail src={thumbnail} alt="Article Thumbnail" fill={true} />
+        </ArticleThumbnailContainer>
+      )}
       <ArticleInfo>
         <EditorInputTitle>{title}</EditorInputTitle>
         <ArticleDescription>{description}</ArticleDescription>
@@ -44,6 +46,7 @@ const ArticleThumbnailContainer = styled.div`
   position: relative;
   margin-bottom: 1.2rem;
   width: calc(100vw - 4.8rem);
+
   height: calc((100vw - 4.8rem) * 9 / 16);
 `;
 

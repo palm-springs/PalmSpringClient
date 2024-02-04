@@ -109,9 +109,7 @@ const UrlCustom = (props: UrlCustomProps) => {
           </UrlTitleContainer>
 
           <PublishInputForm isFocus={isAddressFocus} isDuplicate={isDuplicate}>
-            <div>
-              {team}.{DOMAIN_NAME}/content/
-            </div>
+            {team}.{DOMAIN_NAME}/content/
             <TextInput
               onFocus={() => setIsAddressFocus(true)}
               onBlur={() => setIsAddressFocus(false)}
@@ -151,7 +149,6 @@ const TextInput = styled.input`
   border: none;
 
   padding: 0;
-  width: 100%;
   height: 100%;
 
   &::placeholder {
