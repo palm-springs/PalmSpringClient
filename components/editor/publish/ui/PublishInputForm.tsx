@@ -10,11 +10,11 @@ interface PublishInputFormProps {
 const PublishInputForm = (props: PublishInputFormProps) => {
   const { children, isFocus, isDuplicate } = props;
   return (
-    <>
-      <InputContainer id={isDuplicate ? 'failed' : ''} $isFocus={isFocus}>
-        {children}
-      </InputContainer>
-    </>
+    // <>
+    <InputContainer id={isDuplicate ? 'failed' : ''} $isFocus={isFocus}>
+      {children}
+    </InputContainer>
+    // </>
   );
 };
 
