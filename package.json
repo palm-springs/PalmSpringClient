@@ -50,7 +50,7 @@
     "lodash-es": "^4.17.21",
     "lottie-react": "^2.4.0",
     "lowlight": "^2.9.0",
-    "next": "13.4.7",
+    "next": "^14.1.0",
     "react": "18.2.0",
     "react-burger-menu": "^3.0.9",
     "react-dom": "^18.2.0",
@@ -59,6 +59,7 @@
     "react-responsive": "^9.0.2",
     "recoil": "^0.7.7",
     "recoil-persist": "^5.1.0",
+    "sharp": "^0.33.2",
     "styled-components": "^6.0.1",
     "styled-reset": "^4.4.7",
     "tiptap": "^1.32.2",
@@ -83,11 +84,6 @@
     "husky": "^8.0.3",
     "lint-staged": "^13.2.3",
     "postcss": "^8.4.24",
-    "postcss-syntax": "^0.36.2",
-    "stylelint": "^15.9.0",
-    "stylelint-config-concentric-order": "^5.1.0",
-    "stylelint-config-prettier": "^9.0.5",
-    "stylelint-config-recommended": "^12.0.0",
-    "stylelint-config-styled-components": "^0.1.1"
+    "postcss-syntax": "^0.36.2"
   }
 }

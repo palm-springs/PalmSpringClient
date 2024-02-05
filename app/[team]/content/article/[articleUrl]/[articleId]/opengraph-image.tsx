@@ -1,4 +1,5 @@
-import { ImageResponse } from 'next/server';
+// import { ImageResponse } from 'next/server';
+import { ImageResponse } from 'next/og';
 
 import { getBlogArticleDetail } from '@/apis/blogHome';
 
