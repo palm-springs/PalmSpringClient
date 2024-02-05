@@ -15,6 +15,7 @@ import {
   useUpdateTempPageDraft,
 } from '@/hooks/editor';
 import { UpdateArticleProps } from '@/types/article';
+import { UpdatePageProps } from '@/types/page';
 
 import { articleDataState, pageDataState } from '../../states/atom';
 
@@ -25,19 +26,15 @@ interface PublishBottomButtons {
   articleData?: UpdateArticleProps;
   isEdit?: boolean;
   currentState?: string;
+  pageData?: UpdatePageProps;
 }
 
 const PublishBottomButtons = (props: PublishBottomButtons) => {
   const router = useRouter();
-  const { pageType, isDuplicate, currentState, isAddressRulePassed } = props;
+  const { pageType, isDuplicate, currentState, isAddressRulePassed, articleData, pageData } = props;
   const pathName = usePathname();
 
   const queryClient = useQueryClient();
-
-  const articleData = useRecoilValue(articleDataState);
-  const { categoryId, description, articleUrl } = articleData;
-  const pageData = useRecoilValue(pageDataState);
-  const { pageUrl } = pageData;
 
   const { team, pageId, articleId } = useParams();
 
@@ -48,14 +45,16 @@ const PublishBottomButtons = (props: PublishBottomButtons) => {
   const draftPageMutation = useUpdateTempPageDraft(team);
 
   const updatedArticleData = useRecoilValue(articleDataState);
+  const { categoryId, description, articleUrl, thumbnail } = updatedArticleData;
   const updatedPageData = useRecoilValue(pageDataState);
+  const { pageUrl, thumbnail: pageThumbnail } = updatedPageData;
 
   const resetArticleData = useResetRecoilState(articleDataState);
   const resetPageData = useResetRecoilState(pageDataState);
 
   //아티클 최종 발행하기
   const handleOnClickArticlePublish = async () => {
-    await postArticleCreateList(team, articleData);
+    await postArticleCreateList(team, updatedArticleData);
     queryClient.invalidateQueries([QUERY_KEY_ARTICLE.getArticleList]);
     resetArticleData();
     router.push(`/${team}/dashboard/upload`);
@@ -98,7 +97,7 @@ const PublishBottomButtons = (props: PublishBottomButtons) => {
 
   //페이지 최종 발행하기
   const handleOnClickPagePublish = () => {
-    postPageCreate(team, pageData);
+    postPageCreate(team, updatedPageData);
     resetPageData();
     router.push(`/${team}/dashboard/page`);
   };
@@ -139,13 +138,16 @@ const PublishBottomButtons = (props: PublishBottomButtons) => {
                 type="button"
                 onClick={handleOnClickUpdateArticlePublish}
                 disabled={
+                  (articleData?.thumbnail === thumbnail &&
+                    articleData?.description === description &&
+                    articleData?.categoryId === categoryId &&
+                    articleData?.articleUrl === articleUrl) ||
                   categoryId === null ||
                   description === '' ||
                   articleUrl === '' ||
                   isDuplicate ||
                   isDuplicate === null ||
-                  !isAddressRulePassed ||
-                  isAddressRulePassed === null
+                  !isAddressRulePassed
                 }>
                 글 수정하기
               </PublishButton>
@@ -159,8 +161,7 @@ const PublishBottomButtons = (props: PublishBottomButtons) => {
                   articleUrl === '' ||
                   isDuplicate ||
                   isDuplicate === null ||
-                  !isAddressRulePassed ||
-                  isAddressRulePassed === null
+                  !isAddressRulePassed
                 }>
                 글 발행하기
               </PublishButton>
@@ -180,11 +181,11 @@ const PublishBottomButtons = (props: PublishBottomButtons) => {
                 type="button"
                 onClick={handleOnClickUpdatePagePublish}
                 disabled={
+                  (pageData?.thumbnail === pageThumbnail && pageData?.pageUrl === pageUrl) ||
                   pageUrl === '' ||
                   isDuplicate ||
                   isDuplicate === null ||
-                  !isAddressRulePassed ||
-                  isAddressRulePassed === null
+                  !isAddressRulePassed
                 }>
                 글 수정하기
               </PublishButton>
@@ -192,13 +193,7 @@ const PublishBottomButtons = (props: PublishBottomButtons) => {
               <PublishButton
                 type="button"
                 onClick={currentState === 'draft' ? handleTempPageUpdatePublish : handleOnClickPagePublish}
-                disabled={
-                  pageUrl === '' ||
-                  isDuplicate ||
-                  isDuplicate === null ||
-                  !isAddressRulePassed ||
-                  isAddressRulePassed === null
-                }>
+                disabled={pageUrl === '' || isDuplicate || isDuplicate === null || !isAddressRulePassed}>
                 글 발행하기
               </PublishButton>
             )}

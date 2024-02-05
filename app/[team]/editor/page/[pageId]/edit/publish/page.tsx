@@ -13,7 +13,7 @@ import { useGetUpdatePageContent } from '@/hooks/editor';
 const PageEditPublishPage = () => {
   const { team, pageId } = useParams();
   const [isDuplicate, setIsDuplicate] = useState<boolean | null>(false);
-  const [isAddressRulePassed, setIsAddressRulePassed] = useState<boolean | null>(false);
+  const [isAddressRulePassed, setIsAddressRulePassed] = useState<boolean>(true);
   const updatePageEditContents = useGetUpdatePageContent(team, Number(pageId));
 
   return (
@@ -31,7 +31,12 @@ const PageEditPublishPage = () => {
             pageData={updatePageEditContents?.data}
           />
         )}
-        <PublishBottomButtons pageType="page" isDuplicate={isDuplicate} isAddressRulePassed={isAddressRulePassed} />
+        <PublishBottomButtons
+          pageType="page"
+          isDuplicate={isDuplicate}
+          isAddressRulePassed={isAddressRulePassed}
+          pageData={updatePageEditContents?.data}
+        />
       </PagePublishContainer>
     </AuthRequired>
   );
