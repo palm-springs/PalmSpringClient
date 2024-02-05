@@ -14,7 +14,7 @@ const QUERY_KEY_BLOG = {
 // 주석
 
 export const useGetBlogInfo = (blogUrl: string) => {
-  const { data } = useQuery([QUERY_KEY_BLOG.getBlogInfo, blogUrl], () => getBlogInfo(blogUrl));
+  const { data } = useQuery({ queryKey: [QUERY_KEY_BLOG.getBlogInfo, blogUrl], queryFn: () => getBlogInfo(blogUrl) });
   return data;
 };
 
@@ -23,9 +23,11 @@ export const useDeleteBlog = (blogUrl: string) => {
 
   const router = useRouter();
 
-  return useMutation([QUERY_KEY_BLOG.deleteBlog, blogUrl], () => deleteBlog(blogUrl), {
+  return useMutation({
+    mutationKey: [QUERY_KEY_BLOG.deleteBlog, blogUrl],
+    mutationFn: () => deleteBlog(blogUrl),
     onSuccess: async () => {
-      await queryClient.invalidateQueries([QUERY_KEY_DASHBOARD.getUserInfo]);
+      await queryClient.invalidateQueries({ queryKey: [QUERY_KEY_DASHBOARD.getUserInfo] });
 
       const res = queryClient.getQueryData<Response<UserInfoProps>>([QUERY_KEY_DASHBOARD.getUserInfo]);
 

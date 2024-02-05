@@ -56,7 +56,7 @@ const PublishBottomButtons = (props: PublishBottomButtons) => {
   //아티클 최종 발행하기
   const handleOnClickArticlePublish = async () => {
     await postArticleCreateList(team, articleData);
-    queryClient.invalidateQueries([QUERY_KEY_ARTICLE.getArticleList]);
+    queryClient.invalidateQueries({ queryKey: [QUERY_KEY_ARTICLE.getArticleList] });
     resetArticleData();
     router.push(`/${team}/dashboard/upload`);
   };
@@ -70,7 +70,7 @@ const PublishBottomButtons = (props: PublishBottomButtons) => {
       },
       {
         onSuccess: () => {
-          queryClient.invalidateQueries([QUERY_KEY_ARTICLE.getArticleList]);
+          queryClient.invalidateQueries({ queryKey: [QUERY_KEY_ARTICLE.getArticleList] });
         },
       },
     );
@@ -88,7 +88,7 @@ const PublishBottomButtons = (props: PublishBottomButtons) => {
       },
       {
         onSuccess: () => {
-          queryClient.invalidateQueries([QUERY_KEY_ARTICLE.getArticleList]);
+          queryClient.invalidateQueries({ queryKey: [QUERY_KEY_ARTICLE.getArticleList] });
         },
       },
     );

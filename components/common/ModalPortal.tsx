@@ -1,5 +1,5 @@
 import { ReactNode } from 'react';
-import ReactDom from 'react-dom';
+import ReactDom, { unstable_batchedUpdates } from 'react-dom';
 
 interface Props {
   children: ReactNode;

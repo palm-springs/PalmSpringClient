@@ -13,30 +13,32 @@ const QUERY_KEY_AUTH = {
 };
 
 export const useGetAccessToken = (props: getAccessTokenProps) => {
-  const { data } = useQuery([QUERY_KEY_AUTH.auth], () => getAccessToken(props));
+  const { data } = useQuery({ queryKey: [QUERY_KEY_AUTH.auth], queryFn: () => getAccessToken(props) });
   return data;
 };
 
 export const usePostMemberInvite = (blogUrl: string, requestBody: InviteRequestBody, handleEmailList: () => void) => {
   const queryClient = useQueryClient();
-  return useMutation(() => postMemberInvite(blogUrl, requestBody), {
+  return useMutation({
+    mutationFn: () => postMemberInvite(blogUrl, requestBody),
     onSuccess() {
-      queryClient.invalidateQueries([QUERY_KEY_DASHBOARD.getMemberInfo]);
+      queryClient.invalidateQueries({ queryKey: [QUERY_KEY_DASHBOARD.getMemberInfo] });
       handleEmailList();
     },
   });
 };
 
 export const useGetMemberInvite = (code: string | null) => {
-  const { data } = useQuery([QUERY_KEY_AUTH.invite, code], () => getMemberInvite(code));
+  const { data } = useQuery({ queryKey: [QUERY_KEY_AUTH.invite, code], queryFn: () => getMemberInvite(code) });
   return data;
 };
 
 export const useDeleteInvite = (blogUrl: string, requestBody: DeleteRequestBody) => {
   const queryClient = useQueryClient();
-  return useMutation(() => deleteInvite(blogUrl, requestBody), {
+  return useMutation({
+    mutationFn: () => deleteInvite(blogUrl, requestBody),
     onSuccess() {
-      queryClient.invalidateQueries([QUERY_KEY_DASHBOARD.getMemberInfo]);
+      queryClient.invalidateQueries({ queryKey: [QUERY_KEY_DASHBOARD.getMemberInfo] });
     },
   });
 };

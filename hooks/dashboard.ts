@@ -51,22 +51,34 @@ export const QUERY_KEY_DASHBOARD = {
 };
 
 export const useGetNavList = (blogUrl: string) => {
-  const { data } = useQuery([QUERY_KEY_DASHBOARD.getNavList, blogUrl], () => getNavList(blogUrl));
+  const { data } = useQuery({
+    queryKey: [QUERY_KEY_DASHBOARD.getNavList, blogUrl],
+    queryFn: () => getNavList(blogUrl),
+  });
   return data;
 };
 
 export const useGetCategoryList = (blogUrl: string) => {
-  const { data } = useQuery([QUERY_KEY_DASHBOARD.getCategoryList, blogUrl], () => getCategoryList(blogUrl));
+  const { data } = useQuery({
+    queryKey: [QUERY_KEY_DASHBOARD.getCategoryList, blogUrl],
+    queryFn: () => getCategoryList(blogUrl),
+  });
   return data;
 };
 
 export const useGetPageList = (blogUrl: string) => {
-  const { data } = useQuery([QUERY_KEY_DASHBOARD.getPageList, blogUrl], () => getPageList(blogUrl));
+  const { data } = useQuery({
+    queryKey: [QUERY_KEY_DASHBOARD.getPageList, blogUrl],
+    queryFn: () => getPageList(blogUrl),
+  });
   return data;
 };
 
 export const useGetTempSavedList = (blogUrl: string) => {
-  const { data } = useQuery([QUERY_KEY_DASHBOARD.getTempSavedList, blogUrl], () => getTempSavedList(blogUrl));
+  const { data } = useQuery({
+    queryKey: [QUERY_KEY_DASHBOARD.getTempSavedList, blogUrl],
+    queryFn: () => getTempSavedList(blogUrl),
+  });
 
   if (!data || !data.data) return;
 
@@ -74,7 +86,7 @@ export const useGetTempSavedList = (blogUrl: string) => {
 };
 
 export const useGetUserInfo = () => {
-  const { data, isSuccess } = useQuery([QUERY_KEY_DASHBOARD.getUserInfo], () => getUserInfo());
+  const { data, isSuccess } = useQuery({ queryKey: [QUERY_KEY_DASHBOARD.getUserInfo], queryFn: () => getUserInfo() });
 
   const [userValue, setUserState] = useRecoilState(userState);
 
@@ -94,56 +106,56 @@ export const useGetUserInfo = () => {
 };
 
 export const useGetUserBasicInfo = (blogUrl: string) => {
-  const { data } = useQuery([QUERY_KEY_DASHBOARD.getUserBasicInfo, blogUrl], () => getUserBasicInfo(blogUrl));
+  const { data } = useQuery({
+    queryKey: [QUERY_KEY_DASHBOARD.getUserBasicInfo, blogUrl],
+    queryFn: () => getUserBasicInfo(blogUrl),
+  });
   return data;
 };
 
 export const useGetMemberInfo = (blogUrl: string) => {
-  const { data } = useQuery([QUERY_KEY_DASHBOARD.getMemberInfo, blogUrl], () => getMemberList(blogUrl));
+  const { data } = useQuery({
+    queryKey: [QUERY_KEY_DASHBOARD.getMemberInfo, blogUrl],
+    queryFn: () => getMemberList(blogUrl),
+  });
   return data;
 };
 
 export const usePostCategory = (blogUrl: string, name: string, description: string) => {
   const queryClient = useQueryClient();
 
-  return useMutation(
-    [QUERY_KEY_DASHBOARD.postCategory, blogUrl, name, description],
-    () => postCategory(blogUrl, name, description),
-    {
-      onSuccess: () => {
-        queryClient.invalidateQueries([QUERY_KEY_DASHBOARD.getCategoryList]);
-      },
+  return useMutation({
+    mutationKey: [QUERY_KEY_DASHBOARD.postCategory, blogUrl, name, description],
+    mutationFn: () => postCategory(blogUrl, name, description),
+    onSuccess: () => {
+      queryClient.invalidateQueries({ queryKey: [QUERY_KEY_DASHBOARD.getCategoryList] });
     },
-  );
+  });
 };
 
 export const usePostNavigation = (blogUrl: string, name: string, isPage: boolean, navUrl: string) => {
   const queryClient = useQueryClient();
 
-  const mutation = useMutation(
-    [QUERY_KEY_DASHBOARD.postNavigation, blogUrl, name, isPage, navUrl],
-    () => postNavigation(blogUrl, name, isPage, navUrl),
-    {
-      onSuccess: () => {
-        queryClient.invalidateQueries([QUERY_KEY_DASHBOARD.getNavList]);
-      },
+  const mutation = useMutation({
+    mutationKey: [QUERY_KEY_DASHBOARD.postNavigation, blogUrl, name, isPage, navUrl],
+    mutationFn: () => postNavigation(blogUrl, name, isPage, navUrl),
+    onSuccess: () => {
+      queryClient.invalidateQueries({ queryKey: [QUERY_KEY_DASHBOARD.getNavList] });
     },
-  );
+  });
   return mutation;
 };
 
 export const useDeleteNavigation = (blogUrl: string, id: number) => {
   const queryClient = useQueryClient();
 
-  const mutation = useMutation(
-    [QUERY_KEY_DASHBOARD.deleteNavigation, blogUrl, id],
-    () => deleteNavigation(blogUrl, id),
-    {
-      onSuccess: () => {
-        queryClient.invalidateQueries([QUERY_KEY_DASHBOARD.getNavList]);
-      },
+  const mutation = useMutation({
+    mutationKey: [QUERY_KEY_DASHBOARD.deleteNavigation, blogUrl, id],
+    mutationFn: () => deleteNavigation(blogUrl, id),
+    onSuccess: () => {
+      queryClient.invalidateQueries([QUERY_KEY_DASHBOARD.getNavList]);
     },
-  );
+  });
   return mutation;
 };
 
