@@ -6,9 +6,9 @@ import AOS from 'aos';
 import Link from 'next/link';
 import { redirect } from 'next/navigation';
 
-import client from '@/api';
-import { getRefreshToken } from '@/api/auth';
-import { getUserInfoAfterLogin } from '@/api/dashboard';
+import client from '@/apis';
+import { getRefreshToken } from '@/apis/auth';
+import { getUserInfoAfterLogin } from '@/apis/dashboard';
 import Footer from '@/components/landing/Footer';
 import Header from '@/components/landing/Header';
 import { DOMAIN_NAME } from '@/constants/palmspringInfo';

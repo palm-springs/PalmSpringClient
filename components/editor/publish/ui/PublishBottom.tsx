@@ -5,8 +5,8 @@ import { useParams, usePathname, useRouter } from 'next/navigation';
 import { useRecoilValue, useResetRecoilState } from 'recoil';
 import styled from 'styled-components';
 
-import { postArticleCreateList } from '@/api/article';
-import { postPageCreate } from '@/api/page';
+import { postArticleCreateList } from '@/apis/article';
+import { postPageCreate } from '@/apis/page';
 import {
   QUERY_KEY_ARTICLE,
   useUpdateArticleContent,

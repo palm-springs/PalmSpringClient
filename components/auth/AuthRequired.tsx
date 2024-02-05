@@ -3,8 +3,8 @@ import { useEffect } from 'react';
 import { usePathname, useRouter, useSearchParams } from 'next/navigation';
 import { useRecoilState, useResetRecoilState } from 'recoil';
 
-import client, { refreshAxiosInstance } from '@/api';
-import { getRefreshToken } from '@/api/auth';
+import client, { refreshAxiosInstance } from '@/apis';
+import { getRefreshToken } from '@/apis/auth';
 import { LoginUserState } from '@/constants/Auth';
 
 import { accessTokenState } from './states/atom';

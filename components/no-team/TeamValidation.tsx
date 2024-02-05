@@ -2,7 +2,7 @@
 import React, { useEffect } from 'react';
 import { useRouter } from 'next/navigation';
 
-import { getUserInfo } from '@/api/dashboard';
+import { getUserInfo } from '@/apis/dashboard';
 
 const TeamValidation = ({ children }: { children: React.ReactNode }) => {
   const router = useRouter();

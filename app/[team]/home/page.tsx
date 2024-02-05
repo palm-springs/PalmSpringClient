@@ -3,8 +3,8 @@
 import React from 'react';
 import { Metadata } from 'next';
 
-import { getMetaBlogInfo } from '@/api/blog';
-import { getBlogArticleList, getBlogMainImg } from '@/api/blogHome';
+import { getMetaBlogInfo } from '@/apis/blog';
+import { getBlogArticleList, getBlogMainImg } from '@/apis/blogHome';
 import NotFound from '@/app/not-found';
 import ArticleContainer from '@/components/blog/ui/ArticleContainer';
 

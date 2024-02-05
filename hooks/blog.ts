@@ -1,7 +1,7 @@
 import { useMutation, useQuery, useQueryClient } from '@tanstack/react-query';
 import { useRouter } from 'next/navigation';
 
-import { deleteBlog, getBlogInfo } from '@/api/blog';
+import { deleteBlog, getBlogInfo } from '@/apis/blog';
 import { Response } from '@/types/common';
 import { UserInfoProps } from '@/types/user';
 

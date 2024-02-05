@@ -3,9 +3,9 @@
 import { useEffect, useState } from 'react';
 import { useRecoilState } from 'recoil';
 
-import client from '@/api';
-import { getRefreshToken } from '@/api/auth';
-import { getUserInfoAfterLogin } from '@/api/dashboard';
+import client from '@/apis';
+import { getRefreshToken } from '@/apis/auth';
+import { getUserInfoAfterLogin } from '@/apis/dashboard';
 import { accessTokenState } from '@/components/auth/states/atom';
 import LandingPage from '@/components/landing/LandingPage';
 

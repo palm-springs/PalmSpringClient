@@ -4,8 +4,8 @@ import { useRouter } from 'next/navigation';
 import { useRecoilState } from 'recoil';
 import styled from 'styled-components';
 
-import { postCreateBlog } from '@/api/blog';
-import { postMemberInvite } from '@/api/user';
+import { postCreateBlog } from '@/apis/blog';
+import { postMemberInvite } from '@/apis/user';
 import AddMemberForm from '@/components/common/ui/AddMemberForm';
 import { emailData } from '@/types/member';
 

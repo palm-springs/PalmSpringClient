@@ -1,7 +1,7 @@
 import { Dispatch, SetStateAction } from 'react';
 import { debounce } from 'lodash-es';
 
-import { getCheckUserIdDuplication } from '@/api/user';
+import { getCheckUserIdDuplication } from '@/apis/user';
 
 const CheckUserIdDuplication = debounce(
   async (blogUrl: string, userIdValue: string, setState: Dispatch<SetStateAction<boolean | null>>) => {

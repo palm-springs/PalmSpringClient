@@ -1,7 +1,7 @@
 import { useMutation, useQuery, useQueryClient } from '@tanstack/react-query';
 
-import { getAccessToken } from '@/api/auth';
-import { deleteInvite, getMemberInvite, postMemberInvite } from '@/api/user';
+import { getAccessToken } from '@/apis/auth';
+import { deleteInvite, getMemberInvite, postMemberInvite } from '@/apis/user';
 import { getAccessTokenProps } from '@/types/auth';
 import { DeleteRequestBody, InviteRequestBody } from '@/types/user';
 

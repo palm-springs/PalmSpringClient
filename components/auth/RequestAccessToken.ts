@@ -2,8 +2,8 @@
 import { useRouter } from 'next/navigation';
 import { useSetRecoilState } from 'recoil';
 
-import { postSocialLogin } from '@/api/auth';
-import { getUserInfoAfterLogin } from '@/api/dashboard';
+import { postSocialLogin } from '@/apis/auth';
+import { getUserInfoAfterLogin } from '@/apis/dashboard';
 import { LoginUserState } from '@/constants/Auth';
 import { useGetAccessToken } from '@/hooks/auth';
 import { getAccessTokenProps } from '@/types/auth';

@@ -4,7 +4,7 @@ import { useParams } from 'next/navigation';
 import { useRecoilState } from 'recoil';
 import { styled } from 'styled-components';
 
-import { putBlogConfig } from '@/api/blog';
+import { putBlogConfig } from '@/apis/blog';
 import LoadingLottie from '@/components/common/ui/LoadingLottie';
 import { imageErrorCase } from '@/constants/image';
 import { useGetBlogInfo } from '@/hooks/blog';

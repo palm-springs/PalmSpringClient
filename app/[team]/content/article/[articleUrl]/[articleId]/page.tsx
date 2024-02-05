@@ -1,7 +1,7 @@
 import React from 'react';
 import { Metadata } from 'next';
 
-import { getBlogArticleDetail } from '@/api/blogHome';
+import { getBlogArticleDetail } from '@/apis/blogHome';
 import BlogMeta from '@/components/blog/BlogMeta';
 
 type Props = {

@@ -1,6 +1,6 @@
 import { ImageResponse } from 'next/server';
 
-import { getMetaBlogInfo } from '@/api/blog';
+import { getMetaBlogInfo } from '@/apis/blog';
 
 export const alt = 'About Acme';
 export const size = {

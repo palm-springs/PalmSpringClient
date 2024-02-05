@@ -1,4 +1,4 @@
-import { uploadContentImage, uploadImage } from '@/api/common';
+import { uploadContentImage, uploadImage } from '@/apis/common';
 import { imageErrorCase } from '@/constants/image';
 
 //common -> get 어쩌구 불러오기

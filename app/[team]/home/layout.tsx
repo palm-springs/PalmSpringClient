@@ -1,6 +1,6 @@
 import React from 'react';
 
-import { getBlogHeaderInfo } from '@/api/blogHome';
+import { getBlogHeaderInfo } from '@/apis/blogHome';
 import NotFound from '@/app/not-found';
 import BlogFooter from '@/components/common/BlogFooter';
 import BlogHeader from '@/components/common/BlogHeader';

@@ -25,8 +25,8 @@ import { lowlight } from 'lowlight';
 import { useParams, usePathname, useRouter } from 'next/navigation';
 import { useRecoilState } from 'recoil';
 
-import { postArticleList } from '@/api/article';
-import { postPageDraft } from '@/api/page';
+import { postArticleList } from '@/apis/article';
+import { postPageDraft } from '@/apis/page';
 import TextEditor from '@/components/editor/TextEditor';
 import SaveEditorContentButton from '@/components/editor/ui/SaveEditorContentButton';
 import ToolBox from '@/components/editor/ui/ToolBox';

@@ -4,7 +4,7 @@ import { useRouter } from 'next/navigation';
 import { useRecoilState } from 'recoil';
 import styled from 'styled-components';
 
-import { updateUserInfo } from '@/api/dashboard';
+import { updateUserInfo } from '@/apis/dashboard';
 import { useGetUserBasicInfo } from '@/hooks/dashboard';
 import { UserBasicInfo } from '@/types/user';
 import CheckUserIdDuplication from '@/utils/checkUserIdDuplication';

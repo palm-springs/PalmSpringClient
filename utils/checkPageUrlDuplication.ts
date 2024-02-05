@@ -1,7 +1,7 @@
 import { Dispatch, SetStateAction } from 'react';
 import { debounce } from 'lodash-es';
 
-import { getCheckPageUrlDuplication } from '@/api/page';
+import { getCheckPageUrlDuplication } from '@/apis/page';
 
 const CheckPageDuplication = debounce(
   async (blogUrl: string, addressValue: string, setState: Dispatch<SetStateAction<boolean | null>>) => {

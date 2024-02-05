@@ -7,8 +7,8 @@ import {
   getUpdateArticleContent,
   updateArticleDetail,
   updateArticleDraft,
-} from '@/api/article';
-import { getSinglePageData, getUpdatePageContent, updatePageDetail, updatePageDraft } from '@/api/page';
+} from '@/apis/article';
+import { getSinglePageData, getUpdatePageContent, updatePageDetail, updatePageDraft } from '@/apis/page';
 import { UpdateArticleContentProps, UpdateTempArticleDraftProps } from '@/types/article';
 import { UpdatePageContentProps, UpdateTempPageDraftProps } from '@/types/page';
 

@@ -3,7 +3,7 @@
 import React, { useRef, useState } from 'react';
 import styled from 'styled-components';
 
-import { postSubscriber } from '@/api/blogHome';
+import { postSubscriber } from '@/apis/blogHome';
 import { IcClose32Icon } from '@/public/icons';
 
 interface subscribeBtnProps {

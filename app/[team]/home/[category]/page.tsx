@@ -1,7 +1,7 @@
 // 선택 카테고리 별 페이지
 import React from 'react';
 
-import { getBlogArticleList, getBlogMainImg } from '@/api/blogHome';
+import { getBlogArticleList, getBlogMainImg } from '@/apis/blogHome';
 import ArticleContainer from '@/components/blog/ui/ArticleContainer';
 
 const CategoryPage = async ({ params }: { params: { team: string } }) => {

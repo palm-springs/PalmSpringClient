@@ -1,6 +1,6 @@
 import { ImageResponse } from 'next/server';
 
-import { getBlogArticleDetail } from '@/api/blogHome';
+import { getBlogArticleDetail } from '@/apis/blogHome';
 
 export const alt = 'About Acme';
 export const size = {

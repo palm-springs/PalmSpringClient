@@ -1,7 +1,7 @@
 import { Dispatch, SetStateAction } from 'react';
 import { debounce } from 'lodash-es';
 
-import { getCheckBlogUrlDuplication } from '@/api/blog';
+import { getCheckBlogUrlDuplication } from '@/apis/blog';
 import { RESERVED_URL_LIST } from '@/constants/reservedUrl';
 
 const CheckDuplication = debounce(

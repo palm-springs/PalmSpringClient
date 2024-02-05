@@ -4,7 +4,7 @@ import React, { useState } from 'react';
 import { useParams, useRouter } from 'next/navigation';
 import { useResetRecoilState } from 'recoil';
 
-import { logout } from '@/api/auth';
+import { logout } from '@/apis/auth';
 import { accessTokenState } from '@/components/auth/states/atom';
 import LoadingLottie from '@/components/common/ui/LoadingLottie';
 import { useGetUserInfo } from '@/hooks/dashboard';

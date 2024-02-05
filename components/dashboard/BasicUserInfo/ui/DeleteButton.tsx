@@ -2,7 +2,7 @@ import React, { useState } from 'react';
 import { useParams, useRouter } from 'next/navigation';
 import styled from 'styled-components';
 
-import { updateWithdrawPlatform, updateWithdrawTeam } from '@/api/user';
+import { updateWithdrawPlatform, updateWithdrawTeam } from '@/apis/user';
 import ModalPortal from '@/components/common/ModalPortal';
 import DashboardDeleteModal from '@/components/common/ui/DashboardDeleteModal';
 import usePerMissionPolicy from '@/hooks/usePermissionPolicy';

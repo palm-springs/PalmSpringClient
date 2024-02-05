@@ -7,7 +7,7 @@ import {
   getBlogCategoryList,
   getBlogHeaderInfo,
   getBlogPageDetail,
-} from '@/api/blogHome';
+} from '@/apis/blogHome';
 
 const QUERY_KEY_BLOG = {
   getBlogHeaderInfo: 'getBlogHeaderInfo',
