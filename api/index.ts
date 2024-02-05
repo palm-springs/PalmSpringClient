@@ -17,5 +17,3 @@ export const refreshAxiosInstance: AxiosInstance = axios.create({
     'content-type': 'application/json',
   },
 });
-
-export const runtime = 'edge';

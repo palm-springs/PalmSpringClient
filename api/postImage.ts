@@ -6,5 +6,3 @@ export const postImage = async (formData: FormData) => {
   });
   return data;
 };
-
-export const runtime = 'edge';

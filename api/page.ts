@@ -75,5 +75,3 @@ export const deletePage = async (blogUrl: string, pageId: string) => {
   const { data } = await client.delete(`/api/v2/dashboard/page/admin/remove/${blogUrl}?pageId=${pageId}`);
   return data;
 };
-
-export const runtime = 'edge';

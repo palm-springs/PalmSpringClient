@@ -60,5 +60,3 @@ export const deleteInvite = async (blogUrl: string, requestBody: DeleteRequestBo
   });
   return data;
 };
-
-export const runtime = 'edge';

@@ -2,8 +2,6 @@ import { Metadata } from 'next';
 
 import Layout from '@/components/Layout';
 
-export const runtime = 'edge';
-
 export const metadata: Metadata = {
   metadataBase: new URL('https://palms.blog'),
   title: 'palmspring',

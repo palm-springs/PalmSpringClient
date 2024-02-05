@@ -139,5 +139,3 @@ export const delegateUserRole = async (
   });
   return data;
 };
-
-export const runtime = 'edge';

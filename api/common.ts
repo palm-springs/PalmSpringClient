@@ -20,4 +20,3 @@ export const uploadContentImage = async (blogUrl: string, formData: FormData) =>
   });
   return data;
 };
-export const runtime = 'edge';

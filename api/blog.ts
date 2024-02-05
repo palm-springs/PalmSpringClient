@@ -77,5 +77,3 @@ export const deleteBlog = async (blogUrl: string) => {
   return data;
   // {{BASE_URL}}/api/v2/dashboard/blog/admin/remove/{blogUrl}
 };
-
-export const runtime = 'edge';
