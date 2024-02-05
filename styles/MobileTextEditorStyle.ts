@@ -183,11 +183,14 @@ export const MobileTextEditorStyle = styled.div`
       p {
         padding-top: 0.2rem;
         width: calc(100vw - 6rem);
-        /* width: calc(100vw - 5.8rem); */
       }
 
       pre {
         width: calc(100vw - 6rem);
+      }
+
+      ul > li > p {
+        width: calc(100vw - 10rem);
       }
     }
 

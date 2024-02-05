@@ -8,6 +8,9 @@ export const middleware = (request: NextRequest) => {
     request.nextUrl.pathname.startsWith('/content') ||
     request.nextUrl.pathname.startsWith('/author');
 
+  if (!isSubdomain) {
+    return NextResponse.next();
+  }
   // 기본적인 요청을 분산시켜줍니다.
   if (pathWithoutAuthentication) {
     // eslint-disable-next-line @typescript-eslint/no-non-null-assertion, @typescript-eslint/no-non-null-asserted-optional-chain
@@ -17,10 +20,6 @@ export const middleware = (request: NextRequest) => {
     const teamName = pathName.split('/')[1];
     const index = pathName.indexOf('/', 1);
     const targetPathName = pathName.slice(index);
-
-    if (!isSubdomain) {
-      return NextResponse.next();
-    }
 
     // https://official.palms.blog 와 같이 해당 블로그인데 "/"로 접근하는 경우 "/home"으로 반환하도록 도와줍니다.
     // https://official.palms.blog/home 으로 리다이렉팅을 하고, 내용을 서브도메인에 맞게 rewrite해야합니다.
@@ -36,7 +35,6 @@ export const middleware = (request: NextRequest) => {
 
 export const config = {
   matcher: [
-    '/',
     '/home/:path*',
     '/content/:path*',
     '/author/:path*',
