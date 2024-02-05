@@ -12,7 +12,7 @@ import UrlCustom from '@/components/editor/publish/ui/UrlCustom';
 
 const ArticleDraftPublishPage = () => {
   const [isDuplicate, setIsDuplicate] = useState<boolean | null>(false);
-  const [isAddressRulePassed, setIsAddressRulePassed] = useState<boolean | null>(false);
+  const [isAddressRulePassed, setIsAddressRulePassed] = useState<boolean>(true);
 
   return (
     <AuthRequired>

@@ -21,7 +21,7 @@ interface UrlCustomProps {
   isDuplicate: boolean | null;
   setIsDuplicate: Dispatch<SetStateAction<boolean | null>>;
   isAddressRulePassed: boolean | null;
-  setIsAddressRulePassed: Dispatch<SetStateAction<boolean | null>>;
+  setIsAddressRulePassed: Dispatch<SetStateAction<boolean>>;
   pageData?: UpdatePageProps;
   articleData?: UpdateArticleProps;
 }
@@ -39,16 +39,26 @@ const UrlCustom = (props: UrlCustomProps) => {
   useEffect(() => {
     if (articleData) {
       setArticleData((prev) => ({ ...prev, articleUrl: articleData.articleUrl }));
+      checkAddressRulePassed(articleUrl);
     } else if (pageData) {
       setPageData((prev) => ({ ...prev, pageUrl: pageData.pageUrl }));
+      checkAddressRulePassed(pageUrl);
     }
   }, []);
 
   const checkDuplication = (value: string) => {
     if (pageType === 'page') {
-      CheckPageDuplication(team, value, setIsDuplicate);
+      if (value === pageData?.pageUrl) {
+        setIsDuplicate(false);
+      } else {
+        CheckPageDuplication(team, value, setIsDuplicate);
+      }
     } else if (pageType === 'article') {
-      CheckArticleDuplication(team, value, setIsDuplicate);
+      if (value === articleData?.articleUrl) {
+        setIsDuplicate(false);
+      } else {
+        CheckArticleDuplication(team, value, setIsDuplicate);
+      }
     }
   };
 
@@ -57,7 +67,7 @@ const UrlCustom = (props: UrlCustomProps) => {
     if (checkAddressRule) {
       setIsAddressRulePassed(true);
     } else {
-      setIsAddressRulePassed(null);
+      setIsAddressRulePassed(false);
     }
   };
 
@@ -71,6 +81,7 @@ const UrlCustom = (props: UrlCustomProps) => {
   const handleOnPageChange = (e: React.ChangeEvent<HTMLInputElement>) => {
     const { value } = e.currentTarget;
     setPageData((prev) => ({ ...prev, pageUrl: value }));
+    checkAddressRulePassed(value);
     checkDuplication(value);
   };
 
@@ -95,7 +106,7 @@ const UrlCustom = (props: UrlCustomProps) => {
             />
             {isDuplicate === null && articleUrl !== '' && <Loader01Icon />}
           </PublishInputForm>
-          {isAddressRulePassed === null && <Message>{'영문 소문자(a-z), 숫자(0-9), "-" 만 사용 가능해요.'}</Message>}
+          {!isAddressRulePassed && <Message>{'영문 소문자(a-z), 숫자(0-9), "-" 만 사용 가능해요.'}</Message>}
           {isDuplicate && <Message>이미 사용 중인 URL입니다. 다른 URL를 입력해주세요.</Message>}
         </UrlContainer>
       );
@@ -119,7 +130,7 @@ const UrlCustom = (props: UrlCustomProps) => {
             />
             {isDuplicate === null && pageUrl !== '' && <Loader01Icon />}
           </PublishInputForm>
-          {isAddressRulePassed === null && <Message>{'영문 소문자(a-z), 숫자(0-9), "-" 만 사용 가능해요.'}</Message>}
+          {!isAddressRulePassed && <Message>{'영문 소문자(a-z), 숫자(0-9), "-" 만 사용 가능해요.'}</Message>}
           {isDuplicate && <Message>이미 사용 중인 URL입니다. 다른 URL를 입력해주세요.</Message>}
         </UrlContainer>
       );

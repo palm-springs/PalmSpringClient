@@ -15,7 +15,7 @@ import { useGetUpdateArticleContent } from '@/hooks/editor';
 const ArticleEditPublishPage = () => {
   const { team, articleId } = useParams();
   const [isDuplicate, setIsDuplicate] = useState<boolean | null>(false);
-  const [isAddressRulePassed, setIsAddressRulePassed] = useState<boolean | null>(false);
+  const [isAddressRulePassed, setIsAddressRulePassed] = useState<boolean>(true);
   const updateArticleEditContents = useGetUpdateArticleContent(team, Number(articleId));
 
   return (
