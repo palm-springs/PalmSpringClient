@@ -4,6 +4,7 @@ import React, { useEffect } from 'react';
 import Image from 'next/image';
 import styled from 'styled-components';
 
+import MobileStickyBtn from '@/components/blog/MobileStickyBtn';
 import PageContentInfo from '@/components/common/PageContentInfo';
 import Content from '@/components/content/Content';
 import useCheckMobile from '@/hooks/useCheckMobile';
@@ -30,19 +31,22 @@ const PageTemplate = (props: ContentTemplateProps) => {
   const MOBILE = useCheckMobile();
 
   return (
-    <ContentPageContainer className={MOBILE ? 'mobile' : ''}>
-      {thumbnail && (
-        <PageThumbnail
-          className={MOBILE ? 'mobile' : ''}
-          src={thumbnail}
-          alt="page content thumbnail"
-          width={720}
-          height={405}
-        />
-      )}
-      <PageContentInfo contentInfoData={{ title }} />
-      {MOBILE ? <MobileContent content={content} /> : <Content content={content} />}
-    </ContentPageContainer>
+    <>
+      <ContentPageContainer className={MOBILE ? 'mobile' : ''}>
+        {thumbnail && (
+          <PageThumbnail
+            className={MOBILE ? 'mobile' : ''}
+            src={thumbnail}
+            alt="page content thumbnail"
+            width={720}
+            height={405}
+          />
+        )}
+        <PageContentInfo contentInfoData={{ title }} />
+        {MOBILE ? <MobileContent content={content} /> : <Content content={content} />}
+      </ContentPageContainer>
+      {MOBILE && <MobileStickyBtn />}
+    </>
   );
 };
 
@@ -73,7 +77,7 @@ const ContentPageContainer = styled.section`
   margin: 12rem 36rem;
 
   &.mobile {
-    margin: 0;
+    margin: 4rem 0;
     width: 100%;
   }
 `;
