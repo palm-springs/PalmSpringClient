@@ -3,6 +3,7 @@ import { ImageResponse } from 'next/og';
 
 import { getBlogArticleDetail } from '@/apis/blogHome';
 
+export const runtime = 'edge';
 export const alt = 'About Acme';
 export const size = {
   width: 1200,

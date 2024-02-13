@@ -4,6 +4,7 @@ import { ImageResponse } from 'next/og';
 
 import { getMetaBlogInfo } from '@/apis/blog';
 
+export const runtime = 'edge';
 export const alt = 'About Acme';
 export const size = {
   width: 1200,
