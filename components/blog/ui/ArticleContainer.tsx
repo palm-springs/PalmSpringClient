@@ -9,6 +9,7 @@ import useCheckMobile from '@/hooks/useCheckMobile';
 import useGetCategory from '@/hooks/useGetCategory';
 import { ArticleData } from '@/types/article';
 import { Response } from '@/types/common';
+import { ContentProps } from '@/types/content';
 import { CategoryListProps } from '@/types/dashboard';
 import { getLiteralCategoryList } from '@/utils/getLiteralCategoryList';
 
@@ -24,12 +25,13 @@ interface ArticleContainerProps {
   description: string | null;
   blogName: string;
   filteredCategoryList: Response<CategoryListProps[]>;
+  singleArticleDetail: Response<ContentProps>;
 }
 
 const ArticleContainer = (props: ArticleContainerProps) => {
   const MOBILE = useCheckMobile();
 
-  const { articleListData, thumbnail, description, blogName, filteredCategoryList } = props;
+  const { articleListData, thumbnail, description, blogName, filteredCategoryList, singleArticleDetail } = props;
   const CategorySelected = useGetCategory();
 
   if (!filteredCategoryList || !CategorySelected) return <LoadingLottie width={10} height={10} fit />;
@@ -72,7 +74,15 @@ const ArticleContainer = (props: ArticleContainerProps) => {
     );
 
   //아티클 리스트가 있고 블로그 대문이 없을 때
-  if (articleListData?.length !== 0 && !thumbnail) return <ArticleListWithThumbnail articleList={articleListData} />;
+  if (articleListData?.length !== 0 && !thumbnail)
+    return (
+      <ArticleListWithThumbnail
+        articleList={articleListData}
+        filteredCategoryList={filteredCategoryList}
+        singleArticleDetail={singleArticleDetail}
+        literalList={LiteralList}
+      />
+    );
 
   //아티클 리스트가 있고 블로그 대문이 있을 때
   if (articleListData?.length !== 0 && thumbnail)
