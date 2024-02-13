@@ -12,10 +12,10 @@ const AuthorPage = async ({ params }: Props) => {
   const team = params.team;
   const authorIdNum = Number(params.authorId);
 
-  const res = await getBlogAuthorDetail(team, authorIdNum);
-  if (!res) return null;
+  const blogAuthorRes = await getBlogAuthorDetail(team, authorIdNum);
+  if (!blogAuthorRes) return null;
 
-  const { data } = res;
+  const { data } = blogAuthorRes;
 
   return <AuthorPageTemplate authorData={data} />;
 };

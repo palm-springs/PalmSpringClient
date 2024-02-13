@@ -37,17 +37,15 @@ export async function generateMetadata({ params }: Props): Promise<Metadata | nu
 }
 
 type ContentPageProps = {
-  params: { team: string; articleUrl: string; articleId: string };
+  params: { team: string; articleId: string };
 };
 
 const ContentPage = async ({ params }: ContentPageProps) => {
-  const team = params.team;
-  const articleId = params.articleId;
-  const product = await getBlogArticleDetail(team, Number(articleId));
+  const blogArticleDetailRes = await getBlogArticleDetail(params.team, Number(params.articleId));
 
-  if (!product) return null;
+  if (!blogArticleDetailRes) return null;
 
-  return <BlogMeta product={product.data} />;
+  return <BlogMeta product={blogArticleDetailRes.data} />;
 };
 
 export default ContentPage;

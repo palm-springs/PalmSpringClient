@@ -8,13 +8,10 @@ type Props = {
 };
 
 const ContentPage = async ({ params }: Props) => {
-  const team = params.team;
-  const pageUrl = params.pageUrl;
+  const blogPageDetailRes = await getBlogPageDetail(params.team, params.pageUrl);
+  if (!blogPageDetailRes) return null;
 
-  const res = await getBlogPageDetail(team, pageUrl);
-  if (!res) return null;
-
-  return <PageTemplate data={res.data} />;
+  return <PageTemplate data={blogPageDetailRes.data} />;
 };
 
 export default ContentPage;

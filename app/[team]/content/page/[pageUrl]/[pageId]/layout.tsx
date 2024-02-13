@@ -5,15 +5,13 @@ import BlogFooter from '@/components/common/BlogFooter';
 import BlogHeader from '@/components/common/BlogHeader';
 
 const ContentLayout = async ({ children, params }: { children: React.ReactElement; params: { team: string } }) => {
-  const team = params.team;
+  const blogHeaderRes = await getBlogHeaderInfo(params.team);
 
-  const res = await getBlogHeaderInfo(team);
-
-  if (!res) return null;
+  if (!blogHeaderRes) return null;
 
   const {
     data: { logo, blogName, navList },
-  } = res;
+  } = blogHeaderRes;
 
   return (
     <>
