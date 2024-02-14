@@ -2,23 +2,12 @@
 
 import React from 'react';
 import Link from 'next/link';
-import { useParams } from 'next/navigation';
 import styled from 'styled-components';
 
-import { useGetBlogHeaderInfo } from '@/hooks/blogHome';
+import { NavListOnly } from '@/types/blogHeader';
 
-import LoadingLottie from './ui/LoadingLottie';
-
-const SideBarNav = () => {
-  const { team } = useParams();
-
-  const res = useGetBlogHeaderInfo(team);
-
-  if (!res) return <LoadingLottie width={10} height={10} fit />;
-
-  const {
-    data: { navList },
-  } = res;
+const SideBarNav = (props: NavListOnly) => {
+  const { navList } = props;
 
   return (
     <BlogNavContainer>
