@@ -1,15 +1,16 @@
 'use client';
 
 import React from 'react';
-import { useParams } from 'next/navigation';
 import styled from 'styled-components';
 
 import ArticleList from '@/components/common/ArticleList';
 import LoadingLottie from '@/components/common/ui/LoadingLottie';
-import { useGetBlogCategoryList } from '@/hooks/blogHome';
 import useCheckMobile from '@/hooks/useCheckMobile';
 import useGetCategory from '@/hooks/useGetCategory';
 import { ArticleData } from '@/types/article';
+import { Response } from '@/types/common';
+import { ContentProps } from '@/types/content';
+import { CategoryListProps } from '@/types/dashboard';
 import { getLiteralCategoryList } from '@/utils/getLiteralCategoryList';
 
 import BlogImg from '../BlogImg';
@@ -23,20 +24,19 @@ interface ArticleContainerProps {
   thumbnail: string | null;
   description: string | null;
   blogName: string;
+  filteredCategoryList: Response<CategoryListProps[]>;
+  singleArticleDetail: Response<ContentProps>;
 }
 
 const ArticleContainer = (props: ArticleContainerProps) => {
-  const { team } = useParams();
-
   const MOBILE = useCheckMobile();
 
-  const { articleListData, thumbnail, description, blogName } = props;
-  const FilteredCategoryList = useGetBlogCategoryList(team);
+  const { articleListData, thumbnail, description, blogName, filteredCategoryList, singleArticleDetail } = props;
   const CategorySelected = useGetCategory();
 
-  if (!FilteredCategoryList || !CategorySelected) return <LoadingLottie width={10} height={10} fit />;
+  if (!filteredCategoryList || !CategorySelected) return <LoadingLottie width={10} height={10} fit />;
 
-  const LiteralList = getLiteralCategoryList(FilteredCategoryList);
+  const LiteralList = getLiteralCategoryList(filteredCategoryList);
 
   if (articleListData?.length === 0 && thumbnail) {
     if (CategorySelected !== 'home') {
@@ -74,7 +74,15 @@ const ArticleContainer = (props: ArticleContainerProps) => {
     );
 
   //아티클 리스트가 있고 블로그 대문이 없을 때
-  if (articleListData?.length !== 0 && !thumbnail) return <ArticleListWithThumbnail articleList={articleListData} />;
+  if (articleListData?.length !== 0 && !thumbnail)
+    return (
+      <ArticleListWithThumbnail
+        articleList={articleListData}
+        filteredCategoryList={filteredCategoryList}
+        singleArticleDetail={singleArticleDetail}
+        literalList={LiteralList}
+      />
+    );
 
   //아티클 리스트가 있고 블로그 대문이 있을 때
   if (articleListData?.length !== 0 && thumbnail)

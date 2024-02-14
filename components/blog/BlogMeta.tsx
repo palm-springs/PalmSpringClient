@@ -1,20 +1,16 @@
-'use client';
-
 import React from 'react';
-import { useParams } from 'next/navigation';
 
-import LoadingLottie from '@/components/common/ui/LoadingLottie';
 import ArticleTemplate from '@/components/content/ui/ArticleTemplate';
-import { useGetBlogArticleDetail } from '@/hooks/blogHome';
+import { ContentProps } from '@/types/content';
 
-const BlogMeta = () => {
-  const { team, articleId } = useParams();
+interface BlogMetaProps {
+  product: ContentProps;
+}
 
-  const res = useGetBlogArticleDetail(team, Number(articleId));
+const BlogMeta = (props: BlogMetaProps) => {
+  const { product } = props;
 
-  if (!res) return <LoadingLottie width={10} height={10} fit />;
-
-  return <ArticleTemplate data={res.data} />;
+  return <ArticleTemplate data={product} />;
 };
 
 export default BlogMeta;

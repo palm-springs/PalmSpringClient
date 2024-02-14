@@ -5,6 +5,7 @@ import { Toaster } from 'react-hot-toast';
 import Image from 'next/image';
 import styled from 'styled-components';
 
+import MobileStickyBtn from '@/components/blog/MobileStickyBtn';
 import ContentInfo from '@/components/common/ContentInfo';
 import Content from '@/components/content/Content';
 import Bar from '@/components/content/ui/Bar';
@@ -60,6 +61,7 @@ const ArticleTemplate = (props: ArticleTemplateProps) => {
             아티클 링크 복사하기
           </LinkBtn>
           <Recommend />
+          <MobileStickyBtn />
         </ContentPageContainer>
       );
     else

@@ -5,6 +5,7 @@ import styled from 'styled-components';
 
 import useCheckMobile from '@/hooks/useCheckMobile';
 
+import MobileStickyBtn from '../blog/MobileStickyBtn';
 import ArticleList from '../common/ArticleList';
 
 import AuthorInfo from './ui/AuthorInfo';
@@ -24,19 +25,22 @@ const AuthorPageTemplate = (props: AuthorPageTemplateProps) => {
     window.scrollTo({ top: 0, left: 0, behavior: 'auto' });
   }, []);
 
-  const MOBILE = useCheckMobile();
-
   const {
     authorData: { thumbnail, nickname, job, description, articles },
   } = props;
 
+  const MOBILE = useCheckMobile();
+
   return (
-    <AuthorPageTemplateContainer className={MOBILE ? 'mobile' : ''}>
-      <AuthorInfo thumbnail={thumbnail} nickname={nickname} job={job} description={description} />
-      {articles.length !== 0 && <Line className={MOBILE ? 'mobile' : ''} />}
-      {articles.length !== 0 && <AuthorArticle className={MOBILE ? 'mobile' : ''}>작성한 아티클</AuthorArticle>}
-      <ArticleList articleList={articles} />
-    </AuthorPageTemplateContainer>
+    <>
+      <AuthorPageTemplateContainer className={MOBILE ? 'mobile' : ''}>
+        <AuthorInfo thumbnail={thumbnail} nickname={nickname} job={job} description={description} />
+        {articles.length !== 0 && <Line className={MOBILE ? 'mobile' : ''} />}
+        {articles.length !== 0 && <AuthorArticle className={MOBILE ? 'mobile' : ''}>작성한 아티클</AuthorArticle>}
+        <ArticleList articleList={articles} />
+      </AuthorPageTemplateContainer>
+      {MOBILE && <MobileStickyBtn />}
+    </>
   );
 };
 

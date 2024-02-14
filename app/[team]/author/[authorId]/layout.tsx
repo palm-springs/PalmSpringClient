@@ -1,32 +1,22 @@
-'use client';
-
 import React from 'react';
-import { useParams } from 'next/navigation';
 
-import MobileStickyBtn from '@/components/blog/MobileStickyBtn';
+import { getBlogHeaderInfo } from '@/api/blogHome';
 import BlogFooter from '@/components/common/BlogFooter';
 import BlogHeader from '@/components/common/BlogHeader';
-import LoadingLottie from '@/components/common/ui/LoadingLottie';
-import { useGetBlogHeaderInfo } from '@/hooks/blogHome';
-import useCheckMobile from '@/hooks/useCheckMobile';
 
-const AuthorPageLayout = ({ children }: { children: React.ReactElement }) => {
-  const { team } = useParams();
-  const MOBILE = useCheckMobile();
+const AuthorPageLayout = async ({ children, params }: { children: React.ReactElement; params: { team: string } }) => {
+  const blogHeaderRes = await getBlogHeaderInfo(params.team);
 
-  const res = useGetBlogHeaderInfo(team);
-
-  if (!res) return <LoadingLottie width={10} height={10} fit />;
+  if (!blogHeaderRes) return null;
 
   const {
     data: { logo, blogName, navList },
-  } = res;
+  } = blogHeaderRes;
 
   return (
     <>
       <BlogHeader logo={logo} blogName={blogName} navList={navList} />
       <main>{children}</main>
-      {MOBILE && <MobileStickyBtn />}
       <BlogFooter />
     </>
   );
