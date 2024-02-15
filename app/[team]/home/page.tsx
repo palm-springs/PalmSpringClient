@@ -4,7 +4,7 @@ import React from 'react';
 import { Metadata } from 'next';
 
 import { getMetaBlogInfo } from '@/api/blog';
-import { getBlogArticleList, getBlogMainImg } from '@/api/blogHome';
+import { getBlogArticleDetail, getBlogArticleList, getBlogCategoryList, getBlogMainImg } from '@/api/blogHome';
 import NotFound from '@/app/not-found';
 import ArticleContainer from '@/components/blog/ui/ArticleContainer';
 
@@ -41,6 +41,7 @@ export async function generateMetadata({ params }: Props): Promise<Metadata | nu
 const BlogMainPage = async ({ params }: { params: { team: string } }) => {
   const blogMainRes = await getBlogMainImg(params.team);
   const blogArticleRes = await getBlogArticleList(params.team, '');
+  const filteredCategoryList = await getBlogCategoryList(params.team);
 
   if (!blogMainRes || !blogArticleRes || blogMainRes.code === 404 || blogArticleRes.code === 404) return <NotFound />;
 
@@ -49,12 +50,19 @@ const BlogMainPage = async ({ params }: { params: { team: string } }) => {
   } = blogMainRes;
 
   const { data: articleListData } = blogArticleRes;
+
+  const IndivContentId = articleListData[0].id;
+
+  const singleArticleDetail = await getBlogArticleDetail(params.team, IndivContentId);
+
   return (
     <ArticleContainer
       articleListData={articleListData}
       thumbnail={thumbnail}
       description={description}
       blogName={blogName}
+      filteredCategoryList={filteredCategoryList}
+      singleArticleDetail={singleArticleDetail}
     />
   );
 };
