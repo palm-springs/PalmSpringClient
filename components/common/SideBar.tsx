@@ -4,16 +4,17 @@ import React from 'react';
 import styled from 'styled-components';
 
 import { MobileCloseIcon } from '@/public/icons';
+import { NavListOnly } from '@/types/blogHeader';
 
 import SideBarNav from './SideBarNav';
 
-interface sidebarProps {
+interface sidebarProps extends NavListOnly {
   isMenuOpen: boolean;
   setIsMenuOpen: React.Dispatch<React.SetStateAction<boolean>>;
 }
 
 const SideBar = (props: sidebarProps) => {
-  const { isMenuOpen, setIsMenuOpen } = props;
+  const { isMenuOpen, setIsMenuOpen, navList } = props;
 
   const sidebarToggle = () => {
     setIsMenuOpen(!isMenuOpen);
@@ -23,7 +24,7 @@ const SideBar = (props: sidebarProps) => {
       <SideBarHeader>
         <MobileCloseIcon onClick={sidebarToggle} />
       </SideBarHeader>
-      <SideBarNav />
+      <SideBarNav navList={navList} />
       {/* 밑의 footer는 구독자 기능 생성 후 다시 넣어줄 예정 */}
       {/* <SideBarFooter>
         <SubscribeBtn>팀 소식 받아보기</SubscribeBtn>

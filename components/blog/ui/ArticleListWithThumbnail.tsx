@@ -9,10 +9,11 @@ import { styled } from 'styled-components';
 import ArticleList from '@/components/common/ArticleList';
 import ContentInfo from '@/components/common/ContentInfo';
 import LoadingLottie from '@/components/common/ui/LoadingLottie';
-import { useGetBlogArticleDetail, useGetBlogCategoryList } from '@/hooks/blogHome';
 import useCheckMobile from '@/hooks/useCheckMobile';
 import { ArticleData } from '@/types/article';
-import { getLiteralCategoryList } from '@/utils/getLiteralCategoryList';
+import { Response } from '@/types/common';
+import { ContentProps } from '@/types/content';
+import { CategoryListProps } from '@/types/dashboard';
 
 import MobileStickyBtn from '../MobileStickyBtn';
 
@@ -20,11 +21,14 @@ import CategoryBtnBar from './CategoryBtnBar';
 
 interface ArticleListWithThumbnailProps {
   articleList: ArticleData[];
+  filteredCategoryList: Response<CategoryListProps[]>;
+  singleArticleDetail: Response<ContentProps>;
+  literalList: string[];
 }
 
 const ArticleListWithThumbnail = (props: ArticleListWithThumbnailProps) => {
-  const { articleList } = props;
-  const { team, category } = useParams();
+  const { articleList, filteredCategoryList, singleArticleDetail, literalList } = props;
+  const { category } = useParams();
 
   const categoryName = decodeURI(category);
 
@@ -35,22 +39,17 @@ const ArticleListWithThumbnail = (props: ArticleListWithThumbnailProps) => {
 
   const IndivContentId = articleList[0].id;
   const articleUrl = articleList[0].articleUrl;
-  const res = useGetBlogArticleDetail(team, IndivContentId);
 
-  const FilteredCategoryList = useGetBlogCategoryList(team);
-
-  if (!FilteredCategoryList || FilteredCategoryList.data.length === 0 || !res)
+  if (!filteredCategoryList || filteredCategoryList.data.length === 0 || !singleArticleDetail)
     return <LoadingLottie width={10} height={10} fit />;
 
-  const { data: contentListData } = res;
-
-  const LiteralList = getLiteralCategoryList(FilteredCategoryList);
+  const { data: contentListData } = singleArticleDetail;
 
   if (MOBILE)
     return (
       <>
         <CategoryBtnWrapper className="mobile">
-          <CategoryBtnBar LiteralList={LiteralList} />
+          <CategoryBtnBar LiteralList={literalList} />
         </CategoryBtnWrapper>
         <ArticleWrapper>
           <ArticleList articleList={category ? FilteredArticleList : articleList} />
@@ -70,7 +69,7 @@ const ArticleListWithThumbnail = (props: ArticleListWithThumbnailProps) => {
           <ContentInfo contentInfoData={contentListData} articleUrl={articleUrl} IndivContentId={IndivContentId} />
         </ContentInfoContainer>
         <CategoryBtnWrapper>
-          <CategoryBtnBar LiteralList={LiteralList} />
+          <CategoryBtnBar LiteralList={literalList} />
         </CategoryBtnWrapper>
         <ArticleWrapper>
           <ArticleList articleList={category ? FilteredArticleList : articleList} />
