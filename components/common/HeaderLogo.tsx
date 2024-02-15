@@ -12,7 +12,7 @@ const HeaderLogo = (prop: LogoProp) => {
   const { logo, blogName } = prop;
 
   return (
-    <Link href={`/home`}>
+    <Link href={`/`}>
       {logo ? (
         <>
           <img src={logo} alt="team logo icon" height={24} />
