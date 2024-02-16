@@ -25,7 +25,7 @@ export async function generateMetadata({ params }: Props): Promise<Metadata | nu
 
   return {
     alternates: {
-      canonical: `/${team}/home`,
+      canonical: `/${team}`,
     },
     title,
     description,
