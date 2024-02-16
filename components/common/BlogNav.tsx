@@ -6,22 +6,17 @@ import { useParams } from 'next/navigation';
 import styled from 'styled-components';
 
 import PageBtn from '@/components/blog/PageBtn';
-import { useGetBlogHeaderInfo } from '@/hooks/blogHome';
+import { NavListOnly } from '@/types/blogHeader';
 
 import SubscribeBtn from '../blog/SubscribeBtn';
 
-import LoadingLottie from './ui/LoadingLottie';
+interface BlogNavProps extends NavListOnly {
+  blogName: string;
+}
 
-const BlogNav = () => {
+const BlogNav = (props: BlogNavProps) => {
+  const { navList, blogName } = props;
   const { team } = useParams();
-
-  const res = useGetBlogHeaderInfo(team);
-
-  if (!res) return <LoadingLottie width={10} height={10} fit />;
-
-  const {
-    data: { navList, blogName },
-  } = res;
 
   return (
     <BlogNavContainer>

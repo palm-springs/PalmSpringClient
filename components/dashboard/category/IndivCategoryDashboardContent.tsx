@@ -63,7 +63,7 @@ const IndivCategoryDashboardContent = (props: IndivCategoryDashboardContentProps
         url={categoryUrl}
         description={description}
         onTitleClick={() => {
-          window.open(`https://${blogUrl}.${DOMAIN_NAME}/${blogUrl}/home/${categoryUrl}`);
+          window.open(`https://${blogUrl}.${DOMAIN_NAME}/${blogUrl}/${categoryUrl}`);
         }}
         onMutateClick={() => {
           setModalState('updateCategory');
