@@ -2,8 +2,6 @@
 import { useRecoilValue } from 'recoil';
 import styled from 'styled-components';
 
-import { DOMAIN_NAME } from '@/constants/palmspringInfo';
-
 import { addressDuplicateState, createBlogDataState, invalidTextState, isReservedUrlState } from '../states/atom';
 
 import InputMessage from './basicInfo/InputMessage';
@@ -44,7 +42,7 @@ const TextInputForm = (props: TextInputFormProps) => {
         <InputBox className={type} id={id} $isFocus={isFocus}>
           {children}
         </InputBox>
-        {type === '주소' && <div>.{DOMAIN_NAME}</div>}
+        {type === '주소' && <div>.{process.env.NEXT_PUBLIC_DOMAIN_NAME}</div>}
       </InputContainer>
       {type === '주소' && (isInvalidText || isReservedUrl || isAddressDuplicate !== undefined) && <InputMessage />}
     </Label>

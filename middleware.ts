@@ -1,7 +1,6 @@
 import { NextRequest, NextResponse } from 'next/server';
 
 const HTTP_PROTOCOL = process.env.NODE_ENV === 'development' ? 'http' : 'https';
-const DOMAIN_NAME = process.env.NODE_ENV === 'development' ? 'localhost:3000' : 'palms.blog';
 
 export const middleware = (request: NextRequest) => {
   const hostArray = request.headers.get('host')?.split('.');
@@ -9,10 +8,12 @@ export const middleware = (request: NextRequest) => {
   const domain = hostArray?.[1];
   const pathName = request.nextUrl.clone().pathname;
 
+  const STANDARD_DOMAIN = process.env.NEXT_PUBLIC_DOMAIN_NAME?.split('.')[0];
+
   const isSubdomain =
-    subdomain !== (process.env.NODE_ENV === 'development' ? 'localhost:3000' : 'palms') &&
+    subdomain !== (process.env.NODE_ENV === 'development' ? 'localhost:3000' : STANDARD_DOMAIN) &&
     subdomain !== 'www' &&
-    domain === (process.env.NODE_ENV === 'development' ? 'localhost:3000' : 'palms');
+    domain === (process.env.NODE_ENV === 'development' ? 'localhost:3000' : STANDARD_DOMAIN);
 
   // 랜딩 페이지
   if (pathName === '/') return NextResponse.next();
@@ -38,7 +39,9 @@ export const middleware = (request: NextRequest) => {
 
   // /[team]
   if (index === -1) {
-    return NextResponse.redirect(new URL(`${HTTP_PROTOCOL}://${teamName}.${DOMAIN_NAME}`, request.url));
+    return NextResponse.redirect(
+      new URL(`${HTTP_PROTOCOL}://${teamName}.${process.env.NEXT_PUBLIC_DOMAIN_NAME}`, request.url),
+    );
   }
 
   // /[team]/content, /[team]/author
@@ -47,13 +50,15 @@ export const middleware = (request: NextRequest) => {
 
     // /home -> / 임시 처리
     if (targetPathName.startsWith('/home')) {
-      return NextResponse.redirect(new URL(`${HTTP_PROTOCOL}://${teamName}.${DOMAIN_NAME}`, request.url));
+      return NextResponse.redirect(
+        new URL(`${HTTP_PROTOCOL}://${teamName}.${process.env.NEXT_PUBLIC_DOMAIN_NAME}`, request.url),
+      );
     }
 
     // /dashboard, /editor이 아니면 subdomain redirect
     if (!targetPathName.startsWith('/dashboard') && !targetPathName.startsWith('/editor')) {
       return NextResponse.redirect(
-        new URL(`${HTTP_PROTOCOL}://${teamName}.${DOMAIN_NAME}/${targetPathName}`, request.url),
+        new URL(`${HTTP_PROTOCOL}://${teamName}.${process.env.NEXT_PUBLIC_DOMAIN_NAME}/${targetPathName}`, request.url),
       );
     }
     return NextResponse.next();

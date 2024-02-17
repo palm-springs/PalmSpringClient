@@ -3,7 +3,6 @@ import { useParams, useRouter } from 'next/navigation';
 import { useRecoilState, useResetRecoilState } from 'recoil';
 
 import { articleDataState } from '@/components/editor/states/atom';
-import { DOMAIN_NAME } from '@/constants/palmspringInfo';
 import { useDeleteArticle } from '@/hooks/dashboard';
 
 import DashBoardContent from '../../components/DashBoardContent';
@@ -61,7 +60,9 @@ const IndivUploadContentList = (props: IndivUploadContentListProps) => {
           resetArticleData();
         }}
         onTitleClick={() => {
-          window.open(`https://${team}.${DOMAIN_NAME}/content/article/${articleUrl}/${String(id)}`);
+          window.open(
+            `https://${team}.${process.env.NEXT_PUBLIC_DOMAIN_NAME}/content/article/${articleUrl}/${String(id)}`,
+          );
         }}
         onDeleteClick={() => {
           setDashboardModalState('deleteArticle');
