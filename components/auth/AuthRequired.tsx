@@ -91,7 +91,7 @@ const AuthRequired = ({ children }: { children: React.ReactNode }) => {
     };
   }, []);
 
-  return <Suspense>{children}</Suspense>;
+  return <div>{children}</div>;
 };
 
 export default AuthRequired;
