@@ -9,61 +9,57 @@ export const middleware = (request: NextRequest) => {
   const domain = hostArray?.[1];
   const pathName = request.nextUrl.clone().pathname;
 
-  // sudomain이 있고, palms.blog임이 확인되면 => isSudomain : true
   const isSubdomain =
     subdomain !== (process.env.NODE_ENV === 'development' ? 'localhost:3000' : 'palms') &&
     subdomain !== 'www' &&
     domain === (process.env.NODE_ENV === 'development' ? 'localhost:3000' : 'palms');
 
   // 랜딩 페이지
-  if (!isSubdomain && pathName === '/') return NextResponse.next();
+  if (pathName === '/') return NextResponse.next();
   // 정적 path들 검사
   if (
-    !isSubdomain &&
-    (pathName.startsWith('/auth') ||
-      pathName.startsWith('/create-blog') ||
-      pathName.startsWith('/invite') ||
-      pathName.startsWith('/loading') ||
-      pathName.startsWith('/no-team') ||
-      pathName.startsWith('/team'))
+    pathName.startsWith('/auth') ||
+    pathName.startsWith('/create-blog') ||
+    pathName.startsWith('/invite') ||
+    pathName.startsWith('/loading') ||
+    pathName.startsWith('/no-team') ||
+    pathName.startsWith('/team')
   )
     return NextResponse.next();
 
   // sudomain일 때, 원래 url로 rewrite
   if (isSubdomain) {
-    // /home -> / 임시 처리
-    if (pathName.startsWith('/home')) {
-      return NextResponse.redirect(new URL(`${HTTP_PROTOCOL}://${subdomain}.${DOMAIN_NAME}`, request.url));
-    } else {
-      // eslint-disable-next-line @typescript-eslint/no-non-null-assertion, @typescript-eslint/no-non-null-asserted-optional-chain
-      return NextResponse.rewrite(new URL(`/${subdomain}${request.nextUrl.clone().pathname}`, request.url));
-    }
+    return NextResponse.next();
   }
 
-  // 원래 url (e.g. palms.blog/[team])로 들어온 경우 sudomain으로 redirect
+  // /[team]/... 로 들어온 경우 subdomain으로 redirect
+  const teamName = pathName.split('/')[1];
+  const index = pathName.indexOf('/', 1);
+
+  // /[team]
+  if (index === -1) {
+    return NextResponse.redirect(new URL(`${HTTP_PROTOCOL}://${teamName}.${DOMAIN_NAME}`, request.url));
+  }
+
+  // /[team]/content, /[team]/author
   else {
-    const teamName = pathName.split('/')[1];
-    const index = pathName.indexOf('/', 1);
-    // /[team]
-    if (index === -1) {
+    const targetPathName = pathName.slice(index);
+
+    // /home -> / 임시 처리
+    if (targetPathName.startsWith('/home')) {
       return NextResponse.redirect(new URL(`${HTTP_PROTOCOL}://${teamName}.${DOMAIN_NAME}`, request.url));
     }
-    // /[team]/content, /[team]/author
-    else {
-      const targetPathName = pathName.slice(index);
-      // /home -> / 임시 처리
-      if (targetPathName.startsWith('/home')) {
-        return NextResponse.redirect(new URL(`${HTTP_PROTOCOL}://${teamName}.${DOMAIN_NAME}`, request.url));
-      }
-      if (!targetPathName.startsWith('/dashboard') && !targetPathName.startsWith('/editor')) {
-        return NextResponse.redirect(
-          new URL(`${HTTP_PROTOCOL}://${teamName}.${DOMAIN_NAME}/${targetPathName}`, request.url),
-        );
-      }
-      return NextResponse.next();
+
+    // /dashboard, /editor이 아니면 subdomain redirect
+    if (!targetPathName.startsWith('/dashboard') && !targetPathName.startsWith('/editor')) {
+      return NextResponse.redirect(
+        new URL(`${HTTP_PROTOCOL}://${teamName}.${DOMAIN_NAME}/${targetPathName}`, request.url),
+      );
     }
+    return NextResponse.next();
   }
 };
+
 export const config = {
   matcher: [
     /*
@@ -74,7 +70,7 @@ export const config = {
      * - favicon.ico (favicon file)
      */
     {
-      source: '/((?!api|_next/static|_next/image|favicon.ico).*)',
+      source: '/((?!api|_next/static|_next/image|favicon.ico|images|icons|lottie).*)',
     },
   ],
 };
