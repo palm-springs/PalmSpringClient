@@ -27,4 +27,9 @@ export const RESERVED_URL_LIST = [
   'blog',
   'component',
   'components',
+  'auth',
+  'create-blog',
+  'invite',
+  'loading',
+  'no-team',
 ];
