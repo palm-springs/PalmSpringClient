@@ -1,5 +1,5 @@
 'use client';
-import { useEffect } from 'react';
+import { Suspense, useEffect } from 'react';
 import { usePathname, useRouter, useSearchParams } from 'next/navigation';
 
 import client, { refreshAxiosInstance } from '@/api';
@@ -91,7 +91,7 @@ const AuthRequired = ({ children }: { children: React.ReactNode }) => {
     };
   }, []);
 
-  return <div>{children}</div>;
+  return <Suspense>{children}</Suspense>;
 };
 
 export default AuthRequired;
