@@ -32,4 +32,5 @@ export const RESERVED_URL_LIST = [
   'invite',
   'loading',
   'no-team',
+  'team',
 ];

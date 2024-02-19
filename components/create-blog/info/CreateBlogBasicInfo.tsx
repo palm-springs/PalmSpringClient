@@ -1,3 +1,4 @@
+'use client';
 import AuthRequired from '@/components/auth/AuthRequired';
 
 import CreateBlogLanding from './ui/CreateBlogLanding';
