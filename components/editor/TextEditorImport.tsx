@@ -58,10 +58,11 @@ const TextEditorBuild = (props: TextEditorBuildprops) => {
   const [extractedHTML, setExtractedHTML] = useState<string>('');
   const [imageArr, setImageArr] = useState<string[]>([]);
   const router = useRouter();
-  const draftArticleMutation = useUpdateTempArticleDraft(team);
-  const draftPageMutation = useUpdateTempPageDraft(team);
+  const draftArticleMutation = useUpdateTempArticleDraft(String(team));
+  const draftPageMutation = useUpdateTempPageDraft(String(team));
   const [updatedArticleData, setUpdatedArticleData] = useRecoilState(articleDataState);
   const [updatedPageData, setUpdatedPageData] = useRecoilState(pageDataState);
+  const [clickDraft, setClickDraft] = useState(0);
 
   const selectEditorContent = () => {
     if (pathName.startsWith(`/${team}/editor/article`)) {
@@ -132,7 +133,7 @@ const TextEditorBuild = (props: TextEditorBuildprops) => {
       return null;
     }
     const file = files[0];
-    const imgUrl = (await getContentImageMultipartData(file, team)) as string;
+    const imgUrl = (await getContentImageMultipartData(file, String(team))) as string;
     setImageArr((prev) => [...prev, imgUrl]);
 
     const reader = new FileReader();
@@ -176,7 +177,7 @@ const TextEditorBuild = (props: TextEditorBuildprops) => {
       const files = event.dataTransfer.files;
       if (files.length > 0) {
         const file = files[0];
-        const imgUrl = await getContentImageMultipartData(file, team);
+        const imgUrl = await getContentImageMultipartData(file, String(team));
         imageArr.push(imgUrl);
 
         editor.chain().focus().setImage({ src: imgUrl }).run(); // 이미지를 에디터에 삽입
@@ -194,6 +195,17 @@ const TextEditorBuild = (props: TextEditorBuildprops) => {
     return null;
   }
 
+  //article 페이지 최초 임시저장시 로직(1번 클릭 -> post 그 뒤 put으로)
+  const hadleOnArticleClickCount = () => {
+    if (clickDraft === 0) {
+      handleOnClickArticleDraft();
+    } else {
+      handleTempArticleDraft();
+    }
+    setClickDraft(clickDraft + 1);
+    console.log(setClickDraft);
+  };
+
   // article page 임시저장시 post
   const handleOnClickArticleDraft = () => {
     if (editor) {
@@ -201,9 +213,9 @@ const TextEditorBuild = (props: TextEditorBuildprops) => {
       setExtractedHTML(content);
 
       if (imageArr.length === 0) {
-        postArticleList(team, { title: articleTitle, content, images: [] });
+        postArticleList(String(team), { title: articleTitle, content, images: [] });
       } else {
-        postArticleList(team, { title: articleTitle, content, images: imageArr });
+        postArticleList(String(team), { title: articleTitle, content, images: imageArr });
       }
     }
   };
@@ -215,9 +227,9 @@ const TextEditorBuild = (props: TextEditorBuildprops) => {
       setExtractedHTML(content);
 
       if (imageArr.length === 0) {
-        postPageDraft(team, { title: pageTitle, content, images: [] });
+        postPageDraft(String(team), { title: pageTitle, content, images: [] });
       } else {
-        postPageDraft(team, {
+        postPageDraft(String(team), {
           title: pageTitle,
           content,
           images: imageArr,
@@ -430,7 +442,7 @@ const TextEditorBuild = (props: TextEditorBuildprops) => {
 
       {pageType === 'article' ? (
         <SaveEditorContentButton
-          handleOnClickDraft={currentState === 'draft' ? handleTempArticleDraft : handleOnClickArticleDraft}
+          handleOnClickDraft={currentState === 'draft' ? handleTempArticleDraft : hadleOnArticleClickCount}
           handleOnClickPublish={
             currentState === 'edit'
               ? handleUpdateGoArticlePublish
