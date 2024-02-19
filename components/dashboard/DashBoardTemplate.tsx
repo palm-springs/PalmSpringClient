@@ -31,7 +31,7 @@ const DashBoardTemplate = (props: DashBoardTemplateProps) => {
     // RSC prefetch
     for (const key of prefetchPath) {
       if (key === 'blogdirectnav') continue;
-      router.prefetch(`/[team]/dashboard/${key}`);
+      process.env.NODE_ENV !== 'development' && router.prefetch(`/[team]/dashboard/${key}`);
     }
   };
 

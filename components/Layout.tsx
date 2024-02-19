@@ -33,7 +33,7 @@ const Layout = ({ children }: { children: React.ReactNode }) => {
             <ThemeProvider theme={theme}>
               <GlobalStyle />
               {children}
-              <Analytics />
+              {process.env.NODE_ENV !== 'development' && <Analytics />}
               <div id="modal-root"></div>
             </ThemeProvider>
           </StyledComponentsRegistry>
