@@ -11,7 +11,6 @@ import { getRefreshToken } from '@/api/auth';
 import { getUserInfoAfterLogin } from '@/api/dashboard';
 import Footer from '@/components/landing/Footer';
 import Header from '@/components/landing/Header';
-import { DOMAIN_NAME } from '@/constants/palmspringInfo';
 import LandingAuth, { useCheckAuthValidation } from '@/hooks/useCheckAuthValidation';
 
 import 'aos/dist/aos.css';
@@ -685,7 +684,7 @@ const LandingPage = ({ dashboardUrl }: { dashboardUrl: string }) => {
         </div>
       </main>
       <Footer />
-      {/* <a href={`https://${DOMAIN_NAME}/official`}>
+      {/* <a href={`https://${process.env.NEXT_PUBLIC_DOMAIN_NAME}/official`}>
         <button css={go_blog_button}>팜스프링 블로그 보러가기</button>
       </a> */}
     </div>
