@@ -1,4 +1,5 @@
 import React from 'react';
+import Image from 'next/image';
 import { styled } from 'styled-components';
 
 interface LogoProps {
@@ -13,6 +14,6 @@ const BlogLogo = (props: LogoProps) => {
 
 export default BlogLogo;
 
-const LogoUI = styled.img`
+const LogoUI = styled(Image)`
   width: 4rem;
 `;

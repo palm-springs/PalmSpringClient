@@ -1,4 +1,5 @@
 import React, { Dispatch, SetStateAction } from 'react';
+import Image from 'next/image';
 import { styled } from 'styled-components';
 
 import { NoUserProfileIcon } from '@/public/icons';
@@ -78,7 +79,7 @@ const DashBoardProfileContainerUI = styled.article`
   }
 `;
 
-const ProfileImg = styled.img`
+const ProfileImg = styled(Image)`
   border-radius: 50%;
   width: 4rem;
   overflow: hidden;
