@@ -3,6 +3,7 @@
 import { useEffect } from 'react';
 import { css } from '@emotion/react';
 import AOS from 'aos';
+import Image from 'next/image';
 import Link from 'next/link';
 import { redirect } from 'next/navigation';
 
@@ -28,7 +29,7 @@ const gradient_background = css`
     display: none;
   }
 `;
-const gradient_background_img = css`
+const gradient_background_Image = css`
   position: absolute;
   top: 0;
   z-index: -10;
@@ -106,7 +107,9 @@ const feature_image_container = css`
   padding: 24px 28px;
   border: 1px solid rgb(226 232 240 / 0.4);
   border-radius: 24px;
-  box-shadow: rgba(0, 0, 33, 0.03) 0px 16px 22.4px 4.8px, rgba(0, 0, 33, 0.03) 0px 3.2px 16px 0px,
+  box-shadow:
+    rgba(0, 0, 33, 0.03) 0px 16px 22.4px 4.8px,
+    rgba(0, 0, 33, 0.03) 0px 3.2px 16px 0px,
     rgba(0, 0, 33, 0.03) 0px 0px 1px 0px;
   & > div:nth-of-type(2) {
     text-align: left;
@@ -159,7 +162,7 @@ const link_wrapper = css`
     &:hover {
       opacity: 0.6;
     }
-    & > img {
+    & > Image {
       border-radius: 24px;
       // box-shadow: 0 0 16px 0 rgba(0, 0, 0, 0.08);
       width: 100px;
@@ -171,7 +174,7 @@ const link_wrapper = css`
     width: 100%;
     & > a {
       font-size: 18px;
-      & > img {
+      & > Image {
         border-radius: 20px;
         // box-shadow: 0 0 16px 0 rgba(0, 0, 0, 0.08);
         width: 76px;
@@ -206,7 +209,9 @@ const why_they_use_container = css`
     width: 400px;
     text-align: center;
     &:hover {
-      box-shadow: rgba(0, 0, 33, 0.07) 0px 16px 22.4px 4.8px, rgba(0, 0, 33, 0.05) 0px 3.2px 16px 0px,
+      box-shadow:
+        rgba(0, 0, 33, 0.07) 0px 16px 22.4px 4.8px,
+        rgba(0, 0, 33, 0.05) 0px 3.2px 16px 0px,
         rgba(0, 0, 33, 0.07) 0px 0px 1px 0px;
     }
   }
@@ -259,7 +264,7 @@ const LandingPage = ({ dashboardUrl }: { dashboardUrl: string }) => {
   return (
     <div style={{ width: '100%' }}>
       {/* <div css={gradient_background} /> */}
-      <img src="/images/home_bg_gradient.png" alt="gradient_background" css={gradient_background_img} />
+      <Image src="/images/home_bg_gradient.png" alt="gradient_background" css={gradient_background_Image} />
       <Header dashboardUrl={dashboardUrl} />
       <main css={main}>
         <h1 data-aos="fade-up" data-aos-duration="800" css={title}>
@@ -279,7 +284,7 @@ const LandingPage = ({ dashboardUrl }: { dashboardUrl: string }) => {
             flex-direction: column;
             align-items: center;
           `}>
-          <img src="/images/landing-main-image.png" alt="example landing main" css={example_image} />
+          <Image src="/images/landing-main-image.png" alt="example landing main" css={example_image} />
           <Link
             href={`${GOOGLE_END_POINT}?client_id=${process.env.NEXT_PUBLIC_GOOGLE_CLIENT_ID}&redirect_uri=${redirectUri}&response_type=code&scope=email profile`}
             css={css`
@@ -318,25 +323,25 @@ const LandingPage = ({ dashboardUrl }: { dashboardUrl: string }) => {
           <div css={link_container} data-aos="fade-up">
             <div css={link_wrapper}>
               <a href="https://naver.worksmobile.com/blog/" target="_blank" rel="noopener noreferrer">
-                <img src="/images/startups/naver.png" alt="naver" />
+                <Image src="/images/startups/naver.png" alt="naver" />
               </a>
               <a href="https://blog.kakaopay.com/" target="_blank" rel="noopener noreferrer">
-                <img src="/images/startups/kakao.png" alt="kakao" />
+                <Image src="/images/startups/kakao.png" alt="kakao" />
               </a>
               <a href="https://engineering.linecorp.com/ko/blog" target="_blank" rel="noopener noreferrer">
-                <img src="/images/startups/line.png" alt="line" />
+                <Image src="/images/startups/line.png" alt="line" />
               </a>
               <a href="https://about.daangn.com/blog/" target="_blank" rel="noopener noreferrer">
-                <img src="/images/startups/dang.png" alt="dang" />
+                <Image src="/images/startups/dang.png" alt="dang" />
               </a>
               <a href="https://story.baemin.com/" target="_blank" rel="noopener noreferrer">
-                <img src="/images/startups/baemin.png" alt="baemin" />
+                <Image src="/images/startups/baemin.png" alt="baemin" />
               </a>
               <a href="https://toss.tech/" target="_blank" rel="noopener noreferrer">
-                <img src="/images/startups/toss.png" alt="toss" />
+                <Image src="/images/startups/toss.png" alt="toss" />
               </a>
               <a href="https://sendbird.com/ko/blog" target="_blank" rel="noopener noreferrer">
-                <img src="/images/startups/sendbird.png" alt="sendbird" />
+                <Image src="/images/startups/sendbird.png" alt="sendbird" />
               </a>
             </div>
             <h1>요즘 잘 나가는 팀들이 팀 블로그를 쓰는 이유</h1>
