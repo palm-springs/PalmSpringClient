@@ -12,7 +12,7 @@ import HeaderLogo from './HeaderLogo';
 import SideBar from './SideBar';
 
 const BlogHeader = (props: HeaderProps) => {
-  const { logo, blogName } = props;
+  const { logo, blogName, navList } = props;
   const [isMenuOpen, setIsMenuOpen] = useState(false);
 
   const MOBILE = useCheckMobile();
@@ -24,7 +24,7 @@ const BlogHeader = (props: HeaderProps) => {
       <BlogHeaderContainer className="mobile">
         <HeaderLogo logo={logo} blogName={blogName} />
         <BlurBackground className={isMenuOpen ? 'blur' : ''} onClick={sidebarToggle} />
-        <SideBar isMenuOpen={isMenuOpen} setIsMenuOpen={setIsMenuOpen} />
+        <SideBar isMenuOpen={isMenuOpen} setIsMenuOpen={setIsMenuOpen} navList={navList} />
         <MenuIcon type="button" onClick={sidebarToggle} />
       </BlogHeaderContainer>
     );
@@ -32,7 +32,7 @@ const BlogHeader = (props: HeaderProps) => {
     return (
       <BlogHeaderContainer>
         <HeaderLogo logo={logo} blogName={blogName} />
-        <BlogNav />
+        <BlogNav blogName={blogName} navList={navList} />
       </BlogHeaderContainer>
     );
 };

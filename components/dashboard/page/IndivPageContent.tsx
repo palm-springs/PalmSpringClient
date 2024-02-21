@@ -4,7 +4,6 @@ import { useRouter } from 'next/navigation';
 import { useRecoilState, useResetRecoilState } from 'recoil';
 
 import { pageDataState } from '@/components/editor/states/atom';
-import { DOMAIN_NAME } from '@/constants/palmspringInfo';
 import { useDeletePage } from '@/hooks/dashboard';
 import theme from '@/styles/theme';
 import { createToast } from '@/utils/lib/toast';
@@ -63,7 +62,7 @@ const IndivPageContent = (props: IndivPageContentProps) => {
             resetPageData();
             router.push(`/${blogUrl}/editor/page/${id}/draft`);
           } else {
-            window.open(`https://${blogUrl}.${DOMAIN_NAME}/content/page/${pageUrl}/${id}`);
+            window.open(`https://${blogUrl}.${process.env.NEXT_PUBLIC_DOMAIN_NAME}/content/page/${pageUrl}/${id}`);
           }
         }}
         onMutateClick={() => {

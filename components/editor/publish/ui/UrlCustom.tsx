@@ -5,7 +5,6 @@ import router from 'next/router';
 import { useRecoilState } from 'recoil';
 import styled from 'styled-components';
 
-import { DOMAIN_NAME } from '@/constants/palmspringInfo';
 import { EssentialCircleIcon, Loader01Icon } from '@/public/icons';
 import { UpdateArticleProps } from '@/types/article';
 import { UpdatePageProps } from '@/types/page';

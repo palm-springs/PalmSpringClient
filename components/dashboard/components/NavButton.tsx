@@ -31,7 +31,7 @@ const NavButton = (props: NavButtonProps) => {
     return (
       <BlogDirectNavButton
         target="_blank"
-        href={`https://${team}.palms.blog/home`}
+        href={`https://${team}.${process.env.NEXT_PUBLIC_DOMAIN_NAME}`}
         disabled={innerText === '구독자' || !team}>
         <SideBarContent currentPage={pageType === currentPageType} disabled={innerText === '구독자' || !team}>
           {icon}

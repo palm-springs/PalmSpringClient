@@ -1,46 +1,57 @@
 'use client';
 
 import { useEffect, useState } from 'react';
-import { useRecoilState } from 'recoil';
 
 import client from '@/api';
 import { getRefreshToken } from '@/api/auth';
 import { getUserInfoAfterLogin } from '@/api/dashboard';
-import { accessTokenState } from '@/components/auth/states/atom';
 import LandingPage from '@/components/landing/LandingPage';
+import { ACCESS_TOKEN_KEY } from '@/constants/Auth';
 
 const Home = () => {
   const [dashboardUrl, setDashboardUrl] = useState('');
 
-  // recoil access token
-  const [, setAccessToken] = useRecoilState(accessTokenState);
+  // sessionStorage
+  const sessionStorage = typeof window !== 'undefined' ? window.sessionStorage : undefined;
+
+  // access token
+  const accessToken = sessionStorage?.getItem(ACCESS_TOKEN_KEY);
 
   // access token 재발급 요청 함수 (reissue)
   const refresh = async () => {
     const { code, data } = await getRefreshToken();
 
     if (code === 201) {
-      setAccessToken(data.accessToken);
+      sessionStorage?.setItem(ACCESS_TOKEN_KEY, data.accessToken);
       return data.accessToken;
     } else {
+      sessionStorage?.removeItem(ACCESS_TOKEN_KEY);
       return;
+    }
+  };
+
+  const setAuthorization = async (accessToken: string) => {
+    client.defaults.headers.common.Authorization = `Bearer ${accessToken}`;
+    const { data } = await getUserInfoAfterLogin('', accessToken);
+
+    if (!data.joinBlogList || data.joinBlogList.length === 0) {
+      setDashboardUrl('/no-team/dashboard/upload');
+    } else {
+      setDashboardUrl(`/${data.joinBlogList[0].blogUrl}/dashboard/upload`);
     }
   };
 
   // check Auth and redirect to dashboard
   const checkAuthValidation = async () => {
-    const newAccessToken = await refresh();
-    if (newAccessToken) {
-      client.defaults.headers.common.Authorization = `Bearer ${newAccessToken}`;
-      const { data } = await getUserInfoAfterLogin('', newAccessToken);
-
-      if (!data.joinBlogList || data.joinBlogList.length === 0) {
-        setDashboardUrl('/no-team/dashboard/upload');
-      } else {
-        setDashboardUrl(`/${data.joinBlogList[0].blogUrl}/dashboard/upload`);
+    if (accessToken) {
+      await setAuthorization(accessToken);
+    } else {
+      const newAccessToken = await refresh();
+      if (newAccessToken) {
+        await setAuthorization(newAccessToken);
       }
+      return;
     }
-    return;
   };
 
   useEffect(() => {

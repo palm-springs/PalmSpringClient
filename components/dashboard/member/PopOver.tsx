@@ -7,7 +7,6 @@ import { useRecoilValue } from 'recoil';
 import styled from 'styled-components';
 
 import ModalPortal from '@/components/common/ModalPortal';
-import { DOMAIN_NAME } from '@/constants/palmspringInfo';
 import { useDeleteMember } from '@/hooks/dashboard';
 import usePerMissionPolicy from '@/hooks/usePermissionPolicy';
 import userState from '@/recoil/atom/user';
@@ -65,7 +64,7 @@ const PopOver = (prop: PopOverProp) => {
           onMouseDown={(e) => {
             e.preventDefault();
           }}
-          href={`https://${blogUrl}.${DOMAIN_NAME}/author/${memberId}`}
+          href={`https://${blogUrl}.${process.env.NEXT_PUBLIC_DOMAIN_NAME}/author/${memberId}`}
           target="_blank">
           프로필 보기
         </LinkText>
