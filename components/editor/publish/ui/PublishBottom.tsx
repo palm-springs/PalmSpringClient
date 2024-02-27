@@ -38,11 +38,11 @@ const PublishBottomButtons = (props: PublishBottomButtons) => {
 
   const { team, pageId, articleId } = useParams();
 
-  const updatePageMutation = useUpdatePageContent(team);
-  const updateArticleMutation = useUpdateArticleContent(team);
+  const updatePageMutation = useUpdatePageContent(String(team));
+  const updateArticleMutation = useUpdateArticleContent(String(team));
 
-  const draftArticleMutation = useUpdateTempArticleDraft(team);
-  const draftPageMutation = useUpdateTempPageDraft(team);
+  const draftArticleMutation = useUpdateTempArticleDraft(String(team));
+  const draftPageMutation = useUpdateTempPageDraft(String(team));
 
   const updatedArticleData = useRecoilValue(articleDataState);
   const { categoryId, description, articleUrl, thumbnail, content, title } = updatedArticleData;
@@ -54,7 +54,7 @@ const PublishBottomButtons = (props: PublishBottomButtons) => {
 
   //아티클 최종 발행하기
   const handleOnClickArticlePublish = async () => {
-    await postArticleCreateList(team, updatedArticleData);
+    await postArticleCreateList(String(team), updatedArticleData);
     queryClient.invalidateQueries([QUERY_KEY_ARTICLE.getArticleList]);
     resetArticleData();
     router.push(`/${team}/dashboard/upload`);
@@ -97,7 +97,7 @@ const PublishBottomButtons = (props: PublishBottomButtons) => {
 
   //페이지 최종 발행하기
   const handleOnClickPagePublish = () => {
-    postPageCreate(team, updatedPageData);
+    postPageCreate(String(team), updatedPageData);
     resetPageData();
     router.push(`/${team}/dashboard/page`);
   };
