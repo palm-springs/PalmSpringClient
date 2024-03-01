@@ -231,6 +231,10 @@ const BackButton = styled.button`
   ${({ theme }) => theme.fonts.Body1_Regular};
   height: 4.2rem;
   color: ${({ theme }) => theme.colors.grey_700};
+
+  &:hover {
+    text-decoration: underline;
+  }
 `;
 
 const PublishBottomButtonsContainer = styled.div`
