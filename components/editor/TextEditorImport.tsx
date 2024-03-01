@@ -63,6 +63,9 @@ const TextEditorBuild = (props: TextEditorBuildprops) => {
   const [updatedArticleData, setUpdatedArticleData] = useRecoilState(articleDataState);
   const [updatedPageData, setUpdatedPageData] = useRecoilState(pageDataState);
   const [clickDraft, setClickDraft] = useState(0);
+  //임시저장 responseBodyData
+  const [dataArticleId, setDataArticleId] = useState(null);
+  const [dataPageId, setDataPageId] = useState(null);
 
   const selectEditorContent = () => {
     if (pathName.startsWith(`/${team}/editor/article`)) {
@@ -195,46 +198,77 @@ const TextEditorBuild = (props: TextEditorBuildprops) => {
     return null;
   }
 
-  //article 페이지 최초 임시저장시 로직(1번 클릭 -> post 그 뒤 put으로)
-  const hadleOnArticleClickCount = () => {
+  //content 페이지 최초 임시저장시 로직(1번 클릭 -> post 그 뒤 put으로)
+  const handleOnDraftClickCount = () => {
     if (clickDraft === 0) {
-      handleOnClickArticleDraft();
+      {
+        pageType === 'article' ? handleOnClickArticleDraft() : handleOnClickPageDraft();
+      }
     } else {
-      handleTempArticleDraft();
+      {
+        pageType === 'article' ? handleDataArticleDraft() : handleDataPageDraft();
+      }
     }
     setClickDraft(clickDraft + 1);
     console.log(setClickDraft);
   };
 
   // article page 임시저장시 post
-  const handleOnClickArticleDraft = () => {
+  const handleOnClickArticleDraft = async () => {
     if (editor) {
       const content = editor.getHTML();
       setExtractedHTML(content);
 
-      if (imageArr.length === 0) {
-        postArticleList(String(team), { title: articleTitle, content, images: [] });
-      } else {
-        postArticleList(String(team), { title: articleTitle, content, images: imageArr });
+      try {
+        const res = await postArticleList(String(team), {
+          title: articleTitle,
+          content,
+          images: imageArr.length === 0 ? [] : imageArr,
+        });
+
+        const articleId = res.data;
+        setDataArticleId(articleId);
+      } catch (error) {
+        console.error('실패 에러임', error);
       }
     }
   };
 
   // page page 임시저장시 post
-  const handleOnClickPageDraft = () => {
+  const handleOnClickPageDraft = async () => {
     if (editor) {
       const content = editor.getHTML();
       setExtractedHTML(content);
 
-      if (imageArr.length === 0) {
-        postPageDraft(String(team), { title: pageTitle, content, images: [] });
-      } else {
-        postPageDraft(String(team), {
+      try {
+        const res = await postPageDraft(String(team), {
           title: pageTitle,
           content,
-          images: imageArr,
+          images: imageArr.length === 0 ? [] : imageArr,
         });
+
+        const pageId = res.data;
+        setDataPageId(pageId);
+      } catch (error) {
+        console.error('실패 에러임', error);
       }
+    }
+  };
+
+  //article 임시저장 최초 Post후 임시저장시 임시저장put --> article 임시저장 수정하기의 임시저장
+  const handleDataArticleDraft = () => {
+    if (editor) {
+      const newContent = editor.getHTML();
+      setExtractedHTML(newContent);
+
+      draftArticleMutation.mutate({
+        ...updatedArticleData,
+        id: Number(dataArticleId),
+        title: articleTitle,
+        content: newContent,
+        images: imageArr.length === 0 ? [] : imageArr,
+        isPublish: false,
+      });
     }
   };
 
@@ -263,6 +297,22 @@ const TextEditorBuild = (props: TextEditorBuildprops) => {
           images: imageArr,
         });
       }
+    }
+  };
+  //page 임시저장 최초 Post후 임시저장시 임시저장put
+  const handleDataPageDraft = () => {
+    if (editor) {
+      const newContent = editor.getHTML();
+      setExtractedHTML(newContent);
+
+      draftPageMutation.mutate({
+        ...updatedPageData,
+        id: Number(dataPageId),
+        title: pageTitle,
+        content: newContent,
+        images: imageArr.length === 0 ? [] : imageArr,
+        isPublish: false,
+      });
     }
   };
 
@@ -442,7 +492,7 @@ const TextEditorBuild = (props: TextEditorBuildprops) => {
 
       {pageType === 'article' ? (
         <SaveEditorContentButton
-          handleOnClickDraft={currentState === 'draft' ? handleTempArticleDraft : hadleOnArticleClickCount}
+          handleOnClickDraft={currentState === 'draft' ? handleTempArticleDraft : handleOnDraftClickCount}
           handleOnClickPublish={
             currentState === 'edit'
               ? handleUpdateGoArticlePublish
@@ -458,7 +508,7 @@ const TextEditorBuild = (props: TextEditorBuildprops) => {
         />
       ) : (
         <SaveEditorContentButton
-          handleOnClickDraft={currentState === 'draft' ? handleTempPageDraft : handleOnClickPageDraft}
+          handleOnClickDraft={currentState === 'draft' ? handleTempPageDraft : handleOnDraftClickCount}
           handleOnClickPublish={
             currentState === 'edit'
               ? handleUpdateGoPagePublish
