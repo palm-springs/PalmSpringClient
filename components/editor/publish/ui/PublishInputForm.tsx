@@ -21,6 +21,7 @@ const PublishInputForm = (props: PublishInputFormProps) => {
 export default PublishInputForm;
 
 const InputContainer = styled.div<{ $isFocus: boolean }>`
+  ${({ theme }) => theme.fonts.Body2_Regular};
   display: flex;
   position: relative;
   align-items: center;
@@ -32,6 +33,7 @@ const InputContainer = styled.div<{ $isFocus: boolean }>`
   padding: 1rem 1.2rem;
   width: 54rem;
   height: 4.6rem;
+  color: ${({ theme }) => theme.colors.grey_600};
 
   &#failed {
     border-color: ${({ theme }) => theme.colors.red};
