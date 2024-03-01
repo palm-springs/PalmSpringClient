@@ -1,6 +1,7 @@
 'use client';
 
 import React, { ChangeEvent, useCallback, useEffect, useRef, useState } from 'react';
+import { useParams, usePathname } from 'next/navigation';
 import { useRecoilState } from 'recoil';
 import styled from 'styled-components';
 
@@ -18,6 +19,8 @@ interface TextEditorBuildProps {
 
 const EditorInputTitle = (props: TextEditorBuildProps) => {
   const { pageType, articleData, pageData } = props;
+  const { team } = useParams();
+  const pathName = usePathname();
 
   const [{ title: articleTitle }, setArticleData] = useRecoilState(articleDataState); // 아티클 초기 타이틀 -> 복사 -> 새로운 title 갈아끼기
   const [{ title: pageTitle }, setPageData] = useRecoilState(pageDataState);
@@ -30,12 +33,25 @@ const EditorInputTitle = (props: TextEditorBuildProps) => {
     }
   }, []);
 
+  const selectTitle = () => {
+    if (pathName.startsWith(`/${team}/editor/article`)) {
+      if (articleTitle) return articleTitle;
+      if (articleData) return articleData.title;
+    } else if (pathName.startsWith(`/${team}/editor/page`)) {
+      if (pageTitle) return pageTitle;
+      if (pageData) return pageData.title;
+    }
+    return '';
+  };
+  const titleValue = selectTitle();
+
   useEffect(() => {
-    if (articleData) {
+    if (!articleTitle && articleData) {
       setArticleData((prev) => ({ ...prev, title: articleData.title }));
-    } else if (pageData) {
+    } else if (!pageTitle && pageData) {
       setPageData((prev) => ({ ...prev, title: pageData.title }));
     }
+
     handleResizeInput();
   }, []);
 
@@ -56,7 +72,7 @@ const EditorInputTitle = (props: TextEditorBuildProps) => {
       return (
         <EditorInputTitleContainer>
           <TitleInputBox
-            value={articleTitle}
+            value={titleValue}
             onChange={handleSaveArticleTitle}
             rows={1}
             maxLength={67}
@@ -69,7 +85,7 @@ const EditorInputTitle = (props: TextEditorBuildProps) => {
       return (
         <EditorInputTitleContainer>
           <TitleInputBox
-            value={pageTitle}
+            value={titleValue}
             onChange={handleSavePageTitle}
             rows={1}
             maxLength={67}
