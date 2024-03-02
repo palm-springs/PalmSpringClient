@@ -45,9 +45,9 @@ const PublishBottomButtons = (props: PublishBottomButtons) => {
   const draftPageMutation = useUpdateTempPageDraft(String(team));
 
   const updatedArticleData = useRecoilValue(articleDataState);
-  const { categoryId, description, articleUrl, thumbnail } = updatedArticleData;
+  const { categoryId, description, articleUrl, thumbnail, content, title } = updatedArticleData;
   const updatedPageData = useRecoilValue(pageDataState);
-  const { pageUrl, thumbnail: pageThumbnail } = updatedPageData;
+  const { pageUrl, thumbnail: pageThumbnail, content: pageContent, title: pageTitle } = updatedPageData;
 
   const resetArticleData = useResetRecoilState(articleDataState);
   const resetPageData = useResetRecoilState(pageDataState);
@@ -141,7 +141,9 @@ const PublishBottomButtons = (props: PublishBottomButtons) => {
                   (articleData?.thumbnail === thumbnail &&
                     articleData?.description === description &&
                     articleData?.categoryId === categoryId &&
-                    articleData?.articleUrl === articleUrl) ||
+                    articleData?.articleUrl === articleUrl &&
+                    articleData?.content === content &&
+                    articleData?.title === title) ||
                   categoryId === null ||
                   description === '' ||
                   articleUrl === '' ||
@@ -181,7 +183,10 @@ const PublishBottomButtons = (props: PublishBottomButtons) => {
                 type="button"
                 onClick={handleOnClickUpdatePagePublish}
                 disabled={
-                  (pageData?.thumbnail === pageThumbnail && pageData?.pageUrl === pageUrl) ||
+                  (pageData?.thumbnail === pageThumbnail &&
+                    pageData?.pageUrl === pageUrl &&
+                    pageData?.content === pageContent &&
+                    pageData?.title === pageTitle) ||
                   pageUrl === '' ||
                   isDuplicate ||
                   isDuplicate === null ||
@@ -226,6 +231,10 @@ const BackButton = styled.button`
   ${({ theme }) => theme.fonts.Body1_Regular};
   height: 4.2rem;
   color: ${({ theme }) => theme.colors.grey_700};
+
+  &:hover {
+    text-decoration: underline;
+  }
 `;
 
 const PublishBottomButtonsContainer = styled.div`
