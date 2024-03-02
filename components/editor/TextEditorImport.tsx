@@ -62,7 +62,7 @@ const TextEditorBuild = (props: TextEditorBuildprops) => {
   const draftPageMutation = useUpdateTempPageDraft(String(team));
   const [updatedArticleData, setUpdatedArticleData] = useRecoilState(articleDataState);
   const [updatedPageData, setUpdatedPageData] = useRecoilState(pageDataState);
-  const [clickDraft, setClickDraft] = useState(0);
+  const [isFirstClick, setIsFirstClick] = useState(true);
   //임시저장 responseBodyData
   const [dataArticleId, setDataArticleId] = useState(null);
   const [dataPageId, setDataPageId] = useState(null);
@@ -200,17 +200,16 @@ const TextEditorBuild = (props: TextEditorBuildprops) => {
 
   //content 페이지 최초 임시저장시 로직(1번 클릭 -> post 그 뒤 put으로)
   const handleOnDraftClickCount = () => {
-    if (clickDraft === 0) {
+    if (isFirstClick) {
       {
         pageType === 'article' ? handleOnClickArticleDraft() : handleOnClickPageDraft();
+        setIsFirstClick(false);
       }
     } else {
       {
         pageType === 'article' ? handleDataArticleDraft() : handleDataPageDraft();
       }
     }
-    setClickDraft(clickDraft + 1);
-    console.log(setClickDraft);
   };
 
   // article page 임시저장시 post
