@@ -5,14 +5,9 @@ import { css } from '@emotion/react';
 import AOS from 'aos';
 import Image from 'next/image';
 import Link from 'next/link';
-import { redirect } from 'next/navigation';
 
-import client from '@/api';
-import { getRefreshToken } from '@/api/auth';
-import { getUserInfoAfterLogin } from '@/api/dashboard';
 import Footer from '@/components/landing/Footer';
 import Header from '@/components/landing/Header';
-import LandingAuth, { useCheckAuthValidation } from '@/hooks/useCheckAuthValidation';
 
 import 'aos/dist/aos.css';
 
@@ -162,7 +157,7 @@ const link_wrapper = css`
     &:hover {
       opacity: 0.6;
     }
-    & > Image {
+    & > img {
       border-radius: 24px;
       // box-shadow: 0 0 16px 0 rgba(0, 0, 0, 0.08);
       width: 100px;
@@ -174,7 +169,7 @@ const link_wrapper = css`
     width: 100%;
     & > a {
       font-size: 18px;
-      & > Image {
+      & > img {
         border-radius: 20px;
         // box-shadow: 0 0 16px 0 rgba(0, 0, 0, 0.08);
         width: 76px;
