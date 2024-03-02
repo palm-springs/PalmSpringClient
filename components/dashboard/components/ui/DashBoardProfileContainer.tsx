@@ -18,7 +18,11 @@ const DashBoardProfileContainer = (props: DashBoardProfileContainerProps) => {
       tabIndex={0}
       onBlur={() => setIsPopOverMenuOpen(false)}
       onClick={() => setIsPopOverMenuOpen(true)}>
-      {profileImgUrl ? <ProfileImg src={profileImgUrl} alt="프로필 이미지" /> : <NoUserProfileIcon />}
+      {profileImgUrl ? (
+        <ProfileImg src={profileImgUrl} alt="프로필 이미지" width={40} height={40} />
+      ) : (
+        <NoUserProfileIcon />
+      )}
       <div>
         <span>{userName}</span>
         <span>{email}</span>
