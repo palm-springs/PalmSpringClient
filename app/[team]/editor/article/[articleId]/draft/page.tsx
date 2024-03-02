@@ -10,7 +10,7 @@ import { TextEditorStyle } from '@/styles/TextEditorStyle';
 
 const DraftArticlePage = () => {
   const { team, articleId } = useParams();
-  const updateArticleEditContents = useGetUpdateArticleContent(team, Number(articleId));
+  const updateArticleEditContents = useGetUpdateArticleContent(String(team), Number(articleId));
 
   return (
     <AuthRequired>
