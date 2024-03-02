@@ -223,7 +223,7 @@ const TextEditorBuild = (props: TextEditorBuildprops) => {
         const res = await postArticleList(String(team), {
           title: articleTitle,
           content,
-          images: imageArr.length === 0 ? [] : imageArr,
+          images: imageArr,
         });
 
         const articleId = res.data;
@@ -244,7 +244,7 @@ const TextEditorBuild = (props: TextEditorBuildprops) => {
         const res = await postPageDraft(String(team), {
           title: pageTitle,
           content,
-          images: imageArr.length === 0 ? [] : imageArr,
+          images: imageArr,
         });
 
         const pageId = res.data;
@@ -266,7 +266,7 @@ const TextEditorBuild = (props: TextEditorBuildprops) => {
         id: Number(dataArticleId),
         title: articleTitle,
         content: newContent,
-        images: imageArr.length === 0 ? [] : imageArr,
+        images: imageArr,
         isPublish: false,
       });
     }
@@ -310,7 +310,7 @@ const TextEditorBuild = (props: TextEditorBuildprops) => {
         id: Number(dataPageId),
         title: pageTitle,
         content: newContent,
-        images: imageArr.length === 0 ? [] : imageArr,
+        images: imageArr,
         isPublish: false,
       });
     }
