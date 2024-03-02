@@ -1,6 +1,7 @@
 'use client';
 
 import React, { ChangeEvent, useEffect, useRef, useState } from 'react';
+import Image from 'next/image';
 import styled from 'styled-components';
 
 import { imageErrorCase } from '@/constants/image';
@@ -143,7 +144,7 @@ const BlogLogoImageContainer = styled.div`
   margin-top: 3.2rem;
 `;
 
-const PreLoadImg = styled.img`
+const PreLoadImg = styled(Image)`
   margin-left: 1.8rem;
   border-radius: 0.8rem;
 

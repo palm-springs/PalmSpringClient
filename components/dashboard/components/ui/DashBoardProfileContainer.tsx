@@ -1,4 +1,5 @@
 import React, { Dispatch, SetStateAction } from 'react';
+import Image from 'next/image';
 import { styled } from 'styled-components';
 
 import { NoUserProfileIcon } from '@/public/icons';
@@ -17,7 +18,11 @@ const DashBoardProfileContainer = (props: DashBoardProfileContainerProps) => {
       tabIndex={0}
       onBlur={() => setIsPopOverMenuOpen(false)}
       onClick={() => setIsPopOverMenuOpen(true)}>
-      {profileImgUrl ? <ProfileImg src={profileImgUrl} alt="프로필 이미지" /> : <NoUserProfileIcon />}
+      {profileImgUrl ? (
+        <ProfileImg src={profileImgUrl} alt="프로필 이미지" width={40} height={40} />
+      ) : (
+        <NoUserProfileIcon />
+      )}
       <div>
         <span>{userName}</span>
         <span>{email}</span>
@@ -78,7 +83,7 @@ const DashBoardProfileContainerUI = styled.article`
   }
 `;
 
-const ProfileImg = styled.img`
+const ProfileImg = styled(Image)`
   border-radius: 50%;
   width: 4rem;
   overflow: hidden;

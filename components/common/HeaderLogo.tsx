@@ -1,6 +1,7 @@
 'use client';
 
 import React from 'react';
+import Image from 'next/image';
 import Link from 'next/link';
 import styled from 'styled-components';
 interface LogoProp {
@@ -15,7 +16,7 @@ const HeaderLogo = (prop: LogoProp) => {
     <Link href={`/`}>
       {logo ? (
         <>
-          <img src={logo} alt="team logo icon" height={24} />
+          <Image src={logo} alt="team logo icon" height={24} />
         </>
       ) : (
         <BlogName>{blogName}</BlogName>
