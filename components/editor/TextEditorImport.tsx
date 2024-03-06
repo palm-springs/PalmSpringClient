@@ -30,7 +30,7 @@ import { postPageDraft } from '@/api/page';
 import TextEditor from '@/components/editor/TextEditor';
 import SaveEditorContentButton from '@/components/editor/ui/SaveEditorContentButton';
 import ToolBox from '@/components/editor/ui/ToolBox';
-import { IS_FIRST_DRAFT_CLICK } from '@/constants/editor';
+import { ARTICLE_DATA_ID, IS_FIRST_DRAFT_CLICK, PAGE_DATA_ID } from '@/constants/editor';
 import { useUpdateTempArticleDraft, useUpdateTempPageDraft } from '@/hooks/editor';
 import { UpdateArticleProps } from '@/types/article';
 import { UpdatePageProps } from '@/types/page';
@@ -66,9 +66,6 @@ const TextEditorBuild = (props: TextEditorBuildprops) => {
   const draftPageMutation = useUpdateTempPageDraft(String(team));
   const [updatedArticleData, setUpdatedArticleData] = useRecoilState(articleDataState);
   const [updatedPageData, setUpdatedPageData] = useRecoilState(pageDataState);
-  //임시저장 responseBodyData
-  const [dataArticleId, setDataArticleId] = useState(null);
-  const [dataPageId, setDataPageId] = useState(null);
 
   const selectEditorContent = () => {
     if (pathName.startsWith(`/${team}/editor/article`)) {
@@ -232,7 +229,9 @@ const TextEditorBuild = (props: TextEditorBuildprops) => {
         });
 
         const articleId = res.data;
-        setDataArticleId(articleId);
+        if (articleId) {
+          sessionStorage?.setItem(ARTICLE_DATA_ID, articleId);
+        }
       } catch (error) {
         console.error('실패 에러임', error);
       }
@@ -258,7 +257,9 @@ const TextEditorBuild = (props: TextEditorBuildprops) => {
         });
 
         const pageId = res.data;
-        setDataPageId(pageId);
+        if (pageId) {
+          sessionStorage?.setItem(PAGE_DATA_ID, pageId);
+        }
       } catch (error) {
         console.error('실패 에러임', error);
       }
@@ -275,6 +276,8 @@ const TextEditorBuild = (props: TextEditorBuildprops) => {
         ...prev,
         content: newContent,
       }));
+
+      const dataArticleId = sessionStorage?.getItem(ARTICLE_DATA_ID);
 
       draftArticleMutation.mutate({
         ...updatedArticleData,
@@ -324,6 +327,8 @@ const TextEditorBuild = (props: TextEditorBuildprops) => {
         ...prev,
         content: newContent,
       }));
+
+      const dataPageId = sessionStorage?.getItem(PAGE_DATA_ID);
 
       draftPageMutation.mutate({
         ...updatedPageData,

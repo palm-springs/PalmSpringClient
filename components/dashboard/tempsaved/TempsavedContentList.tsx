@@ -7,8 +7,8 @@ import { useResetRecoilState } from 'recoil';
 import EmptyLanding from '@/components/common/ui/EmptyLanding';
 import LoadingLottie from '@/components/common/ui/LoadingLottie';
 import { articleDataState } from '@/components/editor/states/atom';
-import { IS_FIRST_DRAFT_CLICK } from '@/constants/editor';
 import { useGetTempSavedList } from '@/hooks/dashboard';
+import { removeDraftContentData } from '@/utils/removeContentData';
 
 import DashBoardContent from '../components/DashBoardContent';
 import DashBoardContentListContainer from '../components/ui/DashBoardContentListContainer';
@@ -45,7 +45,7 @@ const TempsavedContentList = () => {
       buttonText="새 글 작성하기"
       buttonClick={() => {
         resetArticleDataState();
-        sessionStorage?.removeItem(IS_FIRST_DRAFT_CLICK);
+        removeDraftContentData();
         router.push(`/${blogUrl}/editor/article`);
       }}
     />

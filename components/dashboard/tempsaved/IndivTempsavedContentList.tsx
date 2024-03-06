@@ -3,8 +3,8 @@ import { useParams, useRouter } from 'next/navigation';
 import { useRecoilState, useResetRecoilState } from 'recoil';
 
 import { articleDataState } from '@/components/editor/states/atom';
-import { IS_FIRST_DRAFT_CLICK } from '@/constants/editor';
 import { useDeleteArticle } from '@/hooks/dashboard';
+import { removeDraftContentData } from '@/utils/removeContentData';
 
 import DashBoardContent from '../components/DashBoardContent';
 import DashboardContentDeleteModal from '../components/DashboardContentDeleteModal';
@@ -57,17 +57,17 @@ const IndivTempsavedContentList = (props: IndivTempsavedContentListProps) => {
         createdAt={createdAt}
         onTitleClick={() => {
           resetArticleData();
-          sessionStorage?.removeItem(IS_FIRST_DRAFT_CLICK);
+          removeDraftContentData();
           router.push(`/${blogUrl}/editor/article/${id}/draft`);
         }}
         onMutateClick={() => {
           resetArticleData();
-          sessionStorage?.removeItem(IS_FIRST_DRAFT_CLICK);
+          removeDraftContentData();
           router.push(`/${blogUrl}/editor/article/${id}/draft`);
         }}
         onDeleteClick={() => {
           resetArticleData();
-          sessionStorage?.removeItem(IS_FIRST_DRAFT_CLICK);
+          removeDraftContentData();
           setModalState('deleteArticle');
           setDeleteModalId(id);
         }}

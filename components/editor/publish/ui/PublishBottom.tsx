@@ -7,7 +7,6 @@ import styled from 'styled-components';
 
 import { postArticleCreateList } from '@/api/article';
 import { postPageCreate } from '@/api/page';
-import { IS_FIRST_DRAFT_CLICK } from '@/constants/editor';
 import {
   QUERY_KEY_ARTICLE,
   useUpdateArticleContent,
@@ -17,6 +16,7 @@ import {
 } from '@/hooks/editor';
 import { UpdateArticleProps } from '@/types/article';
 import { UpdatePageProps } from '@/types/page';
+import { removeDraftContentData } from '@/utils/removeContentData';
 
 import { articleDataState, pageDataState } from '../../states/atom';
 
@@ -61,7 +61,7 @@ const PublishBottomButtons = (props: PublishBottomButtons) => {
     await postArticleCreateList(String(team), updatedArticleData);
     queryClient.invalidateQueries([QUERY_KEY_ARTICLE.getArticleList]);
     resetArticleData();
-    sessionStorage?.removeItem(IS_FIRST_DRAFT_CLICK);
+    removeDraftContentData();
     router.push(`/${team}/dashboard/upload`);
   };
 
@@ -79,7 +79,7 @@ const PublishBottomButtons = (props: PublishBottomButtons) => {
       },
     );
     resetArticleData();
-    sessionStorage?.removeItem(IS_FIRST_DRAFT_CLICK);
+    removeDraftContentData();
     router.push(`/${team}/dashboard/upload`);
   };
 
@@ -98,7 +98,7 @@ const PublishBottomButtons = (props: PublishBottomButtons) => {
       },
     );
     resetArticleData();
-    sessionStorage?.removeItem(IS_FIRST_DRAFT_CLICK);
+    removeDraftContentData();
     router.push(`/${team}/dashboard/upload`);
   };
 
@@ -106,7 +106,7 @@ const PublishBottomButtons = (props: PublishBottomButtons) => {
   const handleOnClickPagePublish = () => {
     postPageCreate(String(team), updatedPageData);
     resetPageData();
-    sessionStorage?.removeItem(IS_FIRST_DRAFT_CLICK);
+    removeDraftContentData();
     router.push(`/${team}/dashboard/page`);
   };
 
@@ -114,7 +114,7 @@ const PublishBottomButtons = (props: PublishBottomButtons) => {
   const handleOnClickUpdatePagePublish = () => {
     updatePageMutation.mutate({ ...updatedPageData, id: Number(pageId) });
     resetPageData();
-    sessionStorage?.removeItem(IS_FIRST_DRAFT_CLICK);
+    removeDraftContentData();
     router.push(`/${team}/dashboard/page`);
   };
 
@@ -126,7 +126,7 @@ const PublishBottomButtons = (props: PublishBottomButtons) => {
       isPublish: true,
     });
     resetArticleData();
-    sessionStorage?.removeItem(IS_FIRST_DRAFT_CLICK);
+    removeDraftContentData();
     router.push(`/${team}/dashboard/page`);
   };
 

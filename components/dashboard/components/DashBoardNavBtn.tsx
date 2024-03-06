@@ -4,7 +4,7 @@ import React from 'react';
 import { useParams, useRouter } from 'next/navigation';
 import { useResetRecoilState } from 'recoil';
 
-import { IS_FIRST_DRAFT_CLICK } from '@/constants/editor';
+import { removeDraftContentData } from '@/utils/removeContentData';
 
 import { articleDataState } from '../../editor/states/atom';
 
@@ -21,7 +21,7 @@ const DashBoardNavBtn = () => {
 
   const handleOnNewPage = () => {
     resetArticleDataState();
-    sessionStorage?.removeItem(IS_FIRST_DRAFT_CLICK);
+    removeDraftContentData();
     router.push(`/${blogUrl}/editor/article`);
   };
 

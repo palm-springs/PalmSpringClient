@@ -4,10 +4,10 @@ import { useRouter } from 'next/navigation';
 import { useRecoilState, useResetRecoilState } from 'recoil';
 
 import { pageDataState } from '@/components/editor/states/atom';
-import { IS_FIRST_DRAFT_CLICK } from '@/constants/editor';
 import { useDeletePage } from '@/hooks/dashboard';
 import theme from '@/styles/theme';
 import { createToast } from '@/utils/lib/toast';
+import { removeDraftContentData } from '@/utils/removeContentData';
 
 import DashBoardContent from '../components/DashBoardContent';
 import DashboardContentDeleteModal from '../components/DashboardContentDeleteModal';
@@ -64,7 +64,7 @@ const IndivPageContent = (props: IndivPageContentProps) => {
         onTitleClick={() => {
           if (isDraft) {
             resetPageData();
-            sessionStorage?.removeItem(IS_FIRST_DRAFT_CLICK);
+            removeDraftContentData();
             router.push(`/${blogUrl}/editor/page/${id}/draft`);
           } else {
             window.open(`https://${blogUrl}.${process.env.NEXT_PUBLIC_DOMAIN_NAME}/content/page/${pageUrl}/${id}`);
@@ -73,11 +73,11 @@ const IndivPageContent = (props: IndivPageContentProps) => {
         onMutateClick={() => {
           if (isDraft) {
             resetPageData();
-            sessionStorage?.removeItem(IS_FIRST_DRAFT_CLICK);
+            removeDraftContentData();
             router.push(`/${blogUrl}/editor/page/${id}/draft`);
           } else {
             resetPageData();
-            sessionStorage?.removeItem(IS_FIRST_DRAFT_CLICK);
+            removeDraftContentData();
             router.push(`/${blogUrl}/editor/page/${id}/edit`);
           }
         }}
@@ -85,7 +85,7 @@ const IndivPageContent = (props: IndivPageContentProps) => {
           setModalState('deletePage');
           setDeleteContentId(id);
           resetPageData();
-          sessionStorage?.removeItem(IS_FIRST_DRAFT_CLICK);
+          removeDraftContentData();
         }}
       />
       {modalState === 'deletePage' && deleteContentId === id && (

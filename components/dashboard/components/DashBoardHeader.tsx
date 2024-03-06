@@ -5,12 +5,12 @@ import { useParams, useRouter } from 'next/navigation';
 import { useResetRecoilState, useSetRecoilState } from 'recoil';
 
 import { articleDataState, pageDataState } from '@/components/editor/states/atom';
-import { IS_FIRST_DRAFT_CLICK } from '@/constants/editor';
 import mapPageType2HeaderInfo from '@/constants/mapPageType2HeaderInfo';
 import useGetLastPathName from '@/hooks/useGetLastPathName';
 import usePerMissionPolicy from '@/hooks/usePermissionPolicy';
 import { dashBoardPageType } from '@/types/dashboard';
 import checkRenderPermissionButton from '@/utils/checkRenderPermissionButton';
+import { removeDraftContentData } from '@/utils/removeContentData';
 
 import { dashBoardModalState } from '../state/modalState';
 
@@ -23,9 +23,6 @@ const DashBoardHeader = () => {
   const router = useRouter();
 
   const { team } = useParams();
-
-  // sessionStorage
-  const sessionStorage = typeof window !== 'undefined' ? window.sessionStorage : undefined;
 
   const { title, buttonInnerText, onButtonClickActionName } = mapPageType2HeaderInfo[pathName];
 
@@ -48,12 +45,12 @@ const DashBoardHeader = () => {
       case 'upload':
       case 'tempsaved':
         resetArticleDataState();
-        sessionStorage?.removeItem(IS_FIRST_DRAFT_CLICK);
+        removeDraftContentData();
         router.push(`/${team}/editor/article`);
         return;
       case 'page':
         resetPageDataState();
-        sessionStorage?.removeItem(IS_FIRST_DRAFT_CLICK);
+        removeDraftContentData();
         router.push(`/${team}/editor/page`);
         return;
       default:

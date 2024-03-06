@@ -3,8 +3,8 @@ import { useParams, useRouter } from 'next/navigation';
 import { useRecoilState, useResetRecoilState } from 'recoil';
 
 import { articleDataState } from '@/components/editor/states/atom';
-import { IS_FIRST_DRAFT_CLICK } from '@/constants/editor';
 import { useDeleteArticle } from '@/hooks/dashboard';
+import { removeDraftContentData } from '@/utils/removeContentData';
 
 import DashBoardContent from '../../components/DashBoardContent';
 import DashboardContentDeleteModal from '../../components/DashboardContentDeleteModal';
@@ -61,7 +61,7 @@ const IndivUploadContentList = (props: IndivUploadContentListProps) => {
         createdAt={createdAt}
         onMutateClick={() => {
           resetArticleData();
-          sessionStorage?.removeItem(IS_FIRST_DRAFT_CLICK);
+          removeDraftContentData();
           router.push(`/${team}/editor/article/${String(id)}/edit`);
         }}
         onTitleClick={() => {
