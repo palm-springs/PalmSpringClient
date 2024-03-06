@@ -7,6 +7,7 @@ import { useResetRecoilState } from 'recoil';
 import EmptyLanding from '@/components/common/ui/EmptyLanding';
 import LoadingLottie from '@/components/common/ui/LoadingLottie';
 import { articleDataState } from '@/components/editor/states/atom';
+import { IS_FIRST_DRAFT_CLICK } from '@/constants/editor';
 import { useGetTempSavedList } from '@/hooks/dashboard';
 
 import DashBoardContent from '../components/DashBoardContent';
@@ -24,6 +25,9 @@ const TempsavedContentList = () => {
 
   const resetArticleDataState = useResetRecoilState(articleDataState);
 
+  // sessionStorage
+  const sessionStorage = typeof window !== 'undefined' ? window.sessionStorage : undefined;
+
   const [deleteModalId, setDeleteModalId] = useState<number | null>(null);
 
   if (!data)
@@ -40,8 +44,9 @@ const TempsavedContentList = () => {
       message2="새 글을 작성해보세요."
       buttonText="새 글 작성하기"
       buttonClick={() => {
-        router.push(`/${blogUrl}/editor/article`);
         resetArticleDataState();
+        sessionStorage?.removeItem(IS_FIRST_DRAFT_CLICK);
+        router.push(`/${blogUrl}/editor/article`);
       }}
     />
   ) : (

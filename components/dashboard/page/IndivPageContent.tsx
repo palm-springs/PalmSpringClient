@@ -4,6 +4,7 @@ import { useRouter } from 'next/navigation';
 import { useRecoilState, useResetRecoilState } from 'recoil';
 
 import { pageDataState } from '@/components/editor/states/atom';
+import { IS_FIRST_DRAFT_CLICK } from '@/constants/editor';
 import { useDeletePage } from '@/hooks/dashboard';
 import theme from '@/styles/theme';
 import { createToast } from '@/utils/lib/toast';
@@ -34,6 +35,9 @@ const IndivPageContent = (props: IndivPageContentProps) => {
 
   const [modalState, setModalState] = useRecoilState(dashBoardModalState);
 
+  // sessionStorage
+  const sessionStorage = typeof window !== 'undefined' ? window.sessionStorage : undefined;
+
   const hasConnectionErrorNotify = createToast({
     type: 'ERROR',
     message: '네비게이션 연결을 해제하고 다시 시도해주세요!',
@@ -60,6 +64,7 @@ const IndivPageContent = (props: IndivPageContentProps) => {
         onTitleClick={() => {
           if (isDraft) {
             resetPageData();
+            sessionStorage?.removeItem(IS_FIRST_DRAFT_CLICK);
             router.push(`/${blogUrl}/editor/page/${id}/draft`);
           } else {
             window.open(`https://${blogUrl}.${process.env.NEXT_PUBLIC_DOMAIN_NAME}/content/page/${pageUrl}/${id}`);
@@ -68,9 +73,11 @@ const IndivPageContent = (props: IndivPageContentProps) => {
         onMutateClick={() => {
           if (isDraft) {
             resetPageData();
+            sessionStorage?.removeItem(IS_FIRST_DRAFT_CLICK);
             router.push(`/${blogUrl}/editor/page/${id}/draft`);
           } else {
             resetPageData();
+            sessionStorage?.removeItem(IS_FIRST_DRAFT_CLICK);
             router.push(`/${blogUrl}/editor/page/${id}/edit`);
           }
         }}
@@ -78,6 +85,7 @@ const IndivPageContent = (props: IndivPageContentProps) => {
           setModalState('deletePage');
           setDeleteContentId(id);
           resetPageData();
+          sessionStorage?.removeItem(IS_FIRST_DRAFT_CLICK);
         }}
       />
       {modalState === 'deletePage' && deleteContentId === id && (
