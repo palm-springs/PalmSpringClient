@@ -8,11 +8,10 @@ import styled from 'styled-components';
 
 import ModalPortal from '@/components/common/ModalPortal';
 import DashboardDeleteModal from '@/components/common/ui/DashboardDeleteModal';
-import { useGetUpdateArticleContent } from '@/hooks/editor';
 import { UpdateArticleProps } from '@/types/article';
 import { UpdatePageProps } from '@/types/page';
 
-import { articleDataState, pageDataState } from '../states/atom';
+import { articleDataState, isSaved, pageDataState } from '../states/atom';
 
 interface editorProps {
   handleOnClickDraft: () => void;
@@ -29,16 +28,14 @@ interface editorProps {
 const SaveEditorContentButton = (props: editorProps) => {
   const { team, articleId } = useParams();
   const [isModal, setIsModal] = useState(false); // 모달 보이고 안보이고
-  const [saved, setSaved] = useState(false); // 임시저장된 여부
+  const [saved, setSaved] = useRecoilState(isSaved); // 임시저장된 여부
   const { handleOnClickDraft, handleOnClickPublish, isEdit, pageType, atTop, setAtTop } = props;
   const router = useRouter();
 
   const articleData = useRecoilValue(articleDataState);
-
   const { title: articleTitle } = articleData;
 
   const pageData = useRecoilValue(pageDataState);
-
   const { title: pageTitle } = pageData;
 
   const notify = () =>
@@ -57,10 +54,29 @@ const SaveEditorContentButton = (props: editorProps) => {
       },
     });
 
+  useEffect(() => {
+    setAtTop(false);
+  }, []);
+
+  useEffect(() => {
+    const handleBeforeUnload = (e: BeforeUnloadEvent) => {
+      e.preventDefault();
+    };
+
+    // 새로고침 막기(조건 부여 가능)
+    if (!saved) {
+      window.addEventListener('beforeunload', handleBeforeUnload);
+    }
+
+    return () => {
+      window.removeEventListener('beforeunload', handleBeforeUnload);
+    };
+  }, [saved]);
+
   const handleDraftSaveButton = () => {
     handleOnClickDraft();
     notify();
-    setSaved(true); // 임시저장 버튼 누르면 저장 상태값 저장하기
+    setSaved(true);
   };
 
   const modalOpenHandler = () => {
@@ -81,10 +97,6 @@ const SaveEditorContentButton = (props: editorProps) => {
     document.body.style.overflow = 'visible';
     router.back();
   };
-
-  useEffect(() => {
-    setAtTop(false);
-  }, []);
 
   return (
     <>

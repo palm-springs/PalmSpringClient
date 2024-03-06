@@ -27,3 +27,8 @@ export const pageDataState = atom<CreatePageProps>({
   default: { title: '', content: '', images: [''], thumbnail: null, pageUrl: '' },
   effects_UNSTABLE: [pagePersistAtom],
 });
+
+export const isSaved = atom({
+  key: 'isSaved',
+  default: true,
+});

@@ -23,7 +23,7 @@ import Underline from '@tiptap/extension-underline';
 import { Editor, useEditor } from '@tiptap/react';
 import { lowlight } from 'lowlight';
 import { useParams, usePathname, useRouter } from 'next/navigation';
-import { useRecoilState } from 'recoil';
+import { useRecoilState, useSetRecoilState } from 'recoil';
 
 import { postArticleList } from '@/api/article';
 import { postPageDraft } from '@/api/page';
@@ -36,7 +36,7 @@ import { UpdateArticleProps } from '@/types/article';
 import { UpdatePageProps } from '@/types/page';
 import { getContentImageMultipartData } from '@/utils/getImageMultipartData';
 
-import { articleDataState, pageDataState } from './states/atom';
+import { articleDataState, isSaved, pageDataState } from './states/atom';
 
 interface TextEditorBuildprops {
   pageType: string;
@@ -66,6 +66,7 @@ const TextEditorBuild = (props: TextEditorBuildprops) => {
   const draftPageMutation = useUpdateTempPageDraft(String(team));
   const [updatedArticleData, setUpdatedArticleData] = useRecoilState(articleDataState);
   const [updatedPageData, setUpdatedPageData] = useRecoilState(pageDataState);
+  const setIsSaved = useSetRecoilState(isSaved);
 
   const selectEditorContent = () => {
     if (pathName.startsWith(`/${team}/editor/article`)) {
@@ -128,6 +129,9 @@ const TextEditorBuild = (props: TextEditorBuildprops) => {
       }),
     ],
     content: editorContent,
+    onUpdate: () => {
+      setIsSaved(false);
+    },
   });
 
   const encodeFileToBase64 = async (event: ChangeEvent<HTMLInputElement>, editor: Editor) => {
