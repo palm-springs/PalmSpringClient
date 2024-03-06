@@ -35,10 +35,10 @@ const EditorInputTitle = (props: TextEditorBuildProps) => {
 
   const selectTitle = () => {
     if (pathName.startsWith(`/${team}/editor/article`)) {
-      if (articleTitle) return articleTitle;
+      if (articleTitle !== undefined || articleTitle !== null) return articleTitle;
       if (articleData) return articleData.title;
     } else if (pathName.startsWith(`/${team}/editor/page`)) {
-      if (pageTitle) return pageTitle;
+      if (pageTitle !== undefined || pageTitle !== null) return pageTitle;
       if (pageData) return pageData.title;
     }
     return '';
