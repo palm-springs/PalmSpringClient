@@ -23,19 +23,20 @@ import Underline from '@tiptap/extension-underline';
 import { Editor, useEditor } from '@tiptap/react';
 import { lowlight } from 'lowlight';
 import { useParams, usePathname, useRouter } from 'next/navigation';
-import { useRecoilState } from 'recoil';
+import { useRecoilState, useSetRecoilState } from 'recoil';
 
 import { postArticleList } from '@/api/article';
 import { postPageDraft } from '@/api/page';
 import TextEditor from '@/components/editor/TextEditor';
 import SaveEditorContentButton from '@/components/editor/ui/SaveEditorContentButton';
 import ToolBox from '@/components/editor/ui/ToolBox';
+import { ARTICLE_DATA_ID, IS_FIRST_DRAFT_CLICK, PAGE_DATA_ID } from '@/constants/editor';
 import { useUpdateTempArticleDraft, useUpdateTempPageDraft } from '@/hooks/editor';
 import { UpdateArticleProps } from '@/types/article';
 import { UpdatePageProps } from '@/types/page';
 import { getContentImageMultipartData } from '@/utils/getImageMultipartData';
 
-import { articleDataState, pageDataState } from './states/atom';
+import { articleDataState, isSaved, pageDataState } from './states/atom';
 
 interface TextEditorBuildprops {
   pageType: string;
@@ -51,6 +52,9 @@ const TextEditorBuild = (props: TextEditorBuildprops) => {
   //atTop useState로 상위에서 내려주기 -> toolbox와 saveEditorButton 상태공유 위함!
   const [atTop, setAtTop] = useState(true);
 
+  // sessionStorage
+  const sessionStorage = typeof window !== 'undefined' ? window.sessionStorage : undefined;
+
   const [{ title: articleTitle, content: articleContent }, setArticleData] = useRecoilState(articleDataState); // 아티클 초기 타이틀 -> 복사 -> 새로운 title 갈아끼기
   const [{ title: pageTitle, content: pageContent }, setPageData] = useRecoilState(pageDataState);
 
@@ -62,10 +66,7 @@ const TextEditorBuild = (props: TextEditorBuildprops) => {
   const draftPageMutation = useUpdateTempPageDraft(String(team));
   const [updatedArticleData, setUpdatedArticleData] = useRecoilState(articleDataState);
   const [updatedPageData, setUpdatedPageData] = useRecoilState(pageDataState);
-  const [isFirstClick, setIsFirstClick] = useState(true);
-  //임시저장 responseBodyData
-  const [dataArticleId, setDataArticleId] = useState(null);
-  const [dataPageId, setDataPageId] = useState(null);
+  const setIsSaved = useSetRecoilState(isSaved);
 
   const selectEditorContent = () => {
     if (pathName.startsWith(`/${team}/editor/article`)) {
@@ -128,6 +129,9 @@ const TextEditorBuild = (props: TextEditorBuildprops) => {
       }),
     ],
     content: editorContent,
+    onUpdate: () => {
+      setIsSaved(false);
+    },
   });
 
   const encodeFileToBase64 = async (event: ChangeEvent<HTMLInputElement>, editor: Editor) => {
@@ -200,15 +204,13 @@ const TextEditorBuild = (props: TextEditorBuildprops) => {
 
   //content 페이지 최초 임시저장시 로직(1번 클릭 -> post 그 뒤 put으로)
   const handleOnDraftClickCount = () => {
-    if (isFirstClick) {
-      {
-        pageType === 'article' ? handleOnClickArticleDraft() : handleOnClickPageDraft();
-        setIsFirstClick(false);
-      }
+    const isFirstClick = sessionStorage?.getItem(IS_FIRST_DRAFT_CLICK);
+
+    if (isFirstClick === 'false') {
+      pageType === 'article' ? handleDataArticleDraft() : handleDataPageDraft();
     } else {
-      {
-        pageType === 'article' ? handleDataArticleDraft() : handleDataPageDraft();
-      }
+      pageType === 'article' ? handleOnClickArticleDraft() : handleOnClickPageDraft();
+      sessionStorage?.setItem(IS_FIRST_DRAFT_CLICK, 'false');
     }
   };
 
@@ -218,6 +220,11 @@ const TextEditorBuild = (props: TextEditorBuildprops) => {
       const content = editor.getHTML();
       setExtractedHTML(content);
 
+      setArticleData((prev) => ({
+        ...prev,
+        content,
+      }));
+
       try {
         const res = await postArticleList(String(team), {
           title: articleTitle,
@@ -226,7 +233,9 @@ const TextEditorBuild = (props: TextEditorBuildprops) => {
         });
 
         const articleId = res.data;
-        setDataArticleId(articleId);
+        if (articleId) {
+          sessionStorage?.setItem(ARTICLE_DATA_ID, articleId);
+        }
       } catch (error) {
         console.error('실패 에러임', error);
       }
@@ -239,6 +248,11 @@ const TextEditorBuild = (props: TextEditorBuildprops) => {
       const content = editor.getHTML();
       setExtractedHTML(content);
 
+      setPageData((prev) => ({
+        ...prev,
+        content,
+      }));
+
       try {
         const res = await postPageDraft(String(team), {
           title: pageTitle,
@@ -247,7 +261,9 @@ const TextEditorBuild = (props: TextEditorBuildprops) => {
         });
 
         const pageId = res.data;
-        setDataPageId(pageId);
+        if (pageId) {
+          sessionStorage?.setItem(PAGE_DATA_ID, pageId);
+        }
       } catch (error) {
         console.error('실패 에러임', error);
       }
@@ -259,6 +275,13 @@ const TextEditorBuild = (props: TextEditorBuildprops) => {
     if (editor) {
       const newContent = editor.getHTML();
       setExtractedHTML(newContent);
+
+      setArticleData((prev) => ({
+        ...prev,
+        content: newContent,
+      }));
+
+      const dataArticleId = sessionStorage?.getItem(ARTICLE_DATA_ID);
 
       draftArticleMutation.mutate({
         ...updatedArticleData,
@@ -304,6 +327,13 @@ const TextEditorBuild = (props: TextEditorBuildprops) => {
       const newContent = editor.getHTML();
       setExtractedHTML(newContent);
 
+      setPageData((prev) => ({
+        ...prev,
+        content: newContent,
+      }));
+
+      const dataPageId = sessionStorage?.getItem(PAGE_DATA_ID);
+
       draftPageMutation.mutate({
         ...updatedPageData,
         id: Number(dataPageId),
@@ -320,6 +350,10 @@ const TextEditorBuild = (props: TextEditorBuildprops) => {
     if (editor) {
       const newContent = editor.getHTML();
       setExtractedHTML(newContent);
+      setPageData((prev) => ({
+        ...prev,
+        content: newContent,
+      }));
 
       if (imageArr.length === 0) {
         draftPageMutation.mutate({

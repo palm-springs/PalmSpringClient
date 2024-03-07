@@ -1,6 +1,6 @@
 'use client';
-import React, { useEffect } from 'react';
-import { useRecoilState, useRecoilValue } from 'recoil';
+import React, { useEffect, useState } from 'react';
+import { useRecoilState } from 'recoil';
 import styled from 'styled-components';
 
 import { UpdateArticleProps } from '@/types/article';
@@ -17,26 +17,28 @@ interface PublishTitleprops {
 //정보 get 해야함
 const PublishTitle = (props: PublishTitleprops) => {
   const { pageType, pageData, articleData } = props;
+  const [titleValue, setTitleValue] = useState('');
 
   const [{ title: articleTitle }, setArticleData] = useRecoilState(articleDataState);
   const [{ title: pageTitle }, setPageData] = useRecoilState(pageDataState);
 
-  switch (pageType) {
-    case `article`:
-      return (
-        <TitleWrapper>
-          <EditorInputTitle>{articleTitle}</EditorInputTitle>
-        </TitleWrapper>
-      );
-    case `page`:
-      return (
-        <TitleWrapper>
-          <EditorInputTitle>{pageTitle}</EditorInputTitle>
-        </TitleWrapper>
-      );
-    default:
-      break;
-  }
+  useEffect(() => {
+    const selectTitle = () => {
+      if (pageType === 'article') {
+        if (articleTitle) setTitleValue(articleTitle);
+      } else if (pageType === 'page') {
+        if (pageTitle) setTitleValue(pageTitle);
+      }
+      return;
+    };
+    selectTitle();
+  }, []);
+
+  return (
+    <TitleWrapper>
+      <EditorInputTitle>{titleValue}</EditorInputTitle>
+    </TitleWrapper>
+  );
 };
 
 export default PublishTitle;

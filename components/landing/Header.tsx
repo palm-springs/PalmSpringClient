@@ -3,6 +3,7 @@
 
 import { useEffect, useState } from 'react';
 import { css } from '@emotion/react';
+import Image from 'next/image';
 // import AOS from 'aos';
 import Link from 'next/link';
 import { usePathname } from 'next/navigation';
@@ -99,7 +100,7 @@ const Header = ({ dashboardUrl }: { dashboardUrl?: string }) => {
           `}>
           <Link href="/">
             <div css={logo}>
-              <img src="/images/palmspring_new_logo.png" alt="palmtree" />
+              <Image src="/images/palmspring_new_logo.png" alt="palmtree" />
             </div>
           </Link>
           <a

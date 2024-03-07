@@ -35,16 +35,7 @@ const UrlCustom = (props: UrlCustomProps) => {
 
   const [isAddressFocus, setIsAddressFocus] = useState(false);
 
-  useEffect(() => {
-    if (articleData) {
-      setArticleData((prev) => ({ ...prev, articleUrl: articleData.articleUrl }));
-      checkAddressRulePassed(articleUrl);
-    } else if (pageData) {
-      setPageData((prev) => ({ ...prev, pageUrl: pageData.pageUrl }));
-      checkAddressRulePassed(pageUrl);
-    }
-  }, []);
-
+  // 중복 검사
   const checkDuplication = (value: string) => {
     if (pageType === 'page') {
       if (value === pageData?.pageUrl) {
@@ -61,79 +52,74 @@ const UrlCustom = (props: UrlCustomProps) => {
     }
   };
 
+  // url rule check
   const checkAddressRulePassed = (value: string) => {
     const checkAddressRule = /^[a-z0-9-]*$/.test(value);
     if (checkAddressRule) {
       setIsAddressRulePassed(true);
+      return true;
     } else {
       setIsAddressRulePassed(false);
+      return false;
     }
   };
 
+  // 최초 렌더링) 기존 url이 있을시 rule check
+  useEffect(() => {
+    if (pageType === 'article') {
+      if (articleData) {
+        setArticleData((prev) => ({ ...prev, articleUrl: articleData.articleUrl }));
+        checkAddressRulePassed(articleData.articleUrl);
+      } else {
+        setArticleData((prev) => ({ ...prev, articleUrl: '' }));
+      }
+    } else if (pageType === 'page') {
+      if (pageData) {
+        setPageData((prev) => ({ ...prev, pageUrl: pageData.pageUrl }));
+        checkAddressRulePassed(pageData.pageUrl);
+      } else {
+        setPageData((prev) => ({ ...prev, pageUrl: '' }));
+      }
+    }
+  }, []);
+
   const handleOnChange = (e: React.ChangeEvent<HTMLInputElement>) => {
     const { value } = e.currentTarget;
-    setArticleData((prev) => ({ ...prev, articleUrl: value }));
-    checkAddressRulePassed(value);
-    checkDuplication(value);
+
+    if (pageType === 'article') {
+      setArticleData((prev) => ({ ...prev, articleUrl: value }));
+    } else if (pageType === 'page') {
+      setPageData((prev) => ({ ...prev, pageUrl: value }));
+    }
+
+    // rule & duplication check
+    const isRulePassed = checkAddressRulePassed(value);
+    if (isRulePassed) checkDuplication(value);
   };
 
-  const handleOnPageChange = (e: React.ChangeEvent<HTMLInputElement>) => {
-    const { value } = e.currentTarget;
-    setPageData((prev) => ({ ...prev, pageUrl: value }));
-    checkAddressRulePassed(value);
-    checkDuplication(value);
-  };
+  if (pageType !== 'article' && pageType !== 'page') router.push('/not-found');
 
-  switch (pageType) {
-    case `article`:
-      return (
-        <UrlContainer>
-          <UrlTitleContainer>
-            <UrlTitle>URL</UrlTitle>
-            <EssentialPointerIcon />
-          </UrlTitleContainer>
+  return (
+    <UrlContainer>
+      <UrlTitleContainer>
+        <UrlTitle>URL</UrlTitle>
+        <EssentialPointerIcon />
+      </UrlTitleContainer>
 
-          <PublishInputForm isFocus={isAddressFocus} isDuplicate={isDuplicate}>
-            <div>
-              {team}.{process.env.NEXT_PUBLIC_DOMAIN_NAME}/content/
-            </div>
-            <TextInput
-              onFocus={() => setIsAddressFocus(true)}
-              onBlur={() => setIsAddressFocus(false)}
-              value={articleUrl}
-              onChange={handleOnChange}
-            />
-            {isDuplicate === null && articleUrl !== '' && <Loader01Icon />}
-          </PublishInputForm>
-          {!isAddressRulePassed && <Message>{'영문 소문자(a-z), 숫자(0-9), "-" 만 사용 가능해요.'}</Message>}
-          {isDuplicate && <Message>이미 사용 중인 URL입니다. 다른 URL를 입력해주세요.</Message>}
-        </UrlContainer>
-      );
-    case `page`:
-      return (
-        <UrlContainer>
-          <UrlTitleContainer>
-            <UrlTitle>URL</UrlTitle>
-            <EssentialPointerIcon />
-          </UrlTitleContainer>
-
-          <PublishInputForm isFocus={isAddressFocus} isDuplicate={isDuplicate}>
-            {team}.{process.env.NEXT_PUBLIC_DOMAIN_NAME}/content/
-            <TextInput
-              onFocus={() => setIsAddressFocus(true)}
-              onBlur={() => setIsAddressFocus(false)}
-              value={pageUrl}
-              onChange={handleOnPageChange}
-            />
-            {isDuplicate === null && pageUrl !== '' && <Loader01Icon />}
-          </PublishInputForm>
-          {!isAddressRulePassed && <Message>{'영문 소문자(a-z), 숫자(0-9), "-" 만 사용 가능해요.'}</Message>}
-          {isDuplicate && <Message>이미 사용 중인 URL입니다. 다른 URL를 입력해주세요.</Message>}
-        </UrlContainer>
-      );
-    default:
-      router.push('/not-found');
-  }
+      <PublishInputForm isFocus={isAddressFocus} isDuplicate={isDuplicate}>
+        {team}.{process.env.NEXT_PUBLIC_DOMAIN_NAME}/content/
+        <TextInput
+          onFocus={() => setIsAddressFocus(true)}
+          onBlur={() => setIsAddressFocus(false)}
+          value={pageType === 'article' ? articleUrl : pageUrl}
+          onChange={handleOnChange}
+        />
+        {isDuplicate === null && (pageType === 'article' ? articleUrl !== '' : pageUrl !== '') && <Loader01Icon />}
+      </PublishInputForm>
+      {!isAddressRulePassed && <Message>{'영문 소문자(a-z), 숫자(0-9), "-" 만 사용 가능해요.'}</Message>}
+      {isDuplicate && <Message>이미 사용 중인 URL입니다. 다른 URL를 입력해주세요.</Message>}
+    </UrlContainer>
+  );
 };
 
 export default UrlCustom;

@@ -3,6 +3,7 @@
 
 import { useEffect, useState } from 'react';
 import { css } from '@emotion/react';
+import Image from 'next/image';
 import Link from 'next/link';
 
 const header = (position: number) => {
@@ -93,7 +94,7 @@ export default function Header({ theme }: { theme: any }) {
         <div css={inside_header(position)}>
           <div css={inside_header_left(position)}>
             <Link href="/">
-              <img src="/images/palmspring-text-logo-white.png" alt="palmspring logo" />
+              <Image src="/images/palmspring-text-logo-white.png" alt="palmspring logo" />
             </Link>
           </div>
           <div css={inside_header_right}>

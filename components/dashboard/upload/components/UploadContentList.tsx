@@ -50,18 +50,20 @@ const UploadContentList = (props: UploadContentListProps) => {
       />
       {articleData.data.map(({ id, title, memberName, job, createdAt, articleCategory, articleUrl }) => {
         return (
-          <IndivUploadContentList
-            key={id}
-            id={id}
-            title={title}
-            memberName={memberName}
-            job={job}
-            createdAt={createdAt}
-            articleCategory={articleCategory}
-            articleUrl={articleUrl}
-            deleteModalId={deleteModalId}
-            setDeleteModalId={setDeleteModalId}
-          />
+          <>
+            <IndivUploadContentList
+              key={id}
+              id={id}
+              title={title}
+              memberName={memberName}
+              job={job}
+              createdAt={createdAt}
+              articleCategory={articleCategory}
+              articleUrl={articleUrl}
+              deleteModalId={deleteModalId}
+              setDeleteModalId={setDeleteModalId}
+            />
+          </>
         );
       })}
     </DashBoardContentListContainer>

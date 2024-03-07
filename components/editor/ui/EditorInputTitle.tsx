@@ -1,14 +1,14 @@
 'use client';
 
-import React, { ChangeEvent, useCallback, useEffect, useRef, useState } from 'react';
+import React, { ChangeEvent, useCallback, useEffect, useRef } from 'react';
 import { useParams, usePathname } from 'next/navigation';
-import { useRecoilState } from 'recoil';
+import { useRecoilState, useSetRecoilState } from 'recoil';
 import styled from 'styled-components';
 
 import { UpdateArticleProps } from '@/types/article';
 import { UpdatePageProps } from '@/types/page';
 
-import { articleDataState, pageDataState } from '../states/atom';
+import { articleDataState, isSaved, pageDataState } from '../states/atom';
 
 interface TextEditorBuildProps {
   pageType: string;
@@ -24,6 +24,8 @@ const EditorInputTitle = (props: TextEditorBuildProps) => {
 
   const [{ title: articleTitle }, setArticleData] = useRecoilState(articleDataState); // 아티클 초기 타이틀 -> 복사 -> 새로운 title 갈아끼기
   const [{ title: pageTitle }, setPageData] = useRecoilState(pageDataState);
+  const setIsSaved = useSetRecoilState(isSaved);
+
   const textareaRef = useRef<HTMLTextAreaElement>(null);
 
   const handleResizeInput = useCallback(() => {
@@ -35,10 +37,10 @@ const EditorInputTitle = (props: TextEditorBuildProps) => {
 
   const selectTitle = () => {
     if (pathName.startsWith(`/${team}/editor/article`)) {
-      if (articleTitle) return articleTitle;
+      if (articleTitle !== undefined || articleTitle !== null) return articleTitle;
       if (articleData) return articleData.title;
     } else if (pathName.startsWith(`/${team}/editor/page`)) {
-      if (pageTitle) return pageTitle;
+      if (pageTitle !== undefined || pageTitle !== null) return pageTitle;
       if (pageData) return pageData.title;
     }
     return '';
@@ -55,48 +57,27 @@ const EditorInputTitle = (props: TextEditorBuildProps) => {
     handleResizeInput();
   }, []);
 
-  const handleSaveArticleTitle = (e: ChangeEvent<HTMLTextAreaElement>) => {
+  const handleSaveTitle = (e: ChangeEvent<HTMLTextAreaElement>) => {
     const { value } = e.target;
-    setArticleData((prev) => ({ ...prev, title: value }));
+    pageType === 'article'
+      ? setArticleData((prev) => ({ ...prev, title: value }))
+      : setPageData((prev) => ({ ...prev, title: value }));
     handleResizeInput();
+    setIsSaved(false);
   };
 
-  const handleSavePageTitle = (e: ChangeEvent<HTMLTextAreaElement>) => {
-    const { value } = e.target;
-    setPageData((prev) => ({ ...prev, title: value }));
-    handleResizeInput();
-  };
-
-  switch (pageType) {
-    case `article`:
-      return (
-        <EditorInputTitleContainer>
-          <TitleInputBox
-            value={titleValue}
-            onChange={handleSaveArticleTitle}
-            rows={1}
-            maxLength={67}
-            ref={textareaRef}
-            placeholder="제목을 입력해주세요"
-          />
-        </EditorInputTitleContainer>
-      );
-    case `page`:
-      return (
-        <EditorInputTitleContainer>
-          <TitleInputBox
-            value={titleValue}
-            onChange={handleSavePageTitle}
-            rows={1}
-            maxLength={67}
-            ref={textareaRef}
-            placeholder="제목을 입력해주세요"
-          />
-        </EditorInputTitleContainer>
-      );
-    default:
-      break;
-  }
+  return (
+    <EditorInputTitleContainer>
+      <TitleInputBox
+        value={titleValue}
+        onChange={handleSaveTitle}
+        rows={1}
+        maxLength={67}
+        ref={textareaRef}
+        placeholder="제목을 입력해주세요"
+      />
+    </EditorInputTitleContainer>
+  );
 };
 
 export default EditorInputTitle;

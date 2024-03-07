@@ -2,6 +2,7 @@
 
 import { ChangeEvent, useState } from 'react';
 import { Toaster } from 'react-hot-toast';
+import Image from 'next/image';
 import { useParams } from 'next/navigation';
 import { useSetRecoilState } from 'recoil';
 import styled from 'styled-components';
@@ -67,7 +68,7 @@ const ImageInputForm = (props: ImageInputFormProps) => {
       <ImageContainer className={type} isImgSrc={!!imgSrc}>
         {imgSrc ? (
           <>
-            <img src={imgSrc} alt={`${type} 이미지`} />
+            <Image src={imgSrc} alt={`${type} 이미지`} />
             <CloseButton onClick={handleOnDeleteImg} className={type}>
               <IcClose24Icon />
             </CloseButton>
