@@ -16,6 +16,7 @@ import {
 } from '@/hooks/editor';
 import { UpdateArticleProps } from '@/types/article';
 import { UpdatePageProps } from '@/types/page';
+import { removeDraftContentData } from '@/utils/removeContentData';
 
 import { articleDataState, pageDataState } from '../../states/atom';
 
@@ -52,11 +53,15 @@ const PublishBottomButtons = (props: PublishBottomButtons) => {
   const resetArticleData = useResetRecoilState(articleDataState);
   const resetPageData = useResetRecoilState(pageDataState);
 
+  // sessionStorage
+  const sessionStorage = typeof window !== 'undefined' ? window.sessionStorage : undefined;
+
   //아티클 최종 발행하기
   const handleOnClickArticlePublish = async () => {
     await postArticleCreateList(String(team), updatedArticleData);
     queryClient.invalidateQueries([QUERY_KEY_ARTICLE.getArticleList]);
     resetArticleData();
+    removeDraftContentData();
     router.push(`/${team}/dashboard/upload`);
   };
 
@@ -74,6 +79,7 @@ const PublishBottomButtons = (props: PublishBottomButtons) => {
       },
     );
     resetArticleData();
+    removeDraftContentData();
     router.push(`/${team}/dashboard/upload`);
   };
 
@@ -92,6 +98,7 @@ const PublishBottomButtons = (props: PublishBottomButtons) => {
       },
     );
     resetArticleData();
+    removeDraftContentData();
     router.push(`/${team}/dashboard/upload`);
   };
 
@@ -99,6 +106,7 @@ const PublishBottomButtons = (props: PublishBottomButtons) => {
   const handleOnClickPagePublish = () => {
     postPageCreate(String(team), updatedPageData);
     resetPageData();
+    removeDraftContentData();
     router.push(`/${team}/dashboard/page`);
   };
 
@@ -106,6 +114,7 @@ const PublishBottomButtons = (props: PublishBottomButtons) => {
   const handleOnClickUpdatePagePublish = () => {
     updatePageMutation.mutate({ ...updatedPageData, id: Number(pageId) });
     resetPageData();
+    removeDraftContentData();
     router.push(`/${team}/dashboard/page`);
   };
 
@@ -117,6 +126,7 @@ const PublishBottomButtons = (props: PublishBottomButtons) => {
       isPublish: true,
     });
     resetArticleData();
+    removeDraftContentData();
     router.push(`/${team}/dashboard/page`);
   };
 

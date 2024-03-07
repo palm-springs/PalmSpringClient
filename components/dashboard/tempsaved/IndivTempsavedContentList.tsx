@@ -4,6 +4,7 @@ import { useRecoilState, useResetRecoilState } from 'recoil';
 
 import { articleDataState } from '@/components/editor/states/atom';
 import { useDeleteArticle } from '@/hooks/dashboard';
+import { removeDraftContentData } from '@/utils/removeContentData';
 
 import DashBoardContent from '../components/DashBoardContent';
 import DashboardContentDeleteModal from '../components/DashboardContentDeleteModal';
@@ -29,6 +30,9 @@ const IndivTempsavedContentList = (props: IndivTempsavedContentListProps) => {
 
   const [modalState, setModalState] = useRecoilState(dashBoardModalState);
 
+  // sessionStorage
+  const sessionStorage = typeof window !== 'undefined' ? window.sessionStorage : undefined;
+
   const { mutate } = useDeleteArticle(blogUrl, id);
 
   return (
@@ -53,14 +57,17 @@ const IndivTempsavedContentList = (props: IndivTempsavedContentListProps) => {
         createdAt={createdAt}
         onTitleClick={() => {
           resetArticleData();
+          removeDraftContentData();
           router.push(`/${blogUrl}/editor/article/${id}/draft`);
         }}
         onMutateClick={() => {
           resetArticleData();
+          removeDraftContentData();
           router.push(`/${blogUrl}/editor/article/${id}/draft`);
         }}
         onDeleteClick={() => {
           resetArticleData();
+          removeDraftContentData();
           setModalState('deleteArticle');
           setDeleteModalId(id);
         }}

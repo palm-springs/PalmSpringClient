@@ -8,6 +8,7 @@ import EmptyLanding from '@/components/common/ui/EmptyLanding';
 import LoadingLottie from '@/components/common/ui/LoadingLottie';
 import { articleDataState } from '@/components/editor/states/atom';
 import { useGetTempSavedList } from '@/hooks/dashboard';
+import { removeDraftContentData } from '@/utils/removeContentData';
 
 import DashBoardContent from '../components/DashBoardContent';
 import DashBoardContentListContainer from '../components/ui/DashBoardContentListContainer';
@@ -23,6 +24,9 @@ const TempsavedContentList = () => {
   const data = useGetTempSavedList(blogUrl);
 
   const resetArticleDataState = useResetRecoilState(articleDataState);
+
+  // sessionStorage
+  const sessionStorage = typeof window !== 'undefined' ? window.sessionStorage : undefined;
 
   const [deleteModalId, setDeleteModalId] = useState<number | null>(null);
 
@@ -40,8 +44,9 @@ const TempsavedContentList = () => {
       message2="새 글을 작성해보세요."
       buttonText="새 글 작성하기"
       buttonClick={() => {
-        router.push(`/${blogUrl}/editor/article`);
         resetArticleDataState();
+        removeDraftContentData();
+        router.push(`/${blogUrl}/editor/article`);
       }}
     />
   ) : (

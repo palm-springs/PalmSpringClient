@@ -10,6 +10,7 @@ import useGetLastPathName from '@/hooks/useGetLastPathName';
 import usePerMissionPolicy from '@/hooks/usePermissionPolicy';
 import { dashBoardPageType } from '@/types/dashboard';
 import checkRenderPermissionButton from '@/utils/checkRenderPermissionButton';
+import { removeDraftContentData } from '@/utils/removeContentData';
 
 import { dashBoardModalState } from '../state/modalState';
 
@@ -43,12 +44,14 @@ const DashBoardHeader = () => {
         return;
       case 'upload':
       case 'tempsaved':
-        router.push(`/${team}/editor/article`);
         resetArticleDataState();
+        removeDraftContentData();
+        router.push(`/${team}/editor/article`);
         return;
       case 'page':
-        router.push(`/${team}/editor/page`);
         resetPageDataState();
+        removeDraftContentData();
+        router.push(`/${team}/editor/page`);
         return;
       default:
         return;

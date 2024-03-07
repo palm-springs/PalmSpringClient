@@ -4,6 +4,7 @@ import { useRecoilState, useResetRecoilState } from 'recoil';
 
 import { articleDataState } from '@/components/editor/states/atom';
 import { useDeleteArticle } from '@/hooks/dashboard';
+import { removeDraftContentData } from '@/utils/removeContentData';
 
 import DashBoardContent from '../../components/DashBoardContent';
 import DashboardContentDeleteModal from '../../components/DashboardContentDeleteModal';
@@ -34,6 +35,9 @@ const IndivUploadContentList = (props: IndivUploadContentListProps) => {
 
   const [dashboardModalState, setDashboardModalState] = useRecoilState(dashBoardModalState);
 
+  // sessionStorage
+  const sessionStorage = typeof window !== 'undefined' ? window.sessionStorage : undefined;
+
   const { mutate } = useDeleteArticle(team, id);
   return (
     <>
@@ -56,8 +60,9 @@ const IndivUploadContentList = (props: IndivUploadContentListProps) => {
         position={job}
         createdAt={createdAt}
         onMutateClick={() => {
-          router.push(`/${team}/editor/article/${String(id)}/edit`);
           resetArticleData();
+          removeDraftContentData();
+          router.push(`/${team}/editor/article/${String(id)}/edit`);
         }}
         onTitleClick={() => {
           window.open(
