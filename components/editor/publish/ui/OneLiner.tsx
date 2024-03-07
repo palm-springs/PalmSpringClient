@@ -20,6 +20,8 @@ const OneLiner = (props: CategorySelectProps) => {
   useEffect(() => {
     if (articleData) {
       setArticleData((prev) => ({ ...prev, description: String(articleData.description) }));
+    } else {
+      setArticleData((prev) => ({ ...prev, description: '' }));
     }
   }, []);
 

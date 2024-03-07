@@ -66,12 +66,20 @@ const UrlCustom = (props: UrlCustomProps) => {
 
   // 최초 렌더링) 기존 url이 있을시 rule check
   useEffect(() => {
-    if (articleData) {
-      setArticleData((prev) => ({ ...prev, articleUrl: articleData.articleUrl }));
-      checkAddressRulePassed(articleData.articleUrl);
-    } else if (pageData) {
-      setPageData((prev) => ({ ...prev, pageUrl: pageData.pageUrl }));
-      checkAddressRulePassed(pageData.pageUrl);
+    if (pageType === 'article') {
+      if (articleData) {
+        setArticleData((prev) => ({ ...prev, articleUrl: articleData.articleUrl }));
+        checkAddressRulePassed(articleData.articleUrl);
+      } else {
+        setArticleData((prev) => ({ ...prev, articleUrl: '' }));
+      }
+    } else if (pageType === 'page') {
+      if (pageData) {
+        setPageData((prev) => ({ ...prev, pageUrl: pageData.pageUrl }));
+        checkAddressRulePassed(pageData.pageUrl);
+      } else {
+        setPageData((prev) => ({ ...prev, pageUrl: '' }));
+      }
     }
   }, []);
 
