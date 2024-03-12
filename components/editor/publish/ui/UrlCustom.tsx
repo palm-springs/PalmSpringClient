@@ -8,8 +8,7 @@ import styled from 'styled-components';
 import { EssentialCircleIcon, Loader01Icon } from '@/public/icons';
 import { UpdateArticleProps } from '@/types/article';
 import { UpdatePageProps } from '@/types/page';
-import CheckArticleDuplication from '@/utils/checkArticleUrlDuplication';
-import CheckPageDuplication from '@/utils/checkPageUrlDuplication';
+import CheckContentUrlDuplication from '@/utils/checkContentUrlDuplication';
 
 import { articleDataState, pageDataState } from '../../states/atom';
 
@@ -41,13 +40,13 @@ const UrlCustom = (props: UrlCustomProps) => {
       if (value === pageData?.pageUrl) {
         setIsDuplicate(false);
       } else {
-        CheckPageDuplication(team, value, setIsDuplicate);
+        CheckContentUrlDuplication(team, value, setIsDuplicate);
       }
     } else if (pageType === 'article') {
       if (value === articleData?.articleUrl) {
         setIsDuplicate(false);
       } else {
-        CheckArticleDuplication(team, value, setIsDuplicate);
+        CheckContentUrlDuplication(team, value, setIsDuplicate);
       }
     }
   };
