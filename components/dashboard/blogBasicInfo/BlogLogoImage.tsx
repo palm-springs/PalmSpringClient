@@ -144,7 +144,7 @@ const BlogLogoImageContainer = styled.div`
   margin-top: 3.2rem;
 `;
 
-const PreLoadImg = styled(Image)`
+const PreLoadImg = styled.img`
   margin-left: 1.8rem;
   border-radius: 0.8rem;
 
