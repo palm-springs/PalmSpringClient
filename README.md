@@ -17,6 +17,10 @@
 
 ![기능설명](https://github.com/palm-springs/PalmSpringClient/assets/108226647/0baee4a4-05b8-4028-bf9f-56ce9ec366ea)
 
+## 🗂 레포지토리
+대시보드(해당 레포지토리) - <a href="https://github.com/palm-springs/PalmSpringClient"><b>PalmSpringClient</b></a> <br/>
+블로그(서브도메인) - <a href="https://github.com/palm-springs/PalmSpringSubdomain">PalmSpringSubdomain</a>
+
 ## 👩🏻‍💻 팀원 소개
 |김서현|오형근|이시연|장명지|
 |:-:|:-:|:-:|:-:|
@@ -39,65 +43,3 @@
 |Post message|<img width="217" alt="스크린샷 2023-07-12 오후 4 16 01" src="https://github.com/palm-springs/PalmSpringClient/assets/108226647/980d0f31-f283-45f2-af35-9bdddf674659">
 
 <br />
-
-## 📂 폴더 구조
-```
-|-- 📁 node_modules
-|-- 📁 public
-  ┃ ┣ 📂icons
-  ┃ ┣ 📂images
-|-- 📁 app
- 	┣ 📂[team]
- 	┃ ┣ 📂author
- 	┃ ┃ ┗ 📂[authorId]
- 	┃ ┣ 📂content
- 	┃ ┃ ┗ 📂[contentUrl]
- 	┃ ┣ 📂dashboard
-  ┃ ┃ ┣ 📂basicuserinfo
-  ┃ ┃ ┣ 📂blogconfignav
-  ┃ ┃ ┣ 📂category
-  ┃ ┃ ┣ 📂member
-  ┃ ┃ ┣ 📂nav
-  ┃ ┃ ┣ 📂navigation
-  ┃ ┃ ┣ 📂page
-  ┃ ┃ ┣ 📂subscriber
-  ┃ ┃ ┣ 📂tempsaved
-  ┃ ┃ ┣ 📂upload
- 	┃ ┣ 📂editor
- 	┃ ┃ ┣ 📂article
- 	┃ ┃ ┃ ┣ 📂publish
- 	┃ ┃ ┣ 📂page
- 	┃ ┃ ┣ ┗ 📂publish
- 	┃ ┣ 📂home
- 	┃ ┃ ┗ 📂[category]
- 	┣ 📂auth
- 	┣ 📂create-blog
- 	┃ ┗ 📂success
- 	┣ 📂invite
- 	┣ 📂loading
- 	┃ ┗ 📂dashboard
- 	┣ 📂team
- 	┣ 📜favicon.ico
- 	┣ 📜layout.tsx
- 	┗ 📜page.tsx
-|-- 📁 components
-  ┃ ┣ 📂auth
-  ┃ ┣ 📂author
-  ┃ ┣ 📂blog
-  ┃ ┣ 📂common
-  ┃ ┣ 📂content
-  ┃ ┣ 📂create-blog
-  ┃ ┣ 📂dashboard
-  ┃ ┣ 📂editor
-  ┃ ┣ 📂invite
-  ┃ ┣ 📂landing
-  ┗ ┣ 📂loading
-|-- 📁 constants
-|-- 📁 hooks
-|-- 📁 styles
-|-- 📁 utils
-|-- 📁 types
-|-- 📁 api
-|-- 📁 hooks
-└── 📜각종 세팅 파일
-```
