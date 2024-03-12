@@ -41,11 +41,6 @@ export const postPageCreate = async (url: string, requestBody: postPageCreateReq
   return data;
 };
 
-export const getCheckPageUrlDuplication = async (teamUrl: string, pageUrl: string) => {
-  const { data } = await client.get(`/api/v2/dashboard/page/admin/check/${teamUrl}?pageUrl=${pageUrl}`);
-  return data;
-};
-
 // 페이지 업로드된 글 get (path 수정완)
 export const getUpdatePageContent = async (blogUrl: string, pageId: number) => {
   const { data } = await client.get(`/api/v2/dashboard/page/admin/detail/modify/${blogUrl}?pageId=${pageId}`);
