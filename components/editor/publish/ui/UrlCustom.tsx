@@ -106,7 +106,7 @@ const UrlCustom = (props: UrlCustomProps) => {
       </UrlTitleContainer>
 
       <PublishInputForm isFocus={isAddressFocus} isDuplicate={isDuplicate}>
-        {team}.{process.env.NEXT_PUBLIC_DOMAIN_NAME}/content/
+        {team}.{process.env.NEXT_PUBLIC_DOMAIN_NAME}/
         <TextInput
           onFocus={() => setIsAddressFocus(true)}
           onBlur={() => setIsAddressFocus(false)}
