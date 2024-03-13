@@ -26,7 +26,6 @@ const MemberList = () => {
   const user = useRecoilValue(userState);
 
   if (!res || !res.data || !user) return <LoadingLottie width={5} height={5} fit />;
-
   const MemberList = res.data.map(({ email, id, job, nickname, thumbnail, role }) => {
     const isUserCanEditIndivMemberPermission =
       userRole === 'OWNER' ? true : userRole === 'MANAGER' ? role === 'EDITOR' : false;
