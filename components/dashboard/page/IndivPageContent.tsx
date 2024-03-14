@@ -67,7 +67,7 @@ const IndivPageContent = (props: IndivPageContentProps) => {
             removeDraftContentData();
             router.push(`/${blogUrl}/editor/page/${id}/draft`);
           } else {
-            window.open(`https://${blogUrl}.${process.env.NEXT_PUBLIC_DOMAIN_NAME}/content/page/${pageUrl}/${id}`);
+            window.open(`https://${blogUrl}.${process.env.NEXT_PUBLIC_DOMAIN_NAME}/${pageUrl}`);
           }
         }}
         onMutateClick={() => {
