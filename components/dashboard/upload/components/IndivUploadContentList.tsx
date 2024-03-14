@@ -65,9 +65,7 @@ const IndivUploadContentList = (props: IndivUploadContentListProps) => {
           router.push(`/${team}/editor/article/${String(id)}/edit`);
         }}
         onTitleClick={() => {
-          window.open(
-            `https://${team}.${process.env.NEXT_PUBLIC_DOMAIN_NAME}/content/article/${articleUrl}/${String(id)}`,
-          );
+          window.open(`https://${team}.${process.env.NEXT_PUBLIC_DOMAIN_NAME}/${articleUrl}`);
         }}
         onDeleteClick={() => {
           setDashboardModalState('deleteArticle');
