@@ -39,6 +39,7 @@ const IndivTempsavedContentList = (props: IndivTempsavedContentListProps) => {
     <>
       {modalState === 'deleteArticle' && deleteModalId === id && (
         <DashboardContentDeleteModal
+          title={title}
           text="글을 삭제하시겠어요?"
           subText="글을 삭제할 시, 복구할 수 없습니다."
           onDelete={() => {
