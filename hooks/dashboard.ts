@@ -214,6 +214,7 @@ export const useDeleteArticle = (blogUrl: string, id: number) => {
 
   const mutation = useMutation([QUERY_KEY_DASHBOARD.deleteArticle, blogUrl, id], () => deleteArticle(blogUrl, id), {
     onSuccess: () => {
+      queryClient.invalidateQueries([QUERY_KEY_ARTICLE.getArticleList]);
       queryClient.invalidateQueries([QUERY_KEY_ARTICLE.getTempSavedList]);
     },
   });
