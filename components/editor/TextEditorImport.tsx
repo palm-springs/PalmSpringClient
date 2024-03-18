@@ -1,5 +1,15 @@
 'use client';
-import React, { ChangeEvent, DragEvent, DragEventHandler, useCallback, useEffect, useState } from 'react';
+import React, {
+  ChangeEvent,
+  ClipboardEvent,
+  ClipboardEventHandler,
+  DragEvent,
+  DragEventHandler,
+  ReactEventHandler,
+  useCallback,
+  useEffect,
+  useState,
+} from 'react';
 import Blockquote from '@tiptap/extension-blockquote';
 import Bold from '@tiptap/extension-bold';
 import BulletList from '@tiptap/extension-bullet-list';
@@ -26,15 +36,17 @@ import { useParams, usePathname, useRouter } from 'next/navigation';
 import { useRecoilState, useSetRecoilState } from 'recoil';
 
 import { postArticleList } from '@/api/article';
+import { uploadContentImage, uploadImage } from '@/api/common';
 import { postPageDraft } from '@/api/page';
 import TextEditor from '@/components/editor/TextEditor';
 import SaveEditorContentButton from '@/components/editor/ui/SaveEditorContentButton';
 import ToolBox from '@/components/editor/ui/ToolBox';
 import { ARTICLE_DATA_ID, IS_FIRST_DRAFT_CLICK, PAGE_DATA_ID } from '@/constants/editor';
 import { useUpdateTempArticleDraft, useUpdateTempPageDraft } from '@/hooks/editor';
+import { useDraftAutoSave } from '@/hooks/useDraftAutoSave';
 import { UpdateArticleProps } from '@/types/article';
 import { UpdatePageProps } from '@/types/page';
-import { getContentImageMultipartData } from '@/utils/getImageMultipartData';
+import { getContentCtrlVImage, getContentImageMultipartData } from '@/utils/getImageMultipartData';
 
 import { articleDataState, isSaved, pageDataState } from './states/atom';
 
@@ -169,6 +181,58 @@ const TextEditorBuild = (props: TextEditorBuildprops) => {
       editor.chain().focus().extendMarkRange('link').setLink({ href: url }).run();
     },
     [editor],
+  );
+
+  //이미지 복붙
+  const ctrlVImage: ClipboardEventHandler<HTMLInputElement> = useCallback(
+    async (event) => {
+      const clipboardData = event.clipboardData || window.Clipboard;
+      alert('djfkjdkfjkdjfkdkfdkj');
+      const pastedText = clipboardData.getData('text/html');
+      console.log('복붙 이미지 html 성공', pastedText);
+      const parser = new DOMParser();
+
+      const doc = parser.parseFromString(pastedText, 'text/html');
+      const base64ImgElements = doc.querySelectorAll('img[src*="base64"]');
+      const base64eArr = Array.from(base64ImgElements).map((img) => img.getAttribute('src'));
+
+      console.log('복붙이미지 감지, 추출 성공', base64eArr);
+
+      base64eArr.forEach(async (srcString) => {
+        console.log('있냐', srcString);
+        if (srcString === null) {
+          return console.log('이미지업ㅂㅅ음');
+        }
+
+        //base64 -> blob변환 코드
+        // const binaryString = atob(srcString.split(',')[1]);
+        // const arrayBuffer = new ArrayBuffer(binaryString.length);
+        // const view = new Uint8Array(arrayBuffer);
+        // for (let i = 0; i < binaryString.length; i++) {
+        //   view[i] = binaryString.charCodeAt(i) & 0xff;
+        // }
+
+        // const blob = new Blob([arrayBuffer], { type: 'image/png' });
+
+        // const formData = new FormData();
+        // formData.append('image', blob);
+        // formData.append('blogUrl', String(team));
+
+        // try {
+        //   const imgUrl = await uploadContentImage(String(team), formData);
+        //   console.log('이미지 변환 성공:', imgUrl);
+        // } catch (error) {
+        //   console.error('이미지 변환 실패:', error);
+        // }
+
+        // 이미지 서버 통신 코드
+        // const imgUrl = await getContentCtrlVImage(imgUrlBlob, String(team));
+        // console.log('이미지 변환 성공', imgUrl);
+        // imageArr.push(imgUrl);
+        // editor.chain().focus().setImage({ src: imgUrl }).run();
+      });
+    },
+    [editor, setImageSrc],
   );
 
   //이미지 drag & drop
@@ -521,7 +585,7 @@ const TextEditorBuild = (props: TextEditorBuildprops) => {
         atTop={atTop}
         setAtTop={setAtTop}
       />
-      <TextEditor editor={editor} handleDrop={handleDrop} handleDragOver={handleDragOver} />
+      <TextEditor editor={editor} handleDrop={handleDrop} handleDragOver={handleDragOver} ctrlVImage={ctrlVImage} />
 
       {pageType === 'article' ? (
         <SaveEditorContentButton

@@ -1,6 +1,6 @@
 'use client';
 
-import { DragEventHandler, FormEventHandler, useEffect, useState } from 'react';
+import { ClipboardEvent, ClipboardEventHandler, DragEventHandler, FormEventHandler, useEffect, useState } from 'react';
 import { Editor, EditorContent } from '@tiptap/react';
 import styled from 'styled-components';
 
@@ -9,13 +9,18 @@ interface editorProps {
   handleDragOver: DragEventHandler<HTMLDivElement> | undefined;
   handleDrop: DragEventHandler<HTMLDivElement> | undefined;
   onChange?: FormEventHandler<HTMLDivElement> | undefined;
+  ctrlVImage: ClipboardEventHandler<HTMLDivElement> | undefined;
 }
 
 //텍스트 에디터 안에 ref가 안써짐 -> 터치영역 포커스 이동 몬함...
-const TextEditor = ({ editor, handleDragOver, handleDrop, onChange }: editorProps) => {
+const TextEditor = ({ editor, handleDragOver, handleDrop, onChange, ctrlVImage }: editorProps) => {
   // const [editorHeight, setEditorHeight] = useState<number>(650);
 
   const [long, setlong] = useState<boolean>(false);
+
+  const handleClipboardEvent = (e: ClipboardEvent<HTMLInputElement>) => {
+    alert('kdjkfjdkfkdjfkjkd');
+  };
 
   useEffect(() => {
     const handleScroll = () => {
@@ -38,6 +43,7 @@ const TextEditor = ({ editor, handleDragOver, handleDrop, onChange }: editorProp
       id="dropzone"
       onDrop={handleDrop}
       onDragOver={handleDragOver}
+      onPaste={ctrlVImage}
       style={{ height: 'fit-content' }}>
       <EditorContainer tabIndex={-1}>
         <TextEditorUI editor={editor} $long={long} tabIndex={0} />
