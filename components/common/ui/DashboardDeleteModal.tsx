@@ -26,9 +26,11 @@ const DashboardDeleteModal = ({
   return (
     <ModalContainer>
       <ModalWrapper>
-        <TitleText>
-          &#39;<span>{title}</span>&#39;
-        </TitleText>
+        {text === '글을 삭제하시겠어요?' && (
+          <TitleText>
+            &#39;<span>{title}</span>&#39;
+          </TitleText>
+        )}
         <MainText>{text}</MainText>
         <SubText>{subText}</SubText>
         <LineBreakingText>{lineBreaking}</LineBreakingText>
