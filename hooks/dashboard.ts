@@ -168,6 +168,7 @@ export const useUpdateUserInfo = (blogUrl: string, userInfo: UserBasicInfo) => {
   return useMutation([QUERY_KEY_DASHBOARD.updateUserInfo, blogUrl, userInfo], () => updateUserInfo(blogUrl, userInfo), {
     onSuccess: () => {
       queryClient.invalidateQueries([QUERY_KEY_DASHBOARD.getNavList]);
+      queryClient.invalidateQueries([QUERY_KEY_DASHBOARD.getUserBasicInfo]);
     },
   });
 };
