@@ -19,10 +19,10 @@ export default async function sitemap({ id }: { id: number }): Promise<MetadataR
   const team = blogListInfo.find(({ id: teamId }) => teamId === id)?.blogUrl;
 
   // 블로그별 정보 get
-  const { data: articles } = await getBlogArticleList(team, null);
-  const { data: pages } = await getBlogHeaderInfo(team);
-  const { data: categorys } = await getBlogCategoryList(team);
-  const { data: members } = await getMemberListInfo(team);
+  const { data: articles } = await getBlogArticleList(String(team), null);
+  const { data: pages } = await getBlogHeaderInfo(String(team));
+  const { data: categorys } = await getBlogCategoryList(String(team));
+  const { data: members } = await getMemberListInfo(String(team));
 
   // 각 url 동적 생성
   const articleUrlList = articles.map(({ articleUrl }) => ({
