@@ -12,3 +12,9 @@ export interface createBlogData {
   logo: string | null;
   description: string | null;
 }
+
+export interface BlogListInfo {
+  id: number;
+  blogUrl : string;
+  articleCount : number;
+}
