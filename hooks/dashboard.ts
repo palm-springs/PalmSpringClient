@@ -103,7 +103,13 @@ export const useGetMemberInfo = (blogUrl: string) => {
   return data;
 };
 
-export const usePostCategory = (blogUrl: string, name: string, description: string) => {
+export const usePostCategory = (
+  blogUrl: string,
+  name: string,
+  description: string,
+  setNewCategoryName: React.Dispatch<React.SetStateAction<string>>,
+  setNewCategoryDescription: React.Dispatch<React.SetStateAction<string>>,
+) => {
   const queryClient = useQueryClient();
 
   return useMutation(
@@ -112,6 +118,9 @@ export const usePostCategory = (blogUrl: string, name: string, description: stri
     {
       onSuccess: () => {
         queryClient.invalidateQueries([QUERY_KEY_DASHBOARD.getCategoryList]);
+
+        setNewCategoryName('');
+        setNewCategoryDescription('');
       },
     },
   );
