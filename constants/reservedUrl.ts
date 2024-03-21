@@ -33,4 +33,5 @@ export const RESERVED_URL_LIST = [
   'loading',
   'no-team',
   'team',
+  'sitemap',
 ];

@@ -3,6 +3,7 @@ import { isAxiosError } from 'axios';
 import { ArticleData } from '@/types/article';
 import { AuthorInfoProps } from '@/types/author';
 import { HeaderProps, subscribeData } from '@/types/blogHeader';
+import { BlogListInfo } from '@/types/blogInfo';
 import { BlogImgProps } from '@/types/blogMainImg';
 import { Response } from '@/types/common';
 import { ContentProps } from '@/types/content';
@@ -78,6 +79,17 @@ export const getBlogArticleDetail = async (blogUrl: string, articleId: number) =
 //블로그용 글쓴이 정보 가져오기
 export const getBlogAuthorDetail = async (blogUrl: string, memberId: number) => {
   const { data } = await client.get<Response<AuthorInfoProps>>(`/api/v2/view/author/${blogUrl}/detail/${memberId}`);
+  return data;
+};
+
+//사이트맵용 블로그 리스트 가져오기
+export const getBlogListInfo = async () => {
+  const { data } = await client.get<Response<BlogListInfo[]>>(`/api/v2/view/blog/site`);
+  return data;
+};
+//사이트맵용 멤버 리스트 가져오기
+export const getMemberListInfo = async (blogUrl: string) => {
+  const { data } = await client.get<Response<string[]>>(`/api/v2/view/author/${blogUrl}/all`);
   return data;
 };
 

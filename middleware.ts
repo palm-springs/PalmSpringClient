@@ -24,7 +24,9 @@ export const middleware = (request: NextRequest) => {
     pathName.startsWith('/invite') ||
     pathName.startsWith('/loading') ||
     pathName.startsWith('/no-team') ||
-    pathName.startsWith('/team')
+    pathName.startsWith('/team') ||
+    pathName.startsWith('/sitemap') ||
+    pathName.startsWith('/robots.txt')
   )
     return NextResponse.next();
 
