@@ -64,11 +64,11 @@ const DashBoardContentContainer = (props: DashBoardContentContainerProps) => {
 
   const ContentsBeforeDraft = () => (
     <>
-      {content && <Content onTitleClick={onTitleClick} content={content} />}
+      <Content onTitleClick={onTitleClick} content={content} />
       {url && <Url url={url} />}
       {tabType && <TabType tabType={tabType} />}
-      {author && <Author author={author} />}
-      {position && <Position position={position} />}
+      {<Author author={author} />}
+      {<Position position={position} />}
       {description && <Description description={description} />}
     </>
   );
@@ -159,6 +159,7 @@ const DashBoardContentUI = styled.article<{ $isContentBar: boolean }>`
   &.contentBar div > span,
   &.contentBar button {
     border: none !important;
+    padding-left: 0;
     line-height: normal !important;
     letter-spacing: -0.004rem !important;
     white-space: nowrap;
@@ -194,6 +195,7 @@ const PageContentWrapper = styled.div<{ $isContentBar: boolean }>`
   width: 100%;
 
   .page_content {
-    display: ${({ $isContentBar }) => $isContentBar && 'flex'};
+    display: flex;
+    align-items: center;
   }
 `;

@@ -15,7 +15,7 @@ export default Url;
 
 const UrlUI = styled.span`
   ${({ theme }) => theme.fonts.Body3_Regular};
-  width: 13rem;
+  width: 15rem;
   overflow: hidden;
   text-align: left;
   text-overflow: ellipsis;

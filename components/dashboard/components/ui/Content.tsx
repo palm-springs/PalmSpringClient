@@ -5,7 +5,7 @@ import useGetLastPathName from '@/hooks/useGetLastPathName';
 
 interface ContentProps {
   onTitleClick?: React.MouseEventHandler<HTMLButtonElement>;
-  content: string;
+  content: string | undefined;
 }
 
 const Content = (props: ContentProps) => {
@@ -18,7 +18,7 @@ const Content = (props: ContentProps) => {
       $isPathNavOrCategory={pathName === 'nav' || pathName === 'category'}
       $isPathUpload={pathName === 'upload'}
       onClick={onTitleClick}>
-      {content}
+      {content || '제목 없음'}
     </ContentUI>
   );
 };
