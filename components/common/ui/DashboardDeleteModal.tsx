@@ -3,6 +3,7 @@ import React from 'react';
 import styled from 'styled-components';
 
 interface DashboardDeleteProps {
+  title: string;
   text: string;
   subText: string;
   lineBreaking?: string;
@@ -13,6 +14,7 @@ interface DashboardDeleteProps {
 }
 
 const DashboardDeleteModal = ({
+  title,
   text,
   subText,
   leftButtonText,
@@ -24,6 +26,11 @@ const DashboardDeleteModal = ({
   return (
     <ModalContainer>
       <ModalWrapper>
+        {text === '글을 삭제하시겠어요?' && (
+          <TitleText>
+            &#39;<span>{title}</span>&#39;
+          </TitleText>
+        )}
         <MainText>{text}</MainText>
         <SubText>{subText}</SubText>
         <LineBreakingText>{lineBreaking}</LineBreakingText>
@@ -74,6 +81,21 @@ const LineBreakingText = styled.p`
   color: ${({ theme }) => theme.colors.grey_700};
 `;
 
+const TitleText = styled.h2`
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  ${({ theme }) => theme.fonts.Heading3_Semibold};
+  width: 100%;
+  color: ${({ theme }) => theme.colors.grey_900};
+  & > span {
+    display: inline-block;
+    max-width: calc(100% - 1.1rem);
+    overflow: hidden;
+    text-overflow: ellipsis;
+    white-space: nowrap;
+  }
+`;
 const MainText = styled.h3`
   ${({ theme }) => theme.fonts.Heading3_Semibold};
   color: ${({ theme }) => theme.colors.grey_900};

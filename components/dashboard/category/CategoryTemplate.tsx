@@ -25,7 +25,13 @@ const CategoryTemplate = () => {
 
   const [newCategoryDescription, setNewCategoryDescription] = useState<string>('');
 
-  const { mutate } = usePostCategory(blogUrl, newCategoryName, newCategoryDescription);
+  const { mutate } = usePostCategory(
+    blogUrl,
+    newCategoryName,
+    newCategoryDescription,
+    setNewCategoryName,
+    setNewCategoryDescription,
+  );
 
   return (
     <>

@@ -10,4 +10,5 @@ export default DashBoardTemplateContainer;
 const DashBoardTemplateUI = styled.section`
   flex-shrink: 0;
   width: 100%;
+  height: 100%;
 `;

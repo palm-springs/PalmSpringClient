@@ -28,6 +28,7 @@ const UserId = (props: UserIdCheckProps) => {
   const handleOnChange = (e: ChangeEvent<HTMLInputElement>) => {
     const { value } = e.currentTarget;
     setUserInfoData((prev) => ({ ...prev, url: value }));
+    setIsDuplicate(null);
     CheckUserIdDuplication(team, value, setIsDuplicate);
   };
 
@@ -43,10 +44,10 @@ const UserId = (props: UserIdCheckProps) => {
             value={url ? url : ''}
             onChange={handleOnChange}
           />
-          {isDuplicate === null && url !== '' && <Loader01Icon />}
+          {previousUrl !== url && isDuplicate === null && url !== '' && <Loader01Icon />}
         </IdInputForm>
         {previousUrl !== url && isDuplicate && <Message>이미 사용 중인 URL입니다. 다른 ID 입력해주세요.</Message>}
-        {previousUrl !== url && !isDuplicate && url !== '' && url !== null && (
+        {previousUrl !== url && isDuplicate !== null && !isDuplicate && url !== '' && url !== null && (
           <Message className="success">사용 가능한 ID입니다.</Message>
         )}
       </InputWidthContainer>

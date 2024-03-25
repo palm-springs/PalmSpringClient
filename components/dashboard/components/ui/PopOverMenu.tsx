@@ -11,6 +11,7 @@ interface PopOverMenuProps {
   onDeleteButtonClick?: React.MouseEventHandler<HTMLButtonElement>;
   pathName: dashBoardPageType | 'dashboard' | 'pageDraft';
   isRenderPopOverButton?: boolean;
+  position: boolean;
 }
 
 const PopOverMenu = (props: PopOverMenuProps) => {
@@ -20,6 +21,7 @@ const PopOverMenu = (props: PopOverMenuProps) => {
     pathName,
     onDeleteButtonClick,
     isRenderPopOverButton = true,
+    position,
   } = props;
 
   const navigateContent = () => {
@@ -36,7 +38,7 @@ const PopOverMenu = (props: PopOverMenuProps) => {
   };
 
   return (
-    <PopOverMenuUI className="pop_over_menu">
+    <PopOverMenuUI className={`pop_over_menu`} $isPositionBottom={position}>
       {pathName !== 'tempsaved' && pathName !== 'pageDraft' && (
         <button onMouseDown={onNavigateContentClick}>{navigateContent()}</button>
       )}
@@ -54,10 +56,10 @@ const PopOverMenu = (props: PopOverMenuProps) => {
 
 export default PopOverMenu;
 
-const PopOverMenuUI = styled.article`
+const PopOverMenuUI = styled.article<{ $isPositionBottom: boolean }>`
   display: flex;
   position: absolute;
-  top: 4.2rem;
+  ${({ $isPositionBottom }) => ($isPositionBottom ? `bottom: 4.2rem` : `top: 4.2rem`)};
   right: 0;
   flex-direction: column;
   justify-content: space-between;

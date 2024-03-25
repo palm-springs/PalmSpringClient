@@ -2,7 +2,7 @@ import React from 'react';
 import { styled } from 'styled-components';
 
 interface AuthorProps {
-  author: string;
+  author: string | undefined;
 }
 
 const Author = (props: AuthorProps) => {
