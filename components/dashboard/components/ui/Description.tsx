@@ -14,10 +14,9 @@ const Description = (props: DescriptionProps) => {
 export default Description;
 
 const DescriptionUI = styled.span`
-  width: 30vw;
-  max-width: 48.7rem;
+  ${({ theme }) => theme.fonts.Body3_Regular};
+  max-width: 30%;
   overflow: hidden;
   text-overflow: ellipsis;
-  ${({ theme }) => theme.fonts.Body3_Regular};
   color: ${({ theme }) => theme.colors.grey_700};
 `;

@@ -6,19 +6,21 @@ import DashboardDeleteModal from '@/components/common/ui/DashboardDeleteModal';
 import { dashBoardModalState } from '../state/modalState';
 
 interface DashboardContentDeleteModalProps {
+  title: string;
   text: string;
   subText: string;
   onDelete: () => void;
 }
 
 const DashboardContentDeleteModal = (props: DashboardContentDeleteModalProps) => {
-  const { text, subText, onDelete } = props;
+  const { title, text, subText, onDelete } = props;
 
   const setDashboardModalState = useSetRecoilState(dashBoardModalState);
 
   return (
     <ModalPortal>
       <DashboardDeleteModal
+        title={title}
         text={text}
         subText={subText}
         leftButtonText="유지하기"

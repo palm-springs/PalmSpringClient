@@ -27,7 +27,7 @@ const DraftUI = styled.div<{ $draft?: boolean }>`
   gap: 1rem;
   align-items: center;
   margin-right: 2rem;
-  width: 8.1rem;
+  width: 13rem;
   overflow: hidden;
   span {
     border: 1px solid ${({ theme, $draft }) => ($draft ? theme.colors.grey_700 : theme.colors.dark_green)};
