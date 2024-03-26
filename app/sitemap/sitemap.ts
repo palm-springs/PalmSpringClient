@@ -10,7 +10,9 @@ import {
 
 export async function generateSitemaps() {
   const { data: blogListInfo } = await getBlogListInfo();
-  return blogListInfo;
+  return blogListInfo.map(({ id }) => ({
+    id,
+  }));
 }
 
 export default async function sitemap({ id }: { id: number }): Promise<MetadataRoute.Sitemap> {
@@ -62,3 +64,5 @@ export default async function sitemap({ id }: { id: number }): Promise<MetadataR
     ...memberUrlList,
   ];
 }
+
+export const dynamic = 'force-dynamic';
