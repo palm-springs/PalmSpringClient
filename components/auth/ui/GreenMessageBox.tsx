@@ -16,7 +16,7 @@ const Box = styled.div`
   border-radius: 1.6rem;
   background-color: #e1f6ea;
 
-  padding: 2rem;
+  padding: 2rem 0 2rem 2rem;
 
   line-height: 120%;
   color: ${({ theme }) => theme.colors.dark_green};
