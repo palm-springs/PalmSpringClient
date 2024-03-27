@@ -1,13 +1,20 @@
 'use client';
-import { ReactNode } from 'react';
+import { ForwardedRef, forwardRef, ReactNode } from 'react';
 import styled from 'styled-components';
 
-const Input = ({ children }: { children: ReactNode }) => {
+interface InputProps {
+  children: ReactNode;
+  value: string;
+  setValue: (v: string) => void;
+}
+
+const Input = (props: InputProps, ref: ForwardedRef<HTMLInputElement>) => {
+  const { children, value, setValue } = props;
+
   let type;
   switch (children) {
     case '이메일':
       type = 'email';
-
       break;
     case '비밀번호':
     case '비밀번호 확인':
@@ -19,12 +26,17 @@ const Input = ({ children }: { children: ReactNode }) => {
   return (
     <InputContainer>
       {children}
-      <InputBorder type={type} pattern={type === 'email' ? '.+@example.com' : ''} />
+      <InputBorder
+        value={value}
+        type={type}
+        pattern={type === 'email' ? '.+@example.com' : ''}
+        onChange={(e) => setValue(e.target.value)}
+      />
     </InputContainer>
   );
 };
 
-export default Input;
+export default forwardRef(Input);
 
 const InputContainer = styled.label`
   ${({ theme }) => theme.fonts.Body3_Regular};

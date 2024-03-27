@@ -20,3 +20,14 @@ export const wrongPlatformNotify = createToast({
   id: 'error on ogin platform',
   duration: 3000,
 });
+
+// 회원가입 비밀번호 조건 검사
+export const capitalCheck = (password: string) => {
+  return /[A-Z]/.test(password);
+};
+export const numberCheck = (password: string) => {
+  return /[0-9]/.test(password);
+};
+export const specialCharCheck = (password: string) => {
+  return /[^\w\s]/.test(password);
+};
