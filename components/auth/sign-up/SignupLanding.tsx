@@ -10,7 +10,7 @@ import Title from '../ui/Title';
 
 const SignupLanding = () => {
   return (
-    <FlexContainer width={34.8}>
+    <FlexContainer>
       <Title>회원가입</Title>
       <GoogleLoginLanding />
       <Contour>or</Contour>

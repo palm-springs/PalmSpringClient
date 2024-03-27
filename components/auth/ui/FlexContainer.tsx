@@ -3,17 +3,23 @@
 import { ReactNode } from 'react';
 import styled from 'styled-components';
 
-const FlexContainer = ({ children, width }: { children: ReactNode; width: number }) => {
-  return <Container $width={width}>{children}</Container>;
+interface FlexContainerProps {
+  children: ReactNode;
+}
+
+const FlexContainer = (props: FlexContainerProps) => {
+  const { children } = props;
+  return <Container $pageType={'pageType'}>{children}</Container>;
 };
 
 export default FlexContainer;
 
-const Container = styled.div<{ $width: number }>`
+const Container = styled.div<{ $pageType: string }>`
   display: flex;
   flex-direction: column;
 
-  margin: 10rem 0;
+  margin: auto 0;
+  /* margin-top: 10rem; */
 
-  width: ${({ $width }) => `${$width}rem`};
+  width: 34.8rem;
 `;

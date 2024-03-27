@@ -19,8 +19,8 @@ const Container = styled.div`
   display: flex;
   position: relative;
   flex-direction: column;
+
   align-items: center;
-  justify-content: center;
   background-color: ${({ theme }) => theme.colors.grey_100};
 
   width: 100vw;
