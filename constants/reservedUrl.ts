@@ -34,4 +34,6 @@ export const RESERVED_URL_LIST = [
   'no-team',
   'team',
   'sitemap',
+  'login',
+  'sign-up',
 ];
