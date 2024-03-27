@@ -30,13 +30,17 @@ import Placeholder from '@tiptap/extension-placeholder';
 import Strike from '@tiptap/extension-strike';
 import Text from '@tiptap/extension-text';
 import Underline from '@tiptap/extension-underline';
-import { Editor, useEditor } from '@tiptap/react';
+import { Editor, EditorContent, useEditor } from '@tiptap/react';
+import js from 'highlight.js/lib/languages/javascript';
+import ts from 'highlight.js/lib/languages/typescript';
+import html from 'highlight.js/lib/languages/xml';
+import { debounce } from 'lodash-es';
 import { lowlight } from 'lowlight';
 import { useParams, usePathname, useRouter } from 'next/navigation';
 import { useRecoilState, useSetRecoilState } from 'recoil';
 
 import { postArticleList } from '@/api/article';
-import { uploadContentImage, uploadImage } from '@/api/common';
+import { uploadContentCtrlVImage, uploadContentImage, uploadImage } from '@/api/common';
 import { postPageDraft } from '@/api/page';
 import TextEditor from '@/components/editor/TextEditor';
 import SaveEditorContentButton from '@/components/editor/ui/SaveEditorContentButton';
@@ -50,6 +54,12 @@ import { getContentCtrlVImage, getContentImageMultipartData } from '@/utils/getI
 
 import { articleDataState, isSaved, pageDataState } from './states/atom';
 
+import css from 'highlight.js/lib/languages/css';
+//지금 js로 하면 컴포넌트 이름 그냥도 컬러 입혀짐 근데 코드블록 첫줄에 쓰면 안되고 코드 쓰고 막줄에 쓰면 엔터 쓰기 가능함
+lowlight.registerLanguage('html', html);
+lowlight.registerLanguage('css', css);
+lowlight.registerLanguage('js', js);
+lowlight.registerLanguage('ts', ts);
 interface TextEditorBuildprops {
   pageType: string;
   currentState?: string;
@@ -78,6 +88,9 @@ const TextEditorBuild = (props: TextEditorBuildprops) => {
   const draftPageMutation = useUpdateTempPageDraft(String(team));
   const [updatedArticleData, setUpdatedArticleData] = useRecoilState(articleDataState);
   const [updatedPageData, setUpdatedPageData] = useRecoilState(pageDataState);
+  //에디터 value값
+  const [contentValue, setContentValue] = useState('');
+
   const setIsSaved = useSetRecoilState(isSaved);
 
   const selectEditorContent = () => {
@@ -141,10 +154,18 @@ const TextEditorBuild = (props: TextEditorBuildprops) => {
       }),
     ],
     content: editorContent,
-    onUpdate: () => {
+    onUpdate({ editor }) {
       setIsSaved(false);
+      setContentValue(editor.getHTML()); //content value값 바로 추출
+      const handleInput = debounce((contentValue) => {
+        console.log('저장함수자리임', contentValue);
+        setIsSaved(true);
+        // handleOnDraftClickCount(); 위치 참조오류
+      }, 3000);
+      handleInput(contentValue);
     },
   });
+  // console.log(contentValue, '제발');
 
   const encodeFileToBase64 = async (event: ChangeEvent<HTMLInputElement>, editor: Editor) => {
     const files = event.target.files;
@@ -204,32 +225,25 @@ const TextEditorBuild = (props: TextEditorBuildprops) => {
           return console.log('이미지업ㅂㅅ음');
         }
 
-        //base64 -> blob변환 코드
-        // const binaryString = atob(srcString.split(',')[1]);
-        // const arrayBuffer = new ArrayBuffer(binaryString.length);
-        // const view = new Uint8Array(arrayBuffer);
-        // for (let i = 0; i < binaryString.length; i++) {
-        //   view[i] = binaryString.charCodeAt(i) & 0xff;
-        // }
+        const blob = await fetch(srcString).then((res) => res.blob());
 
-        // const blob = new Blob([arrayBuffer], { type: 'image/png' });
+        // Blob을 파일로 변환
+        const file = new File([blob], 'image.png', { type: 'image/png' });
 
-        // const formData = new FormData();
-        // formData.append('image', blob);
-        // formData.append('blogUrl', String(team));
-
-        // try {
-        //   const imgUrl = await uploadContentImage(String(team), formData);
-        //   console.log('이미지 변환 성공:', imgUrl);
-        // } catch (error) {
-        //   console.error('이미지 변환 실패:', error);
-        // }
+        console.log('변환된 파일:', file);
 
         // 이미지 서버 통신 코드
-        // const imgUrl = await getContentCtrlVImage(imgUrlBlob, String(team));
-        // console.log('이미지 변환 성공', imgUrl);
-        // imageArr.push(imgUrl);
-        // editor.chain().focus().setImage({ src: imgUrl }).run();
+        const imgUrl = await getContentCtrlVImage(file, String(team));
+        console.log('이미지 변환 성공', imgUrl);
+
+        if (!editor) {
+          return null;
+        }
+
+        // imageArr.push(imgUrl); 근데 이거 하면 2개씩 생김 힝9
+        if (imgUrl) {
+          editor.chain().focus().setImage({ src: imgUrl }).run();
+        }
       });
     },
     [editor, setImageSrc],
@@ -575,6 +589,8 @@ const TextEditorBuild = (props: TextEditorBuildprops) => {
       router.push(`/${team}/editor/page/${pageId}/draft/publish`);
     }
   };
+
+  //자동 임시저장
 
   return (
     <>

@@ -12,7 +12,6 @@ interface editorProps {
   ctrlVImage: ClipboardEventHandler<HTMLDivElement> | undefined;
 }
 
-//텍스트 에디터 안에 ref가 안써짐 -> 터치영역 포커스 이동 몬함...
 const TextEditor = ({ editor, handleDragOver, handleDrop, onChange, ctrlVImage }: editorProps) => {
   // const [editorHeight, setEditorHeight] = useState<number>(650);
 
@@ -37,6 +36,9 @@ const TextEditor = ({ editor, handleDragOver, handleDrop, onChange, ctrlVImage }
       window.removeEventListener('scroll', handleScroll);
     };
   }, []);
+
+  const [content, setContent] = useState('');
+
   return (
     <TouchContainer
       tabIndex={-1}
