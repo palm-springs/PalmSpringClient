@@ -1,5 +1,3 @@
-'use client';
-
 import DisabledInput from '../../ui/DisabledInput';
 import FlexContainer from '../../ui/FlexContainer';
 import GreenMessageBox from '../../ui/GreenMessageBox';

@@ -6,17 +6,20 @@ const Input = ({ children }: { children: ReactNode }) => {
   let type;
   switch (children) {
     case '이메일':
-      type = 'text';
+      type = 'email';
 
       break;
     case '비밀번호':
+    case '비밀번호 확인':
+    case '새로운 비밀번호':
+    case '새로운 비밀번호 확인':
       type = 'password';
       break;
   }
   return (
     <InputContainer>
       {children}
-      <InputBorder type={type} />
+      <InputBorder type={type} pattern={type === 'email' ? '.+@example.com' : ''} />
     </InputContainer>
   );
 };

@@ -7,6 +7,8 @@ export { default as ArrowRightContained02Icon } from './arrow-right-contained-02
 export { default as BellIcon } from './bell.svg';
 export { default as CharmMenuMeatballIcon } from './charm_menu-meatball.svg';
 export { default as CheckIcon } from './check.svg';
+export { default as BlackCheckIcon } from './check_black.svg';
+export { default as GreenCheckIcon } from './check_green.svg';
 export { default as CheckBoxIcon } from './checkbox.svg';
 export { default as EmptyLogoIcon } from './emptyLogo.svg';
 export { default as File02Icon } from './file-02.svg';
