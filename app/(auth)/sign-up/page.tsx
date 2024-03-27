@@ -1,11 +1,11 @@
 import { Suspense } from 'react';
 
-import LoginLanding from '@/components/auth/login/LoginLanding';
+import SignupLanding from '@/components/auth/sign-up/SignupLanding';
 
 const page = () => {
   return (
     <Suspense>
-      <LoginLanding />
+      <SignupLanding />
     </Suspense>
   );
 };
