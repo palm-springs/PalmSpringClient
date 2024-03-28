@@ -47,6 +47,21 @@ const InputContainer = styled.label`
   gap: 1rem;
 
   margin-bottom: 1.8rem;
+
+  & > span {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    width: 100%;
+    & > a {
+      ${({ theme }) => theme.fonts.Caption};
+      color: ${({ theme }) => theme.colors.grey_700};
+
+      &:hover {
+        text-decoration: underline;
+      }
+    }
+  }
 `;
 
 const InputBorder = styled.input`

@@ -6,7 +6,7 @@ import Title from '../../ui/Title';
 
 const EmailSentLanding = () => {
   return (
-    <FlexContainer>
+    <FlexContainer margin={'10rem 0'}>
       <Title>회원가입</Title>
 
       <DisabledInput value={'you@example.com'}>이메일</DisabledInput>

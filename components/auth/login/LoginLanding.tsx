@@ -1,6 +1,7 @@
 'use client';
 import { useEffect } from 'react';
 import { Toaster } from 'react-hot-toast';
+import Link from 'next/link';
 import { useSearchParams } from 'next/navigation';
 
 import GoogleLoginLanding from '@/components/auth/login/GoogleLoginLanding';
@@ -41,15 +42,19 @@ const LoginLanding = () => {
         }}
       />
 
-      <FlexContainer width={34.8}>
+      <FlexContainer margin={'auto 0'}>
         <Title>로그인</Title>
         <GoogleLoginLanding />
         <Contour>or</Contour>
 
         <Input>이메일</Input>
-        <Input>비밀번호</Input>
+        <Input>
+          <span>
+            비밀번호 <Link href="/login/password">비밀번호 찾기</Link>
+          </span>
+        </Input>
 
-        <BgButton>로그인</BgButton>
+        <BgButton disabled={false}>로그인</BgButton>
         <LinkButton href="/sign-up">회원가입</LinkButton>
       </FlexContainer>
     </>

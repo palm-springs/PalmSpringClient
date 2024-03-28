@@ -13,7 +13,7 @@ import { capitalCheck, numberCheck, specialCharCheck } from '@/utils/auth';
 const PasswordResetLanding = () => {
   const [{ password, passwordCheck }, setValue] = useState({ password: '', passwordCheck: '' });
   return (
-    <FlexContainer>
+    <FlexContainer margin={'12rem 0'}>
       <Title>비밀번호 재설정</Title>
 
       <DisabledInput value={'you@example.com'}>이메일</DisabledInput>

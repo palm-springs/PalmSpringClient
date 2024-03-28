@@ -25,7 +25,7 @@ const SignupLanding = () => {
   const [{ email, password, passwordCheck }, setValue] = useState({ email: '', password: '', passwordCheck: '' });
 
   return (
-    <FlexContainer>
+    <FlexContainer margin={'10rem 0'}>
       <Title>회원가입</Title>
       <GoogleLoginLanding />
       <Contour>or</Contour>
