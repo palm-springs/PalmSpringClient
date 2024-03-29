@@ -56,7 +56,7 @@ const Member = (props: MemberComponentProps) => {
 
   const memberRole = role === 'OWNER' ? '소유자' : role === 'MANAGER' ? '관리자' : '편집자';
   const { team } = useParams();
-  const { mutate: cancelInvite } = useDeleteInvite(team, { id: Number(memberId), email });
+  const { mutate: cancelInvite } = useDeleteInvite(team, { email });
 
   const [showModal, setShowModal] = useState(false);
 

@@ -50,6 +50,5 @@ export interface InviteInfoProps {
 }
 
 export interface DeleteRequestBody {
-  id: number;
   email: string;
 }
