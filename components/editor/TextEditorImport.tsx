@@ -205,49 +205,34 @@ const TextEditorBuild = (props: TextEditorBuildprops) => {
   );
 
   //이미지 복붙
-  const ctrlVImage: ClipboardEventHandler<HTMLInputElement> = useCallback(
-    async (event) => {
-      const clipboardData = event.clipboardData || window.Clipboard;
-      alert('djfkjdkfjkdjfkdkfdkj');
-      const pastedText = clipboardData.getData('text/html');
-      console.log('복붙 이미지 html 성공', pastedText);
-      const parser = new DOMParser();
+  const ctrlVImage: ClipboardEventHandler<HTMLInputElement> = useCallback(async () => {
+    const base64ImgElements = document.querySelector('img[src*="base64"]');
 
-      const doc = parser.parseFromString(pastedText, 'text/html');
-      const base64ImgElements = doc.querySelectorAll('img[src*="base64"]');
-      const base64eArr = Array.from(base64ImgElements).map((img) => img.getAttribute('src'));
+    const base64eArr = base64ImgElements?.getAttribute('src');
+    base64ImgElements?.remove();
 
-      console.log('복붙이미지 감지, 추출 성공', base64eArr);
+    const transImage = async () => {
+      if (!editor || !base64eArr) {
+        return null;
+      }
+      const blob = await fetch(base64eArr).then((res) => res.blob());
 
-      base64eArr.forEach(async (srcString) => {
-        console.log('있냐', srcString);
-        if (srcString === null) {
-          return console.log('이미지업ㅂㅅ음');
-        }
+      // Blob을 파일로 변환
+      const file = new File([blob], 'image.png', { type: 'image/png' });
 
-        const blob = await fetch(srcString).then((res) => res.blob());
+      console.log('변환된 파일:', file);
 
-        // Blob을 파일로 변환
-        const file = new File([blob], 'image.png', { type: 'image/png' });
+      // 이미지 서버 통신 코드
+      const imgUrl = await getContentCtrlVImage(file, String(team));
+      console.log('이미지 변환 성공', imgUrl);
 
-        console.log('변환된 파일:', file);
-
-        // 이미지 서버 통신 코드
-        const imgUrl = await getContentCtrlVImage(file, String(team));
-        console.log('이미지 변환 성공', imgUrl);
-
-        if (!editor) {
-          return null;
-        }
-
-        // imageArr.push(imgUrl); 근데 이거 하면 2개씩 생김 힝9
-        if (imgUrl) {
-          editor.chain().focus().setImage({ src: imgUrl }).run();
-        }
-      });
-    },
-    [editor, setImageSrc],
-  );
+      imageArr.push(imgUrl);
+      if (imgUrl) {
+        editor.chain().focus().setImage({ src: imgUrl }).run();
+      }
+    };
+    await transImage();
+  }, [editor, setImageSrc]);
 
   //이미지 drag & drop
   const handleDrop: DragEventHandler<HTMLDivElement> = useCallback(
@@ -589,8 +574,6 @@ const TextEditorBuild = (props: TextEditorBuildprops) => {
       router.push(`/${team}/editor/page/${pageId}/draft/publish`);
     }
   };
-
-  //자동 임시저장
 
   return (
     <>
