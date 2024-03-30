@@ -7,7 +7,7 @@ import { styled } from 'styled-components';
 import { putBlogConfig } from '@/api/blog';
 import LoadingLottie from '@/components/common/ui/LoadingLottie';
 import { imageErrorCase } from '@/constants/image';
-import { useGetBlogInfo } from '@/hooks/blog';
+import { useGetBlogFooterInfo, useGetBlogInfo } from '@/hooks/blog';
 import usePerMissionPolicy from '@/hooks/usePermissionPolicy';
 import { getImageMultipartData } from '@/utils/getImageMultipartData';
 import { imageSizeErrorNotify } from '@/utils/imageSizeErrorNotify';
@@ -17,6 +17,8 @@ import { blogMetaDataState } from '../state/blogMetaData';
 
 import BlogInfoDeleteButton from './BlogDeleteButton';
 import BlogDescribeText from './BlogDescribeText';
+import BlogFooterCompany from './BlogFooterCompany';
+import BlogFooterDescription from './BlogFooterDescription';
 import BlogLogoImage from './BlogLogoImage';
 import BlogMainImage from './BlogMainImge';
 import BlogMetaDataDescription from './BlogMetaDataDescription';
@@ -32,12 +34,16 @@ interface BlogConfigProps {
   blogLogoImage: string | null;
   blogMainImage: string | null;
   blogDescribeText: string;
+  companyName: string;
+  companyDescription: string;
 }
 
 const BlogConfigTemplate = () => {
   const { team } = useParams();
 
   const res = useGetBlogInfo(team);
+
+  const footerRes = useGetBlogFooterInfo(team);
 
   const { modifyBlogInfo, deleteBlog } = usePerMissionPolicy();
 
@@ -46,6 +52,9 @@ const BlogConfigTemplate = () => {
     blogLogoImage: null,
     blogMainImage: null,
     blogDescribeText: '블로그 설명을 불러오는 중입니다...',
+
+    companyName: '소유자/회사 이름을 불러오는 중입니다...',
+    companyDescription: '추가 정보 맟 설명을 불러오는 중입니다...',
   });
   const [blogMetaConfig, setBlogMetaConfig] = useRecoilState(blogMetaDataState);
 
@@ -61,13 +70,16 @@ const BlogConfigTemplate = () => {
   });
 
   useEffect(() => {
-    if (!res || !res.data) return;
+    if (!res || !res.data || !footerRes || !footerRes.data) return;
     setBlogConfig((prev) => ({
       ...prev,
       blogName: res.data.name,
       blogLogoImage: res.data.logo,
       blogDescribeText: res.data.description,
       blogMainImage: res.data.thumbnail,
+
+      companyName: footerRes.data.ownerName,
+      companyDescription: footerRes.data.ownerInfo,
     }));
     setBlogMetaConfig((prev) => ({
       ...prev,
@@ -75,16 +87,21 @@ const BlogConfigTemplate = () => {
       metaName: res.data.metaName,
       metaDescription: res.data.metaDescription,
     }));
-  }, [res]);
+  }, [res, footerRes]);
 
-  if (!res || !res.data) return <LoadingLottie width={10} height={10} />;
+  if (!res || !res.data || !footerRes || !footerRes.data) return <LoadingLottie width={10} height={10} />;
 
   const { name, logo, description, thumbnail, metaThumbnail, metaName, metaDescription } = res.data;
+
+  const { ownerName, ownerInfo } = footerRes.data;
+
   const isChanged =
     name !== blogConfig.blogName ||
     logo !== blogConfig.blogLogoImage ||
     description !== blogConfig.blogDescribeText ||
     thumbnail !== blogConfig.blogMainImage ||
+    ownerName !== blogConfig.companyName ||
+    ownerInfo !== blogConfig.companyDescription ||
     metaThumbnail !== blogMetaConfig.metaThumbnail ||
     metaName !== blogMetaConfig.metaName ||
     metaDescription !== blogMetaConfig.metaDescription;
@@ -97,6 +114,12 @@ const BlogConfigTemplate = () => {
         description: blogConfig.blogDescribeText,
         logo: blogConfig.blogLogoImage,
         thumbnail: blogConfig.blogMainImage,
+
+        footerInfo: {
+          owner: blogConfig.companyName,
+          info: blogConfig.companyDescription,
+        },
+
         metaThumbnail: blogMetaConfig.metaThumbnail,
         metaName: blogMetaConfig.metaName,
         metaDescription: blogMetaConfig.metaDescription,
@@ -167,6 +190,27 @@ const BlogConfigTemplate = () => {
         <BlogMetaDataTitle readonly={!modifyBlogInfo} />
         <BlogMetaDataDescription readonly={!modifyBlogInfo} />
         <MetaDataPreview blogUrl={res.data.url} />
+        <BlogSubHeading mainHeaderText={'Footer 설정'} subHeaderText={'블로그 하단의 Footer에서 보이는 정보입니다'} />
+        <BlogFooterCompany
+          readonly={!modifyBlogInfo}
+          companyName={blogConfig.companyName}
+          setCompanyName={(v) =>
+            setBlogConfig((prev) => ({
+              ...prev,
+              companyName: v,
+            }))
+          }
+        />
+        <BlogFooterDescription
+          readonly={!modifyBlogInfo}
+          companyDescription={blogConfig.companyDescription}
+          setCompanyDescription={(v) =>
+            setBlogConfig((prev) => ({
+              ...prev,
+              companyDescription: v,
+            }))
+          }
+        />
         {deleteBlog && <BlogInfoDeleteButton />}
         {modifyBlogInfo && (
           <BlogSaveButton type="button" disabled={blogConfig.blogName === '' || !isChanged} onClick={postBlogConfig}>
