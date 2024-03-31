@@ -9,7 +9,7 @@ export default DashBoardContentListContainer;
 
 const DashBoardContentListUI = styled.article`
   padding: 0 2.4rem 0 4rem;
-  height: calc(100vh - 20rem);
+  height: calc(100vh - 14rem);
   overflow-y: scroll;
   &::-webkit-scrollbar {
     display: none;

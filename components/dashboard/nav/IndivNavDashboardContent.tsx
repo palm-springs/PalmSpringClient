@@ -78,6 +78,7 @@ const IndivNavDashboardContent = (props: IndivNavDashboardContentProps) => {
       )}
       {dashboardModalState === 'deleteNav' && currentModalId === id && (
         <DashboardContentDeleteModal
+          title={content}
           text="네비게이션을 삭제하시겠어요?"
           subText="네비게이션을 삭제할 시, 복구할 수 없습니다."
           onDelete={() => {

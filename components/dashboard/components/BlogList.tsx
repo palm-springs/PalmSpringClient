@@ -1,5 +1,5 @@
 import { Dispatch, RefObject, SetStateAction } from 'react';
-import { useRouter } from 'next/navigation';
+import { usePathname, useRouter } from 'next/navigation';
 import { useSetRecoilState } from 'recoil';
 
 import LoadingLottie from '@/components/common/ui/LoadingLottie';
@@ -22,6 +22,7 @@ const BlogList = (props: BlogListProps) => {
   const res = useGetUserInfo();
 
   const router = useRouter();
+  const path = usePathname();
 
   const setUserValue = useSetRecoilState(userState);
 
@@ -41,7 +42,7 @@ const BlogList = (props: BlogListProps) => {
         {userData.joinBlogList.map(({ blogName, blogUrl, role }, idx) => {
           return (
             <IndivBlog
-              isCurrentBlog={idx === currentBlog}
+              isCurrentBlog={path.startsWith(`/${blogUrl}`)}
               innerText={blogName}
               key={blogName}
               handleChange={() => {

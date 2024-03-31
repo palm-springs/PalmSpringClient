@@ -2,13 +2,13 @@ import React from 'react';
 import { styled } from 'styled-components';
 
 interface PositionProps {
-  position: string;
+  position: string | undefined;
 }
 
 const Position = (props: PositionProps) => {
   const { position } = props;
 
-  return <PositionUI>{position}</PositionUI>;
+  return <PositionUI>{position || ''}</PositionUI>;
 };
 
 export default Position;

@@ -8,15 +8,17 @@ import {
   getMemberListInfo,
 } from '@/api/blogHome';
 
+export const dynamic = 'force-dynamic';
+
 export async function generateSitemaps() {
   const { data: blogListInfo } = await getBlogListInfo();
-  return blogListInfo;
+  return blogListInfo.map(({ blogUrl }) => ({
+    id: blogUrl,
+  }));
 }
 
-export default async function sitemap({ id }: { id: number }): Promise<MetadataRoute.Sitemap> {
-  // params id랑 블로그 매칭
-  const { data: blogListInfo } = await getBlogListInfo();
-  const team = blogListInfo.find(({ id: teamId }) => teamId === id)?.blogUrl;
+export default async function sitemap({ id }: { id: string }): Promise<MetadataRoute.Sitemap> {
+  const team = id;
 
   // 블로그별 정보 get
   const { data: articles } = await getBlogArticleList(String(team), null);
