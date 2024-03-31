@@ -4,21 +4,21 @@ import React from 'react';
 import styled from 'styled-components';
 
 interface BlogFooterCompanyProps {
-  companyName: string;
-  setCompanyName: (v: string) => void;
+  ownerName: string;
+  setOwnerName: (v: string) => void;
   readonly: boolean;
 }
 
 const BlogFooterCompany = (props: BlogFooterCompanyProps) => {
-  const { companyName, setCompanyName, readonly } = props;
+  const { ownerName, setOwnerName, readonly } = props;
   return (
     <FooterCompanyContainer>
       <CompanyNameTitle>소유자/회사 이름</CompanyNameTitle>
       <CompanyNameInput
         placeholder="소유자/회사 이름을 입력하세요"
-        value={companyName}
+        value={ownerName}
         onChange={(e) => {
-          setCompanyName(e.target.value);
+          setOwnerName(e.target.value);
         }}
         disabled={readonly}
       />

@@ -1,16 +1,16 @@
 import React, { useEffect, useState } from 'react';
-import { toast, Toaster } from 'react-hot-toast';
+import { Toaster } from 'react-hot-toast';
 import { useParams } from 'next/navigation';
 import { useRecoilState } from 'recoil';
 import { styled } from 'styled-components';
 
 import { putBlogConfig } from '@/api/blog';
 import LoadingLottie from '@/components/common/ui/LoadingLottie';
-import { imageErrorCase } from '@/constants/image';
+// import { imageErrorCase } from '@/constants/image';
 import { useGetBlogFooterInfo, useGetBlogInfo } from '@/hooks/blog';
 import usePerMissionPolicy from '@/hooks/usePermissionPolicy';
-import { getImageMultipartData } from '@/utils/getImageMultipartData';
-import { imageSizeErrorNotify } from '@/utils/imageSizeErrorNotify';
+// import { getImageMultipartData } from '@/utils/getImageMultipartData';
+// import { imageSizeErrorNotify } from '@/utils/imageSizeErrorNotify';
 import { createToast } from '@/utils/lib/toast';
 
 import { blogMetaDataState } from '../state/blogMetaData';
@@ -34,8 +34,8 @@ interface BlogConfigProps {
   blogLogoImage: string | null;
   blogMainImage: string | null;
   blogDescribeText: string;
-  companyName: string;
-  companyDescription: string;
+  ownerName: string;
+  ownerDescription: string;
 }
 
 const BlogConfigTemplate = () => {
@@ -53,8 +53,8 @@ const BlogConfigTemplate = () => {
     blogMainImage: null,
     blogDescribeText: '블로그 설명을 불러오는 중입니다...',
 
-    companyName: '소유자/회사 이름을 불러오는 중입니다...',
-    companyDescription: '추가 정보 맟 설명을 불러오는 중입니다...',
+    ownerName: '소유자/회사 이름을 불러오는 중입니다...',
+    ownerDescription: '추가 정보 및 설명을 불러오는 중입니다...',
   });
   const [blogMetaConfig, setBlogMetaConfig] = useRecoilState(blogMetaDataState);
 
@@ -78,8 +78,8 @@ const BlogConfigTemplate = () => {
       blogDescribeText: res.data.description,
       blogMainImage: res.data.thumbnail,
 
-      companyName: footerRes.data.ownerName,
-      companyDescription: footerRes.data.ownerInfo,
+      ownerName: footerRes.data.ownerName,
+      ownerDescription: footerRes.data.ownerInfo,
     }));
     setBlogMetaConfig((prev) => ({
       ...prev,
@@ -100,8 +100,8 @@ const BlogConfigTemplate = () => {
     logo !== blogConfig.blogLogoImage ||
     description !== blogConfig.blogDescribeText ||
     thumbnail !== blogConfig.blogMainImage ||
-    ownerName !== blogConfig.companyName ||
-    ownerInfo !== blogConfig.companyDescription ||
+    ownerName !== blogConfig.ownerName ||
+    ownerInfo !== blogConfig.ownerDescription ||
     metaThumbnail !== blogMetaConfig.metaThumbnail ||
     metaName !== blogMetaConfig.metaName ||
     metaDescription !== blogMetaConfig.metaDescription;
@@ -116,8 +116,8 @@ const BlogConfigTemplate = () => {
         thumbnail: blogConfig.blogMainImage,
 
         footerInfo: {
-          owner: blogConfig.companyName,
-          info: blogConfig.companyDescription,
+          owner: blogConfig.ownerName,
+          info: blogConfig.ownerDescription,
         },
 
         metaThumbnail: blogMetaConfig.metaThumbnail,
@@ -193,21 +193,21 @@ const BlogConfigTemplate = () => {
         <BlogSubHeading mainHeaderText={'Footer 설정'} subHeaderText={'블로그 하단의 Footer에서 보이는 정보입니다'} />
         <BlogFooterCompany
           readonly={!modifyBlogInfo}
-          companyName={blogConfig.companyName}
-          setCompanyName={(v) =>
+          ownerName={blogConfig.ownerName}
+          setOwnerName={(v) =>
             setBlogConfig((prev) => ({
               ...prev,
-              companyName: v,
+              ownerName: v,
             }))
           }
         />
         <BlogFooterDescription
           readonly={!modifyBlogInfo}
-          companyDescription={blogConfig.companyDescription}
-          setCompanyDescription={(v) =>
+          ownerDescription={blogConfig.ownerDescription}
+          setOwnerDescription={(v) =>
             setBlogConfig((prev) => ({
               ...prev,
-              companyDescription: v,
+              ownerDescription: v,
             }))
           }
         />

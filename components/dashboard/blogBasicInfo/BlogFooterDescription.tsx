@@ -3,13 +3,13 @@ import React, { useCallback } from 'react';
 import styled from 'styled-components';
 
 interface BlogFooterDescriptionProps {
-  companyDescription: string;
-  setCompanyDescription: (v: string) => void;
+  ownerDescription: string;
+  setOwnerDescription: (v: string) => void;
   readonly: boolean;
 }
 
 const BlogFooterDescription = (props: BlogFooterDescriptionProps) => {
-  const { companyDescription, setCompanyDescription, readonly } = props;
+  const { ownerDescription, setOwnerDescription, readonly } = props;
 
   const getCurInputTextLineCnt = useCallback((text: string) => {
     const lines = text?.split(/\r|\r\n|\n/);
@@ -17,7 +17,7 @@ const BlogFooterDescription = (props: BlogFooterDescriptionProps) => {
     return count;
   }, []);
 
-  const isScrollable = getCurInputTextLineCnt(companyDescription) >= 3;
+  const isScrollable = getCurInputTextLineCnt(ownerDescription) >= 3;
 
   return (
     <CompanyDescriptionContainer>
@@ -29,9 +29,9 @@ const BlogFooterDescription = (props: BlogFooterDescriptionProps) => {
       </CompanyDescriptionTitleWrapper>
       <CompanyDescriptionTextarea
         $isScrollable={isScrollable}
-        value={companyDescription}
+        value={ownerDescription}
         onChange={(e) => {
-          setCompanyDescription(e.target.value), console.log(e.target.value);
+          setOwnerDescription(e.target.value), console.log(e.target.value);
         }}
         placeholder="블로그 설명을 입력하세요"
         disabled={readonly}
@@ -45,8 +45,6 @@ export default BlogFooterDescription;
 const CompanyDescriptionContainer = styled.div`
   display: flex;
   margin: 3.2rem 0 14.9rem;
-  /* margin-top: 3.2rem;
-  margin-bottom: 14.9rem; */
 `;
 
 const CompanyDescriptionTextarea = styled.textarea<{ $isScrollable: boolean }>`
@@ -76,8 +74,10 @@ const CompanyDescriptionTitleWrapper = styled.div`
 `;
 
 const DescriptionDetail = styled.span`
-  white-space: nowrap;
   ${({ theme }) => theme.fonts.Caption};
+
+  margin-top: 0.4rem;
+  white-space: nowrap;
   color: ${({ theme }) => theme.colors.grey_700};
   p {
     margin-top: 0.4rem;

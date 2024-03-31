@@ -11,8 +11,8 @@ interface BlogConfigRequestBodyProps {
   thumbnail: string | null;
   logo: string | null;
   footerInfo: {
-    owner: string;
-    info: string;
+    owner: string | null;
+    info: string | null;
   };
   metaThumbnail: string | null;
   metaName: string | null;
