@@ -59,14 +59,14 @@ lowlight.registerLanguage('html', html);
 lowlight.registerLanguage('css', css);
 lowlight.registerLanguage('js', js);
 lowlight.registerLanguage('ts', ts);
-interface TextEditorBuildprops {
+interface TextEditorImportProps {
   pageType: string;
   currentState?: string;
   articleData?: UpdateArticleProps;
   pageData?: UpdatePageProps;
 }
 
-const TextEditorBuild = (props: TextEditorBuildprops) => {
+const TextEditorImport = (props: TextEditorImportProps) => {
   const { pageType, currentState, articleData, pageData } = props;
   const { team, articleId, pageId } = useParams();
   const pathName = usePathname();
@@ -611,4 +611,4 @@ const TextEditorBuild = (props: TextEditorBuildprops) => {
     </>
   );
 };
-export default TextEditorBuild;
+export default TextEditorImport;

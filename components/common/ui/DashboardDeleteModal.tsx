@@ -3,7 +3,7 @@ import React from 'react';
 import styled from 'styled-components';
 
 interface DashboardDeleteProps {
-  title: string;
+  title?: string;
   text: string;
   subText: string;
   lineBreaking?: string;

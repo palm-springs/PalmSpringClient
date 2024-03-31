@@ -3,14 +3,14 @@ import { useParams } from 'next/navigation';
 import styled from 'styled-components';
 
 import AuthRequired from '@/components/auth/AuthRequired';
-import TextEditorBuild from '@/components/editor/TextEditorImport';
+import TextEditorImport from '@/components/editor/TextEditorImport';
 import EditorInputTitle from '@/components/editor/ui/EditorInputTitle';
 import { useGetUpdateArticleContent } from '@/hooks/editor';
 import { TextEditorStyle } from '@/styles/TextEditorStyle';
 
 const EditArticlePage = () => {
   const { team, articleId } = useParams();
-  const updateArticleEditContents = useGetUpdateArticleContent(team, Number(articleId));
+  const updateArticleEditContents = useGetUpdateArticleContent(String(team), Number(articleId));
   return (
     <AuthRequired>
       <TextEditorStyle className="editor">
@@ -19,7 +19,7 @@ const EditArticlePage = () => {
           {updateArticleEditContents && (
             <>
               <EditorInputTitle pageType="article" currentState="edit" articleData={updateArticleEditContents.data} />
-              <TextEditorBuild pageType="article" currentState="edit" articleData={updateArticleEditContents.data} />
+              <TextEditorImport pageType="article" currentState="edit" articleData={updateArticleEditContents.data} />
             </>
           )}
         </ArticleWrapper>

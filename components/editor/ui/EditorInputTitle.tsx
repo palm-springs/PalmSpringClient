@@ -10,14 +10,14 @@ import { UpdatePageProps } from '@/types/page';
 
 import { articleDataState, isSaved, pageDataState } from '../states/atom';
 
-interface TextEditorBuildProps {
+interface TextEditorImportProps {
   pageType: string;
   currentState?: string;
   articleData?: UpdateArticleProps;
   pageData?: UpdatePageProps;
 }
 
-const EditorInputTitle = (props: TextEditorBuildProps) => {
+const EditorInputTitle = (props: TextEditorImportProps) => {
   const { pageType, articleData, pageData } = props;
   const { team } = useParams();
   const pathName = usePathname();

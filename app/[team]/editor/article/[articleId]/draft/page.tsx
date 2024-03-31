@@ -3,7 +3,7 @@ import { useParams } from 'next/navigation';
 import styled from 'styled-components';
 
 import AuthRequired from '@/components/auth/AuthRequired';
-import TextEditorBuild from '@/components/editor/TextEditorImport';
+import TextEditorImport from '@/components/editor/TextEditorImport';
 import EditorInputTitle from '@/components/editor/ui/EditorInputTitle';
 import { useGetUpdateArticleContent } from '@/hooks/editor';
 import { TextEditorStyle } from '@/styles/TextEditorStyle';
@@ -20,7 +20,7 @@ const DraftArticlePage = () => {
           {updateArticleEditContents && (
             <>
               <EditorInputTitle pageType="article" currentState="draft" articleData={updateArticleEditContents.data} />
-              <TextEditorBuild pageType="article" currentState="draft" articleData={updateArticleEditContents.data} />
+              <TextEditorImport pageType="article" currentState="draft" articleData={updateArticleEditContents.data} />
             </>
           )}
         </ArticleWrapper>
