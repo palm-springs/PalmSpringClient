@@ -10,6 +10,10 @@ interface BlogConfigRequestBodyProps {
   description: string | null;
   thumbnail: string | null;
   logo: string | null;
+  footerInfo: {
+    owner: string | null;
+    info: string | null;
+  };
   metaThumbnail: string | null;
   metaName: string | null;
   metaDescription: string | null;
@@ -24,6 +28,12 @@ interface BlogInfoProps {
   metaThumbnail: string;
   metaName: string;
   metaDescription: string;
+}
+
+interface BlogFooterInfoProps {
+  ownerName: string;
+  logo: string;
+  ownerInfo: string;
 }
 
 interface MetaBlogInfoProps extends BlogInfoProps {
@@ -48,6 +58,13 @@ export const getBlogInfo = async (blogUrl: string) => {
   return data;
 
   // {{BASE_URL}}/api/v2/dashboard/blog/admin/info/{blogUrl}
+};
+
+export const getBlogFooterInfo = async (blogUrl: string) => {
+  const { data } = await client.get<Response<BlogFooterInfoProps>>(`/api/v2/view/blog/${blogUrl}/footer`);
+  return data;
+
+  // {{SUBDOMAIN_URL}}/api/v2/view/blog/{blogUrl}/footer
 };
 
 // 블로그 url 중복 검사 - 반영 완
