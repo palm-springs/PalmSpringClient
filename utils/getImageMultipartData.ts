@@ -20,3 +20,13 @@ export const getContentImageMultipartData = async (value: File, blogUrl: string)
   const { data } = await uploadContentImage(blogUrl, formData);
   return data;
 };
+
+//content 복붙 이미지 s3 변환 로직
+export const getContentCtrlVImage = async (value: Blob, blogUrl: string) => {
+  const formData = new FormData();
+  formData.append('image', value);
+  formData.append('blogUrl', blogUrl);
+
+  const { data } = await uploadContentImage(blogUrl, formData);
+  return data;
+};

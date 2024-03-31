@@ -1,6 +1,6 @@
 'use client';
 
-import React, { useEffect, useState } from 'react';
+import React, { ClipboardEvent, useEffect, useState } from 'react';
 import { toast, Toaster } from 'react-hot-toast';
 import { useParams, useRouter } from 'next/navigation';
 import { useRecoilState, useRecoilValue } from 'recoil';
@@ -23,6 +23,7 @@ interface editorProps {
   pageType?: string;
   atTop: boolean;
   setAtTop: React.Dispatch<React.SetStateAction<boolean>>;
+  onPaste?: () => void;
 }
 
 const SaveEditorContentButton = (props: editorProps) => {
