@@ -18,10 +18,12 @@ const CreatedAt = (props: CreatedAtProps) => {
 
 export default CreatedAt;
 
-const CreatedAtUI = styled.span<{ $isContentBar: boolean }>`
+const CreatedAtUI = styled.div<{ $isContentBar: boolean }>`
   ${({ theme }) => theme.fonts.Body3_Regular};
-  width: ${({ $isContentBar }) => ($isContentBar ? '13rem' : '7.2rem')};
+
+  width: ${({ $isContentBar }) => ($isContentBar ? '13rem' : '7.4rem')};
   overflow: hidden;
+  text-align: left;
   text-overflow: ellipsis;
   white-space: nowrap;
   color: ${({ theme }) => theme.colors.grey_900};

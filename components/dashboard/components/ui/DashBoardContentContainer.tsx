@@ -1,6 +1,6 @@
 'use client';
 
-import React, { Dispatch, SetStateAction } from 'react';
+import React, { Dispatch, SetStateAction, useRef } from 'react';
 import { css, styled } from 'styled-components';
 
 import useGetLastPathName from '@/hooks/useGetLastPathName';
@@ -58,17 +58,18 @@ const DashBoardContentContainer = (props: DashBoardContentContainerProps) => {
 
   const pathName = useGetLastPathName();
 
+  const popoverRef = useRef<HTMLElement>(null);
+
   const permissionPolicyChecker = usePerMissionPolicy();
 
   const { renderPopOverButton: isRenderPopOverButton } = checkRenderPermissionButton(pathName, permissionPolicyChecker);
-
   const ContentsBeforeDraft = () => (
     <>
-      {content && <Content onTitleClick={onTitleClick} content={content} />}
+      <Content onTitleClick={onTitleClick} content={content} />
       {url && <Url url={url} />}
       {tabType && <TabType tabType={tabType} />}
-      {author && <Author author={author} />}
-      {position && <Position position={position} />}
+      {<Author author={author} />}
+      {<Position position={position} />}
       {description && <Description description={description} />}
     </>
   );
@@ -79,9 +80,15 @@ const DashBoardContentContainer = (props: DashBoardContentContainerProps) => {
       {createdAt && <CreatedAt createdAt={createdAt} />}
     </>
   );
+
+  const calculateNum = (pathName === 'page' && draft) || pathName === 'tempsaved' ? 90 : 130;
+
   // 날짜 포맷팅은 나중에 raw 데이터가 어떻게 날아오는지 확인하고 합시다!
   return (
-    <DashBoardContentUI className={id === '컨텐츠바' ? 'contentBar' : ''} $isContentBar={id === '컨텐츠바'}>
+    <DashBoardContentUI
+      className={id === '컨텐츠바' ? 'contentBar' : ''}
+      $isContentBar={id === '컨텐츠바'}
+      ref={popoverRef}>
       {email && <Email email={email} />}
       {pathName === 'page' || pathName === 'upload' || pathName === 'tempsaved' ? (
         <PageContentWrapper $isContentBar={id === '컨텐츠바'}>
@@ -124,6 +131,7 @@ const DashBoardContentContainer = (props: DashBoardContentContainerProps) => {
               onMutateButtonClick={onMutateClick}
               onDeleteButtonClick={onDeleteClick}
               isRenderPopOverButton={isRenderPopOverButton}
+              position={popoverRef.current?.getBoundingClientRect().bottom + calculateNum > window.innerHeight}
               pathName={pathName === 'page' && draft ? 'pageDraft' : pathName}
             />
           )}
@@ -159,6 +167,7 @@ const DashBoardContentUI = styled.article<{ $isContentBar: boolean }>`
   &.contentBar div > span,
   &.contentBar button {
     border: none !important;
+    padding-left: 0;
     line-height: normal !important;
     letter-spacing: -0.004rem !important;
     white-space: nowrap;
@@ -194,6 +203,7 @@ const PageContentWrapper = styled.div<{ $isContentBar: boolean }>`
   width: 100%;
 
   .page_content {
-    display: ${({ $isContentBar }) => $isContentBar && 'flex'};
+    display: flex;
+    align-items: center;
   }
 `;

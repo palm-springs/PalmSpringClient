@@ -103,7 +103,13 @@ export const useGetMemberInfo = (blogUrl: string) => {
   return data;
 };
 
-export const usePostCategory = (blogUrl: string, name: string, description: string) => {
+export const usePostCategory = (
+  blogUrl: string,
+  name: string,
+  description: string,
+  setNewCategoryName: React.Dispatch<React.SetStateAction<string>>,
+  setNewCategoryDescription: React.Dispatch<React.SetStateAction<string>>,
+) => {
   const queryClient = useQueryClient();
 
   return useMutation(
@@ -112,6 +118,9 @@ export const usePostCategory = (blogUrl: string, name: string, description: stri
     {
       onSuccess: () => {
         queryClient.invalidateQueries([QUERY_KEY_DASHBOARD.getCategoryList]);
+
+        setNewCategoryName('');
+        setNewCategoryDescription('');
       },
     },
   );
@@ -168,6 +177,7 @@ export const useUpdateUserInfo = (blogUrl: string, userInfo: UserBasicInfo) => {
   return useMutation([QUERY_KEY_DASHBOARD.updateUserInfo, blogUrl, userInfo], () => updateUserInfo(blogUrl, userInfo), {
     onSuccess: () => {
       queryClient.invalidateQueries([QUERY_KEY_DASHBOARD.getNavList]);
+      queryClient.invalidateQueries([QUERY_KEY_DASHBOARD.getUserBasicInfo]);
     },
   });
 };
@@ -214,6 +224,7 @@ export const useDeleteArticle = (blogUrl: string, id: number) => {
 
   const mutation = useMutation([QUERY_KEY_DASHBOARD.deleteArticle, blogUrl, id], () => deleteArticle(blogUrl, id), {
     onSuccess: () => {
+      queryClient.invalidateQueries([QUERY_KEY_ARTICLE.getArticleList]);
       queryClient.invalidateQueries([QUERY_KEY_ARTICLE.getTempSavedList]);
     },
   });

@@ -43,7 +43,8 @@ const IndivUploadContentList = (props: IndivUploadContentListProps) => {
     <>
       {dashboardModalState === 'deleteArticle' && deleteModalId === id && (
         <DashboardContentDeleteModal
-          text="글을 삭제하시겠어요?"
+          title={title}
+          text={'글을 삭제하시겠어요?'}
           subText="글을 삭제할 시, 복구할 수 없습니다."
           onDelete={() => {
             mutate();
@@ -65,9 +66,7 @@ const IndivUploadContentList = (props: IndivUploadContentListProps) => {
           router.push(`/${team}/editor/article/${String(id)}/edit`);
         }}
         onTitleClick={() => {
-          window.open(
-            `https://${team}.${process.env.NEXT_PUBLIC_DOMAIN_NAME}/content/article/${articleUrl}/${String(id)}`,
-          );
+          window.open(`https://${team}.${process.env.NEXT_PUBLIC_DOMAIN_NAME}/${articleUrl}`);
         }}
         onDeleteClick={() => {
           setDashboardModalState('deleteArticle');

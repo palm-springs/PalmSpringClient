@@ -132,6 +132,7 @@ const TextEditorBuild = (props: TextEditorBuildprops) => {
       Code,
       CodeBlockLowlight.configure({
         lowlight,
+        defaultLanguage: 'plaintext',
       }),
       Blockquote,
       Image.configure({

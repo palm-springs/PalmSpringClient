@@ -50,6 +50,8 @@ const ImageInputForm = (props: ImageInputFormProps) => {
     }
   };
 
+  const ImageComp = type === 'logo' ? 'img' : Image;
+
   return (
     <div>
       <Toaster
@@ -68,7 +70,8 @@ const ImageInputForm = (props: ImageInputFormProps) => {
       <ImageContainer className={type} isImgSrc={!!imgSrc}>
         {imgSrc ? (
           <>
-            <Image src={imgSrc} alt={`${type} 이미지`} />
+            <ImageComp src={imgSrc} alt={`${type} 이미지`} fill={type === 'thumbnail'} />
+
             <CloseButton onClick={handleOnDeleteImg} className={type}>
               <IcClose24Icon />
             </CloseButton>
@@ -108,9 +111,9 @@ const ImageContainer = styled.div<{ isImgSrc: boolean }>`
     }
   }
   &.thumbnail {
+    width: 40rem;
     height: 13.9rem;
     & > img {
-      width: 40rem;
       height: 100%;
       object-fit: cover;
     }
