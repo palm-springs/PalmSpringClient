@@ -40,7 +40,6 @@ import { useParams, usePathname, useRouter } from 'next/navigation';
 import { useRecoilState, useSetRecoilState } from 'recoil';
 
 import { postArticleList } from '@/api/article';
-import { uploadContentCtrlVImage, uploadContentImage, uploadImage } from '@/api/common';
 import { postPageDraft } from '@/api/page';
 import TextEditor from '@/components/editor/TextEditor';
 import SaveEditorContentButton from '@/components/editor/ui/SaveEditorContentButton';
@@ -154,18 +153,10 @@ const TextEditorBuild = (props: TextEditorBuildprops) => {
       }),
     ],
     content: editorContent,
-    onUpdate({ editor }) {
+    onUpdate() {
       setIsSaved(false);
-      setContentValue(editor.getHTML()); //content value값 바로 추출
-      const handleInput = debounce((contentValue) => {
-        console.log('저장함수자리임', contentValue);
-        setIsSaved(true);
-        // handleOnDraftClickCount(); 위치 참조오류
-      }, 3000);
-      handleInput(contentValue);
     },
   });
-  // console.log(contentValue, '제발');
 
   const encodeFileToBase64 = async (event: ChangeEvent<HTMLInputElement>, editor: Editor) => {
     const files = event.target.files;
@@ -220,11 +211,8 @@ const TextEditorBuild = (props: TextEditorBuildprops) => {
       // Blob을 파일로 변환
       const file = new File([blob], 'image.png', { type: 'image/png' });
 
-      console.log('변환된 파일:', file);
-
       // 이미지 서버 통신 코드
       const imgUrl = await getContentCtrlVImage(file, String(team));
-      console.log('이미지 변환 성공', imgUrl);
 
       imageArr.push(imgUrl);
       if (imgUrl) {

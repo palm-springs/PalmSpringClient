@@ -20,21 +20,3 @@ export const uploadContentImage = async (blogUrl: string, formData: FormData) =>
   });
   return data;
 };
-
-//blob저장
-//article, page와 같은 Content 이미지 저장하기
-// export const uploadContentCtrlVImage = async (blogUrl: string, blob: Blob) => {
-//   const { data } = await client.post(`/api/v2/dashboard/image/add/article`, blob, {
-//     headers: { 'Content-Type': 'multipart/form-data' },
-//   });
-//   return data;
-// };
-
-//blob저장
-//article, page와 같은 Content 이미지 저장하기
-export const uploadContentCtrlVImage = async (blogUrl: string, formData: FormData) => {
-  const { data } = await client.post(`/api/v2/dashboard/image/add/article/blob`, formData, {
-    headers: { 'Content-Type': 'multipart/form-data' },
-  });
-  return data;
-};
