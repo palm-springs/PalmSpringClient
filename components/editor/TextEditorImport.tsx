@@ -1,11 +1,9 @@
 'use client';
 import React, {
   ChangeEvent,
-  ClipboardEvent,
   ClipboardEventHandler,
   DragEvent,
   DragEventHandler,
-  ReactEventHandler,
   useCallback,
   useEffect,
   useState,
@@ -30,7 +28,7 @@ import Placeholder from '@tiptap/extension-placeholder';
 import Strike from '@tiptap/extension-strike';
 import Text from '@tiptap/extension-text';
 import Underline from '@tiptap/extension-underline';
-import { Editor, EditorContent, useEditor } from '@tiptap/react';
+import { Editor, useEditor } from '@tiptap/react';
 import js from 'highlight.js/lib/languages/javascript';
 import ts from 'highlight.js/lib/languages/typescript';
 import html from 'highlight.js/lib/languages/xml';
@@ -46,7 +44,6 @@ import SaveEditorContentButton from '@/components/editor/ui/SaveEditorContentBut
 import ToolBox from '@/components/editor/ui/ToolBox';
 import { ARTICLE_DATA_ID, IS_FIRST_DRAFT_CLICK, PAGE_DATA_ID } from '@/constants/editor';
 import { useUpdateTempArticleDraft, useUpdateTempPageDraft } from '@/hooks/editor';
-import { useDraftAutoSave } from '@/hooks/useDraftAutoSave';
 import { UpdateArticleProps } from '@/types/article';
 import { UpdatePageProps } from '@/types/page';
 import { getContentCtrlVImage, getContentImageMultipartData } from '@/utils/getImageMultipartData';
