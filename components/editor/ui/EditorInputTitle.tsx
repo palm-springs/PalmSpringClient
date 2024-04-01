@@ -11,7 +11,7 @@ import { UpdatePageProps } from '@/types/page';
 import { articleDataState, isSaved, pageDataState } from '../states/atom';
 
 interface TextEditorImportProps {
-  pageType: string;
+  pageType?: string;
   currentState?: string;
   articleData?: UpdateArticleProps;
   pageData?: UpdatePageProps;

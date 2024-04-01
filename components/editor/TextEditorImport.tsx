@@ -29,11 +29,11 @@ import Strike from '@tiptap/extension-strike';
 import Text from '@tiptap/extension-text';
 import Underline from '@tiptap/extension-underline';
 import { Editor, useEditor } from '@tiptap/react';
-import js from 'highlight.js/lib/languages/javascript';
-import ts from 'highlight.js/lib/languages/typescript';
-import html from 'highlight.js/lib/languages/xml';
+import javascript from 'highlight.js/lib/languages/javascript';
+lowlight.registerLanguage('javascript', javascript);
+
 import { debounce } from 'lodash-es';
-import { lowlight } from 'lowlight';
+import { lowlight } from 'lowlight/lib/core';
 import { useParams, usePathname, useRouter } from 'next/navigation';
 import { useRecoilState, useSetRecoilState } from 'recoil';
 
@@ -50,12 +50,6 @@ import { getContentCtrlVImage, getContentImageMultipartData } from '@/utils/getI
 
 import { articleDataState, isSaved, pageDataState } from './states/atom';
 
-import css from 'highlight.js/lib/languages/css';
-//지금 js로 하면 컴포넌트 이름 그냥도 컬러 입혀짐 근데 코드블록 첫줄에 쓰면 안되고 코드 쓰고 막줄에 쓰면 엔터 쓰기 가능함
-lowlight.registerLanguage('html', html);
-lowlight.registerLanguage('css', css);
-lowlight.registerLanguage('js', js);
-lowlight.registerLanguage('ts', ts);
 interface TextEditorImportProps {
   pageType: string;
   currentState?: string;
@@ -85,7 +79,6 @@ const TextEditorImport = (props: TextEditorImportProps) => {
   const [updatedArticleData, setUpdatedArticleData] = useRecoilState(articleDataState);
   const [updatedPageData, setUpdatedPageData] = useRecoilState(pageDataState);
   //에디터 value값
-  const [contentValue, setContentValue] = useState('');
 
   const setIsSaved = useSetRecoilState(isSaved);
 
@@ -129,15 +122,11 @@ const TextEditorImport = (props: TextEditorImportProps) => {
       Code,
       CodeBlockLowlight.configure({
         lowlight,
-        defaultLanguage: 'plaintext',
       }),
       Blockquote,
       Image.configure({
         inline: true,
         allowBase64: true,
-        HTMLAttributes: {
-          class: 'my-custom-class',
-        },
       }),
       Dropcursor,
       Link.configure({
