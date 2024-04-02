@@ -70,15 +70,20 @@ const TextEditorImport = (props: TextEditorImportProps) => {
   const [{ title: articleTitle, content: articleContent }, setArticleData] = useRecoilState(articleDataState); // 아티클 초기 타이틀 -> 복사 -> 새로운 title 갈아끼기
   const [{ title: pageTitle, content: pageContent }, setPageData] = useRecoilState(pageDataState);
 
+  //이미지 담아두는 state
   const [, setImageSrc] = useState('');
-  const [extractedHTML, setExtractedHTML] = useState<string>('');
+
+  //이미지 배열 관리 상태 -> 서버에 보내기 위함
   const [imageArr, setImageArr] = useState<string[]>([]);
   const router = useRouter();
+
+  //수정 api
   const draftArticleMutation = useUpdateTempArticleDraft(String(team));
   const draftPageMutation = useUpdateTempPageDraft(String(team));
+
+  //articledata, pagedata 업데이트 된 상태 전역관리
   const [updatedArticleData, setUpdatedArticleData] = useRecoilState(articleDataState);
   const [updatedPageData, setUpdatedPageData] = useRecoilState(pageDataState);
-  //에디터 value값
 
   const setIsSaved = useSetRecoilState(isSaved);
 
@@ -256,7 +261,6 @@ const TextEditorImport = (props: TextEditorImportProps) => {
   const handleOnClickArticleDraft = async () => {
     if (editor) {
       const content = editor.getHTML();
-      setExtractedHTML(content);
 
       setArticleData((prev) => ({
         ...prev,
@@ -284,7 +288,6 @@ const TextEditorImport = (props: TextEditorImportProps) => {
   const handleOnClickPageDraft = async () => {
     if (editor) {
       const content = editor.getHTML();
-      setExtractedHTML(content);
 
       setPageData((prev) => ({
         ...prev,
@@ -312,7 +315,6 @@ const TextEditorImport = (props: TextEditorImportProps) => {
   const handleDataArticleDraft = () => {
     if (editor) {
       const newContent = editor.getHTML();
-      setExtractedHTML(newContent);
 
       setArticleData((prev) => ({
         ...prev,
@@ -336,7 +338,6 @@ const TextEditorImport = (props: TextEditorImportProps) => {
   const handleTempArticleDraft = () => {
     if (editor) {
       const newContent = editor.getHTML();
-      setExtractedHTML(newContent);
 
       if (imageArr.length === 0) {
         draftArticleMutation.mutate({
@@ -363,7 +364,6 @@ const TextEditorImport = (props: TextEditorImportProps) => {
   const handleDataPageDraft = () => {
     if (editor) {
       const newContent = editor.getHTML();
-      setExtractedHTML(newContent);
 
       setPageData((prev) => ({
         ...prev,
@@ -387,7 +387,6 @@ const TextEditorImport = (props: TextEditorImportProps) => {
   const handleTempPageDraft = () => {
     if (editor) {
       const newContent = editor.getHTML();
-      setExtractedHTML(newContent);
       setPageData((prev) => ({
         ...prev,
         content: newContent,
@@ -420,7 +419,6 @@ const TextEditorImport = (props: TextEditorImportProps) => {
     if (!document) return;
     if (editor) {
       const content = document.querySelector('[contenteditable="true"]')!.innerHTML;
-      setExtractedHTML(content);
 
       if (imageArr.length === 0) {
         setArticleData((prev) => ({ ...prev, title: articleTitle, content, images: [] }));
@@ -435,7 +433,6 @@ const TextEditorImport = (props: TextEditorImportProps) => {
   const handleOnClickPagePublish = () => {
     if (editor) {
       const content = document.querySelector('[contenteditable="true"]')!.innerHTML;
-      setExtractedHTML(content);
 
       if (imageArr.length === 0) {
         setPageData((prev) => ({ ...prev, title: pageTitle, content, images: [] }));
@@ -450,7 +447,6 @@ const TextEditorImport = (props: TextEditorImportProps) => {
   const handleUpdateGoArticlePublish = () => {
     if (editor) {
       const newContent = document.querySelector('[contenteditable="true"]')!.innerHTML;
-      setExtractedHTML(newContent);
 
       if (imageArr.length === 0) {
         setArticleData((prevData) => ({
@@ -476,7 +472,6 @@ const TextEditorImport = (props: TextEditorImportProps) => {
   const handleUpdateGoPagePublish = () => {
     if (editor) {
       const newContent = document.querySelector('[contenteditable="true"]')!.innerHTML;
-      setExtractedHTML(newContent);
 
       if (imageArr.length === 0) {
         setPageData((prevData) => ({
@@ -502,7 +497,6 @@ const TextEditorImport = (props: TextEditorImportProps) => {
   const handleUpdateDraftArticlePublish = () => {
     if (editor) {
       const newContent = document.querySelector('[contenteditable="true"]')!.innerHTML;
-      setExtractedHTML(newContent);
 
       if (imageArr.length === 0) {
         setArticleData((prevData) => ({
@@ -528,7 +522,6 @@ const TextEditorImport = (props: TextEditorImportProps) => {
   const handleUpdateDraftPagePublish = () => {
     if (editor) {
       const newContent = document.querySelector('[contenteditable="true"]')!.innerHTML;
-      setExtractedHTML(newContent);
 
       if (imageArr.length === 0) {
         setPageData((prevData) => ({
