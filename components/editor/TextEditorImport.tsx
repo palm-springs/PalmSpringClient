@@ -54,11 +54,12 @@ interface TextEditorImportProps {
   pageType: string;
   currentState?: string;
   updatedArticleData?: UpdateArticleProps;
-  pageData?: UpdatePageProps;
+  updatedPageData?: UpdatePageProps;
 }
 
 const TextEditorImport = (props: TextEditorImportProps) => {
-  const { pageType, currentState, updatedArticleData, pageData } = props;
+  const { pageType, currentState, updatedArticleData, updatedPageData } = props;
+  console.log('안들어오냐?', updatedPageData?.content);
   const { team, articleId, pageId } = useParams();
   const pathName = usePathname();
   //atTop useState로 상위에서 내려주기 -> toolbox와 saveEditorButton 상태공유 위함!
@@ -68,7 +69,7 @@ const TextEditorImport = (props: TextEditorImportProps) => {
   const sessionStorage = typeof window !== 'undefined' ? window.sessionStorage : undefined;
 
   const [articleData, setArticleData] = useRecoilState(articleDataState); // 아티클 초기 타이틀 -> 복사 -> 새로운 title 갈아끼기
-  const [{ title: pageTitle, content: pageContent }, setPageData] = useRecoilState(pageDataState);
+  const [pageData, setPageData] = useRecoilState(pageDataState);
 
   //이미지 담아두는 state
   const [, setImageSrc] = useState('');
@@ -81,9 +82,6 @@ const TextEditorImport = (props: TextEditorImportProps) => {
   const draftArticleMutation = useUpdateTempArticleDraft(String(team));
   const draftPageMutation = useUpdateTempPageDraft(String(team));
 
-  //articledata, pagedata 업데이트 된 상태 전역관리
-  const [updatedPageData, setUpdatedPageData] = useRecoilState(pageDataState);
-
   const setIsSaved = useSetRecoilState(isSaved);
 
   const selectEditorContent = () => {
@@ -91,8 +89,8 @@ const TextEditorImport = (props: TextEditorImportProps) => {
       if (articleData.content) return articleData.content;
       if (updatedArticleData) return updatedArticleData.content;
     } else if (pathName.startsWith(`/${team}/editor/page`)) {
-      if (pageContent) return pageContent;
-      if (pageData) return pageData.content;
+      if (pageData.content) return pageData.content;
+      if (updatedPageData) return updatedPageData.content;
     }
     return '';
   };
@@ -295,7 +293,7 @@ const TextEditorImport = (props: TextEditorImportProps) => {
 
       try {
         const res = await postPageDraft(String(team), {
-          title: pageTitle,
+          title: pageData.title,
           content,
           images: imageArr,
         });
@@ -313,11 +311,11 @@ const TextEditorImport = (props: TextEditorImportProps) => {
   //article 임시저장 최초 Post후 임시저장시 임시저장put --> article 임시저장 수정하기의 임시저장
   const handleDataArticleDraft = () => {
     if (editor) {
-      const newContent = editor.getHTML();
+      const content = editor.getHTML();
 
       setArticleData((prev) => ({
         ...prev,
-        content: newContent,
+        content: content,
       }));
 
       const dataArticleId = sessionStorage?.getItem(ARTICLE_DATA_ID);
@@ -326,7 +324,7 @@ const TextEditorImport = (props: TextEditorImportProps) => {
         ...articleData,
         id: Number(dataArticleId),
         title: articleData.title,
-        content: newContent,
+        content: content,
         images: imageArr,
         isPublish: false,
       });
@@ -362,20 +360,20 @@ const TextEditorImport = (props: TextEditorImportProps) => {
   //page 임시저장 최초 Post후 임시저장시 임시저장put
   const handleDataPageDraft = () => {
     if (editor) {
-      const newContent = editor.getHTML();
+      const content = editor.getHTML();
 
       setPageData((prev) => ({
         ...prev,
-        content: newContent,
+        content,
       }));
 
       const dataPageId = sessionStorage?.getItem(PAGE_DATA_ID);
 
       draftPageMutation.mutate({
-        ...updatedPageData,
+        ...pageData,
         id: Number(dataPageId),
-        title: pageTitle,
-        content: newContent,
+        title: pageData.title,
+        content: content,
         images: imageArr,
         isPublish: false,
       });
@@ -385,27 +383,27 @@ const TextEditorImport = (props: TextEditorImportProps) => {
   //page 임시저장시 임시저장put
   const handleTempPageDraft = () => {
     if (editor) {
-      const newContent = editor.getHTML();
+      const content = editor.getHTML();
       setPageData((prev) => ({
         ...prev,
-        content: newContent,
+        content,
       }));
 
       if (imageArr.length === 0) {
         draftPageMutation.mutate({
-          ...updatedPageData,
+          ...pageData,
           id: Number(pageId),
-          title: pageTitle,
-          content: newContent,
+          title: pageData.title,
+          content,
           images: [],
           isPublish: false,
         });
       } else {
         draftPageMutation.mutate({
-          ...updatedPageData,
+          ...pageData,
           id: Number(pageId),
-          title: pageTitle,
-          content: newContent,
+          title: pageData.title,
+          content,
           images: imageArr,
           isPublish: false,
         });
@@ -417,8 +415,7 @@ const TextEditorImport = (props: TextEditorImportProps) => {
   const handleOnClickArticlePublish = () => {
     if (!document) return;
     if (editor) {
-      const content = document.querySelector('[contenteditable="true"]')!.innerHTML;
-
+      const content = editor.getHTML();
       if (imageArr.length === 0) {
         setArticleData((prev) => ({ ...prev, title: articleData.title, content, images: [] }));
       } else {
@@ -431,12 +428,11 @@ const TextEditorImport = (props: TextEditorImportProps) => {
   // page page 저장시 내용 가지고 발행하기 페이지로 이동
   const handleOnClickPagePublish = () => {
     if (editor) {
-      const content = document.querySelector('[contenteditable="true"]')!.innerHTML;
-
+      const content = editor.getHTML();
       if (imageArr.length === 0) {
-        setPageData((prev) => ({ ...prev, title: pageTitle, content, images: [] }));
+        setPageData((prev) => ({ ...prev, title: pageData.title, content, images: [] }));
       } else {
-        setPageData((prev) => ({ ...prev, title: pageTitle, content, images: imageArr }));
+        setPageData((prev) => ({ ...prev, title: pageData.title, content, images: imageArr }));
       }
       router.push(`/${team}/editor/page/publish`);
     }
@@ -469,20 +465,20 @@ const TextEditorImport = (props: TextEditorImportProps) => {
   // 페이지 수정시 발행페이지 이동
   const handleUpdateGoPagePublish = () => {
     if (editor) {
-      const newContent = document.querySelector('[contenteditable="true"]')!.innerHTML;
+      const content = editor.getHTML();
 
       if (imageArr.length === 0) {
         setPageData((prevData) => ({
           ...prevData,
-          title: pageTitle,
-          content: newContent,
+          title: pageData.title,
+          content,
           images: [],
         }));
       } else {
         setPageData((prevData) => ({
           ...prevData,
-          title: pageTitle,
-          content: newContent,
+          title: pageData.title,
+          content,
           images: imageArr,
         }));
       }
@@ -518,20 +514,20 @@ const TextEditorImport = (props: TextEditorImportProps) => {
   //page 임시저장 수정시 발행하기로 내용가지고 이동
   const handleUpdateDraftPagePublish = () => {
     if (editor) {
-      const newContent = document.querySelector('[contenteditable="true"]')!.innerHTML;
+      const content = editor.getHTML();
 
       if (imageArr.length === 0) {
         setPageData((prevData) => ({
           ...prevData,
-          title: pageTitle,
-          content: newContent,
+          title: pageData.title,
+          content: content,
           images: [],
         }));
       } else {
         setPageData((prevData) => ({
           ...prevData,
-          title: pageTitle,
-          content: newContent,
+          title: pageData.title,
+          content: content,
           images: imageArr,
         }));
       }
@@ -562,7 +558,6 @@ const TextEditorImport = (props: TextEditorImportProps) => {
               : handleOnClickArticlePublish
           }
           isEdit={currentState === 'edit' ? true : false}
-          updatedArticleData={updatedArticleData}
           atTop={atTop}
           setAtTop={setAtTop}
           pageType="article"
@@ -578,7 +573,6 @@ const TextEditorImport = (props: TextEditorImportProps) => {
               : handleOnClickPagePublish
           }
           isEdit={currentState === 'edit' ? true : false} // edit이 아닌 경우는 draft 경우임
-          pageData={pageData}
           atTop={atTop}
           setAtTop={setAtTop}
           pageType="page"

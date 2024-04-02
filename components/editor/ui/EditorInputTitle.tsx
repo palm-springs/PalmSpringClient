@@ -14,11 +14,11 @@ interface TextEditorImportProps {
   pageType?: string;
   currentState?: string;
   updatedArticleData?: UpdateArticleProps;
-  pageData?: UpdatePageProps;
+  updatedPageData?: UpdatePageProps;
 }
 
 const EditorInputTitle = (props: TextEditorImportProps) => {
-  const { pageType, updatedArticleData, pageData } = props;
+  const { pageType, updatedArticleData, updatedPageData } = props;
   const { team } = useParams();
   const pathName = usePathname();
 
@@ -41,7 +41,7 @@ const EditorInputTitle = (props: TextEditorImportProps) => {
       if (updatedArticleData) return updatedArticleData.title;
     } else if (pathName.startsWith(`/${team}/editor/page`)) {
       if (pageTitle !== undefined || pageTitle !== null) return pageTitle;
-      if (pageData) return pageData.title;
+      if (updatedPageData) return updatedPageData.title;
     }
     return '';
   };
@@ -50,8 +50,8 @@ const EditorInputTitle = (props: TextEditorImportProps) => {
   useEffect(() => {
     if (!articleTitle && updatedArticleData) {
       setArticleData((prev) => ({ ...prev, title: updatedArticleData.title }));
-    } else if (!pageTitle && pageData) {
-      setPageData((prev) => ({ ...prev, title: pageData.title }));
+    } else if (!pageTitle && updatedPageData) {
+      setPageData((prev) => ({ ...prev, title: updatedPageData.title }));
     }
 
     handleResizeInput();

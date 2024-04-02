@@ -18,8 +18,7 @@ interface editorProps {
   handleOnClickPublish: () => void;
   isEdit?: boolean;
   currentState?: string;
-  updatedArticleData?: UpdateArticleProps;
-  pageData?: UpdatePageProps;
+
   pageType?: string;
   atTop: boolean;
   setAtTop: React.Dispatch<React.SetStateAction<boolean>>;

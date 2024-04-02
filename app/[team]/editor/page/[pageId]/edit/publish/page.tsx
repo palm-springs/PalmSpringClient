@@ -14,7 +14,7 @@ const PageEditPublishPage = () => {
   const { team, pageId } = useParams();
   const [isDuplicate, setIsDuplicate] = useState<boolean | null>(false);
   const [isAddressRulePassed, setIsAddressRulePassed] = useState<boolean>(true);
-  const updatePageEditContents = useGetUpdatePageContent(team, Number(pageId));
+  const updatePageEditContents = useGetUpdatePageContent(String(team), Number(pageId));
 
   return (
     <AuthRequired>
