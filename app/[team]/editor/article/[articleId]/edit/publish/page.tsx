@@ -16,7 +16,7 @@ const ArticleEditPublishPage = () => {
   const { team, articleId } = useParams();
   const [isDuplicate, setIsDuplicate] = useState<boolean | null>(false);
   const [isAddressRulePassed, setIsAddressRulePassed] = useState<boolean>(true);
-  const updateArticleEditContents = useGetUpdateArticleContent(team, Number(articleId));
+  const updateArticleEditContents = useGetUpdateArticleContent(String(team), Number(articleId));
 
   return (
     <AuthRequired>
@@ -24,23 +24,23 @@ const ArticleEditPublishPage = () => {
         <ArticlePublishContainer>
           {updateArticleEditContents && (
             <>
-              <ThumbnailInput pageType="article" articleData={updateArticleEditContents.data} />
-              <PublishTitle pageType="article" articleData={updateArticleEditContents.data} />
-              <CategorySelect articleData={updateArticleEditContents.data} />
-              <OneLiner articleData={updateArticleEditContents.data} />
+              <ThumbnailInput pageType="article" updatedArticleData={updateArticleEditContents.data} />
+              <PublishTitle pageType="article" />
+              <CategorySelect updatedArticleData={updateArticleEditContents.data} />
+              <OneLiner updatedArticleData={updateArticleEditContents.data} />
               <UrlCustom
                 pageType="article"
                 isDuplicate={isDuplicate}
                 isAddressRulePassed={isAddressRulePassed}
                 setIsAddressRulePassed={setIsAddressRulePassed}
                 setIsDuplicate={setIsDuplicate}
-                articleData={updateArticleEditContents.data}
+                updatedArticleData={updateArticleEditContents.data}
               />
               <PublishBottomButtons
                 pageType="article"
                 currentState="edit"
                 isDuplicate={isDuplicate}
-                articleData={updateArticleEditContents.data}
+                updatedArticleData={updateArticleEditContents.data}
                 isAddressRulePassed={isAddressRulePassed}
               />
             </>

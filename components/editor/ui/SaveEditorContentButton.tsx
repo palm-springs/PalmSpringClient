@@ -18,7 +18,7 @@ interface editorProps {
   handleOnClickPublish: () => void;
   isEdit?: boolean;
   currentState?: string;
-  articleData?: UpdateArticleProps;
+  updatedArticleData?: UpdateArticleProps;
   pageData?: UpdatePageProps;
   pageType?: string;
   atTop: boolean;

@@ -53,12 +53,12 @@ import { articleDataState, isSaved, pageDataState } from './states/atom';
 interface TextEditorImportProps {
   pageType: string;
   currentState?: string;
-  articleData?: UpdateArticleProps;
+  updatedArticleData?: UpdateArticleProps;
   pageData?: UpdatePageProps;
 }
 
 const TextEditorImport = (props: TextEditorImportProps) => {
-  const { pageType, currentState, articleData, pageData } = props;
+  const { pageType, currentState, updatedArticleData, pageData } = props;
   const { team, articleId, pageId } = useParams();
   const pathName = usePathname();
   //atTop useState로 상위에서 내려주기 -> toolbox와 saveEditorButton 상태공유 위함!
@@ -67,7 +67,7 @@ const TextEditorImport = (props: TextEditorImportProps) => {
   // sessionStorage
   const sessionStorage = typeof window !== 'undefined' ? window.sessionStorage : undefined;
 
-  const [{ title: articleTitle, content: articleContent }, setArticleData] = useRecoilState(articleDataState); // 아티클 초기 타이틀 -> 복사 -> 새로운 title 갈아끼기
+  const [articleData, setArticleData] = useRecoilState(articleDataState); // 아티클 초기 타이틀 -> 복사 -> 새로운 title 갈아끼기
   const [{ title: pageTitle, content: pageContent }, setPageData] = useRecoilState(pageDataState);
 
   //이미지 담아두는 state
@@ -82,15 +82,14 @@ const TextEditorImport = (props: TextEditorImportProps) => {
   const draftPageMutation = useUpdateTempPageDraft(String(team));
 
   //articledata, pagedata 업데이트 된 상태 전역관리
-  const [updatedArticleData, setUpdatedArticleData] = useRecoilState(articleDataState);
   const [updatedPageData, setUpdatedPageData] = useRecoilState(pageDataState);
 
   const setIsSaved = useSetRecoilState(isSaved);
 
   const selectEditorContent = () => {
     if (pathName.startsWith(`/${team}/editor/article`)) {
-      if (articleContent) return articleContent;
-      if (articleData) return articleData.content;
+      if (articleData.content) return articleData.content;
+      if (updatedArticleData) return updatedArticleData.content;
     } else if (pathName.startsWith(`/${team}/editor/page`)) {
       if (pageContent) return pageContent;
       if (pageData) return pageData.content;
@@ -269,7 +268,7 @@ const TextEditorImport = (props: TextEditorImportProps) => {
 
       try {
         const res = await postArticleList(String(team), {
-          title: articleTitle,
+          title: articleData.title,
           content,
           images: imageArr,
         });
@@ -324,9 +323,9 @@ const TextEditorImport = (props: TextEditorImportProps) => {
       const dataArticleId = sessionStorage?.getItem(ARTICLE_DATA_ID);
 
       draftArticleMutation.mutate({
-        ...updatedArticleData,
+        ...articleData,
         id: Number(dataArticleId),
-        title: articleTitle,
+        title: articleData.title,
         content: newContent,
         images: imageArr,
         isPublish: false,
@@ -337,23 +336,23 @@ const TextEditorImport = (props: TextEditorImportProps) => {
   //article 임시저장시 임시저장put --> article 임시저장 수정하기의 임시저장
   const handleTempArticleDraft = () => {
     if (editor) {
-      const newContent = editor.getHTML();
+      const content = editor.getHTML();
 
       if (imageArr.length === 0) {
         draftArticleMutation.mutate({
-          ...updatedArticleData,
+          ...articleData,
           id: Number(articleId),
-          title: articleTitle,
-          content: newContent,
+          title: articleData.title,
+          content,
           images: [],
           isPublish: false,
         });
       } else {
         draftArticleMutation.mutate({
-          ...updatedArticleData,
+          ...articleData,
           id: Number(articleId),
-          title: articleTitle,
-          content: newContent,
+          title: articleData.title,
+          content,
           isPublish: false,
           images: imageArr,
         });
@@ -421,9 +420,9 @@ const TextEditorImport = (props: TextEditorImportProps) => {
       const content = document.querySelector('[contenteditable="true"]')!.innerHTML;
 
       if (imageArr.length === 0) {
-        setArticleData((prev) => ({ ...prev, title: articleTitle, content, images: [] }));
+        setArticleData((prev) => ({ ...prev, title: articleData.title, content, images: [] }));
       } else {
-        setArticleData((prev) => ({ ...prev, title: articleTitle, content, images: imageArr }));
+        setArticleData((prev) => ({ ...prev, title: articleData.title, content, images: imageArr }));
       }
       router.push(`/${team}/editor/article/publish`);
     }
@@ -446,20 +445,19 @@ const TextEditorImport = (props: TextEditorImportProps) => {
   //article 수정시 발행하기로 내용가지고 이동
   const handleUpdateGoArticlePublish = () => {
     if (editor) {
-      const newContent = document.querySelector('[contenteditable="true"]')!.innerHTML;
-
+      const content = editor.getHTML();
       if (imageArr.length === 0) {
         setArticleData((prevData) => ({
           ...prevData,
-          title: articleTitle,
-          content: newContent,
+          title: articleData.title,
+          content,
           images: [],
         }));
       } else {
         setArticleData((prevData) => ({
           ...prevData,
-          title: articleTitle,
-          content: newContent,
+          title: articleData.title,
+          content,
           images: imageArr,
         }));
       }
@@ -496,20 +494,19 @@ const TextEditorImport = (props: TextEditorImportProps) => {
   //article 임시저장 수정시 발행하기로 내용가지고 이동
   const handleUpdateDraftArticlePublish = () => {
     if (editor) {
-      const newContent = document.querySelector('[contenteditable="true"]')!.innerHTML;
-
+      const content = editor.getHTML();
       if (imageArr.length === 0) {
         setArticleData((prevData) => ({
           ...prevData,
-          title: articleTitle,
-          content: newContent,
+          title: articleData.title,
+          content,
           images: [],
         }));
       } else {
         setArticleData((prevData) => ({
           ...prevData,
-          title: articleTitle,
-          content: newContent,
+          title: articleData.title,
+          content,
           images: imageArr,
         }));
       }
@@ -565,7 +562,7 @@ const TextEditorImport = (props: TextEditorImportProps) => {
               : handleOnClickArticlePublish
           }
           isEdit={currentState === 'edit' ? true : false}
-          articleData={articleData}
+          updatedArticleData={updatedArticleData}
           atTop={atTop}
           setAtTop={setAtTop}
           pageType="article"

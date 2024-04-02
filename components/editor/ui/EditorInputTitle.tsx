@@ -13,12 +13,12 @@ import { articleDataState, isSaved, pageDataState } from '../states/atom';
 interface TextEditorImportProps {
   pageType?: string;
   currentState?: string;
-  articleData?: UpdateArticleProps;
+  updatedArticleData?: UpdateArticleProps;
   pageData?: UpdatePageProps;
 }
 
 const EditorInputTitle = (props: TextEditorImportProps) => {
-  const { pageType, articleData, pageData } = props;
+  const { pageType, updatedArticleData, pageData } = props;
   const { team } = useParams();
   const pathName = usePathname();
 
@@ -38,7 +38,7 @@ const EditorInputTitle = (props: TextEditorImportProps) => {
   const selectTitle = () => {
     if (pathName.startsWith(`/${team}/editor/article`)) {
       if (articleTitle !== undefined || articleTitle !== null) return articleTitle;
-      if (articleData) return articleData.title;
+      if (updatedArticleData) return updatedArticleData.title;
     } else if (pathName.startsWith(`/${team}/editor/page`)) {
       if (pageTitle !== undefined || pageTitle !== null) return pageTitle;
       if (pageData) return pageData.title;
@@ -48,8 +48,8 @@ const EditorInputTitle = (props: TextEditorImportProps) => {
   const titleValue = selectTitle();
 
   useEffect(() => {
-    if (!articleTitle && articleData) {
-      setArticleData((prev) => ({ ...prev, title: articleData.title }));
+    if (!articleTitle && updatedArticleData) {
+      setArticleData((prev) => ({ ...prev, title: updatedArticleData.title }));
     } else if (!pageTitle && pageData) {
       setPageData((prev) => ({ ...prev, title: pageData.title }));
     }

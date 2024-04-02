@@ -10,17 +10,15 @@ import { articleDataState, pageDataState } from '../../states/atom';
 
 interface PublishTitleprops {
   pageType: string;
-  pageData?: UpdatePageProps;
-  articleData?: UpdateArticleProps;
 }
 
 //정보 get 해야함
 const PublishTitle = (props: PublishTitleprops) => {
-  const { pageType, pageData, articleData } = props;
+  const { pageType } = props;
   const [titleValue, setTitleValue] = useState('');
 
-  const [{ title: articleTitle }, setArticleData] = useRecoilState(articleDataState);
-  const [{ title: pageTitle }, setPageData] = useRecoilState(pageDataState);
+  const [{ title: articleTitle }] = useRecoilState(articleDataState);
+  const [{ title: pageTitle }] = useRecoilState(pageDataState);
 
   useEffect(() => {
     const selectTitle = () => {

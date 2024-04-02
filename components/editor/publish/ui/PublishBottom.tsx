@@ -24,7 +24,7 @@ interface PublishBottomButtons {
   pageType: string;
   isDuplicate: boolean | null;
   isAddressRulePassed: boolean | null;
-  articleData?: UpdateArticleProps;
+  updatedArticleData?: UpdateArticleProps;
   isEdit?: boolean;
   currentState?: string;
   pageData?: UpdatePageProps;
@@ -32,7 +32,7 @@ interface PublishBottomButtons {
 
 const PublishBottomButtons = (props: PublishBottomButtons) => {
   const router = useRouter();
-  const { pageType, isDuplicate, currentState, isAddressRulePassed, articleData, pageData } = props;
+  const { pageType, isDuplicate, currentState, isAddressRulePassed, updatedArticleData, pageData } = props;
   const pathName = usePathname();
 
   const queryClient = useQueryClient();
@@ -45,8 +45,8 @@ const PublishBottomButtons = (props: PublishBottomButtons) => {
   const draftArticleMutation = useUpdateTempArticleDraft(String(team));
   const draftPageMutation = useUpdateTempPageDraft(String(team));
 
-  const updatedArticleData = useRecoilValue(articleDataState);
-  const { categoryId, description, articleUrl, thumbnail, content, title } = updatedArticleData;
+  const articleData = useRecoilValue(articleDataState);
+  const { categoryId, description, articleUrl, thumbnail, content, title } = articleData;
   const updatedPageData = useRecoilValue(pageDataState);
   const { pageUrl, thumbnail: pageThumbnail, content: pageContent, title: pageTitle } = updatedPageData;
 
@@ -58,7 +58,7 @@ const PublishBottomButtons = (props: PublishBottomButtons) => {
 
   //아티클 최종 발행하기
   const handleOnClickArticlePublish = async () => {
-    await postArticleCreateList(String(team), updatedArticleData);
+    await postArticleCreateList(String(team), articleData);
     queryClient.invalidateQueries([QUERY_KEY_ARTICLE.getArticleList]);
     resetArticleData();
     removeDraftContentData();
@@ -69,7 +69,7 @@ const PublishBottomButtons = (props: PublishBottomButtons) => {
   const handleOnClickUpdateArticlePublish = () => {
     updateArticleMutation.mutate(
       {
-        ...updatedArticleData,
+        ...articleData,
         id: Number(articleId),
       },
       {
@@ -87,7 +87,7 @@ const PublishBottomButtons = (props: PublishBottomButtons) => {
   const handleTempArticleUpdatePublish = () => {
     draftArticleMutation.mutate(
       {
-        ...updatedArticleData,
+        ...articleData,
         id: Number(articleId),
         isPublish: true,
       },
@@ -148,12 +148,12 @@ const PublishBottomButtons = (props: PublishBottomButtons) => {
                 type="button"
                 onClick={handleOnClickUpdateArticlePublish}
                 disabled={
-                  (articleData?.thumbnail === thumbnail &&
-                    articleData?.description === description &&
-                    articleData?.categoryId === categoryId &&
-                    articleData?.articleUrl === articleUrl &&
-                    articleData?.content === content &&
-                    articleData?.title === title) ||
+                  (updatedArticleData?.thumbnail === thumbnail &&
+                    updatedArticleData?.description === description &&
+                    updatedArticleData?.categoryId === categoryId &&
+                    updatedArticleData?.articleUrl === articleUrl &&
+                    updatedArticleData?.content === content &&
+                    updatedArticleData?.title === title) ||
                   categoryId === null ||
                   description === '' ||
                   articleUrl === '' ||

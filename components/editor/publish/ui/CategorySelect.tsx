@@ -12,21 +12,21 @@ import { UpdateArticleProps } from '@/types/article';
 import { articleDataState } from '../../states/atom';
 
 interface CategorySelectProps {
-  articleData?: UpdateArticleProps;
+  updatedArticleData?: UpdateArticleProps;
 }
 
 const CategorySelect = (props: CategorySelectProps) => {
-  const { articleData } = props;
-  const [{ categoryId }, setArticleData] = useRecoilState(articleDataState);
+  const { updatedArticleData } = props;
+  const [, setArticleData] = useRecoilState(articleDataState);
   const [activeCategory, setActiveCategory] = useState('');
   const { team } = useParams();
 
-  const data = useGetCategoryList(team);
+  const data = useGetCategoryList(String(team));
 
   useEffect(() => {
-    if (articleData) {
-      setArticleData((prev) => ({ ...prev, categoryId: Number(articleData.categoryId) }));
-      setActiveCategory(String(articleData.categoryId));
+    if (updatedArticleData) {
+      setArticleData((prev) => ({ ...prev, categoryId: Number(updatedArticleData.categoryId) }));
+      setActiveCategory(String(updatedArticleData.categoryId));
     }
   }, []);
 

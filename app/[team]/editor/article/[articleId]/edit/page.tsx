@@ -18,8 +18,16 @@ const EditArticlePage = () => {
           {/* 데이터가 content 있는 페이지 */}
           {updateArticleEditContents && (
             <>
-              <EditorInputTitle pageType="article" currentState="edit" articleData={updateArticleEditContents.data} />
-              <TextEditorImport pageType="article" currentState="edit" articleData={updateArticleEditContents.data} />
+              <EditorInputTitle
+                pageType="article"
+                currentState="edit"
+                updatedArticleData={updateArticleEditContents.data}
+              />
+              <TextEditorImport
+                pageType="article"
+                currentState="edit"
+                updatedArticleData={updateArticleEditContents.data}
+              />
             </>
           )}
         </ArticleWrapper>

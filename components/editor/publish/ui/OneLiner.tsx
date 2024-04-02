@@ -10,16 +10,16 @@ import { UpdateArticleProps } from '@/types/article';
 import { articleDataState } from '../../states/atom';
 
 interface CategorySelectProps {
-  articleData?: UpdateArticleProps;
+  updatedArticleData?: UpdateArticleProps;
 }
 
 const OneLiner = (props: CategorySelectProps) => {
-  const { articleData } = props;
+  const { updatedArticleData } = props;
   const [{ description }, setArticleData] = useRecoilState(articleDataState);
 
   useEffect(() => {
-    if (articleData) {
-      setArticleData((prev) => ({ ...prev, description: String(articleData.description) }));
+    if (updatedArticleData) {
+      setArticleData((prev) => ({ ...prev, description: String(updatedArticleData.description) }));
     } else {
       setArticleData((prev) => ({ ...prev, description: '' }));
     }
