@@ -59,7 +59,6 @@ interface TextEditorImportProps {
 
 const TextEditorImport = (props: TextEditorImportProps) => {
   const { pageType, currentState, updatedArticleData, updatedPageData } = props;
-  console.log('안들어오냐?', updatedPageData?.content);
   const { team, articleId, pageId } = useParams();
   const pathName = usePathname();
   //atTop useState로 상위에서 내려주기 -> toolbox와 saveEditorButton 상태공유 위함!
@@ -84,13 +83,22 @@ const TextEditorImport = (props: TextEditorImportProps) => {
 
   const setIsSaved = useSetRecoilState(isSaved);
 
+  // const selectEditorContent = () => {
+  //   if (pathName.startsWith(`/${team}/editor/article`)) {
+  //     if (articleData.content) return articleData.content;
+  //     if (updatedArticleData) return updatedArticleData.content;
+  //   } else if (pathName.startsWith(`/${team}/editor/page`)) {
+  //     if (pageData.content) return pageData.content;
+  //     if (updatedPageData) return updatedPageData.content;
+  //   }
+  //   return '';
+  // };
+
   const selectEditorContent = () => {
     if (pathName.startsWith(`/${team}/editor/article`)) {
-      if (articleData.content) return articleData.content;
-      if (updatedArticleData) return updatedArticleData.content;
+      return articleData.content || (updatedArticleData && updatedArticleData.content);
     } else if (pathName.startsWith(`/${team}/editor/page`)) {
-      if (pageData.content) return pageData.content;
-      if (updatedPageData) return updatedPageData.content;
+      return pageData.content || (updatedPageData && updatedPageData.content);
     }
     return '';
   };
@@ -147,6 +155,7 @@ const TextEditorImport = (props: TextEditorImportProps) => {
     },
   });
 
+  //이미지 버튼 파일 base64 인코딩
   const encodeFileToBase64 = async (event: ChangeEvent<HTMLInputElement>, editor: Editor) => {
     const files = event.target.files;
     if (!files || files.length === 0) {
@@ -162,27 +171,6 @@ const TextEditorImport = (props: TextEditorImportProps) => {
     };
     reader.readAsDataURL(file);
   };
-
-  //링크 삽입 버튼
-  const setLink = useCallback(
-    ({ editor }: { editor: Editor }) => {
-      const previousUrl = editor.getAttributes('link').href;
-      const url = window.prompt('URL', previousUrl);
-
-      if (url === null) {
-        return;
-      }
-
-      if (url === '') {
-        editor.chain().focus().extendMarkRange('link').unsetLink().run();
-
-        return;
-      }
-
-      editor.chain().focus().extendMarkRange('link').setLink({ href: url }).run();
-    },
-    [editor],
-  );
 
   //이미지 복붙
   const ctrlVImage: ClipboardEventHandler<HTMLInputElement> = useCallback(async () => {
@@ -538,13 +526,7 @@ const TextEditorImport = (props: TextEditorImportProps) => {
 
   return (
     <>
-      <ToolBox
-        editor={editor}
-        encodeFileToBase64={encodeFileToBase64}
-        setLink={setLink}
-        atTop={atTop}
-        setAtTop={setAtTop}
-      />
+      <ToolBox editor={editor} encodeFileToBase64={encodeFileToBase64} atTop={atTop} setAtTop={setAtTop} />
       <TextEditor editor={editor} handleDrop={handleDrop} handleDragOver={handleDragOver} ctrlVImage={ctrlVImage} />
 
       {pageType === 'article' ? (
