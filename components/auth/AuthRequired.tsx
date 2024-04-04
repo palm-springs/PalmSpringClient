@@ -8,6 +8,10 @@ import { ACCESS_TOKEN_KEY, LoginUserState } from '@/constants/Auth';
 
 // 로그인이 필요한 페이지에 대해 로그인 검사
 const AuthRequired = ({ children }: { children: React.ReactNode }) => {
+  // reissue 중복 요청 관리 - lock & subscribers
+  let lock = false;
+  const subscribers: Array<(token: string) => void> = [];
+
   // url
   const router = useRouter();
   const pathname = usePathname();
@@ -58,11 +62,26 @@ const AuthRequired = ({ children }: { children: React.ReactNode }) => {
         const { config } = error;
 
         if (!error.response) {
-          const newAccessToken = await refresh();
+          // 최초 reissue 요청이 있으므로, 해당 config 구독
+          if (lock) {
+            return new Promise((resolve) => {
+              subscribers.push((token: string) => {
+                config.headers.Authorization = `Bearer ${token}`;
+                resolve(client(config));
+              });
+            });
+          }
+          // reissue 요청 성공 후 lock 풀고 구독한 요청들 실행
+          else {
+            const newAccessToken = await refresh();
 
-          config.headers.Authorization = `Bearer ${newAccessToken}`;
-          sessionStorage?.setItem(ACCESS_TOKEN_KEY, newAccessToken);
-          return client(config);
+            config.headers.Authorization = `Bearer ${newAccessToken}`;
+            sessionStorage?.setItem(ACCESS_TOKEN_KEY, newAccessToken);
+            lock = false;
+            subscribers.forEach((rq) => rq(newAccessToken));
+            subscribers.length = 0;
+            return client(config);
+          }
         }
 
         return error.response;
