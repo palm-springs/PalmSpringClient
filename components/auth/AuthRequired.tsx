@@ -73,6 +73,7 @@ const AuthRequired = ({ children }: { children: React.ReactNode }) => {
           }
           // reissue 요청 성공 후 lock 풀고 구독한 요청들 실행
           else {
+            lock = true;
             const newAccessToken = await refresh();
 
             config.headers.Authorization = `Bearer ${newAccessToken}`;
