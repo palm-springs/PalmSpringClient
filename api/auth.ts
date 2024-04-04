@@ -72,3 +72,14 @@ export const platformLogin = async (requestBody: loginRequest) => {
     }
   }
 };
+
+export const platformRegister = async (requestBody : loginRequest) => {
+  try{
+    const { data } = await client.post<Response<null>>(`/api/v2/auth/internal/register`, requestBody);
+    return data;
+  }catch(err){
+    if(isAxiosError(err)){
+      return { code: err.response?.status, message: '', data:null };
+    }
+  }
+};

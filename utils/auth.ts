@@ -28,6 +28,13 @@ export const failLogin = createToast({
   duration: 3000,
 });
 
+export const failSignup = createToast({
+  type: 'ERROR',
+  message: '이미 가입된 이메일입니다',
+  id: 'error on signup email already exists',
+  duration: 3000,
+});
+
 // 회원가입 비밀번호 조건 검사
 export const capitalCheck = (password: string) => {
   return /[A-Z]/.test(password);
