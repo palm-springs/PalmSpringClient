@@ -18,6 +18,7 @@ import Title from '../ui/Title';
 
 const SignupLanding = () => {
   const [{ email, password, passwordCheck }, setValue] = useState({ email: '', password: '', passwordCheck: '' });
+  const emailRef = useRef<HTMLInputElement>(null);
 
   const sessionStorage = typeof window !== 'undefined' ? window.sessionStorage : undefined;
   const router = useRouter();
@@ -49,7 +50,10 @@ const SignupLanding = () => {
         <GoogleLoginLanding />
         <Contour>or</Contour>
 
-        <Input value={email} setValue={(newValue: string) => setValue((prev) => ({ ...prev, email: newValue }))}>
+        <Input
+          value={email}
+          setValue={(newValue: string) => setValue((prev) => ({ ...prev, email: newValue }))}
+          ref={emailRef}>
           이메일
         </Input>
         <Input value={password} setValue={(newValue: string) => setValue((prev) => ({ ...prev, password: newValue }))}>
