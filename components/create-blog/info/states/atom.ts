@@ -4,7 +4,7 @@ import { createBlogData } from '@/types/blogInfo';
 
 export const createBlogDataState = atom<createBlogData>({
   key: 'CreateBlogDataState',
-  default: { name: '', url: '', thumbnail: null, logo: null, description: '' },
+  default: { name: '', url: '', thumbnail: null, logo: null, description: '', footerInfo: { owner: "", info: "" } },
 });
 
 export const progressState = atom<number>({

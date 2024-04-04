@@ -11,6 +11,10 @@ export interface createBlogData {
   thumbnail: string | null;
   logo: string | null;
   description: string | null;
+  footerInfo: {
+    owner: string;
+    info: string;
+  };
 }
 
 export interface BlogListInfo {
