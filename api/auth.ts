@@ -1,6 +1,6 @@
 import axios, { isAxiosError } from 'axios';
 
-import { getAccessTokenProps, googleAccessTokenResponse, jwtAccessTokenResponse } from '@/types/auth';
+import { getAccessTokenProps, googleAccessTokenResponse, jwtAccessTokenResponse, loginRequest, loginResponse } from '@/types/auth';
 import { Response } from '@/types/common';
 
 import client, { refreshAxiosInstance } from '.';
@@ -57,4 +57,18 @@ export const getRefreshToken = async () => {
 export const logout = async () => {
   const { data } = await client.delete<Response<null>>(`/api/v2/auth/logout`);
   return data;
+};
+
+/* 자체 플랫폼 */
+// 로그인
+export const platformLogin = async (requestBody: loginRequest) => {
+  try{
+    const { data } = await client.post<Response<loginResponse>>(`/api/v2/auth/internal/login`, requestBody);
+    return data;
+  } 
+  catch (err){
+    if(isAxiosError(err)){
+      return { code: err.response?.status, message: '로그인 정보가 올바르지 않습니다', data: null };
+    }
+  }
 };

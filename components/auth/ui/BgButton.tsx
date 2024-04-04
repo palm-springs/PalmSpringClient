@@ -5,10 +5,11 @@ import styled from 'styled-components';
 interface BgButtonProps {
   children: ReactNode;
   disabled: boolean;
+  onClick: ()=>void;
 }
 const BgButton = (props: BgButtonProps) => {
-  const { children, disabled } = props;
-  return <Button disabled={disabled}>{children}</Button>;
+  const { children, disabled, onClick } = props;
+  return <Button disabled={disabled} onClick={onClick}>{children}</Button>;
 };
 
 export default BgButton;
@@ -18,9 +19,11 @@ const Button = styled.button`
   display: flex;
   align-items: center;
   justify-content: center;
+
+  transition: ease-in-out 0.3s;
   margin-top: 1.4rem;
 
-  border: 1px solid ${({ theme }) => theme.colors.grey_400};
+  border: 1px solid ${({ theme }) => theme.colors.grey_900};
 
   border-radius: 1.6rem;
   background-color: ${({ theme }) => theme.colors.grey_900};
@@ -32,7 +35,12 @@ const Button = styled.button`
   color: ${({ theme }) => theme.colors.grey_0};
 
   &:disabled {
+    border: 1px solid ${({ theme }) => theme.colors.grey_400};
     background-color: ${({ theme }) => theme.colors.grey_700};
     cursor: default;
+  }
+
+  &:not(:disabled):hover {
+    background-color: ${({ theme }) => theme.colors.grey_950};
   }
 `;

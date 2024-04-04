@@ -20,3 +20,14 @@ export interface jwtAccessTokenResponse {
   grantType: string;
   refreshToken: string;
 }
+
+export interface loginRequest {
+  email: string;
+  password: string;
+}
+
+export interface loginResponse {
+  grantType : string;
+  refreshToken: string;
+  accessToken: string;
+}

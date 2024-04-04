@@ -14,14 +14,6 @@ import LinkButton from '../ui/LinkButton';
 import Title from '../ui/Title';
 
 const SignupLanding = () => {
-  //   const emailRef = useRef<HTMLInputElement>(null);
-  //   const passwordRef = useRef<HTMLInputElement>(null);
-  //   const passwordCheckRef = useRef<HTMLInputElement>(null);
-
-  //   const email = emailRef.current?.value;
-  //   const password = passwordRef.current?.value;
-  //   const passwordCheck = passwordCheckRef.current?.value;
-
   const [{ email, password, passwordCheck }, setValue] = useState({ email: '', password: '', passwordCheck: '' });
 
   return (

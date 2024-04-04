@@ -58,7 +58,7 @@ const LoginButton = styled.a`
 
   &:hover {
     transition: 0.3s ease-out;
-    background-color: rgba(173, 181, 189, 0.15);
+    background-color: ${({ theme }) => theme.colors.grey_50};;
   }
 
   & > span {
