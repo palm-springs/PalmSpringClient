@@ -78,6 +78,8 @@ const AuthRequired = ({ children }: { children: React.ReactNode }) => {
 
             config.headers.Authorization = `Bearer ${newAccessToken}`;
             sessionStorage?.setItem(ACCESS_TOKEN_KEY, newAccessToken);
+            client.defaults.headers.Authorization = `Bearer ${newAccessToken}`;
+
             lock = false;
             subscribers.forEach((rq) => rq(newAccessToken));
             subscribers.length = 0;
