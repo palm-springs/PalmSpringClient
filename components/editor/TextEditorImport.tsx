@@ -141,6 +141,11 @@ const TextEditorImport = (props: TextEditorImportProps) => {
     content: editorContent,
     onUpdate() {
       setIsSaved(false);
+      const handleInput = debounce(() => {
+        console.log('저장함수자리임');
+        handleOnDraftClickCount();
+      }, 3000);
+      handleInput();
     },
   });
 
@@ -219,8 +224,7 @@ const TextEditorImport = (props: TextEditorImportProps) => {
     return null;
   }
 
-  //content 페이지 최초 임시저장시 로직(1번 클릭 -> post 그 뒤 put으로)
-  const handleOnDraftClickCount = () => {
+  function handleOnDraftClickCount() {
     const isFirstClick = sessionStorage?.getItem(IS_FIRST_DRAFT_CLICK);
 
     if (isFirstClick === 'false') {
@@ -229,7 +233,19 @@ const TextEditorImport = (props: TextEditorImportProps) => {
       pageType === 'article' ? handleOnClickArticleDraft() : handleOnClickPageDraft();
       sessionStorage?.setItem(IS_FIRST_DRAFT_CLICK, 'false');
     }
-  };
+  }
+
+  //content 페이지 최초 임시저장시 로직(1번 클릭 -> post 그 뒤 put으로)
+  // const handleOnDraftClickCount = () => {
+  //   const isFirstClick = sessionStorage?.getItem(IS_FIRST_DRAFT_CLICK);
+
+  //   if (isFirstClick === 'false') {
+  //     pageType === 'article' ? handleDataArticleDraft() : handleDataPageDraft();
+  //   } else {
+  //     pageType === 'article' ? handleOnClickArticleDraft() : handleOnClickPageDraft();
+  //     sessionStorage?.setItem(IS_FIRST_DRAFT_CLICK, 'false');
+  //   }
+  // };
 
   // article page 임시저장시 post
   const handleOnClickArticleDraft = async () => {
