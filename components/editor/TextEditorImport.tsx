@@ -83,17 +83,6 @@ const TextEditorImport = (props: TextEditorImportProps) => {
 
   const setIsSaved = useSetRecoilState(isSaved);
 
-  // const selectEditorContent = () => {
-  //   if (pathName.startsWith(`/${team}/editor/article`)) {
-  //     if (articleData.content) return articleData.content;
-  //     if (updatedArticleData) return updatedArticleData.content;
-  //   } else if (pathName.startsWith(`/${team}/editor/page`)) {
-  //     if (pageData.content) return pageData.content;
-  //     if (updatedPageData) return updatedPageData.content;
-  //   }
-  //   return '';
-  // };
-
   const selectEditorContent = () => {
     if (pathName.startsWith(`/${team}/editor/article`)) {
       return articleData.content || (updatedArticleData && updatedArticleData.content);
@@ -399,129 +388,62 @@ const TextEditorImport = (props: TextEditorImportProps) => {
     }
   };
 
-  // article page 저장시 내용 가지고 발행하기 페이지로 이동-> article최초 발행하기
-  const handleOnClickArticlePublish = () => {
-    if (!document) return;
-    if (editor) {
-      const content = editor.getHTML();
-      if (imageArr.length === 0) {
-        setArticleData((prev) => ({ ...prev, title: articleData.title, content, images: [] }));
-      } else {
-        setArticleData((prev) => ({ ...prev, title: articleData.title, content, images: imageArr }));
-      }
-      router.push(`/${team}/editor/article/publish`);
+  //업데이트 중복함수 정리
+  const updateDataRouterChange = (content: string, id: number | null, path: string) => {
+    const dataSave = { title: pageType === 'article' ? articleData.title : pageData.title, content, images: imageArr };
+
+    if (pageType === 'article') {
+      setArticleData((prev) => ({ ...prev, ...dataSave }));
+    } else {
+      setPageData((prev) => ({
+        ...prev,
+        ...dataSave,
+      }));
     }
+
+    router.push(`/${team}/editor/${path}`);
   };
 
-  // page page 저장시 내용 가지고 발행하기 페이지로 이동
+  // article page 저장시 내용 가지고 발행하기 페이지로 이동-> article 최초 발행하기
+  const handleOnClickArticlePublish = () => {
+    if (!document || !editor) return;
+    const content = editor.getHTML();
+    updateDataRouterChange(content, null, 'article/publish');
+  };
+
+  // page page 저장시 내용 가지고 발행하기 페이지로 이동 -> page 최초 발행
   const handleOnClickPagePublish = () => {
-    if (editor) {
-      const content = editor.getHTML();
-      if (imageArr.length === 0) {
-        setPageData((prev) => ({ ...prev, title: pageData.title, content, images: [] }));
-      } else {
-        setPageData((prev) => ({ ...prev, title: pageData.title, content, images: imageArr }));
-      }
-      router.push(`/${team}/editor/page/publish`);
-    }
+    if (!editor) return;
+    const content = editor.getHTML();
+    updateDataRouterChange(content, null, 'page/publish');
   };
 
   //article 수정시 발행하기로 내용가지고 이동
   const handleUpdateGoArticlePublish = () => {
-    if (editor) {
-      const content = editor.getHTML();
-      if (imageArr.length === 0) {
-        setArticleData((prevData) => ({
-          ...prevData,
-          title: articleData.title,
-          content,
-          images: [],
-        }));
-      } else {
-        setArticleData((prevData) => ({
-          ...prevData,
-          title: articleData.title,
-          content,
-          images: imageArr,
-        }));
-      }
-
-      router.push(`/${team}/editor/article/${articleId}/edit/publish`);
-    }
+    if (!editor) return;
+    const content = editor.getHTML();
+    updateDataRouterChange(content, Number(articleId), `article/${articleId}/edit/publish`);
   };
 
-  // 페이지 수정시 발행페이지 이동
+  // page 수정시 발행페이지 이동
   const handleUpdateGoPagePublish = () => {
-    if (editor) {
-      const content = editor.getHTML();
-
-      if (imageArr.length === 0) {
-        setPageData((prevData) => ({
-          ...prevData,
-          title: pageData.title,
-          content,
-          images: [],
-        }));
-      } else {
-        setPageData((prevData) => ({
-          ...prevData,
-          title: pageData.title,
-          content,
-          images: imageArr,
-        }));
-      }
-
-      router.push(`/${team}/editor/page/${pageId}/edit/publish`);
-    }
+    if (!editor) return;
+    const content = editor.getHTML();
+    updateDataRouterChange(content, Number(pageId), `page/${pageId}/edit/publish`);
   };
 
   //article 임시저장 수정시 발행하기로 내용가지고 이동
   const handleUpdateDraftArticlePublish = () => {
-    if (editor) {
-      const content = editor.getHTML();
-      if (imageArr.length === 0) {
-        setArticleData((prevData) => ({
-          ...prevData,
-          title: articleData.title,
-          content,
-          images: [],
-        }));
-      } else {
-        setArticleData((prevData) => ({
-          ...prevData,
-          title: articleData.title,
-          content,
-          images: imageArr,
-        }));
-      }
-
-      router.push(`/${team}/editor/article/${articleId}/draft/publish`);
-    }
+    if (!editor) return;
+    const content = editor.getHTML();
+    updateDataRouterChange(content, Number(articleId), `article/${articleId}/draft/publish`);
   };
 
   //page 임시저장 수정시 발행하기로 내용가지고 이동
   const handleUpdateDraftPagePublish = () => {
-    if (editor) {
-      const content = editor.getHTML();
-
-      if (imageArr.length === 0) {
-        setPageData((prevData) => ({
-          ...prevData,
-          title: pageData.title,
-          content: content,
-          images: [],
-        }));
-      } else {
-        setPageData((prevData) => ({
-          ...prevData,
-          title: pageData.title,
-          content: content,
-          images: imageArr,
-        }));
-      }
-
-      router.push(`/${team}/editor/page/${pageId}/draft/publish`);
-    }
+    if (!editor) return;
+    const content = editor.getHTML();
+    updateDataRouterChange(content, Number(pageId), `page/${pageId}/draft/publish`);
   };
 
   return (
