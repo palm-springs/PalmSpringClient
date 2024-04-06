@@ -21,7 +21,7 @@ const PasswordLanding = () => {
   const sendResetEmail = async () => {
     const data = await sendVerifyEmail({ type: 'reset', email });
     if (!data) return;
-    if (data.code === 200) {
+    if (data.code === 201) {
       sessionStorage?.setItem('email', email);
       router.push('/login/password/email-sent');
     } else failSendEmail();

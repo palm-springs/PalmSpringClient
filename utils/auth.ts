@@ -42,6 +42,20 @@ export const failSendEmail = createToast({
   duration: 3000,
 });
 
+export const successResetPassword = createToast({
+  type: 'NORMAL',
+  message: '비밀번호가 재설정되었어요. 다시 로그인해주세요',
+  id: 'success on reset password',
+  duration: 3000,
+});
+
+export const failResetPassword = createToast({
+  type: 'ERROR',
+  message: '비밀번호 재설정에 실패했습니다.',
+  id: 'success on reset password',
+  duration: 3000,
+});
+
 // 회원가입 비밀번호 조건 검사
 export const capitalCheck = (password: string) => {
   return /[A-Z]/.test(password);

@@ -114,3 +114,14 @@ export const getVerifyEmail = async (type: string, code: string) => {
     }
   }
 };
+
+export const resetPassword = async (requestBody: loginRequest) => {
+  try {
+    const { data } = await client.put<Response<null>>(`/api/v2/auth/internal/reset/password`, requestBody);
+    return data;
+  } catch (err) {
+    if (isAxiosError(err)) {
+      return { code: err.response?.status, message: '', data: null };
+    }
+  }
+};

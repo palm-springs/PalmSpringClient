@@ -9,10 +9,21 @@ interface DisabledInputProps {
 
 const DisabledInput = (props: DisabledInputProps) => {
   const { children, value } = props;
+
+  let type = '';
+  switch (children) {
+    case '새로운 비밀번호':
+    case '새로운 비밀번호 확인':
+      type = 'password';
+      break;
+    default:
+      type = 'email';
+  }
+
   return (
     <InputContainer>
       {children}
-      <Input disabled value={value} />
+      <Input disabled type={type} value={value} />
     </InputContainer>
   );
 };

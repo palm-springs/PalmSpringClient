@@ -1,3 +1,4 @@
+'use client';
 import DisabledInput from '@/components/auth/ui/DisabledInput';
 import FlexContainer from '@/components/auth/ui/FlexContainer';
 import GreenMessageBox from '@/components/auth/ui/GreenMessageBox';
