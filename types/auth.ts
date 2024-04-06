@@ -27,7 +27,13 @@ export interface loginRequest {
 }
 
 export interface loginResponse {
-  grantType : string;
+  grantType: string;
   refreshToken: string;
   accessToken: string;
+}
+
+export interface verifyEmailRequest {
+  type: string;
+  email: string;
+  password?: string;
 }

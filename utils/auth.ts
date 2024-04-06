@@ -35,6 +35,13 @@ export const failSignup = createToast({
   duration: 3000,
 });
 
+export const failSendEmail = createToast({
+  type: 'ERROR',
+  message: '이메일 발송에 실패했습니다',
+  id: 'error on sending verify email',
+  duration: 3000,
+});
+
 // 회원가입 비밀번호 조건 검사
 export const capitalCheck = (password: string) => {
   return /[A-Z]/.test(password);

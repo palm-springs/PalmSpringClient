@@ -1,6 +1,13 @@
 import axios, { isAxiosError } from 'axios';
 
-import { getAccessTokenProps, googleAccessTokenResponse, jwtAccessTokenResponse, loginRequest, loginResponse } from '@/types/auth';
+import {
+  getAccessTokenProps,
+  googleAccessTokenResponse,
+  jwtAccessTokenResponse,
+  loginRequest,
+  loginResponse,
+  verifyEmailRequest,
+} from '@/types/auth';
 import { Response } from '@/types/common';
 
 import client, { refreshAxiosInstance } from '.';
@@ -62,24 +69,34 @@ export const logout = async () => {
 /* 자체 플랫폼 */
 // 로그인
 export const platformLogin = async (requestBody: loginRequest) => {
-  try{
+  try {
     const { data } = await client.post<Response<loginResponse>>(`/api/v2/auth/internal/login`, requestBody);
     return data;
-  } 
-  catch (err){
-    if(isAxiosError(err)){
+  } catch (err) {
+    if (isAxiosError(err)) {
       return { code: err.response?.status, message: '로그인 정보가 올바르지 않습니다', data: null };
     }
   }
 };
 
-export const platformRegister = async (requestBody : loginRequest) => {
-  try{
+export const platformRegister = async (requestBody: loginRequest) => {
+  try {
     const { data } = await client.post<Response<null>>(`/api/v2/auth/internal/register`, requestBody);
     return data;
-  }catch(err){
-    if(isAxiosError(err)){
-      return { code: err.response?.status, message: '', data:null };
+  } catch (err) {
+    if (isAxiosError(err)) {
+      return { code: err.response?.status, message: '', data: null };
+    }
+  }
+};
+
+export const sendVerifyEmail = async (requestBody: verifyEmailRequest) => {
+  try {
+    const { data } = await client.post<Response<null>>(`/api/v2/auth/internal/verify`, requestBody);
+    return data;
+  } catch (err) {
+    if (isAxiosError(err)) {
+      return { code: err.response?.status, message: '', data: null };
     }
   }
 };

@@ -3,8 +3,8 @@ import React, { useRef, useState } from 'react';
 import { Toaster } from 'react-hot-toast';
 import { useRouter } from 'next/navigation';
 
-import { platformRegister } from '@/api/auth';
-import { capitalCheck, failSignup, numberCheck, specialCharCheck } from '@/utils/auth';
+import { platformRegister, sendVerifyEmail } from '@/api/auth';
+import { capitalCheck, failSendEmail, failSignup, numberCheck, specialCharCheck } from '@/utils/auth';
 import checkEmailForm from '@/utils/checkEmailForm';
 
 import GoogleLoginLanding from '../login/GoogleLoginLanding';
@@ -27,8 +27,12 @@ const SignupLanding = () => {
     const data = await platformRegister({ email, password });
     if (!data) return;
     const { code } = data;
+
     if (code === 201) {
-      router.push(`/sign-up/email-sent`);
+      const data = await sendVerifyEmail({ type: 'register', email, password });
+      if (!data) return;
+      if (data.code === 200) router.push(`/sign-up/email-sent`);
+      else failSendEmail();
       sessionStorage?.setItem('email', email);
     } else if (code === 400) {
       failSignup();
