@@ -77,6 +77,9 @@ const TextEditorImport = (props: TextEditorImportProps) => {
   const [imageArr, setImageArr] = useState<string[]>([]);
   const router = useRouter();
 
+  //자동 임시저장 여부
+  const [isDraftSave, setIsDraftSave] = useState(false);
+
   //수정 api
   const draftArticleMutation = useUpdateTempArticleDraft(String(team));
   const draftPageMutation = useUpdateTempPageDraft(String(team));
@@ -141,13 +144,47 @@ const TextEditorImport = (props: TextEditorImportProps) => {
     content: editorContent,
     onUpdate() {
       setIsSaved(false);
-      const handleInput = debounce(() => {
-        console.log('저장함수자리임');
-        handleOnDraftClickCount();
-      }, 3000);
-      handleInput();
     },
   });
+
+  useEffect(() => {
+    const timer = setTimeout(() => {
+      setIsDraftSave(false);
+    }, 3000); // 10초 후에 isDraftSave를 false로 변경
+
+    return () => clearTimeout(timer);
+  }, [isDraftSave]);
+
+  // 자동 임시저장 함수(에디터, 타이틀)
+  useEffect(() => {
+    if (!editor) {
+      return;
+    }
+    const handleInput = debounce(() => {
+      console.log('에디터 내용이 변경되었습니다.');
+      handleOnDraftClickCount();
+      setIsDraftSave(true);
+    }, 10000);
+
+    const titleAutoSave = debounce((title) => {
+      console.log('제목이 변경되었습니다.');
+      handleOnDraftClickCount();
+      setIsDraftSave(true);
+    }, 10000);
+
+    editor.on('update', handleInput);
+
+    titleAutoSave(articleData.title || pageData.title);
+
+    // 함수 호출 취소 -> 안하면 무한 호출됨
+    return () => {
+      setIsDraftSave(false);
+      handleInput.cancel();
+      titleAutoSave.cancel();
+
+      editor.off('update', handleInput);
+    };
+  }, [editor, articleData.title, pageData.title]);
 
   //이미지 버튼 파일 base64 인코딩
   const encodeFileToBase64 = async (event: ChangeEvent<HTMLInputElement>, editor: Editor) => {
@@ -234,18 +271,6 @@ const TextEditorImport = (props: TextEditorImportProps) => {
       sessionStorage?.setItem(IS_FIRST_DRAFT_CLICK, 'false');
     }
   }
-
-  //content 페이지 최초 임시저장시 로직(1번 클릭 -> post 그 뒤 put으로)
-  // const handleOnDraftClickCount = () => {
-  //   const isFirstClick = sessionStorage?.getItem(IS_FIRST_DRAFT_CLICK);
-
-  //   if (isFirstClick === 'false') {
-  //     pageType === 'article' ? handleDataArticleDraft() : handleDataPageDraft();
-  //   } else {
-  //     pageType === 'article' ? handleOnClickArticleDraft() : handleOnClickPageDraft();
-  //     sessionStorage?.setItem(IS_FIRST_DRAFT_CLICK, 'false');
-  //   }
-  // };
 
   // article page 임시저장시 post
   const handleOnClickArticleDraft = async () => {
@@ -481,6 +506,7 @@ const TextEditorImport = (props: TextEditorImportProps) => {
           atTop={atTop}
           setAtTop={setAtTop}
           pageType="article"
+          isDraftSave={isDraftSave}
         />
       ) : (
         <SaveEditorContentButton
@@ -496,6 +522,7 @@ const TextEditorImport = (props: TextEditorImportProps) => {
           atTop={atTop}
           setAtTop={setAtTop}
           pageType="page"
+          isDraftSave={isDraftSave}
         />
       )}
     </>

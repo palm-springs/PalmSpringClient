@@ -18,7 +18,7 @@ interface editorProps {
   handleOnClickPublish: () => void;
   isEdit?: boolean;
   currentState?: string;
-
+  isDraftSave: boolean;
   pageType?: string;
   atTop: boolean;
   setAtTop: React.Dispatch<React.SetStateAction<boolean>>;
@@ -29,7 +29,7 @@ const SaveEditorContentButton = (props: editorProps) => {
   const { team, articleId } = useParams();
   const [isModal, setIsModal] = useState(false); // 모달 보이고 안보이고
   const [saved, setSaved] = useRecoilState(isSaved); // 임시저장된 여부
-  const { handleOnClickDraft, handleOnClickPublish, isEdit, pageType, atTop, setAtTop } = props;
+  const { handleOnClickDraft, handleOnClickPublish, isEdit, pageType, atTop, setAtTop, isDraftSave } = props;
   const router = useRouter();
 
   const articleData = useRecoilValue(articleDataState);
@@ -115,9 +115,12 @@ const SaveEditorContentButton = (props: editorProps) => {
         {isEdit ? (
           <NoneTemporary type="button" />
         ) : (
-          <TemporarySaveButton type="button" onClick={handleDraftSaveButton} atTop={atTop}>
-            임시저장
-          </TemporarySaveButton>
+          <>
+            {isDraftSave && <DraftAlertText>임시저장됨 ✓ </DraftAlertText>}
+            <TemporarySaveButton type="button" onClick={handleDraftSaveButton} atTop={atTop}>
+              임시저장
+            </TemporarySaveButton>
+          </>
         )}
         {pageType === 'article' ? (
           <SaveButton type="button" onClick={handleOnClickPublish} disabled={articleTitle === ''}>
@@ -147,6 +150,12 @@ const SaveEditorContentButton = (props: editorProps) => {
 };
 
 export default SaveEditorContentButton;
+
+const DraftAlertText = styled.span`
+  margin: 1.19rem 2rem 0 0;
+  color: ${({ theme }) => theme.colors.grey_1000};
+  font-family: ${({ theme }) => theme.fonts.Body3_Regular};
+`;
 
 const SaveButtonContainer = styled.div`
   display: flex;

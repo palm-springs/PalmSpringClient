@@ -255,7 +255,7 @@ const mobileFonts = {
     font-weight: 700;
     font-style: normal;
   `,
-  Markdown_H2: css`
+  Markdown_H2: css` 
     line-height: 155%;
     letter-spacing: -0.0175em;
     font-family: 'Pretendard';
