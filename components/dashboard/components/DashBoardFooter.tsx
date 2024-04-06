@@ -29,7 +29,7 @@ const DashBoardFooter = () => {
     await logout();
     sessionStorage?.removeItem(ACCESS_TOKEN_KEY);
     resetUserState();
-    router.push('/auth');
+    router.push('/login');
   };
 
   if (!res || !res?.data) {

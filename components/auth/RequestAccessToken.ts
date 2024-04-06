@@ -22,10 +22,7 @@ const RequestAccessToken = (props: getAccessTokenProps) => {
       }
 
       if (data.code === 200) {
-       successLogin(data.data, router);
-      } else {
-        sessionStorage?.removeItem(ACCESS_TOKEN_KEY);
-        router.replace(`/auth?userState=${LoginUserState.WRONG_PLATFORM}`);
+        successLogin(data.data, router);
       }
     }
   };

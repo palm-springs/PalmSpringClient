@@ -41,7 +41,7 @@ const AuthRequired = ({ children }: { children: React.ReactNode }) => {
       if (newAccessToken) {
         client.defaults.headers.common.Authorization = `Bearer ${newAccessToken}`;
       } else {
-        router.push(`/auth?userState=${LoginUserState.NO_USER}`);
+        router.push(`/login?userState=${LoginUserState.NO_USER}`);
       }
     }
   };
@@ -79,7 +79,7 @@ const AuthRequired = ({ children }: { children: React.ReactNode }) => {
 
         const redirectUrl = pathname === '/invite' ? `${pathname}?code=${paramsCode}` : `${pathname}`;
         sessionStorage?.setItem('redirectUrl', redirectUrl);
-        router.push(`/auth?userState=${LoginUserState.NO_USER}`); // 로그인이 필요합니다.
+        router.push(`/login?userState=${LoginUserState.NO_USER}`); // 로그인이 필요합니다.
 
         return Promise.reject(error);
       },

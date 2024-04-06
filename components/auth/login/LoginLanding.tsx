@@ -7,7 +7,7 @@ import { useRouter, useSearchParams } from 'next/navigation';
 import { platformLogin } from '@/api/auth';
 import GoogleLoginLanding from '@/components/auth/login/GoogleLoginLanding';
 import { LoginUserState } from '@/constants/Auth';
-import { failLogin, inviteErrorNotify, noUserErrorNotify, wrongPlatformNotify } from '@/utils/auth';
+import { failLogin, inviteErrorNotify, noUserErrorNotify } from '@/utils/auth';
 import { successLogin } from '@/utils/successLogin';
 
 import BgButton from '../ui/BgButton';
@@ -41,16 +41,15 @@ const LoginLanding = () => {
   const redirectState = useSearchParams().get('userState');
 
   useEffect(() => {
-    switch (redirectState) {
-      case LoginUserState.INVITE_MISMATCH:
-        inviteErrorNotify();
-        break;
-      case LoginUserState.NO_USER:
-        noUserErrorNotify();
-        break;
-      case LoginUserState.WRONG_PLATFORM:
-        wrongPlatformNotify();
-        break;
+    if (redirectState !== null) {
+      switch (redirectState) {
+        case LoginUserState.INVITE_MISMATCH:
+          inviteErrorNotify();
+          break;
+        case LoginUserState.NO_USER:
+          noUserErrorNotify();
+          break;
+      }
     }
   }, []);
   return (

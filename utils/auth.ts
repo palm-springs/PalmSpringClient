@@ -14,13 +14,6 @@ export const noUserErrorNotify = createToast({
   duration: 3000,
 });
 
-export const wrongPlatformNotify = createToast({
-  type: 'ERROR',
-  message: 'Gmail 계정만 사용 가능합니다.',
-  id: 'error on login platform',
-  duration: 3000,
-});
-
 export const failLogin = createToast({
   type: 'ERROR',
   message: '로그인 정보가 올바르지 않습니다',

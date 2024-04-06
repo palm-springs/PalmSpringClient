@@ -29,7 +29,7 @@ const InviteAcceptLanding = () => {
     if (data.code === 403) {
       sessionStorage?.setItem('redirectUrl', `${pathname}?code=${code}`);
       sessionStorage?.removeItem(ACCESS_TOKEN_KEY);
-      router.push(`/auth?userState=${LoginUserState.INVITE_MISMATCH}`);
+      router.push(`/login?userState=${LoginUserState.INVITE_MISMATCH}`);
     }
     // 유효하지 않은 초대 링크
     else if (data.code === 404) {
