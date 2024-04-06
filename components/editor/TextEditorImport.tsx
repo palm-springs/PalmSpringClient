@@ -174,10 +174,7 @@ const TextEditorImport = (props: TextEditorImportProps) => {
     }, 10000);
 
     //비어있을때는 저장하지 않기
-    if (
-      (articleData.content !== '' || pageData.content !== '') &&
-      (articleData.title !== '' || pageData.title !== '')
-    ) {
+    if (articleData.content !== '' || pageData.content !== '' || articleData.title !== '' || pageData.title !== '') {
       editor.on('update', handleInput);
       titleAutoSave(articleData.title || pageData.title);
     }
