@@ -55,11 +55,12 @@ const LoginLanding = () => {
   return (
     <>
       <Toaster
-        position="bottom-center"
+        position="top-right"
         reverseOrder={false}
         containerClassName=""
         containerStyle={{
-          bottom: 80,
+          top: 20,
+          right: 24,
         }}
       />
 

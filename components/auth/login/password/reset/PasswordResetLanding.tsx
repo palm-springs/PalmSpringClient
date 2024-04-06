@@ -1,5 +1,6 @@
 'use client';
 import React, { useEffect, useState } from 'react';
+import { Toaster } from 'react-hot-toast';
 import { useRouter, useSearchParams } from 'next/navigation';
 import { Router } from 'next/router';
 
@@ -62,54 +63,65 @@ const PasswordResetLanding = () => {
   };
 
   return (
-    <FlexContainer margin={'12rem 0'}>
-      <Title>비밀번호 재설정</Title>
+    <>
+      <Toaster
+        position="top-right"
+        reverseOrder={false}
+        containerClassName=""
+        containerStyle={{
+          top: 20,
+          right: 24,
+        }}
+      />
+      <FlexContainer margin={'12rem 0'}>
+        <Title>비밀번호 재설정</Title>
 
-      <DisabledInput value={email || ''}>이메일</DisabledInput>
-      {isDisabled ? (
-        <>
-          <DisabledInput value={password}>새로운 비밀번호</DisabledInput>
-          <DisabledInput value={password}>새로운 비밀번호 확인</DisabledInput>
-        </>
-      ) : (
-        <>
-          <Input
-            value={password}
-            setValue={(newValue: string) => setValue((prev) => ({ ...prev, password: newValue }))}
-            type="password">
-            새로운 비밀번호
-          </Input>
-          <Input
-            value={passwordCheck}
-            setValue={(newValue: string) => setValue((prev) => ({ ...prev, passwordCheck: newValue }))}
-            type="password">
-            새로운 비밀번호 확인
-          </Input>
-        </>
-      )}
+        <DisabledInput value={email || ''}>이메일</DisabledInput>
+        {isDisabled ? (
+          <>
+            <DisabledInput value={password}>새로운 비밀번호</DisabledInput>
+            <DisabledInput value={password}>새로운 비밀번호 확인</DisabledInput>
+          </>
+        ) : (
+          <>
+            <Input
+              value={password}
+              setValue={(newValue: string) => setValue((prev) => ({ ...prev, password: newValue }))}
+              type="password">
+              새로운 비밀번호
+            </Input>
+            <Input
+              value={passwordCheck}
+              setValue={(newValue: string) => setValue((prev) => ({ ...prev, passwordCheck: newValue }))}
+              type="password">
+              새로운 비밀번호 확인
+            </Input>
+          </>
+        )}
 
-      <ConditionCheck isSatisfied={capitalCheck(password)}>대문자 1자 이상</ConditionCheck>
-      <ConditionCheck isSatisfied={numberCheck(password)}>숫자 1자 이상</ConditionCheck>
-      <ConditionCheck isSatisfied={specialCharCheck(password)}>특수문자 1자 이상</ConditionCheck>
-      <ConditionCheck isSatisfied={password.length >= 8}>전체 8자 이상</ConditionCheck>
-      <ConditionCheck isSatisfied={password === passwordCheck && password !== ''}>비밀번호 확인 일치</ConditionCheck>
+        <ConditionCheck isSatisfied={capitalCheck(password)}>대문자 1자 이상</ConditionCheck>
+        <ConditionCheck isSatisfied={numberCheck(password)}>숫자 1자 이상</ConditionCheck>
+        <ConditionCheck isSatisfied={specialCharCheck(password)}>특수문자 1자 이상</ConditionCheck>
+        <ConditionCheck isSatisfied={password.length >= 8}>전체 8자 이상</ConditionCheck>
+        <ConditionCheck isSatisfied={password === passwordCheck && password !== ''}>비밀번호 확인 일치</ConditionCheck>
 
-      <BgButton
-        disabled={
-          !(
-            capitalCheck(password) &&
-            numberCheck(password) &&
-            specialCharCheck(password) &&
-            password.length >= 8 &&
-            password === passwordCheck &&
-            password !== ''
-          )
-        }
-        onClick={handleResetPassword}>
-        비밀번호 재설정
-      </BgButton>
-      <LinkButton href="/login">로그인</LinkButton>
-    </FlexContainer>
+        <BgButton
+          disabled={
+            !(
+              capitalCheck(password) &&
+              numberCheck(password) &&
+              specialCharCheck(password) &&
+              password.length >= 8 &&
+              password === passwordCheck &&
+              password !== ''
+            )
+          }
+          onClick={handleResetPassword}>
+          비밀번호 재설정
+        </BgButton>
+        <LinkButton href="/login">로그인</LinkButton>
+      </FlexContainer>
+    </>
   );
 };
 
