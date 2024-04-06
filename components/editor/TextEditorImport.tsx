@@ -162,13 +162,13 @@ const TextEditorImport = (props: TextEditorImportProps) => {
     }
     const handleInput = debounce(() => {
       console.log('에디터 내용이 변경되었습니다.');
-      handleOnDraftClickCount();
+      handleOnDraftAutoSave();
       setIsDraftSave(true);
     }, 10000);
 
     const titleAutoSave = debounce((title) => {
       console.log('제목이 변경되었습니다.');
-      handleOnDraftClickCount();
+      handleOnDraftAutoSave();
       setIsDraftSave(true);
     }, 10000);
 
@@ -259,6 +259,21 @@ const TextEditorImport = (props: TextEditorImportProps) => {
 
   if (!editor) {
     return null;
+  }
+
+  //임시저장 자동 저장시 함수
+  function handleOnDraftAutoSave() {
+    const isFirstClick = sessionStorage?.getItem(IS_FIRST_DRAFT_CLICK);
+    if (pathName.startsWith(`/${team}/editor/article/${articleId}/draft` || `/${team}/editor/page/${pageId}/draft`)) {
+      pageType === 'article' ? handleTempArticleDraft() : handleTempPageDraft();
+    } else {
+      if (isFirstClick === 'false') {
+        pageType === 'article' ? handleDataArticleDraft() : handleDataPageDraft();
+      } else {
+        pageType === 'article' ? handleOnClickArticleDraft() : handleOnClickPageDraft();
+        sessionStorage?.setItem(IS_FIRST_DRAFT_CLICK, 'false');
+      }
+    }
   }
 
   function handleOnDraftClickCount() {
