@@ -1,8 +1,7 @@
 import React from 'react';
-import { redirect } from 'next/navigation';
 
-import client from '@/api';
-import { getVerifyEmail, platformLogin } from '@/api/auth';
+import { getVerifyEmail } from '@/api/auth';
+import EmailVerifyLanding from '@/components/auth/sign-up/email-verify/EmailVerifyLanding';
 import InviteNotFound from '@/components/invite/ui/InviteNotFound';
 
 const page = async ({ searchParams }: { searchParams: { [key: string]: string | undefined } }) => {
@@ -15,11 +14,7 @@ const page = async ({ searchParams }: { searchParams: { [key: string]: string | 
 
     const { code: verifyCode, data: VerifyData } = data;
     if (verifyCode === 200 && VerifyData !== null) {
-      const data = await platformLogin({ email: VerifyData.email, password: VerifyData.password });
-      if (data) {
-        client.defaults.headers.common.Authorization = `Bearer ${data.data?.accessToken}`;
-        redirect('/no-team/dashboard/upload');
-      }
+      return <EmailVerifyLanding data={VerifyData} />;
     } else if (verifyCode === 400 || verifyCode === 404) {
       return <InviteNotFound type="register" />;
     }
