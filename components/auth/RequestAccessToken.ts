@@ -2,7 +2,7 @@
 import { useRouter } from 'next/navigation';
 
 import { postSocialLogin } from '@/api/auth';
-import { ACCESS_TOKEN_KEY, LoginUserState } from '@/constants/Auth';
+import { ACCESS_TOKEN_KEY } from '@/constants/Auth';
 import { useGetAccessToken } from '@/hooks/auth';
 import { getAccessTokenProps } from '@/types/auth';
 import { successLogin } from '@/utils/successLogin';
@@ -22,7 +22,7 @@ const RequestAccessToken = (props: getAccessTokenProps) => {
       }
 
       if (data.code === 200) {
-        successLogin(data.data, router);
+        successLogin(data.data.accessToken, router);
       }
     }
   };
