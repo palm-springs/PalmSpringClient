@@ -6,7 +6,7 @@ import { getVerifyEmail, platformLogin } from '@/api/auth';
 import InviteNotFound from '@/components/invite/ui/InviteNotFound';
 
 const page = async ({ searchParams }: { searchParams: { [key: string]: string | undefined } }) => {
-  // 초대 code
+  // 가입 인증 code
   const code = searchParams.code;
 
   if (code) {

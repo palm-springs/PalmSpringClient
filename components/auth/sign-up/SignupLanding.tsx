@@ -31,9 +31,10 @@ const SignupLanding = () => {
     if (code === 201) {
       const data = await sendVerifyEmail({ type: 'register', email, password });
       if (!data) return;
-      if (data.code === 200) router.push(`/sign-up/email-sent`);
-      else failSendEmail();
-      sessionStorage?.setItem('email', email);
+      if (data.code === 200) {
+        sessionStorage?.setItem('email', email);
+        router.push(`/sign-up/email-sent`);
+      } else failSendEmail();
     } else if (code === 400) {
       failSignup();
     }

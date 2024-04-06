@@ -5,11 +5,14 @@ import LinkButton from '@/components/auth/ui/LinkButton';
 import Title from '@/components/auth/ui/Title';
 
 const PasswordEmailSentLanding = () => {
+  const sessionStorage = typeof window !== 'undefined' ? window.sessionStorage : undefined;
+  const email = sessionStorage?.getItem('email');
+
   return (
     <FlexContainer margin={'16rem 0'}>
       <Title>비밀번호 재설정</Title>
 
-      <DisabledInput value={'you@example.com'}>이메일</DisabledInput>
+      <DisabledInput value={email || ''}>이메일</DisabledInput>
 
       <GreenMessageBox>
         위 이메일로 인증 링크를 담은 메일을 보내드렸어요.
