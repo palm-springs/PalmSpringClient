@@ -17,12 +17,16 @@ const PasswordResetLanding = () => {
       <Title>비밀번호 재설정</Title>
 
       <DisabledInput value={'you@example.com'}>이메일</DisabledInput>
-      <Input value={password} setValue={(newValue: string) => setValue((prev) => ({ ...prev, password: newValue }))}>
+      <Input
+        value={password}
+        setValue={(newValue: string) => setValue((prev) => ({ ...prev, password: newValue }))}
+        type="password">
         새로운 비밀번호
       </Input>
       <Input
         value={passwordCheck}
-        setValue={(newValue: string) => setValue((prev) => ({ ...prev, passwordCheck: newValue }))}>
+        setValue={(newValue: string) => setValue((prev) => ({ ...prev, passwordCheck: newValue }))}
+        type="password">
         새로운 비밀번호 확인
       </Input>
 

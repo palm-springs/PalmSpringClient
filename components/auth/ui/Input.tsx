@@ -10,32 +10,22 @@ interface InputProps {
   children: ReactNode;
   value?: string;
   setValue?: (v: string) => void;
+  type: string;
 }
 
 const Input = (props: InputProps, ref: ForwardedRef<HTMLInputElement>) => {
-  const { children, value, setValue } = props;
+  const { children, value, setValue, type } = props;
   const [isInvalid, setIsInvalid] = useState(false);
 
-  let type = '';
-  switch (children) {
-    case '이메일':
-      type = 'email';
-      break;
-    case '비밀번호':
-    case '비밀번호 확인':
-    case '새로운 비밀번호':
-    case '새로운 비밀번호 확인':
-      type = 'password';
-      break;
-  }
-
   const handleOnBlur = (e) => {
-    if(!ref) return;
+    if (!ref) return;
 
-    if (type === "email") {
-      if(!checkEmailForm(e.target.value)) setIsInvalid(true); else setIsInvalid(false);
-    }else {
-      if(e.target.value === '') setIsInvalid(true); else  setIsInvalid(false);
+    if (type === 'email') {
+      if (!checkEmailForm(e.target.value)) setIsInvalid(true);
+      else setIsInvalid(false);
+    } else {
+      if (e.target.value === '') setIsInvalid(true);
+      else setIsInvalid(false);
     }
   };
   return (
@@ -45,7 +35,10 @@ const Input = (props: InputProps, ref: ForwardedRef<HTMLInputElement>) => {
         value={value}
         type={type}
         pattern={type === 'email' ? '.+@example.com' : ''}
-        onChange={ (e) => {if(!setValue) return ; setValue(e.target.value);}}
+        onChange={(e) => {
+          if (!setValue) return;
+          setValue(e.target.value);
+        }}
         ref={ref}
         onBlur={handleOnBlur}
         $isInvalid={isInvalid}
@@ -83,20 +76,20 @@ const InputContainer = styled.label`
   }
 `;
 
-const InputBorder = styled.input<{$isInvalid : boolean}>`
+const InputBorder = styled.input<{ $isInvalid: boolean }>`
   ${({ theme }) => theme.fonts.Body3_Regular};
   display: flex;
   align-items: center;
-  border: 1px solid ${({ theme, $isInvalid  }) => $isInvalid ? theme.colors.red : theme.colors.grey_400};
+  border: 1px solid ${({ theme, $isInvalid }) => ($isInvalid ? theme.colors.red : theme.colors.grey_400)};
 
   border-radius: 1.6rem;
 
-  background-color: ${({ theme, $isInvalid })=>$isInvalid && theme.colors.red_alpha_20};
+  background-color: ${({ theme, $isInvalid }) => $isInvalid && theme.colors.red_alpha_20};
 
   padding: 0 2.4rem;
   width: 100%;
   height: 5.6rem;
-  color: ${({ theme,  $isInvalid  }) =>  $isInvalid &&  theme.colors.red_hover};
+  color: ${({ theme, $isInvalid }) => $isInvalid && theme.colors.red_hover};
 
   &:focus {
     outline: none;

@@ -57,15 +57,20 @@ const SignupLanding = () => {
         <Input
           value={email}
           setValue={(newValue: string) => setValue((prev) => ({ ...prev, email: newValue }))}
-          ref={emailRef}>
+          ref={emailRef}
+          type="email">
           이메일
         </Input>
-        <Input value={password} setValue={(newValue: string) => setValue((prev) => ({ ...prev, password: newValue }))}>
+        <Input
+          value={password}
+          setValue={(newValue: string) => setValue((prev) => ({ ...prev, password: newValue }))}
+          type="password">
           비밀번호
         </Input>
         <Input
           value={passwordCheck}
-          setValue={(newValue: string) => setValue((prev) => ({ ...prev, passwordCheck: newValue }))}>
+          setValue={(newValue: string) => setValue((prev) => ({ ...prev, passwordCheck: newValue }))}
+          type="password">
           비밀번호 확인
         </Input>
 

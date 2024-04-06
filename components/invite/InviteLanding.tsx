@@ -22,7 +22,7 @@ const InviteAcceptLanding = () => {
   const data = useGetMemberInvite(code);
 
   // code parmeter 없을 때
-  if (!code) return <InviteNotFound />;
+  if (!code) return <InviteNotFound type="invite" />;
 
   if (data) {
     // 초대 사용자와 로그인 사용자 불일치
@@ -33,7 +33,7 @@ const InviteAcceptLanding = () => {
     }
     // 유효하지 않은 초대 링크
     else if (data.code === 404) {
-      return <InviteNotFound />;
+      return <InviteNotFound type="invite" />;
     }
     // 초대 수락하기 폼
     else {

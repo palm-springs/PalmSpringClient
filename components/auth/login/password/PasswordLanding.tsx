@@ -15,7 +15,7 @@ const PasswordLanding = () => {
     <FlexContainer margin={'16rem 0'}>
       <Title>비밀번호 재설정</Title>
 
-      <Input value={email} setValue={(newValue) => setEmail(newValue)}>
+      <Input value={email} setValue={(newValue) => setEmail(newValue)} type="email">
         이메일
       </Input>
 
