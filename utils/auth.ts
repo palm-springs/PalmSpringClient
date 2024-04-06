@@ -23,7 +23,14 @@ export const failLogin = createToast({
 
 export const failSignup = createToast({
   type: 'ERROR',
-  message: '이미 가입된 이메일입니다',
+  message: '이미 가입된 이메일이에요',
+  id: 'error on signup email already exists',
+  duration: 3000,
+});
+
+export const failSignupOauth = createToast({
+  type: 'ERROR',
+  message: '구글 로그인으로 이미 가입된 이메일이에요',
   id: 'error on signup email already exists',
   duration: 3000,
 });

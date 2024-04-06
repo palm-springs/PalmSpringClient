@@ -86,7 +86,7 @@ export const platformRegister = async (requestBody: loginRequest) => {
     return data;
   } catch (err) {
     if (isAxiosError(err)) {
-      return { code: err.response?.status, message: '', data: null };
+      return { code: err.response?.status, message: err.response?.data.message, data: null };
     }
   }
 };

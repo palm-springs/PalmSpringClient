@@ -4,7 +4,7 @@ import { Toaster } from 'react-hot-toast';
 import { useRouter } from 'next/navigation';
 
 import { platformRegister, sendVerifyEmail } from '@/api/auth';
-import { capitalCheck, failSendEmail, failSignup, numberCheck, specialCharCheck } from '@/utils/auth';
+import { capitalCheck, failSendEmail, failSignup, failSignupOauth, numberCheck, specialCharCheck } from '@/utils/auth';
 import checkEmailForm from '@/utils/checkEmailForm';
 
 import GoogleLoginLanding from '../login/GoogleLoginLanding';
@@ -26,7 +26,7 @@ const SignupLanding = () => {
   const signup = async () => {
     const data = await platformRegister({ email, password });
     if (!data) return;
-    const { code } = data;
+    const { code, message } = data;
 
     if (code === 201) {
       const data = await sendVerifyEmail({ type: 'register', email, password });
@@ -36,7 +36,11 @@ const SignupLanding = () => {
         router.push(`/sign-up/email-sent`);
       } else failSendEmail();
     } else if (code === 400) {
-      failSignup();
+      if (message === 'User already register by OAuth.') {
+        failSignupOauth();
+      } else if (message === 'User already register by Internal.') {
+        failSignup();
+      }
     }
   };
 
