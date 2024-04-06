@@ -37,3 +37,9 @@ export interface verifyEmailRequest {
   email: string;
   password?: string;
 }
+
+export interface verifyEmailResponse {
+  type: string;
+  email: string;
+  password: string;
+}

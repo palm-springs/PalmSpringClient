@@ -7,6 +7,7 @@ import {
   loginRequest,
   loginResponse,
   verifyEmailRequest,
+  verifyEmailResponse,
 } from '@/types/auth';
 import { Response } from '@/types/common';
 
@@ -93,6 +94,19 @@ export const platformRegister = async (requestBody: loginRequest) => {
 export const sendVerifyEmail = async (requestBody: verifyEmailRequest) => {
   try {
     const { data } = await client.post<Response<null>>(`/api/v2/auth/internal/verify`, requestBody);
+    return data;
+  } catch (err) {
+    if (isAxiosError(err)) {
+      return { code: err.response?.status, message: '', data: null };
+    }
+  }
+};
+
+export const getVerifyEmail = async (type: string, code: string) => {
+  try {
+    const { data } = await client.get<Response<verifyEmailResponse>>(
+      `/api/v2/auth/internal/verify?type=${type}&code=${code}`,
+    );
     return data;
   } catch (err) {
     if (isAxiosError(err)) {
