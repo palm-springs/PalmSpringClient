@@ -160,6 +160,7 @@ const TextEditorImport = (props: TextEditorImportProps) => {
     if (!editor) {
       return;
     }
+
     const handleInput = debounce(() => {
       console.log('에디터 내용이 변경되었습니다.');
       handleOnDraftAutoSave();
@@ -172,9 +173,14 @@ const TextEditorImport = (props: TextEditorImportProps) => {
       setIsDraftSave(true);
     }, 10000);
 
-    editor.on('update', handleInput);
-
-    titleAutoSave(articleData.title || pageData.title);
+    //비어있을때는 저장하지 않기
+    if (
+      (articleData.content !== '' || pageData.content !== '') &&
+      (articleData.title !== '' || pageData.title !== '')
+    ) {
+      editor.on('update', handleInput);
+      titleAutoSave(articleData.title || pageData.title);
+    }
 
     // 함수 호출 취소 -> 안하면 무한 호출됨
     return () => {
