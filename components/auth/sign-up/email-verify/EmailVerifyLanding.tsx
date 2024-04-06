@@ -24,6 +24,7 @@ const EmailVerifyLanding = (props: EmailVerifyProps) => {
         if (accessToken) {
           client.defaults.headers.common.Authorization = `Bearer ${accessToken}`;
           sessionStorage?.setItem(ACCESS_TOKEN_KEY, accessToken);
+          sessionStorage?.setItem('success-signup', 'true');
           router.push('/no-team/dashboard/upload');
         }
       }

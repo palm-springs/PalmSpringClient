@@ -48,6 +48,12 @@ export const failResetPassword = createToast({
   id: 'success on reset password',
   duration: 3000,
 });
+export const welcomeSignup = createToast({
+  type: 'NORMAL',
+  message: '가입이 완료되었어요! palms.blog에 오신 것을 환영합니다 😎',
+  id: 'success on reset password',
+  duration: 3000,
+});
 
 // 회원가입 비밀번호 조건 검사
 export const capitalCheck = (password: string) => {
