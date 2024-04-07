@@ -17,6 +17,7 @@ const basicToastStyle = {
   fontStyle: 'normal',
   fontWeight: '400',
   letterSpacing: '-0.028rem',
+  maxWidth: '500px',
 };
 
 const toastConfig = ({ duration, id, background }: Omit<ToastProps, 'type' | 'message'>) => ({
