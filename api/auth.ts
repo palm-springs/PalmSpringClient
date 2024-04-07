@@ -1,6 +1,14 @@
 import axios, { isAxiosError } from 'axios';
 
-import { getAccessTokenProps, googleAccessTokenResponse, jwtAccessTokenResponse } from '@/types/auth';
+import {
+  getAccessTokenProps,
+  googleAccessTokenResponse,
+  jwtAccessTokenResponse,
+  loginRequest,
+  loginResponse,
+  verifyEmailRequest,
+  verifyEmailResponse,
+} from '@/types/auth';
 import { Response } from '@/types/common';
 
 import client, { refreshAxiosInstance } from '.';
@@ -57,4 +65,63 @@ export const getRefreshToken = async () => {
 export const logout = async () => {
   const { data } = await client.delete<Response<null>>(`/api/v2/auth/logout`);
   return data;
+};
+
+/* 자체 플랫폼 */
+// 로그인
+export const platformLogin = async (requestBody: loginRequest) => {
+  try {
+    const { data } = await client.post<Response<loginResponse>>(`/api/v2/auth/internal/login`, requestBody);
+    return data;
+  } catch (err) {
+    if (isAxiosError(err)) {
+      return { code: err.response?.status, message: '로그인 정보가 올바르지 않습니다', data: null };
+    }
+  }
+};
+
+export const platformRegister = async (requestBody: loginRequest) => {
+  try {
+    const { data } = await client.post<Response<null>>(`/api/v2/auth/internal/register`, requestBody);
+    return data;
+  } catch (err) {
+    if (isAxiosError(err)) {
+      return { code: err.response?.status, message: err.response?.data.message, data: null };
+    }
+  }
+};
+
+export const sendVerifyEmail = async (requestBody: verifyEmailRequest) => {
+  try {
+    const { data } = await client.post<Response<null>>(`/api/v2/auth/internal/verify`, requestBody);
+    return data;
+  } catch (err) {
+    if (isAxiosError(err)) {
+      return { code: err.response?.status, message: '', data: null };
+    }
+  }
+};
+
+export const getVerifyEmail = async (type: string, code: string) => {
+  try {
+    const { data } = await client.get<Response<verifyEmailResponse>>(
+      `/api/v2/auth/internal/verify?type=${type}&code=${code}`,
+    );
+    return data;
+  } catch (err) {
+    if (isAxiosError(err)) {
+      return { code: err.response?.status, message: '', data: null };
+    }
+  }
+};
+
+export const resetPassword = async (requestBody: loginRequest) => {
+  try {
+    const { data } = await client.put<Response<null>>(`/api/v2/auth/internal/reset/password`, requestBody);
+    return data;
+  } catch (err) {
+    if (isAxiosError(err)) {
+      return { code: err.response?.status, message: '', data: null };
+    }
+  }
 };

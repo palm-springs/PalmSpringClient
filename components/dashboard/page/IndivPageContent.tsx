@@ -6,6 +6,7 @@ import { useRecoilState, useResetRecoilState } from 'recoil';
 import { pageDataState } from '@/components/editor/states/atom';
 import { useDeletePage } from '@/hooks/dashboard';
 import theme from '@/styles/theme';
+import { checkSessionStorage } from '@/utils/checkSessionStorage';
 import { createToast } from '@/utils/lib/toast';
 import { removeDraftContentData } from '@/utils/removeContentData';
 
@@ -36,7 +37,7 @@ const IndivPageContent = (props: IndivPageContentProps) => {
   const [modalState, setModalState] = useRecoilState(dashBoardModalState);
 
   // sessionStorage
-  const sessionStorage = typeof window !== 'undefined' ? window.sessionStorage : undefined;
+  const sessionStorage = checkSessionStorage();
 
   const hasConnectionErrorNotify = createToast({
     type: 'ERROR',

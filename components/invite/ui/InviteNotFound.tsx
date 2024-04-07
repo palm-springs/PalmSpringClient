@@ -3,15 +3,20 @@ import styled from 'styled-components';
 
 import { Error404Img } from '@/public/images';
 
-const InviteNotFound = () => {
+interface InviteNotFoundProps {
+  type: string;
+}
+
+const InviteNotFound = (props: InviteNotFoundProps) => {
+  const { type } = props;
   return (
     <Error404Container>
       <Error404Img />
-      <MainMessage>유효하지 않은 초대 링크입니다.</MainMessage>
+      <MainMessage>유효하지 않은 {type === 'invite' && '초대'} 링크입니다.</MainMessage>
       <SubMessage>
         링크가 유효하지 않습니다.
         <br />
-        초대 링크를 다시 한번 확인해주세요.
+        {type === 'invite' && '초대'} 링크를 다시 한번 확인해주세요.
       </SubMessage>
     </Error404Container>
   );

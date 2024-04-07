@@ -8,6 +8,7 @@ import EmptyLanding from '@/components/common/ui/EmptyLanding';
 import LoadingLottie from '@/components/common/ui/LoadingLottie';
 import { articleDataState } from '@/components/editor/states/atom';
 import { useGetTempSavedList } from '@/hooks/dashboard';
+import { checkSessionStorage } from '@/utils/checkSessionStorage';
 import { removeDraftContentData } from '@/utils/removeContentData';
 
 import DashBoardContent from '../components/DashBoardContent';
@@ -26,7 +27,7 @@ const TempsavedContentList = () => {
   const resetArticleDataState = useResetRecoilState(articleDataState);
 
   // sessionStorage
-  const sessionStorage = typeof window !== 'undefined' ? window.sessionStorage : undefined;
+  const sessionStorage = checkSessionStorage();
 
   const [deleteModalId, setDeleteModalId] = useState<number | null>(null);
 

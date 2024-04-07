@@ -36,7 +36,7 @@ const PopOver = (prop: PopOverProp) => {
   const isUserCanDeleteMember = (memberRole === 'EDITOR' && expelEditor) || (memberRole === 'MANAGER' && expelManager);
 
   if (userValue === null) {
-    router.push('/auth');
+    router.push('/login');
     return <></>;
   }
 
