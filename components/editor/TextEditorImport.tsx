@@ -1,5 +1,15 @@
 'use client';
-import React, { ChangeEvent, DragEvent, DragEventHandler, useCallback, useEffect, useState } from 'react';
+import React, {
+  ChangeEvent,
+  ClipboardEvent,
+  ClipboardEventHandler,
+  DragEvent,
+  DragEventHandler,
+  ReactEventHandler,
+  useCallback,
+  useEffect,
+  useState,
+} from 'react';
 import Blockquote from '@tiptap/extension-blockquote';
 import Bold from '@tiptap/extension-bold';
 import BulletList from '@tiptap/extension-bullet-list';
@@ -20,7 +30,11 @@ import Placeholder from '@tiptap/extension-placeholder';
 import Strike from '@tiptap/extension-strike';
 import Text from '@tiptap/extension-text';
 import Underline from '@tiptap/extension-underline';
-import { Editor, useEditor } from '@tiptap/react';
+import { Editor, EditorContent, useEditor } from '@tiptap/react';
+import js from 'highlight.js/lib/languages/javascript';
+import ts from 'highlight.js/lib/languages/typescript';
+import html from 'highlight.js/lib/languages/xml';
+import { debounce } from 'lodash-es';
 import { lowlight } from 'lowlight';
 import { useParams, usePathname, useRouter } from 'next/navigation';
 import { useRecoilState, useSetRecoilState } from 'recoil';
@@ -32,12 +46,19 @@ import SaveEditorContentButton from '@/components/editor/ui/SaveEditorContentBut
 import ToolBox from '@/components/editor/ui/ToolBox';
 import { ARTICLE_DATA_ID, IS_FIRST_DRAFT_CLICK, PAGE_DATA_ID } from '@/constants/editor';
 import { useUpdateTempArticleDraft, useUpdateTempPageDraft } from '@/hooks/editor';
+import { useDraftAutoSave } from '@/hooks/useDraftAutoSave';
 import { UpdateArticleProps } from '@/types/article';
 import { UpdatePageProps } from '@/types/page';
-import { getContentImageMultipartData } from '@/utils/getImageMultipartData';
+import { getContentCtrlVImage, getContentImageMultipartData } from '@/utils/getImageMultipartData';
 
 import { articleDataState, isSaved, pageDataState } from './states/atom';
 
+import css from 'highlight.js/lib/languages/css';
+//지금 js로 하면 컴포넌트 이름 그냥도 컬러 입혀짐 근데 코드블록 첫줄에 쓰면 안되고 코드 쓰고 막줄에 쓰면 엔터 쓰기 가능함
+lowlight.registerLanguage('html', html);
+lowlight.registerLanguage('css', css);
+lowlight.registerLanguage('js', js);
+lowlight.registerLanguage('ts', ts);
 interface TextEditorBuildprops {
   pageType: string;
   currentState?: string;
@@ -66,6 +87,9 @@ const TextEditorBuild = (props: TextEditorBuildprops) => {
   const draftPageMutation = useUpdateTempPageDraft(String(team));
   const [updatedArticleData, setUpdatedArticleData] = useRecoilState(articleDataState);
   const [updatedPageData, setUpdatedPageData] = useRecoilState(pageDataState);
+  //에디터 value값
+  const [contentValue, setContentValue] = useState('');
+
   const setIsSaved = useSetRecoilState(isSaved);
 
   const selectEditorContent = () => {
@@ -130,7 +154,7 @@ const TextEditorBuild = (props: TextEditorBuildprops) => {
       }),
     ],
     content: editorContent,
-    onUpdate: () => {
+    onUpdate() {
       setIsSaved(false);
     },
   });
@@ -171,6 +195,33 @@ const TextEditorBuild = (props: TextEditorBuildprops) => {
     },
     [editor],
   );
+
+  //이미지 복붙
+  const ctrlVImage: ClipboardEventHandler<HTMLInputElement> = useCallback(async () => {
+    const base64ImgElements = document.querySelector('img[src*="base64"]');
+
+    const base64eArr = base64ImgElements?.getAttribute('src');
+    base64ImgElements?.remove();
+
+    const transImage = async () => {
+      if (!editor || !base64eArr) {
+        return null;
+      }
+      const blob = await fetch(base64eArr).then((res) => res.blob());
+
+      // Blob을 파일로 변환
+      const file = new File([blob], 'image.png', { type: 'image/png' });
+
+      // 이미지 서버 통신 코드
+      const imgUrl = await getContentCtrlVImage(file, String(team));
+
+      imageArr.push(imgUrl);
+      if (imgUrl) {
+        editor.chain().focus().setImage({ src: imgUrl }).run();
+      }
+    };
+    await transImage();
+  }, [editor, setImageSrc]);
 
   //이미지 drag & drop
   const handleDrop: DragEventHandler<HTMLDivElement> = useCallback(
@@ -522,7 +573,7 @@ const TextEditorBuild = (props: TextEditorBuildprops) => {
         atTop={atTop}
         setAtTop={setAtTop}
       />
-      <TextEditor editor={editor} handleDrop={handleDrop} handleDragOver={handleDragOver} />
+      <TextEditor editor={editor} handleDrop={handleDrop} handleDragOver={handleDragOver} ctrlVImage={ctrlVImage} />
 
       {pageType === 'article' ? (
         <SaveEditorContentButton
