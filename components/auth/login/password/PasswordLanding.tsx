@@ -20,12 +20,18 @@ const PasswordLanding = () => {
   const sessionStorage = checkSessionStorage();
 
   const sendResetEmail = async () => {
+    // 이메일 인증 API 호출
     const data = await sendVerifyEmail({ type: 'reset', email });
     if (!data) return;
+
+    // 성공시
     if (data.code === 201) {
       sessionStorage?.setItem('email', email);
       router.push('/login/password/email-sent');
-    } else failSendEmail();
+    }
+
+    // 실패시 토스트
+    else failSendEmail();
   };
 
   return (

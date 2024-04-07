@@ -25,21 +25,33 @@ const SignupLanding = () => {
   const router = useRouter();
 
   const signup = async () => {
+    // 회원가입 API 호출
     const data = await platformRegister({ email, password });
     if (!data) return;
     const { code, message } = data;
 
+    // 성공시
     if (code === 201) {
+      // 이메일 인증 API 호출
       const data = await sendVerifyEmail({ type: 'register', email, password });
       if (!data) return;
+      // 성공시
       if (data.code === 201 || data.code === 200) {
         sessionStorage?.setItem('email', email);
         router.push(`/sign-up/email-sent`);
-      } else failSendEmail();
-    } else if (code === 400) {
+      }
+      // 실패시 토스트
+      else failSendEmail();
+    }
+
+    // 실패시
+    else if (code === 400) {
+      // OAuth로 이미 가입한 이력이 있음
       if (message === 'User already register by OAuth.') {
         failSignupOauth();
-      } else if (message === 'User already register by Internal.') {
+      }
+      // string 이메일로 이미 가입한 이력이 있음
+      else if (message === 'User already register by Internal.') {
         failSignup();
       }
     }

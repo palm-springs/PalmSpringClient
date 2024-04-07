@@ -29,14 +29,19 @@ const PasswordResetLanding = () => {
   const code = searchParams.get('code');
 
   useEffect(() => {
+    // 새로고침시 검증 미실행 여부 & 비밀번호 재설정 미완료 여부 확인 후 실행
     if (sessionStorage?.getItem('isVerify') !== 'true' && isDisabled === false) {
       const verifyEmail = async () => {
         if (code) {
+          // 이메일 인증 API 호출
           const data = await getVerifyEmail('reset', code);
           if (!data) return;
+          // 실패시
           if (data.code !== 200) {
             return <InviteNotFound type="reset" />;
-          } else {
+          }
+          // 성공시
+          else {
             if (data.data) {
               setValue((prev) => ({ ...prev, email: data.data?.email }));
               sessionStorage?.setItem('email', data.data.email);
@@ -50,14 +55,19 @@ const PasswordResetLanding = () => {
   }, []);
 
   const handleResetPassword = async () => {
+    // 비밀번호 재설정 API 호출
     const data = await resetPassword({ email, password });
     if (!data) return;
+
+    // 성공시
     if (data.code === 200) {
       successResetPassword();
       sessionStorage?.removeItem('isVerify');
       sessionStorage?.removeItem('email');
       setIsDisabled(true);
-    } else {
+    }
+    // 실패시
+    else {
       failResetPassword();
     }
   };

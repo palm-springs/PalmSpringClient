@@ -17,6 +17,7 @@ const EmailVerifyLanding = (props: EmailVerifyProps) => {
   const router = useRouter();
 
   useEffect(() => {
+    // 이메일 인증 성공한 유저 platform 로그인 후 대시보드 이동
     const getUserLogin = async () => {
       const userData = await platformLogin({ email: data.email, password: data.password });
       if (userData) {
@@ -24,6 +25,7 @@ const EmailVerifyLanding = (props: EmailVerifyProps) => {
         if (accessToken) {
           client.defaults.headers.common.Authorization = `Bearer ${accessToken}`;
           sessionStorage?.setItem(ACCESS_TOKEN_KEY, accessToken);
+          // 대시보드 이동 후 토스트용
           sessionStorage?.setItem('success-signup', 'true');
           router.push('/no-team/dashboard/upload');
         }

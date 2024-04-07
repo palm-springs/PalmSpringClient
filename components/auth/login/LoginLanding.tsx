@@ -28,18 +28,25 @@ const LoginLanding = () => {
     const password = passwordRef.current?.value;
 
     if (!email || !password) return;
+
+    // 로그인 API 호출
     const data = await platformLogin({ email, password });
     if (!data) return;
     const { code, data: loginData } = data;
+
+    // 성공시
     if (code === 200) {
       loginData && successLogin(loginData.accessToken, router);
-    } else if (code === 400 || code === 404) {
+    }
+    // 실패시
+    else if (code === 400 || code === 404) {
       failLogin();
     }
   };
 
   const redirectState = useSearchParams().get('userState');
 
+  // login 으로 리다이렉트된 경우 에러 케이스 토스트 분기
   useEffect(() => {
     if (redirectState !== null) {
       switch (redirectState) {
@@ -52,6 +59,7 @@ const LoginLanding = () => {
       }
     }
   }, []);
+
   return (
     <>
       <Toaster
