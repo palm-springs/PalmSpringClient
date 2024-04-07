@@ -47,7 +47,7 @@ const PasswordResetLanding = () => {
       };
       verifyEmail();
     }
-  });
+  }, []);
 
   const handleResetPassword = async () => {
     const data = await resetPassword({ email, password });
