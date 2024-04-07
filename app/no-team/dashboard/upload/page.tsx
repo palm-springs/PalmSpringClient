@@ -7,9 +7,10 @@ import EmptyLanding from '@/components/common/ui/EmptyLanding';
 import DashBoardTemplate from '@/components/dashboard/DashBoardTemplate';
 import TeamValidation from '@/components/no-team/TeamValidation';
 import { welcomeSignup } from '@/utils/auth';
+import { checkSessionStorage } from '@/utils/checkSessionStorage';
 
 const page = () => {
-  const sessionStorage = typeof window !== 'undefined' ? window.sessionStorage : undefined;
+  const sessionStorage = checkSessionStorage();
 
   const isFirstUser = sessionStorage?.getItem('success-signup');
 

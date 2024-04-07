@@ -49,6 +49,7 @@ import { useUpdateTempArticleDraft, useUpdateTempPageDraft } from '@/hooks/edito
 import { useDraftAutoSave } from '@/hooks/useDraftAutoSave';
 import { UpdateArticleProps } from '@/types/article';
 import { UpdatePageProps } from '@/types/page';
+import { checkSessionStorage } from '@/utils/checkSessionStorage';
 import { getContentCtrlVImage, getContentImageMultipartData } from '@/utils/getImageMultipartData';
 
 import { articleDataState, isSaved, pageDataState } from './states/atom';
@@ -74,7 +75,7 @@ const TextEditorBuild = (props: TextEditorBuildprops) => {
   const [atTop, setAtTop] = useState(true);
 
   // sessionStorage
-  const sessionStorage = typeof window !== 'undefined' ? window.sessionStorage : undefined;
+  const sessionStorage = checkSessionStorage();
 
   const [{ title: articleTitle, content: articleContent }, setArticleData] = useRecoilState(articleDataState); // 아티클 초기 타이틀 -> 복사 -> 새로운 title 갈아끼기
   const [{ title: pageTitle, content: pageContent }, setPageData] = useRecoilState(pageDataState);

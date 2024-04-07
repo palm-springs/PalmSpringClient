@@ -1,3 +1,5 @@
+import { checkSessionStorage } from '@/utils/checkSessionStorage';
+
 import DisabledInput from '../../ui/DisabledInput';
 import FlexContainer from '../../ui/FlexContainer';
 import GreenMessageBox from '../../ui/GreenMessageBox';
@@ -5,7 +7,7 @@ import LinkButton from '../../ui/LinkButton';
 import Title from '../../ui/Title';
 
 const EmailSentLanding = () => {
-  const sessionStorage = typeof window !== 'undefined' ? window.sessionStorage : undefined;
+  const sessionStorage = checkSessionStorage();
   const emailValue = sessionStorage?.getItem('email');
   return (
     <FlexContainer margin={'10rem 0'}>

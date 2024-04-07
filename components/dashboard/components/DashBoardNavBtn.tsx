@@ -4,6 +4,7 @@ import React from 'react';
 import { useParams, useRouter } from 'next/navigation';
 import { useResetRecoilState } from 'recoil';
 
+import { checkSessionStorage } from '@/utils/checkSessionStorage';
 import { removeDraftContentData } from '@/utils/removeContentData';
 
 import { articleDataState } from '../../editor/states/atom';
@@ -15,7 +16,7 @@ const DashBoardNavBtn = () => {
   const resetArticleDataState = useResetRecoilState(articleDataState);
 
   // sessionStorage
-  const sessionStorage = typeof window !== 'undefined' ? window.sessionStorage : undefined;
+  const sessionStorage = checkSessionStorage();
 
   const router = useRouter();
 

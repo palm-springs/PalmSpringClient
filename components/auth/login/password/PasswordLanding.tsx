@@ -5,6 +5,7 @@ import { useRouter } from 'next/navigation';
 import { sendVerifyEmail } from '@/api/auth';
 import { failSendEmail } from '@/utils/auth';
 import checkEmailForm from '@/utils/checkEmailForm';
+import { checkSessionStorage } from '@/utils/checkSessionStorage';
 
 import BgButton from '../../ui/BgButton';
 import FlexContainer from '../../ui/FlexContainer';
@@ -16,7 +17,7 @@ const PasswordLanding = () => {
   const [email, setEmail] = useState('');
   const router = useRouter();
 
-  const sessionStorage = typeof window !== 'undefined' ? window.sessionStorage : undefined;
+  const sessionStorage = checkSessionStorage();
 
   const sendResetEmail = async () => {
     const data = await sendVerifyEmail({ type: 'reset', email });

@@ -5,6 +5,7 @@ import { usePathname, useRouter, useSearchParams } from 'next/navigation';
 import client, { refreshAxiosInstance } from '@/api';
 import { getRefreshToken } from '@/api/auth';
 import { ACCESS_TOKEN_KEY, LoginUserState } from '@/constants/Auth';
+import { checkSessionStorage } from '@/utils/checkSessionStorage';
 
 // 로그인이 필요한 페이지에 대해 로그인 검사
 const AuthRequired = ({ children }: { children: React.ReactNode }) => {
@@ -18,7 +19,7 @@ const AuthRequired = ({ children }: { children: React.ReactNode }) => {
   const paramsCode = useSearchParams().get('code');
 
   // sessionStorage
-  const sessionStorage = typeof window !== 'undefined' ? window.sessionStorage : undefined;
+  const sessionStorage = checkSessionStorage();
 
   // access token
   const accessToken = sessionStorage?.getItem(ACCESS_TOKEN_KEY);

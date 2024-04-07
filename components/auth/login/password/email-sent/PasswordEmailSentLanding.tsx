@@ -4,9 +4,10 @@ import FlexContainer from '@/components/auth/ui/FlexContainer';
 import GreenMessageBox from '@/components/auth/ui/GreenMessageBox';
 import LinkButton from '@/components/auth/ui/LinkButton';
 import Title from '@/components/auth/ui/Title';
+import { checkSessionStorage } from '@/utils/checkSessionStorage';
 
 const PasswordEmailSentLanding = () => {
-  const sessionStorage = typeof window !== 'undefined' ? window.sessionStorage : undefined;
+  const sessionStorage = checkSessionStorage();
   const email = sessionStorage?.getItem('email');
 
   return (

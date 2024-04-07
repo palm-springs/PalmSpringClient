@@ -7,12 +7,13 @@ import { getRefreshToken } from '@/api/auth';
 import { getUserInfoAfterLogin } from '@/api/dashboard';
 import LandingPage from '@/components/landing/LandingPage';
 import { ACCESS_TOKEN_KEY } from '@/constants/Auth';
+import { checkSessionStorage } from '@/utils/checkSessionStorage';
 
 const Home = () => {
   const [dashboardUrl, setDashboardUrl] = useState('');
 
   // sessionStorage
-  const sessionStorage = typeof window !== 'undefined' ? window.sessionStorage : undefined;
+  const sessionStorage = checkSessionStorage();
 
   // access token
   const accessToken = sessionStorage?.getItem(ACCESS_TOKEN_KEY);

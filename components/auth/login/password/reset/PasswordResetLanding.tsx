@@ -1,8 +1,7 @@
 'use client';
 import React, { useEffect, useState } from 'react';
 import { Toaster } from 'react-hot-toast';
-import { useRouter, useSearchParams } from 'next/navigation';
-import { Router } from 'next/router';
+import { useSearchParams } from 'next/navigation';
 
 import { getVerifyEmail, resetPassword } from '@/api/auth';
 import BgButton from '@/components/auth/ui/BgButton';
@@ -14,9 +13,10 @@ import LinkButton from '@/components/auth/ui/LinkButton';
 import Title from '@/components/auth/ui/Title';
 import InviteNotFound from '@/components/invite/ui/InviteNotFound';
 import { capitalCheck, failResetPassword, numberCheck, specialCharCheck, successResetPassword } from '@/utils/auth';
+import { checkSessionStorage } from '@/utils/checkSessionStorage';
 
 const PasswordResetLanding = () => {
-  const sessionStorage = typeof window !== 'undefined' ? window.sessionStorage : undefined;
+  const sessionStorage = checkSessionStorage();
   const [isDisabled, setIsDisabled] = useState(false);
 
   const [{ email, password, passwordCheck }, setValue] = useState({

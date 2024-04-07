@@ -5,12 +5,13 @@ import { postSocialLogin } from '@/api/auth';
 import { ACCESS_TOKEN_KEY } from '@/constants/Auth';
 import { useGetAccessToken } from '@/hooks/auth';
 import { getAccessTokenProps } from '@/types/auth';
+import { checkSessionStorage } from '@/utils/checkSessionStorage';
 import { successLogin } from '@/utils/successLogin';
 
 const RequestAccessToken = (props: getAccessTokenProps) => {
   const platformData = useGetAccessToken(props);
 
-  const sessionStorage = typeof window !== 'undefined' ? window.sessionStorage : undefined;
+  const sessionStorage = checkSessionStorage();
 
   const router = useRouter();
   const login = async () => {

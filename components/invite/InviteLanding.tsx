@@ -4,6 +4,7 @@ import { usePathname, useRouter, useSearchParams } from 'next/navigation';
 
 import { ACCESS_TOKEN_KEY, LoginUserState } from '@/constants/Auth';
 import { useGetMemberInvite } from '@/hooks/auth';
+import { checkSessionStorage } from '@/utils/checkSessionStorage';
 
 import LoadingLottie from '../common/ui/LoadingLottie';
 
@@ -13,7 +14,7 @@ import InviteNotFound from './ui/InviteNotFound';
 const InviteAcceptLanding = () => {
   const router = useRouter();
   const pathname = usePathname();
-  const sessionStorage = typeof window !== 'undefined' ? window.sessionStorage : undefined;
+  const sessionStorage = checkSessionStorage();
 
   const searchParams = useSearchParams();
 

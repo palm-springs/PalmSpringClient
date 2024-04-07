@@ -6,6 +6,7 @@ import { useRouter } from 'next/navigation';
 import { platformRegister, sendVerifyEmail } from '@/api/auth';
 import { capitalCheck, failSendEmail, failSignup, failSignupOauth, numberCheck, specialCharCheck } from '@/utils/auth';
 import checkEmailForm from '@/utils/checkEmailForm';
+import { checkSessionStorage } from '@/utils/checkSessionStorage';
 
 import GoogleLoginLanding from '../login/GoogleLoginLanding';
 import BgButton from '../ui/BgButton';
@@ -20,7 +21,7 @@ const SignupLanding = () => {
   const [{ email, password, passwordCheck }, setValue] = useState({ email: '', password: '', passwordCheck: '' });
   const emailRef = useRef<HTMLInputElement>(null);
 
-  const sessionStorage = typeof window !== 'undefined' ? window.sessionStorage : undefined;
+  const sessionStorage = checkSessionStorage();
   const router = useRouter();
 
   const signup = async () => {

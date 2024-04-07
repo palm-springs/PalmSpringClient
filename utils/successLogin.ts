@@ -4,8 +4,10 @@ import client from '@/api';
 import { getUserInfoAfterLogin } from '@/api/dashboard';
 import { ACCESS_TOKEN_KEY } from '@/constants/Auth';
 
+import { checkSessionStorage } from './checkSessionStorage';
+
 export const successLogin = async (accessToken: string, router: AppRouterInstance) => {
-  const sessionStorage = typeof window !== 'undefined' ? window.sessionStorage : undefined;
+  const sessionStorage = checkSessionStorage();
   const redirectUrl = sessionStorage?.getItem('redirectUrl');
 
   sessionStorage?.setItem(ACCESS_TOKEN_KEY, accessToken);
