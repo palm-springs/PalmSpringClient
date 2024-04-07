@@ -34,6 +34,7 @@ const Input = (props: InputProps, ref: ForwardedRef<HTMLInputElement>) => {
       <InputBorder
         value={value}
         type={type}
+        placeholder={type === 'email' ? 'you@example.com' : '••••••••'}
         pattern={type === 'email' ? '.+@example.com' : ''}
         onChange={(e) => {
           if (!setValue) return;
@@ -90,7 +91,9 @@ const InputBorder = styled.input<{ $isInvalid: boolean }>`
   width: 100%;
   height: 5.6rem;
   color: ${({ theme, $isInvalid }) => $isInvalid && theme.colors.red_hover};
-
+  &::placeholder {
+    color: ${({ theme }) => theme.colors.grey_600};
+  }
   &:focus {
     outline: none;
   }
