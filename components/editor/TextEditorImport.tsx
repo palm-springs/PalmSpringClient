@@ -147,14 +147,6 @@ const TextEditorImport = (props: TextEditorImportProps) => {
     },
   });
 
-  useEffect(() => {
-    const timer = setTimeout(() => {
-      setIsDraftSave(false);
-    }, 3000); // 10초 후에 isDraftSave를 false로 변경
-
-    return () => clearTimeout(timer);
-  }, [isDraftSave]);
-
   // 자동 임시저장 함수(에디터, 타이틀)
   useEffect(() => {
     if (!editor) {
@@ -162,13 +154,15 @@ const TextEditorImport = (props: TextEditorImportProps) => {
     }
 
     const handleInput = debounce(() => {
-      console.log('에디터 내용이 변경되었습니다.');
-      handleOnDraftAutoSave();
       setIsDraftSave(true);
+      handleOnDraftAutoSave();
     }, 10000);
 
+    const handleInputChange = () => {
+      setIsDraftSave(false);
+    };
+
     const titleAutoSave = debounce((title) => {
-      console.log('제목이 변경되었습니다.');
       handleOnDraftAutoSave();
       setIsDraftSave(true);
     }, 10000);
@@ -178,6 +172,8 @@ const TextEditorImport = (props: TextEditorImportProps) => {
       editor.on('update', handleInput);
       titleAutoSave(articleData.title || pageData.title);
     }
+
+    editor.on('update', handleInputChange);
 
     // 함수 호출 취소 -> 안하면 무한 호출됨
     return () => {
@@ -351,7 +347,7 @@ const TextEditorImport = (props: TextEditorImportProps) => {
 
       setArticleData((prev) => ({
         ...prev,
-        content: content,
+        content,
       }));
 
       const dataArticleId = sessionStorage?.getItem(ARTICLE_DATA_ID);
@@ -360,7 +356,7 @@ const TextEditorImport = (props: TextEditorImportProps) => {
         ...articleData,
         id: Number(dataArticleId),
         title: articleData.title,
-        content: content,
+        content,
         images: imageArr,
         isPublish: false,
       });
@@ -409,7 +405,7 @@ const TextEditorImport = (props: TextEditorImportProps) => {
         ...pageData,
         id: Number(dataPageId),
         title: pageData.title,
-        content: content,
+        content,
         images: imageArr,
         isPublish: false,
       });
