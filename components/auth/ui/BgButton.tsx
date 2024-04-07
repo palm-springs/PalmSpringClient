@@ -1,15 +1,19 @@
 'use client';
-import { ReactNode } from 'react';
+import { MouseEventHandler, ReactNode } from 'react';
 import styled from 'styled-components';
 
 interface BgButtonProps {
   children: ReactNode;
   disabled: boolean;
-  onClick: ()=>void;
+  onClick: MouseEventHandler<HTMLButtonElement>;
 }
 const BgButton = (props: BgButtonProps) => {
   const { children, disabled, onClick } = props;
-  return <Button disabled={disabled} onClick={onClick}>{children}</Button>;
+  return (
+    <Button disabled={disabled} onClick={onClick}>
+      {children}
+    </Button>
+  );
 };
 
 export default BgButton;
