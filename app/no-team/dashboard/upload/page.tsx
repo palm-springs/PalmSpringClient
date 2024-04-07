@@ -16,6 +16,7 @@ const Page = () => {
   useEffect(() => {
     if (isFirstUser === 'true') {
       welcomeSignup();
+
       setTimeout(() => {
         sessionStorage?.removeItem('success-signup');
       }, 4000);
