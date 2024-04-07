@@ -9,6 +9,7 @@ import LoadingLottie from '@/components/common/ui/LoadingLottie';
 import { ACCESS_TOKEN_KEY } from '@/constants/Auth';
 import { useGetUserInfo } from '@/hooks/dashboard';
 import userState from '@/recoil/atom/user';
+import { checkSessionStorage } from '@/utils/checkSessionStorage';
 
 import DashBoardFooterContainer from './ui/DashBoardFooterContainer';
 import DashBoardProfileContainer from './ui/DashBoardProfileContainer';
@@ -20,7 +21,7 @@ const DashBoardFooter = () => {
 
   const resetUserState = useResetRecoilState(userState);
 
-  const sessionStorage = typeof window !== 'undefined' ? window.sessionStorage : undefined;
+  const sessionStorage = checkSessionStorage();
   const router = useRouter();
 
   const res = useGetUserInfo();
@@ -29,7 +30,7 @@ const DashBoardFooter = () => {
     await logout();
     sessionStorage?.removeItem(ACCESS_TOKEN_KEY);
     resetUserState();
-    router.push('/auth');
+    router.push('/login');
   };
 
   if (!res || !res?.data) {

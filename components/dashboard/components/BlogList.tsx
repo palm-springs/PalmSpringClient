@@ -49,7 +49,7 @@ const BlogList = (props: BlogListProps) => {
                 setCurrentBlog(idx);
                 setUserValue((prev) => {
                   if (prev === null) {
-                    router.push('/auth');
+                    router.push('/login');
                     return prev;
                   }
                   return {

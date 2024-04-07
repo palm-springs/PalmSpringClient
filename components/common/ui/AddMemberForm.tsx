@@ -51,7 +51,7 @@ const AddMemberForm = (props: AddMemberFormProps) => {
       <ErrorContainer>
         {isError && (
           <>
-            <ErrorMsg>@gmail.com 형식으로 입력해주세요.</ErrorMsg>
+            <ErrorMsg>올바른 이메일 형식으로 입력해주세요.</ErrorMsg>
             <RemoveErrorButton onClick={removeAllError}>오류 제거하기</RemoveErrorButton>
           </>
         )}
