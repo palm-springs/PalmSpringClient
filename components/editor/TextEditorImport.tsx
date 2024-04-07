@@ -521,6 +521,7 @@ const TextEditorImport = (props: TextEditorImportProps) => {
           setAtTop={setAtTop}
           pageType="article"
           isDraftSave={isDraftSave}
+          setIsDraftSave={setIsDraftSave}
         />
       ) : (
         <SaveEditorContentButton
@@ -537,6 +538,7 @@ const TextEditorImport = (props: TextEditorImportProps) => {
           setAtTop={setAtTop}
           pageType="page"
           isDraftSave={isDraftSave}
+          setIsDraftSave={setIsDraftSave}
         />
       )}
     </>

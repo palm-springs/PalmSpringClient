@@ -22,6 +22,7 @@ interface editorProps {
   pageType?: string;
   atTop: boolean;
   setAtTop: React.Dispatch<React.SetStateAction<boolean>>;
+  setIsDraftSave: React.Dispatch<React.SetStateAction<boolean>>;
   onPaste?: () => void;
 }
 
@@ -29,7 +30,8 @@ const SaveEditorContentButton = (props: editorProps) => {
   const { team, articleId } = useParams();
   const [isModal, setIsModal] = useState(false); // 모달 보이고 안보이고
   const [saved, setSaved] = useRecoilState(isSaved); // 임시저장된 여부
-  const { handleOnClickDraft, handleOnClickPublish, isEdit, pageType, atTop, setAtTop, isDraftSave } = props;
+  const { handleOnClickDraft, handleOnClickPublish, isEdit, pageType, atTop, setAtTop, isDraftSave, setIsDraftSave } =
+    props;
   const router = useRouter();
 
   const articleData = useRecoilValue(articleDataState);
@@ -81,8 +83,12 @@ const SaveEditorContentButton = (props: editorProps) => {
 
   const modalOpenHandler = () => {
     if (!saved) {
-      setIsModal(!isModal);
-      document.body.style.overflow = 'hidden';
+      if (!isDraftSave) {
+        setIsModal(!isModal);
+        document.body.style.overflow = 'hidden';
+      } else {
+        router.back();
+      }
     } else {
       router.back();
     }
