@@ -1,14 +1,14 @@
 'use client';
+import { useSearchParams } from 'next/navigation';
+
 import DisabledInput from '@/components/auth/ui/DisabledInput';
 import FlexContainer from '@/components/auth/ui/FlexContainer';
 import GreenMessageBox from '@/components/auth/ui/GreenMessageBox';
 import LinkButton from '@/components/auth/ui/LinkButton';
 import Title from '@/components/auth/ui/Title';
-import { checkSessionStorage } from '@/utils/checkSessionStorage';
 
 const PasswordEmailSentLanding = () => {
-  const sessionStorage = checkSessionStorage();
-  const email = sessionStorage?.getItem('email');
+  const email = useSearchParams().get('email');
 
   return (
     <FlexContainer margin={'16rem 0'}>

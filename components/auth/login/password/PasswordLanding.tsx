@@ -5,7 +5,6 @@ import { useRouter } from 'next/navigation';
 import { sendVerifyEmail } from '@/api/auth';
 import { failSendEmail } from '@/utils/auth';
 import checkEmailForm from '@/utils/checkEmailForm';
-import { checkSessionStorage } from '@/utils/checkSessionStorage';
 
 import BgButton from '../../ui/BgButton';
 import FlexContainer from '../../ui/FlexContainer';
@@ -17,8 +16,6 @@ const PasswordLanding = () => {
   const [email, setEmail] = useState('');
   const router = useRouter();
 
-  const sessionStorage = checkSessionStorage();
-
   const sendResetEmail = async () => {
     // 이메일 인증 API 호출
     const data = await sendVerifyEmail({ type: 'reset', email });
@@ -26,8 +23,7 @@ const PasswordLanding = () => {
 
     // 성공시
     if (data.code === 201) {
-      sessionStorage?.setItem('email', email);
-      router.push('/login/password/email-sent');
+      router.push(`/login/password/email-sent?email=${email}`);
     }
 
     // 실패시 토스트

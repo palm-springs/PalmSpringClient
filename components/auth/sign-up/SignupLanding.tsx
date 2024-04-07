@@ -6,7 +6,6 @@ import { useRouter } from 'next/navigation';
 import { platformRegister, sendVerifyEmail } from '@/api/auth';
 import { capitalCheck, failSendEmail, failSignup, failSignupOauth, numberCheck, specialCharCheck } from '@/utils/auth';
 import checkEmailForm from '@/utils/checkEmailForm';
-import { checkSessionStorage } from '@/utils/checkSessionStorage';
 
 import GoogleLoginLanding from '../login/GoogleLoginLanding';
 import BgButton from '../ui/BgButton';
@@ -21,7 +20,6 @@ const SignupLanding = () => {
   const [{ email, password, passwordCheck }, setValue] = useState({ email: '', password: '', passwordCheck: '' });
   const emailRef = useRef<HTMLInputElement>(null);
 
-  const sessionStorage = checkSessionStorage();
   const router = useRouter();
 
   const signup = async () => {
@@ -37,8 +35,7 @@ const SignupLanding = () => {
       if (!data) return;
       // 성공시
       if (data.code === 201 || data.code === 200) {
-        sessionStorage?.setItem('email', email);
-        router.push(`/sign-up/email-sent`);
+        router.push(`/sign-up/email-sent?email=${email}`);
       }
       // 실패시 토스트
       else failSendEmail();
