@@ -1,5 +1,5 @@
 'use client';
-import { Suspense } from 'react';
+import { Suspense, useEffect } from 'react';
 import { Toaster } from 'react-hot-toast';
 
 import AuthRequired from '@/components/auth/AuthRequired';
@@ -9,15 +9,18 @@ import TeamValidation from '@/components/no-team/TeamValidation';
 import { welcomeSignup } from '@/utils/auth';
 import { checkSessionStorage } from '@/utils/checkSessionStorage';
 
-const page = () => {
+const Page = () => {
   const sessionStorage = checkSessionStorage();
-
   const isFirstUser = sessionStorage?.getItem('success-signup');
 
-  if (isFirstUser === 'true') {
-    welcomeSignup();
-    sessionStorage?.removeItem('success-signup');
-  }
+  useEffect(() => {
+    if (isFirstUser === 'true') {
+      welcomeSignup();
+      setTimeout(() => {
+        sessionStorage?.removeItem('success-signup');
+      }, 4000);
+    }
+  }, []);
 
   return (
     <>
@@ -49,4 +52,4 @@ const page = () => {
   );
 };
 
-export default page;
+export default Page;
