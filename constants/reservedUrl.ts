@@ -36,4 +36,5 @@ export const RESERVED_URL_LIST = [
   'sitemap',
   'login',
   'sign-up',
+  'cdn',
 ];
