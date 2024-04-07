@@ -9,13 +9,17 @@ const page = async ({ searchParams }: { searchParams: { [key: string]: string | 
   const code = searchParams.code;
 
   if (code) {
+    // code 유효 검증
     const data = await getVerifyEmail('register', code);
     if (!data) return;
 
     const { code: verifyCode, data: VerifyData } = data;
+    // 성공시 (로딩창에서 추가 검증 후-> 대시보드로 이동)
     if (verifyCode === 200 && VerifyData !== null) {
       return <EmailVerifyLanding data={VerifyData} />;
-    } else if (verifyCode === 400 || verifyCode === 404) {
+    }
+    // 실패시
+    else if (verifyCode === 400 || verifyCode === 404) {
       return <InviteNotFound type="register" />;
     }
   }
