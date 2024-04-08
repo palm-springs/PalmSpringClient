@@ -148,41 +148,66 @@ const TextEditorImport = (props: TextEditorImportProps) => {
     },
   });
 
-  // 자동 임시저장 함수(에디터, 타이틀)
+  const titleSelect = () => {
+    if (pageType === 'article') {
+      return articleData.title;
+    } else {
+      return pageData.title;
+    }
+  };
+
   useEffect(() => {
     if (!editor) {
       return;
     }
 
+    const isDraftSaveAllowed = () => {
+      if (pageType === 'article') {
+        if (articleData.title !== '') {
+          return articleData.content !== '';
+        } else {
+          return articleData.content !== '' && !editor.isEmpty;
+        }
+      } else {
+        if (pageData.title !== '') {
+          return pageData.content !== '';
+        } else {
+          return pageData.content !== '' && !editor.isEmpty;
+        }
+      }
+    };
+
     const handleInput = debounce(() => {
-      setIsDraftSave(true);
-      handleOnDraftAutoSave();
-    }, 10000);
+      if (isDraftSaveAllowed()) {
+        setIsDraftSave(true);
+        handleOnDraftAutoSave();
+      } else {
+        setIsDraftSave(false);
+      }
+    }, 3000);
 
     const handleInputChange = () => {
       setIsDraftSave(false);
     };
 
     const titleAutoSave = debounce((title) => {
-      handleOnDraftAutoSave();
-      setIsDraftSave(true);
-    }, 10000);
+      if (title) {
+        setIsDraftSave(true);
+        handleOnDraftAutoSave();
+      }
+    }, 3000);
 
-    //비어있을때는 저장하지 않기
-    if (articleData.content !== '' || pageData.content !== '' || articleData.title !== '' || pageData.title !== '') {
-      editor.on('update', handleInput);
-      titleAutoSave(articleData.title || pageData.title);
-    }
-
+    editor.on('update', handleInput);
     editor.on('update', handleInputChange);
+    titleAutoSave(titleSelect());
 
-    // 함수 호출 취소 -> 안하면 무한 호출됨
+    // 함수 호출 취소
     return () => {
       setIsDraftSave(false);
       handleInput.cancel();
       titleAutoSave.cancel();
-
       editor.off('update', handleInput);
+      editor.off('update', handleInputChange);
     };
   }, [editor, articleData.title, pageData.title]);
 
