@@ -3,8 +3,9 @@ import { recoilPersist } from 'recoil-persist';
 
 import { CreateArticleProps } from '@/types/article';
 import { CreatePageProps } from '@/types/page';
+import { checkSessionStorage } from '@/utils/checkSessionStorage';
 
-const sessionStorage = typeof window !== 'undefined' ? window.sessionStorage : undefined;
+const sessionStorage = checkSessionStorage();
 
 const { persistAtom: articlePersistAtom } = recoilPersist({
   key: 'articleData', // 고유한 key 값

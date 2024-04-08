@@ -21,7 +21,7 @@ const DeleteButton = () => {
   // 팜스프링 탈퇴 함수
   const handleWithdrawPlatform = async () => {
     await updateWithdrawPlatform();
-    router.push('/auth');
+    router.push('/login');
   };
 
   // 팀 나가기 함수

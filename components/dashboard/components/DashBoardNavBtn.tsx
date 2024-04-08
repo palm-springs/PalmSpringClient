@@ -1,9 +1,10 @@
 'use client';
 
 import React from 'react';
-import { useParams, useRouter } from 'next/navigation';
+import { useParams, usePathname, useRouter } from 'next/navigation';
 import { useResetRecoilState } from 'recoil';
 
+import { checkSessionStorage } from '@/utils/checkSessionStorage';
 import { removeDraftContentData } from '@/utils/removeContentData';
 
 import { articleDataState } from '../../editor/states/atom';
@@ -14,8 +15,10 @@ const DashBoardNavBtn = () => {
   const { team: blogUrl } = useParams();
   const resetArticleDataState = useResetRecoilState(articleDataState);
 
+  const pathName = usePathname();
+
   // sessionStorage
-  const sessionStorage = typeof window !== 'undefined' ? window.sessionStorage : undefined;
+  const sessionStorage = checkSessionStorage();
 
   const router = useRouter();
 
@@ -25,7 +28,11 @@ const DashBoardNavBtn = () => {
     router.push(`/${blogUrl}/editor/article`);
   };
 
-  return <DashBoardNavBtnContainer onDashboardClick={handleOnNewPage}>새 글 작성하기</DashBoardNavBtnContainer>;
+  return (
+    <DashBoardNavBtnContainer onDashboardClick={handleOnNewPage} disabled={pathName.startsWith('/no-team')}>
+      새 글 작성하기
+    </DashBoardNavBtnContainer>
+  );
 };
 
 export default DashBoardNavBtn;

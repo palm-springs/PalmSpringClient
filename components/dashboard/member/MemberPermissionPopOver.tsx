@@ -58,7 +58,7 @@ const MemberPermissionPopOver = (prop: MemberPermissionPopOverProp) => {
   );
 
   if (userValue === null) {
-    router.push('/auth');
+    router.push('/login');
     return <></>;
   }
 

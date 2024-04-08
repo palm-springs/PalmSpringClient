@@ -7,6 +7,8 @@ export { default as ArrowRightContained02Icon } from './arrow-right-contained-02
 export { default as BellIcon } from './bell.svg';
 export { default as CharmMenuMeatballIcon } from './charm_menu-meatball.svg';
 export { default as CheckIcon } from './check.svg';
+export { default as BlackCheckIcon } from './check_black.svg';
+export { default as GreenCheckIcon } from './check_green.svg';
 export { default as CheckBoxIcon } from './checkbox.svg';
 export { default as EmptyLogoIcon } from './emptyLogo.svg';
 export { default as File02Icon } from './file-02.svg';
@@ -49,6 +51,7 @@ export { default as ImageDownIcon } from './image_down.svg';
 export { default as InputProfileIcon } from './input-profile-icon.svg';
 export { default as Loader01Icon } from './loader-01.svg';
 export { default as LogoIcon } from './logo.svg';
+export { default as LogoSmallIcon } from './logo_auth_page.svg';
 export { default as Menu01Icon } from './menu-01.svg';
 export { default as MobileBtnLogo } from './mobile_btn.svg';
 export { default as ProfilePhotoIcon } from './profilePhoto.svg';

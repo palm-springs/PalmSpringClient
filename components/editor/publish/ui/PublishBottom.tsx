@@ -16,6 +16,7 @@ import {
 } from '@/hooks/editor';
 import { UpdateArticleProps } from '@/types/article';
 import { UpdatePageProps } from '@/types/page';
+import { checkSessionStorage } from '@/utils/checkSessionStorage';
 import { removeDraftContentData } from '@/utils/removeContentData';
 
 import { articleDataState, pageDataState } from '../../states/atom';
@@ -54,7 +55,7 @@ const PublishBottomButtons = (props: PublishBottomButtons) => {
   const resetPageData = useResetRecoilState(pageDataState);
 
   // sessionStorage
-  const sessionStorage = typeof window !== 'undefined' ? window.sessionStorage : undefined;
+  const sessionStorage = checkSessionStorage();
 
   //아티클 최종 발행하기
   const handleOnClickArticlePublish = async () => {

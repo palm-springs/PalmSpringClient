@@ -162,8 +162,7 @@ const Header = ({ dashboardUrl }: { dashboardUrl?: string }) => {
               대시보드
             </Link>
           ) : (
-            <Link
-              href={`${GOOGLE_END_POINT}?client_id=${process.env.NEXT_PUBLIC_GOOGLE_CLIENT_ID}&redirect_uri=${redirectUri}&response_type=code&scope=email profile`}>
+            <Link href={`/login`}>
               <button
                 css={[
                   header_button,
