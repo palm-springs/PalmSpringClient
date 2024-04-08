@@ -8,27 +8,32 @@ import ModalPortal from '@/components/common/ModalPortal';
 import DashboardDeleteModal from '@/components/common/ui/DashboardDeleteModal';
 import { useDeleteBlog } from '@/hooks/blog';
 
-import { dashBoardModalState } from '../state/modalState';
+import { dashboardBlogDeleteState } from '../state/modalState';
 
 const BlogInfoDeleteButton = () => {
   const { team: blogUrl } = useParams();
 
-  const [dashboardModalState, setDashboardModalState] = useRecoilState(dashBoardModalState);
+  const [dashboardBlogDeleteModalState, setDashboardBlogDeleteModalState] = useRecoilState(dashboardBlogDeleteState);
 
-  const { mutate } = useDeleteBlog(blogUrl);
+  const { mutate } = useDeleteBlog(String(blogUrl));
+
+  const handleBlogDeleteButton = () => {
+    mutate();
+    setDashboardBlogDeleteModalState(false);
+  };
 
   return (
     <BlogInfoDeleteButtonContainer>
-      <BlogDeleteButton onClick={() => setDashboardModalState('deleteBlog')}>블로그 삭제</BlogDeleteButton>
-      {dashboardModalState === 'deleteBlog' && (
+      <BlogDeleteButton onClick={() => setDashboardBlogDeleteModalState(true)}>블로그 삭제</BlogDeleteButton>
+      {dashboardBlogDeleteModalState && (
         <ModalPortal>
           <DashboardDeleteModal
             text="블로그를 삭제하시겠어요?"
             subText="블로그를 삭제할 시, 복구할 수 없습니다."
             leftButtonText="유지하기"
             rightButtonText="삭제하기"
-            leftHandler={() => setDashboardModalState('')}
-            rightHandler={() => mutate()}
+            leftHandler={() => setDashboardBlogDeleteModalState(false)}
+            rightHandler={handleBlogDeleteButton}
           />
         </ModalPortal>
       )}
