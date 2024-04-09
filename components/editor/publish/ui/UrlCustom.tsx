@@ -21,12 +21,19 @@ interface UrlCustomProps {
   isAddressRulePassed: boolean | null;
   setIsAddressRulePassed: Dispatch<SetStateAction<boolean>>;
   pageData?: UpdatePageProps;
-  articleData?: UpdateArticleProps;
+  updatedArticleData?: UpdateArticleProps;
 }
 
 const UrlCustom = (props: UrlCustomProps) => {
-  const { pageType, isDuplicate, setIsDuplicate, isAddressRulePassed, setIsAddressRulePassed, pageData, articleData } =
-    props;
+  const {
+    pageType,
+    isDuplicate,
+    setIsDuplicate,
+    isAddressRulePassed,
+    setIsAddressRulePassed,
+    pageData,
+    updatedArticleData,
+  } = props;
   const { team } = useParams();
 
   const [{ articleUrl }, setArticleData] = useRecoilState(articleDataState);
@@ -40,13 +47,13 @@ const UrlCustom = (props: UrlCustomProps) => {
       if (value === pageData?.pageUrl) {
         setIsDuplicate(false);
       } else {
-        CheckContentUrlDuplication(team, value, setIsDuplicate);
+        CheckContentUrlDuplication(String(team), value, setIsDuplicate);
       }
     } else if (pageType === 'article') {
-      if (value === articleData?.articleUrl) {
+      if (value === updatedArticleData?.articleUrl) {
         setIsDuplicate(false);
       } else {
-        CheckContentUrlDuplication(team, value, setIsDuplicate);
+        CheckContentUrlDuplication(String(team), value, setIsDuplicate);
       }
     }
   };
@@ -66,9 +73,9 @@ const UrlCustom = (props: UrlCustomProps) => {
   // 최초 렌더링) 기존 url이 있을시 rule check
   useEffect(() => {
     if (pageType === 'article') {
-      if (articleData) {
-        setArticleData((prev) => ({ ...prev, articleUrl: articleData.articleUrl }));
-        checkAddressRulePassed(articleData.articleUrl);
+      if (updatedArticleData) {
+        setArticleData((prev) => ({ ...prev, articleUrl: updatedArticleData.articleUrl }));
+        checkAddressRulePassed(updatedArticleData.articleUrl);
       } else {
         setArticleData((prev) => ({ ...prev, articleUrl: '' }));
       }

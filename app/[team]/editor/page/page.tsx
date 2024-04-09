@@ -2,7 +2,7 @@
 import styled from 'styled-components';
 
 import AuthRequired from '@/components/auth/AuthRequired';
-import TextEditorBuild from '@/components/editor/TextEditorImport';
+import TextEditorImport from '@/components/editor/TextEditorImport';
 import EditorInputTitle from '@/components/editor/ui/EditorInputTitle';
 import { TextEditorStyle } from '@/styles/TextEditorStyle';
 
@@ -12,7 +12,7 @@ const CreatePagePage = () => {
       <TextEditorStyle className="editor">
         <PageWrapper className="ProseMirror">
           <EditorInputTitle pageType="page" />
-          <TextEditorBuild pageType="page" />
+          <TextEditorImport pageType="page" />
         </PageWrapper>
       </TextEditorStyle>
     </AuthRequired>

@@ -3,42 +3,42 @@ import { createToast } from '@/utils/lib/toast';
 export const inviteErrorNotify = createToast({
   type: 'ERROR',
   message: '초대된 사용자가 아닙니다. 다시 로그인해주세요.',
-  id: 'error on invalid invited error',
+  id: 'invalid invited error',
   duration: 3000,
 });
 
 export const noUserErrorNotify = createToast({
   type: 'ERROR',
   message: '로그인이 필요합니다.',
-  id: 'error on no user',
+  id: 'no user',
   duration: 3000,
 });
 
 export const failLogin = createToast({
   type: 'ERROR',
   message: '로그인 정보가 올바르지 않습니다',
-  id: 'error on login',
+  id: 'login',
   duration: 3000,
 });
 
 export const failSignup = createToast({
   type: 'ERROR',
   message: '이미 가입된 이메일이에요',
-  id: 'error on signup email already exists',
+  id: 'signup email already exists',
   duration: 3000,
 });
 
 export const failSignupOauth = createToast({
   type: 'ERROR',
   message: '구글 로그인으로 이미 가입된 이메일이에요',
-  id: 'error on signup email already exists',
+  id: 'signup email already exists',
   duration: 3000,
 });
 
 export const failSendEmail = createToast({
   type: 'ERROR',
   message: '이메일 발송에 실패했습니다',
-  id: 'error on sending verify email',
+  id: 'sending verify email',
   duration: 3000,
 });
 

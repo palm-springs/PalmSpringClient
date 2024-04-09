@@ -93,60 +93,51 @@ export const TextEditorStyle = styled.div`
         font-size: 1.4rem;
       }
 
-      .hljs-quote,
-      .hljs-variable {
+      .hljs-variable,
+      .hljs-comment {
         color: #383a41;
       }
-
-      .hljs-comment {
+      .hljs-quote {
         color: #a0a1a7;
       }
 
-      .hljs-attribute,
       .hljs-template-variable,
+      .hljs-attribute,
+      .hljs-tag,
+      .hljs-regexp,
+      .hljs-link,
       .hljs-name,
-      .hljs-number,
+      .hljs-selector-id,
       .hljs-selector-class {
         color: #986801;
       }
 
-      .hljs-regexp,
-      .hljs-selector-id,
-      .hljs-link,
-      .hljs-meta {
-        text-decoration: underline;
-        color: #4078f2;
-      }
-
-      .hljs-literal {
-        color: #0184bb;
+      .hljs-number,
+      .hljs-meta,
+      .hljs-literal,
+      .hljs-type,
+      .hljs-params {
+        color: #fbbc88;
       }
 
       .hljs-built_in,
       .hljs-builtin-name {
         color: #c18401;
       }
-
       .hljs-string {
         color: #50a14f;
       }
 
       .hljs-title,
+      .hljs-section,
       .hljs-symbol,
       .hljs-bullet {
         color: #4078f2;
       }
 
-      .hljs-section {
-        color: #e45649;
-      }
-
-      .hljs-selector-tag,
-      .hljs-type,
-      .hljs-params,
       .hljs-keyword,
-      .hljs-tag {
-        color: #a626a4;
+      .hljs-selector-tag {
+        color: #99359f;
       }
 
       .hljs-emphasis {
