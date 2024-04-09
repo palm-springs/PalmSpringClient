@@ -19,19 +19,19 @@ import { articleDataState, pageDataState } from '../../states/atom';
 interface ThumbnailInputProps {
   pageType: string;
   pageData?: UpdatePageProps;
-  articleData?: UpdateArticleProps;
+  updatedArticleData?: UpdateArticleProps;
 }
 
 const ThumbnailInput = (props: ThumbnailInputProps) => {
-  const { pageType, pageData, articleData } = props;
+  const { pageType, pageData, updatedArticleData } = props;
   const { team } = useParams();
 
   const [{ thumbnail: articleThumbnail }, setArticleData] = useRecoilState(articleDataState);
   const [{ thumbnail: pageThumbnail }, setPageData] = useRecoilState(pageDataState);
 
   useEffect(() => {
-    if (articleData) {
-      setArticleData((prev) => ({ ...prev, thumbnail: articleData.thumbnail }));
+    if (updatedArticleData) {
+      setArticleData((prev) => ({ ...prev, thumbnail: updatedArticleData.thumbnail }));
     } else if (pageData) {
       setPageData((prev) => ({ ...prev, thumbnail: pageData.thumbnail }));
     }

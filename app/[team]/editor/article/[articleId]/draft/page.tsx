@@ -3,7 +3,7 @@ import { useParams } from 'next/navigation';
 import styled from 'styled-components';
 
 import AuthRequired from '@/components/auth/AuthRequired';
-import TextEditorBuild from '@/components/editor/TextEditorImport';
+import TextEditorImport from '@/components/editor/TextEditorImport';
 import EditorInputTitle from '@/components/editor/ui/EditorInputTitle';
 import { useGetUpdateArticleContent } from '@/hooks/editor';
 import { TextEditorStyle } from '@/styles/TextEditorStyle';
@@ -19,8 +19,8 @@ const DraftArticlePage = () => {
           {/* 데이터가 content 있는 페이지 */}
           {updateArticleEditContents && (
             <>
-              <EditorInputTitle pageType="article" currentState="draft" articleData={updateArticleEditContents.data} />
-              <TextEditorBuild pageType="article" currentState="draft" articleData={updateArticleEditContents.data} />
+              <EditorInputTitle pageType="article" currentState="draft" updatedArticleData={updateArticleEditContents.data} />
+              <TextEditorImport pageType="article" currentState="draft" updatedArticleData={updateArticleEditContents.data} />
             </>
           )}
         </ArticleWrapper>

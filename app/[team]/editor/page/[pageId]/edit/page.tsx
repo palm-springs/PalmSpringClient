@@ -3,14 +3,14 @@ import { useParams } from 'next/navigation';
 import styled from 'styled-components';
 
 import AuthRequired from '@/components/auth/AuthRequired';
-import TextEditorBuild from '@/components/editor/TextEditorImport';
+import TextEditorImport from '@/components/editor/TextEditorImport';
 import EditorInputTitle from '@/components/editor/ui/EditorInputTitle';
 import { useGetUpdatePageContent } from '@/hooks/editor';
 import { TextEditorStyle } from '@/styles/TextEditorStyle';
 
 const EditPagePage = () => {
   const { team, pageId } = useParams();
-  const updatePageEditContents = useGetUpdatePageContent(team, Number(pageId));
+  const updatePageEditContents = useGetUpdatePageContent(String(team), Number(pageId));
 
   return (
     <AuthRequired>
@@ -19,8 +19,8 @@ const EditPagePage = () => {
           {/* 데이터가 content 있는 페이지 */}
           {updatePageEditContents && (
             <>
-              <EditorInputTitle pageType="page" currentState="edit" pageData={updatePageEditContents?.data} />
-              <TextEditorBuild pageType="page" currentState="edit" pageData={updatePageEditContents?.data} />
+              <EditorInputTitle pageType="page" currentState="edit" updatedPageData={updatePageEditContents?.data} />
+              <TextEditorImport pageType="page" currentState="edit" updatedPageData={updatePageEditContents?.data} />
             </>
           )}
         </ArticleWrapper>

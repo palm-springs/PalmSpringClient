@@ -10,15 +10,15 @@ import { UpdatePageProps } from '@/types/page';
 
 import { articleDataState, isSaved, pageDataState } from '../states/atom';
 
-interface TextEditorBuildProps {
-  pageType: string;
+interface TextEditorImportProps {
+  pageType?: string;
   currentState?: string;
-  articleData?: UpdateArticleProps;
-  pageData?: UpdatePageProps;
+  updatedArticleData?: UpdateArticleProps;
+  updatedPageData?: UpdatePageProps;
 }
 
-const EditorInputTitle = (props: TextEditorBuildProps) => {
-  const { pageType, articleData, pageData } = props;
+const EditorInputTitle = (props: TextEditorImportProps) => {
+  const { pageType, updatedArticleData, updatedPageData } = props;
   const { team } = useParams();
   const pathName = usePathname();
 
@@ -38,20 +38,20 @@ const EditorInputTitle = (props: TextEditorBuildProps) => {
   const selectTitle = () => {
     if (pathName.startsWith(`/${team}/editor/article`)) {
       if (articleTitle !== undefined || articleTitle !== null) return articleTitle;
-      if (articleData) return articleData.title;
+      if (updatedArticleData) return updatedArticleData.title;
     } else if (pathName.startsWith(`/${team}/editor/page`)) {
       if (pageTitle !== undefined || pageTitle !== null) return pageTitle;
-      if (pageData) return pageData.title;
+      if (updatedPageData) return updatedPageData.title;
     }
     return '';
   };
   const titleValue = selectTitle();
 
   useEffect(() => {
-    if (!articleTitle && articleData) {
-      setArticleData((prev) => ({ ...prev, title: articleData.title }));
-    } else if (!pageTitle && pageData) {
-      setPageData((prev) => ({ ...prev, title: pageData.title }));
+    if (!articleTitle && updatedArticleData) {
+      setArticleData((prev) => ({ ...prev, title: updatedArticleData.title }));
+    } else if (!pageTitle && updatedPageData) {
+      setPageData((prev) => ({ ...prev, title: updatedPageData.title }));
     }
 
     handleResizeInput();

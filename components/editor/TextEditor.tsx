@@ -1,6 +1,13 @@
 'use client';
 
-import { ClipboardEvent, ClipboardEventHandler, DragEventHandler, FormEventHandler, useEffect, useState } from 'react';
+import {
+  ChangeEventHandler,
+  ClipboardEventHandler,
+  DragEventHandler,
+  FormEventHandler,
+  useEffect,
+  useState,
+} from 'react';
 import { Editor, EditorContent } from '@tiptap/react';
 import styled from 'styled-components';
 
@@ -8,18 +15,13 @@ interface editorProps {
   editor: Editor | null;
   handleDragOver: DragEventHandler<HTMLDivElement> | undefined;
   handleDrop: DragEventHandler<HTMLDivElement> | undefined;
-  onChange?: FormEventHandler<HTMLDivElement> | undefined;
   ctrlVImage: ClipboardEventHandler<HTMLDivElement> | undefined;
 }
 
-const TextEditor = ({ editor, handleDragOver, handleDrop, onChange, ctrlVImage }: editorProps) => {
+const TextEditor = ({ editor, handleDragOver, handleDrop, ctrlVImage }: editorProps) => {
   // const [editorHeight, setEditorHeight] = useState<number>(650);
 
   const [long, setlong] = useState<boolean>(false);
-
-  const handleClipboardEvent = (e: ClipboardEvent<HTMLInputElement>) => {
-    alert('kdjkfjdkfkdjfkjkd');
-  };
 
   useEffect(() => {
     const handleScroll = () => {
@@ -36,8 +38,6 @@ const TextEditor = ({ editor, handleDragOver, handleDrop, onChange, ctrlVImage }
       window.removeEventListener('scroll', handleScroll);
     };
   }, []);
-
-  const [content, setContent] = useState('');
 
   return (
     <TouchContainer

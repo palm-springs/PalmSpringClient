@@ -1,6 +1,6 @@
 'use client';
 
-import React, { ChangeEvent, useEffect, useRef, useState } from 'react';
+import React, { ChangeEvent, useCallback, useEffect, useRef, useState } from 'react';
 import { Editor } from '@tiptap/react';
 import styled from 'styled-components';
 
@@ -25,15 +25,36 @@ import {
 interface editorProps {
   editor: Editor;
   encodeFileToBase64: (event: ChangeEvent<HTMLInputElement>, editor: Editor) => void;
-  setLink: ({ editor }: { editor: Editor }) => void;
+
   atTop: boolean;
   setAtTop: React.Dispatch<React.SetStateAction<boolean>>;
 }
 
-const EditorMenuBar = ({ editor, encodeFileToBase64, setLink, atTop, setAtTop }: editorProps) => {
+const EditorMenuBar = ({ editor, encodeFileToBase64, atTop, setAtTop }: editorProps) => {
   const [visible, setVisible] = useState(false);
 
   const iconWrapperRef = useRef<HTMLDivElement>(null);
+
+  //링크 삽입 버튼
+  const setLink = useCallback(
+    ({ editor }: { editor: Editor }) => {
+      const previousUrl = editor.getAttributes('link').href;
+      const url = window.prompt('URL', previousUrl);
+
+      if (url === null) {
+        return;
+      }
+
+      if (url === '') {
+        editor.chain().focus().extendMarkRange('link').unsetLink().run();
+
+        return;
+      }
+
+      editor.chain().focus().extendMarkRange('link').setLink({ href: url }).run();
+    },
+    [editor],
+  );
 
   // 스크롤바 높이에 따라 visible 조건부 설정, 높이 인식 설정
   useEffect(() => {
