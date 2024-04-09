@@ -1,7 +1,7 @@
 'use client';
 import React, { useEffect, useState } from 'react';
 import { useParams } from 'next/navigation';
-import { useRecoilState } from 'recoil';
+import { useRecoilState, useSetRecoilState } from 'recoil';
 import styled from 'styled-components';
 
 import LoadingLottie from '@/components/common/ui/LoadingLottie';
@@ -17,7 +17,7 @@ interface CategorySelectProps {
 
 const CategorySelect = (props: CategorySelectProps) => {
   const { updatedArticleData } = props;
-  const [, setArticleData] = useRecoilState(articleDataState);
+  const setArticleData = useSetRecoilState(articleDataState);
   const [activeCategory, setActiveCategory] = useState('');
   const { team } = useParams();
 
