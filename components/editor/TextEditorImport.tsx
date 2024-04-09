@@ -98,12 +98,6 @@ const TextEditorImport = (props: TextEditorImportProps) => {
   };
   const editorContent = selectEditorContent();
 
-  const autoSaveErrorNotify = createToast({
-    type: 'ERROR',
-    message: '임시 저장에 실패했습니다.',
-    id: 'error on autoSave editor',
-  });
-
   const draftSaveErrorNotify = createToast({
     type: 'ERROR',
     message: '임시 저장에 실패했습니다. 인터넷 연결을 확인해주세요.',
@@ -190,6 +184,7 @@ const TextEditorImport = (props: TextEditorImportProps) => {
       }
     };
 
+    //자동저장시 에디터 컨트롤 함수
     const handleInput = debounce(() => {
       if (isDraftSaveAllowed()) {
         setIsDraftSave(true);
@@ -199,10 +194,12 @@ const TextEditorImport = (props: TextEditorImportProps) => {
       }
     }, 10000);
 
+    //자동저장시 문구 새로운 변경시 사라지게 하려면 필요 (에디터용)
     const handleInputChange = () => {
       setIsDraftSave(false);
     };
 
+    //자동저장시 제목 컨트롤 함수
     const titleAutoSave = debounce((title) => {
       if (title) {
         setIsDraftSave(true);
@@ -210,11 +207,12 @@ const TextEditorImport = (props: TextEditorImportProps) => {
       }
     }, 10000);
 
+    //자동저장 함수실행
     editor.on('update', handleInput);
     editor.on('update', handleInputChange);
     titleAutoSave(titleSelect());
 
-    // 함수 호출 취소
+    // 함수 호출 취소 -> 안하면 무한호출
     return () => {
       setIsDraftSave(false);
       handleInput.cancel();
