@@ -48,6 +48,7 @@ import { UpdateArticleProps } from '@/types/article';
 import { UpdatePageProps } from '@/types/page';
 import { checkSessionStorage } from '@/utils/checkSessionStorage';
 import { getContentCtrlVImage, getContentImageMultipartData } from '@/utils/getImageMultipartData';
+import { createToast } from '@/utils/lib/toast';
 
 import { articleDataState, isSaved, pageDataState } from './states/atom';
 
@@ -96,6 +97,18 @@ const TextEditorImport = (props: TextEditorImportProps) => {
     return '';
   };
   const editorContent = selectEditorContent();
+
+  const autoSaveErrorNotify = createToast({
+    type: 'ERROR',
+    message: '임시 저장에 실패했습니다.',
+    id: 'error on autoSave editor',
+  });
+
+  const draftSaveErrorNotify = createToast({
+    type: 'ERROR',
+    message: '임시 저장에 실패했습니다. 인터넷 연결을 확인해주세요.',
+    id: 'error on draftSave editor',
+  });
 
   // tiptap 라이브러리 내장 에디터 관련 기능  extensions.
   const editor = useEditor({
@@ -184,7 +197,7 @@ const TextEditorImport = (props: TextEditorImportProps) => {
       } else {
         setIsDraftSave(false);
       }
-    }, 3000);
+    }, 10000);
 
     const handleInputChange = () => {
       setIsDraftSave(false);
@@ -195,7 +208,7 @@ const TextEditorImport = (props: TextEditorImportProps) => {
         setIsDraftSave(true);
         handleOnDraftAutoSave();
       }
-    }, 3000);
+    }, 10000);
 
     editor.on('update', handleInput);
     editor.on('update', handleInputChange);
@@ -314,158 +327,182 @@ const TextEditorImport = (props: TextEditorImportProps) => {
 
   // article page 임시저장시 post
   const handleOnClickArticleDraft = async () => {
-    if (editor) {
-      const content = editor.getHTML();
+    try {
+      if (editor) {
+        const content = editor.getHTML();
 
-      setArticleData((prev) => ({
-        ...prev,
-        content,
-      }));
-
-      try {
-        const res = await postArticleList(String(team), {
-          title: articleData.title,
+        setArticleData((prev) => ({
+          ...prev,
           content,
-          images: imageArr,
-        });
+        }));
 
-        const articleId = res.data;
-        if (articleId) {
-          sessionStorage?.setItem(ARTICLE_DATA_ID, articleId);
+        try {
+          const res = await postArticleList(String(team), {
+            title: articleData.title,
+            content,
+            images: imageArr,
+          });
+
+          const articleId = res.data;
+          if (articleId) {
+            sessionStorage?.setItem(ARTICLE_DATA_ID, articleId);
+          }
+        } catch (error) {
+          console.error('실패 에러임', error);
         }
-      } catch (error) {
-        console.error('실패 에러임', error);
       }
+    } catch (err) {
+      draftSaveErrorNotify();
     }
   };
 
   // page page 임시저장시 post
   const handleOnClickPageDraft = async () => {
-    if (editor) {
-      const content = editor.getHTML();
+    try {
+      if (editor) {
+        const content = editor.getHTML();
 
-      setPageData((prev) => ({
-        ...prev,
-        content,
-      }));
-
-      try {
-        const res = await postPageDraft(String(team), {
-          title: pageData.title,
+        setPageData((prev) => ({
+          ...prev,
           content,
-          images: imageArr,
-        });
+        }));
 
-        const pageId = res.data;
-        if (pageId) {
-          sessionStorage?.setItem(PAGE_DATA_ID, pageId);
+        try {
+          const res = await postPageDraft(String(team), {
+            title: pageData.title,
+            content,
+            images: imageArr,
+          });
+
+          const pageId = res.data;
+          if (pageId) {
+            sessionStorage?.setItem(PAGE_DATA_ID, pageId);
+          }
+        } catch (error) {
+          console.error('실패 에러임', error);
         }
-      } catch (error) {
-        console.error('실패 에러임', error);
       }
+    } catch (err) {
+      draftSaveErrorNotify();
     }
   };
 
   //article 임시저장 최초 Post후 임시저장시 임시저장put --> article 임시저장 수정하기의 임시저장
   const handleDataArticleDraft = () => {
-    if (editor) {
-      const content = editor.getHTML();
+    try {
+      if (editor) {
+        const content = editor.getHTML();
 
-      setArticleData((prev) => ({
-        ...prev,
-        content,
-      }));
+        setArticleData((prev) => ({
+          ...prev,
+          content,
+        }));
 
-      const dataArticleId = sessionStorage?.getItem(ARTICLE_DATA_ID);
+        const dataArticleId = sessionStorage?.getItem(ARTICLE_DATA_ID);
 
-      draftArticleMutation.mutate({
-        ...articleData,
-        id: Number(dataArticleId),
-        title: articleData.title,
-        content,
-        images: imageArr,
-        isPublish: false,
-      });
+        draftArticleMutation.mutate({
+          ...articleData,
+          id: Number(dataArticleId),
+          title: articleData.title,
+          content,
+          images: imageArr,
+          isPublish: false,
+        });
+      }
+    } catch (error) {
+      draftSaveErrorNotify();
     }
   };
 
-  //article 임시저장시 임시저장put --> article 임시저장 수정하기의 임시저장
+  //article 임시저장시 임시저장put --> article 임시저장 수정하기의 임시저장 draftSaveErrorNotify
   const handleTempArticleDraft = () => {
-    if (editor) {
-      const content = editor.getHTML();
+    try {
+      if (editor) {
+        const content = editor.getHTML();
 
-      if (imageArr.length === 0) {
-        draftArticleMutation.mutate({
-          ...articleData,
-          id: Number(articleId),
-          title: articleData.title,
-          content,
-          images: [],
-          isPublish: false,
-        });
-      } else {
-        draftArticleMutation.mutate({
-          ...articleData,
-          id: Number(articleId),
-          title: articleData.title,
-          content,
-          isPublish: false,
-          images: imageArr,
-        });
+        if (imageArr.length === 0) {
+          draftArticleMutation.mutate({
+            ...articleData,
+            id: Number(articleId),
+            title: articleData.title,
+            content,
+            images: [],
+            isPublish: false,
+          });
+        } else {
+          draftArticleMutation.mutate({
+            ...articleData,
+            id: Number(articleId),
+            title: articleData.title,
+            content,
+            isPublish: false,
+            images: imageArr,
+          });
+        }
       }
+    } catch (err) {
+      draftSaveErrorNotify();
     }
   };
   //page 임시저장 최초 Post후 임시저장시 임시저장put
   const handleDataPageDraft = () => {
-    if (editor) {
-      const content = editor.getHTML();
+    try {
+      if (editor) {
+        const content = editor.getHTML();
 
-      setPageData((prev) => ({
-        ...prev,
-        content,
-      }));
+        setPageData((prev) => ({
+          ...prev,
+          content,
+        }));
 
-      const dataPageId = sessionStorage?.getItem(PAGE_DATA_ID);
+        const dataPageId = sessionStorage?.getItem(PAGE_DATA_ID);
 
-      draftPageMutation.mutate({
-        ...pageData,
-        id: Number(dataPageId),
-        title: pageData.title,
-        content,
-        images: imageArr,
-        isPublish: false,
-      });
+        draftPageMutation.mutate({
+          ...pageData,
+          id: Number(dataPageId),
+          title: pageData.title,
+          content,
+          images: imageArr,
+          isPublish: false,
+        });
+      }
+    } catch (err) {
+      draftSaveErrorNotify();
     }
   };
 
   //page 임시저장시 임시저장put
   const handleTempPageDraft = () => {
-    if (editor) {
-      const content = editor.getHTML();
-      setPageData((prev) => ({
-        ...prev,
-        content,
-      }));
+    try {
+      if (editor) {
+        const content = editor.getHTML();
+        setPageData((prev) => ({
+          ...prev,
+          content,
+        }));
 
-      if (imageArr.length === 0) {
-        draftPageMutation.mutate({
-          ...pageData,
-          id: Number(pageId),
-          title: pageData.title,
-          content,
-          images: [],
-          isPublish: false,
-        });
-      } else {
-        draftPageMutation.mutate({
-          ...pageData,
-          id: Number(pageId),
-          title: pageData.title,
-          content,
-          images: imageArr,
-          isPublish: false,
-        });
+        if (imageArr.length === 0) {
+          draftPageMutation.mutate({
+            ...pageData,
+            id: Number(pageId),
+            title: pageData.title,
+            content,
+            images: [],
+            isPublish: false,
+          });
+        } else {
+          draftPageMutation.mutate({
+            ...pageData,
+            id: Number(pageId),
+            title: pageData.title,
+            content,
+            images: imageArr,
+            isPublish: false,
+          });
+        }
       }
+    } catch (err) {
+      draftSaveErrorNotify();
     }
   };
 

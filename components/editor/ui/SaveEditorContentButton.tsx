@@ -1,15 +1,13 @@
 'use client';
 
-import React, { ClipboardEvent, useEffect, useState } from 'react';
+import React, { useEffect, useState } from 'react';
 import { toast, Toaster } from 'react-hot-toast';
-import { useParams, useRouter } from 'next/navigation';
-import { useRecoilState, useRecoilValue } from 'recoil';
+import { useRouter } from 'next/navigation';
+import { useRecoilState } from 'recoil';
 import styled from 'styled-components';
 
 import ModalPortal from '@/components/common/ModalPortal';
 import DashboardDeleteModal from '@/components/common/ui/DashboardDeleteModal';
-import { UpdateArticleProps } from '@/types/article';
-import { UpdatePageProps } from '@/types/page';
 
 import { articleDataState, isSaved, pageDataState } from '../states/atom';
 
@@ -27,18 +25,14 @@ interface editorProps {
 }
 
 const SaveEditorContentButton = (props: editorProps) => {
-  const { team, articleId } = useParams();
   const [isModal, setIsModal] = useState(false); // 모달 보이고 안보이고
   const [saved, setSaved] = useRecoilState(isSaved); // 임시저장된 여부
   const { handleOnClickDraft, handleOnClickPublish, isEdit, pageType, atTop, setAtTop, isDraftSave, setIsDraftSave } =
     props;
   const router = useRouter();
 
-  const articleData = useRecoilValue(articleDataState);
-  const { title: articleTitle } = articleData;
-
-  const pageData = useRecoilValue(pageDataState);
-  const { title: pageTitle } = pageData;
+  const [articleData, setArticleData] = useRecoilState(articleDataState); // 아티클 초기 타이틀 -> 복사 -> 새로운 title 갈아끼기
+  const [pageData, setPageData] = useRecoilState(pageDataState);
 
   const notify = () =>
     toast('글이 임시저장 되었습니다.', {
@@ -123,17 +117,25 @@ const SaveEditorContentButton = (props: editorProps) => {
         ) : (
           <>
             {isDraftSave && <DraftAlertText>임시저장됨 ✓ </DraftAlertText>}
-            <TemporarySaveButton type="button" onClick={handleDraftSaveButton} atTop={atTop}>
+            <TemporarySaveButton
+              type="button"
+              onClick={handleDraftSaveButton}
+              atTop={atTop}
+              disabled={
+                pageType === 'article'
+                  ? articleData.title === '' && articleData.content === ''
+                  : pageData.title === '' && pageData.content === ''
+              }>
               임시저장
             </TemporarySaveButton>
           </>
         )}
         {pageType === 'article' ? (
-          <SaveButton type="button" onClick={handleOnClickPublish} disabled={articleTitle === ''}>
+          <SaveButton type="button" onClick={handleOnClickPublish} disabled={articleData.title === ''}>
             {isEdit ? '수정하기' : '발행하기'}
           </SaveButton>
         ) : (
-          <SaveButton type="button" onClick={handleOnClickPublish} disabled={pageTitle === ''}>
+          <SaveButton type="button" onClick={handleOnClickPublish} disabled={pageData.title === ''}>
             {isEdit ? '수정하기' : '발행하기'}
           </SaveButton>
         )}
@@ -211,7 +213,8 @@ const TemporarySaveButton = styled.button<{ atTop: boolean }>`
 
   &:hover {
     border-radius: 0.8rem;
-    background: ${({ theme }) => theme.colors.grey_200};
+    background-color: ${({ theme, disabled }) => (disabled ? `none` : theme.colors.grey_200)};
+
     width: 9.6rem;
     height: 3.6rem;
   }
