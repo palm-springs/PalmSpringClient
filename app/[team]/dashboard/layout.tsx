@@ -12,6 +12,7 @@ const DashBoardLayout = ({ children }: { children: React.ReactNode }) => {
   const { team } = useParams();
 
   useEffect(() => {
+    console.log('app/[team]/dashboard/layout.tsx');
     const currentUserBlog = userValue?.joinBlogList.find(({ blogUrl }) => blogUrl === team);
     if (userValue && currentUserBlog) {
       setUserValue({

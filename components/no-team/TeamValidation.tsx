@@ -9,6 +9,7 @@ const TeamValidation = ({ children }: { children: React.ReactNode }) => {
 
   const teamValidation = async () => {
     const { data } = await getUserInfo();
+    console.log('components/no-team');
     if (data.joinBlogList.length > 0) {
       router.push(`/${data.joinBlogList[0].blogUrl}/dashboard/upload`);
     }

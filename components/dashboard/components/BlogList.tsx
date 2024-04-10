@@ -35,7 +35,7 @@ const BlogList = (props: BlogListProps) => {
   }
 
   const userData = res.data;
-
+  console.log(BlogList.tsx);
   return (
     <BlogListContainer blogListRef={blogListRef}>
       <>
