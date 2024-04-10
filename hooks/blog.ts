@@ -36,7 +36,6 @@ export const useDeleteBlog = (blogUrl: string) => {
 
       if (!res) return;
 
-      console.log('blog.ts hooks');
       if (res.data && res.data.joinBlogList.length > 0) {
         router.push(`/${res.data.joinBlogList[0].blogUrl}/dashboard/upload`);
       } else {

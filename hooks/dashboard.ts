@@ -82,7 +82,6 @@ export const useGetUserInfo = () => {
 
   useEffect(() => {
     if (!userValue && isSuccess) {
-      console.log('dashboard.ts hooks');
       const currentUserBlog = data.data.joinBlogList.find(({ blogUrl }) => blogUrl === team);
       setUserState({
         ...data.data,

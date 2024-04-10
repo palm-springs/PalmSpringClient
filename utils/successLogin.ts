@@ -18,7 +18,6 @@ export const successLogin = async (accessToken: string, router: AppRouterInstanc
     router.replace(redirectUrl);
   } else {
     const { data } = await getUserInfoAfterLogin('', accessToken);
-    console.log('successLogin.ts');
     if (!data.joinBlogList || data.joinBlogList.length === 0) {
       router.push('/no-team/dashboard/upload');
     } else {
