@@ -183,7 +183,6 @@ const TextEditorImport = (props: TextEditorImportProps) => {
         handleOnDraftAutoSave();
       } else {
         setIsDraftSave(false);
-        console.log('dsjfhsdjkfhjksdhfkjhsdfhkjds');
       }
     }, 10000);
 
@@ -338,7 +337,6 @@ const TextEditorImport = (props: TextEditorImportProps) => {
           if (articleId) {
             sessionStorage?.setItem(ARTICLE_DATA_ID, articleId);
             setIsDraftSave(true);
-            console.log(isDraftSave, '얍야뱌얍야뱌야야ㅑ뱡');
           }
         } catch (error) {
           console.error('실패 에러임', error);
