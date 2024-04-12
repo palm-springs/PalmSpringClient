@@ -12,9 +12,7 @@ import {
   CharmMenuMeatballIcon,
   IcClose24Icon,
   IcUserIcon,
-  NoUserProfileIcon,
 } from '@/public/icons';
-import { MemberExampleImg } from '@/public/images';
 import { RoleType } from '@/utils/PermissionPolicyClass';
 
 import MemberPermissionPopOver from '../MemberPermissionPopOver';
@@ -124,7 +122,7 @@ const Member = (props: MemberComponentProps) => {
                 }}>
                 <Role>
                   {memberRole} {isUserCanEditIndivMemberPermission && <ArrowDownSmallIcon />}
-                  {isPermissionModalOpen === email && (
+                  {isPermissionModalOpen === email && isUserCanEditIndivMemberPermission && (
                     <MemberPermissionPopOver memberRole={role} memberId={memberId} memberEmail={email} />
                   )}
                 </Role>
