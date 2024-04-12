@@ -170,17 +170,9 @@ const TextEditorImport = (props: TextEditorImportProps) => {
 
     const isDraftSaveAllowed = () => {
       if (pageType === 'article') {
-        if (articleData.title !== '') {
-          return articleData.content !== '';
-        } else {
-          return articleData.content !== '' && !editor.isEmpty;
-        }
+        return articleData.title || !editor.isEmpty;
       } else {
-        if (pageData.title !== '') {
-          return pageData.content !== '';
-        } else {
-          return pageData.content !== '' && !editor.isEmpty;
-        }
+        return pageData.title || !editor.isEmpty;
       }
     };
 
@@ -191,6 +183,7 @@ const TextEditorImport = (props: TextEditorImportProps) => {
         handleOnDraftAutoSave();
       } else {
         setIsDraftSave(false);
+        console.log('dsjfhsdjkfhjksdhfkjhsdfhkjds');
       }
     }, 10000);
 
@@ -344,6 +337,8 @@ const TextEditorImport = (props: TextEditorImportProps) => {
           const articleId = res.data;
           if (articleId) {
             sessionStorage?.setItem(ARTICLE_DATA_ID, articleId);
+            setIsDraftSave(true);
+            console.log(isDraftSave, '얍야뱌얍야뱌야야ㅑ뱡');
           }
         } catch (error) {
           console.error('실패 에러임', error);
