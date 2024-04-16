@@ -28,7 +28,7 @@ import Placeholder from '@tiptap/extension-placeholder';
 import Strike from '@tiptap/extension-strike';
 import Text from '@tiptap/extension-text';
 import Underline from '@tiptap/extension-underline';
-import { Editor, useEditor } from '@tiptap/react';
+import { Editor, Extension, useEditor } from '@tiptap/react';
 import javascript from 'highlight.js/lib/languages/javascript';
 lowlight.registerLanguage('javascript', javascript);
 
@@ -104,6 +104,21 @@ const TextEditorImport = (props: TextEditorImportProps) => {
     id: 'error on draftSave editor',
   });
 
+  //tap 공백 지정 커스텀 확장자
+  const CustomTabSpace = Extension.create({
+    name: 'customTabSpace',
+
+    addKeyboardShortcuts() {
+      return {
+        Tab: () => {
+          this.editor.chain().insertContent('    ').run();
+          //true 반환해야 다른 동작 트리거 안함(tap의 역할 하나로 지정)
+          return true;
+        },
+      };
+    },
+  });
+
   // tiptap 라이브러리 내장 에디터 관련 기능  extensions.
   const editor = useEditor({
     extensions: [
@@ -133,6 +148,7 @@ const TextEditorImport = (props: TextEditorImportProps) => {
       CodeBlockLowlight.configure({
         lowlight,
       }),
+      CustomTabSpace,
       Blockquote,
       Image.configure({
         inline: true,
@@ -154,6 +170,18 @@ const TextEditorImport = (props: TextEditorImportProps) => {
       setIsSaved(false);
     },
   });
+  //확인용 콘솔 slack QA 해결할 때 또 사용해야해서 고거 하고 지울게오
+  // console.log(updatedArticleData?.title, 'ㅌ차타ㅏ타타타이틀', updatedArticleData?.content);
+  // console.log(articleData.title, '리코일데이터터', articleData.content); //실시간으로 변함
+  // console.log(articleData.content, 'djfhjdhj');
+
+  // const isChanged = () => {
+  //   if (pageType === 'article') {
+  //     return articleData.title !== updatedArticleData?.title || articleData.content !== updatedArticleData.content;
+  //   } else {
+  //     return pageData.title !== updatedPageData?.title || pageData.content !== updatedPageData.content;
+  //   }
+  // };
 
   const titleSelect = () => {
     if (pageType === 'article') {
@@ -405,11 +433,16 @@ const TextEditorImport = (props: TextEditorImportProps) => {
     }
   };
 
-  //article 임시저장시 임시저장put --> article 임시저장 수정하기의 임시저장 draftSaveErrorNotify
+  //article 임시저장시 임시저장put --> article 임시저장 수정하기의 임시저장
   const handleTempArticleDraft = () => {
     try {
       if (editor) {
         const content = editor.getHTML();
+
+        setArticleData((prev) => ({
+          ...prev,
+          content,
+        }));
 
         if (imageArr.length === 0) {
           draftArticleMutation.mutate({

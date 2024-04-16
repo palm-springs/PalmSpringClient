@@ -123,7 +123,7 @@ const Member = (props: MemberComponentProps) => {
                 <Role>
                   {memberRole} {isUserCanEditIndivMemberPermission && <ArrowDownSmallIcon />}
                   {isPermissionModalOpen === email && isUserCanEditIndivMemberPermission && (
-                    <MemberPermissionPopOver memberRole={role} memberId={memberId} memberEmail={email} />
+                    <MemberPermissionPopOver memberRole={role} memberEmail={email} />
                   )}
                 </Role>
               </button>
