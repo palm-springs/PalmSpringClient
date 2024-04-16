@@ -175,13 +175,13 @@ const TextEditorImport = (props: TextEditorImportProps) => {
   // console.log(articleData.title, '리코일데이터터', articleData.content); //실시간으로 변함
   // console.log(articleData.content, 'djfhjdhj');
 
-  const isChanged = () => {
-    if (pageType === 'article') {
-      return articleData.title !== updatedArticleData?.title || articleData.content !== updatedArticleData.content;
-    } else {
-      return pageData.title !== updatedPageData?.title || pageData.content !== updatedPageData.content;
-    }
-  };
+  // const isChanged = () => {
+  //   if (pageType === 'article') {
+  //     return articleData.title !== updatedArticleData?.title || articleData.content !== updatedArticleData.content;
+  //   } else {
+  //     return pageData.title !== updatedPageData?.title || pageData.content !== updatedPageData.content;
+  //   }
+  // };
 
   const titleSelect = () => {
     if (pageType === 'article') {
@@ -206,10 +206,10 @@ const TextEditorImport = (props: TextEditorImportProps) => {
 
     //자동저장시 에디터 컨트롤 함수
     const handleInput = debounce(() => {
-      if (isDraftSaveAllowed() && isChanged()) {
+      if (isDraftSaveAllowed()) {
         setIsDraftSave(true);
         handleOnDraftAutoSave();
-      } else if (!isChanged()) {
+      } else {
         setIsDraftSave(false);
       }
     }, 10000);
@@ -221,7 +221,7 @@ const TextEditorImport = (props: TextEditorImportProps) => {
 
     //자동저장시 제목 컨트롤 함수
     const titleAutoSave = debounce((title) => {
-      if (title && isChanged()) {
+      if (title) {
         setIsDraftSave(true);
         handleOnDraftAutoSave();
       }
