@@ -246,17 +246,12 @@ export const useDeleteMember = (blogUrl: string, memberId: string, email: string
   return mutation;
 };
 
-export const useDelegateUserRole = (
-  blogUrl: string,
-  memberId: string,
-  email: string,
-  role: 'OWNER' | 'MANAGER' | 'EDITOR',
-) => {
+export const useDelegateUserRole = (blogUrl: string, email: string, role: 'OWNER' | 'MANAGER' | 'EDITOR') => {
   const queryClient = useQueryClient();
 
   const mutation = useMutation(
-    [QUERY_KEY_DASHBOARD.delegateUserRole, blogUrl, memberId, email],
-    () => delegateUserRole(blogUrl, memberId, email, role),
+    [QUERY_KEY_DASHBOARD.delegateUserRole, blogUrl, email],
+    () => delegateUserRole(blogUrl, email, role),
     {
       onSuccess: () => {
         queryClient.invalidateQueries([QUERY_KEY_DASHBOARD.getMemberInfo]);

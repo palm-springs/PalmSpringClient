@@ -78,7 +78,7 @@ const MemberPermissionButton = (props: MemberPermissionButtonProps) => {
     }
   };
 
-  const { mutate: delegateUserRole } = useDelegateUserRole(blogUrl, memberId, memberEmail, matchCondition2Role());
+  const { mutate: delegateUserRole } = useDelegateUserRole(blogUrl, memberEmail, matchCondition2Role());
 
   const { mutate: deleteMember } = useDeleteMember(blogUrl, memberId, memberEmail);
 
