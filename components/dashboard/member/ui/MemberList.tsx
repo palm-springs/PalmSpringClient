@@ -27,8 +27,14 @@ const MemberList = () => {
 
   if (!res || !res.data || !user) return <LoadingLottie width={5} height={5} fit />;
   const MemberList = res.data.map(({ email, id, job, nickname, thumbnail, role }) => {
-    const isUserCanEditIndivMemberPermission =
-      userRole === 'OWNER' ? true : userRole === 'MANAGER' ? role === 'EDITOR' : false;
+
+    /**
+     * 현재 접속한 유저가 멤버의 권한을 수정할 수 있는지에 관한 것.
+     * 24.04.12 기준 소유자만 가능하도록 되어 있습니다.
+     */    
+    const isUserCanEditIndivMemberPermission = userRole === 'OWNER';
+      // userRole === 'OWNER' ? true : userRole === 'MANAGER' ? role === 'EDITOR' : false;
+      
     return (
       <Member
         key={id}
