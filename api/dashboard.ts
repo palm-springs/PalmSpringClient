@@ -1,7 +1,10 @@
+import { AxiosResponse } from 'axios';
+
 import { Response } from '@/types/common';
 import { CategoryListProps, NavListProps, PageListProps, TempSavedListProps } from '@/types/dashboard';
 import { MemberProps } from '@/types/member';
 import { UserBasicInfo, UserInfoProps } from '@/types/user';
+import { RoleType } from '@/utils/PermissionPolicyClass';
 
 import client from '.';
 
@@ -126,14 +129,15 @@ export const updateUserInfo = async (blogUrl: string, userInfo: UserBasicInfo) =
   return data;
 };
 
-export const delegateUserRole = async (
-  blogUrl: string,
-  memberId: string,
-  email: string,
-  role: 'OWNER' | 'MANAGER' | 'EDITOR',
-) => {
-  const { data } = await client.put(`/api/v2/dashboard/user/team/delegate/${blogUrl}`, {
-    memberId,
+export const delegateUserRole = async (blogUrl: string, email: string, role: 'OWNER' | 'MANAGER' | 'EDITOR') => {
+  const { data } = await client.put<
+    unknown,
+    AxiosResponse<unknown>,
+    {
+      email: string;
+      role: RoleType;
+    }
+  >(`/api/v2/dashboard/user/team/delegate/${blogUrl}`, {
     email,
     role,
   });

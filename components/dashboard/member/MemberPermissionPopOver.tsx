@@ -14,13 +14,12 @@ import { RoleType } from '@/utils/PermissionPolicyClass';
 type ConditionType = 'expelManager' | 'expelEditor' | 'appointManager' | 'appointOwner' | 'appointEditor';
 
 interface MemberPermissionPopOverProp {
-  memberId: string;
   memberEmail: string;
   memberRole: RoleType;
 }
 
 const MemberPermissionPopOver = (prop: MemberPermissionPopOverProp) => {
-  const { memberId, memberEmail, memberRole } = prop;
+  const { memberEmail, memberRole } = prop;
   const { team: blogUrl } = useParams();
   const router = useRouter();
 
@@ -46,13 +45,11 @@ const MemberPermissionPopOver = (prop: MemberPermissionPopOverProp) => {
 
   const { mutate: appointManagerAction } = useDelegateUserRole(
     blogUrl,
-    memberId,
     memberEmail,
     matchCondition2Role('appointManager'),
   );
   const { mutate: appointEditorAction } = useDelegateUserRole(
     blogUrl,
-    memberId,
     memberEmail,
     matchCondition2Role('appointEditor'),
   );
