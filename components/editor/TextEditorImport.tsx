@@ -169,17 +169,19 @@ const TextEditorImport = (props: TextEditorImportProps) => {
     content: editorContent,
     onUpdate() {
       setIsSaved(false);
+      if (!editor) return;
+      const dd = editor.getHTML();
+      setPrevData(dd);
     },
   });
 
   const isChanged = () => {
     if (pageType === 'article') {
-      return articleData.title !== updatedArticleData?.title;
+      return articleData.title !== updatedArticleData?.title || prevData !== updatedArticleData?.content;
     } else {
-      return pageData.title !== updatedPageData?.title || pageData.content !== updatedPageData?.content;
+      return pageData.title !== updatedPageData?.title || prevData !== updatedPageData?.content;
     }
   };
-  console.log(articleData.title, 'ㅇㅇ', prevData);
 
   const titleSelect = () => {
     if (pageType === 'article') {
@@ -217,9 +219,6 @@ const TextEditorImport = (props: TextEditorImportProps) => {
       }
     }, 10000);
 
-    console.log(updatedArticleData?.title, '받은 데이터', updatedArticleData?.content);
-    console.log(articleData.title, '먀먀먀', prevData); // 왜 여기서는 content안들어옴? 미틴놈임?
-
     //자동저장시 문구 새로운 변경시 사라지게 하려면 필요 (에디터용)
     const handleInputChange = () => {
       setIsDraftSave(false);
@@ -231,6 +230,8 @@ const TextEditorImport = (props: TextEditorImportProps) => {
         setIsDraftSave(true);
         handleOnDraftAutoSave();
       } else if (!isChanged()) {
+        setIsDraftSave(false);
+      } else {
         setIsDraftSave(false);
       }
     }, 10000);
@@ -248,7 +249,7 @@ const TextEditorImport = (props: TextEditorImportProps) => {
       editor.off('update', handleInput);
       editor.off('update', handleInputChange);
     };
-  }, [editor, articleData.title, pageData.title]);
+  }, [editor, articleData.title, pageData.title, prevData]);
 
   //이미지 버튼 파일 base64 인코딩
   const encodeFileToBase64 = async (event: ChangeEvent<HTMLInputElement>, editor: Editor) => {
@@ -328,11 +329,13 @@ const TextEditorImport = (props: TextEditorImportProps) => {
   // //임시저장 자동 저장시 함수
   function handleOnDraftAutoSave() {
     const isFirstClick = sessionStorage?.getItem(IS_FIRST_DRAFT_CLICK);
-    if (pathName.startsWith(`/${team}/editor/article/${articleId}/draft` || `/${team}/editor/page/${pageId}/draft`)) {
-      pageType === 'article' ? handleTempArticleDraft() : handleTempPageDraft();
-    } else if (
-      pathName.startsWith(`/${team}/editor/article/${articleId}/edit` || `/${team}/editor/page/${pageId}/edit`)
-    ) {
+    if (pathName.startsWith(`/${team}/editor/article/${articleId}/draft`)) {
+      handleTempArticleDraft();
+    } else if (pathName.startsWith(`/${team}/editor/page/${pageId}/draft`)) {
+      handleTempPageDraft();
+    } else if (pathName.startsWith(`/${team}/editor/article/${articleId}/edit`)) {
+      setIsDraftSave(false);
+    } else if (pathName.startsWith(`/${team}/editor/page/${pageId}/edit`)) {
       setIsDraftSave(false);
     } else {
       if (isFirstClick === 'false') {
@@ -511,6 +514,7 @@ const TextEditorImport = (props: TextEditorImportProps) => {
     try {
       if (editor) {
         const content = editor.getHTML();
+
         setPageData((prev) => ({
           ...prev,
           content,
