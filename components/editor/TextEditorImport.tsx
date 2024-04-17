@@ -71,6 +71,8 @@ const TextEditorImport = (props: TextEditorImportProps) => {
 
   const [articleData, setArticleData] = useRecoilState(articleDataState); // 아티클 초기 타이틀 -> 복사 -> 새로운 title 갈아끼기
   const [pageData, setPageData] = useRecoilState(pageDataState);
+
+  //임시저장 자동 저장시 이전 데이터 추출 저장 함수 -> 전에 있던 컨텐츠랑 비교 저장 해서 수정시에는 처음에 자동저장 안되도록해야해서 여기다 넣어줬슴다!
   const [prevData, setPrevData] = useState('');
 
   //이미지 담아두는 state
@@ -169,14 +171,16 @@ const TextEditorImport = (props: TextEditorImportProps) => {
     content: editorContent,
     onUpdate() {
       setIsSaved(false);
+      // 여기를 보세요2. 그래서 여기 업데이트 될때마다 현상태를 다시 추출해서 넣어줌
       if (!editor) return;
-      const dd = editor.getHTML();
-      setPrevData(dd);
+      const changeDataSensing = editor.getHTML();
+      setPrevData(changeDataSensing);
     },
   });
 
   const isChanged = () => {
     if (pageType === 'article') {
+      // 여기를 보세요3. 그래야 여기서 변경된 거, 이전 거 다 감지해서 조건에 맞출 수 있음
       return articleData.title !== updatedArticleData?.title || prevData !== updatedArticleData?.content;
     } else {
       return pageData.title !== updatedPageData?.title || prevData !== updatedPageData?.content;
@@ -196,8 +200,9 @@ const TextEditorImport = (props: TextEditorImportProps) => {
       return;
     }
 
-    const dd = editor.getHTML();
-    setPrevData(dd);
+    // 여기를 보세요1. 마운트될때 이전데이터와 같은지 비교하기 위햇 여기서 한번 추출하기 -> 근데 여기서만 추출하면 업데이트를 감지하지 못함
+    const prevDataSaved = editor.getHTML();
+    setPrevData(prevDataSaved);
 
     const isDraftSaveAllowed = () => {
       if (pageType === 'article') {
@@ -326,7 +331,7 @@ const TextEditorImport = (props: TextEditorImportProps) => {
     return null;
   }
 
-  // //임시저장 자동 저장시 함수
+  //임시저장 자동 저장시 함수 -> 이거 || 으로 묶어줬는데 page일때는 걍 false로 넘겨 버려서 아예 정확히 명시해줬슴다..
   function handleOnDraftAutoSave() {
     const isFirstClick = sessionStorage?.getItem(IS_FIRST_DRAFT_CLICK);
     if (pathName.startsWith(`/${team}/editor/article/${articleId}/draft`)) {
