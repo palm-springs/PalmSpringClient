@@ -72,6 +72,9 @@ const TextEditorImport = (props: TextEditorImportProps) => {
   const [articleData, setArticleData] = useRecoilState(articleDataState); // 아티클 초기 타이틀 -> 복사 -> 새로운 title 갈아끼기
   const [pageData, setPageData] = useRecoilState(pageDataState);
 
+  //임시저장 자동 저장시 이전 데이터 추출 저장 함수 -> 전에 있던 컨텐츠랑 비교 저장 해서 수정시에는 처음에 자동저장 안되도록해야해서 여기다 넣어줬슴다!
+  const [prevData, setPrevData] = useState('');
+
   //이미지 담아두는 state
   const [, setImageSrc] = useState('');
 
@@ -168,20 +171,21 @@ const TextEditorImport = (props: TextEditorImportProps) => {
     content: editorContent,
     onUpdate() {
       setIsSaved(false);
+      // 여기를 보세요2. 그래서 여기 업데이트 될때마다 현상태를 다시 추출해서 넣어줌
+      if (!editor) return;
+      const changeDataSensing = editor.getHTML();
+      setPrevData(changeDataSensing);
     },
   });
-  //확인용 콘솔 slack QA 해결할 때 또 사용해야해서 고거 하고 지울게오
-  // console.log(updatedArticleData?.title, 'ㅌ차타ㅏ타타타이틀', updatedArticleData?.content);
-  // console.log(articleData.title, '리코일데이터터', articleData.content); //실시간으로 변함
-  // console.log(articleData.content, 'djfhjdhj');
 
-  // const isChanged = () => {
-  //   if (pageType === 'article') {
-  //     return articleData.title !== updatedArticleData?.title || articleData.content !== updatedArticleData.content;
-  //   } else {
-  //     return pageData.title !== updatedPageData?.title || pageData.content !== updatedPageData.content;
-  //   }
-  // };
+  const isChanged = () => {
+    if (pageType === 'article') {
+      // 여기를 보세요3. 그래야 여기서 변경된 거, 이전 거 다 감지해서 조건에 맞출 수 있음
+      return articleData.title !== updatedArticleData?.title || prevData !== updatedArticleData?.content;
+    } else {
+      return pageData.title !== updatedPageData?.title || prevData !== updatedPageData?.content;
+    }
+  };
 
   const titleSelect = () => {
     if (pageType === 'article') {
@@ -196,6 +200,10 @@ const TextEditorImport = (props: TextEditorImportProps) => {
       return;
     }
 
+    // 여기를 보세요1. 마운트될때 이전데이터와 같은지 비교하기 위햇 여기서 한번 추출하기 -> 근데 여기서만 추출하면 업데이트를 감지하지 못함
+    const prevDataSaved = editor.getHTML();
+    setPrevData(prevDataSaved);
+
     const isDraftSaveAllowed = () => {
       if (pageType === 'article') {
         return articleData.title || !editor.isEmpty;
@@ -206,9 +214,11 @@ const TextEditorImport = (props: TextEditorImportProps) => {
 
     //자동저장시 에디터 컨트롤 함수
     const handleInput = debounce(() => {
-      if (isDraftSaveAllowed()) {
+      if (isDraftSaveAllowed() && isChanged()) {
         setIsDraftSave(true);
         handleOnDraftAutoSave();
+      } else if (!isChanged()) {
+        setIsDraftSave(false);
       } else {
         setIsDraftSave(false);
       }
@@ -221,9 +231,13 @@ const TextEditorImport = (props: TextEditorImportProps) => {
 
     //자동저장시 제목 컨트롤 함수
     const titleAutoSave = debounce((title) => {
-      if (title) {
+      if (title && isChanged()) {
         setIsDraftSave(true);
         handleOnDraftAutoSave();
+      } else if (!isChanged()) {
+        setIsDraftSave(false);
+      } else {
+        setIsDraftSave(false);
       }
     }, 10000);
 
@@ -240,7 +254,7 @@ const TextEditorImport = (props: TextEditorImportProps) => {
       editor.off('update', handleInput);
       editor.off('update', handleInputChange);
     };
-  }, [editor, articleData.title, pageData.title]);
+  }, [editor, articleData.title, pageData.title, prevData]);
 
   //이미지 버튼 파일 base64 인코딩
   const encodeFileToBase64 = async (event: ChangeEvent<HTMLInputElement>, editor: Editor) => {
@@ -317,11 +331,17 @@ const TextEditorImport = (props: TextEditorImportProps) => {
     return null;
   }
 
-  //임시저장 자동 저장시 함수
+  //임시저장 자동 저장시 함수 -> 이거 || 으로 묶어줬는데 page일때는 걍 false로 넘겨 버려서 아예 정확히 명시해줬슴다..
   function handleOnDraftAutoSave() {
     const isFirstClick = sessionStorage?.getItem(IS_FIRST_DRAFT_CLICK);
-    if (pathName.startsWith(`/${team}/editor/article/${articleId}/draft` || `/${team}/editor/page/${pageId}/draft`)) {
-      pageType === 'article' ? handleTempArticleDraft() : handleTempPageDraft();
+    if (pathName.startsWith(`/${team}/editor/article/${articleId}/draft`)) {
+      handleTempArticleDraft();
+    } else if (pathName.startsWith(`/${team}/editor/page/${pageId}/draft`)) {
+      handleTempPageDraft();
+    } else if (pathName.startsWith(`/${team}/editor/article/${articleId}/edit`)) {
+      setIsDraftSave(false);
+    } else if (pathName.startsWith(`/${team}/editor/page/${pageId}/edit`)) {
+      setIsDraftSave(false);
     } else {
       if (isFirstClick === 'false') {
         pageType === 'article' ? handleDataArticleDraft() : handleDataPageDraft();
@@ -348,7 +368,6 @@ const TextEditorImport = (props: TextEditorImportProps) => {
     try {
       if (editor) {
         const content = editor.getHTML();
-
         setArticleData((prev) => ({
           ...prev,
           content,
@@ -500,6 +519,7 @@ const TextEditorImport = (props: TextEditorImportProps) => {
     try {
       if (editor) {
         const content = editor.getHTML();
+
         setPageData((prev) => ({
           ...prev,
           content,
