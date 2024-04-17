@@ -219,7 +219,6 @@ const TextEditorImport = (props: TextEditorImportProps) => {
 
     console.log(updatedArticleData?.title, '받은 데이터', updatedArticleData?.content);
     console.log(articleData.title, '먀먀먀', prevData); // 왜 여기서는 content안들어옴? 미틴놈임?
-    console.log(handleInput());
 
     //자동저장시 문구 새로운 변경시 사라지게 하려면 필요 (에디터용)
     const handleInputChange = () => {
@@ -382,7 +381,6 @@ const TextEditorImport = (props: TextEditorImportProps) => {
           console.error('실패 에러임', error);
         }
       }
-      console.log('시바ㅏ라발발바3');
     } catch (err) {
       draftSaveErrorNotify();
     }
@@ -441,7 +439,6 @@ const TextEditorImport = (props: TextEditorImportProps) => {
           isPublish: false,
         });
       }
-      console.log('시바ㅏ라발발바2');
     } catch (error) {
       draftSaveErrorNotify();
     }
@@ -478,7 +475,6 @@ const TextEditorImport = (props: TextEditorImportProps) => {
           });
         }
       }
-      console.log('시바ㅏ라발발바');
     } catch (err) {
       draftSaveErrorNotify();
     }
