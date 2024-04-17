@@ -71,6 +71,7 @@ const TextEditorImport = (props: TextEditorImportProps) => {
 
   const [articleData, setArticleData] = useRecoilState(articleDataState); // 아티클 초기 타이틀 -> 복사 -> 새로운 title 갈아끼기
   const [pageData, setPageData] = useRecoilState(pageDataState);
+  const [prevData, setPrevData] = useState('');
 
   //이미지 담아두는 state
   const [, setImageSrc] = useState('');
@@ -170,18 +171,15 @@ const TextEditorImport = (props: TextEditorImportProps) => {
       setIsSaved(false);
     },
   });
-  //확인용 콘솔 slack QA 해결할 때 또 사용해야해서 고거 하고 지울게오
-  // console.log(updatedArticleData?.title, 'ㅌ차타ㅏ타타타이틀', updatedArticleData?.content);
-  // console.log(articleData.title, '리코일데이터터', articleData.content); //실시간으로 변함
-  // console.log(articleData.content, 'djfhjdhj');
 
-  // const isChanged = () => {
-  //   if (pageType === 'article') {
-  //     return articleData.title !== updatedArticleData?.title || articleData.content !== updatedArticleData.content;
-  //   } else {
-  //     return pageData.title !== updatedPageData?.title || pageData.content !== updatedPageData.content;
-  //   }
-  // };
+  const isChanged = () => {
+    if (pageType === 'article') {
+      return articleData.title !== updatedArticleData?.title;
+    } else {
+      return pageData.title !== updatedPageData?.title || pageData.content !== updatedPageData?.content;
+    }
+  };
+  console.log(articleData.title, 'ㅇㅇ', prevData);
 
   const titleSelect = () => {
     if (pageType === 'article') {
@@ -196,6 +194,9 @@ const TextEditorImport = (props: TextEditorImportProps) => {
       return;
     }
 
+    const dd = editor.getHTML();
+    setPrevData(dd);
+
     const isDraftSaveAllowed = () => {
       if (pageType === 'article') {
         return articleData.title || !editor.isEmpty;
@@ -206,13 +207,19 @@ const TextEditorImport = (props: TextEditorImportProps) => {
 
     //자동저장시 에디터 컨트롤 함수
     const handleInput = debounce(() => {
-      if (isDraftSaveAllowed()) {
+      if (isDraftSaveAllowed() && isChanged()) {
         setIsDraftSave(true);
         handleOnDraftAutoSave();
+      } else if (!isChanged()) {
+        setIsDraftSave(false);
       } else {
         setIsDraftSave(false);
       }
     }, 10000);
+
+    console.log(updatedArticleData?.title, '받은 데이터', updatedArticleData?.content);
+    console.log(articleData.title, '먀먀먀', prevData); // 왜 여기서는 content안들어옴? 미틴놈임?
+    console.log(handleInput());
 
     //자동저장시 문구 새로운 변경시 사라지게 하려면 필요 (에디터용)
     const handleInputChange = () => {
@@ -221,9 +228,11 @@ const TextEditorImport = (props: TextEditorImportProps) => {
 
     //자동저장시 제목 컨트롤 함수
     const titleAutoSave = debounce((title) => {
-      if (title) {
+      if (title && isChanged()) {
         setIsDraftSave(true);
         handleOnDraftAutoSave();
+      } else if (!isChanged()) {
+        setIsDraftSave(false);
       }
     }, 10000);
 
@@ -317,11 +326,15 @@ const TextEditorImport = (props: TextEditorImportProps) => {
     return null;
   }
 
-  //임시저장 자동 저장시 함수
+  // //임시저장 자동 저장시 함수
   function handleOnDraftAutoSave() {
     const isFirstClick = sessionStorage?.getItem(IS_FIRST_DRAFT_CLICK);
     if (pathName.startsWith(`/${team}/editor/article/${articleId}/draft` || `/${team}/editor/page/${pageId}/draft`)) {
       pageType === 'article' ? handleTempArticleDraft() : handleTempPageDraft();
+    } else if (
+      pathName.startsWith(`/${team}/editor/article/${articleId}/edit` || `/${team}/editor/page/${pageId}/edit`)
+    ) {
+      setIsDraftSave(false);
     } else {
       if (isFirstClick === 'false') {
         pageType === 'article' ? handleDataArticleDraft() : handleDataPageDraft();
@@ -348,7 +361,6 @@ const TextEditorImport = (props: TextEditorImportProps) => {
     try {
       if (editor) {
         const content = editor.getHTML();
-
         setArticleData((prev) => ({
           ...prev,
           content,
@@ -370,6 +382,7 @@ const TextEditorImport = (props: TextEditorImportProps) => {
           console.error('실패 에러임', error);
         }
       }
+      console.log('시바ㅏ라발발바3');
     } catch (err) {
       draftSaveErrorNotify();
     }
@@ -428,6 +441,7 @@ const TextEditorImport = (props: TextEditorImportProps) => {
           isPublish: false,
         });
       }
+      console.log('시바ㅏ라발발바2');
     } catch (error) {
       draftSaveErrorNotify();
     }
@@ -464,6 +478,7 @@ const TextEditorImport = (props: TextEditorImportProps) => {
           });
         }
       }
+      console.log('시바ㅏ라발발바');
     } catch (err) {
       draftSaveErrorNotify();
     }
