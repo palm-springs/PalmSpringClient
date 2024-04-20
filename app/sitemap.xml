@@ -186,4 +186,19 @@
     <sitemap>
         <loc>https://palms.blog/sitemap/sitemap/hello3.xml</loc>
     </sitemap>
+    <sitemap>
+        <loc>https://palms.blog/sitemap/sitemap/sopt.xml</loc>
+    </sitemap>
+    <sitemap>
+        <loc>https://palms.blog/sitemap/sitemap/eunduproject.xml</loc>
+    </sitemap>
+    <sitemap>
+        <loc>https://palms.blog/sitemap/sitemap/init.xml</loc>
+    </sitemap>
+    <sitemap>
+        <loc>https://palms.blog/sitemap/sitemap/forweber.xml</loc>
+    </sitemap>
+    <sitemap>
+        <loc>https://palms.blog/sitemap/sitemap/da9dac.xml</loc>
+    </sitemap>
 </sitemapindex>
