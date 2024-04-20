@@ -6,6 +6,7 @@ import { useEffect, useState } from 'react';
 import { css } from '@emotion/react';
 import { motion } from 'framer-motion';
 import Link from 'next/link';
+import { useRouter } from 'next/navigation';
 
 import client from '@/api';
 import { getRefreshToken } from '@/api/auth';
@@ -475,6 +476,7 @@ const footer = css`
 
 export default function Home() {
   const [dashboardUrl, setDashboardUrl] = useState('');
+  const router = useRouter();
 
   // sessionStorage
   const sessionStorage = checkSessionStorage();
@@ -572,7 +574,7 @@ export default function Home() {
           </div>
           <div css={entrance_title_desc}>최고의 팀 블로그 빌더로 지금 바로 만들어보세요.</div>
           <button css={main_cta}>
-            <div>무료로 시작하기</div>
+            <Link href="/sign-up">무료로 시작하기</Link>
             <svg width="24" height="25" viewBox="0 0 24 25" fill="none" xmlns="http://www.w3.org/2000/svg">
               <path
                 d="M9 18.5L15 12.5L9 6.5"
@@ -598,7 +600,12 @@ export default function Home() {
           </div>{' '}
           우리만의 블로그
         </div>
-        <button css={feature_cta}>
+        <button
+          css={feature_cta}
+          onClick={() => {
+            sessionStorage?.setItem('redirectUrl', '/create-blog');
+            router.push('/login');
+          }}>
           <div>블로그 개설하기</div>
           <svg width="24" height="25" viewBox="0 0 24 25" fill="none" xmlns="http://www.w3.org/2000/svg">
             <path
@@ -1189,9 +1196,9 @@ export default function Home() {
 
       <div style={{ marginTop: '8rem' }}>
         <button css={main_cta}>
-          <div>
+          <Link href="/sign-up">
             <span style={{ fontFamily: 'Outfit' }}>palms.blog</span> 무료로 시작하기
-          </div>
+          </Link>
           <svg width="24" height="25" viewBox="0 0 24 25" fill="none" xmlns="http://www.w3.org/2000/svg">
             <path
               d="M9 18.5L15 12.5L9 6.5"
