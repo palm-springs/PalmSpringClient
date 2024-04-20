@@ -2,11 +2,18 @@
 
 'use client';
 
+import { useEffect, useState } from 'react';
 import { css } from '@emotion/react';
 import { motion } from 'framer-motion';
 import Link from 'next/link';
 
+import client from '@/api';
+import { getRefreshToken } from '@/api/auth';
+import { getUserInfoAfterLogin } from '@/api/dashboard';
+import LandingPage from '@/components/landing/LandingPage';
+import { ACCESS_TOKEN_KEY } from '@/constants/Auth';
 import { LandingStyle } from '@/styles/LandingStyle';
+import { checkSessionStorage } from '@/utils/checkSessionStorage';
 
 const main = css`
   text-align: center;
@@ -467,14 +474,75 @@ const footer = css`
 `;
 
 export default function Home() {
+  const [dashboardUrl, setDashboardUrl] = useState('');
+
+  // sessionStorage
+  const sessionStorage = checkSessionStorage();
+
+  // access token
+  const accessToken = sessionStorage?.getItem(ACCESS_TOKEN_KEY);
+
+  // access token 재발급 요청 함수 (reissue)
+  const refresh = async () => {
+    const { code, data } = await getRefreshToken();
+
+    if (code === 201) {
+      sessionStorage?.setItem(ACCESS_TOKEN_KEY, data.accessToken);
+      return data.accessToken;
+    } else {
+      sessionStorage?.removeItem(ACCESS_TOKEN_KEY);
+      return;
+    }
+  };
+
+  const setAuthorization = async (accessToken: string) => {
+    client.defaults.headers.common.Authorization = `Bearer ${accessToken}`;
+    const { data } = await getUserInfoAfterLogin('', accessToken);
+
+    if (!data.joinBlogList || data.joinBlogList.length === 0) {
+      setDashboardUrl('/no-team/dashboard/upload');
+    } else {
+      setDashboardUrl(`/${data.joinBlogList[0].blogUrl}/dashboard/upload`);
+    }
+  };
+
+  // check Auth and redirect to dashboard
+  const checkAuthValidation = async () => {
+    if (accessToken) {
+      await setAuthorization(accessToken);
+    } else {
+      const newAccessToken = await refresh();
+      if (newAccessToken) {
+        await setAuthorization(newAccessToken);
+      }
+      return;
+    }
+  };
+
+  useEffect(() => {
+    checkAuthValidation();
+  }, []);
+
   return (
     <main css={main}>
       <header css={header}>
         <div css={inside_header}>
           <div css={logo}>palms.blog</div>
           <div css={menu_container}>
-            <button css={menu_button(false)}>로그인</button>
-            <button css={menu_button(true)}>무료로 시작하기</button>
+            {dashboardUrl ? (
+              <Link href={dashboardUrl} css={menu_button(true)}>
+                대시보드
+              </Link>
+            ) : (
+              <>
+                <Link href="/login" css={menu_button(false)}>
+                  로그인
+                </Link>
+                <Link href="/sign-up" css={menu_button(true)}>
+                  무료로 시작하기
+                </Link>
+              </>
+            )}
           </div>
         </div>
       </header>
@@ -1156,69 +1224,3 @@ export default function Home() {
     </main>
   );
 }
-
-// ('use client');
-
-// import { useEffect, useState } from 'react';
-
-// import client from '@/api';
-// import { getRefreshToken } from '@/api/auth';
-// import { getUserInfoAfterLogin } from '@/api/dashboard';
-// import LandingPage from '@/components/landing/LandingPage';
-// import { ACCESS_TOKEN_KEY } from '@/constants/Auth';
-// import { checkSessionStorage } from '@/utils/checkSessionStorage';
-
-// const Home = () => {
-//   const [dashboardUrl, setDashboardUrl] = useState('');
-
-//   // sessionStorage
-//   const sessionStorage = checkSessionStorage();
-
-//   // access token
-//   const accessToken = sessionStorage?.getItem(ACCESS_TOKEN_KEY);
-
-//   // access token 재발급 요청 함수 (reissue)
-//   const refresh = async () => {
-//     const { code, data } = await getRefreshToken();
-
-//     if (code === 201) {
-//       sessionStorage?.setItem(ACCESS_TOKEN_KEY, data.accessToken);
-//       return data.accessToken;
-//     } else {
-//       sessionStorage?.removeItem(ACCESS_TOKEN_KEY);
-//       return;
-//     }
-//   };
-
-//   const setAuthorization = async (accessToken: string) => {
-//     client.defaults.headers.common.Authorization = `Bearer ${accessToken}`;
-//     const { data } = await getUserInfoAfterLogin('', accessToken);
-
-//     if (!data.joinBlogList || data.joinBlogList.length === 0) {
-//       setDashboardUrl('/no-team/dashboard/upload');
-//     } else {
-//       setDashboardUrl(`/${data.joinBlogList[0].blogUrl}/dashboard/upload`);
-//     }
-//   };
-
-//   // check Auth and redirect to dashboard
-//   const checkAuthValidation = async () => {
-//     if (accessToken) {
-//       await setAuthorization(accessToken);
-//     } else {
-//       const newAccessToken = await refresh();
-//       if (newAccessToken) {
-//         await setAuthorization(newAccessToken);
-//       }
-//       return;
-//     }
-//   };
-
-//   useEffect(() => {
-//     checkAuthValidation();
-//   }, []);
-
-//   return <LandingPage dashboardUrl={dashboardUrl} />;
-// };
-
-// export default Home;
