@@ -65,6 +65,7 @@ const EditorMenuBar = ({ editor, encodeFileToBase64, atTop, setAtTop }: editorPr
       const { current } = iconWrapperRef;
       if (window.scrollY >= 143) {
         current.style.position = 'fixed';
+        current.style.top = '60px';
       } else {
         current.style.position = 'sticky';
       }
@@ -157,7 +158,9 @@ const ToolButton = styled.button`
 const Wrapper = styled.div<{ isVisible?: boolean }>`
   position: fixed;
   top: 0;
+  left: 0;
   transition: width 1s ease;
+  transition-duration: 0s;
   opacity: ${({ isVisible }) => (isVisible ? 1 : 0)};
   z-index: 10;
   background-color: ${({ theme }) => theme.colors.grey_100};
