@@ -89,7 +89,7 @@ const TextEditorImport = (props: TextEditorImportProps) => {
   const draftPageMutation = useUpdateTempPageDraft(String(team));
 
   const setIsSaved = useSetRecoilState(isSaved);
-  console.log(updatedArticleData?.content, '여여영녕녀ㅑㅇㄴㄹㅇ나ㅓㅗㅇㄴ라ㅓㅗㄴㅇ');
+
   const selectEditorContent = () => {
     if (pathName.startsWith(`/${team}/editor/article`)) {
       return articleData.content || (updatedArticleData && updatedArticleData.content);
@@ -585,7 +585,6 @@ const TextEditorImport = (props: TextEditorImportProps) => {
     if (!editor) return;
     const content = document.querySelector('[contenteditable="true"]')!.innerHTML;
     updateDataRouterChange(content, Number(articleId), `article/${articleId}/edit/publish`);
-    console.log('야야야야야ㅐ', content);
   };
 
   // page 수정시 발행페이지 이동
