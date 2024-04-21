@@ -46,6 +46,7 @@
     "axios": "^1.4.0",
     "eslint": "^8.43.0",
     "eslint-config-next": "13.4.7",
+    "hast-util-to-html": "^9.0.1",
     "html-react-parser": "^4.0.0",
     "jest-worker": "^29.7.0",
     "lodash-es": "^4.17.21",

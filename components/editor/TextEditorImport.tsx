@@ -30,10 +30,9 @@ import Text from '@tiptap/extension-text';
 import Underline from '@tiptap/extension-underline';
 import { Editor, Extension, useEditor } from '@tiptap/react';
 import javascript from 'highlight.js/lib/languages/javascript';
-lowlight.registerLanguage('javascript', javascript);
-
 import { debounce } from 'lodash-es';
 import { lowlight } from 'lowlight/lib/core';
+lowlight.registerLanguage('javascript', javascript);
 import { useParams, usePathname, useRouter } from 'next/navigation';
 import { useRecoilState, useSetRecoilState } from 'recoil';
 
@@ -569,42 +568,43 @@ const TextEditorImport = (props: TextEditorImportProps) => {
   // article page 저장시 내용 가지고 발행하기 페이지로 이동-> article 최초 발행하기
   const handleOnClickArticlePublish = () => {
     if (!document || !editor) return;
-    const content = editor.getHTML();
+    //이거 editor.getHTML()로 추출하면 안에 class까지 나눠서 뽑아지지않음 dom으로 접근해서 요소를 싹 뽑아야함
+    const content = document.querySelector('[contenteditable="true"]')!.innerHTML;
     updateDataRouterChange(content, null, 'article/publish');
   };
 
   // page page 저장시 내용 가지고 발행하기 페이지로 이동 -> page 최초 발행
   const handleOnClickPagePublish = () => {
     if (!editor) return;
-    const content = editor.getHTML();
+    const content = document.querySelector('[contenteditable="true"]')!.innerHTML;
     updateDataRouterChange(content, null, 'page/publish');
   };
 
   //article 수정시 발행하기로 내용가지고 이동
   const handleUpdateGoArticlePublish = () => {
     if (!editor) return;
-    const content = editor.getHTML();
+    const content = document.querySelector('[contenteditable="true"]')!.innerHTML;
     updateDataRouterChange(content, Number(articleId), `article/${articleId}/edit/publish`);
   };
 
   // page 수정시 발행페이지 이동
   const handleUpdateGoPagePublish = () => {
     if (!editor) return;
-    const content = editor.getHTML();
+    const content = document.querySelector('[contenteditable="true"]')!.innerHTML;
     updateDataRouterChange(content, Number(pageId), `page/${pageId}/edit/publish`);
   };
 
   //article 임시저장 수정시 발행하기로 내용가지고 이동
   const handleUpdateDraftArticlePublish = () => {
     if (!editor) return;
-    const content = editor.getHTML();
+    const content = document.querySelector('[contenteditable="true"]')!.innerHTML;
     updateDataRouterChange(content, Number(articleId), `article/${articleId}/draft/publish`);
   };
 
   //page 임시저장 수정시 발행하기로 내용가지고 이동
   const handleUpdateDraftPagePublish = () => {
     if (!editor) return;
-    const content = editor.getHTML();
+    const content = document.querySelector('[contenteditable="true"]')!.innerHTML;
     updateDataRouterChange(content, Number(pageId), `page/${pageId}/draft/publish`);
   };
 
