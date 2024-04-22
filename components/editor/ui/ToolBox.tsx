@@ -183,10 +183,6 @@ const IconWrapper = styled.div`
   background-color: ${({ theme }) => theme.colors.grey_100};
   width: 72.2rem;
   height: 4.8rem;
-  /* @media screen and (min-height: 903px) {
-    position: fixed;
-    top: 0;
-  } */
 `;
 
 //여기에ㅔ toolbar에 조건문 붙여서 -> position 속성이 fixed가되면 width 값을 100vw, display: flex, jus-> centerd로 바꾼다
