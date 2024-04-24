@@ -71,8 +71,14 @@ export const TextEditorStyle = styled.div`
       border-radius: 0.25em;
       background-color: ${({ theme }) => theme.colors.grey_200};
       padding: 0.3rem 0.6rem;
-      box-decoration-break: clone;
       width: 72rem;
+      line-height: 2.601rem;
+      letter-spacing: -0.0072rem;
+      font-family: 'Fira Mono' !important;
+      font-size: 1.53rem;
+      font-weight: 400;
+      font-style: normal;
+      box-decoration-break: clone;
     }
 
     pre {
@@ -85,7 +91,7 @@ export const TextEditorStyle = styled.div`
       white-space: pre-wrap;
       word-break: break-all;
       color: #383a41;
-      font-family: 'Fira Mono', monospace;
+      font-family: 'Fira Mono';
       code {
         background: none;
         padding: 0;
