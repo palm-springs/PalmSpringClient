@@ -71,8 +71,14 @@ export const TextEditorStyle = styled.div`
       border-radius: 0.25em;
       background-color: ${({ theme }) => theme.colors.grey_200};
       padding: 0.3rem 0.6rem;
-      box-decoration-break: clone;
       width: 72rem;
+      line-height: 2.601rem;
+      letter-spacing: -0.0072rem;
+      font-family: 'Fira Mono' !important;
+      font-size: 1.53rem;
+      font-weight: 400;
+      font-style: normal;
+      box-decoration-break: clone;
     }
 
     pre {
@@ -81,24 +87,41 @@ export const TextEditorStyle = styled.div`
       background: ${({ theme }) => theme.colors.grey_100};
       padding: 1.6rem 2rem;
       width: 72rem;
-
+      line-height: 2.601rem;
+      letter-spacing: -0.0072rem;
       white-space: pre-wrap;
       word-break: break-all;
       color: #383a41;
-      font-family: 'Fira Mono', monospace;
+      font-family: 'Fira Mono' !important;
+      font-size: 1.4rem;
+      font-weight: 400;
       code {
         background: none;
         padding: 0;
+        line-height: 2.601rem;
+        letter-spacing: -0.0072rem;
         color: inherit;
+        font-family: 'Fira Mono' !important;
         font-size: 1.4rem;
+        font-weight: 400;
       }
 
       .hljs-variable,
       .hljs-comment {
+        line-height: 2.601rem;
+        letter-spacing: -0.0072rem;
         color: #383a41;
+        font-family: 'Fira Mono' !important;
+        font-size: 1.4rem;
+        font-weight: 400;
       }
       .hljs-quote {
+        line-height: 2.601rem;
+        letter-spacing: -0.0072rem;
         color: #a0a1a7;
+        font-family: 'Fira Mono' !important;
+        font-size: 1.4rem;
+        font-weight: 400;
       }
 
       .hljs-template-variable,
@@ -109,7 +132,12 @@ export const TextEditorStyle = styled.div`
       .hljs-name,
       .hljs-selector-id,
       .hljs-selector-class {
+        line-height: 2.601rem;
+        letter-spacing: -0.0072rem;
         color: #986801;
+        font-family: 'Fira Mono' !important;
+        font-size: 1.4rem;
+        font-weight: 400;
       }
 
       .hljs-number,
@@ -117,34 +145,68 @@ export const TextEditorStyle = styled.div`
       .hljs-literal,
       .hljs-type,
       .hljs-params {
+        line-height: 2.601rem;
+        letter-spacing: -0.0072rem;
         color: #fbbc88;
+        font-family: 'Fira Mono' !important;
+        font-size: 1.4rem;
+        font-weight: 400;
       }
 
       .hljs-built_in,
       .hljs-builtin-name {
+        line-height: 2.601rem;
+        letter-spacing: -0.0072rem;
         color: #c18401;
+        font-family: 'Fira Mono' !important;
+        font-size: 1.4rem;
+        font-weight: 400;
       }
       .hljs-string {
+        line-height: 2.601rem;
+        letter-spacing: -0.0072rem;
         color: #50a14f;
+        font-family: 'Fira Mono' !important;
+        font-size: 1.4rem;
+        font-weight: 400;
       }
 
       .hljs-title,
       .hljs-section,
       .hljs-symbol,
       .hljs-bullet {
+        line-height: 2.601rem;
+        letter-spacing: -0.0072rem;
         color: #4078f2;
+        font-family: 'Fira Mono' !important;
+        font-size: 1.4rem;
+        font-weight: 400;
       }
 
       .hljs-keyword,
       .hljs-selector-tag {
+        line-height: 2.601rem;
+        letter-spacing: -0.0072rem;
         color: #99359f;
+        font-family: 'Fira Mono' !important;
+        font-size: 1.4rem;
+        font-weight: 400;
       }
 
       .hljs-emphasis {
+        line-height: 2.601rem;
+        letter-spacing: -0.0072rem;
+        font-family: 'Fira Mono' !important;
+        font-size: 1.4rem;
+        font-weight: 400;
         font-style: italic;
       }
 
       .hljs-strong {
+        line-height: 2.601rem;
+        letter-spacing: -0.0072rem;
+        font-family: 'Fira Mono' !important;
+        font-size: 1.4rem;
         font-weight: 700;
       }
     }
