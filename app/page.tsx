@@ -1,3 +1,5 @@
+/** @jsxImportSource @emotion/react */
+
 'use client';
 
 import { useEffect, useState } from 'react';
@@ -9,7 +11,7 @@ import LandingPage from '@/components/landing/LandingPage';
 import { ACCESS_TOKEN_KEY } from '@/constants/Auth';
 import { checkSessionStorage } from '@/utils/checkSessionStorage';
 
-const Home = () => {
+export default function Home() {
   const [dashboardUrl, setDashboardUrl] = useState('');
 
   // sessionStorage
@@ -60,6 +62,4 @@ const Home = () => {
   }, []);
 
   return <LandingPage dashboardUrl={dashboardUrl} />;
-};
-
-export default Home;
+}

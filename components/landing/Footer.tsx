@@ -10,8 +10,8 @@ const footer = css`
   color: #868b94;
   font-size: 14px;
   & > a {
-    display:inline-block;
-    margin-top:14px;
+    display: inline-block;
+    margin-top: 14px;
   }
   @media (max-width: 575px) {
     padding: 60px 0;
@@ -33,9 +33,7 @@ const Footer = () => {
       </span>
       <br />
       <br />
-      <Link href="/team">
-        만든 사람들 소개
-      </Link>
+      <Link href="/team">만든 사람들 소개</Link>
     </footer>
   );
 };
