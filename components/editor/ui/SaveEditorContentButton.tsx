@@ -112,7 +112,7 @@ const SaveEditorContentButton = (props: editorProps) => {
       <ExitButton type="button" onClick={modalOpenHandler} atTop={atTop}>
         나가기
       </ExitButton>
-      <SaveButtonContainer>
+      <SaveButtonContainer atTop={atTop}>
         {isEdit ? (
           <NoneTemporary type="button" />
         ) : (
@@ -166,7 +166,7 @@ const DraftAlertText = styled.span`
   font-family: ${({ theme }) => theme.fonts.Body3_Regular};
 `;
 
-const SaveButtonContainer = styled.div`
+const SaveButtonContainer = styled.div<{ atTop: boolean }>`
   display: flex;
   position: fixed;
   top: 0.6rem;
@@ -174,7 +174,7 @@ const SaveButtonContainer = styled.div`
   z-index: 1000;
 
   @media screen and (max-width: 1360px) {
-    top: 5.8rem;
+    top: ${({ atTop }) => (atTop ? '5.8rem' : '0.6rem')};
   }
 `;
 
@@ -198,7 +198,7 @@ const ExitButton = styled.button<{ atTop: boolean }>`
     height: 3.6rem;
   }
   @media screen and (max-width: 1360px) {
-    top: 5.8rem;
+    top: ${({ atTop }) => (atTop ? '5.8rem' : '0.6rem')};
   }
 `;
 
