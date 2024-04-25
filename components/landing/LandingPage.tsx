@@ -7,6 +7,7 @@ import Link from 'next/link';
 import { useRouter } from 'next/navigation';
 
 const main = css`
+  overflow-x: hidden;
   text-align: center;
   color: #343a40;
 `;
