@@ -73,6 +73,7 @@ const SaveEditorContentButton = (props: editorProps) => {
     handleOnClickDraft();
     notify();
     setSaved(true);
+    setIsDraftSave(true);
   };
 
   const modalOpenHandler = () => {
@@ -171,6 +172,10 @@ const SaveButtonContainer = styled.div`
   top: 0.6rem;
   right: 2rem;
   z-index: 1000;
+
+  @media screen and (max-width: 1360px) {
+    top: 5.8rem;
+  }
 `;
 
 const ExitButton = styled.button<{ atTop: boolean }>`
@@ -191,6 +196,9 @@ const ExitButton = styled.button<{ atTop: boolean }>`
     background: ${({ theme }) => theme.colors.grey_200};
     width: 8.2rem;
     height: 3.6rem;
+  }
+  @media screen and (max-width: 1360px) {
+    top: 5.8rem;
   }
 `;
 
