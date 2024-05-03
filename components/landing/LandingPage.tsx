@@ -1,10 +1,12 @@
 /** @jsxImportSource @emotion/react */
 'use client';
 
+import useCheckMobile from '@/hooks/useCheckMobile';
 import { css } from '@emotion/react';
-import { motion } from 'framer-motion';
+import { easeIn, easeInOut, motion } from 'framer-motion';
 import Link from 'next/link';
 import { useRouter } from 'next/navigation';
+import { useEffect } from 'react';
 
 const main = css`
   overflow-x: hidden;
@@ -13,6 +15,7 @@ const main = css`
 `;
 const header = css`
   display: flex;
+  position: fixed;
   align-items: center;
   justify-content: center;
   z-index: 999;
@@ -81,14 +84,15 @@ const menu_button = (color) => {
   `;
 };
 const entrance_container = css`
+  background-color: blue;
   display: flex;
   gap: 4rem;
+  height: 100vh;
   align-items: center;
   justify-content: center;
-  margin-top: 8rem;
+  // margin-top: 8rem;
   @media (max-width: 768px) {
     flex-direction: column;
-    margin-top: 4rem;
   }
 `;
 const entrance_image = css`
@@ -96,8 +100,30 @@ const entrance_image = css`
   z-index: -1;
   width: 100%;
   max-width: 500px;
+  margin-top: -100px;
   @media (max-width: 768px) {
-    max-width: 320px;
+    max-width: 400px;
+    margin-left: 40px;
+    &::before {
+      content: '';
+      position: absolute;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 40%;
+      background: linear-gradient(180deg, white -8.37%, rgba(255,255,255,0) 100%);
+      z-index: 1;
+    }
+    &::after {
+      content: '';
+      position: absolute;
+      bottom: 0;
+      left: 0;
+      width: 100%;
+      height: 60%;
+      background: linear-gradient( 10deg, white -8.37%, rgba(255,255,255,0) 100%);
+      z-index: 1;
+    }
   }
 `;
 const entrance_title_container = css`
@@ -112,11 +138,22 @@ const entrance_title_title = css`
   line-height: 140%;
   font-size: 2rem;
   font-weight: 600;
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: flex-start;
+  align-items: flex-start;
+  gap: 0.3rem;
+  row-gap: 0;
+  @media (max-width: 768px) {
+  align-items: center;
+  justify-content: center;
+  }
 `;
 const entrance_title_desc = css`
   margin-top: 16px;
   color: #868e96;
   font-size: 1.25rem;
+  text-align: left;
   @media (max-width: 768px) {
     font-size: 1rem;
   }
@@ -134,7 +171,22 @@ const main_cta = css`
   font-size: 18px;
 `;
 const feature_container = css`
-  margin-top: 12rem;
+  // margin-top: 12rem;
+  min-height: 100vh;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  &:nth-of-type(odd) {
+    background: #f8f9fa;
+  }
+  padding: 0 3rem;
+  @media (max-width: 768px) {
+    padding: 2rem 1.5rem;
+  }
+  @media (max-width: 576px) {
+    padding: 2rem 1.5rem;
+  }
 `;
 const feature_title = css`
   display: flex;
@@ -145,30 +197,43 @@ const feature_title = css`
   font-size: 2.5rem;
   font-weight: 600;
   @media (max-width: 768px) {
-    flex-direction: column;
-    gap: 0;
+    // flex-direction: column;
+    flex-wrap: wrap;
+    gap: 0.6rem;
+    row-gap: 0rem;
     font-size: 2.2rem;
+  }
+  @media (max-width: 576px) {
+    font-size: 1.5rem;
+    gap: 0.3rem;
   }
 `;
 const feature_description = css`
   margin-top: 1rem;
   margin-right: 0.8rem;
   margin-left: 0.8rem;
-  line-height: 160%;
+  line-height: 150%;
   color: #868e96;
   font-size: 1.125rem;
+  @media (max-width: 576px) {
+    font-size: 1rem;
+    margin-top: 0.5rem;
+  }
 `;
 const feature_cta = css`
   display: inline-flex;
   align-items: center;
   justify-content: center;
-  margin-top: 1.4rem;
+  margin-top: 0.8rem;
   border: none;
   background: transparent;
   cursor: pointer;
   color: #1a9b6f;
   font-size: 1.125rem;
   font-weight: 500;
+  @media (max-width: 576px) {
+    margin-top: 0.5rem;
+  }
 `;
 const feature_graphic_one_column_container = css`
   display: flex;
@@ -176,10 +241,27 @@ const feature_graphic_one_column_container = css`
   gap: 2.25rem;
   align-items: center;
   margin-top: 2.2rem;
+  width: 100%;
   @media (max-width: 768px) {
     align-items: flex-start;
     margin-right: 0.8rem;
     margin-left: 0.8rem;
+  }
+`;
+
+const feature_graphic_two_column_container = css`
+  display: flex;
+  flex-direction: row;
+  gap: 2.25rem;
+  align-items: center;
+  margin-top: 2.2rem;
+
+  @media (max-width: 768px) {
+    max-width: 500px;
+    align-items: flex-start;
+    // margin-right: 0.8rem;
+    // margin-left: 0.8rem;
+    flex-direction: column;
   }
 `;
 const feature_graphic_seo = css`
@@ -217,7 +299,7 @@ const feature_graphic_seo = css`
       height: 100px;
       & > div {
         color: #00d059;
-        font-family: 'Fira Code';
+        font-family: 'Fira Code', monospace;
         font-size: 2rem;
         font-weight: 500;
         @media (max-width: 768px) {
@@ -236,55 +318,128 @@ const feature_graphic_seo = css`
       }
     }
     @media (max-width: 768px) {
-      gap: 1.3rem;
+      gap: 1rem;
+    }
+  }
+  @media (max-width: 768px) {
+    height: 250px;
+  }
+`;
+const feature_graphic_customize = css`
+  border-radius: 1rem;
+  background: #F4F5F8;
+  width: 100%;
+  max-width: 900px;
+  min-height: 300px;
+  overflow: hidden;
+  position: relative;
+  > img {
+      padding-bottom: 1rem;
+  }
+  &::before {
+    content: '';
+    position: absolute;
+    bottom: 0;
+    left: 0;
+    width: 100%;
+    height: 40%;
+    background: linear-gradient(180deg, rgba(244, 245, 248, 0.00) 0%, rgba(244, 245, 248, 1) 27%);
+    z-index: 1;
+    @media (max-width: 576px) {
+      height: 50%;
     }
   }
 `;
+
 const feature_graphic_invitation = css`
   border-radius: 1rem;
-  background: #f8f9fa;
+  background: #F4F5F8;
   width: 100%;
   max-width: 900px;
-  height: 300px;
+  // min-height: 300px;
   overflow: hidden;
+  position: relative;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  @media (max-width: 576px) {
+    min-height: 200px;
+    justify-content: flex-start;
+  }
+  > img {
+    transform: scale(1.1);
+    min-height: 200px;
+    min-width: 700px;
+    @media (max-width: 576px) {
+      margin-left: -3rem;
+      // transform: scale(1.3);
+    }
+  }
+  &::before {
+    content: '';
+    position: absolute;
+    bottom: 0;
+    left: 0;
+    width: 100%;
+    height: 10%;
+    background: linear-gradient(180deg, rgba(244, 245, 248, 0.00) 0%, rgba(244, 245, 248, 1) 90%);
+    z-index: 1;
+  }
+`;
+
+const feature_graphic_design = css`
+  border-radius: 1rem;
+  background: #F4F5F8;
+  width: 100%;
+  max-width: 900px;
+  // min-height: 300px;
+  overflow: hidden;
+  position: relative;
+  > img {
+    margin-bottom: -5px;
+  }
 `;
 const feature_sub_container = css`
   display: flex;
-  gap: 4rem;
+  gap: 2rem;
   align-items: flex-start;
   justify-content: center;
-  @media (max-width: 768px) {
+  @media (max-width: 576px) {
     flex-direction: column;
-    gap: 1.8rem;
+    gap: 2rem;
     padding: 0 0.5rem;
   }
 `;
 const feature_sub_wrapper = css`
   width: 100%;
   max-width: 380px;
+  position: absolute;
+  padding: 1.2rem;
+  bottom: 0;
+  z-index: 1;
   @media (max-width: 768px) {
     max-width: unset;
   }
 `;
-const feature_graphic_two_column_container = css`
-  display: flex;
-  gap: 1rem;
-  justify-content: center;
-  margin-top: 2.2rem;
-  & > div:nth-of-type(1) {
-    background-image: url('/images/design-branding.png');
-    background-repeat: no-repeat;
-    background-size: 600px;
-    @media (max-width: 768px) {
-      background-position: 0% 20%;
-      background-size: 450px;
-    }
-  }
-  @media (max-width: 768px) {
-    flex-direction: column;
-    align-items: center;
-  }
-`;
+// const feature_graphic_two_column_container = css`
+//   display: flex;
+//   gap: 1rem;
+//   justify-content: center;
+//   margin-top: 2.2rem;
+//   & > div:nth-of-type(1) {
+//     background-image: url('/images/design-branding.png');
+//     background-repeat: no-repeat;
+//     background-size: 600px;
+//     @media (max-width: 768px) {
+//       background-position: 0% 20%;
+//       background-size: 450px;
+//     }
+//   }
+//   @media (max-width: 768px) {
+//     flex-direction: column;
+//     align-items: center;
+//   }
+// `;
 const feature_graphic_two_column_each = css`
   display: flex;
   flex-direction: column;
@@ -465,11 +620,22 @@ const footer = css`
   }
 `;
 
+const seo_feature_sub_wrapper = css`
+  width: 100%;
+  // max-width: 380px;
+  // min-width: 300px;
+  @media (max-width: 768px) {
+    max-width: unset;
+  }
+`;
+
 const redirectUri = process.env.NEXT_PUBLIC_GOOGLE_REDIRECT_URI;
 const GOOGLE_END_POINT = 'https://accounts.google.com/o/oauth2/v2/auth';
 
 const LandingPage = ({ dashboardUrl }: { dashboardUrl: string }) => {
   const router = useRouter();
+
+  const MOBILE = useCheckMobile();
 
   return (
     <main css={main}>
@@ -497,26 +663,37 @@ const LandingPage = ({ dashboardUrl }: { dashboardUrl: string }) => {
 
       <div css={entrance_container}>
         <div css={entrance_image}>
-          <motion.img
-            src="/images/entrance-image.png"
-            alt="대문 이미지"
-            initial={{ opacity: 0, transform: 'perspective(500px) rotateY(30deg) scale(1.5)' }}
-            viewport={{ once: true, amount: 0.5 }}
-            whileInView={{ opacity: 1, transform: 'perspective(1000px) rotateY(10deg) scale(1)' }}
-            transition={{ duration: 1.5 }}
-            style={{ width: '100%' }}
-          />
+          {MOBILE ? (
+            <motion.img
+              src="/images/entrance-image.png"
+              alt="대문 이미지"
+              initial={{ opacity: 0, transform: 'perspective(600px) rotateX(25deg) rotateZ(2deg) scale(1.3)' }}
+              viewport={{ once: true, amount: 0.5 }}
+              whileInView={{ opacity: 1, transform: 'perspective(800px) rotateX(15deg) rotateZ(0deg) scale(1)' }}
+              transition={{ duration: 0.6, ease: "easeInOut"  }}
+              style={{ width: '100%' }}
+            />
+          ) : (
+            <motion.img
+              src="/images/entrance-image.png"
+              alt="대문 이미지"
+              initial={{ opacity: 0, transform: 'perspective(500px) rotateY(30deg) scale(1.5)' }}
+              viewport={{ once: true, amount: 0.5 }}
+              whileInView={{ opacity: 1, transform: 'perspective(1000px) rotateY(10deg) scale(1)' }}
+              transition={{ duration: 1 }}
+              style={{ width: '100%' }}
+            />
+          )}
         </div>
         <motion.div
           css={entrance_title_container}
-          initial={{ opacity: 0, transform: 'scale(1.1)' }}
+          initial={{ opacity: 0, transform: 'y(100)' }}
           viewport={{ once: true, amount: 0.5 }}
-          whileInView={{ opacity: 1, transform: 'scale(1)' }}
-          transition={{ duration: 1, delay: 0.6 }}>
+          whileInView={{ opacity: 1, transform: 'y(0)' }}
+          transition={{ duration: 1, delay: 0.4 }}>
           <div css={entrance_title_title}>
-            오직 우리 팀만의 블로그.
-            <br />
-            가장 쉽고 빠르게 만들기.
+            <span>오직 우리 팀만의 블로그. </span>
+            <span>가장 쉽고 빠르게 만들기.</span>
           </div>
           <div css={entrance_title_desc}>최고의 팀 블로그 빌더로 지금 바로 만들어보세요.</div>
           <button css={main_cta}>
@@ -536,10 +713,10 @@ const LandingPage = ({ dashboardUrl }: { dashboardUrl: string }) => {
 
       <motion.div
         css={feature_container}
-        initial={{ opacity: 0, transform: 'scale(1.05)' }}
+        initial={{ opacity: 0, transform: 'translateY(100px)' }}
         viewport={{ once: true, amount: 0.5 }}
-        whileInView={{ opacity: 1, transform: 'scale(1)' }}
-        transition={{ duration: 1 }}>
+        whileInView={{ opacity: 1, transform: 'translateY(0px)' }}
+        transition={{ duration: 0.6 }}>
         <div css={feature_title}>
           <div>
             온전히 <span css={text_gradient_blue}>우리 것만</span> 보이는,
@@ -573,17 +750,16 @@ const LandingPage = ({ dashboardUrl }: { dashboardUrl: string }) => {
                       <div css={feature_sub_desc}>우리 블로그는 오직 우리 브랜드에만 기여해야 하니까요.</div>
                   </div>
               </div> */}
-        <div css={feature_graphic_one_column_container}>
-          <div css={feature_graphic_invitation}>
+        <div css={feature_graphic_two_column_container}>
+          <div css={feature_graphic_customize}>
             <motion.img
-              src="/images/design-branding.png"
+              src="/images/customized-blog.gif"
               alt=""
               css={css`
                 margin-top: -10px;
-                width: 720px;
+                width: 100%;
                 @media (max-width: 768px) {
                   margin-top: -24px;
-                  margin-left: -20px;
                 }
               `}
               initial={{ opacity: 0, transform: 'translateY(80px)' }}
@@ -591,12 +767,27 @@ const LandingPage = ({ dashboardUrl }: { dashboardUrl: string }) => {
               viewport={{ once: true }}
               transition={{ duration: 1 }}
             />
-          </div>
-          <div css={feature_sub_container}>
             <div css={feature_sub_wrapper}>
               <div css={feature_sub_title}>브랜딩 요소를 입혀 독립형 블로그로 꾸며보세요.</div>
               <div css={feature_sub_desc}>헤더와 푸터, 오픈그래프 메타데이터까지 모두 자유롭게 설정할 수 있어요.</div>
             </div>
+          </div>
+          <div css={feature_graphic_customize}>
+            <motion.img
+              src="/images/no-palms.gif"
+              alt=""
+              css={css`
+                margin-top: -10px;
+                width: 100%;
+                @media (max-width: 768px) {
+                  margin-top: -24px;
+                }
+              `}
+              initial={{ opacity: 0, transform: 'translateY(80px)' }}
+              whileInView={{ opacity: 1, transform: 'translateY(0)' }}
+              viewport={{ once: true }}
+              transition={{ duration: 1 }}
+            />
             <div css={feature_sub_wrapper}>
               <div css={feature_sub_title}>블로그의 어디에서도 palms.blog의 로고는 찾아볼 수 없어요.</div>
               <div css={feature_sub_desc}>우리 블로그는 오직 우리 브랜드에만 기여해야 하니까요.</div>
@@ -607,10 +798,10 @@ const LandingPage = ({ dashboardUrl }: { dashboardUrl: string }) => {
 
       <motion.div
         css={feature_container}
-        initial={{ opacity: 0, transform: 'scale(1.05)' }}
+        initial={{ opacity: 0, transform: 'translateY(100px)' }}
         viewport={{ once: true, amount: 0.5 }}
-        whileInView={{ opacity: 1, transform: 'scale(1)' }}
-        transition={{ duration: 1 }}>
+        whileInView={{ opacity: 1, transform: 'translateY(0px)' }}
+        transition={{ duration: 0.6 }}>
         <div css={feature_title}>
           놀랍도록 완벽한 <span css={text_gradient_green}>검색엔진 최적화</span>
         </div>
@@ -678,11 +869,11 @@ const LandingPage = ({ dashboardUrl }: { dashboardUrl: string }) => {
             </div>
           </div>
           <div css={feature_sub_container}>
-            <div css={feature_sub_wrapper}>
+            <div css={seo_feature_sub_wrapper}>
               <div css={feature_sub_title}>최고 수준의 SEO를 경험해보세요.</div>
               <div css={feature_sub_desc}>Technical SEO와 서버사이드 렌더링(SSR)이 모두 완벽하게 지원돼요.</div>
             </div>
-            <div css={feature_sub_wrapper}>
+            <div css={seo_feature_sub_wrapper}>
               <div css={feature_sub_title}>아무것도 설정할 필요가 없어요.</div>
               <div css={feature_sub_desc}>콘텐츠 작성에만 집중하실 수 있도록, 모든 세팅을 알아서 관리해드릴게요.</div>
             </div>
@@ -692,10 +883,10 @@ const LandingPage = ({ dashboardUrl }: { dashboardUrl: string }) => {
 
       <motion.div
         css={feature_container}
-        initial={{ opacity: 0, transform: 'scale(1.05)' }}
+        initial={{ opacity: 0, transform: 'translateY(100px)' }}
         viewport={{ once: true, amount: 0.5 }}
-        whileInView={{ opacity: 1, transform: 'scale(1)' }}
-        transition={{ duration: 1 }}>
+        whileInView={{ opacity: 1, transform: 'translateY(0px)' }}
+        transition={{ duration: 0.6 }}>
         <div css={feature_title}>
           <span css={text_gradient_blue}>팀원들과 함께</span> 운영하는 블로그
         </div>
@@ -716,28 +907,25 @@ const LandingPage = ({ dashboardUrl }: { dashboardUrl: string }) => {
         <div css={feature_graphic_one_column_container}>
           <div css={feature_graphic_invitation}>
             <motion.img
-              src="/images/design-invitation.png"
+              src="/images/invite.gif"
               alt="초대 예시 이미지"
-              initial={{ opacity: 0, transform: 'translateY(48px)' }}
-              whileInView={{ opacity: 1, transform: 'translateY(0)' }}
+              initial={{ opacity: 0 }}
+              whileInView={{ opacity: 1 }}
               viewport={{ once: true }}
               transition={{ duration: 1 }}
               css={css`
-                margin-top: -14px;
-                box-shadow: 0 0 10px 0 rgba(64, 71, 79, 0.1);
-                width: 610px;
-                @media (max-width: 768px) {
-                  margin-left: 60px;
-                }
+                margin-bottom: -3px;
+                // box-shadow: 0 0 10px 0 rgba(64, 71, 79, 0.1);
+                // width: 100%;
               `}
             />
           </div>
           <div css={feature_sub_container}>
-            <div css={feature_sub_wrapper}>
+            <div css={seo_feature_sub_wrapper}>
               <div css={feature_sub_title}>팀원을 초대해 함께 아티클을 업로드하고 블로그를 관리하세요.</div>
               <div css={feature_sub_desc}>팀원들을 인원 수 제한 없이 마음껏 초대할 수 있어요.</div>
             </div>
-            <div css={feature_sub_wrapper}>
+            <div css={seo_feature_sub_wrapper}>
               <div css={feature_sub_title}>
                 구글 로그인으로도, 회사 이메일로도
                 <br />
@@ -751,45 +939,33 @@ const LandingPage = ({ dashboardUrl }: { dashboardUrl: string }) => {
 
       <motion.div
         css={feature_container}
-        initial={{ opacity: 0, transform: 'scale(1.05)' }}
+        initial={{ opacity: 0, transform: 'translateY(100px)' }}
         viewport={{ once: true, amount: 0.5 }}
-        whileInView={{ opacity: 1, transform: 'scale(1)' }}
-        transition={{ duration: 1 }}>
+        whileInView={{ opacity: 1, transform: 'translateY(0px)' }}
+        transition={{ duration: 0.6 }}>
         <div css={feature_title}>간결하고 아름다운 디자인</div>
         <div css={feature_description}>어떤 서비스에서도 경험할 수 없는 아름다운 디자인의 블로그를 만들어보세요.</div>
         <div css={feature_graphic_one_column_container}>
           <div
             css={[
-              feature_graphic_invitation,
+              feature_graphic_design,
               css`
-                height: 400px;
+                // height: 400px;
                 @media (max-width: 768px) {
                   box-shadow: 0 0 16px 0 rgba(64, 71, 79, 0.1);
                 }
+                margin-bottom: 1rem;
               `,
             ]}>
-            <div style={{ position: 'relative', float: 'right', right: '50%' }}>
               <motion.img
-                src="/images/design-design.png"
+                src="/images/design.gif"
                 alt="아름다운 디자인 예시"
                 css={css`
-                  position: relative;
-                  right: -50%;
                   box-shadow: 0 0 10px 0 rgba(64, 71, 79, 0.1);
-                  width: 640px;
+                  width: 100%;
                 `}
-                whileInView={{ marginTop: '-1000px' }}
                 viewport={{ once: true }}
-                transition={{
-                  type: 'spring',
-                  duration: 4.5,
-                  delay: 1,
-                  bounce: 0,
-                  repeat: Infinity,
-                  repeatType: 'mirror',
-                }}
               />
-            </div>
           </div>
         </div>
         <a href="https://duckduck.palms.blog" target="_blank" rel="noopener noreferrer">
@@ -810,10 +986,10 @@ const LandingPage = ({ dashboardUrl }: { dashboardUrl: string }) => {
 
       <motion.div
         css={notice_container}
-        initial={{ opacity: 0, transform: 'scale(1.05)' }}
+        initial={{ opacity: 0, transform: 'translateY(100px)' }}
         viewport={{ once: true, amount: 0.5 }}
-        whileInView={{ opacity: 1, transform: 'scale(1)' }}
-        transition={{ duration: 1 }}>
+        whileInView={{ opacity: 1, transform: 'translateY(0px)' }}
+        transition={{ duration: 0.6 }}>
         <div css={notice_title}>곧 더 많은 기능들이 추가돼요</div>
         <div css={gray_row_container}>
           <div css={gray_row_each}>
@@ -867,10 +1043,10 @@ const LandingPage = ({ dashboardUrl }: { dashboardUrl: string }) => {
 
       <motion.div
         css={notice_container}
-        initial={{ opacity: 0, transform: 'scale(1.05)' }}
+        initial={{ opacity: 0, transform: 'translateY(100px)' }}
         viewport={{ once: true, amount: 0.5 }}
-        whileInView={{ opacity: 1, transform: 'scale(1)' }}
-        transition={{ duration: 1 }}>
+        whileInView={{ opacity: 1, transform: 'translateY(0px)' }}
+        transition={{ duration: 0.6 }}>
         <div css={notice_title}>
           <span style={{ fontFamily: 'Outfit' }}>palms.blog</span>가 특별한 이유
         </div>
@@ -1001,12 +1177,13 @@ const LandingPage = ({ dashboardUrl }: { dashboardUrl: string }) => {
         </div>
       </motion.div>
 
-      <motion.div
+      {/* 적절한 질문이 없어 지금은 삭제 */}
+      {/* <motion.div
         css={notice_container}
-        initial={{ opacity: 0, transform: 'scale(1.05)' }}
+        initial={{ opacity: 0, transform: 'translateY(100px)' }}
         viewport={{ once: true, amount: 0.5 }}
-        whileInView={{ opacity: 1, transform: 'scale(1)' }}
-        transition={{ duration: 1 }}>
+        whileInView={{ opacity: 1, transform: 'translateY(0px)' }}
+        transition={{ duration: 0.6 }}>
         <div css={notice_title}>자주 묻는 질문</div>
         <div css={gray_row_container}>
           <div
@@ -1070,14 +1247,14 @@ const LandingPage = ({ dashboardUrl }: { dashboardUrl: string }) => {
             </p>
           </div>
         </div>
-      </motion.div>
+      </motion.div> */}
 
       <motion.div
         css={contact_container}
-        initial={{ opacity: 0, transform: 'scale(1.05)' }}
+        initial={{ opacity: 0, transform: 'translateY(100px)' }}
         viewport={{ once: true, amount: 0.5 }}
-        whileInView={{ opacity: 1, transform: 'scale(1)' }}
-        transition={{ duration: 1 }}>
+        whileInView={{ opacity: 1, transform: 'translateY(0px)' }}
+        transition={{ duration: 0.6 }}>
         <div css={contact_each}>
           <div css={contact_each_title}>
             다른 블로그 서비스를 쓰고 계신가요?
