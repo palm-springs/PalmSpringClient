@@ -12,6 +12,7 @@ const main = css`
   overflow-x: hidden;
   text-align: center;
   color: #343a40;
+  text-wrap: balance;
 `;
 const header = css`
   display: flex;
@@ -35,7 +36,7 @@ const inside_header = css`
 const logo = css`
   color: #000;
   font-family: 'Outfit', 'Pretendard', sans-serif;
-  font-size: 1.8rem;
+  font-size: 1.6rem;
   font-weight: 700;
 `;
 const menu_container = css`
@@ -84,24 +85,26 @@ const menu_button = (color) => {
   `;
 };
 const entrance_container = css`
-  background-color: blue;
+background: radial-gradient(129.07% 124.59% at 45.93% 21.05%, #FFF 0%, rgba(238, 249, 242, 0.84) 50%, rgba(152, 169, 202, 0.58) 100%);
   display: flex;
   gap: 4rem;
-  height: 100vh;
+  min-height: 100vh;
   align-items: center;
   justify-content: center;
   // margin-top: 8rem;
+  padding-top: 60px;
   @media (max-width: 768px) {
     flex-direction: column;
+    gap: 2rem;
   }
 `;
 const entrance_image = css`
   transform-origin: right center;
-  z-index: -1;
+  z-index: 1;
   width: 100%;
   max-width: 500px;
-  margin-top: -100px;
   @media (max-width: 768px) {
+    margin-top: -100px;
     max-width: 400px;
     margin-left: 40px;
     &::before {
@@ -127,11 +130,13 @@ const entrance_image = css`
   }
 `;
 const entrance_title_container = css`
+  z-index: 2;
   display: flex;
   flex-direction: column;
   align-items: flex-start;
   @media (max-width: 768px) {
     align-items: center;
+    // padding-bottom: 2rem;
   }
 `;
 const entrance_title_title = css`
@@ -185,7 +190,8 @@ const feature_container = css`
     padding: 2rem 1.5rem;
   }
   @media (max-width: 576px) {
-    padding: 2rem 1.5rem;
+    padding: 4rem 1.5rem 3rem;
+    align-items: flex-start;
   }
 `;
 const feature_title = css`
@@ -204,8 +210,10 @@ const feature_title = css`
     font-size: 2.2rem;
   }
   @media (max-width: 576px) {
-    font-size: 1.5rem;
+    font-size: 1.8rem;
     gap: 0.3rem;
+    row-gap: 0rem;
+    justify-content: flex-start;
   }
 `;
 const feature_description = css`
@@ -217,7 +225,8 @@ const feature_description = css`
   font-size: 1.125rem;
   @media (max-width: 576px) {
     font-size: 1rem;
-    margin-top: 0.5rem;
+    margin: 0.5rem 0 0 0;
+    text-align: left;
   }
 `;
 const feature_cta = css`
@@ -247,6 +256,9 @@ const feature_graphic_one_column_container = css`
     margin-right: 0.8rem;
     margin-left: 0.8rem;
   }
+  @media (max-width: 576px) {
+    margin-right: 0;
+    margin-left: 0;
 `;
 
 const feature_graphic_two_column_container = css`
@@ -255,6 +267,7 @@ const feature_graphic_two_column_container = css`
   gap: 2.25rem;
   align-items: center;
   margin-top: 2.2rem;
+  max-width: 900px;
 
   @media (max-width: 768px) {
     max-width: 500px;
@@ -262,6 +275,10 @@ const feature_graphic_two_column_container = css`
     // margin-right: 0.8rem;
     // margin-left: 0.8rem;
     flex-direction: column;
+  }
+  @media (max-width: 576px) {
+    gap: 1.5rem;
+    margin-top: 1.8rem;
   }
 `;
 const feature_graphic_seo = css`
@@ -339,13 +356,14 @@ const feature_graphic_customize = css`
   &::before {
     content: '';
     position: absolute;
-    bottom: 0;
+    bottom: -30px;
     left: 0;
     width: 100%;
     height: 40%;
     background: linear-gradient(180deg, rgba(244, 245, 248, 0.00) 0%, rgba(244, 245, 248, 1) 27%);
     z-index: 1;
     @media (max-width: 576px) {
+      bottom: -40px;
       height: 50%;
     }
   }
@@ -406,13 +424,13 @@ const feature_sub_container = css`
   justify-content: center;
   @media (max-width: 576px) {
     flex-direction: column;
-    gap: 2rem;
+    gap: 1.5rem;
     padding: 0 0.5rem;
   }
 `;
 const feature_sub_wrapper = css`
   width: 100%;
-  max-width: 380px;
+  // max-width: 380px;
   position: absolute;
   padding: 1.2rem;
   bottom: 0;
@@ -622,8 +640,8 @@ const footer = css`
 
 const seo_feature_sub_wrapper = css`
   width: 100%;
-  // max-width: 380px;
-  // min-width: 300px;
+  max-width: 360px;
+  min-width: 300px;
   @media (max-width: 768px) {
     max-width: unset;
   }
@@ -778,9 +796,11 @@ const LandingPage = ({ dashboardUrl }: { dashboardUrl: string }) => {
               alt=""
               css={css`
                 margin-top: -10px;
+                margin-bottom: 10px;
                 width: 100%;
                 @media (max-width: 768px) {
-                  margin-top: -24px;
+                  margin-top: -40px;
+                  margin-bottom: 40px;
                 }
               `}
               initial={{ opacity: 0, transform: 'translateY(80px)' }}
@@ -928,7 +948,6 @@ const LandingPage = ({ dashboardUrl }: { dashboardUrl: string }) => {
             <div css={seo_feature_sub_wrapper}>
               <div css={feature_sub_title}>
                 구글 로그인으로도, 회사 이메일로도
-                <br />
                 간편하게 사용할 수 있어요.
               </div>
               <div css={feature_sub_desc}>어떤 이메일로든 3초만에 가입해보세요.</div>
@@ -951,8 +970,16 @@ const LandingPage = ({ dashboardUrl }: { dashboardUrl: string }) => {
               feature_graphic_design,
               css`
                 // height: 400px;
-                @media (max-width: 768px) {
-                  box-shadow: 0 0 16px 0 rgba(64, 71, 79, 0.1);
+                box-shadow: 0 0 16px 0 rgba(64, 71, 79, 0.1);
+                @media (max-width: 576px) {
+                  min-height: 200px;
+                  justify-content: flex-start;
+                  > img {
+                    height: 201px;
+                    width: 552px;
+                    margin-left: 0rem;
+                    
+                  }
                 }
                 margin-bottom: 1rem;
               `,
