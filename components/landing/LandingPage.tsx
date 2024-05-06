@@ -85,7 +85,7 @@ const menu_button = (color) => {
   `;
 };
 const entrance_container = css`
-background: radial-gradient(129.07% 124.59% at 45.93% 21.05%, #FFF 0%, rgba(238, 249, 242, 0.84) 50%, rgba(152, 169, 202, 0.58) 100%);
+  background: radial-gradient(240.42% 109.49% at 38% 32.75%, #FFF 0%, rgba(238, 249, 242, 0.70) 42.76%, rgba(174, 199, 247, 0.13) 74.88%, rgba(186, 152, 202, 0.50) 97.5%);
   display: flex;
   gap: 4rem;
   min-height: 100vh;
