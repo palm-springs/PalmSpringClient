@@ -379,6 +379,7 @@ const TextEditorImport = (props: TextEditorImportProps) => {
             images: imageArr,
           });
 
+          //세션스토리지에 id값 저장
           const articleId = res.data;
           if (articleId) {
             sessionStorage?.setItem(ARTICLE_DATA_ID, articleId);
@@ -587,6 +588,18 @@ const TextEditorImport = (props: TextEditorImportProps) => {
     updateDataRouterChange(content, Number(articleId), `article/${articleId}/edit/publish`);
   };
 
+  //article page 최초 발행하기 만약 자동임시저장되었다면 수정하기 api로 변환하기
+  const handleOnSavedArticlePublish = () => {
+    if (isDraftSave) {
+      const dataArticleId = sessionStorage?.getItem(ARTICLE_DATA_ID);
+      if (!editor) return;
+      const content = document.querySelector('[contenteditable="true"]')!.innerHTML;
+      updateDataRouterChange(content, Number(dataArticleId), `article/publish`);
+    } else {
+      handleOnClickArticlePublish();
+    }
+  };
+
   // page 수정시 발행페이지 이동
   const handleUpdateGoPagePublish = () => {
     if (!editor) return;
@@ -608,6 +621,18 @@ const TextEditorImport = (props: TextEditorImportProps) => {
     updateDataRouterChange(content, Number(pageId), `page/${pageId}/draft/publish`);
   };
 
+  //페이지 page 최초 발행하기 만약 자동임시저장되었다면 수정하기 api로 변환하기
+  const handleOnSavedPagePublish = () => {
+    if (isDraftSave) {
+      const dataPageId = sessionStorage?.getItem(PAGE_DATA_ID);
+      if (!editor) return;
+      const content = document.querySelector('[contenteditable="true"]')!.innerHTML;
+      updateDataRouterChange(content, Number(dataPageId), `page/publish`);
+    } else {
+      handleOnClickPagePublish();
+    }
+  };
+
   return (
     <>
       <ToolBox editor={editor} encodeFileToBase64={encodeFileToBase64} atTop={atTop} setAtTop={setAtTop} />
@@ -621,7 +646,7 @@ const TextEditorImport = (props: TextEditorImportProps) => {
               ? handleUpdateGoArticlePublish
               : currentState === 'draft'
               ? handleUpdateDraftArticlePublish
-              : handleOnClickArticlePublish
+              : handleOnSavedArticlePublish
           }
           isEdit={currentState === 'edit' ? true : false}
           atTop={atTop}
@@ -638,7 +663,7 @@ const TextEditorImport = (props: TextEditorImportProps) => {
               ? handleUpdateGoPagePublish
               : currentState === 'draft'
               ? handleUpdateDraftPagePublish
-              : handleOnClickPagePublish
+              : handleOnSavedPagePublish
           }
           isEdit={currentState === 'edit' ? true : false} // edit이 아닌 경우는 draft 경우임
           atTop={atTop}
