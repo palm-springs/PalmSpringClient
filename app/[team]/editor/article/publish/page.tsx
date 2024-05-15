@@ -33,6 +33,7 @@ const ArticlePublishPage = () => {
             pageType="article"
             isDuplicate={isDuplicate}
             isAddressRulePassed={isAddressRulePassed}
+            currentState="draftSaved"
           />
         </ArticlePublishContainer>
       </PublishContainer>
