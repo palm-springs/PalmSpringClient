@@ -7,6 +7,7 @@ import styled from 'styled-components';
 
 import { postArticleCreateList } from '@/api/article';
 import { postPageCreate } from '@/api/page';
+import { ARTICLE_DATA_ID, PAGE_DATA_ID } from '@/constants/editor';
 import {
   QUERY_KEY_ARTICLE,
   useUpdateArticleContent,
@@ -56,6 +57,8 @@ const PublishBottomButtons = (props: PublishBottomButtons) => {
 
   // sessionStorage
   const sessionStorage = checkSessionStorage();
+  const savedArticleId = sessionStorage?.getItem(ARTICLE_DATA_ID);
+  const savedPageId = sessionStorage?.getItem(PAGE_DATA_ID);
 
   //아티클 최종 발행하기
   const handleOnClickArticlePublish = async () => {
@@ -86,18 +89,33 @@ const PublishBottomButtons = (props: PublishBottomButtons) => {
 
   //임시저장 아티클 수정하기 후 최종 발행하기
   const handleTempArticleUpdatePublish = () => {
-    draftArticleMutation.mutate(
-      {
-        ...articleData,
-        id: Number(articleId),
-        isPublish: true,
-      },
-      {
-        onSuccess: () => {
-          queryClient.invalidateQueries([QUERY_KEY_ARTICLE.getArticleList]);
+    if (savedArticleId) {
+      draftArticleMutation.mutate(
+        {
+          ...articleData,
+          id: Number(savedArticleId),
+          isPublish: true,
         },
-      },
-    );
+        {
+          onSuccess: () => {
+            queryClient.invalidateQueries([QUERY_KEY_ARTICLE.getArticleList]);
+          },
+        },
+      );
+    } else {
+      draftArticleMutation.mutate(
+        {
+          ...articleData,
+          id: Number(articleId),
+          isPublish: true,
+        },
+        {
+          onSuccess: () => {
+            queryClient.invalidateQueries([QUERY_KEY_ARTICLE.getArticleList]);
+          },
+        },
+      );
+    }
     resetArticleData();
     removeDraftContentData();
     router.push(`/${team}/dashboard/upload`);
@@ -121,12 +139,21 @@ const PublishBottomButtons = (props: PublishBottomButtons) => {
 
   //임시저장 페이지 수정하기 후 최종 발행하기
   const handleTempPageUpdatePublish = () => {
-    draftPageMutation.mutate({
-      ...updatedPageData,
-      id: Number(pageId),
-      isPublish: true,
-    });
-    resetArticleData();
+    if (savedPageId) {
+      draftPageMutation.mutate({
+        ...updatedPageData,
+        id: Number(savedPageId),
+        isPublish: true,
+      });
+    } else {
+      draftPageMutation.mutate({
+        ...updatedPageData,
+        id: Number(pageId),
+        isPublish: true,
+      });
+    }
+
+    resetPageData();
     removeDraftContentData();
     router.push(`/${team}/dashboard/page`);
   };
