@@ -1,17 +1,52 @@
-import React, { Dispatch, MouseEventHandler, SetStateAction } from 'react';
+import React from 'react';
+import { useDrag, useDrop } from 'react-dnd';
 import { styled } from 'styled-components';
+
+import { test } from '../BlogList';
 
 interface IndivBlogProps {
   isCurrentBlog: boolean;
   innerText: string;
+  blogUrl: string;
   handleChange: () => void;
+  moveBlog: (id: string, to: number) => void;
+  findBlog: (id: string) => { index: number };
 }
 
 const IndivBlog = (props: IndivBlogProps) => {
-  const { isCurrentBlog, innerText, handleChange } = props;
+  const { isCurrentBlog, innerText, handleChange, blogUrl, moveBlog, findBlog } = props;
+
+  const originIndex = findBlog(blogUrl).index;
+
+  const [{ isDragging }, drag] = useDrag(() => ({
+    type: typeof test,
+    item: { blogUrl, originIndex },
+    collect: (monitor) => ({
+      isDragging: monitor.isDragging(),
+    }),
+    end: (item, monitor) => {
+      const { blogUrl: droppedUrl, originIndex } = item;
+      const didDrop = monitor.didDrop();
+      if (!didDrop) {
+        moveBlog(droppedUrl, originIndex);
+      }
+    },
+  }));
+
+  const [, drop] = useDrop(() => ({
+    accept: typeof test,
+    hover({ blogUrl: draggedUrl }: typeof test) {
+      if (draggedUrl !== blogUrl) {
+        const { index: overIndex } = findBlog(blogUrl);
+        moveBlog(draggedUrl, overIndex);
+      }
+    },
+  }), [findBlog, moveBlog]);
+
+  const opacity = isDragging ? 0 : 1;
 
   return (
-    <IndivBlogUI $isCurrentBlog={isCurrentBlog} onMouseDown={handleChange}>
+    <IndivBlogUI ref={(node) => drag(drop(node))} $isCurrentBlog={isCurrentBlog} style={{ opacity }}>
       {innerText}
     </IndivBlogUI>
   );
@@ -19,7 +54,7 @@ const IndivBlog = (props: IndivBlogProps) => {
 
 export default IndivBlog;
 
-const IndivBlogUI = styled.span<{ $isCurrentBlog: boolean }>`
+const IndivBlogUI = styled.div<{ $isCurrentBlog: boolean }>`
   ${({ theme, $isCurrentBlog }) => ($isCurrentBlog ? theme.fonts.Body3_Semibold : theme.fonts.Body3_Regular)};
   transition: 0.3s ease-out;
   border-radius: 0.8rem;

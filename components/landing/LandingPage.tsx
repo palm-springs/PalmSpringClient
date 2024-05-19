@@ -1,12 +1,13 @@
 /** @jsxImportSource @emotion/react */
 'use client';
 
-import useCheckMobile from '@/hooks/useCheckMobile';
+import { useEffect } from 'react';
 import { css } from '@emotion/react';
 import { easeIn, easeInOut, motion } from 'framer-motion';
 import Link from 'next/link';
 import { useRouter } from 'next/navigation';
-import { useEffect } from 'react';
+
+import useCheckMobile from '@/hooks/useCheckMobile';
 
 const main = css`
   overflow-x: hidden;
@@ -698,7 +699,7 @@ const LandingPage = ({ dashboardUrl }: { dashboardUrl: string }) => {
               initial={{ opacity: 0, transform: 'perspective(600px) rotateX(25deg) rotateZ(2deg) scale(1.3)' }}
               viewport={{ once: true, amount: 0.5 }}
               whileInView={{ opacity: 1, transform: 'perspective(800px) rotateX(15deg) rotateZ(0deg) scale(1)' }}
-              transition={{ duration: 0.6, ease: "easeInOut"  }}
+              transition={{ duration: 0.6, ease: "easeInOut" }}
               style={{ width: '100%' }}
             />
           ) : (
@@ -994,15 +995,15 @@ const LandingPage = ({ dashboardUrl }: { dashboardUrl: string }) => {
                 margin-bottom: 1rem;
               `,
             ]}>
-              <motion.img
-                src="/images/design.gif"
-                alt="아름다운 디자인 예시"
-                css={css`
+            <motion.img
+              src="/images/design.gif"
+              alt="아름다운 디자인 예시"
+              css={css`
                   box-shadow: 0 0 10px 0 rgba(64, 71, 79, 0.1);
                   width: 100%;
                 `}
-                viewport={{ once: true }}
-              />
+              viewport={{ once: true }}
+            />
           </div>
         </div>
         <a href="https://duckduck.palms.blog" target="_blank" rel="noopener noreferrer">
