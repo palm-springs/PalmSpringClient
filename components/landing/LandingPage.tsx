@@ -42,7 +42,7 @@ const logo = css`
 const menu_container = css`
   display: flex;
   gap: 16px;
-  @media (max-width: 768px) {
+  @media (max-width: 576px) {
     display: none;
   }
 `;
@@ -85,7 +85,6 @@ const menu_button = (color) => {
   `;
 };
 const entrance_container = css`
-  background: radial-gradient(240.42% 109.49% at 38% 32.75%, #FFF 0%, rgba(238, 249, 242, 0.70) 42.76%, rgba(174, 199, 247, 0.13) 74.88%, rgba(186, 152, 202, 0.50) 97.5%);
   display: flex;
   gap: 4rem;
   min-height: 100vh;
@@ -96,6 +95,17 @@ const entrance_container = css`
   @media (max-width: 768px) {
     flex-direction: column;
     gap: 2rem;
+  }
+  &::after {
+    height: 100%;
+    width: 100%;
+    content: '';
+    position: absolute;
+    top: 0;
+    left: 0;
+    background: radial-gradient(240.42% 109.49% at 38% 32.75%, #FFF 0%, rgba(238, 249, 242, 0.70) 42.76%, rgba(174, 199, 247, 0.13) 74.88%, rgba(186, 152, 202, 0.50) 97.5%);
+    z-index: 1;
+    mix-blend-mode: multiply;
   }
 `;
 const entrance_image = css`
