@@ -35,4 +35,8 @@ const BlogListUI = styled.section`
   &::-webkit-scrollbar {
     display: none;
   }
+
+  & > div {
+    width: 100%;
+  }
 `;

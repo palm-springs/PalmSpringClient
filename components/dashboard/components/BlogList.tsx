@@ -1,4 +1,4 @@
-import { Dispatch, RefObject, SetStateAction, useCallback, useState } from 'react';
+import { Dispatch, RefObject, SetStateAction, useCallback, useEffect, useState } from 'react';
 import { useDrop } from 'react-dnd';
 import update from 'immutability-helper';
 import { usePathname, useRouter } from 'next/navigation';
@@ -6,6 +6,7 @@ import { useSetRecoilState } from 'recoil';
 
 import LoadingLottie from '@/components/common/ui/LoadingLottie';
 import { useGetUserInfo } from '@/hooks/dashboard';
+import useDnD from '@/hooks/useDnD';
 import userState from '@/recoil/atom/user';
 import { RoleType } from '@/utils/PermissionPolicyClass';
 
@@ -29,15 +30,14 @@ const BlogList = (props: BlogListProps) => {
   const { currentBlog, setCurrentBlog, blogListRef } = props;
 
   const res = useGetUserInfo();
-
   const router = useRouter();
   const path = usePathname();
 
   const setUserValue = useSetRecoilState(userState);
 
-  const [, drop] = useDrop(() => ({ accept: typeof test }));
-
   const [list, setList] = useState(res?.data.joinBlogList ?? []);
+
+  const [, drop] = useDrop(() => ({ accept: typeof test }));
 
   const findItem = useCallback((blogUrl: string) => {
     const item = list.filter((i) => `${i.blogUrl}` === blogUrl)[0] as typeof test;
@@ -66,8 +66,6 @@ const BlogList = (props: BlogListProps) => {
     );
   }
 
-  const userData = res.data;
-
   return (
     <BlogListContainer blogListRef={blogListRef}>
       <div ref={drop}>
@@ -78,8 +76,8 @@ const BlogList = (props: BlogListProps) => {
               innerText={blogName}
               key={blogName}
               blogUrl={blogUrl}
-              moveBlog={moveItem}
               findBlog={findItem}
+              moveBlog={moveItem}
               handleChange={() => {
                 setCurrentBlog(idx);
                 setUserValue((prev) => {
