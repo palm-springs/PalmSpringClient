@@ -10,13 +10,9 @@ const useDnD = <
 >({
   list,
   setList,
-  moveItem,
-  findItem,
 }: {
   list: Array<T>;
   setList: Dispatch<SetStateAction<Array<T>>>;
-  moveItem: (i: I, to: number) => void;
-  findItem: (i: I) => { index: number };
 }) => {
   let dndItem: T;
 
@@ -49,33 +45,33 @@ const useDnD = <
       },
     }));
 
-  // const findItem = (i: I) => {
-  //   const item = list.filter((x) => `${x.i}` === i)[0] as T;
-  //   return {
-  //     item,
-  //     index: list.indexOf(item),
-  //   };
-  // };
+  const findItem = (i: I) => {
+    const item = list.filter((x) => `${x.i}` === i)[0] as T;
+    return {
+      item,
+      index: list.indexOf(item),
+    };
+  };
 
-  // const moveItem = (i: I, atIndex: number) => {
-  //   const { item, index } = findItem(i);
+  const moveItem = (i: I, atIndex: number) => {
+    const { item, index } = findItem(i);
 
-  //   setList(
-  //     update(list, {
-  //       $splice: [
-  //         [index, 1],
-  //         [atIndex, 0, item],
-  //       ],
-  //     }),
-  //   );
-  // };
+    setList(
+      update(list, {
+        $splice: [
+          [index, 1],
+          [atIndex, 0, item],
+        ],
+      }),
+    );
+  };
 
   return {
     useDropForParent,
     useDropForChild,
     useDragForChild,
-    // findItem,
-    // moveItem,
+    findItem,
+    moveItem,
   };
 };
 
