@@ -117,6 +117,21 @@ const TextEditorImport = (props: TextEditorImportProps) => {
           //true 반환해야 다른 동작 트리거 안함(tap의 역할 하나로 지정)
           return true;
         },
+        //shift-tab 누르면 끝에 공백 4칸 찾아서 제거
+        'Shift-Tab': () => {
+          const { state, dispatch } = this.editor.view; // 에디터 적용 dispatch 이용(proseMirror 참조)
+          //범위 제한
+          const { $from } = state.selection;
+          const startPoint = $from.start();
+          const endPoint = $from.end();
+
+          const textContent = state.doc.textBetween(startPoint, endPoint);
+          // 정규식으로 공백 삭제
+          const newTextContent = textContent.replace(/ {4}$/, '');
+          dispatch(state.tr.replaceWith(startPoint, endPoint, state.schema.text(newTextContent)));
+
+          return true;
+        },
       };
     },
   });
