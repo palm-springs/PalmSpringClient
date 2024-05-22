@@ -274,10 +274,18 @@ const TextEditorImport = (props: TextEditorImportProps) => {
 
   //이미지 복붙
   const ctrlVImage: ClipboardEventHandler<HTMLInputElement> = useCallback(async () => {
-    const base64ImgElements = document.querySelector('img[src*="base64"]');
+    const base64ImgElements = document.querySelector('img[src*="base64"], img:not([src="cdn"])');
 
+    console.log(base64ImgElements);
     const base64eArr = base64ImgElements?.getAttribute('src');
+
+    console.log(base64eArr);
+
     base64ImgElements?.remove();
+
+    console.log(base64ImgElements);
+
+    console.log(base64eArr);
 
     const transImage = async () => {
       if (!editor || !base64eArr) {
