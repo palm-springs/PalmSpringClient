@@ -28,7 +28,7 @@ const DeleteButton = () => {
   const handleWithdrawTeam = async () => {
     const {
       data: { joinBlogList },
-    } = await updateWithdrawTeam(team);
+    } = await updateWithdrawTeam(team as string);
 
     if (joinBlogList.length === 0) {
       router.push('/no-team/dashboard/upload');

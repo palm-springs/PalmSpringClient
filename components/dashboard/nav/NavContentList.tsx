@@ -1,12 +1,15 @@
 'use client';
 
-import React, { useState } from 'react';
+import React, { useCallback, useState } from 'react';
+import { useDrop } from 'react-dnd';
+import update from 'immutability-helper';
 import { useParams } from 'next/navigation';
 import { useSetRecoilState } from 'recoil';
 
 import EmptyLanding from '@/components/common/ui/EmptyLanding';
 import LoadingLottie from '@/components/common/ui/LoadingLottie';
 import { useGetNavList } from '@/hooks/dashboard';
+import { NavListProps } from '@/types/dashboard';
 
 import DashBoardContent from '../components/DashBoardContent';
 import DashBoardContentListContainer from '../components/ui/DashBoardContentListContainer';
@@ -15,14 +18,39 @@ import { dashBoardModalState } from '../state/modalState';
 
 import IndivNavDashboardContent from './IndivNavDashboardContent';
 
+export let IndivNavContentInstance: NavListProps;
+
 const NavContentList = () => {
   const { team: blogUrl } = useParams();
 
-  const data = useGetNavList(blogUrl);
+  const data = useGetNavList(blogUrl as string);
 
   const setDashBoardModalState = useSetRecoilState(dashBoardModalState);
 
+  const [list, setList] = useState(data?.data ?? []);
+
+  const [, drop] = useDrop(() => ({ accept: typeof IndivNavContentInstance }));
+
   const [currentModalId, setCurrentModalId] = useState<number | null>(null);
+
+  const findItem = useCallback((navUrl: string) => {
+    const item = list.filter((i) => `${i.navUrl}` === navUrl)[0] as typeof IndivNavContentInstance;
+    return {
+      item,
+      index: list.indexOf(item),
+    };
+  }, [list]);
+
+  const moveItem = useCallback((navUrl: string, atIndex: number) => {
+    const { item, index } = findItem(navUrl);
+
+    setList(update(list, {
+      $splice: [
+        [index, 1],
+        [atIndex, 0, item],
+      ],
+    }));
+  }, [findItem, list, setList]);
 
   if (!data)
     return (
@@ -42,7 +70,7 @@ const NavContentList = () => {
   ) : (
     <DashBoardContentListContainer>
       <DashBoardContent id="컨텐츠바" content="이름" url="URL" />
-      {data.data.map(({ id, name, navUrl, isPage }) => {
+      {list.map(({ id, name, navUrl, isPage }) => {
         return (
           <IndivNavDashboardContent
             key={id}
@@ -51,8 +79,10 @@ const NavContentList = () => {
             id={id}
             content={name}
             url={navUrl}
-            blogUrl={blogUrl}
+            blogUrl={blogUrl as string}
             isPage={isPage}
+            findItem={findItem}
+            moveItem={moveItem}
           />
         );
       })}

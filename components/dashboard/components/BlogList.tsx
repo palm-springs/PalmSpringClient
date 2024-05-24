@@ -1,4 +1,4 @@
-import { Dispatch, RefObject, SetStateAction, useCallback, useEffect, useState } from 'react';
+import { Dispatch, RefObject, SetStateAction, useCallback, useState } from 'react';
 import { useDrop } from 'react-dnd';
 import update from 'immutability-helper';
 import { usePathname, useRouter } from 'next/navigation';
@@ -6,7 +6,6 @@ import { useSetRecoilState } from 'recoil';
 
 import LoadingLottie from '@/components/common/ui/LoadingLottie';
 import { useGetUserInfo } from '@/hooks/dashboard';
-import useDnD from '@/hooks/useDnD';
 import userState from '@/recoil/atom/user';
 import { RoleType } from '@/utils/PermissionPolicyClass';
 

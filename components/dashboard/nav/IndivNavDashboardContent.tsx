@@ -1,4 +1,5 @@
 import { Dispatch, SetStateAction, useState } from 'react';
+import { useDrag, useDrop } from 'react-dnd';
 import { useRecoilState } from 'recoil';
 
 import ModalPortal from '@/components/common/ModalPortal';
@@ -8,6 +9,7 @@ import DashBoardContent from '../components/DashBoardContent';
 import DashboardContentDeleteModal from '../components/DashboardContentDeleteModal';
 import { dashBoardModalState } from '../state/modalState';
 
+import { IndivNavContentInstance } from './NavContentList';
 import UpdateNavigationModal from './UpdateNavigationModal';
 
 interface IndivNavDashboardContentProps {
@@ -18,10 +20,12 @@ interface IndivNavDashboardContentProps {
   url: string;
   blogUrl: string;
   isPage: boolean;
+  moveItem: (id: string, to: number) => void;
+  findItem: (id: string) => { index: number };
 }
 
 const IndivNavDashboardContent = (props: IndivNavDashboardContentProps) => {
-  const { currentModalId, setCurrentModalId, id, content, url, blogUrl, isPage } = props;
+  const { currentModalId, setCurrentModalId, id, content, url, blogUrl, isPage, moveItem, findItem } = props;
 
   const { mutate: deleteNav } = useDeleteNavigation(blogUrl, id);
 
@@ -33,6 +37,35 @@ const IndivNavDashboardContent = (props: IndivNavDashboardContentProps) => {
 
   const [updateNavigationUrl, setUpdateNavigationUrl] = useState<string>(url);
 
+  const originIndex = findItem(blogUrl).index;
+
+  const [{ isDragging }, drag] = useDrag(() => ({
+    type: typeof IndivNavContentInstance,
+    item: { blogUrl, originIndex },
+    collect: (monitor) => ({
+      isDragging: monitor.isDragging(),
+    }),
+    end: (item, monitor) => {
+      const { blogUrl: droppedUrl, originIndex } = item;
+      const didDrop = monitor.didDrop();
+      if (!didDrop) {
+        moveItem(droppedUrl, originIndex);
+      }
+    },
+  }));
+
+  const [, drop] = useDrop(() => ({
+    accept: typeof IndivNavContentInstance,
+    hover({ navUrl: draggedUrl }: typeof IndivNavContentInstance) {
+      if (draggedUrl !== blogUrl) {
+        const { index: overIndex } = findItem(blogUrl);
+        moveItem(draggedUrl, overIndex);
+      }
+    },
+  }), [findItem, moveItem]);
+
+  const opacity = isDragging ? 0 : 1;
+
   return (
     <>
       <DashBoardContent
@@ -40,6 +73,8 @@ const IndivNavDashboardContent = (props: IndivNavDashboardContentProps) => {
         id={String(id)}
         content={content}
         url={url}
+        ref={(node) => drag(drop(node))}
+        style={{ opacity }}
         onTitleClick={() => {
           if (isPage) {
             window.open(`https://${blogUrl}.${process.env.NEXT_PUBLIC_DOMAIN_NAME}/content/page/${url}/${id}`);
