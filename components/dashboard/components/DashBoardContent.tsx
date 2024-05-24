@@ -1,12 +1,12 @@
 'use client';
 
-import React, { useState } from 'react';
+import React, { ComponentPropsWithRef, useState } from 'react';
 
 import { useDashboardContext } from '../context/dashboardContext';
 
 import DashBoardContentContainer from './ui/DashBoardContentContainer';
 
-export interface DashBoardContentProps {
+export interface DashBoardContentProps extends ComponentPropsWithRef<"div"> {
   id: string;
   email?: string;
   content?: string;
