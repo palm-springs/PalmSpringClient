@@ -1,13 +1,5 @@
 'use client';
-import React, {
-  ChangeEvent,
-  ClipboardEventHandler,
-  DragEvent,
-  DragEventHandler,
-  useCallback,
-  useEffect,
-  useState,
-} from 'react';
+import React, { ChangeEvent, DragEvent, DragEventHandler, useCallback, useEffect, useState } from 'react';
 import Blockquote from '@tiptap/extension-blockquote';
 import Bold from '@tiptap/extension-bold';
 import BulletList from '@tiptap/extension-bullet-list';
@@ -46,7 +38,7 @@ import { useUpdateTempArticleDraft, useUpdateTempPageDraft } from '@/hooks/edito
 import { UpdateArticleProps } from '@/types/article';
 import { UpdatePageProps } from '@/types/page';
 import { checkSessionStorage } from '@/utils/checkSessionStorage';
-import { getEditorContent } from '@/utils/getEditorContent';
+import { getEditorContent } from '@/utils/editor/getEditorContent';
 import { getContentImageMultipartData } from '@/utils/getImageMultipartData';
 import { createToast } from '@/utils/lib/toast';
 
@@ -289,11 +281,6 @@ const TextEditorImport = (props: TextEditorImportProps) => {
     };
     reader.readAsDataURL(file);
   };
-
-  //이미지 복붙시) cdn 주소로 src 변경 함수
-  const ctrlVImage: ClipboardEventHandler<HTMLInputElement> = useCallback(() => {
-    console.log('');
-  }, [editor, setImageSrc]);
 
   //이미지 drag & drop
   const handleDrop: DragEventHandler<HTMLDivElement> = useCallback(
@@ -645,7 +632,7 @@ const TextEditorImport = (props: TextEditorImportProps) => {
   return (
     <>
       <ToolBox editor={editor} encodeFileToBase64={encodeFileToBase64} atTop={atTop} setAtTop={setAtTop} />
-      <TextEditor editor={editor} handleDrop={handleDrop} handleDragOver={handleDragOver} ctrlVImage={ctrlVImage} />
+      <TextEditor editor={editor} handleDrop={handleDrop} handleDragOver={handleDragOver} />
 
       {pageType === 'article' ? (
         <SaveEditorContentButton

@@ -1,7 +1,7 @@
-import { getContentCtrlVImage } from './getImageMultipartData';
+import { getContentCtrlVImage } from '../getImageMultipartData';
 
 // 이미지 CDN 주소로 바꿔 끼우기 함수
-const changeImgSrc = async (team) => {
+const changeImgSrc = async (team: string) => {
   const imgList = document.querySelectorAll('img:not([src^="https://cdn.palms.blog/"]):not([class])');
   const tempImgArray: string[] = [];
 
@@ -19,7 +19,7 @@ const changeImgSrc = async (team) => {
   return tempImgArray;
 };
 
-export const getEditorContent = async (team) => {
+export const getEditorContent = async (team: string) => {
   const newImgArr = await changeImgSrc(team);
   const content = document.querySelector('[contenteditable="true"]')?.innerHTML;
 

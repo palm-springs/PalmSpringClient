@@ -1,13 +1,6 @@
 'use client';
 
-import {
-  ChangeEventHandler,
-  ClipboardEventHandler,
-  DragEventHandler,
-  FormEventHandler,
-  useEffect,
-  useState,
-} from 'react';
+import { DragEventHandler, useEffect, useState } from 'react';
 import { Editor, EditorContent } from '@tiptap/react';
 import styled from 'styled-components';
 
@@ -15,10 +8,9 @@ interface editorProps {
   editor: Editor | null;
   handleDragOver: DragEventHandler<HTMLDivElement> | undefined;
   handleDrop: DragEventHandler<HTMLDivElement> | undefined;
-  ctrlVImage: ClipboardEventHandler<HTMLDivElement> | undefined;
 }
 
-const TextEditor = ({ editor, handleDragOver, handleDrop, ctrlVImage }: editorProps) => {
+const TextEditor = ({ editor, handleDragOver, handleDrop }: editorProps) => {
   // const [editorHeight, setEditorHeight] = useState<number>(650);
 
   const [long, setlong] = useState<boolean>(false);
@@ -45,7 +37,6 @@ const TextEditor = ({ editor, handleDragOver, handleDrop, ctrlVImage }: editorPr
       id="dropzone"
       onDrop={handleDrop}
       onDragOver={handleDragOver}
-      onPaste={ctrlVImage}
       style={{ height: 'fit-content' }}>
       <EditorContainer tabIndex={-1}>
         <TextEditorUI editor={editor} $long={long} tabIndex={0} />
