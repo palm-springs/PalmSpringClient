@@ -287,39 +287,23 @@ const TextEditorImport = (props: TextEditorImportProps) => {
     reader.readAsDataURL(file);
   };
 
-  //이미지 복붙
-  const ctrlVImage: ClipboardEventHandler<HTMLInputElement> = useCallback(async () => {
-    const base64ImgElements = document.querySelector('img[src*="base64"], img:not([src="cdn"])');
+  //이미지 복붙시) cdn 주소로 src 변경 함수
+  const ctrlVImage: ClipboardEventHandler<HTMLInputElement> = useCallback(() => {
+    setTimeout(async () => {
+      const prevImgSrc = document
+        .querySelector('img:not([src^="https://cdn.palms.blog/"]):not([class])')
+        ?.getAttribute('src');
 
-    console.log(base64ImgElements);
-    const base64eArr = base64ImgElements?.getAttribute('src');
+      if (!prevImgSrc) return;
 
-    console.log(base64eArr);
-
-    base64ImgElements?.remove();
-
-    console.log(base64ImgElements);
-
-    console.log(base64eArr);
-
-    const transImage = async () => {
-      if (!editor || !base64eArr) {
-        return null;
-      }
-      const blob = await fetch(base64eArr).then((res) => res.blob());
-
+      const blob = await fetch(prevImgSrc).then((res) => res.blob());
       // Blob을 파일로 변환
       const file = new File([blob], 'image.png', { type: 'image/png' });
-
       // 이미지 서버 통신 코드
       const imgUrl = await getContentCtrlVImage(file, String(team));
-
       imageArr.push(imgUrl);
-      if (imgUrl) {
-        editor.chain().focus().setImage({ src: imgUrl }).run();
-      }
-    };
-    await transImage();
+      document.querySelector('img:not([src^="https://cdn.palms.blog/"]):not([class])')?.setAttribute('src', imgUrl);
+    }, 0);
   }, [editor, setImageSrc]);
 
   //이미지 drag & drop
