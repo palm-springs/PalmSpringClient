@@ -1,13 +1,5 @@
 'use client';
-import React, {
-  ChangeEvent,
-  ClipboardEventHandler,
-  DragEvent,
-  DragEventHandler,
-  useCallback,
-  useEffect,
-  useState,
-} from 'react';
+import React, { ChangeEvent, DragEvent, DragEventHandler, useCallback, useEffect, useState } from 'react';
 import Blockquote from '@tiptap/extension-blockquote';
 import Bold from '@tiptap/extension-bold';
 import BulletList from '@tiptap/extension-bullet-list';
@@ -46,7 +38,8 @@ import { useUpdateTempArticleDraft, useUpdateTempPageDraft } from '@/hooks/edito
 import { UpdateArticleProps } from '@/types/article';
 import { UpdatePageProps } from '@/types/page';
 import { checkSessionStorage } from '@/utils/checkSessionStorage';
-import { getContentCtrlVImage, getContentImageMultipartData } from '@/utils/getImageMultipartData';
+import { getEditorContent } from '@/utils/editor/getEditorContent';
+import { getContentImageMultipartData } from '@/utils/getImageMultipartData';
 import { createToast } from '@/utils/lib/toast';
 
 import { articleDataState, isSaved, pageDataState } from './states/atom';
@@ -187,8 +180,9 @@ const TextEditorImport = (props: TextEditorImportProps) => {
       setIsSaved(false);
       // 여기를 보세요2. 그래서 여기 업데이트 될때마다 현상태를 다시 추출해서 넣어줌
       if (!editor) return;
-      const changeDataSensing = editor.getHTML();
-      setPrevData(changeDataSensing);
+      const changeDataSensing = document.querySelector('[contenteditable="true"]')?.innerHTML;
+
+      setPrevData(changeDataSensing || '');
     },
   });
 
@@ -215,7 +209,8 @@ const TextEditorImport = (props: TextEditorImportProps) => {
     }
 
     // 여기를 보세요1. 마운트될때 이전데이터와 같은지 비교하기 위햇 여기서 한번 추출하기 -> 근데 여기서만 추출하면 업데이트를 감지하지 못함
-    const prevDataSaved = editor.getHTML();
+    const prevDataSaved = document.querySelector('[contenteditable="true"]')?.innerHTML || '';
+
     setPrevData(prevDataSaved);
 
     const isDraftSaveAllowed = () => {
@@ -287,41 +282,6 @@ const TextEditorImport = (props: TextEditorImportProps) => {
     reader.readAsDataURL(file);
   };
 
-  //이미지 복붙
-  const ctrlVImage: ClipboardEventHandler<HTMLInputElement> = useCallback(async () => {
-    const base64ImgElements = document.querySelector('img[src*="base64"], img:not([src="cdn"])');
-
-    console.log(base64ImgElements);
-    const base64eArr = base64ImgElements?.getAttribute('src');
-
-    console.log(base64eArr);
-
-    base64ImgElements?.remove();
-
-    console.log(base64ImgElements);
-
-    console.log(base64eArr);
-
-    const transImage = async () => {
-      if (!editor || !base64eArr) {
-        return null;
-      }
-      const blob = await fetch(base64eArr).then((res) => res.blob());
-
-      // Blob을 파일로 변환
-      const file = new File([blob], 'image.png', { type: 'image/png' });
-
-      // 이미지 서버 통신 코드
-      const imgUrl = await getContentCtrlVImage(file, String(team));
-
-      imageArr.push(imgUrl);
-      if (imgUrl) {
-        editor.chain().focus().setImage({ src: imgUrl }).run();
-      }
-    };
-    await transImage();
-  }, [editor, setImageSrc]);
-
   //이미지 drag & drop
   const handleDrop: DragEventHandler<HTMLDivElement> = useCallback(
     async (event) => {
@@ -389,12 +349,13 @@ const TextEditorImport = (props: TextEditorImportProps) => {
   const handleOnClickArticleDraft = async () => {
     try {
       if (editor) {
-        const content = editor.getHTML();
+        const { content, newImgArr } = await getEditorContent(team);
+        setImageArr((prev) => [...prev, ...newImgArr]);
+
         setArticleData((prev) => ({
           ...prev,
           content,
         }));
-
         try {
           const res = await postArticleList(String(team), {
             title: articleData.title,
@@ -421,7 +382,8 @@ const TextEditorImport = (props: TextEditorImportProps) => {
   const handleOnClickPageDraft = async () => {
     try {
       if (editor) {
-        const content = editor.getHTML();
+        const { content, newImgArr } = await getEditorContent(team);
+        setImageArr((prev) => [...prev, ...newImgArr]);
 
         setPageData((prev) => ({
           ...prev,
@@ -449,10 +411,11 @@ const TextEditorImport = (props: TextEditorImportProps) => {
   };
 
   //article 임시저장 최초 Post후 임시저장시 임시저장put --> article 임시저장 수정하기의 임시저장
-  const handleDataArticleDraft = () => {
+  const handleDataArticleDraft = async () => {
     try {
       if (editor) {
-        const content = editor.getHTML();
+        const { content, newImgArr } = await getEditorContent(team);
+        setImageArr((prev) => [...prev, ...newImgArr]);
 
         setArticleData((prev) => ({
           ...prev,
@@ -476,10 +439,11 @@ const TextEditorImport = (props: TextEditorImportProps) => {
   };
 
   //article 임시저장시 임시저장put --> article 임시저장 수정하기의 임시저장
-  const handleTempArticleDraft = () => {
+  const handleTempArticleDraft = async () => {
     try {
       if (editor) {
-        const content = editor.getHTML();
+        const { content, newImgArr } = await getEditorContent(team);
+        setImageArr((prev) => [...prev, ...newImgArr]);
 
         setArticleData((prev) => ({
           ...prev,
@@ -511,10 +475,11 @@ const TextEditorImport = (props: TextEditorImportProps) => {
     }
   };
   //page 임시저장 최초 Post후 임시저장시 임시저장put
-  const handleDataPageDraft = () => {
+  const handleDataPageDraft = async () => {
     try {
       if (editor) {
-        const content = editor.getHTML();
+        const { content, newImgArr } = await getEditorContent(team);
+        setImageArr((prev) => [...prev, ...newImgArr]);
 
         setPageData((prev) => ({
           ...prev,
@@ -538,10 +503,11 @@ const TextEditorImport = (props: TextEditorImportProps) => {
   };
 
   //page 임시저장시 임시저장put
-  const handleTempPageDraft = () => {
+  const handleTempPageDraft = async () => {
     try {
       if (editor) {
-        const content = editor.getHTML();
+        const { content, newImgArr } = await getEditorContent(team);
+        setImageArr((prev) => [...prev, ...newImgArr]);
 
         setPageData((prev) => ({
           ...prev,
@@ -590,66 +556,73 @@ const TextEditorImport = (props: TextEditorImportProps) => {
   };
 
   // article page 저장시 내용 가지고 발행하기 페이지로 이동-> article 최초 발행하기
-  const handleOnClickArticlePublish = () => {
+  const handleOnClickArticlePublish = async () => {
     if (!document || !editor) return;
-    //이거 editor.getHTML()로 추출하면 안에 class까지 나눠서 뽑아지지않음 dom으로 접근해서 요소를 싹 뽑아야함
-    const content = document.querySelector('[contenteditable="true"]')!.innerHTML;
+    const { content, newImgArr } = await getEditorContent(team);
+    setImageArr((prev) => [...prev, ...newImgArr]);
     updateDataRouterChange(content, null, 'article/publish');
   };
 
   // page page 저장시 내용 가지고 발행하기 페이지로 이동 -> page 최초 발행
-  const handleOnClickPagePublish = () => {
+  const handleOnClickPagePublish = async () => {
     if (!editor) return;
-    const content = document.querySelector('[contenteditable="true"]')!.innerHTML;
+    const { content, newImgArr } = await getEditorContent(team);
+    setImageArr((prev) => [...prev, ...newImgArr]);
     updateDataRouterChange(content, null, 'page/publish');
   };
 
   //article 수정시 발행하기로 내용가지고 이동
-  const handleUpdateGoArticlePublish = () => {
+  const handleUpdateGoArticlePublish = async () => {
     if (!editor) return;
-    const content = document.querySelector('[contenteditable="true"]')!.innerHTML;
+    const { content, newImgArr } = await getEditorContent(team);
+    setImageArr((prev) => [...prev, ...newImgArr]);
     updateDataRouterChange(content, Number(articleId), `article/${articleId}/edit/publish`);
   };
 
   //article page 최초 발행하기 만약 자동임시저장되었다면 수정하기 api로 변환하기
-  const handleOnSavedArticlePublish = () => {
+  const handleOnSavedArticlePublish = async () => {
     if (isDraftSave) {
       const dataArticleId = sessionStorage?.getItem(ARTICLE_DATA_ID);
       if (!editor) return;
-      const content = document.querySelector('[contenteditable="true"]')!.innerHTML;
+      const { content, newImgArr } = await getEditorContent(team);
+      setImageArr((prev) => [...prev, ...newImgArr]);
       updateDataRouterChange(content, Number(dataArticleId), `article/publish`);
     } else {
-      handleOnClickArticlePublish();
+      await handleOnClickArticlePublish();
     }
   };
 
   // page 수정시 발행페이지 이동
-  const handleUpdateGoPagePublish = () => {
+  const handleUpdateGoPagePublish = async () => {
     if (!editor) return;
-    const content = document.querySelector('[contenteditable="true"]')!.innerHTML;
+    const { content, newImgArr } = await getEditorContent(team);
+    setImageArr((prev) => [...prev, ...newImgArr]);
     updateDataRouterChange(content, Number(pageId), `page/${pageId}/edit/publish`);
   };
 
   //article 임시저장 수정시 발행하기로 내용가지고 이동
-  const handleUpdateDraftArticlePublish = () => {
+  const handleUpdateDraftArticlePublish = async () => {
     if (!editor) return;
-    const content = document.querySelector('[contenteditable="true"]')!.innerHTML;
+    const { content, newImgArr } = await getEditorContent(team);
+    setImageArr((prev) => [...prev, ...newImgArr]);
     updateDataRouterChange(content, Number(articleId), `article/${articleId}/draft/publish`);
   };
 
   //page 임시저장 수정시 발행하기로 내용가지고 이동
-  const handleUpdateDraftPagePublish = () => {
+  const handleUpdateDraftPagePublish = async () => {
     if (!editor) return;
-    const content = document.querySelector('[contenteditable="true"]')!.innerHTML;
+    const { content, newImgArr } = await getEditorContent(team);
+    setImageArr((prev) => [...prev, ...newImgArr]);
     updateDataRouterChange(content, Number(pageId), `page/${pageId}/draft/publish`);
   };
 
   //페이지 page 최초 발행하기 만약 자동임시저장되었다면 수정하기 api로 변환하기
-  const handleOnSavedPagePublish = () => {
+  const handleOnSavedPagePublish = async () => {
     if (isDraftSave) {
       const dataPageId = sessionStorage?.getItem(PAGE_DATA_ID);
       if (!editor) return;
-      const content = document.querySelector('[contenteditable="true"]')!.innerHTML;
+      const { content, newImgArr } = await getEditorContent(team);
+      setImageArr((prev) => [...prev, ...newImgArr]);
       updateDataRouterChange(content, Number(dataPageId), `page/publish`);
     } else {
       handleOnClickPagePublish();
@@ -659,7 +632,7 @@ const TextEditorImport = (props: TextEditorImportProps) => {
   return (
     <>
       <ToolBox editor={editor} encodeFileToBase64={encodeFileToBase64} atTop={atTop} setAtTop={setAtTop} />
-      <TextEditor editor={editor} handleDrop={handleDrop} handleDragOver={handleDragOver} ctrlVImage={ctrlVImage} />
+      <TextEditor editor={editor} handleDrop={handleDrop} handleDragOver={handleDragOver} />
 
       {pageType === 'article' ? (
         <SaveEditorContentButton
