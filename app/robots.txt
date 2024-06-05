@@ -1,0 +1,5 @@
+User-Agent: *
+Allow: /
+Disallow: ^\/[^\/]+\/dashboard$
+Disallow: ^\/[^\/]+\/editor$
+Sitemap: https://palms.blog/sitemap.xml
