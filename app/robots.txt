@@ -10,6 +10,5 @@ Disallow: /*/dashboard/page
 Disallow: /*/dashboard/subscriber
 Disallow: /*/dashboard/tempsaved
 Disallow: /*/dashboard/upload
-Disallow: /*/editor/article
-Disallow: /*/editor/page
+Disallow: /editor/article
 Sitemap: https://palms.blog/sitemap.xml
