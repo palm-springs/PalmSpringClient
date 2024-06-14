@@ -6,6 +6,7 @@ export const TextEditorStyle = styled.div`
   .ProseMirror {
     margin: 4rem auto 0;
     width: 72.2rem;
+
     * {
       word-wrap: break-word;
     }
