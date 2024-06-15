@@ -349,7 +349,7 @@ const TextEditorImport = (props: TextEditorImportProps) => {
   const handleOnClickArticleDraft = async () => {
     try {
       if (editor) {
-        const { content, newImgArr } = await getEditorContent(team);
+        const { content, newImgArr } = await getEditorContent(String(team));
         setImageArr((prev) => [...prev, ...newImgArr]);
 
         setArticleData((prev) => ({
@@ -382,7 +382,7 @@ const TextEditorImport = (props: TextEditorImportProps) => {
   const handleOnClickPageDraft = async () => {
     try {
       if (editor) {
-        const { content, newImgArr } = await getEditorContent(team);
+        const { content, newImgArr } = await getEditorContent(String(team));
         setImageArr((prev) => [...prev, ...newImgArr]);
 
         setPageData((prev) => ({
@@ -414,7 +414,7 @@ const TextEditorImport = (props: TextEditorImportProps) => {
   const handleDataArticleDraft = async () => {
     try {
       if (editor) {
-        const { content, newImgArr } = await getEditorContent(team);
+        const { content, newImgArr } = await getEditorContent(String(team));
         setImageArr((prev) => [...prev, ...newImgArr]);
 
         setArticleData((prev) => ({
@@ -442,7 +442,7 @@ const TextEditorImport = (props: TextEditorImportProps) => {
   const handleTempArticleDraft = async () => {
     try {
       if (editor) {
-        const { content, newImgArr } = await getEditorContent(team);
+        const { content, newImgArr } = await getEditorContent(String(team));
         setImageArr((prev) => [...prev, ...newImgArr]);
 
         setArticleData((prev) => ({
@@ -478,7 +478,7 @@ const TextEditorImport = (props: TextEditorImportProps) => {
   const handleDataPageDraft = async () => {
     try {
       if (editor) {
-        const { content, newImgArr } = await getEditorContent(team);
+        const { content, newImgArr } = await getEditorContent(String(team));
         setImageArr((prev) => [...prev, ...newImgArr]);
 
         setPageData((prev) => ({
@@ -506,7 +506,7 @@ const TextEditorImport = (props: TextEditorImportProps) => {
   const handleTempPageDraft = async () => {
     try {
       if (editor) {
-        const { content, newImgArr } = await getEditorContent(team);
+        const { content, newImgArr } = await getEditorContent(String(team));
         setImageArr((prev) => [...prev, ...newImgArr]);
 
         setPageData((prev) => ({
@@ -558,7 +558,7 @@ const TextEditorImport = (props: TextEditorImportProps) => {
   // article page 저장시 내용 가지고 발행하기 페이지로 이동-> article 최초 발행하기
   const handleOnClickArticlePublish = async () => {
     if (!document || !editor) return;
-    const { content, newImgArr } = await getEditorContent(team);
+    const { content, newImgArr } = await getEditorContent(String(team));
     setImageArr((prev) => [...prev, ...newImgArr]);
     updateDataRouterChange(content, null, 'article/publish');
   };
@@ -566,7 +566,7 @@ const TextEditorImport = (props: TextEditorImportProps) => {
   // page page 저장시 내용 가지고 발행하기 페이지로 이동 -> page 최초 발행
   const handleOnClickPagePublish = async () => {
     if (!editor) return;
-    const { content, newImgArr } = await getEditorContent(team);
+    const { content, newImgArr } = await getEditorContent(String(team));
     setImageArr((prev) => [...prev, ...newImgArr]);
     updateDataRouterChange(content, null, 'page/publish');
   };
@@ -574,7 +574,7 @@ const TextEditorImport = (props: TextEditorImportProps) => {
   //article 수정시 발행하기로 내용가지고 이동
   const handleUpdateGoArticlePublish = async () => {
     if (!editor) return;
-    const { content, newImgArr } = await getEditorContent(team);
+    const { content, newImgArr } = await getEditorContent(String(team));
     setImageArr((prev) => [...prev, ...newImgArr]);
     updateDataRouterChange(content, Number(articleId), `article/${articleId}/edit/publish`);
   };
@@ -584,9 +584,9 @@ const TextEditorImport = (props: TextEditorImportProps) => {
     if (isDraftSave) {
       const dataArticleId = sessionStorage?.getItem(ARTICLE_DATA_ID);
       if (!editor) return;
-      const { content, newImgArr } = await getEditorContent(team);
+      const { content, newImgArr } = await getEditorContent(String(team));
       setImageArr((prev) => [...prev, ...newImgArr]);
-      updateDataRouterChange(content, Number(dataArticleId), `article/publish`);
+      updateDataRouterChange(content, Number(dataArticleId), `article/${dataArticleId}/publish`);
     } else {
       await handleOnClickArticlePublish();
     }
@@ -595,7 +595,7 @@ const TextEditorImport = (props: TextEditorImportProps) => {
   // page 수정시 발행페이지 이동
   const handleUpdateGoPagePublish = async () => {
     if (!editor) return;
-    const { content, newImgArr } = await getEditorContent(team);
+    const { content, newImgArr } = await getEditorContent(String(team));
     setImageArr((prev) => [...prev, ...newImgArr]);
     updateDataRouterChange(content, Number(pageId), `page/${pageId}/edit/publish`);
   };
@@ -603,7 +603,7 @@ const TextEditorImport = (props: TextEditorImportProps) => {
   //article 임시저장 수정시 발행하기로 내용가지고 이동
   const handleUpdateDraftArticlePublish = async () => {
     if (!editor) return;
-    const { content, newImgArr } = await getEditorContent(team);
+    const { content, newImgArr } = await getEditorContent(String(team));
     setImageArr((prev) => [...prev, ...newImgArr]);
     updateDataRouterChange(content, Number(articleId), `article/${articleId}/draft/publish`);
   };
@@ -611,7 +611,7 @@ const TextEditorImport = (props: TextEditorImportProps) => {
   //page 임시저장 수정시 발행하기로 내용가지고 이동
   const handleUpdateDraftPagePublish = async () => {
     if (!editor) return;
-    const { content, newImgArr } = await getEditorContent(team);
+    const { content, newImgArr } = await getEditorContent(String(team));
     setImageArr((prev) => [...prev, ...newImgArr]);
     updateDataRouterChange(content, Number(pageId), `page/${pageId}/draft/publish`);
   };
@@ -621,7 +621,7 @@ const TextEditorImport = (props: TextEditorImportProps) => {
     if (isDraftSave) {
       const dataPageId = sessionStorage?.getItem(PAGE_DATA_ID);
       if (!editor) return;
-      const { content, newImgArr } = await getEditorContent(team);
+      const { content, newImgArr } = await getEditorContent(String(team));
       setImageArr((prev) => [...prev, ...newImgArr]);
       updateDataRouterChange(content, Number(dataPageId), `page/publish`);
     } else {

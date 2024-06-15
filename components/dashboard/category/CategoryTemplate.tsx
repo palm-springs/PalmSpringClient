@@ -3,6 +3,7 @@
 import React, { useState } from 'react';
 import { useParams } from 'next/navigation';
 import { useRecoilState } from 'recoil';
+import { styled } from 'styled-components';
 
 import ModalPortal from '@/components/common/ModalPortal';
 import DashboardCreateModal from '@/components/common/ui/DashboardCreateModal';
@@ -26,7 +27,7 @@ const CategoryTemplate = () => {
   const [newCategoryDescription, setNewCategoryDescription] = useState<string>('');
 
   const { mutate } = usePostCategory(
-    blogUrl,
+    String(blogUrl),
     newCategoryName,
     newCategoryDescription,
     setNewCategoryName,
@@ -61,11 +62,12 @@ const CategoryTemplate = () => {
               setState={setNewCategoryName}
             />
             <ModalTextAreaContainer
-              title="한 줄 소개"
-              placeholder="한 줄 소개를 입력하세요"
+              title="설명"
+              placeholder="카테고리 설명을 입력하세요"
               state={newCategoryDescription}
               setState={setNewCategoryDescription}
             />
+            <DetailText>대시보드에서만 볼 수 있는 카테고리 설명입니다. (블로그에서는 보이지 않아요.)</DetailText>
           </DashboardCreateModal>
         </ModalPortal>
       )}
@@ -74,3 +76,9 @@ const CategoryTemplate = () => {
 };
 
 export default CategoryTemplate;
+
+const DetailText = styled.p`
+  margin-top: 0.8rem;
+  color: ${({ theme }) => theme.colors.grey_700};
+  ${({ theme }) => theme.fonts.Body3_Regular};
+`;
