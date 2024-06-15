@@ -586,9 +586,11 @@ const TextEditorImport = (props: TextEditorImportProps) => {
       if (!editor) return;
       const { content, newImgArr } = await getEditorContent(String(team));
       setImageArr((prev) => [...prev, ...newImgArr]);
-      updateDataRouterChange(content, Number(dataArticleId), `article/publish`);
+      updateDataRouterChange(content, Number(dataArticleId), `article/${dataArticleId}/publish`);
+      console.log('여기로 들어오세용');
     } else {
       await handleOnClickArticlePublish();
+      console.log('여기냐?? 안돼 tlqk');
     }
   };
 
