@@ -59,7 +59,6 @@ export default function Home() {
 
   useEffect(() => {
     checkAuthValidation();
-    console.log('change');
   }, []);
 
   return <LandingPage dashboardUrl={dashboardUrl} />;
