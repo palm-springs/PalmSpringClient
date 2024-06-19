@@ -1,8 +1,11 @@
 'use client';
 
-import { DragEventHandler, useEffect, useState } from 'react';
+import { ClipboardEvent, ClipboardEventHandler, DragEventHandler, useCallback, useEffect, useState } from 'react';
 import { Editor, EditorContent } from '@tiptap/react';
+import { useParams } from 'next/navigation';
 import styled from 'styled-components';
+
+import { getContentCtrlVImage } from '@/utils/getImageMultipartData';
 
 interface editorProps {
   editor: Editor | null;
@@ -12,6 +15,7 @@ interface editorProps {
 
 const TextEditor = ({ editor, handleDragOver, handleDrop }: editorProps) => {
   // const [editorHeight, setEditorHeight] = useState<number>(650);
+  const { team } = useParams();
 
   const [long, setlong] = useState<boolean>(false);
 
@@ -31,12 +35,28 @@ const TextEditor = ({ editor, handleDragOver, handleDrop }: editorProps) => {
     };
   }, []);
 
+  //이미지 복붙할 때 갈아끼우기
+  const pasteImg: ClipboardEventHandler<HTMLInputElement> = async (event: ClipboardEvent) => {
+    const targetImg = event.currentTarget.querySelector(
+      'img:not([src^="https://cdn.palms.blog/"]):not([class^="ProseMirror"]), img[class="ProseMirror-selectednode"]:not([src^="https://cdn.palms.blog/"])',
+    );
+    console.log(targetImg);
+    const imgSrc = targetImg?.getAttribute('src');
+    if (!imgSrc) return;
+
+    const blob = await fetch(imgSrc).then((res) => res.blob());
+    const file = new File([blob], 'image.png', { type: 'image/png' });
+    const imgUrl = await getContentCtrlVImage(file, String(team));
+    if (imgUrl) targetImg?.setAttribute('src', imgUrl);
+  };
+
   return (
     <TouchContainer
       tabIndex={-1}
       id="dropzone"
       onDrop={handleDrop}
       onDragOver={handleDragOver}
+      onPaste={pasteImg}
       style={{ height: 'fit-content' }}>
       <EditorContainer tabIndex={-1}>
         <TextEditorUI editor={editor} $long={long} tabIndex={0} />
