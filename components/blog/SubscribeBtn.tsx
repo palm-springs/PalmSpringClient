@@ -27,6 +27,7 @@ const SubscribeBtn = (subscribeBtnProps: subscribeBtnProps) => {
   const handleSubscribe = () => {
     postSubscriber(requestBody);
     setModalIsOpen(false);
+    console.log('hello');
   };
 
   const handleModalCloseBtn = () => {
