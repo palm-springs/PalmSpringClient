@@ -43,6 +43,7 @@ import { getContentImageMultipartData } from '@/utils/getImageMultipartData';
 import { createToast } from '@/utils/lib/toast';
 
 import { articleDataState, isSaved, pageDataState } from './states/atom';
+import HardBreak from '@tiptap/extension-hard-break';
 
 interface TextEditorImportProps {
   pageType: string;
@@ -135,6 +136,7 @@ const TextEditorImport = (props: TextEditorImportProps) => {
       Document,
       Paragraph,
       Text,
+      HardBreak,
       HorizontalRule,
       Heading.configure({
         levels: [1, 2, 3],
@@ -641,8 +643,8 @@ const TextEditorImport = (props: TextEditorImportProps) => {
             currentState === 'edit'
               ? handleUpdateGoArticlePublish
               : currentState === 'draft'
-              ? handleUpdateDraftArticlePublish
-              : handleOnSavedArticlePublish
+                ? handleUpdateDraftArticlePublish
+                : handleOnSavedArticlePublish
           }
           isEdit={currentState === 'edit' ? true : false}
           atTop={atTop}
@@ -658,8 +660,8 @@ const TextEditorImport = (props: TextEditorImportProps) => {
             currentState === 'edit'
               ? handleUpdateGoPagePublish
               : currentState === 'draft'
-              ? handleUpdateDraftPagePublish
-              : handleOnSavedPagePublish
+                ? handleUpdateDraftPagePublish
+                : handleOnSavedPagePublish
           }
           isEdit={currentState === 'edit' ? true : false} // edit이 아닌 경우는 draft 경우임
           atTop={atTop}
