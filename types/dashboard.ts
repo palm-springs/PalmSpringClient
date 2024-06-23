@@ -6,6 +6,7 @@ export type dashBoardPageType =
   | 'nav'
   | 'page'
   | 'subscriber'
+  | 'statistics'
   | 'tempsaved'
   | 'upload'
   | 'basicuserinfo';

@@ -23,6 +23,7 @@ const colors = {
   dark_green: '#1A9B6F',
   blue: '#2F4CA9',
   background_green: 'rgba(25, 219, 123, 0.30)',
+  primary: '#50B15B',
 
   red: '#FF5454',
   red_hover: '#D45858',

@@ -15,6 +15,7 @@ declare module 'styled-components' {
       grey_900: string;
       grey_950: string;
       grey_1000: string;
+      primary: string;
 
       dimmed: string;
       navItem_hover: string;
