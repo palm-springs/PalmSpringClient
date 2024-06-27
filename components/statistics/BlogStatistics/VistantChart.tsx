@@ -3,6 +3,7 @@
 import { IncreaseArrow } from '@/public/icons';
 import React from 'react';
 import styled from 'styled-components';
+import Chart from '../common/Chart';
 
 const VisitantChart = () => {
   return (
@@ -17,6 +18,7 @@ const VisitantChart = () => {
               <Percent>12%</Percent>
             </Wrapper>
           </PercentContainer>
+          <Chart />
         </CardBorder>
       </CardContainer>
     </>
