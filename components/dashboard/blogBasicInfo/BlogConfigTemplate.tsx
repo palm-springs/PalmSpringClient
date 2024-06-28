@@ -115,6 +115,11 @@ const BlogConfigTemplate = () => {
         logo: blogConfig.blogLogoImage,
         thumbnail: blogConfig.blogMainImage,
 
+        footerInfo: {
+          owner: blogConfig.ownerName,
+          info: blogConfig.ownerDescription,
+        },
+
         metaThumbnail: blogMetaConfig.metaThumbnail,
         metaName: blogMetaConfig.metaName,
         metaDescription: blogMetaConfig.metaDescription,
