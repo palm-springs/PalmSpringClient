@@ -36,6 +36,11 @@ interface BlogFooterInfoProps {
   ownerInfo: string;
 }
 
+interface BlogTemplateInfoProps {
+  id: number;
+  templateName: string;
+}
+
 interface MetaBlogInfoProps extends BlogInfoProps {
   blogUrl: string;
 }
@@ -65,6 +70,11 @@ export const getBlogFooterInfo = async (blogUrl: string) => {
   return data;
 
   // {{SUBDOMAIN_URL}}/api/v2/view/blog/{blogUrl}/footer
+};
+
+export const getBlogTemplateInfo = async (blogUrl: string) => {
+  const { data } = await client.get<Response<BlogTemplateInfoProps>>(`/api/v2/view/blog/${blogUrl}/template`);
+  return data;
 };
 
 // 블로그 url 중복 검사 - 반영 완
