@@ -31,7 +31,8 @@ const BlogFooterDescription = (props: BlogFooterDescriptionProps) => {
         $isScrollable={isScrollable}
         value={ownerDescription}
         onChange={(e) => {
-          setOwnerDescription(e.target.value), console.log(e.target.value);
+          setOwnerDescription(e.target.value);
+          //   console.log(e.target.value);
         }}
         placeholder="블로그 설명을 입력하세요"
         disabled={readonly}
@@ -44,7 +45,7 @@ export default BlogFooterDescription;
 
 const CompanyDescriptionContainer = styled.div`
   display: flex;
-  margin: 3.2rem 0 14.9rem;
+  margin-top: 3.2rem;
 `;
 
 const CompanyDescriptionTextarea = styled.textarea<{ $isScrollable: boolean }>`

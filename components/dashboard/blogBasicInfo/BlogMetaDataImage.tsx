@@ -113,7 +113,6 @@ const ImageLabel = styled.label`
 `;
 
 const ImageGuideContent = styled.p`
-  margin-top: 0.4rem;
   width: 14.8rem;
   ${({ theme }) => theme.fonts.Caption};
   color: ${({ theme }) => theme.colors.grey_700};
@@ -135,5 +134,6 @@ const BlogMetaImageContainer = styled.div`
 const ImageGuideContainer = styled.div`
   display: flex;
   flex-direction: column;
+  gap: 0.4rem;
   margin-bottom: 0.8rem;
 `;
