@@ -70,7 +70,7 @@ const TemplateDesignItemWrapper = styled.div`
   }
   &.selected {
     & > div {
-      border: 2px solid #000;
+      border: 2px solid ${({ theme }) => theme.colors.grey_1000};
     }
     & > span {
       font-weight: 600;
