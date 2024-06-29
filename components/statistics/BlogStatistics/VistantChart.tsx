@@ -1,6 +1,6 @@
 'use client';
 
-import { IncreaseArrow } from '@/public/icons';
+import { ArrowDownSmallIcon, CalendarIcon, IncreaseArrow } from '@/public/icons';
 import React from 'react';
 import styled from 'styled-components';
 import Chart from '../common/Chart';
@@ -11,6 +11,10 @@ const VisitantChart = () => {
       <CardContainer>
         <CardBorder>
           <SubTitle>방문자 수</SubTitle>
+          <>
+            <CalendarIcon />
+            <ArrowDownSmallIcon />
+          </>
           <PercentContainer>
             <Count>5,475</Count>
             <Wrapper>
@@ -65,8 +69,8 @@ const SubTitle = styled.h3`
 const CardBorder = styled.li`
   border: 1px solid ${({ theme }) => theme.colors.grey_300};
   border-radius: 0.8rem;
-  background: var(--grey-white, #fff);
-  padding: 2rem 14rem 2rem 2rem;
+  background: ${({ theme }) => theme.colors.grey_0};
+  padding: 2rem 0rem 2rem 4rem;
   list-style-type: none;
 `;
 

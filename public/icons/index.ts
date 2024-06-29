@@ -64,3 +64,4 @@ export { default as UserProfile03Icon } from './user-profile-03.svg';
 export { default as UserProfileCheckIcon } from './user-profile-check.svg';
 export { default as IncreaseArrow } from './icnIncreaseArrow.svg';
 export { default as DecreaseArrow } from './icnDecreaseArrow.svg';
+export { default as CalendarIcon } from './icn_calendar.svg';
