@@ -3,12 +3,13 @@
 import { ReactNode } from 'react';
 import styled from 'styled-components';
 
-import { LogoSmallIcon } from '@/public/icons';
+import { PalmsBlogLogoVectorIcon } from '@/public/icons';
 
 const layout = ({ children }: { children: ReactNode }) => {
   return (
     <Container>
-      <LogoSmallIcon />
+      <PalmsBlogLogoVectorIcon />
+
       {children}
     </Container>
   );
@@ -32,6 +33,7 @@ const Container = styled.div`
     position: absolute;
     top: 3.2rem;
     left: 5.6rem;
+    width: 120px;
   }
 
   @media (max-height: 515px) {

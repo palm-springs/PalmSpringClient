@@ -8,6 +8,7 @@ import Link from 'next/link';
 import { useRouter } from 'next/navigation';
 
 import useCheckMobile from '@/hooks/useCheckMobile';
+import { PalmsBlogLogoVectorIcon } from '@/public/icons';
 
 const main = css`
   overflow-x: hidden;
@@ -35,10 +36,9 @@ const inside_header = css`
   max-width: calc(1080px + 1.5rem + 1.5rem);
 `;
 const logo = css`
-  color: #000;
-  font-family: 'Outfit', 'Pretendard', sans-serif;
-  font-size: 1.6rem;
-  font-weight: 700;
+  width: 120px;
+  height: auto;
+  margin-top: 4px;
 `;
 const menu_container = css`
   display: flex;
@@ -705,7 +705,9 @@ const LandingPage = ({ dashboardUrl }: { dashboardUrl: string }) => {
     <main css={main}>
       <header css={header}>
         <div css={inside_header}>
-          <div css={logo}>palms.blog</div>
+          <div css={logo}>
+            <PalmsBlogLogoVectorIcon />
+          </div>
           <div css={menu_container}>
             {dashboardUrl ? (
               <Link href={dashboardUrl} css={menu_button(true)}>

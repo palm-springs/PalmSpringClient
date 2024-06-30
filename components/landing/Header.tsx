@@ -8,6 +8,8 @@ import Image from 'next/image';
 import Link from 'next/link';
 import { usePathname } from 'next/navigation';
 
+import { PalmsBlogLogoVectorIcon } from '@/public/icons';
+
 import 'aos/dist/aos.css';
 
 const header = (position: number) => {
@@ -39,11 +41,8 @@ const header_inside = css`
 const logo = css`
   display: flex;
   align-items: center;
-  color: #f8f9fa;
-  font-size: 20px;
-  & > img {
-    height: 24px;
-  }
+  width: 120px;
+  height: auto;
 `;
 const header_button = css`
   transition: 0.2s;
@@ -100,7 +99,7 @@ const Header = ({ dashboardUrl }: { dashboardUrl?: string }) => {
           `}>
           <Link href="/">
             <div css={logo}>
-              <Image src="/images/palmspring_new_logo.png" alt="palmtree" width="164" height="24" />
+              <PalmsBlogLogoVectorIcon />
             </div>
           </Link>
           <a

@@ -22,14 +22,14 @@ const footer = css`
 const Footer = () => {
   return (
     <footer css={footer}>
-      Made by Palmspring with ☕️ and 💕
+      Made by us with ☕️ and 💕
       <br />
       <br />
       <span
         css={css`
           font-weight: 600;
         `}>
-        © 팜스프링 Palmspring
+        Copyright ⓒ 서울연락단. All Rights Reserved
       </span>
     </footer>
   );
