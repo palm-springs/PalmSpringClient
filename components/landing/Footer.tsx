@@ -4,7 +4,7 @@ import Link from 'next/link';
 
 const footer = css`
   background: #f2f4f6;
-  padding: 90px 0;
+  padding: 20px 0 90px 0;
   width: 100%;
   text-align: center;
   color: #868b94;
@@ -22,18 +22,15 @@ const footer = css`
 const Footer = () => {
   return (
     <footer css={footer}>
-      Made by Palmspring with ☕️ and 💕
+      Made by us with ☕️ and 💕
       <br />
       <br />
       <span
         css={css`
           font-weight: 600;
         `}>
-        © 팜스프링 Palmspring
+        Copyright ⓒ 서울연락단. All Rights Reserved
       </span>
-      <br />
-      <br />
-      <Link href="/team">만든 사람들 소개</Link>
     </footer>
   );
 };
