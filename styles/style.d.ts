@@ -24,6 +24,7 @@ declare module 'styled-components' {
       dark_green: string;
       blue: string;
       background_green: string;
+      background_green_soft: string;
 
       red: string;
       red_hover: string;
