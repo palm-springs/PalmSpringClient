@@ -46,6 +46,7 @@
     "@tiptap/starter-kit": "^2.1.12",
     "aos": "^2.3.4",
     "axios": "^1.4.0",
+    "d3": "^7.9.0",
     "eslint": "^8.43.0",
     "eslint-config-next": "13.4.7",
     "framer-motion": "^11.1.7",
@@ -72,6 +73,7 @@
   "devDependencies": {
     "@stylelint/postcss-css-in-js": "^0.38.0",
     "@types/aos": "^3.0.4",
+    "@types/d3": "^7.4.3",
     "@types/lodash-es": "^4.17.7",
     "@types/node": "20.3.2",
     "@types/react": "18.2.14",

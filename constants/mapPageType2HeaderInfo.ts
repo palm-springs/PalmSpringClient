@@ -9,6 +9,9 @@ type mapPageType2HeaderInfoBluePrint = {
 };
 
 const mapPageType2HeaderInfo: mapPageType2HeaderInfoBluePrint = {
+  statistics: {
+    title: '통계',
+  },
   upload: {
     title: '업로드된 글',
     buttonInnerText: '새 글 작성하기',
