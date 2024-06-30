@@ -23,11 +23,12 @@ const colors = {
   dark_green: '#1A9B6F',
   blue: '#2F4CA9',
   background_green: 'rgba(25, 219, 123, 0.30)',
+  background_green_soft: '#F0FFF8',
 
   red: '#FF5454',
   red_hover: '#D45858',
   background_red: 'rgba(255, 84, 84, 0.30)',
-  red_alpha_20: 'rgba(255, 84, 84, 0.30)',
+  red_alpha_20: 'rgba(255, 84, 84, 0.10)',
 };
 
 const fonts = {
@@ -255,7 +256,7 @@ const mobileFonts = {
     font-weight: 700;
     font-style: normal;
   `,
-  Markdown_H2: css` 
+  Markdown_H2: css`
     line-height: 155%;
     letter-spacing: -0.0175em;
     font-family: 'Pretendard';
