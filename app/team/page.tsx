@@ -203,22 +203,27 @@ const Team = () => {
           </div>
         </div>
         <div css={profile_container}>
-          {ourBelovedTeammates.map((e, i) => {
+          {ourBelovedTeammates.map((eachTeammateInfo, eachTeammateInfoIndex) => {
             return (
-              <div css={profile_wrapper} key={i}>
+              <div css={profile_wrapper} key={eachTeammateInfoIndex}>
                 <div css={name_position_wrapper}>
-                  <div>{e.name}</div>
-                  <div>{e.position}</div>
+                  <div>{eachTeammateInfo.name}</div>
+                  <div>{eachTeammateInfo.position}</div>
                 </div>
                 <div css={links_wrapper}>
-                  {e.url.map((e, i) => {
+                  {eachTeammateInfo.url.map((eachTeammateEachLink, eachTeammateEachLinkIndex) => {
                     const host =
-                      (e.indexOf('https://instagram.com') !== -1 && 'instagram') ||
-                      (e.indexOf('https://github.com') !== -1 && 'github') ||
-                      (e.indexOf('https://www.linkedin.com') !== -1 && 'linkedin') ||
+                      (eachTeammateEachLink.indexOf('https://instagram.com') !== -1 && 'instagram') ||
+                      (eachTeammateEachLink.indexOf('https://github.com') !== -1 && 'github') ||
+                      (eachTeammateEachLink.indexOf('https://www.linkedin.com') !== -1 && 'linkedin') ||
                       'link';
                     return (
-                      <a key={i} className={host} href={e} target="_blank" rel="noopener noreferrer">
+                      <a
+                        key={eachTeammateEachLinkIndex}
+                        className={host}
+                        href={eachTeammateEachLink}
+                        target="_blank"
+                        rel="noopener noreferrer">
                         {host === 'instagram' && <BiLogoInstagram />}
                         {host === 'github' && <BiLogoGithub />}
                         {host === 'linkedin' && <BiLogoLinkedin />}
