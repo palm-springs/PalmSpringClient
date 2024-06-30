@@ -1,7 +1,6 @@
 /** @jsxImportSource @emotion/react */
 'use client';
 
-import { useEffect } from 'react';
 import { css } from '@emotion/react';
 import { easeIn, easeInOut, motion } from 'framer-motion';
 import Link from 'next/link';
