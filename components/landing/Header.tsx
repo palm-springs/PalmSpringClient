@@ -100,7 +100,7 @@ const Header = ({ dashboardUrl }: { dashboardUrl?: string }) => {
           `}>
           <Link href="/">
             <div css={logo}>
-              <Image src="/images/palmspring_new_logo.png" alt="palmtree" />
+              <Image src="/images/palmspring_new_logo.png" alt="palmtree" width="164" height="24" />
             </div>
           </Link>
           <a
@@ -122,14 +122,18 @@ const Header = ({ dashboardUrl }: { dashboardUrl?: string }) => {
                 }
               `,
             ]}>
-            팜스프링 블로그
+            공식 블로그
           </a>
-          <Link
-            href="/team"
+          <a
+            href="https://tally.so/r/w4rjGk"
+            target="_blank"
+            rel="noreferrer noopener"
             css={[
               header_button,
               css`
+                margin-left: 12px;
                 background: transparent;
+                padding: 10px 14px;
                 color: #8898a7;
                 font-size: 16px;
                 font-weight: 500;
@@ -139,10 +143,10 @@ const Header = ({ dashboardUrl }: { dashboardUrl?: string }) => {
                 }
               `,
             ]}>
-            만든 사람들
-          </Link>
+            이용 문의
+          </a>
         </div>
-        <div
+        {/* <div
           css={css`
             display: flex;
             gap: 12px;
@@ -176,7 +180,7 @@ const Header = ({ dashboardUrl }: { dashboardUrl?: string }) => {
               </button>
             </Link>
           )}
-        </div>
+        </div> */}
       </div>
     </header>
   );

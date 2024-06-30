@@ -4,7 +4,7 @@ import Link from 'next/link';
 
 const footer = css`
   background: #f2f4f6;
-  padding: 90px 0;
+  padding: 20px 0 90px 0;
   width: 100%;
   text-align: center;
   color: #868b94;
@@ -31,9 +31,6 @@ const Footer = () => {
         `}>
         © 팜스프링 Palmspring
       </span>
-      <br />
-      <br />
-      <Link href="/team">만든 사람들 소개</Link>
     </footer>
   );
 };

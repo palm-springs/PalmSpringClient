@@ -9,36 +9,39 @@ import Header from '@/components/landing/Header';
 
 import 'aos/dist/aos.css';
 
-const ourBelovedPM = [
+type TeamMember = {
+  name: string;
+  position: string;
+  desc: string;
+  url: string[];
+};
+
+const ourBelovedPM: TeamMember[] = [
   {
     name: '김대덕',
     position: 'Team Leader',
     desc: '세상에 도움이 되는 삶을 살고 싶어요',
-    url: [
-      'https://www.linkedin.com/in/daeduk-kim-712b88255/',
-      'https://instagram.com/_9911120',
-      'https://kimdaeduk.com',
-    ],
+    url: ['https://www.linkedin.com/in/daeduk-kim-712b88255/'],
   },
   {
     name: '양정윤',
     position: 'Product Manager',
     desc: '알은 새의 세계이다. 누구든지 태어나려고 하는 자는 하나의 세계를 파괴해야 한다.',
-    url: ['https://instagram.com/zzang_yoon'],
+    url: ['https://www.linkedin.com/in/jeong-yoon-yang-bbb490239/'],
   },
 ];
-const ourBelovedDesigner = [
+const ourBelovedDesigner: TeamMember[] = [
   {
     name: '권윤',
     position: 'Product Designer',
-    desc: 'Product Designer @Palmspring',
+    desc: 'Product Designer @ 당근',
     url: ['https://doongzi.kr/yoon'],
   },
   {
     name: '김성은',
     position: 'Product Designer',
     desc: '디자이너입니다.',
-    url: ['https://instagram.com/sungeunarchive_'],
+    url: ['https://palms.blog'],
   },
   {
     name: '송승훈',
@@ -50,7 +53,7 @@ const ourBelovedDesigner = [
     ],
   },
 ];
-const ourBelovedFE = [
+const ourBelovedFE: TeamMember[] = [
   {
     name: '김서현',
     position: 'FE Engineer',
@@ -67,11 +70,7 @@ const ourBelovedFE = [
     name: '이시연',
     position: 'FE Engineer',
     desc: '코린이입니다! ٩(๑❛ᴗ❛๑)۶',
-    url: [
-      'https://github.com/SynthiaLee',
-      'https://www.instagram.com/synthia_lee_/',
-      'https://www.linkedin.com/in/synthia-lee-4b2969232/',
-    ],
+    url: ['https://github.com/SynthiaLee', 'https://www.linkedin.com/in/synthia-lee-4b2969232/'],
   },
   {
     name: '장명지',
@@ -80,26 +79,18 @@ const ourBelovedFE = [
     url: ['https://github.com/Dangpy', 'https://www.linkedin.com/in/myungji-jang-a84a752a8'],
   },
 ];
-const ourBelovedServer = [
+const ourBelovedServer: TeamMember[] = [
   {
     name: '정동규',
     position: 'BE Engineer',
     desc: '안녕하세요!! 하고 싶은건 일단 하고 보는 "프로 머박러"(머리박는, 대박 아닙니다,)백엔드 개발자 정동규 입니다.',
-    url: [
-      'https://github.com/yummygyudon',
-      'https://www.linkedin.com/in/%EB%8F%99%EA%B7%9C-%EC%A0%95-8a6b25226/',
-      'https://www.instagram.com/dev_gyu_99/',
-    ],
+    url: ['https://github.com/yummygyudon', 'https://www.linkedin.com/in/%EB%8F%99%EA%B7%9C-%EC%A0%95-8a6b25226/'],
   },
   {
     name: '장유진',
     position: 'BE Engineer',
     desc: '성장중인 개발자입니다. 긴장해라 네카라쿠배. 그리고 저는.. 더보기',
-    url: [
-      'https://instagram.com/eu_jinchin',
-      'https://github.com/jinchiim',
-      'www.linkedin.com/in/eugene-jang-27b922291',
-    ],
+    url: ['https://github.com/jinchiim', 'https://www.linkedin.com/in/eugene-jang-27b922291/'],
   },
 ];
 
@@ -172,16 +163,20 @@ const Team = () => {
     margin: 0 auto;
     border: 1px solid #eee;
     border-radius: 20px;
-    box-shadow: 0px 15px 20px 0px rgba(64, 71, 79, 0.08), 0px 4px 8px 0px rgba(67, 78, 90, 0.04);
+    box-shadow:
+      0px 15px 20px 0px rgba(64, 71, 79, 0.08),
+      0px 4px 8px 0px rgba(67, 78, 90, 0.04);
     background: #fff;
     padding: 16px 16px 30px 16px;
     width: 100%;
     max-width: 260px;
     &:hover {
       transform: scale(1.03);
-      box-shadow: 0px 10px 20px 0px rgba(64, 71, 79, 0.16), 0px 2px 8px 0px rgba(67, 78, 90, 0.06);
+      box-shadow:
+        0px 10px 20px 0px rgba(64, 71, 79, 0.16),
+        0px 2px 8px 0px rgba(67, 78, 90, 0.06);
     }
-    & > div:nth-of-type(1) {
+    /* & > div:nth-of-type(1) {
       position: relative;
       border-radius: 14px;
       background-repeat: no-repeat;
@@ -189,21 +184,24 @@ const Team = () => {
       padding-bottom: 100%;
       width: 100%;
       height: 0;
-    }
-    & > div:nth-of-type(2) {
+    } */
+    & > div:nth-of-type(1) {
+      display: flex;
+      flex-direction: column;
+      gap: 8px;
       margin-top: 20px;
       font-size: 20px;
       font-weight: 700;
-      & > span {
+      & > div:nth-of-type(2) {
         font-size: 16px;
         font-weight: normal;
       }
     }
-    & > div:nth-of-type(3) {
+    & > div:nth-of-type(2) {
       display: flex;
       gap: 12px;
       justify-content: center;
-      margin-top: 30px;
+      margin-top: 20px;
       color: #adb5bd;
       font-size: 20px;
       & > a {
@@ -244,15 +242,9 @@ const Team = () => {
             randomArray.map((e, i) => {
               return (
                 <div css={profile_wrapper} key={i}>
-                  <div
-                    css={css`
-                      background-image: url('/images/profiles/${e.name}.jpg');
-                    `}
-                  />
                   <div>
-                    {e.name}
-                    <br />
-                    <span>{e.position}</span>
+                    <div>{e.name}</div>
+                    <div>{e.position}</div>
                   </div>
                   {/* <div>{e.desc}</div> */}
                   <div>

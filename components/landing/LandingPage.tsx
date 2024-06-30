@@ -1,12 +1,13 @@
 /** @jsxImportSource @emotion/react */
 'use client';
 
-import useCheckMobile from '@/hooks/useCheckMobile';
+import { useEffect } from 'react';
 import { css } from '@emotion/react';
 import { easeIn, easeInOut, motion } from 'framer-motion';
 import Link from 'next/link';
 import { useRouter } from 'next/navigation';
-import { useEffect } from 'react';
+
+import useCheckMobile from '@/hooks/useCheckMobile';
 
 const main = css`
   overflow-x: hidden;
@@ -103,7 +104,13 @@ const entrance_container = css`
     position: absolute;
     top: 0;
     left: 0;
-    background: radial-gradient(240.42% 109.49% at 38% 32.75%, #FFF 0%, rgba(238, 249, 242, 0.70) 42.76%, rgba(174, 199, 247, 0.13) 74.88%, rgba(186, 152, 202, 0.50) 97.5%);
+    background: radial-gradient(
+      240.42% 109.49% at 38% 32.75%,
+      #fff 0%,
+      rgba(238, 249, 242, 0.7) 42.76%,
+      rgba(174, 199, 247, 0.13) 74.88%,
+      rgba(186, 152, 202, 0.5) 97.5%
+    );
     z-index: 1;
     mix-blend-mode: multiply;
   }
@@ -124,7 +131,7 @@ const entrance_image = css`
       left: 0;
       width: 100%;
       height: 40%;
-      background: linear-gradient(180deg, white -8.37%, rgba(255,255,255,0) 100%);
+      background: linear-gradient(180deg, white -8.37%, rgba(255, 255, 255, 0) 100%);
       z-index: 1;
     }
     &::after {
@@ -134,7 +141,7 @@ const entrance_image = css`
       left: 0;
       width: 100%;
       height: 60%;
-      background: linear-gradient( 10deg, white -8.37%, rgba(255,255,255,0) 100%);
+      background: linear-gradient(10deg, white -8.37%, rgba(255, 255, 255, 0) 100%);
       z-index: 1;
     }
   }
@@ -160,8 +167,8 @@ const entrance_title_title = css`
   gap: 0.3rem;
   row-gap: 0;
   @media (max-width: 768px) {
-  align-items: center;
-  justify-content: center;
+    align-items: center;
+    justify-content: center;
   }
 `;
 const entrance_title_desc = css`
@@ -354,14 +361,14 @@ const feature_graphic_seo = css`
 `;
 const feature_graphic_customize = css`
   border-radius: 1rem;
-  background: #F4F5F8;
+  background: #f4f5f8;
   width: 100%;
   max-width: 900px;
   min-height: 300px;
   overflow: hidden;
   position: relative;
   > img {
-      padding-bottom: 1rem;
+    padding-bottom: 1rem;
   }
   &::before {
     content: '';
@@ -370,7 +377,7 @@ const feature_graphic_customize = css`
     left: 0;
     width: 100%;
     height: 40%;
-    background: linear-gradient(180deg, rgba(244, 245, 248, 0.00) 0%, rgba(244, 245, 248, 1) 27%);
+    background: linear-gradient(180deg, rgba(244, 245, 248, 0) 0%, rgba(244, 245, 248, 1) 27%);
     z-index: 1;
     @media (max-width: 576px) {
       bottom: -40px;
@@ -381,7 +388,7 @@ const feature_graphic_customize = css`
 
 const feature_graphic_invitation = css`
   border-radius: 1rem;
-  background: #F4F5F8;
+  background: #f4f5f8;
   width: 100%;
   max-width: 900px;
   // min-height: 300px;
@@ -410,14 +417,14 @@ const feature_graphic_invitation = css`
     left: 0;
     width: 100%;
     height: 10%;
-    background: linear-gradient(180deg, rgba(244, 245, 248, 0.00) 0%, rgba(244, 245, 248, 1) 90%);
+    background: linear-gradient(180deg, rgba(244, 245, 248, 0) 0%, rgba(244, 245, 248, 1) 90%);
     z-index: 1;
   }
 `;
 
 const feature_graphic_design = css`
   border-radius: 1rem;
-  background: #F4F5F8;
+  background: #f4f5f8;
   width: 100%;
   max-width: 900px;
   // min-height: 300px;
@@ -578,7 +585,9 @@ const contact_each = css`
   justify-content: space-between;
   border: 1px solid #e9ecef;
   border-radius: 1rem;
-  box-shadow: 0px 0px 1px 0px rgba(7, 7, 92, 0.06), 0px 3.2px 16px 0px rgba(41, 91, 150, 0.05),
+  box-shadow:
+    0px 0px 1px 0px rgba(7, 7, 92, 0.06),
+    0px 3.2px 16px 0px rgba(41, 91, 150, 0.05),
     0px 16px 22px 5px rgba(24, 170, 126, 0.04);
   padding: 1.2rem 1.5rem;
   width: 400px;
@@ -612,7 +621,9 @@ const overflow_x_container = css`
 `;
 const comparison_table = css`
   margin: 0 auto;
-  box-shadow: 0px 0px 1px 0px rgba(7, 7, 92, 0.06), 0px 3.2px 16px 0px rgba(41, 91, 150, 0.05),
+  box-shadow:
+    0px 0px 1px 0px rgba(7, 7, 92, 0.06),
+    0px 3.2px 16px 0px rgba(41, 91, 150, 0.05),
     0px 16px 22px 5px rgba(24, 170, 126, 0.04);
   table-layout: fixed;
   border-collapse: collapse;
@@ -638,13 +649,38 @@ const comparison_table = css`
 `;
 
 const footer = css`
+  display: flex;
+  justify-content: center;
   margin-top: 10rem;
   background: #f8f9fa;
-  padding: 2.5rem 3rem 4rem 3rem;
+  padding: 2.5rem 0 4rem 0;
   text-align: left;
   font-weight: 500;
   @media (max-width: 768px) {
-    padding: 2.4rem 2rem 3rem 2rem;
+    padding: 2.4rem 0 3rem 0;
+  }
+`;
+
+const footer_inside = css`
+  width: 100%;
+  max-width: calc(1080px + 1.5rem + 1.5rem);
+  padding: 0 1.5rem;
+`;
+
+const footer_inside_flex_container = css`
+  display: flex;
+  justify-content: space-between;
+  align-items: flex-start;
+  & > div {
+    width: 50%;
+  }
+  @media (max-width: 768px) {
+    margin-top: 0.6rem;
+    gap: 0.4rem;
+    flex-direction: column-reverse;
+    & > div {
+      width: 100%;
+    }
   }
 `;
 
@@ -698,7 +734,7 @@ const LandingPage = ({ dashboardUrl }: { dashboardUrl: string }) => {
               initial={{ opacity: 0, transform: 'perspective(600px) rotateX(25deg) rotateZ(2deg) scale(1.3)' }}
               viewport={{ once: true, amount: 0.5 }}
               whileInView={{ opacity: 1, transform: 'perspective(800px) rotateX(15deg) rotateZ(0deg) scale(1)' }}
-              transition={{ duration: 0.6, ease: "easeInOut"  }}
+              transition={{ duration: 0.6, ease: 'easeInOut' }}
               style={{ width: '100%' }}
             />
           ) : (
@@ -956,10 +992,7 @@ const LandingPage = ({ dashboardUrl }: { dashboardUrl: string }) => {
               <div css={feature_sub_desc}>팀원들을 인원 수 제한 없이 마음껏 초대할 수 있어요.</div>
             </div>
             <div css={seo_feature_sub_wrapper}>
-              <div css={feature_sub_title}>
-                구글 로그인으로도, 회사 이메일로도
-                간편하게 사용할 수 있어요.
-              </div>
+              <div css={feature_sub_title}>구글 로그인으로도, 회사 이메일로도 간편하게 사용할 수 있어요.</div>
               <div css={feature_sub_desc}>어떤 이메일로든 3초만에 가입해보세요.</div>
             </div>
           </div>
@@ -988,21 +1021,20 @@ const LandingPage = ({ dashboardUrl }: { dashboardUrl: string }) => {
                     height: 201px;
                     width: 552px;
                     margin-left: 0rem;
-                    
                   }
                 }
                 margin-bottom: 1rem;
               `,
             ]}>
-              <motion.img
-                src="/images/design.gif"
-                alt="아름다운 디자인 예시"
-                css={css`
-                  box-shadow: 0 0 10px 0 rgba(64, 71, 79, 0.1);
-                  width: 100%;
-                `}
-                viewport={{ once: true }}
-              />
+            <motion.img
+              src="/images/design.gif"
+              alt="아름다운 디자인 예시"
+              css={css`
+                box-shadow: 0 0 10px 0 rgba(64, 71, 79, 0.1);
+                width: 100%;
+              `}
+              viewport={{ once: true }}
+            />
           </div>
         </div>
         <a href="https://duckduck.palms.blog" target="_blank" rel="noopener noreferrer">
@@ -1372,20 +1404,52 @@ const LandingPage = ({ dashboardUrl }: { dashboardUrl: string }) => {
       </div>
 
       <footer css={footer}>
-        팜스프링
-        <div style={{ color: '#8C8C8C', fontSize: '0.8rem', marginTop: '1rem', fontWeight: '400' }}>
-          <a href="https://tally.so/r/w4rjGk" target="_blank" rel="noopener noreferrer">
-            이용 문의
-          </a>
-        </div>
-        <div style={{ color: '#8C8C8C', fontSize: '0.8rem', marginTop: '0.5rem', fontWeight: '400' }}>
-          <a href="https://official.palms.blog" target="_blank" rel="noopener noreferrer">
-            공식 블로그
-          </a>
-        </div>
-        <div style={{ color: '#8C8C8C', fontSize: '0.8rem', marginTop: '2rem', fontWeight: '400', lineHeight: '170%' }}>
-          Backed by SOPT
-          <br />© 2024. palmspring all rights reserved.
+        <div css={footer_inside}>
+          <span style={{ fontSize: '0.875rem' }}>Copyright ⓒ 서울연락단. All Rights Reserved</span>
+          <div css={footer_inside_flex_container}>
+            <div>
+              <div
+                style={{
+                  color: '#8C8C8C',
+                  fontSize: '0.8rem',
+                  fontWeight: '400',
+                  marginTop: '0.8rem',
+                  display: 'flex',
+                  flexDirection: 'column',
+                  gap: '0.5rem',
+                }}>
+                <div>사업자등록번호 : 109-28-54938 | 대표자 : 김대덕</div>
+                <div>호스팅서비스 : 아마존웹서비스(AWS)</div>
+                <div>서울특별시 마포구 하중동 101, 102-1802</div>
+              </div>
+            </div>
+            <div
+              style={{
+                color: '#8C8C8C',
+                fontSize: '0.8rem',
+                fontWeight: '400',
+                marginTop: '0.8rem',
+                display: 'flex',
+                flexDirection: 'column',
+                gap: '0.5rem',
+              }}>
+              <div>
+                <a href="https://tally.so/r/w4rjGk" target="_blank" rel="noopener noreferrer">
+                  이용 문의
+                </a>
+              </div>
+              <div>
+                <a href="https://official.palms.blog" target="_blank" rel="noopener noreferrer">
+                  공식 블로그
+                </a>
+              </div>
+              <div>
+                <a href="/team" target="_blank" rel="noopener noreferrer">
+                  만드는 사람들
+                </a>
+              </div>
+            </div>
+          </div>
         </div>
       </footer>
     </main>
