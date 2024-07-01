@@ -1,7 +1,7 @@
 import { useMutation, useQuery, useQueryClient } from '@tanstack/react-query';
 import { useRouter } from 'next/navigation';
 
-import { deleteBlog, getBlogFooterInfo, getBlogInfo } from '@/api/blog';
+import { deleteBlog, getBlogFooterInfo, getBlogInfo, getBlogTemplateInfo } from '@/api/blog';
 import { Response } from '@/types/common';
 import { UserInfoProps } from '@/types/user';
 
@@ -11,6 +11,7 @@ const QUERY_KEY_BLOG = {
   getBlogInfo: 'getBlogInfo',
   deleteBlog: 'deleteBlog',
   getBlogFooterInfo: 'getBlogFooterInfo',
+  getBlogTemplateInfo: 'getBlogTemplateInfo',
 };
 
 export const useGetBlogInfo = (blogUrl: string) => {
@@ -20,6 +21,11 @@ export const useGetBlogInfo = (blogUrl: string) => {
 
 export const useGetBlogFooterInfo = (blogUrl: string) => {
   const { data } = useQuery([QUERY_KEY_BLOG.getBlogFooterInfo, blogUrl], () => getBlogFooterInfo(blogUrl));
+  return data;
+};
+
+export const useGetBlogTemplateInfo = (blogUrl: string) => {
+  const { data } = useQuery([QUERY_KEY_BLOG.getBlogTemplateInfo, blogUrl], () => getBlogTemplateInfo(blogUrl));
   return data;
 };
 
