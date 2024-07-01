@@ -1,20 +1,13 @@
-import { getContentCtrlVImage } from '../getImageMultipartData';
+import { getChangedImgSrc } from '../getChangedImgSrc';
 
 // 이미지 CDN 주소로 바꿔 끼우기 함수
 const changeImgSrc = async (team: string) => {
   const imgList = document.querySelectorAll(
-    'img:not([src^="https://cdn.palms.blog/"]):not([class="ProseMirror-separator"])',
+    'img:not([src^="https://cdn.palms.blog/"]):not([class="ProseMirror-separator"]):not([class="inaccessible"])',
   );
 
   const promises = Array.from(imgList).map(async (img) => {
-    const imgSrc = img.getAttribute('src');
-    if (!imgSrc) return;
-
-    const blob = await fetch(imgSrc).then((res) => res.blob());
-    const file = new File([blob], 'image.png', { type: 'image/png' });
-    const imgUrl = await getContentCtrlVImage(file, String(team));
-    img.setAttribute('src', imgUrl);
-
+    const imgUrl = await getChangedImgSrc(img, String(team));
     return imgUrl;
   });
 
