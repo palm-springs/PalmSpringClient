@@ -230,22 +230,24 @@ const BlogConfigTemplate = () => {
             }
           />
         </div>
-        <div>
-          <BlogSubHeading
-            mainHeaderText={'레이아웃 템플릿 설정'}
-            subHeaderText={'블로그 디자인 레이아웃 템플릿을 설정할 수 있습니다.'}
-          />
-          <BlogTemplateDesign
-            readonly={!modifyBlogInfo}
-            templateName={blogConfig.templateName}
-            setTemplateName={(v) =>
-              setBlogConfig((prev) => ({
-                ...prev,
-                templateName: v,
-              }))
-            }
-          />
-        </div>
+        {process.env.NODE_ENV == 'development' && (
+          <div>
+            <BlogSubHeading
+              mainHeaderText={'레이아웃 템플릿 설정'}
+              subHeaderText={'블로그 디자인 레이아웃 템플릿을 설정할 수 있습니다.'}
+            />
+            <BlogTemplateDesign
+              readonly={!modifyBlogInfo}
+              templateName={blogConfig.templateName}
+              setTemplateName={(v) =>
+                setBlogConfig((prev) => ({
+                  ...prev,
+                  templateName: v,
+                }))
+              }
+            />
+          </div>
+        )}
         {deleteBlog && <BlogInfoDeleteButton />}
         {modifyBlogInfo && (
           <BlogSaveButton type="button" disabled={blogConfig.blogName === '' || !isChanged} onClick={postBlogConfig}>
