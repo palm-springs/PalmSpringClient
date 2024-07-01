@@ -5,6 +5,7 @@ import { Editor, EditorContent } from '@tiptap/react';
 import { useParams } from 'next/navigation';
 import styled from 'styled-components';
 
+import { postExternalImage } from '@/api/postImage';
 import { getContentCtrlVImage } from '@/utils/getImageMultipartData';
 
 interface editorProps {
@@ -37,13 +38,26 @@ const TextEditor = ({ editor, handleDragOver, handleDrop }: editorProps) => {
 
   //이미지 복붙할 때 갈아끼우기
   const pasteImg: ClipboardEventHandler<HTMLInputElement> = async (event: ClipboardEvent) => {
+    // 붙여넣기된 img 요소 가져오기
     const targetImg = event.currentTarget.querySelector(
-      'img:not([src^="https://cdn.palms.blog/"]):not([class^="ProseMirror"]), img[class="ProseMirror-selectednode"]:not([src^="https://cdn.palms.blog/"])',
+      'img:not([src^="https://cdn.palms.blog/"]):not([class^="ProseMirror"]):not([class="inaccessible"]), img[class="ProseMirror-selectednode"]:not([src^="https://cdn.palms.blog/"]):not([class^="inaccessible"])',
     );
-    console.log(targetImg);
-    const imgSrc = targetImg?.getAttribute('src');
+    // src뽑아내기
+    let imgSrc = targetImg?.getAttribute('src');
     if (!imgSrc) return;
 
+    // 외부 링크인 경우 base64로 받아내기
+    if (!imgSrc.startsWith('data:')) {
+      const data = await postExternalImage(imgSrc);
+      // 접근 권한이 없는 경우
+      if (!data) {
+        targetImg?.classList.add('inaccessible');
+        return;
+      }
+      imgSrc = `data:image/png;base64,${data}`;
+    }
+
+    // base64 -> File -> CDN 주소 받아오기
     const blob = await fetch(imgSrc).then((res) => res.blob());
     const file = new File([blob], 'image.png', { type: 'image/png' });
     const imgUrl = await getContentCtrlVImage(file, String(team));
