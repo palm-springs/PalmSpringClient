@@ -1,4 +1,5 @@
 'use client';
+import { Suspense } from 'react';
 import { useSearchParams } from 'next/navigation';
 
 import PasswordResetLanding from '@/components/auth/login/password/reset/PasswordResetLanding';
@@ -21,7 +22,11 @@ const Page = () => {
   } else {
     // 비밀번호 재설정 UI 렌더링
     const email = sessionStorage?.getItem('email');
-    return <PasswordResetLanding emailData={email || 'you@example.com'} />;
+    return (
+      <Suspense>
+        <PasswordResetLanding emailData={email || 'you@example.com'} />
+      </Suspense>
+    );
   }
 };
 
