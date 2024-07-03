@@ -18,7 +18,11 @@ const Page = () => {
   // 검증 미실행 된 경우에만 검증
   if (sessionStorage?.getItem('isVerify') !== 'true') {
     // 토큰 검증
-    return <PasswordVerify code={code} />;
+    return (
+      <Suspense>
+        <PasswordVerify code={code} />{' '}
+      </Suspense>
+    );
   } else {
     // 비밀번호 재설정 UI 렌더링
     const email = sessionStorage?.getItem('email');
