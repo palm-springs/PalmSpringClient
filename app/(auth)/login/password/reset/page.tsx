@@ -13,7 +13,12 @@ const Page = () => {
   const searchParams = useSearchParams();
   const code = searchParams.get('code');
 
-  if (!code) return <InviteNotFound type="reset" />;
+  if (!code)
+    return (
+      <Suspense>
+        <InviteNotFound type="reset" />
+      </Suspense>
+    );
 
   // 검증 미실행 된 경우에만 검증
   if (sessionStorage?.getItem('isVerify') !== 'true') {
