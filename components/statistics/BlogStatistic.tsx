@@ -1,8 +1,8 @@
 'use client';
 import React from 'react';
+import styled from 'styled-components';
 
 import VisitantUI from './BlogStatistics/VisitantUI';
-import styled from 'styled-components';
 
 const BlogStatistic = () => {
   return (
