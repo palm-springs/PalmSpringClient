@@ -1,5 +1,5 @@
 'use client';
-import React from 'react';
+import React, { useEffect, useState } from 'react';
 import { useSearchParams } from 'next/navigation';
 
 import PasswordResetUiLanding from '@/components/auth/login/password/reset/PasswordResetUiLanding';
@@ -8,15 +8,22 @@ import InviteNotFound from '@/components/invite/ui/InviteNotFound';
 import { checkSessionStorage } from '@/utils/checkSessionStorage';
 
 const PasswordResetLanding = () => {
-  const sessionStorage = checkSessionStorage();
+  const [isVerify, setIsVerify] = useState(false);
   // 이메일 인증 code(토큰) 받아오기
   const searchParams = useSearchParams();
   const code = searchParams.get('code');
 
+  useEffect(() => {
+    const sessionStorage = checkSessionStorage();
+    if (sessionStorage?.getItem('isVerify') === 'true') {
+      setIsVerify(true);
+    }
+  }, []);
+
   if (!code) return <InviteNotFound type="reset" />;
 
   // 검증 미실행 된 경우에만 검증
-  if (sessionStorage?.getItem('isVerify') !== 'true') {
+  if (!isVerify) {
     // 토큰 검증
     return <PasswordVerify code={code} />;
   } else {
