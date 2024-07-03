@@ -46,10 +46,6 @@ const PasswordResetUiLanding = (props: PasswordResetUiLandingProps) => {
       sessionStorage?.removeItem('isVerify');
       sessionStorage?.removeItem('email');
       setIsDisabled(true);
-
-      setTimeout(() => {
-        router.push('/login');
-      }, 3200);
     }
     // 실패시
     else {

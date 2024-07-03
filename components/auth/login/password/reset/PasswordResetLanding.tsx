@@ -8,15 +8,15 @@ import InviteNotFound from '@/components/invite/ui/InviteNotFound';
 import { checkSessionStorage } from '@/utils/checkSessionStorage';
 
 const PasswordResetLanding = () => {
-  const [isVerify, setIsVerify] = useState(false);
+  const [isVerify, setIsVerify] = useState(true);
   // 이메일 인증 code(토큰) 받아오기
   const searchParams = useSearchParams();
   const code = searchParams.get('code');
+  const sessionStorage = checkSessionStorage();
 
   useEffect(() => {
-    const sessionStorage = checkSessionStorage();
-    if (sessionStorage?.getItem('isVerify') === 'true') {
-      setIsVerify(true);
+    if (sessionStorage?.getItem('isVerify') !== 'true') {
+      setIsVerify(false);
     }
   }, []);
 
