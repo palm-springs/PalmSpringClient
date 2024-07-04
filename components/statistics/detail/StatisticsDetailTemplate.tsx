@@ -31,6 +31,8 @@ export default StatisticsDetailTemplate;
 
 const StatisticsDetailContainer = styled.div`
   border-top: 1px solid ${({ theme }) => theme.colors.grey_400};
+  height: 100vh; /* 명지 언니가 height 조정 */
+  overflow-y: auto;
 `;
 
 const LinkContainer = styled.div`
