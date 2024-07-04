@@ -1,20 +1,40 @@
 'use client';
 
-import { ArrowDownSmallIcon, CalendarIcon, IncreaseArrow } from '@/public/icons';
-import React from 'react';
+import { ArrowCalendarIcon, ArrowDownSmallIcon, CalendarIcon, IncreaseArrow } from '@/public/icons';
+import React, { useState } from 'react';
 import styled from 'styled-components';
 import Chart from '../common/Chart';
+import Calendar from '../common/Calendar';
+import ModalPortal from '@/components/common/ModalPortal';
 
 const VisitantChart = () => {
+  const [isOpen, setIsOpen] = useState(false);
+
+  const openModal = () => {
+    setIsOpen(true);
+  };
+
+  const closeModal = () => {
+    setIsOpen(false);
+  };
   return (
     <>
       <CardContainer>
         <CardBorder>
-          <SubTitle>방문자 수</SubTitle>
-          <>
-            <CalendarIcon />
-            <ArrowDownSmallIcon />
-          </>
+          <CalendarButton>
+            <SubTitle>방문자 수</SubTitle>
+            <CalendarWrapper>
+              <CalendarIcon onClick={openModal} />
+              <ArrowCalendarIcon onClick={closeModal} />
+              <ModalPortal>
+                {isOpen && (
+                  <CalendarContainer>
+                    <Calendar />
+                  </CalendarContainer>
+                )}
+              </ModalPortal>
+            </CalendarWrapper>
+          </CalendarButton>
           <PercentContainer>
             <Count>5,475</Count>
             <Wrapper>
@@ -30,6 +50,28 @@ const VisitantChart = () => {
 };
 
 export default VisitantChart;
+
+const CalendarButton = styled.div`
+  display: flex;
+  position: relative;
+  justify-content: space-between;
+`;
+
+const CalendarContainer = styled.div`
+  position: absolute;
+  top: 54%;
+  right: 27%;
+`;
+
+const CalendarWrapper = styled.div`
+  display: flex;
+  position: relative;
+  align-items: center;
+  margin-right: 4rem;
+  border: 1px solid ${({ theme }) => theme.colors.grey_400};
+  border-radius: 0.4rem;
+  padding: 0.5rem 0.8rem;
+`;
 
 const Wrapper = styled.div`
   display: flex;

@@ -97,6 +97,7 @@ const Chart: React.FC = () => {
       // Add x-축
       svg
         .append('g')
+        .attr('class', 'x-axis')
         .call(
           d3
             .axisBottom<Date | d3.NumberValue>(x)
@@ -105,10 +106,9 @@ const Chart: React.FC = () => {
         ) // x축 텍스트
         .attr('transform', `translate(0,${height - margin.bottom})`)
         .select('.domain')
-        .attr('stroke', '#DEE2E6') // Change the color
+        .attr('stroke', 'none') // Change the color
         .attr('stroke-width', 1)
-        .selectAll('.tick line')
-        .style('display', 'none');
+        .style('stroke-linecap', 'square');
 
       // x축 선
       svg
@@ -118,6 +118,17 @@ const Chart: React.FC = () => {
         .attr('stroke', '#50B15B')
         .attr('stroke-width', 2)
         .attr('d', valueline);
+
+      // Hide x축의 모든 tick line
+      svg.selectAll('.x-axis .tick line').style('stroke', 'none');
+      // 마지막 tick line만 숨기기
+      svg
+        .selectAll('.x-axis .tick')
+        .filter(function () {
+          return this === svg.selectAll('.x-axis .tick').nodes().pop();
+        })
+        .select('line')
+        .style('stroke', 'none');
 
       // x축 채우기
       svg.append('path').datum(data).attr('fill', 'url(#line-gradient)').attr('d', area);

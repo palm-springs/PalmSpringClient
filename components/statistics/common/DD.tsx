@@ -1,17 +1,11 @@
+// components/Calendar.tsx
+import { ArrowCalendarIcon, CalendarIcon } from '@/public/icons';
 import React, { useState } from 'react';
-import styled from 'styled-components';
-
-interface DayProps {
-  isSelected?: boolean;
-  isOtherMonth?: boolean;
-  isEndSelected?: boolean;
-  isInRange?: boolean;
-}
+import styled, { css } from 'styled-components';
 
 const Calendar: React.FC = () => {
   const [currentDate, setCurrentDate] = useState(new Date());
-  const [selectedStartDate, setSelectedStartDate] = useState<Date | null>(null);
-  const [selectedEndDate, setSelectedEndDate] = useState<Date | null>(null);
+  const [selectedDates, setSelectedDates] = useState<Date[]>([]);
 
   const daysInMonth = (month: number, year: number) => {
     return new Date(year, month + 1, 0).getDate();
@@ -24,27 +18,18 @@ const Calendar: React.FC = () => {
   const handleDayClick = (day: number) => {
     const year = currentDate.getFullYear();
     const month = currentDate.getMonth();
-    const newDate = new Date(year, month, day);
+    const date = new Date(year, month, day);
 
-    if (selectedStartDate && selectedEndDate) {
-      setSelectedStartDate(newDate);
-      setSelectedEndDate(null);
-    } else if (selectedStartDate && !selectedEndDate) {
-      if (newDate > selectedStartDate) {
-        setSelectedEndDate(newDate);
+    if (selectedDates.length === 1) {
+      const [startDate] = selectedDates;
+      if (date < startDate) {
+        setSelectedDates([date, startDate]);
       } else {
-        setSelectedStartDate(newDate);
+        setSelectedDates([startDate, date]);
       }
     } else {
-      setSelectedStartDate(newDate);
+      setSelectedDates([date]);
     }
-  };
-
-  const isWithinSelectedRange = (date: Date) => {
-    if (selectedStartDate && selectedEndDate) {
-      return date >= selectedStartDate && date <= selectedEndDate;
-    }
-    return false;
   };
 
   const renderCalendar = () => {
@@ -52,48 +37,35 @@ const Calendar: React.FC = () => {
     const month = currentDate.getMonth();
     const days = daysInMonth(month, year);
     const firstDay = firstDayOfMonth(month, year);
+
     const prevMonthDays = daysInMonth(month - 1, year);
-
     const dates = [];
-    const totalCells = 35;
 
-    //이전 날짜 미리 렌더링
-    for (let i = firstDay - 1; i >= 0; i--) {
+    for (let i = 0; i < firstDay; i++) {
       dates.push(
-        <Day key={`prev-${prevMonthDays - i}`} isOtherMonth>
-          {prevMonthDays - i}
+        <Day key={`prev-${prevMonthDays - firstDay + i + 1}`} isOtherMonth>
+          {prevMonthDays - firstDay + i + 1}
         </Day>,
       );
     }
 
-    //현재 달 날짜 렌더링
     for (let day = 1; day <= days; day++) {
       const date = new Date(year, month, day);
-      const isSelected =
-        selectedStartDate?.getDate() === day &&
-        selectedStartDate?.getMonth() === month &&
-        selectedStartDate?.getFullYear() === year;
-      const isEndSelected =
-        selectedEndDate?.getDate() === day &&
-        selectedEndDate?.getMonth() === month &&
-        selectedEndDate?.getFullYear() === year;
-      const isInRange = isWithinSelectedRange(date);
-
+      const isSelected = selectedDates.some(
+        (selectedDate) =>
+          selectedDate.getDate() === date.getDate() &&
+          selectedDate.getMonth() === date.getMonth() &&
+          selectedDate.getFullYear() === date.getFullYear(),
+      );
       dates.push(
-        <Day
-          key={day}
-          isSelected={isSelected}
-          isEndSelected={isEndSelected}
-          isInRange={isInRange}
-          onClick={() => handleDayClick(day)}>
+        <Day key={day} isSelected={isSelected} onClick={() => handleDayClick(day)}>
           {day}
         </Day>,
       );
     }
 
-    //다음 달 달짜 미리 렌더링
-    const remainingCells = totalCells - dates.length;
-    for (let i = 1; i <= remainingCells; i++) {
+    const nextMonthDays = 42 - dates.length;
+    for (let i = 1; i <= nextMonthDays; i++) {
       dates.push(
         <Day key={`next-${i}`} isOtherMonth>
           {i}
@@ -142,7 +114,7 @@ const Calendar: React.FC = () => {
 export default Calendar;
 
 const Line = styled.div`
-  margin: 4rem 0 1.2rem;
+  margin-bottom: 1.2rem;
   border: 1px solid ${({ theme }) => theme.colors.grey_300};
 `;
 
@@ -150,7 +122,7 @@ const PostButton = styled.button`
   display: inline-flex;
   gap: 1rem;
   align-items: flex-start;
-  margin: 0 0 1.6rem 24.5rem;
+  margin-left: 24.5rem;
   border-top: 1px solid ${({ theme }) => theme.colors.grey_300};
   border-radius: 0.4rem;
   background-color: ${({ theme }) => theme.colors.grey_900};
@@ -167,7 +139,7 @@ const CalendarContainer = styled.div`
   background: white;
   padding: 16px;
   width: 327px;
-  height: 425px;
+  height: 429px;
 `;
 
 const CalendarHeader = styled.div`
@@ -212,29 +184,29 @@ const Days = styled.div`
   display: grid;
   grid-template-columns: repeat(7, 1fr);
   gap: 4px;
-  ${({ theme }) => theme.fonts.Body2_Regular};
 `;
+
+interface DayProps {
+  isSelected?: boolean;
+  isOtherMonth?: boolean;
+}
 
 const Day = styled.div<DayProps>`
   display: flex;
   align-items: center;
   justify-content: center;
-  border-radius: ${({ isSelected, isEndSelected }) => (isSelected || isEndSelected ? '10rem' : '0')};
-  background-color: ${({ isSelected, isEndSelected, isInRange, theme }) => {
-    if (isSelected || isEndSelected) return theme.colors.grey_900;
-    if (isInRange) return theme.colors.grey_100;
-    return 'transparent';
-  }};
+  transition: background-color 0.3s;
+  border-radius: 50%;
+  ${({ theme }) => theme.fonts.Body2_Regular};
+  background-color: ${({ isSelected, theme }) => (isSelected ? theme.colors.grey_900 : 'transparent')};
   cursor: pointer;
   width: 40px;
   height: 40px;
-  color: ${({ isSelected, isEndSelected, theme, isOtherMonth }) =>
-    isOtherMonth ? theme.colors.grey_500 : isSelected || isEndSelected ? theme.colors.grey_0 : 'inherit'};
+  color: ${({ isSelected, theme }) => (isSelected ? theme.colors.grey_0 : 'inherit')};
+  color: ${({ isOtherMonth, theme }) => (isOtherMonth ? theme.colors.grey_500 : 'inherit')};
 
   &:hover {
-    border-radius: 10rem;
-    background-color: ${({ theme }) => theme.colors.grey_900};
-    color: ${({ theme }) => theme.colors.grey_0};
+    background-color: ${({ theme }) => theme.colors.grey_200};
   }
 `;
 
