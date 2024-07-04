@@ -3,6 +3,7 @@ import Link from 'next/link';
 import styled from 'styled-components';
 
 const ArticleItem = () => {
+  const articleId = 1;
   return (
     <ArticleItemContainer>
       <Value className="title">
@@ -13,7 +14,7 @@ const ArticleItem = () => {
       <Value className="date">2023.07.06</Value>
       <Value>150</Value>
       <Value>6,123</Value>
-      <StatisticsDetailButton href="">통계</StatisticsDetailButton>
+      <StatisticsDetailButton href={`?articleId=${articleId}`}>통계</StatisticsDetailButton>
     </ArticleItemContainer>
   );
 };

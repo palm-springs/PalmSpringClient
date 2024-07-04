@@ -3,7 +3,7 @@ import styled from 'styled-components';
 
 import Line from '../dashboard/components/ui/Line';
 
-import ArticleStatistic from './ArticleStatistic';
+import ArticleListStatistic from './ArticleListStatistic';
 import BlogStatistic from './BlogStatistic';
 
 const StatisticsTemplate = () => {
@@ -12,7 +12,7 @@ const StatisticsTemplate = () => {
       <Line />
       <StaticContainer>
         <BlogStatistic />
-        <ArticleStatistic />
+        <ArticleListStatistic />
       </StaticContainer>
     </div>
   );
