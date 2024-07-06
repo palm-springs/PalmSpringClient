@@ -90,7 +90,7 @@ const Chart: React.FC = () => {
       // Hide y-축
       svg.selectAll('.tick text').style('display', 'none');
 
-      const formatTime = d3.timeFormat('%m.%d');
+      const formatTime = d3.timeFormat('%Y.%m.%d');
 
       // Add x-축
       svg
@@ -104,11 +104,11 @@ const Chart: React.FC = () => {
         ) // x축 텍스트
         .attr('transform', `translate(0,${height - margin.bottom})`)
         .select('.domain')
-        .attr('stroke', 'none') // Change the color
+        .attr('stroke', 'none')
         .attr('stroke-width', 1)
         .style('stroke-linecap', 'square');
 
-      // x축 선
+      // x축 선-> 통계 선
       svg
         .append('path')
         .datum(data)
@@ -168,14 +168,17 @@ const Chart: React.FC = () => {
               : prev;
           });
 
+          //호버 툴 팁 위치, 스타일 조정
           tooltip
             .style('display', 'block')
-            .style('left', `${event.pageX + 10}px`) // +10 for offset
-            .style('top', `${event.pageY - 10}px`) // -10 for offset
+            .style('left', `${event.pageX + 10}px`)
+            .style('top', `${event.pageY - 10}px`)
             .html(
-              `<strong>${hoverTime(dataPoint.date)}</strong><br/>Value: ${dataPoint.value}<br/>전월대비 증감소: 10`,
+              `<div style="font-weight: bold; font-size: 14px; margin-bottom: 16px;">${hoverTime(dataPoint.date)}</div>` +
+                `<div style="font-size: 12px; color: #555; display: flex; justify-content: space-between; margin-bottom: 9.5px;">당일 방문자 수<div>${dataPoint.value}</div></div>` +
+                `<div style="font-size: 12px; color: #555; display: flex; justify-content: space-between;">전월 대비<div>10%</div></div>`,
             );
-
+          //호버시 위치 표시 동그라미
           svg
             .append('circle')
             .attr('class', 'tooltip-circle')
@@ -185,9 +188,7 @@ const Chart: React.FC = () => {
             .attr('fill', '#50B15B');
         })
         .on('mousemove', function (event) {
-          tooltip
-            .style('left', `${event.pageX + 10}px`) // +10 for offset
-            .style('top', `${event.pageY - 10}px`); // -10 for offset
+          tooltip.style('left', `${event.pageX + 10}px`).style('top', `${event.pageY - 10}px`);
         })
         .on('mouseout', () => {
           tooltip.style('display', 'none');

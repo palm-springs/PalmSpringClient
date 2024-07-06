@@ -219,7 +219,6 @@ const Day = styled.div<DayProps>`
   display: flex;
   align-items: center;
   justify-content: center;
-  border-radius: ${({ isSelected, isEndSelected }) => (isSelected || isEndSelected ? '10rem' : '0')};
   background-color: ${({ isSelected, isEndSelected, isInRange, theme }) => {
     if (isSelected || isEndSelected) return theme.colors.grey_900;
     if (isInRange) return theme.colors.grey_100;
@@ -232,14 +231,7 @@ const Day = styled.div<DayProps>`
     isOtherMonth ? theme.colors.grey_500 : isSelected || isEndSelected ? theme.colors.grey_0 : 'inherit'};
 
   &:hover {
-    border-radius: 10rem;
     background-color: ${({ theme }) => theme.colors.grey_900};
     color: ${({ theme }) => theme.colors.grey_0};
   }
-`;
-
-const Empty = styled.div`
-  background: none;
-  width: 40px;
-  height: 40px;
 `;
