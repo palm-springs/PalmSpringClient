@@ -26,13 +26,11 @@ const VisitantChart = () => {
             <CalendarWrapper>
               <CalendarIcon onClick={openModal} />
               <ArrowCalendarIcon onClick={closeModal} />
-              <ModalPortal>
-                {isOpen && (
-                  <CalendarContainer>
-                    <Calendar />
-                  </CalendarContainer>
-                )}
-              </ModalPortal>
+              {isOpen && (
+                <CalendarContainer>
+                  <Calendar />
+                </CalendarContainer>
+              )}
             </CalendarWrapper>
           </CalendarButton>
           <PercentContainer>
@@ -59,8 +57,8 @@ const CalendarButton = styled.div`
 
 const CalendarContainer = styled.div`
   position: absolute;
-  top: 54%;
-  right: 27%;
+  top: 4rem;
+  right: 31.5rem;
 `;
 
 const CalendarWrapper = styled.div`

@@ -1,4 +1,3 @@
-// pages/index.tsx
 import React, { useEffect, useRef, useCallback } from 'react';
 import * as d3 from 'd3';
 
@@ -23,7 +22,6 @@ const data: DataPoint[] = [
 
 const Chart: React.FC = () => {
   const svgRef = useRef<SVGSVGElement | null>(null);
-  //차트 동적으로 width값 조절하기
   const containerRef = useRef<HTMLDivElement | null>(null);
 
   const drawChart = useCallback(() => {
@@ -92,7 +90,7 @@ const Chart: React.FC = () => {
       // Hide y-축
       svg.selectAll('.tick text').style('display', 'none');
 
-      const formatTime = d3.utcFormat('%Y.%m.%d');
+      const formatTime = d3.timeFormat('%m.%d');
 
       // Add x-축
       svg
@@ -132,6 +130,69 @@ const Chart: React.FC = () => {
 
       // x축 채우기
       svg.append('path').datum(data).attr('fill', 'url(#line-gradient)').attr('d', area);
+
+      // 툴팁 요소 추가
+      const tooltip = d3
+        .select(containerRef.current)
+        .append('div')
+        .style('position', 'absolute')
+        .style('width', '176px')
+        .style('height', '104px')
+        .style('align-items', 'center')
+        .style('background', '#fff')
+        .style('border', '1px solid #ccc')
+        .style('padding', '16px')
+        .style('display', 'none')
+        .style('pointer-events', 'none')
+        .style('border-radius', '4px')
+        .style('box-shadow', '0 3px 5px 0 rgba(33, 33, 33, 0.05)');
+
+      const hoverTime = d3.timeFormat('%m.%d');
+
+      svg
+        .append('path')
+        .datum(data)
+        .attr('fill', 'none')
+        .attr('stroke', 'transparent')
+        .attr('stroke-width', 10) // 선의 두께를 증가 이유 : 이벤트 감지
+        .attr('d', valueline)
+        .on('mouseover', function (event) {
+          const [xPos, yPos] = d3.pointer(event);
+          const hoveredDate = x.invert(xPos) as Date;
+
+          // 가장 가까운 데이터 포인트 찾기
+          const dataPoint = data.reduce((prev, curr) => {
+            return Math.abs(curr.date.getTime() - hoveredDate.getTime()) <
+              Math.abs(prev.date.getTime() - hoveredDate.getTime())
+              ? curr
+              : prev;
+          });
+
+          tooltip
+            .style('display', 'block')
+            .style('left', `${event.pageX + 10}px`) // +10 for offset
+            .style('top', `${event.pageY - 10}px`) // -10 for offset
+            .html(
+              `<strong>${hoverTime(dataPoint.date)}</strong><br/>Value: ${dataPoint.value}<br/>전월대비 증감소: 10`,
+            );
+
+          svg
+            .append('circle')
+            .attr('class', 'tooltip-circle')
+            .attr('cx', x(dataPoint.date))
+            .attr('cy', y(dataPoint.value))
+            .attr('r', 5)
+            .attr('fill', '#50B15B');
+        })
+        .on('mousemove', function (event) {
+          tooltip
+            .style('left', `${event.pageX + 10}px`) // +10 for offset
+            .style('top', `${event.pageY - 10}px`); // -10 for offset
+        })
+        .on('mouseout', () => {
+          tooltip.style('display', 'none');
+          svg.selectAll('.tooltip-circle').remove();
+        });
     }
   }, []);
 
