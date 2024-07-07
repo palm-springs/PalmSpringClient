@@ -159,6 +159,8 @@ const Chart: React.FC = () => {
         .on('mouseover', function (event) {
           const [xPos, yPos] = d3.pointer(event);
           const hoveredDate = x.invert(xPos) as Date;
+          const formatHoverTime = d3.timeFormat('%-m월 %-d일');
+          const formattedHoveredDate = formatHoverTime(hoveredDate);
 
           // 가장 가까운 데이터 포인트 찾기
           const dataPoint = data.reduce((prev, curr) => {
@@ -174,7 +176,7 @@ const Chart: React.FC = () => {
             .style('left', `${event.pageX + 10}px`)
             .style('top', `${event.pageY - 10}px`)
             .html(
-              `<div style="font-weight: bold; font-size: 14px; margin-bottom: 16px;">${hoverTime(dataPoint.date)}</div>` +
+              `<div style="font-weight: bold; font-size: 14px; margin-bottom: 16px;">${formattedHoveredDate}</div>` +
                 `<div style="font-size: 12px; color: #555; display: flex; justify-content: space-between; margin-bottom: 9.5px;">당일 방문자 수<div>${dataPoint.value}</div></div>` +
                 `<div style="font-size: 12px; color: #555; display: flex; justify-content: space-between;">전월 대비<div>10%</div></div>`,
             );
