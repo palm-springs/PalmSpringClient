@@ -12,7 +12,7 @@ const BlogStatistic = () => {
         <StandardTime>2024.08.25 기준</StandardTime>
       </TitleContainer>
       <>
-        <VisitantUI />
+        <VisitantUI statisticValue="visitant" />
       </>
     </div>
   );

@@ -21,7 +21,7 @@ const ArticleInfo = () => {
         <ArticleStatisticsTitle>해당 게시글 통계</ArticleStatisticsTitle>
         <ArticleStatisticsTime>{formattedDate}</ArticleStatisticsTime>
       </ArticleStatisticsWrapper>
-      <VisitantUI />
+      <VisitantUI statisticValue="views" />
     </>
   );
 };

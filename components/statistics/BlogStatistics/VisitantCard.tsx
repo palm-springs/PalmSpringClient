@@ -4,13 +4,24 @@ import { IncreaseArrow } from '@/public/icons';
 import React from 'react';
 import styled from 'styled-components';
 
-const VisitantCard = () => {
+interface CardProps {
+  statisticValue: string;
+  title: string;
+}
+
+const VisitantCard = (props: CardProps) => {
+  const { statisticValue, title } = props;
   return (
     <>
       <CardContainer>
         <CardBorder>
-          <SubTitle>오늘 방문자 수</SubTitle>
+          {/* 타이틀 글씨: 데이터 받아오는 것에 따라 인덱스별 다르게 띄우기 */}
+          <SubTitle>
+            {title}
+            {statisticValue === 'visitant' ? ' 방문자 수' : ' 조회 수'}
+          </SubTitle>
           <Count>5,475</Count>
+          {/* 전일대비: 데이터 받아오는 것에 따라 null이면 안보여주기  */}
           <PercentContainer>
             <PercentTitle>전 일대비</PercentTitle>
             <IncreaseArrow />

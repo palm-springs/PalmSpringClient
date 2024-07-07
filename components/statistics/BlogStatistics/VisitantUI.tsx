@@ -5,13 +5,19 @@ import styled from 'styled-components';
 import VisitantCard from './VisitantCard';
 import VisitantChart from './VistantChart';
 
-const VisitantUI = () => {
+interface CardsProps {
+  statisticValue: string;
+}
+
+const VisitantUI = (props: CardsProps) => {
   const c = [1, 2, 3];
+  const { statisticValue } = props;
+  const cardTitle = ['오늘', '4월', '누적'];
   return (
     <VisitantContainer>
       <Container>
         {c.map((i, index) => (
-          <VisitantCard key={index} />
+          <VisitantCard key={index} statisticValue={statisticValue} title={cardTitle[index]} />
         ))}
       </Container>
       <VisitantChart />
