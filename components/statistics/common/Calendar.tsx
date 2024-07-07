@@ -167,7 +167,6 @@ const CalendarContainer = styled.div`
   background: white;
   padding: 16px;
   width: 327px;
-  height: 425px;
 `;
 
 const CalendarHeader = styled.div`
