@@ -9,18 +9,27 @@ import { checkSessionStorage } from '@/utils/checkSessionStorage';
 
 const PasswordResetLanding = () => {
   const [isVerify, setIsVerify] = useState(true);
+  const [isClient, setIsClient] = useState(false);
+  const [email, setEmail] = useState('');
+
   // 이메일 인증 code(토큰) 받아오기
   const searchParams = useSearchParams();
   const code = searchParams.get('code');
-  const sessionStorage = checkSessionStorage();
 
   useEffect(() => {
+    setIsClient(true);
+
+    const sessionStorage = checkSessionStorage();
     if (sessionStorage?.getItem('isVerify') !== 'true') {
       setIsVerify(false);
     }
+
+    const emailData = sessionStorage?.getItem('email');
+    setEmail(emailData || 'you@example.com');
   }, []);
 
   if (!code) return <InviteNotFound type="reset" />;
+  if (!isClient) return null;
 
   // 검증 미실행 된 경우에만 검증
   if (!isVerify) {
@@ -28,8 +37,7 @@ const PasswordResetLanding = () => {
     return <PasswordVerify code={code} />;
   } else {
     // 비밀번호 재설정 UI 렌더링
-    const email = sessionStorage?.getItem('email');
-    return <PasswordResetUiLanding emailData={email || 'you@example.com'} />;
+    return <PasswordResetUiLanding emailData={email} />;
   }
 };
 
