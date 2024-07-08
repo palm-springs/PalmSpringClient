@@ -22,7 +22,7 @@ const VisitantChart = () => {
       <CardContainer>
         <CardBorder>
           <CalendarButton>
-            <SubTitle>방문자 수</SubTitle>
+            <SubTitle>방문 수</SubTitle>
             <CalendarWrapper>
               <CalendarIcon onClick={openModal} />
               <ArrowCalendarIcon onClick={closeModal} />
