@@ -8,10 +8,12 @@ import { checkSessionStorage } from '@/utils/checkSessionStorage';
 import PasswordResetUiLanding from './PasswordResetUiLanding';
 
 const PasswordVerify = ({ code }: { code: string }) => {
-  const sessionStorage = checkSessionStorage();
-
   // 토큰 검증
   const data = useGetVerifyEmail('reset', code);
+
+  const sessionStorage = checkSessionStorage();
+  if (sessionStorage?.getItem('isVerify') === 'true')
+    return <PasswordResetUiLanding emailData={sessionStorage?.getItem('email') || ''} />;
 
   if (!data) return;
 

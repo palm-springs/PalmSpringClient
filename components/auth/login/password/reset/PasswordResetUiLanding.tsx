@@ -1,7 +1,6 @@
 'use client';
 import React, { useEffect, useState } from 'react';
 import { Toaster } from 'react-hot-toast';
-import { useRouter } from 'next/navigation';
 
 import { resetPassword } from '@/api/auth';
 import BgButton from '@/components/auth/ui/BgButton';
@@ -20,13 +19,12 @@ interface PasswordResetUiLandingProps {
 
 const PasswordResetUiLanding = (props: PasswordResetUiLandingProps) => {
   const { emailData } = props;
-  const router = useRouter();
   const sessionStorage = checkSessionStorage();
 
   const [isDisabled, setIsDisabled] = useState(false);
 
   const [{ email, password, passwordCheck }, setValue] = useState({
-    email: sessionStorage?.getItem('email') || '',
+    email: emailData,
     password: '',
     passwordCheck: '',
   });

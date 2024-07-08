@@ -8,7 +8,7 @@ import InviteNotFound from '@/components/invite/ui/InviteNotFound';
 import { checkSessionStorage } from '@/utils/checkSessionStorage';
 
 const PasswordResetLanding = () => {
-  const [isVerify, setIsVerify] = useState(true);
+  const [isVerify, setIsVerify] = useState(false);
   const [isClient, setIsClient] = useState(false);
   const [email, setEmail] = useState('');
 
@@ -20,8 +20,8 @@ const PasswordResetLanding = () => {
     setIsClient(true);
 
     const sessionStorage = checkSessionStorage();
-    if (sessionStorage?.getItem('isVerify') !== 'true') {
-      setIsVerify(false);
+    if (sessionStorage?.getItem('isVerify') === 'true') {
+      setIsVerify(true);
     }
 
     const emailData = sessionStorage?.getItem('email');
