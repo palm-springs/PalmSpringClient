@@ -33,7 +33,7 @@ const InviteAcceptLanding = () => {
       router.push(`/login?userState=${LoginUserState.INVITE_MISMATCH}`);
     }
     // 유효하지 않은 초대 링크
-    else if (data.code === 404) {
+    else if (!data.data || data.code !== 200) {
       return <InviteNotFound type="invite" />;
     }
     // 초대 수락하기 폼

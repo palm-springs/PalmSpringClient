@@ -1,4 +1,5 @@
-import React, { Suspense } from 'react';
+'use client';
+import { Suspense } from 'react';
 
 import PasswordResetLanding from '@/components/auth/login/password/reset/PasswordResetLanding';
 

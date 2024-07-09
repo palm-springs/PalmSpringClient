@@ -1,3 +1,5 @@
+import { isAxiosError } from 'axios';
+
 import { Response } from '@/types/common';
 import { DeleteRequestBody, InviteRequestBody, UserInfoProps, UserInviteInfo } from '@/types/user';
 
@@ -40,17 +42,13 @@ export const postMemberInvite = async (blogUrl: string, requestBody: InviteReque
 // 초대 조회하기
 export const getMemberInvite = async (code: string | null) => {
   if (!code) return;
-  const { data } = await client
-    .get<Response<UserInviteInfo>>(`/api/v2/dashboard/user/invite?code=${code}`)
-    .catch((e) => {
-      if (e.response.status === 403) {
-        return { message: null, code: 403, data: null };
-      } else if (e.response.status === 404) {
-        return { message: null, code: 404, data: null };
-      }
-      return { message: null, code: 400, data: null };
-    });
-  return data;
+  try {
+    const { data } = await client.get<Response<UserInviteInfo>>(`/api/v2/dashboard/user/invite?code=${code}`);
+    return data;
+  } catch (e) {
+    if (isAxiosError(e)) return { message: null, code: e.response?.status, data: null };
+    else return { message: null, code: 404, data: null };
+  }
 };
 
 // 초대 삭제하기
