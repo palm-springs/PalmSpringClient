@@ -44,3 +44,19 @@ export interface TempSavedListProps {
     createdAt: string;
   };
 }
+
+export interface BlogSummaryProps {
+  day: {
+    views: number;
+    rate: number;
+    isIncrease: boolean;
+  };
+  month: {
+    views: number;
+    rate: number;
+    isIncrease: boolean;
+  };
+  total: {
+    views: number;
+  };
+}

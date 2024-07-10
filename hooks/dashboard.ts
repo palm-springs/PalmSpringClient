@@ -9,6 +9,7 @@ import {
   deleteCategory,
   deleteNavigation,
   deletePage,
+  getBlogSummary,
   getCategoryList,
   getMemberList,
   getNavList,
@@ -29,6 +30,7 @@ import { UserBasicInfo } from '@/types/user';
 import { QUERY_KEY_ARTICLE } from './editor';
 
 export const QUERY_KEY_DASHBOARD = {
+  getBlogSummary: 'getBlogSummary',
   getNavList: 'getNavList',
   getCategoryList: 'getCategoryList',
   getBlogHeader: 'getBlogHeader',
@@ -50,6 +52,13 @@ export const QUERY_KEY_DASHBOARD = {
   delegateUserRole: 'delegateUserRole',
 };
 
+//대시보드 통계 getBlogSummary
+export const useGetBlogSummary = (blogId: number) => {
+  const { data } = useQuery([QUERY_KEY_DASHBOARD.getBlogSummary, blogId], () => getBlogSummary(blogId));
+  return data;
+};
+
+//대시보드
 export const useGetNavList = (blogUrl: string) => {
   const { data } = useQuery([QUERY_KEY_DASHBOARD.getNavList, blogUrl], () => getNavList(blogUrl));
   return data;

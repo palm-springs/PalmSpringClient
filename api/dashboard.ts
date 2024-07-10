@@ -1,12 +1,20 @@
+import { getBlogCategoryList } from './blogHome';
 import { AxiosResponse } from 'axios';
 
 import { Response } from '@/types/common';
-import { CategoryListProps, NavListProps, PageListProps, TempSavedListProps } from '@/types/dashboard';
+import {
+  BlogSummaryProps,
+  CategoryListProps,
+  NavListProps,
+  PageListProps,
+  TempSavedListProps,
+} from '@/types/dashboard';
 import { MemberProps } from '@/types/member';
 import { UserBasicInfo, UserInfoProps } from '@/types/user';
 import { RoleType } from '@/utils/PermissionPolicyClass';
 
 import client from '.';
+import exp from 'constants';
 
 interface UserBasicInfoProps {
   registerId: string;
@@ -18,6 +26,13 @@ interface UserBasicInfoProps {
   job: string;
 }
 
+//대시보드 블로그 통계
+export const getBlogSummary = async (blogId: number) => {
+  const { data } = await client.get<Response<BlogSummaryProps>>(`/api/v2/dashboard/data/${blogId}/summary`);
+  return data;
+};
+
+//대시보드
 export const getPageList = async (blogUrl: string) => {
   const { data } = await client.get<Response<PageListProps[]>>(`/api/v2/dashboard/page/admin/list/${blogUrl}`);
   return data;
