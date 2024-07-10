@@ -62,7 +62,18 @@ const AuthRequired = ({ children }: { children: React.ReactNode }) => {
       async (error) => {
         const { config } = error;
 
+        // 재시도 5회 제한
+        if (!config.__retryCount) {
+          config.__retryCount = 0;
+        }
+        if (config.__retryCount >= 5) {
+          return Promise.reject(error);
+        }
+
         if (!error.response) {
+          // 재시도 횟수 추가
+          config.__retryCount += 1;
+
           // 최초 reissue 요청이 있으므로, 해당 config 구독
           if (lock) {
             return new Promise((resolve) => {

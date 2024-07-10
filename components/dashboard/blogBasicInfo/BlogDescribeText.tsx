@@ -66,6 +66,7 @@ const BlogDescribeTextarea = styled.textarea<{ $isScrollable: boolean }>`
 const BlogDescribeTitleContainer = styled.div`
   display: flex;
   flex-direction: column;
+  gap: 0.4rem;
   align-items: flex-start;
 `;
 

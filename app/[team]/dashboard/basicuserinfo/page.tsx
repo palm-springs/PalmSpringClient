@@ -20,7 +20,7 @@ const BasicUserInfoPage = () => {
   const [isDuplicate, setIsDuplicate] = useState<boolean | null>(false);
   const setUserInfoDataState = useSetRecoilState(userInfoState);
 
-  const data = useGetUserBasicInfo(team);
+  const data = useGetUserBasicInfo(team as string);
   useEffect(() => {
     if (!data) return;
     const {
