@@ -1,16 +1,20 @@
 'use client';
 
-import { IncreaseArrow } from '@/public/icons';
+import { DecreaseArrow, IncreaseArrow } from '@/public/icons';
+import { BlogSummaryProps } from '@/types/dashboard';
 import React from 'react';
 import styled from 'styled-components';
 
 interface CardProps {
   statisticValue: string;
   title: string;
+  view: number | null;
+  rate: number | null;
+  isIncrease: boolean | null;
 }
 
 const VisitantCard = (props: CardProps) => {
-  const { statisticValue, title } = props;
+  const { statisticValue, title, view, rate, isIncrease } = props;
   return (
     <>
       <CardContainer>
@@ -20,13 +24,26 @@ const VisitantCard = (props: CardProps) => {
             {title}
             {statisticValue === 'visitant' ? ' 방문 수' : ' 조회 수'}
           </SubTitle>
-          <Count>5,475</Count>
+          <Count>{view}</Count>
           {/* 전일대비: 데이터 받아오는 것에 따라 null이면 안보여주기  */}
-          <PercentContainer>
-            <PercentTitle>전 일대비</PercentTitle>
-            <IncreaseArrow />
-            <Percent>12%</Percent>
-          </PercentContainer>
+          {rate !== null ? (
+            <PercentContainer>
+              <PercentTitle>전 일대비</PercentTitle>
+              {isIncrease ? (
+                <>
+                  <IncreaseArrow />
+                  <Percent>{rate}</Percent>
+                </>
+              ) : (
+                <>
+                  <DecreaseArrow />
+                  <DecreasePercent>{rate}</DecreasePercent>
+                </>
+              )}
+            </PercentContainer>
+          ) : (
+            <PercentNullContainer />
+          )}
         </CardBorder>
       </CardContainer>
     </>
@@ -35,10 +52,20 @@ const VisitantCard = (props: CardProps) => {
 
 export default VisitantCard;
 
+const PercentNullContainer = styled.div`
+  margin-bottom: 3.4rem;
+`;
+
 const PercentContainer = styled.div`
   display: flex;
   align-items: center;
   margin-top: 0.8rem;
+`;
+
+const DecreasePercent = styled.p`
+  /* margin: 0 0 0.8rem; */
+  color: ${({ theme }) => theme.colors.warning};
+  ${({ theme }) => theme.fonts.Body2_Semibold};
 `;
 
 const Percent = styled.p`

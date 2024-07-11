@@ -14,7 +14,6 @@ import { UserBasicInfo, UserInfoProps } from '@/types/user';
 import { RoleType } from '@/utils/PermissionPolicyClass';
 
 import client from '.';
-import exp from 'constants';
 
 interface UserBasicInfoProps {
   registerId: string;
@@ -27,8 +26,8 @@ interface UserBasicInfoProps {
 }
 
 //대시보드 블로그 통계
-export const getBlogSummary = async (blogId: number) => {
-  const { data } = await client.get<Response<BlogSummaryProps>>(`/api/v2/dashboard/data/${blogId}/summary`);
+export const getBlogSummary = async (blogUrl: string) => {
+  const { data } = await client.get<Response<BlogSummaryProps>>(`/api/v2/dashboard/data/${blogUrl}/summary`);
   return data;
 };
 

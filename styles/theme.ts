@@ -26,6 +26,7 @@ const colors = {
   background_green_soft: '#F0FFF8',
   primary: '#50B15B',
 
+  warning: '#EA5959',
   red: '#FF5454',
   red_hover: '#D45858',
   background_red: 'rgba(255, 84, 84, 0.30)',
