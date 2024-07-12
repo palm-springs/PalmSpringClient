@@ -60,3 +60,18 @@ export interface BlogSummaryProps {
     views: number;
   };
 }
+
+export interface BlogPeriodProps {
+  data: {
+    type: string;
+    rowCount: number;
+    rows: [
+      {
+        date: string;
+        views: number;
+        rate: number;
+        isIncrease: boolean;
+      },
+    ];
+  };
+}

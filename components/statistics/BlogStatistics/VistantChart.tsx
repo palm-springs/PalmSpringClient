@@ -1,14 +1,30 @@
 'use client';
 
-import { ArrowCalendarIcon, ArrowDownSmallIcon, CalendarIcon, IncreaseArrow } from '@/public/icons';
+import { ArrowCalendarIcon, ArrowDownSmallIcon, CalendarIcon, DecreaseArrow, IncreaseArrow } from '@/public/icons';
 import React, { useState } from 'react';
 import styled from 'styled-components';
 import Chart from '../common/Chart';
 import Calendar from '../common/Calendar';
 import ModalPortal from '@/components/common/ModalPortal';
+import { useRecoilState } from 'recoil';
+import { endDateState, startDateState } from '@/recoil/atom/dashboard';
+import { useGetBlogPeriod, useGetBlogSummary } from '@/hooks/dashboard';
+import { useParams } from 'next/navigation';
 
 const VisitantChart = () => {
+  const { team } = useParams();
+  const [startDate, setStartDate] = useRecoilState(startDateState);
+  const [endDate, setEndDate] = useRecoilState(endDateState);
+
+  //블로그 통계 api
+  const res = useGetBlogSummary(String(team));
+  const isIncrease = res?.data.day.isIncrease;
+
+  // useGetBlogPeriod 훅 사용
+  const data = useGetBlogPeriod(String(team), String(startDate), String(endDate));
   const [isOpen, setIsOpen] = useState(false);
+
+  console.log(data?.data);
 
   const openModal = () => {
     setIsOpen(true);
@@ -34,10 +50,10 @@ const VisitantChart = () => {
             </CalendarWrapper>
           </CalendarButton>
           <PercentContainer>
-            <Count>5,475</Count>
+            <Count>{res?.data.day.views}</Count>
             <Wrapper>
-              <IncreaseArrow />
-              <Percent>12%</Percent>
+              {isIncrease ? <IncreaseArrow /> : <DecreaseArrow />}
+              {isIncrease ? <Percent>{res.data.day.rate}</Percent> : <DePercent>{res?.data.day.rate}</DePercent>}
             </Wrapper>
           </PercentContainer>
           <Chart />
@@ -86,6 +102,12 @@ const PercentContainer = styled.div`
 const Percent = styled.p`
   /* margin: 0 0 0.8rem; */
   color: ${({ theme }) => theme.colors.primary};
+  ${({ theme }) => theme.fonts.Body2_Semibold};
+`;
+
+const DePercent = styled.p`
+  /* margin: 0 0 0.8rem; */
+  color: ${({ theme }) => theme.colors.warning};
   ${({ theme }) => theme.fonts.Body2_Semibold};
 `;
 

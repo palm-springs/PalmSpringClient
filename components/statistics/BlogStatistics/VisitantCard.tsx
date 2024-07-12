@@ -19,13 +19,12 @@ const VisitantCard = (props: CardProps) => {
     <>
       <CardContainer>
         <CardBorder>
-          {/* 타이틀 글씨: 데이터 받아오는 것에 따라 인덱스별 다르게 띄우기 */}
+
           <SubTitle>
             {title}
             {statisticValue === 'visitant' ? ' 방문 수' : ' 조회 수'}
           </SubTitle>
           <Count>{view}</Count>
-          {/* 전일대비: 데이터 받아오는 것에 따라 null이면 안보여주기  */}
           {rate !== null ? (
             <PercentContainer>
               <PercentTitle>전 일대비</PercentTitle>

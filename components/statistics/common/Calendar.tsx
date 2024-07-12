@@ -1,4 +1,8 @@
+'use client';
+import { endDateState, startDateState } from '@/recoil/atom/dashboard';
+import { useParams } from 'next/navigation';
 import React, { useState } from 'react';
+import { useRecoilState } from 'recoil';
 import styled from 'styled-components';
 
 interface DayProps {
@@ -9,9 +13,13 @@ interface DayProps {
 }
 
 const Calendar: React.FC = () => {
+  const { team } = useParams();
   const [currentDate, setCurrentDate] = useState(new Date());
   const [selectedStartDate, setSelectedStartDate] = useState<Date | null>(null);
   const [selectedEndDate, setSelectedEndDate] = useState<Date | null>(null);
+
+  const [startDate, setStartDate] = useRecoilState(startDateState);
+  const [endDate, setEndDate] = useRecoilState(endDateState);
 
   const daysInMonth = (month: number, year: number) => {
     return new Date(year, month + 1, 0).getDate();
@@ -57,7 +65,7 @@ const Calendar: React.FC = () => {
     const dates = [];
     const totalCells = 35;
 
-    //이전 날짜 미리 렌더링
+    // 이전 날짜 미리 렌더링
     for (let i = firstDay - 1; i >= 0; i--) {
       dates.push(
         <Day key={`prev-${prevMonthDays - i}`} isOtherMonth>
@@ -66,7 +74,7 @@ const Calendar: React.FC = () => {
       );
     }
 
-    //현재 달 날짜 렌더링
+    // 현재 달 날짜 렌더링
     for (let day = 1; day <= days; day++) {
       const date = new Date(year, month, day);
       const isSelected =
@@ -91,7 +99,7 @@ const Calendar: React.FC = () => {
       );
     }
 
-    //다음 달 달짜 미리 렌더링
+    // 다음 달 날짜 미리 렌더링
     const remainingCells = totalCells - dates.length;
     for (let i = 1; i <= remainingCells; i++) {
       dates.push(
@@ -114,6 +122,17 @@ const Calendar: React.FC = () => {
 
   const monthNames = ['1월', '2월', '3월', '4월', '5월', '6월', '7월', '8월', '9월', '10월', '11월', '12월'];
 
+  const startDateStr = selectedStartDate ? selectedStartDate.toISOString().split('T')[0] : '';
+  const endDateStr = selectedEndDate ? selectedEndDate.toISOString().split('T')[0] : '';
+
+  //onClick시 recoil 날짜 저장 저장
+  const handleApplyClick = () => {
+    setStartDate(startDateStr);
+    setEndDate(endDateStr);
+    console.log('Selected Start Date:', startDateStr);
+    console.log('Selected End Date:', endDateStr);
+  };
+
   return (
     <>
       <CalendarContainer>
@@ -133,7 +152,8 @@ const Calendar: React.FC = () => {
           <Days>{renderCalendar()}</Days>
         </CalendarBody>
         <Line />
-        <PostButton>적용</PostButton>
+        {/* 적용누를 때 recoil에 값 담아서 chart가서 보여주기 ?  */}
+        <PostButton onClick={handleApplyClick}>적용</PostButton>
       </CalendarContainer>
     </>
   );

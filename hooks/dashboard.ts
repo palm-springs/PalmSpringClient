@@ -9,6 +9,7 @@ import {
   deleteCategory,
   deleteNavigation,
   deletePage,
+  getBlogPeriod,
   getBlogSummary,
   getCategoryList,
   getMemberList,
@@ -30,6 +31,7 @@ import { UserBasicInfo } from '@/types/user';
 import { QUERY_KEY_ARTICLE } from './editor';
 
 export const QUERY_KEY_DASHBOARD = {
+  getBlogPeriod: 'getBlogPeriod',
   getBlogSummary: 'getBlogSummary',
   getNavList: 'getNavList',
   getCategoryList: 'getCategoryList',
@@ -50,6 +52,14 @@ export const QUERY_KEY_DASHBOARD = {
   updateUserInfo: 'updateUserInfo',
   deleteMember: 'deleteMember',
   delegateUserRole: 'delegateUserRole',
+};
+
+//대시보드 통계 getBlogPeriod
+export const useGetBlogPeriod = (blogUrl: string, StartDate: string, EndDate: string) => {
+  const { data } = useQuery([QUERY_KEY_DASHBOARD.getBlogSummary, blogUrl, StartDate, EndDate], () =>
+    getBlogPeriod(blogUrl, StartDate, EndDate),
+  );
+  return data;
 };
 
 //대시보드 통계 getBlogSummary

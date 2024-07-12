@@ -3,6 +3,7 @@ import { AxiosResponse } from 'axios';
 
 import { Response } from '@/types/common';
 import {
+  BlogPeriodProps,
   BlogSummaryProps,
   CategoryListProps,
   NavListProps,
@@ -26,6 +27,13 @@ interface UserBasicInfoProps {
 }
 
 //대시보드 블로그 통계
+export const getBlogPeriod = async (blogUrl: string, StartDate: string, EndDate: string) => {
+  const { data } = await client.get<Response<BlogPeriodProps>>(
+    `/api/v2/dashboard/data/${blogUrl}/period?startDate=${StartDate}&endDate=${EndDate}&type=DAY`,
+  );
+  return data;
+};
+
 export const getBlogSummary = async (blogUrl: string) => {
   const { data } = await client.get<Response<BlogSummaryProps>>(`/api/v2/dashboard/data/${blogUrl}/summary`);
   return data;

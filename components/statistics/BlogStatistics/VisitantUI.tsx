@@ -17,7 +17,6 @@ const VisitantUI = (props: CardsProps) => {
   if (!data) {
     return <div>Loading...</div>;
   }
-
   const c = [1, 2, 3];
   const { statisticValue } = props;
   const cardTitle = ['오늘', '4월', '누적'];
