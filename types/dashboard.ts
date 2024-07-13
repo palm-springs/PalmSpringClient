@@ -62,16 +62,14 @@ export interface BlogSummaryProps {
 }
 
 export interface BlogPeriodProps {
-  data: {
-    type: string;
-    rowCount: number;
-    rows: [
-      {
-        date: string;
-        views: number;
-        rate: number;
-        isIncrease: boolean;
-      },
-    ];
-  };
+  type: string;
+  rowCount: number;
+  rows: [
+    {
+      date: string;
+      views: number;
+      rate: number;
+      isIncrease: boolean;
+    },
+  ];
 }

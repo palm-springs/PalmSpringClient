@@ -1,31 +1,43 @@
-import React, { useEffect, useRef, useCallback } from 'react';
+'use client';
+import React, { useEffect, useRef, useCallback, useState } from 'react';
 import * as d3 from 'd3';
+import { useParams } from 'next/navigation';
+import { useGetBlogPeriod } from '@/hooks/dashboard';
+import { useRecoilState } from 'recoil';
+import { endDateState, startDateState } from '@/recoil/atom/dashboard';
 
 interface DataPoint {
   date: Date;
   value: number;
 }
 
-const data: DataPoint[] = [
-  { date: new Date(2023, 0, 1), value: 30 },
-  { date: new Date(2023, 0, 2), value: 50 },
-  { date: new Date(2023, 0, 3), value: 45 },
-  { date: new Date(2023, 0, 4), value: 60 },
-  { date: new Date(2023, 0, 5), value: 70 },
-  { date: new Date(2023, 0, 6), value: 55 },
-  { date: new Date(2023, 0, 7), value: 65 },
-  { date: new Date(2023, 0, 8), value: 65 },
-  { date: new Date(2023, 0, 9), value: 65 },
-  { date: new Date(2023, 0, 10), value: 65 },
-  { date: new Date(2023, 0, 11), value: 65 },
-];
-
 const Chart: React.FC = () => {
+  const { team } = useParams();
+
+  const [startDate, setStartDate] = useRecoilState(startDateState);
+  const [endDate, setEndDate] = useRecoilState(endDateState);
+
+  // useGetBlogPeriod 훅 사용
+  const apiData = useGetBlogPeriod(String(team), String(startDate), String(endDate));
+  const [data, setData] = useState<DataPoint[]>([]);
   const svgRef = useRef<SVGSVGElement | null>(null);
   const containerRef = useRef<HTMLDivElement | null>(null);
 
+  // 날짜, 뷰(value)값 호출 -> useState(data)에 담아서 띄우기
+  useEffect(() => {
+    if (apiData && apiData.data.rows) {
+      const transformedData: DataPoint[] = apiData.data.rows.map((row: any) => ({
+        date: new Date(row.date), // Date 객체로 변환
+        value: row.views,
+      }));
+      setData(transformedData);
+      console.log(transformedData);
+    }
+  }, [apiData]);
+
+  // 그래프 그리는 로직 & 스타일
   const drawChart = useCallback(() => {
-    if (svgRef.current && containerRef.current) {
+    if (svgRef.current && containerRef.current && data.length > 0) {
       const containerWidth = containerRef.current.clientWidth;
       const width = containerWidth;
       const height = 222;
@@ -52,14 +64,14 @@ const Chart: React.FC = () => {
         .x((d) => x(d.date))
         .y((d) => y(d.value));
 
-      //색상 구역 설정
+      // 색상 구역 설정
       const area = d3
         .area<DataPoint>()
         .x((d) => x(d.date))
         .y0(height - margin.bottom)
         .y1((d) => y(d.value));
 
-      //그라데이션 추가
+      // 그라데이션 추가
       const gradient = svg
         .append('defs')
         .append('linearGradient')
@@ -92,6 +104,12 @@ const Chart: React.FC = () => {
 
       const formatTime = d3.timeFormat('%Y.%m.%d');
 
+      const xTicks = [
+        data[0].date, // 첫 번째 날짜
+        data[Math.floor(data.length / 2)].date, // 중간 날짜
+        data[data.length - 1].date, // 마지막 날짜
+      ];
+
       // Add x-축
       svg
         .append('g')
@@ -99,8 +117,8 @@ const Chart: React.FC = () => {
         .call(
           d3
             .axisBottom<Date | d3.NumberValue>(x)
-            .tickFormat((d) => formatTime(d as Date))
-            .ticks(d3.timeDay.every(1)),
+            .tickValues(xTicks)
+            .tickFormat((d) => formatTime(d as Date)),
         ) // x축 텍스트
         .attr('transform', `translate(0,${height - margin.bottom})`)
         .select('.domain')
@@ -170,7 +188,7 @@ const Chart: React.FC = () => {
               : prev;
           });
 
-          //호버 툴 팁 위치, 스타일 조정
+          // 호버 툴팁 위치, 스타일 조정
           tooltip
             .style('display', 'block')
             .style('left', `${event.pageX + 10}px`)
@@ -180,7 +198,8 @@ const Chart: React.FC = () => {
                 `<div style="font-size: 12px; color: #555; display: flex; justify-content: space-between; margin-bottom: 9.5px;">당일 방문자 수<div>${dataPoint.value}</div></div>` +
                 `<div style="font-size: 12px; color: #555; display: flex; justify-content: space-between;">전월 대비<div>10%</div></div>`,
             );
-          //호버시 위치 표시 동그라미
+
+          // 호버시 위치 표시 동그라미
           svg
             .append('circle')
             .attr('class', 'tooltip-circle')
@@ -197,7 +216,7 @@ const Chart: React.FC = () => {
           svg.selectAll('.tooltip-circle').remove();
         });
     }
-  }, []);
+  }, [data]);
 
   useEffect(() => {
     drawChart();

@@ -22,9 +22,12 @@ const VisitantChart = () => {
 
   // useGetBlogPeriod 훅 사용
   const data = useGetBlogPeriod(String(team), String(startDate), String(endDate));
+  console.log(data?.data.rows);
   const [isOpen, setIsOpen] = useState(false);
 
   console.log(data?.data);
+  // data와 data.data가 존재하는지 확인
+  if (!data || !data.data || !Array.isArray(data.data.rows)) return <div>데이터가 없습니다.</div>;
 
   const openModal = () => {
     setIsOpen(true);
