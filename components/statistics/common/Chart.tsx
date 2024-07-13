@@ -12,7 +12,7 @@ interface DataPoint {
 }
 
 const Chart: React.FC = () => {
-  const { team } = useParams();
+  const { team, articleId } = useParams();
 
   const [startDate, setStartDate] = useRecoilState(startDateState);
   const [endDate, setEndDate] = useRecoilState(endDateState);

@@ -8,7 +8,7 @@ import Calendar from '../common/Calendar';
 import ModalPortal from '@/components/common/ModalPortal';
 import { useRecoilState } from 'recoil';
 import { endDateState, startDateState } from '@/recoil/atom/dashboard';
-import { useGetBlogPeriod, useGetBlogSummary } from '@/hooks/dashboard';
+import { useGetArticlePeriod, useGetBlogPeriod, useGetBlogSummary } from '@/hooks/dashboard';
 import { useParams } from 'next/navigation';
 
 const VisitantChart = () => {

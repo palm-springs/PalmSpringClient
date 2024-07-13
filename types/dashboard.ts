@@ -73,3 +73,40 @@ export interface BlogPeriodProps {
     },
   ];
 }
+
+export interface ArticlePeriodProps {
+  articleInfo: {
+    id: number;
+    title: string;
+    author: string;
+    createdAt: string;
+    thumbnail: string;
+  };
+  summary: {
+    day: {
+      views: number;
+      rate: number;
+      isIncrease: boolean;
+    };
+    month: {
+      views: number;
+      rate: number;
+      isIncrease: boolean;
+    };
+    total: {
+      views: number;
+    };
+  };
+  period: {
+    type: string;
+    rowCount: number;
+    rows: [
+      {
+        date: string;
+        views: number;
+        rate: number;
+        isIncrease: boolean;
+      },
+    ];
+  };
+}

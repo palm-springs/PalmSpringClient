@@ -11,10 +11,17 @@ interface CardProps {
   view: number | null;
   rate: number | null;
   isIncrease: boolean | null;
+  articleViewArray?: number | null;
+  articleRate?: number | null;
+  articleIsIncrease?: boolean | null;
 }
 
 const VisitantCard = (props: CardProps) => {
-  const { statisticValue, title, view, rate, isIncrease } = props;
+  const { statisticValue, title, view, rate, isIncrease, articleViewArray, articleRate, articleIsIncrease } = props;
+
+  const displayView = statisticValue === 'visitant' ? view : articleViewArray;
+  const displayRate = statisticValue === 'visitant' ? rate : articleRate;
+  const displayIsIncrease = statisticValue === 'visitant' ? isIncrease : articleIsIncrease;
 
   return (
     <>
@@ -24,9 +31,9 @@ const VisitantCard = (props: CardProps) => {
             {title}
             {statisticValue === 'visitant' ? ' 방문 수' : ' 조회 수'}
           </SubTitle>
-          <Count>{view}</Count>
-          {rate !== null ? (
-            rate === 0 ? (
+          <Count>{displayView}</Count>
+          {displayRate !== null ? (
+            displayRate === 0 ? (
               <PercentContainer>
                 <PercentTitle>전 일대비</PercentTitle>
                 <IsZero>&nbsp;-</IsZero>
@@ -34,7 +41,7 @@ const VisitantCard = (props: CardProps) => {
             ) : (
               <PercentContainer>
                 <PercentTitle>전 일대비</PercentTitle>
-                {isIncrease ? (
+                {displayIsIncrease ? (
                   <>
                     &nbsp;
                     <IncreaseArrow />
@@ -45,7 +52,11 @@ const VisitantCard = (props: CardProps) => {
                     <DecreaseArrow />
                   </>
                 )}
-                {isIncrease ? <Percent>{rate}</Percent> : <DecreasePercent>{rate}</DecreasePercent>}
+                {displayIsIncrease ? (
+                  <Percent>{displayRate}</Percent>
+                ) : (
+                  <DecreasePercent>{displayRate}</DecreasePercent>
+                )}
               </PercentContainer>
             )
           ) : (
