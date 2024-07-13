@@ -36,9 +36,6 @@ const VisitantChart = (props: ChartProps) => {
     setIsOpen(true);
   };
 
-  const closeModal = () => {
-    setIsOpen(false);
-  };
   return (
     <>
       <CardContainer>
@@ -47,10 +44,10 @@ const VisitantChart = (props: ChartProps) => {
             <SubTitle>방문 수</SubTitle>
             <CalendarWrapper>
               <CalendarIcon onClick={openModal} />
-              <ArrowCalendarIcon onClick={closeModal} />
+              <ArrowCalendarIcon />
               {isOpen && (
                 <CalendarContainer>
-                  <Calendar />
+                  <Calendar setIsOpen={setIsOpen} />
                 </CalendarContainer>
               )}
             </CalendarWrapper>

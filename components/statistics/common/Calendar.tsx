@@ -1,7 +1,7 @@
 'use client';
 import { endDateState, startDateState } from '@/recoil/atom/dashboard';
 import { useParams } from 'next/navigation';
-import React, { useState } from 'react';
+import React, { Dispatch, SetStateAction, useState } from 'react';
 import { useRecoilState } from 'recoil';
 import styled from 'styled-components';
 
@@ -12,7 +12,11 @@ interface DayProps {
   isInRange?: boolean;
 }
 
-const Calendar: React.FC = () => {
+interface CalendarProps {
+  setIsOpen: Dispatch<SetStateAction<boolean>>;
+}
+
+const Calendar: React.FC<CalendarProps> = ({ setIsOpen }) => {
   const { team } = useParams();
   const [currentDate, setCurrentDate] = useState(new Date());
   const [selectedStartDate, setSelectedStartDate] = useState<Date | null>(null);
@@ -129,8 +133,7 @@ const Calendar: React.FC = () => {
   const handleApplyClick = () => {
     setStartDate(startDateStr);
     setEndDate(endDateStr);
-    console.log('Selected Start Date:', startDateStr);
-    console.log('Selected End Date:', endDateStr);
+    setIsOpen(false);
   };
 
   return (
