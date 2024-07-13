@@ -19,7 +19,9 @@ const VisitantUI = (props: CardsProps) => {
   }
   const c = [1, 2, 3];
   const { statisticValue } = props;
-  const cardTitle = ['오늘', '4월', '누적'];
+  const today = new Date();
+  const month = String(today.getMonth() + 1).padStart(1);
+  const cardTitle = ['오늘', `${month}월`, '누적'];
   const viewsArray = [data.data.day.views, data.data.month.views, data.data.total.views];
   const rate = [data.data.day.rate, data.data.month.rate, null];
   const isIncrease = [data.data.day.isIncrease, data.data.month.isIncrease, null];

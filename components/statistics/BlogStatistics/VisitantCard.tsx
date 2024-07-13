@@ -15,31 +15,39 @@ interface CardProps {
 
 const VisitantCard = (props: CardProps) => {
   const { statisticValue, title, view, rate, isIncrease } = props;
+
   return (
     <>
       <CardContainer>
         <CardBorder>
-
           <SubTitle>
             {title}
             {statisticValue === 'visitant' ? ' 방문 수' : ' 조회 수'}
           </SubTitle>
           <Count>{view}</Count>
           {rate !== null ? (
-            <PercentContainer>
-              <PercentTitle>전 일대비</PercentTitle>
-              {isIncrease ? (
-                <>
-                  <IncreaseArrow />
-                  <Percent>{rate}</Percent>
-                </>
-              ) : (
-                <>
-                  <DecreaseArrow />
-                  <DecreasePercent>{rate}</DecreasePercent>
-                </>
-              )}
-            </PercentContainer>
+            rate === 0 ? (
+              <PercentContainer>
+                <PercentTitle>전 일대비</PercentTitle>
+                <IsZero>&nbsp;-</IsZero>
+              </PercentContainer>
+            ) : (
+              <PercentContainer>
+                <PercentTitle>전 일대비</PercentTitle>
+                {isIncrease ? (
+                  <>
+                    &nbsp;
+                    <IncreaseArrow />
+                  </>
+                ) : (
+                  <>
+                    &nbsp;
+                    <DecreaseArrow />
+                  </>
+                )}
+                {isIncrease ? <Percent>{rate}</Percent> : <DecreasePercent>{rate}</DecreasePercent>}
+              </PercentContainer>
+            )
           ) : (
             <PercentNullContainer />
           )}
@@ -64,6 +72,11 @@ const PercentContainer = styled.div`
 const DecreasePercent = styled.p`
   /* margin: 0 0 0.8rem; */
   color: ${({ theme }) => theme.colors.warning};
+  ${({ theme }) => theme.fonts.Body2_Semibold};
+`;
+
+const IsZero = styled.p`
+  color: ${({ theme }) => theme.colors.grey_700};
   ${({ theme }) => theme.fonts.Body2_Semibold};
 `;
 
