@@ -10,15 +10,27 @@ import { useRecoilState } from 'recoil';
 import { endDateState, startDateState } from '@/recoil/atom/dashboard';
 import { useGetArticlePeriod, useGetBlogPeriod, useGetBlogSummary } from '@/hooks/dashboard';
 import { useParams } from 'next/navigation';
+import { ArticlePeriodProps } from '@/types/dashboard';
+import statistics from '@/app/[team]/dashboard/statistics/page';
 
-const VisitantChart = () => {
+interface ChartProps {
+  articleChartData?: ArticlePeriodProps;
+  statisticValue: string;
+}
+
+const VisitantChart = (props: ChartProps) => {
   const { team } = useParams();
+  const { articleChartData, statisticValue } = props;
 
   //블로그 통계 api
   const res = useGetBlogSummary(String(team));
-  const isIncrease = res?.data.day.isIncrease;
+  const isIncrease =
+    statisticValue === 'visitant' ? res?.data.day.isIncrease : articleChartData?.summary.day.isIncrease;
 
   const [isOpen, setIsOpen] = useState(false);
+
+  const views = statisticValue === 'visitant' ? res?.data.day.views : articleChartData?.summary.day.views;
+  const rate = statisticValue === 'visitant' ? res?.data.day.rate : articleChartData?.summary.day.rate;
 
   const openModal = () => {
     setIsOpen(true);
@@ -44,20 +56,36 @@ const VisitantChart = () => {
             </CalendarWrapper>
           </CalendarButton>
           <PercentContainer>
-            <Count>{res?.data.day.views}</Count>
+            <Count>{views}</Count>
             <Wrapper>
-              {isIncrease ? <IncreaseArrow /> : <DecreaseArrow />}
-              {isIncrease ? <Percent>{res.data.day.rate}</Percent> : <DePercent>{res?.data.day.rate}</DePercent>}
+              {rate === 0 ? (
+                <IsZero>&nbsp;-</IsZero>
+              ) : (
+                <>
+                  &nbsp;
+                  {isIncrease ? <IncreaseArrow /> : <DecreaseArrow />}
+                  {isIncrease ? <Percent>{rate}</Percent> : <DePercent>{rate}</DePercent>}
+                </>
+              )}
             </Wrapper>
           </PercentContainer>
-          <Chart />
+          <Chart statisticValue={statisticValue} articleChartData={articleChartData} />
         </CardBorder>
       </CardContainer>
+      {statisticValue === 'views' && <ArticleListMargin />}
     </>
   );
 };
 
 export default VisitantChart;
+const IsZero = styled.p`
+  color: ${({ theme }) => theme.colors.grey_700};
+  ${({ theme }) => theme.fonts.Body2_Semibold};
+`;
+
+const ArticleListMargin = styled.div`
+  margin-bottom: 16rem;
+`;
 
 const CalendarButton = styled.div`
   display: flex;

@@ -58,7 +58,7 @@ const VisitantUI = (props: CardsProps) => {
           />
         ))}
       </Container>
-      <VisitantChart />
+      <VisitantChart articleChartData={articleChartData} statisticValue={statisticValue} />
     </VisitantContainer>
   );
 };

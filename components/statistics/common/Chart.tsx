@@ -5,13 +5,19 @@ import { useParams } from 'next/navigation';
 import { useGetBlogPeriod } from '@/hooks/dashboard';
 import { useRecoilState } from 'recoil';
 import { endDateState, startDateState } from '@/recoil/atom/dashboard';
+import { ArticlePeriodProps } from '@/types/dashboard';
 
 interface DataPoint {
   date: Date;
   value: number;
 }
 
-const Chart: React.FC = () => {
+interface ChartDetailProps {
+  statisticValue: string;
+  articleChartData?: ArticlePeriodProps;
+}
+
+const Chart: React.FC<ChartDetailProps> = ({ statisticValue, articleChartData }) => {
   const { team, articleId } = useParams();
 
   const [startDate, setStartDate] = useRecoilState(startDateState);
@@ -25,15 +31,22 @@ const Chart: React.FC = () => {
 
   // 날짜, 뷰(value)값 호출 -> useState(data)에 담아서 띄우기
   useEffect(() => {
-    if (apiData && apiData.data.rows) {
-      const transformedData: DataPoint[] = apiData.data.rows.map((row: any) => ({
-        date: new Date(row.date), // Date 객체로 변환
-        value: row.views,
+    if (apiData && apiData.data.rows && statisticValue === 'visitant') {
+      const transformedData: DataPoint[] = apiData.data.rows.map((blogRow) => ({
+        date: new Date(blogRow.date), // Date 객체로 변환
+        value: blogRow.views,
+      }));
+      setData(transformedData);
+      console.log(transformedData);
+    } else if (articleChartData && articleChartData.summary && statisticValue !== 'visitant') {
+      const transformedData: DataPoint[] = articleChartData.period.rows.map((articleRow) => ({
+        date: new Date(articleRow.date), // Date 객체로 변환
+        value: articleRow.views,
       }));
       setData(transformedData);
       console.log(transformedData);
     }
-  }, [apiData]);
+  }, [apiData, articleChartData, statisticValue]);
 
   // 그래프 그리는 로직 & 스타일
   const drawChart = useCallback(() => {

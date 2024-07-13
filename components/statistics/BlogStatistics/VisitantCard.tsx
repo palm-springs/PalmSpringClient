@@ -81,7 +81,6 @@ const PercentContainer = styled.div`
 `;
 
 const DecreasePercent = styled.p`
-  /* margin: 0 0 0.8rem; */
   color: ${({ theme }) => theme.colors.warning};
   ${({ theme }) => theme.fonts.Body2_Semibold};
 `;
@@ -92,24 +91,20 @@ const IsZero = styled.p`
 `;
 
 const Percent = styled.p`
-  /* margin: 0 0 0.8rem; */
   color: ${({ theme }) => theme.colors.primary};
   ${({ theme }) => theme.fonts.Body2_Semibold};
 `;
 
 const PercentTitle = styled.p`
-  /* margin: 0 0 0.8rem; */
   color: ${({ theme }) => theme.colors.grey_700};
   ${({ theme }) => theme.fonts.Caption};
 `;
 
 const Count = styled.p`
-  /* margin: 0 0 0.8rem; */
   color: ${({ theme }) => theme.colors.grey_1000};
   ${({ theme }) => theme.fonts.Heading1};
 `;
 const SubTitle = styled.h3`
-  /* margin: 0 0 0.8rem; */
   color: ${({ theme }) => theme.colors.grey_1000};
   ${({ theme }) => theme.fonts.Body2_Regular};
 `;
