@@ -15,12 +15,12 @@ const BlogStatistic = () => {
     return `${year}.${month}.${day} ${hours}:${minutes}`;
   };
 
-  const date = getCurrentDate();
+  const currentDate = getCurrentDate();
   return (
     <div>
       <TitleContainer>
         <BlogStatisticTitle>블로그 통계</BlogStatisticTitle>
-        <StandardTime>{date} 기준</StandardTime>
+        <StandardTime>{currentDate} 기준</StandardTime>
       </TitleContainer>
       <>
         <VisitantUI statisticValue="visitant" />

@@ -6,6 +6,7 @@ import VisitantCard from './VisitantCard';
 import VisitantChart from './VistantChart';
 import { useGetBlogSummary } from '@/hooks/dashboard';
 import { useParams } from 'next/navigation';
+import LoadingLottie from '@/components/common/ui/LoadingLottie';
 
 interface CardsProps {
   statisticValue: string;
@@ -15,7 +16,7 @@ const VisitantUI = (props: CardsProps) => {
   const { team } = useParams();
   const data = useGetBlogSummary(String(team));
   if (!data) {
-    return <div>Loading...</div>;
+    return <LoadingLottie height={4} width={4} fit={false} />;
   }
   const c = [1, 2, 3];
   const { statisticValue } = props;

@@ -4,8 +4,17 @@ import styled from 'styled-components';
 import VisitantUI from '../BlogStatistics/VisitantUI';
 
 const ArticleInfo = () => {
-  const today = new Date();
-  const formattedDate = `${today.getFullYear()}.${('0' + (today.getMonth() + 1)).slice(-2)}.${('0' + today.getDate()).slice(-2)} ${('0' + today.getHours()).slice(-2)}:${('0' + today.getMinutes()).slice(-2)}`;
+  const getCurrentDate = (): string => {
+    const today = new Date();
+    const year = today.getFullYear();
+    const month = String(today.getMonth() + 1).padStart(2, '0');
+    const day = String(today.getDate()).padStart(2, '0');
+    const hours = String(today.getHours()).padStart(2, '0');
+    const minutes = String(today.getMinutes()).padStart(2, '0');
+    return `${year}.${month}.${day} ${hours}:${minutes}`;
+  };
+
+  const currentDate = getCurrentDate();
 
   return (
     <>
@@ -19,7 +28,7 @@ const ArticleInfo = () => {
       </ArticleInfoContainer>
       <ArticleStatisticsWrapper>
         <ArticleStatisticsTitle>해당 게시글 통계</ArticleStatisticsTitle>
-        <ArticleStatisticsTime>{formattedDate}</ArticleStatisticsTime>
+        <ArticleStatisticsTime>{currentDate} 기준</ArticleStatisticsTime>
       </ArticleStatisticsWrapper>
       <VisitantUI statisticValue="views" />
     </>
