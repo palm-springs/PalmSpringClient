@@ -156,7 +156,9 @@ const Calendar: React.FC<CalendarProps> = ({ setIsOpen }) => {
         </CalendarBody>
         <Line />
         {/* 적용누를 때 recoil에 값 담아서 chart가서 보여주기 ?  */}
-        <PostButton onClick={handleApplyClick}>적용</PostButton>
+        <PostButton onClick={handleApplyClick} disabled={!startDateStr || !endDateStr}>
+          적용
+        </PostButton>
       </CalendarContainer>
     </>
   );
@@ -176,9 +178,10 @@ const PostButton = styled.button`
   margin: 0 0 1.6rem 24.5rem;
   border-top: 1px solid ${({ theme }) => theme.colors.grey_300};
   border-radius: 0.4rem;
-  background-color: ${({ theme }) => theme.colors.grey_900};
+  background-color: ${({ theme, disabled }) => (disabled ? theme.colors.grey_300 : theme.colors.grey_900)};
+  cursor: 'pointer';
   padding: 0.8rem 1.2rem;
-  color: ${({ theme }) => theme.colors.grey_0};
+  color: ${({ theme, disabled }) => (disabled ? theme.colors.grey_500 : theme.colors.grey_0)};
 `;
 
 const CalendarContainer = styled.div`
