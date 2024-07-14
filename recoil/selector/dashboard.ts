@@ -1,13 +1,6 @@
 import { selector } from 'recoil';
 
-// 현재 날짜
-const getCurrentDate = (): string => {
-  const today = new Date();
-  const year = today.getFullYear();
-  const month = String(today.getMonth() + 1).padStart(2, '0');
-  const day = String(today.getDate()).padStart(2, '0');
-  return `${year}-${month}-${day}`;
-};
+import { getCurrentDate } from '@/utils/getCurrentDateTime';
 
 // 현재 날짜 selector
 export const currentDateSelector = selector<string>({
