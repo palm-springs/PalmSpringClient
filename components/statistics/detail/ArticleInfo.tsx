@@ -5,7 +5,7 @@ import styled from 'styled-components';
 import { ArticlePeriodProps } from '@/types/dashboard';
 
 const ArticleInfo = (props: ArticlePeriodProps['articleInfo']) => {
-  const { author, createdAt, thumbnail, title } = props;
+  const { author, createdAt, thumbnail, title, description } = props;
 
   return (
     <>
@@ -13,7 +13,7 @@ const ArticleInfo = (props: ArticlePeriodProps['articleInfo']) => {
         {thumbnail && <Thumbnail src={thumbnail} alt="게시글 썸네일" width={228} height={170} />}
         <div>
           <Title>{title}</Title>
-          <Description>리액트 API와 코드 재사용의 진화에 관한 글입니다.</Description>
+          <Description>{description}</Description>
           <AuthorAndDate>{`${author} | ${createdAt}`}</AuthorAndDate>
         </div>
       </ArticleInfoContainer>
