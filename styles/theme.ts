@@ -24,7 +24,9 @@ const colors = {
   blue: '#2F4CA9',
   background_green: 'rgba(25, 219, 123, 0.30)',
   background_green_soft: '#F0FFF8',
+  primary: '#50B15B',
 
+  warning: '#EA5959',
   red: '#FF5454',
   red_hover: '#D45858',
   background_red: 'rgba(255, 84, 84, 0.30)',

@@ -36,8 +36,8 @@ const DashBoardTemplate = (props: DashBoardTemplateProps) => {
   };
 
   useEffect(() => {
-    if (!team && window.location.host !== '/no-team/dashboard/upload') {
-      router.push(`/no-team/dashboard/upload`);
+    if (!team && window.location.host !== '/no-team/dashboard/statistics') {
+      router.push(`/no-team/dashboard/statistics`);
     }
     if (team) prefetchDashboardData();
   }, []);

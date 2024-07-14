@@ -43,9 +43,9 @@ export const useDeleteBlog = (blogUrl: string) => {
       if (!res) return;
 
       if (res.data && res.data.joinBlogList.length > 0) {
-        router.push(`/${res.data.joinBlogList[0].blogUrl}/dashboard/upload`);
+        router.push(`/${res.data.joinBlogList[0].blogUrl}/dashboard/statistics`);
       } else {
-        router.push(`/no-team/dashboard/upload`);
+        router.push(`/no-team/dashboard/statistics`);
       }
     },
   });

@@ -27,7 +27,7 @@ const EmailVerifyLanding = (props: EmailVerifyProps) => {
           sessionStorage?.setItem(ACCESS_TOKEN_KEY, accessToken);
           // 대시보드 이동 후 토스트용
           sessionStorage?.setItem('success-signup', 'true');
-          router.push('/no-team/dashboard/upload');
+          router.push('/no-team/dashboard/statistics');
         }
       }
     };

@@ -56,7 +56,7 @@ const BlogList = (props: BlogListProps) => {
                     currentUserRole: role,
                   };
                 });
-                router.push(`/${blogUrl}/dashboard/upload`);
+                router.push(`/${blogUrl}/dashboard/statistics`);
               }}
             />
           );

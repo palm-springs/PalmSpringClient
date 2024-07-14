@@ -14,7 +14,7 @@ const LoginSuccessLanding = () => {
       <Lottie animationData={SuccessLottie} className="lottie" />
       <BlogName>{name}</BlogName>
       <SuccessMessage>블로그 개설이 완료되었습니다</SuccessMessage>
-      <GoDashBoardButton href={`/${url}/dashboard/upload`}>대시보드 바로가기</GoDashBoardButton>
+      <GoDashBoardButton href={`/${url}/dashboard/statistics`}>대시보드 바로가기</GoDashBoardButton>
     </LoginSuccessContainer>
   );
 };
