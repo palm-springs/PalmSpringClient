@@ -2,19 +2,18 @@
 import Link from 'next/link';
 import styled from 'styled-components';
 
-const ArticleItem = () => {
-  const articleId = 1;
+import { ArticleStatics } from '@/types/dashboard';
+
+const ArticleItem = (props: ArticleStatics) => {
+  const { id, title, author, createdAt, todayViews, totalViews } = props;
   return (
     <ArticleItemContainer>
-      <Value className="title">
-        전 세계에서 폭발적으로 인기를 끈 가상 현실 게임,넥서스 출시!전 세계에서 폭발적으로 인기를 끈 가상 현실
-        게임,넥서스 출시!
-      </Value>
-      <Value className="author">김서윤</Value>
-      <Value className="date">2023.07.06</Value>
-      <Value>150</Value>
-      <Value>6,123</Value>
-      <StatisticsDetailButton href={`?articleId=${articleId}`}>통계</StatisticsDetailButton>
+      <Value className="title">{title}</Value>
+      <Value className="author">{author}</Value>
+      <Value className="date">{createdAt}</Value>
+      <Value>{todayViews}</Value>
+      <Value>{totalViews}</Value>
+      <StatisticsDetailButton href={`?articleId=${id}`}>통계</StatisticsDetailButton>
     </ArticleItemContainer>
   );
 };

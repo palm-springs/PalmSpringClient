@@ -1,19 +1,26 @@
 'use client';
+import { useParams } from 'next/navigation';
 import styled from 'styled-components';
+
+import { useGetArticleStatisticsList } from '@/hooks/dashboard';
+import { ArticleStatics } from '@/types/dashboard';
 
 import ArticleField from './ArticleField';
 import ArticleItem from './ArticleItem';
 
 const ArticleList = () => {
+  const { team } = useParams();
+  const data = useGetArticleStatisticsList(String(team));
+  if (!data) return;
+
+  const ArticleList = data.data.map((props: ArticleStatics) => {
+    return <ArticleItem key={props.id} {...props} />;
+  });
+
   return (
     <ArticleListContainer>
       <ArticleField />
-      <ArticleItem />
-      <ArticleItem />
-      <ArticleItem />
-      <ArticleItem />
-      <ArticleItem />
-      <ArticleItem />
+      {ArticleList}
     </ArticleListContainer>
   );
 };

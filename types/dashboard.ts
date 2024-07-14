@@ -110,3 +110,12 @@ export interface ArticlePeriodProps {
     ];
   };
 }
+
+export interface ArticleStatics {
+  id: number;
+  title: string;
+  author: string;
+  createdAt: string;
+  todayViews: number;
+  totalViews: number;
+}
