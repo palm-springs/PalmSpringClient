@@ -1,5 +1,6 @@
 'use client';
 import Link from 'next/link';
+import { useParams } from 'next/navigation';
 import styled from 'styled-components';
 
 import { ArrowLeftIcon } from '@/public/icons';
@@ -7,12 +8,8 @@ import { ArrowLeftIcon } from '@/public/icons';
 import ArticleInfo from './ArticleInfo';
 import ArticleStatistic from './ArticleStatistic';
 
-interface StatisticsDetailTemplateProps {
-  articleId: number;
-}
-const StatisticsDetailTemplate = (props: StatisticsDetailTemplateProps) => {
-  const { articleId } = props;
-  const team = 'testtest';
+const StatisticsDetailTemplate = () => {
+  const { team } = useParams();
 
   // article 상세 통계 데이터 불러오기
   return (

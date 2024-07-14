@@ -1,58 +1,43 @@
 'use client';
 import Image from 'next/image';
+import { useParams } from 'next/navigation';
+import { useRecoilValue } from 'recoil';
 import styled from 'styled-components';
-import VisitantUI from '../BlogStatistics/VisitantUI';
+
+import LoadingLottie from '@/components/common/ui/LoadingLottie';
+import { useGetArticlePeriod } from '@/hooks/dashboard';
+import { endDateState, startDateState } from '@/recoil/atom/dashboard';
 
 const ArticleInfo = () => {
-  const getCurrentDate = (): string => {
-    const today = new Date();
-    const year = today.getFullYear();
-    const month = String(today.getMonth() + 1).padStart(2, '0');
-    const day = String(today.getDate()).padStart(2, '0');
-    const hours = String(today.getHours()).padStart(2, '0');
-    const minutes = String(today.getMinutes()).padStart(2, '0');
-    return `${year}.${month}.${day} ${hours}:${minutes}`;
-  };
+  const { articleId } = useParams();
+  const startDate = useRecoilValue(startDateState);
+  const endDate = useRecoilValue(endDateState);
 
-  const currentDate = getCurrentDate();
+  const articleData = useGetArticlePeriod(Number(articleId), startDate, endDate);
+
+  if (!articleData) return <LoadingLottie width={4} height={4} />;
+
+  const {
+    data: {
+      articleInfo: { author, createdAt, thumbnail, title },
+    },
+  } = articleData;
 
   return (
     <>
       <ArticleInfoContainer>
-        <Thumbnail />
+        {thumbnail && <Thumbnail src={thumbnail} alt="게시글 썸네일" width={228} height={170} />}
         <div>
-          <Title>리액트 API와 코드 재사용의 진화에 대한 글의 제목이 길다면 어떨까</Title>
+          <Title>{title}</Title>
           <Description>리액트 API와 코드 재사용의 진화에 관한 글입니다.</Description>
-          <AuthorAndDate>송승훈 | 2023.06.25</AuthorAndDate>
+          <AuthorAndDate>{`${author} | ${createdAt}`}</AuthorAndDate>
         </div>
       </ArticleInfoContainer>
-      <ArticleStatisticsWrapper>
-        <ArticleStatisticsTitle>해당 게시글 통계</ArticleStatisticsTitle>
-        <ArticleStatisticsTime>{currentDate} 기준</ArticleStatisticsTime>
-      </ArticleStatisticsWrapper>
-      <VisitantUI statisticValue="views" />
     </>
   );
 };
 
 export default ArticleInfo;
-
-const ArticleStatisticsWrapper = styled.div`
-  display: flex;
-  align-items: center;
-  margin: 4rem 0 0 4rem;
-`;
-
-const ArticleStatisticsTime = styled.p`
-  margin: 0.4rem 0 0 0.8rem;
-  ${({ theme }) => theme.fonts.Caption};
-  color: ${({ theme }) => theme.colors.grey_700};
-`;
-
-const ArticleStatisticsTitle = styled.h2`
-  ${({ theme }) => theme.fonts.Body2_Semibold};
-  color: ${({ theme }) => theme.colors.grey_900};
-`;
 
 const ArticleInfoContainer = styled.div`
   display: flex;
@@ -66,6 +51,7 @@ const Thumbnail = styled(Image)`
   border-radius: 1.2rem;
   width: 22.8rem;
   height: 17rem;
+  object-fit: cover;
 `;
 
 const Title = styled.h2`

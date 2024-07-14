@@ -13,7 +13,7 @@ const ArticleItem = (props: ArticleStatics) => {
       <Value className="date">{createdAt}</Value>
       <Value>{todayViews}</Value>
       <Value>{totalViews}</Value>
-      <StatisticsDetailButton href={`?articleId=${id}`}>통계</StatisticsDetailButton>
+      <StatisticsDetailButton href={`statistics/${id}`}>통계</StatisticsDetailButton>
     </ArticleItemContainer>
   );
 };

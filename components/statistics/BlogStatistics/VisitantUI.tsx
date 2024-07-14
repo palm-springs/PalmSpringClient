@@ -1,28 +1,30 @@
 'use client';
 
 import React from 'react';
+import { useParams } from 'next/navigation';
+import { useRecoilState } from 'recoil';
 import styled from 'styled-components';
+
+import LoadingLottie from '@/components/common/ui/LoadingLottie';
+import { useGetArticlePeriod, useGetBlogSummary } from '@/hooks/dashboard';
+import { endDateState, startDateState } from '@/recoil/atom/dashboard';
+
 import VisitantCard from './VisitantCard';
 import VisitantChart from './VistantChart';
-import { useGetArticlePeriod, useGetBlogSummary } from '@/hooks/dashboard';
-import { useParams } from 'next/navigation';
-import LoadingLottie from '@/components/common/ui/LoadingLottie';
-import { endDateState, startDateState } from '@/recoil/atom/dashboard';
-import { useRecoilState } from 'recoil';
 
 interface CardsProps {
   statisticValue: string;
 }
 
 const VisitantUI = (props: CardsProps) => {
-  const { team } = useParams();
+  const { team, articleId } = useParams();
   const { statisticValue } = props;
 
   const [startDate, setStartDate] = useRecoilState(startDateState);
   const [endDate, setEndDate] = useRecoilState(endDateState);
 
   //아티클 통계 차트 부분 api
-  const res = useGetArticlePeriod(357, startDate, endDate);
+  const res = useGetArticlePeriod(isNaN(Number(articleId)) ? 357 : Number(articleId), startDate, endDate);
   const articleChartData = res?.data;
   const articleViewArray = [res?.data.summary.day.views, res?.data.summary.month.views, res?.data.summary.total.views];
   const articleRate = [res?.data.summary.day.rate, res?.data.summary.month.rate, null];
