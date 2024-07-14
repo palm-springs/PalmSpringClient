@@ -1,7 +1,16 @@
 import { AxiosResponse } from 'axios';
 
 import { Response } from '@/types/common';
-import { CategoryListProps, NavListProps, PageListProps, TempSavedListProps } from '@/types/dashboard';
+import {
+  ArticlePeriodProps,
+  ArticleStatics,
+  BlogPeriodProps,
+  BlogSummaryProps,
+  CategoryListProps,
+  NavListProps,
+  PageListProps,
+  TempSavedListProps,
+} from '@/types/dashboard';
 import { MemberProps } from '@/types/member';
 import { UserBasicInfo, UserInfoProps } from '@/types/user';
 import { RoleType } from '@/utils/PermissionPolicyClass';
@@ -18,6 +27,34 @@ interface UserBasicInfoProps {
   job: string;
 }
 
+// 블로그별 게시글 통계 리스트
+export const getArticleStatisticsList = async (blogUrl: string) => {
+  const { data } = await client.get<Response<ArticleStatics[]>>(`/api/v2/dashboard/data/${blogUrl}/article/all`);
+  return data;
+};
+
+//대시보드 아티클 차트뷰 api /api/v2/dashboard/data/article/detail/{articleId}?startDate=${StartDate}&endDate=${EndDate}&type=${TypeEnum}
+export const getArticlePeriod = async (articleId: number, StartDate: string, EndDate: string) => {
+  const { data } = await client.get<Response<ArticlePeriodProps>>(
+    `/api/v2/dashboard/data/article/detail/${articleId}?startDate=${StartDate}&endDate=${EndDate}&type=DAY`,
+  );
+  return data;
+};
+
+//대시보드 블로그 통계
+export const getBlogPeriod = async (blogUrl: string, StartDate: string, EndDate: string) => {
+  const { data } = await client.get<Response<BlogPeriodProps>>(
+    `/api/v2/dashboard/data/${blogUrl}/period?startDate=${StartDate}&endDate=${EndDate}&type=DAY`,
+  );
+  return data;
+};
+
+export const getBlogSummary = async (blogUrl: string) => {
+  const { data } = await client.get<Response<BlogSummaryProps>>(`/api/v2/dashboard/data/${blogUrl}/summary`);
+  return data;
+};
+
+//대시보드
 export const getPageList = async (blogUrl: string) => {
   const { data } = await client.get<Response<PageListProps[]>>(`/api/v2/dashboard/page/admin/list/${blogUrl}`);
   return data;

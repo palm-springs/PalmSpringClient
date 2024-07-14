@@ -37,4 +37,5 @@ export const RESERVED_URL_LIST = [
   'login',
   'sign-up',
   'cdn',
+  'statistics',
 ];

@@ -59,6 +59,8 @@ const DashBoardNav = () => {
         />
       )}
       <NavButtonListContainer>
+        <NavButton currentPageType="statistics" />
+        <Line sideBar />
         <NavButton currentPageType="upload" />
         <NavButton currentPageType="tempsaved" />
         <Line sideBar />

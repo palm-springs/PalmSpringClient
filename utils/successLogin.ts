@@ -19,9 +19,9 @@ export const successLogin = async (accessToken: string, router: AppRouterInstanc
   } else {
     const { data } = await getUserInfoAfterLogin('', accessToken);
     if (!data.joinBlogList || data.joinBlogList.length === 0) {
-      router.push('/no-team/dashboard/upload');
+      router.push('/no-team/dashboard/statistics');
     } else {
-      router.push(`/${data.joinBlogList[0].blogUrl}/dashboard/upload`);
+      router.push(`/${data.joinBlogList[0].blogUrl}/dashboard/statistics`);
     }
   }
 };

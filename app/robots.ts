@@ -16,6 +16,8 @@ export default function robots(): MetadataRoute.Robots {
         '/*/dashboard/subscriber',
         '/*/dashboard/tempsaved',
         '/*/dashboard/upload',
+        '/*/dashboard/statistics',
+        '/*/dashboard/statistics/*/',
         '/*/editor/article',
         '/*/editor/page',
       ],

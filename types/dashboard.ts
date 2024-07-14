@@ -6,6 +6,7 @@ export type dashBoardPageType =
   | 'nav'
   | 'page'
   | 'subscriber'
+  | 'statistics'
   | 'tempsaved'
   | 'upload'
   | 'basicuserinfo';
@@ -42,4 +43,80 @@ export interface TempSavedListProps {
     job: string;
     createdAt: string;
   };
+}
+
+export interface BlogSummaryProps {
+  day: {
+    views: number;
+    rate: number;
+    isIncrease: boolean;
+  };
+  month: {
+    views: number;
+    rate: number;
+    isIncrease: boolean;
+  };
+  total: {
+    views: number;
+  };
+}
+
+export interface BlogPeriodProps {
+  type: string;
+  rowCount: number;
+  rows: [
+    {
+      date: string;
+      views: number;
+      rate: number;
+      isIncrease: boolean;
+    },
+  ];
+}
+
+export interface ArticlePeriodProps {
+  articleInfo: {
+    id: number;
+    title: string;
+    author: string;
+    createdAt: string;
+    thumbnail: string;
+    description: string;
+  };
+  summary: {
+    day: {
+      views: number;
+      rate: number;
+      isIncrease: boolean;
+    };
+    month: {
+      views: number;
+      rate: number;
+      isIncrease: boolean;
+    };
+    total: {
+      views: number;
+    };
+  };
+  period: {
+    type: string;
+    rowCount: number;
+    rows: [
+      {
+        date: string;
+        views: number;
+        rate: number;
+        isIncrease: boolean;
+      },
+    ];
+  };
+}
+
+export interface ArticleStatics {
+  id: number;
+  title: string;
+  author: string;
+  createdAt: string;
+  todayViews: number;
+  totalViews: number;
 }
