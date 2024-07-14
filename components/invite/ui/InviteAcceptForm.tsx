@@ -58,7 +58,7 @@ const InviteAcceptForm = (props: InviteAcceptFormProps) => {
   const handleOnAcceptClick = async () => {
     const { code } = await updateUserInfo(blogUrl, invitedUserData);
     if (code === 200) {
-      router.replace(`${blogUrl}/dashboard/upload`);
+      router.replace(`${blogUrl}/dashboard/statistics`);
     }
   };
 
