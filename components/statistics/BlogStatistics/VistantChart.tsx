@@ -1,17 +1,19 @@
 'use client';
 
-import { ArrowCalendarIcon, ArrowDownSmallIcon, CalendarIcon, DecreaseArrow, IncreaseArrow } from '@/public/icons';
 import React, { useState } from 'react';
-import styled from 'styled-components';
-import Chart from '../common/Chart';
-import Calendar from '../common/Calendar';
-import ModalPortal from '@/components/common/ModalPortal';
-import { useRecoilState } from 'recoil';
-import { endDateState, startDateState } from '@/recoil/atom/dashboard';
-import { useGetArticlePeriod, useGetBlogPeriod, useGetBlogSummary } from '@/hooks/dashboard';
 import { useParams } from 'next/navigation';
-import { ArticlePeriodProps } from '@/types/dashboard';
+import { useRecoilState } from 'recoil';
+import styled from 'styled-components';
+
 import statistics from '@/app/[team]/dashboard/statistics/page';
+import ModalPortal from '@/components/common/ModalPortal';
+import { useGetArticlePeriod, useGetBlogPeriod, useGetBlogSummary } from '@/hooks/dashboard';
+import { ArrowCalendarIcon, ArrowDownSmallIcon, CalendarIcon, DecreaseArrow, IncreaseArrow } from '@/public/icons';
+import { endDateState, startDateState } from '@/recoil/atom/dashboard';
+import { ArticlePeriodProps } from '@/types/dashboard';
+
+import Calendar from '../common/Calendar';
+import Chart from '../common/Chart';
 
 interface ChartProps {
   articleChartData?: ArticlePeriodProps;

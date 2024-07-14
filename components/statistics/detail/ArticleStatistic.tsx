@@ -1,10 +1,14 @@
 import styled from 'styled-components';
 
+import { ArticlePeriodProps } from '@/types/dashboard';
 import { getCurrentDateTime } from '@/utils/getCurrentDateTime';
 
 import VisitantUI from '../BlogStatistics/VisitantUI';
+interface ArticleStatisticProps {
+  articleData: ArticlePeriodProps;
+}
 
-const ArticleStatistic = () => {
+const ArticleStatistic = (props: ArticleStatisticProps) => {
   const currentDate = getCurrentDateTime();
 
   return (
@@ -13,7 +17,7 @@ const ArticleStatistic = () => {
         <ArticleStatisticsTitle>해당 게시글 통계</ArticleStatisticsTitle>
         <ArticleStatisticsTime>{currentDate} 기준</ArticleStatisticsTime>
       </ArticleStatisticsWrapper>
-      <VisitantUI statisticValue="views" />
+      <VisitantUI statisticValue="views" {...props} />
     </>
   );
 };

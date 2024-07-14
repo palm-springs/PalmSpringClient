@@ -2,33 +2,32 @@
 
 import React from 'react';
 import { useParams } from 'next/navigation';
-import { useRecoilState } from 'recoil';
 import styled from 'styled-components';
 
 import LoadingLottie from '@/components/common/ui/LoadingLottie';
-import { useGetArticlePeriod, useGetBlogSummary } from '@/hooks/dashboard';
-import { endDateState, startDateState } from '@/recoil/atom/dashboard';
+import { useGetBlogSummary } from '@/hooks/dashboard';
+import { ArticlePeriodProps } from '@/types/dashboard';
 
 import VisitantCard from './VisitantCard';
 import VisitantChart from './VistantChart';
 
 interface CardsProps {
   statisticValue: string;
+  articleData?: ArticlePeriodProps;
 }
 
 const VisitantUI = (props: CardsProps) => {
-  const { team, articleId } = useParams();
-  const { statisticValue } = props;
-
-  const [startDate, setStartDate] = useRecoilState(startDateState);
-  const [endDate, setEndDate] = useRecoilState(endDateState);
+  const { team } = useParams();
+  const { statisticValue, articleData } = props;
 
   //아티클 통계 차트 부분 api
-  const res = useGetArticlePeriod(isNaN(Number(articleId)) ? 357 : Number(articleId), startDate, endDate);
-  const articleChartData = res?.data;
-  const articleViewArray = [res?.data.summary.day.views, res?.data.summary.month.views, res?.data.summary.total.views];
-  const articleRate = [res?.data.summary.day.rate, res?.data.summary.month.rate, null];
-  const articleIsIncrease = [res?.data.summary.day.isIncrease, res?.data.summary.month.isIncrease, null];
+  const articleViewArray = [
+    articleData?.summary.day.views,
+    articleData?.summary.month.views,
+    articleData?.summary.total.views,
+  ];
+  const articleRate = [articleData?.summary.day.rate, articleData?.summary.month.rate, null];
+  const articleIsIncrease = [articleData?.summary.day.isIncrease, articleData?.summary.month.isIncrease, null];
 
   //블로그 통계 차트 부분 api
   const data = useGetBlogSummary(String(team));
@@ -60,7 +59,7 @@ const VisitantUI = (props: CardsProps) => {
           />
         ))}
       </Container>
-      <VisitantChart articleChartData={articleChartData} statisticValue={statisticValue} />
+      <VisitantChart articleChartData={articleData} statisticValue={statisticValue} />
     </VisitantContainer>
   );
 };

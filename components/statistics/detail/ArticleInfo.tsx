@@ -1,27 +1,11 @@
 'use client';
 import Image from 'next/image';
-import { useParams } from 'next/navigation';
-import { useRecoilValue } from 'recoil';
 import styled from 'styled-components';
 
-import LoadingLottie from '@/components/common/ui/LoadingLottie';
-import { useGetArticlePeriod } from '@/hooks/dashboard';
-import { endDateState, startDateState } from '@/recoil/atom/dashboard';
+import { ArticlePeriodProps } from '@/types/dashboard';
 
-const ArticleInfo = () => {
-  const { articleId } = useParams();
-  const startDate = useRecoilValue(startDateState);
-  const endDate = useRecoilValue(endDateState);
-
-  const articleData = useGetArticlePeriod(Number(articleId), startDate, endDate);
-
-  if (!articleData) return <LoadingLottie width={4} height={4} />;
-
-  const {
-    data: {
-      articleInfo: { author, createdAt, thumbnail, title },
-    },
-  } = articleData;
+const ArticleInfo = (props: ArticlePeriodProps['articleInfo']) => {
+  const { author, createdAt, thumbnail, title } = props;
 
   return (
     <>

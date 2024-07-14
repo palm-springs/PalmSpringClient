@@ -1,15 +1,22 @@
 'use client';
 import Link from 'next/link';
 import { useParams } from 'next/navigation';
+import { useRecoilValue } from 'recoil';
 import styled from 'styled-components';
 
+import LoadingLottie from '@/components/common/ui/LoadingLottie';
+import { useGetArticlePeriod } from '@/hooks/dashboard';
 import { ArrowLeftIcon } from '@/public/icons';
+import { endDateState, startDateState } from '@/recoil/atom/dashboard';
 
 import ArticleInfo from './ArticleInfo';
 import ArticleStatistic from './ArticleStatistic';
 
 const StatisticsDetailTemplate = () => {
-  const { team } = useParams();
+  const { team, articleId } = useParams();
+  const startDate = useRecoilValue(startDateState);
+  const endDate = useRecoilValue(endDateState);
+  const articleData = useGetArticlePeriod(Number(articleId), startDate, endDate);
 
   // article 상세 통계 데이터 불러오기
   return (
@@ -18,8 +25,14 @@ const StatisticsDetailTemplate = () => {
         <ArrowLeftIcon />
         <Link href={`/${team}/dashboard/statistics`}>통계 홈으로 이동</Link>
       </LinkContainer>
-      <ArticleInfo />
-      <ArticleStatistic />
+      {articleData ? (
+        <>
+          <ArticleInfo {...articleData.data.articleInfo} />
+          <ArticleStatistic articleData={articleData.data} />
+        </>
+      ) : (
+        <LoadingLottie width={4} height={4} />
+      )}
     </StatisticsDetailContainer>
   );
 };
