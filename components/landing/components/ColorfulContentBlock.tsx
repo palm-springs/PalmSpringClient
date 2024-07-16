@@ -1,5 +1,8 @@
 import { ReactNode } from 'react';
+import { motion } from 'framer-motion';
 import styled from 'styled-components';
+
+import framerMotionProps from '../props/framerMotionProps';
 
 interface ColorfulContentBlockProps {
   backgroundcolor: string;
@@ -9,78 +12,40 @@ interface ColorfulContentBlockProps {
   titleColor: string;
   titleText: string;
   descriptionColor: string;
-  descriptionText: string;
+  descriptionText?: string;
   isComingsoon: boolean;
   children?: ReactNode;
 }
 
-const flexDefaultSetting = `
-    display: flex;
-    align-items: center;
-`;
-
-const ColorfulContent = styled.div<{ backgroundcolor: string }>`
-  ${flexDefaultSetting}
-  flex-direction: column;
-  background: ${(props) => props.backgroundcolor && props.backgroundcolor};
-  padding: 100px 0 140px 0;
-  width: 100%;
-  * {
-    white-space: pre-wrap;
-  }
-`;
-const ColorfulContentChip = styled.div<{ backgroundcolor: string; color: string }>`
-  display: flex;
-  border-radius: 1000px;
-  background: ${(props) => props.backgroundcolor && props.backgroundcolor};
-  padding: 16px 32px;
-  color: ${(props) => props.color && props.color};
-  font-size: 20px;
-  font-weight: 600;
-`;
-const ColorfulContentTitle = styled.h2<{ color: string }>`
-  margin-top: 32px;
-  line-height: 1.4;
-  color: ${(props) => props.color && props.color};
-  font-size: 44px;
-  font-weight: 600;
-`;
-const ColorfulContentDescription = styled.div<{ color: string }>`
-  margin-top: 20px;
-  line-height: 1.4;
-  color: ${(props) => props.color && props.color};
-  font-size: 28px;
-`;
-const ColorfulContentChipContainer = styled.div`
-  display: flex;
-  gap: 14px;
-`;
-const ColorfulContentChildren = styled.div<{ color: string }>`
-  margin-top: 48px;
-  color: ${(props) => props.color && props.color};
-`;
-
 const ColorfulContentBlock = (prop: ColorfulContentBlockProps) => {
   return (
-    <ColorfulContent backgroundcolor={prop.backgroundcolor}>
-      <ColorfulContentChipContainer>
-        {prop.isComingsoon && (
-          <ColorfulContentChip backgroundcolor={prop.chipBackgroundcolor} color={'#fff'}>
-            Coming Soon!
+    <ColorfulContentSuperContainer backgroundcolor={prop.backgroundcolor}>
+      <ColorfulContentContainer {...framerMotionProps}>
+        <ColorfulContentChipContainer>
+          {prop.isComingsoon && (
+            <ColorfulContentChip backgroundcolor={prop.chipBackgroundcolor} color={'#fff'}>
+              Coming Soon!
+            </ColorfulContentChip>
+          )}
+          <ColorfulContentChip
+            backgroundcolor={
+              prop.isComingsoon ? addTransparencyToRgba(prop.chipBackgroundcolor, 0.3) : prop.chipBackgroundcolor
+            }
+            color={prop.chipColor}>
+            {prop.chipText}
           </ColorfulContentChip>
+        </ColorfulContentChipContainer>
+        <ColorfulContentTitle color={prop.titleColor}>{prop.titleText}</ColorfulContentTitle>
+        {prop.descriptionText && (
+          <ColorfulContentDescription color={prop.descriptionColor}>{prop.descriptionText}</ColorfulContentDescription>
         )}
-        <ColorfulContentChip
-          backgroundcolor={
-            prop.isComingsoon ? addTransparencyToRgba(prop.chipBackgroundcolor, 0.3) : prop.chipBackgroundcolor
-          }
-          color={prop.chipColor}>
-          {prop.chipText}
-        </ColorfulContentChip>
-      </ColorfulContentChipContainer>
-      <ColorfulContentTitle color={prop.titleColor}>{prop.titleText}</ColorfulContentTitle>
-      <ColorfulContentDescription color={prop.descriptionColor}>{prop.descriptionText}</ColorfulContentDescription>
-      <ColorfulContentChildren color={prop.descriptionColor}>{prop.children}</ColorfulContentChildren>
-    </ColorfulContent>
+        {prop.children && (
+          <ColorfulContentChildrenContainer color={prop.descriptionColor}>
+            {prop.children}
+          </ColorfulContentChildrenContainer>
+        )}
+      </ColorfulContentContainer>
+    </ColorfulContentSuperContainer>
   );
 };
 
@@ -103,3 +68,83 @@ function addTransparencyToRgba(rgbaString: string, alpha: number) {
     throw new Error('Invalid rgba string');
   }
 }
+
+const flexDefaultSetting = `
+    display: flex;
+    align-items: center;
+`;
+const ColorfulContentSuperContainer = styled.div<{ backgroundcolor: string }>`
+  background: ${(props) => props.backgroundcolor && props.backgroundcolor};
+  padding: 100px 0 140px 0;
+  width: 100%;
+  * {
+    white-space: pre-wrap;
+  }
+  @media (max-width: 767px) {
+    padding: 80px 0 100px 0;
+  }
+`;
+const ColorfulContentContainer = styled(motion.div)`
+  ${flexDefaultSetting}
+  flex-direction: column;
+  width: 100%;
+`;
+const ColorfulContentChip = styled.div<{ backgroundcolor: string; color: string }>`
+  display: flex;
+  border-radius: 1000px;
+  background: ${(props) => props.backgroundcolor && props.backgroundcolor};
+  padding: 16px 32px;
+  letter-spacing: -0.1px;
+  color: ${(props) => props.color && props.color};
+  font-size: 20px;
+  font-weight: 600;
+  @media (max-width: 767px) {
+    padding: 12px 24px;
+    font-size: 16px;
+  }
+`;
+const ColorfulContentTitle = styled.h2<{ color: string }>`
+  margin-top: 32px;
+  line-height: 1.4;
+  letter-spacing: -0.8px;
+  color: ${(props) => props.color && props.color};
+  font-size: 44px;
+  font-weight: 600;
+  @media (max-width: 767px) {
+    margin-top: 24px;
+    letter-spacing: -0.6px;
+    font-size: 36px;
+  }
+`;
+const ColorfulContentDescription = styled.div<{ color: string }>`
+  margin-top: 20px;
+  line-height: 1.5;
+  letter-spacing: -0.2px;
+  color: ${(props) => props.color && props.color};
+  font-size: 28px;
+  @media (max-width: 767px) {
+    letter-spacing: -0.1px;
+    font-size: 18px;
+  }
+`;
+const ColorfulContentChipContainer = styled.div`
+  display: flex;
+  gap: 14px;
+  align-items: center;
+  @media (max-width: 767px) {
+    flex-direction: column;
+    gap: 10px;
+  }
+`;
+const ColorfulContentChildrenContainer = styled.div<{ color: string }>`
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  margin-top: 48px;
+  padding: 0 20px;
+  width: 100vw;
+  color: ${(props) => props.color && props.color};
+  @media (max-width: 767px) {
+    width: 100%;
+  }
+`;
