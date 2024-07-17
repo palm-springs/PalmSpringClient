@@ -10,6 +10,7 @@ import { ArticlePeriodProps } from '@/types/dashboard';
 interface DataPoint {
   date: Date;
   value: number;
+  rate?: number;
 }
 
 interface ChartDetailProps {
@@ -23,32 +24,29 @@ const Chart: React.FC<ChartDetailProps> = ({ statisticValue, articleChartData })
   const [startDate, setStartDate] = useRecoilState(startDateState);
   const [endDate, setEndDate] = useRecoilState(endDateState);
 
-  // useGetBlogPeriod 훅 사용
   const apiData = useGetBlogPeriod(String(team), String(startDate), String(endDate));
   const [data, setData] = useState<DataPoint[]>([]);
   const svgRef = useRef<SVGSVGElement | null>(null);
   const containerRef = useRef<HTMLDivElement | null>(null);
 
-  // 날짜, 뷰(value)값 호출 -> useState(data)에 담아서 띄우기
   useEffect(() => {
     if (apiData && apiData.data.rows && statisticValue === 'visitant') {
       const transformedData: DataPoint[] = apiData.data.rows.map((blogRow) => ({
-        date: new Date(blogRow.date), // Date 객체로 변환
+        date: new Date(blogRow.date),
         value: blogRow.views,
+        rate: blogRow.rate,
       }));
       setData(transformedData);
-      console.log(transformedData);
     } else if (articleChartData && articleChartData.summary && statisticValue !== 'visitant') {
       const transformedData: DataPoint[] = articleChartData.period.rows.map((articleRow) => ({
-        date: new Date(articleRow.date), // Date 객체로 변환
+        date: new Date(articleRow.date),
         value: articleRow.views,
+        rate: articleRow.rate,
       }));
       setData(transformedData);
-      console.log(transformedData);
     }
   }, [apiData, articleChartData, statisticValue]);
 
-  // 그래프 그리는 로직 & 스타일
   const drawChart = useCallback(() => {
     if (svgRef.current && containerRef.current && data.length > 0) {
       const containerWidth = containerRef.current.clientWidth;
@@ -67,24 +65,21 @@ const Chart: React.FC<ChartDetailProps> = ({ statisticValue, articleChartData })
         .nice()
         .range([height - margin.bottom, margin.top]);
 
-      d3.select(svgRef.current).selectAll('*').remove(); // 기존의 차트를 제거
+      d3.select(svgRef.current).selectAll('*').remove();
 
       const svg = d3.select(svgRef.current);
 
-      // line 함수 생성
       const valueline = d3
         .line<DataPoint>()
         .x((d) => x(d.date))
         .y((d) => y(d.value));
 
-      // 색상 구역 설정
       const area = d3
         .area<DataPoint>()
         .x((d) => x(d.date))
         .y0(height - margin.bottom)
         .y1((d) => y(d.value));
 
-      // 그라데이션 추가
       const gradient = svg
         .append('defs')
         .append('linearGradient')
@@ -97,12 +92,11 @@ const Chart: React.FC<ChartDetailProps> = ({ statisticValue, articleChartData })
       gradient.append('stop').attr('offset', '-6.93%').attr('stop-color', 'rgba(80, 177, 91, 0.00)');
       gradient.append('stop').attr('offset', '97.03%').attr('stop-color', 'rgba(80, 177, 91, 0.10)');
 
-      // Add y-축
       svg
         .append('g')
         .call(
           d3
-            .axisLeft(y) // y축 텍스트
+            .axisLeft(y)
             .ticks(5)
             .tickSize(-width + margin.left + margin.right),
         )
@@ -112,18 +106,12 @@ const Chart: React.FC<ChartDetailProps> = ({ statisticValue, articleChartData })
         .attr('stroke', 'lightgrey')
         .attr('stroke-dasharray', '2,2');
 
-      // Hide y-축
       svg.selectAll('.tick text').style('display', 'none');
 
       const formatTime = d3.timeFormat('%Y.%m.%d');
 
-      const xTicks = [
-        data[0].date, // 첫 번째 날짜
-        data[Math.floor(data.length / 2)].date, // 중간 날짜
-        data[data.length - 1].date, // 마지막 날짜
-      ];
+      const xTicks = [data[0].date, data[Math.floor(data.length / 2)].date, data[data.length - 1].date];
 
-      // Add x-축
       svg
         .append('g')
         .attr('class', 'x-axis')
@@ -132,14 +120,13 @@ const Chart: React.FC<ChartDetailProps> = ({ statisticValue, articleChartData })
             .axisBottom<Date | d3.NumberValue>(x)
             .tickValues(xTicks)
             .tickFormat((d) => formatTime(d as Date)),
-        ) // x축 텍스트
+        )
         .attr('transform', `translate(0,${height - margin.bottom})`)
         .select('.domain')
         .attr('stroke', 'none')
         .attr('stroke-width', 1)
         .style('stroke-linecap', 'square');
 
-      // x축 선-> 통계 선
       svg
         .append('path')
         .datum(data)
@@ -148,9 +135,7 @@ const Chart: React.FC<ChartDetailProps> = ({ statisticValue, articleChartData })
         .attr('stroke-width', 2)
         .attr('d', valueline);
 
-      // Hide x축의 모든 tick line
       svg.selectAll('.x-axis .tick line').style('stroke', 'none');
-      // 마지막 tick line만 숨기기
       svg
         .selectAll('.x-axis .tick')
         .filter(function () {
@@ -159,10 +144,8 @@ const Chart: React.FC<ChartDetailProps> = ({ statisticValue, articleChartData })
         .select('line')
         .style('stroke', 'none');
 
-      // x축 채우기
       svg.append('path').datum(data).attr('fill', 'url(#line-gradient)').attr('d', area);
 
-      // 툴팁 요소 추가
       const tooltip = d3
         .select(containerRef.current)
         .append('div')
@@ -178,22 +161,30 @@ const Chart: React.FC<ChartDetailProps> = ({ statisticValue, articleChartData })
         .style('border-radius', '4px')
         .style('box-shadow', '0 3px 5px 0 rgba(33, 33, 33, 0.05)');
 
-      const hoverTime = d3.timeFormat('%m.%d');
+      // 마우스 오버 선 추가
+      const mouseLine = svg
+        .append('line')
+        .attr('class', 'mouse-line')
+        .attr('stroke', 'gray')
+        .attr('stroke-width', 1)
+        .attr('opacity', 0);
 
       svg
-        .append('path')
-        .datum(data)
+        .append('rect')
+        .attr('width', width)
+        .attr('height', height)
         .attr('fill', 'none')
-        .attr('stroke', 'transparent')
-        .attr('stroke-width', 10) // 선의 두께를 증가 이유 : 이벤트 감지
-        .attr('d', valueline)
+        .attr('pointer-events', 'all')
         .on('mouseover', function (event) {
-          const [xPos, yPos] = d3.pointer(event);
+          tooltip.style('display', 'block');
+          mouseLine.attr('opacity', 1);
+        })
+        .on('mousemove', function (event) {
+          const [xPos] = d3.pointer(event);
           const hoveredDate = x.invert(xPos) as Date;
           const formatHoverTime = d3.timeFormat('%-m월 %-d일');
           const formattedHoveredDate = formatHoverTime(hoveredDate);
 
-          // 가장 가까운 데이터 포인트 찾기
           const dataPoint = data.reduce((prev, curr) => {
             return Math.abs(curr.date.getTime() - hoveredDate.getTime()) <
               Math.abs(prev.date.getTime() - hoveredDate.getTime())
@@ -201,18 +192,16 @@ const Chart: React.FC<ChartDetailProps> = ({ statisticValue, articleChartData })
               : prev;
           });
 
-          // 호버 툴팁 위치, 스타일 조정
           tooltip
-            .style('display', 'block')
-            .style('left', `${event.pageX + 10}px`)
-            .style('top', `${event.pageY - 10}px`)
+            .style('left', `${event.pageX - 100}px`)
+            .style('top', `${event.pageY - 100}px`)
             .html(
               `<div style="font-weight: bold; font-size: 14px; margin-bottom: 16px;">${formattedHoveredDate}</div>` +
                 `<div style="font-size: 12px; color: #555; display: flex; justify-content: space-between; margin-bottom: 9.5px;">당일 방문자 수<div>${dataPoint.value}</div></div>` +
-                `<div style="font-size: 12px; color: #555; display: flex; justify-content: space-between;">전월 대비<div>10%</div></div>`,
+                `<div style="font-size: 12px; color: #555; display: flex; justify-content: space-between;">전월 대비<div>${dataPoint.rate}%</div></div>`,
             );
 
-          // 호버시 위치 표시 동그라미
+          svg.selectAll('.tooltip-circle').remove();
           svg
             .append('circle')
             .attr('class', 'tooltip-circle')
@@ -220,13 +209,17 @@ const Chart: React.FC<ChartDetailProps> = ({ statisticValue, articleChartData })
             .attr('cy', y(dataPoint.value))
             .attr('r', 5)
             .attr('fill', '#50B15B');
-        })
-        .on('mousemove', function (event) {
-          tooltip.style('left', `${event.pageX + 10}px`).style('top', `${event.pageY - 10}px`);
+
+          mouseLine
+            .attr('x1', x(dataPoint.date))
+            .attr('x2', x(dataPoint.date))
+            .attr('y1', 0)
+            .attr('y2', height - margin.bottom);
         })
         .on('mouseout', () => {
           tooltip.style('display', 'none');
           svg.selectAll('.tooltip-circle').remove();
+          mouseLine.attr('opacity', 0);
         });
     }
   }, [data]);

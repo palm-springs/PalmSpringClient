@@ -37,6 +37,7 @@ const VisitantUI = (props: CardsProps) => {
   const c = [1, 2, 3];
   const today = new Date();
   const month = String(today.getMonth() + 1).padStart(1);
+  const percentTitle = ['전일 대비', '전월 대비', null];
   const cardTitle = ['오늘', `${month}월`, '누적'];
   const viewsArray = [data.data.day.views, data.data.month.views, data.data.total.views];
   const rate = [data.data.day.rate, data.data.month.rate, null];
@@ -49,6 +50,7 @@ const VisitantUI = (props: CardsProps) => {
           <VisitantCard
             key={index}
             statisticValue={statisticValue}
+            percentTitle={percentTitle[index]}
             title={cardTitle[index]}
             view={viewsArray[index]}
             rate={rate[index]}
