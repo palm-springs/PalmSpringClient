@@ -102,7 +102,7 @@ const Chart = (props: ChartDetailProps) => {
                   : '<span style="color: gray;">-</span>';
             return `<div style="width: 120px; text-align: center;  background: #e3e3e3; border: 1px solid #ececec; border-radius: 5px; font-family: 'Pretendard';">
                         <div style="padding: 8px; font-weight: bold;">
-                            <div style="font-size: 10px; padding-bottom: 4px; ">${dayjs(tooltipDate).format('MM.DD')}</div>
+                            <div style="font-size: 10px; padding-bottom: 4px; ">${dayjs(tooltipDate).format('MM월 DD일')}</div>
                         </div>
                         <div style="background: #ffffff; padding-top: 4px;">
                             <div style="font-size: 12px; color: #2e2e2e; margin-bottom: 4px; margin-top: 10px;">${w.globals.seriesNames[seriesIndex]}: ${series[seriesIndex][dataPointIndex]}</div><br />
