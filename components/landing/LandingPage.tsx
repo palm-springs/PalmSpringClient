@@ -380,7 +380,7 @@ const LandingPage = ({ dashboardUrl }: { dashboardUrl: string }) => {
           titleColor="#000"
           titleText={'Header, Footer, Navigation 모두\n온전히 우리 팀의 정보만 담아보세요'}
           descriptionColor="#000"
-          descriptionText="palms.blog의 로고는 어디에도 보이지 않아요."
+          descriptionText="palms의 로고는 어디에도 보이지 않아요."
           isComingsoon={false}>
           <CustomizingImageContainer>
             <CustomizingImage
