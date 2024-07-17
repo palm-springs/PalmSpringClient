@@ -17,61 +17,33 @@ type TeamMember = {
 const ourBelovedTeammates: TeamMember[] = [
   {
     name: '김대덕',
-    position: 'Team Leader',
-    url: ['https://www.linkedin.com/in/daeduk-kim-712b88255/'],
+    position: '前 SOPT 리더십\n서강대 경영학',
+    url: ['https://www.linkedin.com/in/%EB%8C%80%EB%8D%95-%EA%B9%80-712b88255/'],
   },
   {
-    name: '양정윤',
-    position: 'Product Manager',
+    name: '임건',
+    position: '前 창톡\n前 스플랩\n중앙대 소프트웨어학부',
     url: ['https://www.linkedin.com/in/jeong-yoon-yang-bbb490239/'],
   },
   {
     name: '김서현',
-    position: 'FE Engineer',
+    position: '前 SOPT 리더십\n이화여대 컴퓨터공학',
     url: ['https://github.com/seobbang', 'https://www.linkedin.com/in/seohyun-kim-9784ab29a/'],
   },
   {
     name: '오형근',
-    position: 'FE Engineer',
+    position: '現 AWSKRUG\n現 Golang Korea\n前 TGSociety(운전선생)\n고려대 보건환경융합과학부',
     url: ['https://github.com/Geun-Oh', 'https://www.linkedin.com/in/hyeonggeun-oh-760a5b240'],
   },
   {
     name: '장명지',
-    position: 'FE Engineer',
+    position: '한국외대 철학',
     url: ['https://github.com/Dangpy', 'https://www.linkedin.com/in/myungji-jang-a84a752a8'],
   },
   {
-    name: '이시연',
-    position: 'FE Engineer',
-    url: ['https://github.com/SynthiaLee', 'https://www.linkedin.com/in/synthia-lee-4b2969232/'],
-  },
-  {
     name: '장유진',
-    position: 'BE Engineer',
+    position: '現 우아한테크코스\n삼육대 컴퓨터공학',
     url: ['https://github.com/jinchiim', 'https://www.linkedin.com/in/eugene-jang-27b922291/'],
-  },
-  {
-    name: '정동규',
-    position: 'BE Engineer',
-    url: ['https://github.com/yummygyudon', 'https://www.linkedin.com/in/%EB%8F%99%EA%B7%9C-%EC%A0%95-8a6b25226/'],
-  },
-  {
-    name: '권윤',
-    position: 'Product Designer',
-    url: ['https://doongzi.kr/yoon'],
-  },
-  {
-    name: '김성은',
-    position: 'Product Designer',
-    url: ['https://palms.blog'],
-  },
-  {
-    name: '송승훈',
-    position: 'Product Designer',
-    url: [
-      'https://big-camel-a35.notion.site/Leo-Song-2023-29feffece20f4d1592b6630070c4adee?pvs=4',
-      'https://www.linkedin.com/in/seunghoon-leo-song-9130b9279/',
-    ],
   },
 ];
 
@@ -103,12 +75,12 @@ const Team = () => {
   `;
   const profile_container = css`
     display: grid;
-    grid-template-columns: 1fr 1fr 1fr 1fr;
+    grid-template-columns: 1fr 1fr 1fr;
     row-gap: 32px;
     column-gap: 20px;
     margin: 68px auto 0 auto;
     width: 100%;
-    max-width: 1100px;
+    max-width: 900px;
     @media (max-width: 1340px) {
       grid-template-columns: 1fr 1fr 1fr;
       max-width: calc(260px * 3 + 20px * 2);
@@ -131,7 +103,9 @@ const Team = () => {
     font-size: 20px;
     font-weight: 700;
     & > div:nth-of-type(2) {
-      font-size: 16px;
+      line-height: 1.5;
+      white-space: pre-line;
+      font-size: 14px;
       font-weight: normal;
     }
   `;
@@ -196,11 +170,7 @@ const Team = () => {
       <main css={main}>
         <div css={title_container}>
           <h1>만드는 사람들</h1>
-          <div>
-            조직의 위대함은 개인 혼자서는 불가능한 일을 가능하게 만드는 것에 있습니다.
-            <br />
-            팜스프링에서 끊임없이 도전하며 불가능을 가능케하는 11명의 팀원들을 소개합니다.
-          </div>
+          <div>끊임없이 도전하며 불가능을 가능케하는 서울연락단의 팀원들을 소개합니다.</div>
         </div>
         <div css={profile_container}>
           {ourBelovedTeammates.map((eachTeammateInfo, eachTeammateInfoIndex) => {
