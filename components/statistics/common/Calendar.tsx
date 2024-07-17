@@ -1,7 +1,7 @@
 'use client';
 import { endDateState, startDateState } from '@/recoil/atom/dashboard';
 import { useParams } from 'next/navigation';
-import React, { Dispatch, SetStateAction, useState } from 'react';
+import React, { Dispatch, SetStateAction, useEffect, useState } from 'react';
 import { useRecoilState } from 'recoil';
 import styled from 'styled-components';
 
@@ -32,6 +32,17 @@ const Calendar: React.FC<CalendarProps> = ({ setIsOpen }) => {
   const firstDayOfMonth = (month: number, year: number) => {
     return new Date(year, month, 1).getDay();
   };
+
+  //선택 날짜 미리 렌더링
+
+  useEffect(() => {
+    if (startDate) {
+      setSelectedStartDate(new Date(startDate));
+    }
+    if (endDate) {
+      setSelectedEndDate(new Date(endDate));
+    }
+  }, [startDate, endDate]);
 
   const handleDayClick = (day: number) => {
     const year = currentDate.getFullYear();

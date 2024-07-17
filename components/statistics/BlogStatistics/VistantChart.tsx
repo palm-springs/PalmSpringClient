@@ -38,6 +38,10 @@ const VisitantChart = (props: ChartProps) => {
     setIsOpen(true);
   };
 
+  const closeModal = () => {
+    setIsOpen(false);
+  };
+
   return (
     <>
       <CardContainer>
@@ -45,12 +49,16 @@ const VisitantChart = (props: ChartProps) => {
           <CalendarButton>
             <SubTitle>방문 수</SubTitle>
             <CalendarWrapper>
-              <CalendarIcon onClick={openModal} />
-              <ArrowCalendarIcon />
+              <div onClick={openModal}>
+                <CalendarIcon />
+                <ArrowCalendarIcon />
+              </div>
               {isOpen && (
-                <CalendarContainer>
-                  <Calendar setIsOpen={setIsOpen} />
-                </CalendarContainer>
+                <ModalOverlay onClick={closeModal}>
+                  <CalendarContainer onClick={(e) => e.stopPropagation()}>
+                    <Calendar setIsOpen={setIsOpen} />
+                  </CalendarContainer>
+                </ModalOverlay>
               )}
             </CalendarWrapper>
           </CalendarButton>
@@ -77,6 +85,18 @@ const VisitantChart = (props: ChartProps) => {
 };
 
 export default VisitantChart;
+
+const ModalOverlay = styled.div`
+  display: flex;
+  position: fixed;
+  top: 0;
+  right: 0;
+  bottom: 0;
+  left: 0;
+  align-items: center;
+  justify-content: center;
+  z-index: 1000;
+`;
 const IsZero = styled.p`
   color: ${({ theme }) => theme.colors.grey_700};
   ${({ theme }) => theme.fonts.Body2_Semibold};
@@ -94,8 +114,8 @@ const CalendarButton = styled.div`
 
 const CalendarContainer = styled.div`
   position: absolute;
-  top: 4rem;
-  right: 31.5rem;
+  top: 35rem;
+  right: 45.5rem;
 `;
 
 const CalendarWrapper = styled.div`
