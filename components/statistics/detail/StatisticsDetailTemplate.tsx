@@ -18,6 +18,9 @@ const StatisticsDetailTemplate = () => {
   const endDate = useRecoilValue(endDateState);
   const articleData = useGetArticlePeriod(Number(articleId), startDate, endDate);
 
+  if (!articleData?.data?.articleInfo) {
+    return <LoadingLottie height={4} width={4} fit={false} />;
+  }
   // article 상세 통계 데이터 불러오기
   return (
     <StatisticsDetailContainer>
@@ -29,7 +32,7 @@ const StatisticsDetailTemplate = () => {
       </Link>
       {articleData ? (
         <>
-          <ArticleInfo {...articleData.data.articleInfo} />
+          <ArticleInfo {...articleData?.data.articleInfo} />
           <ArticleStatistic articleData={articleData.data} />
         </>
       ) : (

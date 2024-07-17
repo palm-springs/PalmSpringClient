@@ -131,7 +131,7 @@ const DashBoardContentContainer = (props: DashBoardContentContainerProps) => {
               onMutateButtonClick={onMutateClick}
               onDeleteButtonClick={onDeleteClick}
               isRenderPopOverButton={isRenderPopOverButton}
-              position={popoverRef.current?.getBoundingClientRect().bottom + calculateNum > window.innerHeight}
+              position={popoverRef.current.getBoundingClientRect().bottom + calculateNum > window.innerHeight}
               pathName={pathName === 'page' && draft ? 'pageDraft' : pathName}
             />
           )}
@@ -172,7 +172,7 @@ const DashBoardContentUI = styled.article<{ $isContentBar: boolean }>`
     letter-spacing: -0.004rem !important;
     white-space: nowrap;
     color: ${({ theme }) => theme.colors.grey_700} !important;
-    font-family: Pretendard !important;
+    font-family: 'Pretendard' !important;
     font-size: 1.4rem !important;
     font-weight: 600 !important;
     font-style: normal !important;

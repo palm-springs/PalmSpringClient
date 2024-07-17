@@ -14,6 +14,7 @@ import { ArticlePeriodProps } from '@/types/dashboard';
 
 import Calendar from '../common/Calendar';
 import Chart from '../common/Chart';
+import LoadingLottie from '@/components/common/ui/LoadingLottie';
 
 interface ChartProps {
   articleChartData?: ArticlePeriodProps;
@@ -23,6 +24,15 @@ interface ChartProps {
 const VisitantChart = (props: ChartProps) => {
   const { team } = useParams();
   const { articleChartData, statisticValue } = props;
+
+  const [startDate, setStartDate] = useRecoilState(startDateState);
+  const [endDate, setEndDate] = useRecoilState(endDateState);
+
+  // useGetBlogPeriod 훅 사용
+  const blogData = useGetBlogPeriod(String(team), String(startDate), String(endDate));
+  if (!blogData) {
+    return <LoadingLottie height={4} width={4} fit={false} />;
+  }
 
   //블로그 통계 api
   const res = useGetBlogSummary(String(team));
@@ -76,7 +86,8 @@ const VisitantChart = (props: ChartProps) => {
               )}
             </Wrapper>
           </PercentContainer>
-          <Chart statisticValue={statisticValue} articleChartData={articleChartData} />
+          <Chart statisticValue={statisticValue} blogData={blogData?.data} articleChartData={articleChartData} />
+          {/* <Chart statisticValue={statisticValue} articleChartData={articleChartData} /> */}
         </CardBorder>
       </CardContainer>
       {statisticValue === 'views' && <ArticleListMargin />}
