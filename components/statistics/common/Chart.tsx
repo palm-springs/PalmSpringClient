@@ -96,9 +96,9 @@ const Chart = (props: ChartDetailProps) => {
             const rateValue = rate[dataPointIndex];
             const rateIcon =
               rateValue > 0
-                ? '<span style="color: green;">▲</span>'
+                ? '<span style="color: #50B15B;">▲</span>'
                 : rateValue < 0
-                  ? '<span style="color: red;">▼</span>'
+                  ? '<span style="color: #EA5959;">▼</span>'
                   : '<span style="color: gray;">-</span>';
             return `<div style="width: 120px; text-align: center;  background: #e3e3e3; border: 1px solid #ececec; border-radius: 5px; font-family: 'Pretendard';">
                         <div style="padding: 8px; font-weight: bold;">
