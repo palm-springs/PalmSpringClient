@@ -1,5 +1,6 @@
 import {
   ArrowRightContained02Icon,
+  ChartLogoIcon,
   File02Icon,
   File04Icon,
   Grid01Icon,
@@ -20,6 +21,11 @@ type mapPageType2ComponentBluePrint = {
 };
 
 const mapPageType2Component: mapPageType2ComponentBluePrint = {
+  statistics: {
+    path: 'statistics',
+    innerText: '통계',
+    icon: <ChartLogoIcon />,
+  },
   upload: {
     path: 'upload',
     innerText: '업로드된 글',

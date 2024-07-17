@@ -24,7 +24,7 @@ const nextConfig = {
     return [
       {
         source: '/:team/dashboard',
-        destination: '/:team/dashboard/upload',
+        destination: '/:team/dashboard/statistics',
         permanent: true,
       },
     ];

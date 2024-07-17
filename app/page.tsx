@@ -38,9 +38,9 @@ export default function Home() {
     const { data } = await getUserInfoAfterLogin('', accessToken);
 
     if (!data.joinBlogList || data.joinBlogList.length === 0) {
-      setDashboardUrl('/no-team/dashboard/upload');
+      setDashboardUrl('/no-team/dashboard/statistics');
     } else {
-      setDashboardUrl(`/${data.joinBlogList[0].blogUrl}/dashboard/upload`);
+      setDashboardUrl(`/${data.joinBlogList[0].blogUrl}/dashboard/statistics`);
     }
   };
 

@@ -31,9 +31,9 @@ const DeleteButton = () => {
     } = await updateWithdrawTeam(team);
 
     if (joinBlogList.length === 0) {
-      router.push('/no-team/dashboard/upload');
+      router.push('/no-team/dashboard/statistics');
     } else {
-      router.push(`/${joinBlogList[0].blogUrl}/dashboard/upload`);
+      router.push(`/${joinBlogList[0].blogUrl}/dashboard/statistics`);
     }
   };
 
