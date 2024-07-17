@@ -1,4 +1,5 @@
 'use client';
+import { ArrowLeftIcon, ArrowRightContained02Icon, LeftArrowCalendarIcon, RightArrowIcon } from '@/public/icons';
 import { endDateState, startDateState } from '@/recoil/atom/dashboard';
 import { useParams } from 'next/navigation';
 import React, { Dispatch, SetStateAction, useEffect, useState } from 'react';
@@ -154,11 +155,11 @@ const Calendar: React.FC<CalendarProps> = ({ setIsOpen }) => {
     <>
       <CalendarContainer>
         <CalendarHeader>
-          <CalendarButton onClick={goToPreviousMonth}> &lt; </CalendarButton>
+          <LeftArrowCalendarIcon onClick={goToPreviousMonth} />
           <CalendarTitle>
             {currentDate.getFullYear()}년 {monthNames[currentDate.getMonth()]}
           </CalendarTitle>
-          <CalendarButton onClick={goToNextMonth}> &gt; </CalendarButton>
+          <RightArrowIcon onClick={goToNextMonth} />
         </CalendarHeader>
         <CalendarBody>
           <DayNames>
