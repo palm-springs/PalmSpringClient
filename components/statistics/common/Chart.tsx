@@ -96,10 +96,10 @@ const Chart = (props: ChartDetailProps) => {
             const rateValue = rate[dataPointIndex];
             const rateIcon =
               rateValue > 0
-                ? '<span style="color: #50B15B;">▲</span>'
+                ? '<img src="https://github.com/user-attachments/assets/78d742cf-088a-47ae-aa93-f6252fc093c5" style="margin-bottom: 2px;" />'
                 : rateValue < 0
-                  ? '<span style="color: #EA5959;">▼</span>'
-                  : '<span style="color: gray;">-</span>';
+                  ? '<img src="https://github.com/user-attachments/assets/ccaf56b3-fd13-4aa9-bea6-ef5437c24709" style="margin-bottom: 2px;" />'
+                  : '';
             return `<div style="width: 120px; text-align: center;  background: #e3e3e3; border: 1px solid #ececec; border-radius: 5px; font-family: 'Pretendard';">
                         <div style="padding: 8px; font-weight: bold;">
                             <div style="font-size: 10px; padding-bottom: 4px; ">${dayjs(tooltipDate).format('MM월 DD일')}</div>
