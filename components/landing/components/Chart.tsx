@@ -1,5 +1,9 @@
-import ApexChart from 'react-apexcharts';
+'use client';
+
+import dynamic from 'next/dynamic';
 import styled from 'styled-components';
+
+const ApexChart = dynamic(() => import('react-apexcharts'), { ssr: false });
 
 const Chart = () => {
   return (
