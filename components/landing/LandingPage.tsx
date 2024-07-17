@@ -472,9 +472,7 @@ const LandingPage = ({ dashboardUrl }: { dashboardUrl: string }) => {
             <AnalyticsChartContainer>
               <AnalyticsInfoItemTitle className="chart">7월 방문 수</AnalyticsInfoItemTitle>
               <AnalyticsInfoItemNumber className="chart">125,387</AnalyticsInfoItemNumber>
-              <AnalyticsChartWrapper>
-                <Chart />
-              </AnalyticsChartWrapper>
+              <AnalyticsChartWrapper>{typeof window !== 'undefined' && <Chart />}</AnalyticsChartWrapper>
             </AnalyticsChartContainer>
           </AnalyticsContainer>
         </ColorfulContentBlock>
