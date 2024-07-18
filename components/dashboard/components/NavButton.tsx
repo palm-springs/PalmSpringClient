@@ -44,7 +44,7 @@ const NavButton = (props: NavButtonProps) => {
   return (
     <NavButtonContainer
       onNavButtonClick={() => {
-        router.push(currentPageType);
+        router.push(`/${team}/dashboard/${currentPageType}`);
       }}
       disabled={innerText === '구독자' || !team}>
       <SideBarContent currentPage={pageType === currentPageType} disabled={innerText === '구독자' || !team}>
