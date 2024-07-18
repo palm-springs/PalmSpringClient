@@ -22,7 +22,7 @@ const Chart = (props: ChartDetailProps) => {
   const [date, setDate] = useState<string[]>([]);
   const [rate, setRate] = useState<number[]>([]);
 
-  console.log(blogData?.rows[0].views);
+
   useEffect(() => {
     if (statisticValue === 'visitant' && blogData) {
       const data = blogData.rows.map((row) => row.views);

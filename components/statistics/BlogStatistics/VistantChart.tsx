@@ -48,8 +48,6 @@ const VisitantChart = (props: ChartProps) => {
         : parseFloat(rate.toFixed(1)).toFixed(1)
       : 0;
 
-  console.log(roundedRate);
-
   const openModal = () => {
     setIsOpen(true);
   };
