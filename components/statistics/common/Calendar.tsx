@@ -1,7 +1,8 @@
 'use client';
+import { ArrowLeftIcon, ArrowRightContained02Icon, LeftArrowCalendarIcon, RightArrowIcon } from '@/public/icons';
 import { endDateState, startDateState } from '@/recoil/atom/dashboard';
 import { useParams } from 'next/navigation';
-import React, { Dispatch, SetStateAction, useState } from 'react';
+import React, { Dispatch, SetStateAction, useEffect, useState } from 'react';
 import { useRecoilState } from 'recoil';
 import styled from 'styled-components';
 
@@ -32,6 +33,17 @@ const Calendar: React.FC<CalendarProps> = ({ setIsOpen }) => {
   const firstDayOfMonth = (month: number, year: number) => {
     return new Date(year, month, 1).getDay();
   };
+
+  //선택 날짜 미리 렌더링
+
+  useEffect(() => {
+    if (startDate) {
+      setSelectedStartDate(new Date(startDate));
+    }
+    if (endDate) {
+      setSelectedEndDate(new Date(endDate));
+    }
+  }, [startDate, endDate]);
 
   const handleDayClick = (day: number) => {
     const year = currentDate.getFullYear();
@@ -143,11 +155,11 @@ const Calendar: React.FC<CalendarProps> = ({ setIsOpen }) => {
     <>
       <CalendarContainer>
         <CalendarHeader>
-          <CalendarButton onClick={goToPreviousMonth}> &lt; </CalendarButton>
+          <LeftArrowCalendarIcon onClick={goToPreviousMonth} />
           <CalendarTitle>
             {currentDate.getFullYear()}년 {monthNames[currentDate.getMonth()]}
           </CalendarTitle>
-          <CalendarButton onClick={goToNextMonth}> &gt; </CalendarButton>
+          <RightArrowIcon onClick={goToNextMonth} />
         </CalendarHeader>
         <CalendarBody>
           <DayNames>

@@ -110,6 +110,9 @@ importers:
       d3:
         specifier: ^7.9.0
         version: 7.9.0
+      dayjs:
+        specifier: ^1.11.11
+        version: 1.11.11
       eslint:
         specifier: ^8.43.0
         version: 8.57.0
@@ -2136,6 +2139,9 @@ packages:
 
   dash-get@1.0.2:
     resolution: {integrity: sha512-4FbVrHDwfOASx7uQVxeiCTo7ggSdYZbqs8lH+WU6ViypPlDbe9y6IP5VVUDQBv9DcnyaiPT5XT0UWHgJ64zLeQ==}
+
+  dayjs@1.11.11:
+    resolution: {integrity: sha512-okzr3f11N6WuqYtZSvm+F776mB41wRZMhKP+hc34YdW+KmtYYK9iqvHSwo2k9FEH3fhGXvOPV6yz2IcSrfRUDg==}
 
   de-indent@1.0.2:
     resolution: {integrity: sha512-e/1zu3xH5MQryN2zdVaF0OrdNLUbvWxzMbi+iNA6Bky7l1RoP8a2fIbRocyHclXt/arDrrR6lL3TqFD9pMQTsg==}
@@ -6336,6 +6342,8 @@ snapshots:
   damerau-levenshtein@1.0.8: {}
 
   dash-get@1.0.2: {}
+
+  dayjs@1.11.11: {}
 
   de-indent@1.0.2: {}
 

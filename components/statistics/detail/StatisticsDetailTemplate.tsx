@@ -18,16 +18,21 @@ const StatisticsDetailTemplate = () => {
   const endDate = useRecoilValue(endDateState);
   const articleData = useGetArticlePeriod(Number(articleId), startDate, endDate);
 
+  if (!articleData?.data?.articleInfo) {
+    return <LoadingLottie height={4} width={4} fit={false} />;
+  }
   // article 상세 통계 데이터 불러오기
   return (
     <StatisticsDetailContainer>
-      <LinkContainer>
-        <ArrowLeftIcon />
-        <Link href={`/${team}/dashboard/statistics`}>통계 홈으로 이동</Link>
-      </LinkContainer>
+      <Link href={`/${team}/dashboard/statistics`}>
+        <LinkContainer>
+          <ArrowLeftIcon />
+          통계 홈으로 이동
+        </LinkContainer>
+      </Link>
       {articleData ? (
         <>
-          <ArticleInfo {...articleData.data.articleInfo} />
+          <ArticleInfo {...articleData?.data.articleInfo} />
           <ArticleStatistic articleData={articleData.data} />
         </>
       ) : (
@@ -51,8 +56,6 @@ const LinkContainer = styled.div`
   border-bottom: 1px solid ${({ theme }) => theme.colors.grey_400};
   padding-left: 3rem;
   height: 5.8rem;
-
-  & > a {
-    ${({ theme }) => theme.fonts.Body2_Regular};
-  }
+  color: ${({ theme }) => theme.colors.grey_900};
+  ${({ theme }) => theme.fonts.Body2_Regular};
 `;

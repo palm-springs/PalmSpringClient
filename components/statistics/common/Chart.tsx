@@ -1,248 +1,119 @@
 'use client';
-import React, { useEffect, useRef, useCallback, useState } from 'react';
-import * as d3 from 'd3';
-import { useParams } from 'next/navigation';
-import { useGetBlogPeriod } from '@/hooks/dashboard';
-import { useRecoilState } from 'recoil';
-import { endDateState, startDateState } from '@/recoil/atom/dashboard';
-import { ArticlePeriodProps } from '@/types/dashboard';
 
-interface DataPoint {
-  date: Date;
-  value: number;
-}
+import { ArticlePeriodProps, BlogPeriodProps } from '@/types/dashboard';
+import dayjs from 'dayjs';
+import dynamic from 'next/dynamic';
+import { format } from 'path';
+import { useEffect, useState } from 'react';
+import styled from 'styled-components';
+
+const ApexChart = dynamic(() => import('react-apexcharts'), { ssr: false });
 
 interface ChartDetailProps {
   statisticValue: string;
   articleChartData?: ArticlePeriodProps;
+  blogData?: BlogPeriodProps;
 }
 
-const Chart: React.FC<ChartDetailProps> = ({ statisticValue, articleChartData }) => {
-  const { team, articleId } = useParams();
+const Chart = (props: ChartDetailProps) => {
+  const { statisticValue, articleChartData, blogData } = props;
 
-  const [startDate, setStartDate] = useRecoilState(startDateState);
-  const [endDate, setEndDate] = useRecoilState(endDateState);
+  const [chartData, setChartData] = useState<number[]>([]);
+  const [date, setDate] = useState<string[]>([]);
+  const [rate, setRate] = useState<number[]>([]);
 
-  // useGetBlogPeriod 훅 사용
-  const apiData = useGetBlogPeriod(String(team), String(startDate), String(endDate));
-  const [data, setData] = useState<DataPoint[]>([]);
-  const svgRef = useRef<SVGSVGElement | null>(null);
-  const containerRef = useRef<HTMLDivElement | null>(null);
-
-  // 날짜, 뷰(value)값 호출 -> useState(data)에 담아서 띄우기
-  useEffect(() => {
-    if (apiData && apiData.data.rows && statisticValue === 'visitant') {
-      const transformedData: DataPoint[] = apiData.data.rows.map((blogRow) => ({
-        date: new Date(blogRow.date), // Date 객체로 변환
-        value: blogRow.views,
-      }));
-      setData(transformedData);
-      console.log(transformedData);
-    } else if (articleChartData && articleChartData.summary && statisticValue !== 'visitant') {
-      const transformedData: DataPoint[] = articleChartData.period.rows.map((articleRow) => ({
-        date: new Date(articleRow.date), // Date 객체로 변환
-        value: articleRow.views,
-      }));
-      setData(transformedData);
-      console.log(transformedData);
-    }
-  }, [apiData, articleChartData, statisticValue]);
-
-  // 그래프 그리는 로직 & 스타일
-  const drawChart = useCallback(() => {
-    if (svgRef.current && containerRef.current && data.length > 0) {
-      const containerWidth = containerRef.current.clientWidth;
-      const width = containerWidth;
-      const height = 222;
-      const margin = { top: 20, right: 30, bottom: 40, left: 40 };
-
-      const x = d3
-        .scaleTime()
-        .domain(d3.extent(data, (d) => d.date) as [Date, Date])
-        .range([margin.left, width - margin.right]);
-
-      const y = d3
-        .scaleLinear()
-        .domain([0, d3.max(data, (d) => d.value)!])
-        .nice()
-        .range([height - margin.bottom, margin.top]);
-
-      d3.select(svgRef.current).selectAll('*').remove(); // 기존의 차트를 제거
-
-      const svg = d3.select(svgRef.current);
-
-      // line 함수 생성
-      const valueline = d3
-        .line<DataPoint>()
-        .x((d) => x(d.date))
-        .y((d) => y(d.value));
-
-      // 색상 구역 설정
-      const area = d3
-        .area<DataPoint>()
-        .x((d) => x(d.date))
-        .y0(height - margin.bottom)
-        .y1((d) => y(d.value));
-
-      // 그라데이션 추가
-      const gradient = svg
-        .append('defs')
-        .append('linearGradient')
-        .attr('id', 'line-gradient')
-        .attr('x1', '0%')
-        .attr('y1', '100%')
-        .attr('x2', '0%')
-        .attr('y2', '0%');
-
-      gradient.append('stop').attr('offset', '-6.93%').attr('stop-color', 'rgba(80, 177, 91, 0.00)');
-      gradient.append('stop').attr('offset', '97.03%').attr('stop-color', 'rgba(80, 177, 91, 0.10)');
-
-      // Add y-축
-      svg
-        .append('g')
-        .call(
-          d3
-            .axisLeft(y) // y축 텍스트
-            .ticks(5)
-            .tickSize(-width + margin.left + margin.right),
-        )
-        .attr('transform', `translate(${margin.left},0)`)
-        .call((g) => g.select('.domain').remove())
-        .selectAll('line')
-        .attr('stroke', 'lightgrey')
-        .attr('stroke-dasharray', '2,2');
-
-      // Hide y-축
-      svg.selectAll('.tick text').style('display', 'none');
-
-      const formatTime = d3.timeFormat('%Y.%m.%d');
-
-      const xTicks = [
-        data[0].date, // 첫 번째 날짜
-        data[Math.floor(data.length / 2)].date, // 중간 날짜
-        data[data.length - 1].date, // 마지막 날짜
-      ];
-
-      // Add x-축
-      svg
-        .append('g')
-        .attr('class', 'x-axis')
-        .call(
-          d3
-            .axisBottom<Date | d3.NumberValue>(x)
-            .tickValues(xTicks)
-            .tickFormat((d) => formatTime(d as Date)),
-        ) // x축 텍스트
-        .attr('transform', `translate(0,${height - margin.bottom})`)
-        .select('.domain')
-        .attr('stroke', 'none')
-        .attr('stroke-width', 1)
-        .style('stroke-linecap', 'square');
-
-      // x축 선-> 통계 선
-      svg
-        .append('path')
-        .datum(data)
-        .attr('fill', 'none')
-        .attr('stroke', '#50B15B')
-        .attr('stroke-width', 2)
-        .attr('d', valueline);
-
-      // Hide x축의 모든 tick line
-      svg.selectAll('.x-axis .tick line').style('stroke', 'none');
-      // 마지막 tick line만 숨기기
-      svg
-        .selectAll('.x-axis .tick')
-        .filter(function () {
-          return this === svg.selectAll('.x-axis .tick').nodes().pop();
-        })
-        .select('line')
-        .style('stroke', 'none');
-
-      // x축 채우기
-      svg.append('path').datum(data).attr('fill', 'url(#line-gradient)').attr('d', area);
-
-      // 툴팁 요소 추가
-      const tooltip = d3
-        .select(containerRef.current)
-        .append('div')
-        .style('position', 'absolute')
-        .style('width', '176px')
-        .style('height', '104px')
-        .style('align-items', 'center')
-        .style('background', '#fff')
-        .style('border', '1px solid #ccc')
-        .style('padding', '16px')
-        .style('display', 'none')
-        .style('pointer-events', 'none')
-        .style('border-radius', '4px')
-        .style('box-shadow', '0 3px 5px 0 rgba(33, 33, 33, 0.05)');
-
-      const hoverTime = d3.timeFormat('%m.%d');
-
-      svg
-        .append('path')
-        .datum(data)
-        .attr('fill', 'none')
-        .attr('stroke', 'transparent')
-        .attr('stroke-width', 10) // 선의 두께를 증가 이유 : 이벤트 감지
-        .attr('d', valueline)
-        .on('mouseover', function (event) {
-          const [xPos, yPos] = d3.pointer(event);
-          const hoveredDate = x.invert(xPos) as Date;
-          const formatHoverTime = d3.timeFormat('%-m월 %-d일');
-          const formattedHoveredDate = formatHoverTime(hoveredDate);
-
-          // 가장 가까운 데이터 포인트 찾기
-          const dataPoint = data.reduce((prev, curr) => {
-            return Math.abs(curr.date.getTime() - hoveredDate.getTime()) <
-              Math.abs(prev.date.getTime() - hoveredDate.getTime())
-              ? curr
-              : prev;
-          });
-
-          // 호버 툴팁 위치, 스타일 조정
-          tooltip
-            .style('display', 'block')
-            .style('left', `${event.pageX + 10}px`)
-            .style('top', `${event.pageY - 10}px`)
-            .html(
-              `<div style="font-weight: bold; font-size: 14px; margin-bottom: 16px;">${formattedHoveredDate}</div>` +
-                `<div style="font-size: 12px; color: #555; display: flex; justify-content: space-between; margin-bottom: 9.5px;">당일 방문자 수<div>${dataPoint.value}</div></div>` +
-                `<div style="font-size: 12px; color: #555; display: flex; justify-content: space-between;">전월 대비<div>10%</div></div>`,
-            );
-
-          // 호버시 위치 표시 동그라미
-          svg
-            .append('circle')
-            .attr('class', 'tooltip-circle')
-            .attr('cx', x(dataPoint.date))
-            .attr('cy', y(dataPoint.value))
-            .attr('r', 5)
-            .attr('fill', '#50B15B');
-        })
-        .on('mousemove', function (event) {
-          tooltip.style('left', `${event.pageX + 10}px`).style('top', `${event.pageY - 10}px`);
-        })
-        .on('mouseout', () => {
-          tooltip.style('display', 'none');
-          svg.selectAll('.tooltip-circle').remove();
-        });
-    }
-  }, [data]);
 
   useEffect(() => {
-    drawChart();
-    window.addEventListener('resize', drawChart);
-    return () => {
-      window.removeEventListener('resize', drawChart);
-    };
-  }, [drawChart]);
+    if (statisticValue === 'visitant' && blogData) {
+      const data = blogData.rows.map((row) => row.views);
+      const date = blogData.rows.map((row) => row.date);
+      const rate = blogData.rows.map((row) => parseFloat(row.rate.toFixed(1)));
+      setChartData(data);
+      setDate(date);
+      setRate(rate);
+    } else if (articleChartData) {
+      const data = articleChartData.period.rows.map((row) => row.views);
+      const date = articleChartData.period.rows.map((row) => row.date);
+      const rate = articleChartData.period.rows.map((row) => parseFloat(row.rate.toFixed(1)));
+
+      setChartData(data);
+      setDate(date);
+      setRate(rate);
+    }
+  }, [statisticValue, articleChartData, blogData]);
 
   return (
-    <div ref={containerRef} style={{ marginLeft: '-4rem', width: '100%' }}>
-      <svg ref={svgRef} width="100%" height={222}></svg>
-    </div>
+    <ApexChart
+      type="area"
+      width="100%"
+      height="100%"
+      series={[
+        {
+          name: '일별 방문 수',
+          data: chartData,
+        },
+      ]}
+      options={{
+        chart: {
+          animations: {
+            enabled: true,
+            easing: 'easeinout',
+            speed: 800,
+            dynamicAnimation: {
+              enabled: true,
+              speed: 350,
+            },
+          },
+          height: 350,
+          type: 'area',
+          toolbar: {
+            show: false,
+          },
+          zoom: {
+            enabled: false,
+          },
+        },
+        dataLabels: {
+          enabled: false,
+        },
+        stroke: {
+          curve: 'smooth',
+          colors: [' #50B15B'],
+        },
+        xaxis: {
+          type: 'datetime',
+          categories: date,
+          labels: {
+            format: 'MM/dd',
+          },
+          tooltip: {
+            enabled: false, // 툴팁 꼬리말을 비활성화
+          },
+        },
+        tooltip: {
+          custom: function ({ series, seriesIndex, dataPointIndex, w }) {
+            const tooltipDate = date[dataPointIndex];
+            const rateValue = rate[dataPointIndex];
+            const rateIcon =
+              rateValue > 0
+                ? '<img src="https://github.com/user-attachments/assets/78d742cf-088a-47ae-aa93-f6252fc093c5" style="margin-bottom: 2px;" />'
+                : rateValue < 0
+                  ? '<img src="https://github.com/user-attachments/assets/ccaf56b3-fd13-4aa9-bea6-ef5437c24709" style="margin-bottom: 2px;" />'
+                  : '';
+            return `<div style="width: 120px; text-align: center;  background: #e3e3e3; border: 1px solid #ececec; border-radius: 5px; font-family: 'Pretendard';">
+                        <div style="padding: 8px; font-weight: bold;">
+                            <div style="font-size: 10px; padding-bottom: 4px; ">${dayjs(tooltipDate).format('MM월 DD일')}</div>
+                        </div>
+                        <div style="background: #ffffff; padding-top: 4px;">
+                            <div style="font-size: 12px; color: #2e2e2e; margin-bottom: 4px; margin-top: 10px;">${w.globals.seriesNames[seriesIndex]}: ${series[seriesIndex][dataPointIndex]}</div><br />
+                            <div style="font-size: 12px; color: #2e2e2e;">전일 대비: ${rateIcon} ${rateValue}%</div><br />
+                      </div>
+                    </div>`;
+          },
+        },
+        colors: ['#50B15B', ' #50b15b61'],
+      }}
+    />
   );
 };
 

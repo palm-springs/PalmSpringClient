@@ -14,6 +14,7 @@ import { ArticlePeriodProps } from '@/types/dashboard';
 
 import Calendar from '../common/Calendar';
 import Chart from '../common/Chart';
+import LoadingLottie from '@/components/common/ui/LoadingLottie';
 
 interface ChartProps {
   articleChartData?: ArticlePeriodProps;
@@ -24,6 +25,12 @@ const VisitantChart = (props: ChartProps) => {
   const { team } = useParams();
   const { articleChartData, statisticValue } = props;
 
+  const [startDate, setStartDate] = useRecoilState(startDateState);
+  const [endDate, setEndDate] = useRecoilState(endDateState);
+
+  // useGetBlogPeriod 훅 사용
+  const blogData = useGetBlogPeriod(String(team), String(startDate), String(endDate));
+
   //블로그 통계 api
   const res = useGetBlogSummary(String(team));
   const isIncrease =
@@ -32,10 +39,21 @@ const VisitantChart = (props: ChartProps) => {
   const [isOpen, setIsOpen] = useState(false);
 
   const views = statisticValue === 'visitant' ? res?.data.day.views : articleChartData?.summary.day.views;
+
   const rate = statisticValue === 'visitant' ? res?.data.day.rate : articleChartData?.summary.day.rate;
+  const roundedRate =
+    rate !== undefined && rate !== null
+      ? Number.isInteger(parseFloat(rate.toFixed(1)))
+        ? parseFloat(rate.toFixed(1)).toFixed(0)
+        : parseFloat(rate.toFixed(1)).toFixed(1)
+      : 0;
 
   const openModal = () => {
     setIsOpen(true);
+  };
+
+  const closeModal = () => {
+    setIsOpen(false);
   };
 
   return (
@@ -45,30 +63,35 @@ const VisitantChart = (props: ChartProps) => {
           <CalendarButton>
             <SubTitle>방문 수</SubTitle>
             <CalendarWrapper>
-              <CalendarIcon onClick={openModal} />
-              <ArrowCalendarIcon />
+              <div onClick={openModal}>
+                <CalendarIcon />
+                <ArrowCalendarIcon />
+              </div>
               {isOpen && (
-                <CalendarContainer>
-                  <Calendar setIsOpen={setIsOpen} />
-                </CalendarContainer>
+                <ModalOverlay onClick={closeModal}>
+                  <CalendarContainer onClick={(e) => e.stopPropagation()}>
+                    <Calendar setIsOpen={setIsOpen} />
+                  </CalendarContainer>
+                </ModalOverlay>
               )}
             </CalendarWrapper>
           </CalendarButton>
           <PercentContainer>
             <Count>{views}</Count>
             <Wrapper>
-              {rate === 0 ? (
+              {roundedRate === 0 ? (
                 <IsZero>&nbsp;-</IsZero>
               ) : (
                 <>
                   &nbsp;
                   {isIncrease ? <IncreaseArrow /> : <DecreaseArrow />}
-                  {isIncrease ? <Percent>{rate}</Percent> : <DePercent>{rate}</DePercent>}
+                  {isIncrease ? <Percent>{roundedRate}%</Percent> : <DePercent>{roundedRate}%</DePercent>}
                 </>
               )}
             </Wrapper>
           </PercentContainer>
-          <Chart statisticValue={statisticValue} articleChartData={articleChartData} />
+          <Chart statisticValue={statisticValue} blogData={blogData?.data} articleChartData={articleChartData} />
+          {/* <Chart statisticValue={statisticValue} articleChartData={articleChartData} /> */}
         </CardBorder>
       </CardContainer>
       {statisticValue === 'views' && <ArticleListMargin />}
@@ -77,6 +100,18 @@ const VisitantChart = (props: ChartProps) => {
 };
 
 export default VisitantChart;
+
+const ModalOverlay = styled.div`
+  display: flex;
+  position: fixed;
+  top: 0;
+  right: 0;
+  bottom: 0;
+  left: 0;
+  align-items: center;
+  justify-content: center;
+  z-index: 1000;
+`;
 const IsZero = styled.p`
   color: ${({ theme }) => theme.colors.grey_700};
   ${({ theme }) => theme.fonts.Body2_Semibold};
@@ -94,8 +129,8 @@ const CalendarButton = styled.div`
 
 const CalendarContainer = styled.div`
   position: absolute;
-  top: 4rem;
-  right: 31.5rem;
+  top: 35rem;
+  right: 45.5rem;
 `;
 
 const CalendarWrapper = styled.div`

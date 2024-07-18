@@ -98,7 +98,6 @@ const BlogConfigTemplate = () => {
   }, [res, footerRes, templateRes]);
 
   if (!res || !res.data || !footerRes || !footerRes.data || !templateRes || !templateRes.data) {
-    console.log(templateRes);
     return <LoadingLottie width={10} height={10} />;
   }
 
