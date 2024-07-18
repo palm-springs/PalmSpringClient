@@ -586,8 +586,8 @@ const LandingPage = ({ dashboardUrl }: { dashboardUrl: string }) => {
         data-button-color="#000000"
         data-background-color="#ffffff"
       />
-      <Link href="https://assets.whattime.co.kr/widget/widget.css" rel="stylesheet" />
-      <script src="https://assets.whattime.co.kr/widget/widget.js" type="text/javascript" async></script>
+      <link href="https://assets.whattime.co.kr/widget/widget.css" rel="stylesheet" />
+      <Script src="https://assets.whattime.co.kr/widget/widget.js" type="text/javascript" async></Script>
 
       <FooterContainer>
         <FooterWrapper>
