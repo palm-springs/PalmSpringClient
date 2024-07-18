@@ -7,6 +7,7 @@ import styled from 'styled-components';
 
 interface CardProps {
   statisticValue: string;
+  percentTitle: string | null;
   title: string;
   view: number | null;
   rate: number | null;
@@ -17,7 +18,17 @@ interface CardProps {
 }
 
 const VisitantCard = (props: CardProps) => {
-  const { statisticValue, title, view, rate, isIncrease, articleViewArray, articleRate, articleIsIncrease } = props;
+  const {
+    statisticValue,
+    percentTitle,
+    title,
+    view,
+    rate,
+    isIncrease,
+    articleViewArray,
+    articleRate,
+    articleIsIncrease,
+  } = props;
 
   const displayView = statisticValue === 'visitant' ? view : articleViewArray;
   const displayRate = statisticValue === 'visitant' ? rate : articleRate;
@@ -35,12 +46,12 @@ const VisitantCard = (props: CardProps) => {
           {displayRate !== null ? (
             displayRate === 0 ? (
               <PercentContainer>
-                <PercentTitle>전 일대비</PercentTitle>
+                <PercentTitle>{percentTitle}</PercentTitle>
                 <IsZero>&nbsp;-</IsZero>
               </PercentContainer>
             ) : (
               <PercentContainer>
-                <PercentTitle>전 일대비</PercentTitle>
+                <PercentTitle>{percentTitle}</PercentTitle>
                 {displayIsIncrease ? (
                   <>
                     &nbsp;
@@ -53,9 +64,9 @@ const VisitantCard = (props: CardProps) => {
                   </>
                 )}
                 {displayIsIncrease ? (
-                  <Percent>{displayRate}</Percent>
+                  <Percent>{displayRate}%</Percent>
                 ) : (
-                  <DecreasePercent>{displayRate}</DecreasePercent>
+                  <DecreasePercent>{displayRate}%</DecreasePercent>
                 )}
               </PercentContainer>
             )
