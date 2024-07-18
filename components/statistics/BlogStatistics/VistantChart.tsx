@@ -39,7 +39,16 @@ const VisitantChart = (props: ChartProps) => {
   const [isOpen, setIsOpen] = useState(false);
 
   const views = statisticValue === 'visitant' ? res?.data.day.views : articleChartData?.summary.day.views;
+
   const rate = statisticValue === 'visitant' ? res?.data.day.rate : articleChartData?.summary.day.rate;
+  const roundedRate =
+    rate !== undefined && rate !== null
+      ? Number.isInteger(parseFloat(rate.toFixed(1)))
+        ? parseFloat(rate.toFixed(1)).toFixed(0)
+        : parseFloat(rate.toFixed(1)).toFixed(1)
+      : 0;
+
+  console.log(roundedRate);
 
   const openModal = () => {
     setIsOpen(true);
@@ -72,13 +81,13 @@ const VisitantChart = (props: ChartProps) => {
           <PercentContainer>
             <Count>{views}</Count>
             <Wrapper>
-              {rate === 0 ? (
+              {roundedRate === 0 ? (
                 <IsZero>&nbsp;-</IsZero>
               ) : (
                 <>
                   &nbsp;
                   {isIncrease ? <IncreaseArrow /> : <DecreaseArrow />}
-                  {isIncrease ? <Percent>{rate}</Percent> : <DePercent>{rate}</DePercent>}
+                  {isIncrease ? <Percent>{roundedRate}%</Percent> : <DePercent>{roundedRate}%</DePercent>}
                 </>
               )}
             </Wrapper>

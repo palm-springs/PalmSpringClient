@@ -41,6 +41,16 @@ const VisitantUI = (props: CardsProps) => {
   const cardTitle = ['오늘', `${month}월`, '누적'];
   const viewsArray = [data.data.day.views, data.data.month.views, data.data.total.views];
   const rate = [data.data.day.rate, data.data.month.rate, null];
+
+  //소수점 첫째자리 반올림, 0인 경우 0빼기
+  const roundedRate = rate.map((r) => {
+    if (r !== null && r !== undefined) {
+      const rounded = parseFloat(r.toFixed(1));
+      return Number.isInteger(rounded) ? parseFloat(rounded.toFixed(0)) : rounded;
+    }
+    return r;
+  });
+
   const isIncrease = [data.data.day.isIncrease, data.data.month.isIncrease, null];
 
   return (
@@ -53,7 +63,7 @@ const VisitantUI = (props: CardsProps) => {
             percentTitle={percentTitle[index]}
             title={cardTitle[index]}
             view={viewsArray[index]}
-            rate={rate[index]}
+            rate={roundedRate[index]}
             isIncrease={isIncrease[index]}
             articleViewArray={articleViewArray[index]}
             articleRate={articleRate[index]}

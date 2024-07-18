@@ -27,14 +27,14 @@ const Chart = (props: ChartDetailProps) => {
     if (statisticValue === 'visitant' && blogData) {
       const data = blogData.rows.map((row) => row.views);
       const date = blogData.rows.map((row) => row.date);
-      const rate = blogData.rows.map((row) => row.rate);
+      const rate = blogData.rows.map((row) => parseFloat(row.rate.toFixed(1)));
       setChartData(data);
       setDate(date);
       setRate(rate);
     } else if (articleChartData) {
       const data = articleChartData.period.rows.map((row) => row.views);
       const date = articleChartData.period.rows.map((row) => row.date);
-      const rate = articleChartData.period.rows.map((row) => row.rate);
+      const rate = articleChartData.period.rows.map((row) => parseFloat(row.rate.toFixed(1)));
 
       setChartData(data);
       setDate(date);
