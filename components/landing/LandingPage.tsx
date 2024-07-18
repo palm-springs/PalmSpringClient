@@ -718,6 +718,7 @@ const flexDefaultSetting = `
     align-items: center;
 `;
 const Main = styled.main`
+  overflow-x: hidden;
   * {
     text-align: center;
     line-height: 140%;
