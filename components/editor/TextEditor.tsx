@@ -39,12 +39,16 @@ const TextEditor = ({ editor, handleDragOver, handleDrop }: editorProps) => {
 
   //이미지 복붙할 때 갈아끼우기
   const pasteImg: ClipboardEventHandler<HTMLInputElement> = async (event: ClipboardEvent) => {
+    const { currentTarget } = event;
     // 붙여넣기된 img 요소 가져오기
-    const targetImg = event.currentTarget.querySelector(
-      'img:not([src^="https://cdn.palms.blog/"]):not([class^="ProseMirror"]):not([class="inaccessible"]), img[class="ProseMirror-selectednode"]:not([src^="https://cdn.palms.blog/"]):not([class^="inaccessible"])',
-    );
-    if (!targetImg) return;
-    await getChangedImgSrc(targetImg, String(team));
+    setTimeout(async () => {
+      const targetImg = currentTarget.querySelector(
+        'img:not([src^="https://cdn.palms.blog/"]):not([class^="ProseMirror"]):not([class="inaccessible"]), img[class="ProseMirror-selectednode"]:not([src^="https://cdn.palms.blog/"]):not([class^="inaccessible"])',
+      );
+
+      if (!targetImg) return;
+      await getChangedImgSrc(targetImg, String(team));
+    }, 2500);
   };
 
   return (
