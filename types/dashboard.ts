@@ -82,6 +82,7 @@ export interface ArticlePeriodProps {
     createdAt: string;
     thumbnail: string;
     description: string;
+    url: string;
   };
   summary: {
     day: {
