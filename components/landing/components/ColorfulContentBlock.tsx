@@ -142,7 +142,7 @@ const ColorfulContentChildrenContainer = styled.div<{ color: string }>`
   align-items: center;
   margin-top: 48px;
   padding: 0 20px;
-  width: 100vw;
+  width: 100%;
   color: ${(props) => props.color && props.color};
   @media (max-width: 767px) {
     width: 100%;
