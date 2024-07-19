@@ -3,7 +3,7 @@ import { getChangedImgSrc } from '../getChangedImgSrc';
 // 이미지 CDN 주소로 바꿔 끼우기 함수
 const changeImgSrc = async (team: string) => {
   const imgList = document.querySelectorAll(
-    'img:not([src^="https://cdn.palms.blog/"]):not([class="ProseMirror-separator"]):not([class="inaccessible"])',
+    'img:not([src^="https://cdn.palms.blog/"]):not([class="ProseMirror-separator"])',
   );
 
   const promises = Array.from(imgList).map(async (img) => {
