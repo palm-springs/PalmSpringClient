@@ -30,7 +30,6 @@ const VisitantChart = (props: ChartProps) => {
 
   // useGetBlogPeriod 훅 사용
   const blogData = useGetBlogPeriod(String(team), String(startDate), String(endDate));
-
   //블로그 통계 api
   const res = useGetBlogSummary(String(team));
   const isIncrease =
