@@ -189,7 +189,7 @@ const LandingPage = ({ dashboardUrl }: { dashboardUrl: string }) => {
   useEffect(() => {
     const CT = new ChannelTalk();
 
-    CT.boot({ pluginKey: process.env.NEXT_PUBLIC_CHANNEL_TALK_PLUGIN_KEY as string });
+    CT.boot({ pluginKey: '02758659-2aab-470a-9ac1-32a614687295' });
 
     if (isMobile) {
       setScrollThresholds([1400, 1650, 1900, 2150, 2400]);
