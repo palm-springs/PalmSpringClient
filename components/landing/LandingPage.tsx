@@ -9,6 +9,7 @@ import styled from 'styled-components';
 
 import useCheckMobile from '@/hooks/useCheckMobile';
 import { CheckIcon, PalmsBlogLogoVectorIcon } from '@/public/icons';
+import ChannelTalk from '@/utils/lib/ChannelTalk';
 
 import Chart from './components/Chart';
 import ColorfulContentBlock from './components/ColorfulContentBlock';
@@ -45,7 +46,7 @@ const freePlanFeatureList: Array<freePlanFeature> = [
   { text: '100% 커스텀 브랜딩', color: '#ccc' },
   { text: '최고 수준의 SEO', color: '#ccc' },
   { text: 'Sitemap 자동 생성', color: '#ccc' },
-  { text: '아티클', color: '#ccc' },
+  { text: '아티클 무제한 작성', color: '#ccc' },
   { text: '페이지 무제한 작성', color: '#ccc' },
   { text: '카테고리 무제한 생성', color: '#ccc' },
   { text: '전용 SSL 인증서', color: '#ccc' },
@@ -186,11 +187,19 @@ const LandingPage = ({ dashboardUrl }: { dashboardUrl: string }) => {
   }, []);
 
   useEffect(() => {
+    const CT = new ChannelTalk();
+
+    CT.boot({ pluginKey: process.env.NEXT_PUBLIC_CHANNEL_TALK_PLUGIN_KEY as string });
+
     if (isMobile) {
       setScrollThresholds([1400, 1650, 1900, 2150, 2400]);
     } else {
       setScrollThresholds([2300, 2550, 2800, 3050, 3300]);
     }
+
+    return () => {
+      CT.shutdown();
+    };
   }, [isMobile]);
 
   useEffect(() => {
@@ -206,36 +215,6 @@ const LandingPage = ({ dashboardUrl }: { dashboardUrl: string }) => {
 
   return (
     <Main>
-      <Script
-        onError={(e) => {
-          console.error('CT Script failed to load...', e);
-        }}
-        dangerouslySetInnerHTML={{
-          __html: `
-          (function(){var w=window;
-          if(w.ChannelIO){
-          return w.console.error("ChannelIO script included twice.");}
-          var ch=function(){ch.c(arguments);};
-          ch.q=[];
-          ch.c=function(args){
-            ch.q.push(args);
-          };w.ChannelIO=ch;
-          function l(){
-          if(w.ChannelIOInitialized){return;}
-          w.ChannelIOInitialized=true;
-          var s=document.createElement("script");
-          s.type="text/javascript";
-          s.async=true;
-          s.src="https://cdn.channel.io/plugin/ch-plugin-web.js";
-          var x=document.getElementsByTagName("script")[0];
-          if(x.parentNode){x.parentNode.insertBefore(s,x);}}
-          if(document.readyState==="complete"){l();}else{w.addEventListener("DOMContentLoaded",l);
-          w.addEventListener("load",l);}})();
-          ChannelIO('boot', {
-            "pluginKey": "02758659-2aab-470a-9ac1-32a614687295"
-          });`,
-        }}
-      />
       <HeaderContainer
         initial={{ opacity: 0, transform: 'translateY(-50px)' }}
         viewport={{ once: true }}
@@ -587,7 +566,11 @@ const LandingPage = ({ dashboardUrl }: { dashboardUrl: string }) => {
         data-background-color="#ffffff"
       />
       <link href="https://assets.whattime.co.kr/widget/widget.css" rel="stylesheet" />
-      <Script src="https://assets.whattime.co.kr/widget/widget.js" type="text/javascript" async></Script>
+      <Script
+        src="https://assets.whattime.co.kr/widget/widget.js"
+        type="text/javascript"
+        strategy="lazyOnload"
+        async></Script>
 
       <FooterContainer>
         <FooterWrapper>
