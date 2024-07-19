@@ -1,6 +1,6 @@
 'use client';
 
-import React, { useState } from 'react';
+import React, { useRef, useState } from 'react';
 import { useParams } from 'next/navigation';
 import { useRecoilState } from 'recoil';
 import styled from 'styled-components';
@@ -27,26 +27,28 @@ const VisitantChart = (props: ChartProps) => {
 
   const [startDate, setStartDate] = useRecoilState(startDateState);
   const [endDate, setEndDate] = useRecoilState(endDateState);
+  const [isOpen, setIsOpen] = useState(false);
 
   // useGetBlogPeriod 훅 사용
   const blogData = useGetBlogPeriod(String(team), String(startDate), String(endDate));
-
   //블로그 통계 api
   const res = useGetBlogSummary(String(team));
-  const isIncrease =
-    statisticValue === 'visitant' ? res?.data.day.isIncrease : articleChartData?.summary.day.isIncrease;
 
-  const [isOpen, setIsOpen] = useState(false);
+  const isBlogIncreaseIcon = res?.data.day.isIncrease ? <IncreaseArrow /> : <DecreaseArrow />;
+  const isArticleIncreaseIcon = articleChartData?.summary.day.rate ? <IncreaseArrow /> : <DecreaseArrow />;
+  const isIncrease = statisticValue === 'visitant' ? isBlogIncreaseIcon : isArticleIncreaseIcon;
 
   const views = statisticValue === 'visitant' ? res?.data.day.views : articleChartData?.summary.day.views;
-
   const rate = statisticValue === 'visitant' ? res?.data.day.rate : articleChartData?.summary.day.rate;
+
   const roundedRate =
     rate !== undefined && rate !== null
       ? Number.isInteger(parseFloat(rate.toFixed(1)))
         ? parseFloat(rate.toFixed(1)).toFixed(0)
         : parseFloat(rate.toFixed(1)).toFixed(1)
-      : 0;
+      : '0';
+
+  const calendarRef = useRef<HTMLDivElement>(null);
 
   const openModal = () => {
     setIsOpen(true);
@@ -63,13 +65,18 @@ const VisitantChart = (props: ChartProps) => {
           <CalendarButton>
             <SubTitle>방문 수</SubTitle>
             <CalendarWrapper>
-              <div onClick={openModal}>
+              <div onClick={openModal} ref={calendarRef}>
                 <CalendarIcon />
                 <ArrowCalendarIcon />
               </div>
               {isOpen && (
                 <ModalOverlay onClick={closeModal}>
-                  <CalendarContainer onClick={(e) => e.stopPropagation()}>
+                  <CalendarContainer
+                    onClick={(e) => e.stopPropagation()}
+                    style={{
+                      top: `${calendarRef.current.getBoundingClientRect().bottom - 140}px`,
+                      left: `${calendarRef.current.getBoundingClientRect().left - 350}px`,
+                    }}>
                     <Calendar setIsOpen={setIsOpen} />
                   </CalendarContainer>
                 </ModalOverlay>
@@ -79,13 +86,13 @@ const VisitantChart = (props: ChartProps) => {
           <PercentContainer>
             <Count>{views}</Count>
             <Wrapper>
-              {roundedRate === 0 ? (
+              {roundedRate === '0' ? (
                 <IsZero>&nbsp;-</IsZero>
               ) : (
                 <>
                   &nbsp;
-                  {isIncrease ? <IncreaseArrow /> : <DecreaseArrow />}
-                  {isIncrease ? <Percent>{roundedRate}%</Percent> : <DePercent>{roundedRate}%</DePercent>}
+                  {isIncrease}
+                  {isIncrease ? <DePercent>{roundedRate}%</DePercent> : <Percent>{roundedRate}%</Percent>}
                 </>
               )}
             </Wrapper>
@@ -129,8 +136,6 @@ const CalendarButton = styled.div`
 
 const CalendarContainer = styled.div`
   position: absolute;
-  top: 35rem;
-  right: 45.5rem;
 `;
 
 const CalendarWrapper = styled.div`
