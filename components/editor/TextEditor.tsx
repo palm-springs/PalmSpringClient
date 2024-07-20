@@ -1,13 +1,11 @@
 'use client';
 
-import { ClipboardEvent, ClipboardEventHandler, DragEventHandler, useCallback, useEffect, useState } from 'react';
+import { ClipboardEvent, ClipboardEventHandler, DragEventHandler, useEffect, useState } from 'react';
 import { Editor, EditorContent } from '@tiptap/react';
 import { useParams } from 'next/navigation';
 import styled from 'styled-components';
 
-import { postExternalImage } from '@/api/postImage';
 import { getChangedImgSrc } from '@/utils/getChangedImgSrc';
-import { getContentCtrlVImage } from '@/utils/getImageMultipartData';
 
 interface editorProps {
   editor: Editor | null;
@@ -39,12 +37,17 @@ const TextEditor = ({ editor, handleDragOver, handleDrop }: editorProps) => {
 
   //이미지 복붙할 때 갈아끼우기
   const pasteImg: ClipboardEventHandler<HTMLInputElement> = async (event: ClipboardEvent) => {
+    const { currentTarget } = event;
+
     // 붙여넣기된 img 요소 가져오기
-    const targetImg = event.currentTarget.querySelector(
-      'img:not([src^="https://cdn.palms.blog/"]):not([class^="ProseMirror"]):not([class="inaccessible"]), img[class="ProseMirror-selectednode"]:not([src^="https://cdn.palms.blog/"]):not([class^="inaccessible"])',
-    );
-    if (!targetImg) return;
-    await getChangedImgSrc(targetImg, String(team));
+    setTimeout(async () => {
+      const targetImg = currentTarget.querySelector(
+        'img:not([src^="https://cdn.palms.blog/"]):not([class^="ProseMirror"]), img[class="ProseMirror-selectednode"]:not([src^="https://cdn.palms.blog/"])',
+      );
+
+      if (!targetImg) return;
+      await getChangedImgSrc(targetImg, String(team));
+    }, 2500);
   };
 
   return (

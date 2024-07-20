@@ -1,15 +1,19 @@
 'use client';
 import Image from 'next/image';
+import Link from 'next/link';
+import { useParams } from 'next/navigation';
 import styled from 'styled-components';
 
 import { ArticlePeriodProps } from '@/types/dashboard';
 
 const ArticleInfo = (props: ArticlePeriodProps['articleInfo']) => {
-  const { author, createdAt, thumbnail, title, description } = props;
+  const { author, createdAt, thumbnail, title, description, url } = props;
+
+  const { team } = useParams();
 
   return (
     <>
-      <ArticleInfoContainer>
+      <ArticleInfoContainer href={`https://${team}.palms.blog/${url}`} target="_blank">
         {thumbnail && <Thumbnail src={thumbnail} alt="게시글 썸네일" width={228} height={170} />}
         <div>
           <Title>{title}</Title>
@@ -23,7 +27,7 @@ const ArticleInfo = (props: ArticlePeriodProps['articleInfo']) => {
 
 export default ArticleInfo;
 
-const ArticleInfoContainer = styled.div`
+const ArticleInfoContainer = styled(Link)`
   display: flex;
   gap: 3.2rem;
   margin-top: 2.4rem;
