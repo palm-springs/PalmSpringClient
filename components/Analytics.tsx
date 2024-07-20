@@ -1,7 +1,7 @@
 import React from 'react';
 import Script from 'next/script';
 
-export const GA_MEASUREMENT_ID = process.env.NEXT_PUBLIC_GA_ID;
+export const GA_MEASUREMENT_ID = process.env.GA_ID;
 
 const Analytics = () => {
   return (
