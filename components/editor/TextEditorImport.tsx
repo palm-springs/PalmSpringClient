@@ -402,6 +402,7 @@ const TextEditorImport = (props: TextEditorImportProps) => {
           const pageId = res.data;
           if (pageId) {
             sessionStorage?.setItem(PAGE_DATA_ID, pageId);
+            setIsDraftSave(true);
           }
         } catch (error) {
           console.error('실패 에러임', error);
@@ -622,12 +623,15 @@ const TextEditorImport = (props: TextEditorImportProps) => {
   const handleOnSavedPagePublish = async () => {
     if (isDraftSave) {
       const dataPageId = sessionStorage?.getItem(PAGE_DATA_ID);
+      console.log(dataPageId);
       if (!editor) return;
       const { content, newImgArr } = await getEditorContent(String(team));
       setImageArr((prev) => [...prev, ...newImgArr]);
-      updateDataRouterChange(content, Number(dataPageId), `page/publish`);
+      updateDataRouterChange(content, Number(dataPageId), `page/${dataPageId}/publish`);
+      console.log('여기여기여기');
     } else {
       handleOnClickPagePublish();
+      console.log('여기면 안돼 찌바ㅠ');
     }
   };
 
