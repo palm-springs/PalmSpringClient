@@ -46,8 +46,14 @@ export const getMemberInvite = async (code: string | null) => {
     const { data } = await client.get<Response<UserInviteInfo>>(`/api/v2/dashboard/user/invite?code=${code}`);
     return data;
   } catch (e) {
-    if (isAxiosError(e)) return { message: null, code: e.response?.status, data: null };
-    else return { message: null, code: 404, data: null };
+    if (isAxiosError(e)) {
+      // 403 이상일 때만 처리
+      if (e.response?.status && e.response?.status >= 403) {
+        return { message: null, code: e.response?.status, data: null };
+      }
+      // 이외는 에러 던지기
+      else throw e;
+    } else return { message: null, code: 404, data: null };
   }
 };
 

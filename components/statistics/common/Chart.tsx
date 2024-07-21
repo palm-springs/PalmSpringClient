@@ -1,11 +1,10 @@
 'use client';
 
-import { ArticlePeriodProps, BlogPeriodProps } from '@/types/dashboard';
+import { useEffect, useState } from 'react';
 import dayjs from 'dayjs';
 import dynamic from 'next/dynamic';
-import { format } from 'path';
-import { useEffect, useState } from 'react';
-import styled from 'styled-components';
+
+import { ArticlePeriodProps, BlogPeriodProps } from '@/types/dashboard';
 
 const ApexChart = dynamic(() => import('react-apexcharts'), { ssr: false });
 
