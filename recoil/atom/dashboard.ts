@@ -1,4 +1,5 @@
 import { atom } from 'recoil';
+
 import { currentDateSelector, date30DaysAgoSelector } from '../selector/dashboard';
 
 export const startDateState = atom<string>({

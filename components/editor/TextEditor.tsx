@@ -5,7 +5,7 @@ import { Editor, EditorContent } from '@tiptap/react';
 import { useParams } from 'next/navigation';
 import styled from 'styled-components';
 
-import { getChangedImgSrc } from '@/utils/getChangedImgSrc';
+import { getContentCtrlVImage } from '@/utils/getImageMultipartData';
 
 interface editorProps {
   editor: Editor | null;
@@ -37,16 +37,30 @@ const TextEditor = ({ editor, handleDragOver, handleDrop }: editorProps) => {
 
   //이미지 복붙할 때 갈아끼우기
   const pasteImg: ClipboardEventHandler<HTMLInputElement> = async (event: ClipboardEvent) => {
+    const { items } = event.clipboardData;
+    const fileItem = [...items].filter((item) => item.kind === 'file')[0];
+    const file = fileItem.getAsFile();
+
     const { currentTarget } = event;
 
-    // 붙여넣기된 img 요소 가져오기
     setTimeout(async () => {
+      // 붙여넣기된 img 요소 가져오기
       const targetImg = currentTarget.querySelector(
         'img:not([src^="https://cdn.palms.blog/"]):not([class^="ProseMirror"]), img[class="ProseMirror-selectednode"]:not([src^="https://cdn.palms.blog/"])',
       );
-
       if (!targetImg) return;
-      await getChangedImgSrc(targetImg, String(team));
+
+      const imgSrc = targetImg.getAttribute('src');
+      if (!imgSrc) return;
+
+      // img url 변환해와서 src 교체
+      const imgUrl = await getContentCtrlVImage(file as File, String(team));
+      targetImg.setAttribute('src', imgUrl);
+
+      // base64 아닐 때만 sessionStorage 저장
+      if (!imgSrc.startsWith('data:')) {
+        sessionStorage.setItem(imgSrc, imgUrl);
+      }
     }, 2500);
   };
 
