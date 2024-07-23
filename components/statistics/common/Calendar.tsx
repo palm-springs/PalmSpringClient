@@ -258,7 +258,7 @@ const Day = styled.div<DayProps>`
   justify-content: center;
   background-color: ${({ isSelected, isEndSelected, isInRange, theme }) => {
     if (isSelected || isEndSelected) return theme.colors.grey_900;
-    if (isInRange) return theme.colors.grey_100;
+    if (isInRange) return theme.colors.grey_300;
     return 'transparent';
   }};
   cursor: pointer;

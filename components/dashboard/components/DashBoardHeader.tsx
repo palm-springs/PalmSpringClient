@@ -24,7 +24,7 @@ const DashBoardHeader = () => {
 
   const { team } = useParams();
 
-  const { title, buttonInnerText, onButtonClickActionName } = mapPageType2HeaderInfo[pathName];
+  const { title, explanation, buttonInnerText, onButtonClickActionName } = mapPageType2HeaderInfo[pathName];
 
   const permissionPolicyChecker = usePerMissionPolicy();
 
@@ -62,6 +62,7 @@ const DashBoardHeader = () => {
     <DashBoardHeaderContainer>
       <HeaderContainer
         title={title}
+        explanation={explanation}
         buttonInnerText={buttonInnerText}
         isRenderHeaderButton={isRenderHeaderButton}
         onButtonClick={handleHeaderButtonClickEvent}
