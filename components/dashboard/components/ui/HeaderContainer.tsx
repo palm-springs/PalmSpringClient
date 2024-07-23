@@ -6,6 +6,7 @@ import { dashBoardHeaderButtonVisibleState } from '../../state/modalState';
 
 interface UploadHeaderContainerProps {
   title: string;
+  explanation?: string;
   isRenderHeaderButton?: boolean;
   buttonInnerText?: string;
   onButtonClick?: React.MouseEventHandler<HTMLButtonElement>;
@@ -20,14 +21,17 @@ interface UploadHeaderContainerProps {
  * @returns
  */
 const HeaderContainer = (props: UploadHeaderContainerProps) => {
-  const { title, buttonInnerText, onButtonClick, isRenderHeaderButton = true } = props;
+  const { title, explanation, buttonInnerText, onButtonClick, isRenderHeaderButton = true } = props;
 
   const headerButtonState = useRecoilValue(dashBoardHeaderButtonVisibleState);
 
   return (
     <UploadHeaderUI>
       <HeaderContentWrapper>
-        <span>{title}</span>
+        <TitleContainer>
+          <span>{title}</span>
+          <Explanation>{explanation}</Explanation>
+        </TitleContainer>
         {isRenderHeaderButton && buttonInnerText && headerButtonState && (
           <button onClick={onButtonClick}>{buttonInnerText}</button>
         )}
@@ -37,6 +41,23 @@ const HeaderContainer = (props: UploadHeaderContainerProps) => {
 };
 
 export default HeaderContainer;
+
+const TitleContainer = styled.div`
+  display: flex;
+  align-items: center;
+
+  & > span {
+    margin-right: 1.4rem;
+    ${({ theme }) => theme.fonts.Heading1};
+    color: ${({ theme }) => theme.colors.grey_950};
+  }
+`;
+
+const Explanation = styled.p`
+  margin-top: 1.4rem;
+  ${({ theme }) => theme.fonts.Body3_Regular};
+  color: ${({ theme }) => theme.colors.grey_900};
+`;
 
 const UploadHeaderUI = styled.article`
   display: flex;
@@ -54,10 +75,6 @@ const HeaderContentWrapper = styled.div`
   margin-bottom: 3.2rem;
   width: 100%;
 
-  & > span {
-    ${({ theme }) => theme.fonts.Heading1};
-    color: ${({ theme }) => theme.colors.grey_950};
-  }
   & > button {
     display: inline-flex;
     flex-shrink: 0;

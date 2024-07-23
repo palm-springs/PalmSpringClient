@@ -124,7 +124,7 @@ const CardBorder = styled.li`
   border: 1px solid ${({ theme }) => theme.colors.grey_300};
   border-radius: 0.8rem;
   background: var(--grey-white, #fff);
-  padding: 2rem 14rem 2rem 2rem;
+  padding: 2rem 0rem 2rem 2rem;
   list-style-type: none;
 `;
 

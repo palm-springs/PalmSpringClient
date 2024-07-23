@@ -64,24 +64,22 @@ const VisitantChart = (props: ChartProps) => {
         <CardBorder>
           <CalendarButton>
             <SubTitle>방문 수</SubTitle>
-            <CalendarWrapper>
-              <div onClick={openModal} ref={calendarRef}>
-                <CalendarIcon />
-                <ArrowCalendarIcon />
-              </div>
-              {isOpen && (
-                <ModalOverlay onClick={closeModal}>
-                  <CalendarContainer
-                    onClick={(e) => e.stopPropagation()}
-                    style={{
-                      top: `${calendarRef.current.getBoundingClientRect().bottom - 140}px`,
-                      left: `${calendarRef.current.getBoundingClientRect().left - 350}px`,
-                    }}>
-                    <Calendar setIsOpen={setIsOpen} />
-                  </CalendarContainer>
-                </ModalOverlay>
-              )}
+            <CalendarWrapper onClick={openModal} ref={calendarRef}>
+              <CalendarIcon />
+              <ArrowCalendarIcon />
             </CalendarWrapper>
+            {isOpen && (
+              <ModalOverlay onClick={closeModal}>
+                <CalendarContainer
+                  onClick={(e) => e.stopPropagation()}
+                  style={{
+                    top: `${calendarRef.current.getBoundingClientRect().bottom - 140}px`,
+                    left: `${calendarRef.current.getBoundingClientRect().left - 350}px`,
+                  }}>
+                  <Calendar setIsOpen={setIsOpen} />
+                </CalendarContainer>
+              </ModalOverlay>
+            )}
           </CalendarButton>
           <PercentContainer>
             <Count>{views}</Count>
@@ -145,6 +143,7 @@ const CalendarWrapper = styled.div`
   margin-right: 4rem;
   border: 1px solid ${({ theme }) => theme.colors.grey_400};
   border-radius: 0.4rem;
+  cursor: pointer;
   padding: 0.5rem 0.8rem;
 `;
 
