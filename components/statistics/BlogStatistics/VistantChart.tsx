@@ -90,7 +90,7 @@ const VisitantChart = (props: ChartProps) => {
                 <>
                   &nbsp;
                   {isIncrease}
-                  {isIncrease ? <DePercent>{roundedRate}%</DePercent> : <Percent>{roundedRate}%</Percent>}
+                  {isIncrease ? <Percent>{roundedRate}%</Percent> : <DePercent>{roundedRate}%</DePercent>}
                 </>
               )}
             </Wrapper>
