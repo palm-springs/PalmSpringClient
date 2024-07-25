@@ -34,8 +34,21 @@ const VisitantChart = (props: ChartProps) => {
   //블로그 통계 api
   const res = useGetBlogSummary(String(team));
 
-  const isBlogIncreaseIcon = res?.data.day.isIncrease ? <IncreaseArrow /> : <DecreaseArrow />;
-  const isArticleIncreaseIcon = articleChartData?.summary.day.rate ? <IncreaseArrow /> : <DecreaseArrow />;
+  const isBlogIncreaseIcon =
+    res?.data.day.isIncrease === true ? (
+      <IncreaseArrow />
+    ) : res?.data.day.isIncrease === false ? (
+      <DecreaseArrow />
+    ) : null;
+
+  const isArticleIncreaseIcon =
+    articleChartData?.summary?.day?.rate !== undefined ? (
+      articleChartData.summary.day.rate > 0 ? (
+        <IncreaseArrow />
+      ) : (
+        <DecreaseArrow />
+      )
+    ) : null;
   const isIncrease = statisticValue === 'visitant' ? isBlogIncreaseIcon : isArticleIncreaseIcon;
 
   const views = statisticValue === 'visitant' ? res?.data.day.views : articleChartData?.summary.day.views;
