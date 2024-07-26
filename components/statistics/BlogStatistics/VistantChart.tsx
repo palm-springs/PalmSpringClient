@@ -29,37 +29,34 @@ const VisitantChart = (props: ChartProps) => {
   const [endDate, setEndDate] = useRecoilState(endDateState);
   const [isOpen, setIsOpen] = useState(false);
 
-  // useGetBlogPeriod 훅 사용
+  //blog API 불러오기
+  // 차트 기간용 API
   const blogData = useGetBlogPeriod(String(team), String(startDate), String(endDate));
-  //블로그 통계 api
+  // 통계 카드 정보 API
   const res = useGetBlogSummary(String(team));
 
-  const isBlogIncreaseIcon =
-    res?.data.day.isIncrease === true ? (
-      <IncreaseArrow />
-    ) : res?.data.day.isIncrease === false ? (
-      <DecreaseArrow />
-    ) : null;
-
-  const isArticleIncreaseIcon =
-    articleChartData?.summary?.day?.rate !== undefined ? (
-      articleChartData.summary.day.rate > 0 ? (
-        <IncreaseArrow />
-      ) : (
-        <DecreaseArrow />
-      )
-    ) : null;
-  const isIncrease = statisticValue === 'visitant' ? isBlogIncreaseIcon : isArticleIncreaseIcon;
-
+  //방문자수 <카드용> (블로그, 아티클 구분)
   const views = statisticValue === 'visitant' ? res?.data.day.views : articleChartData?.summary.day.views;
+  //증가율 숫자 <카드용> (블로그, 아티클 구분)
   const rate = statisticValue === 'visitant' ? res?.data.day.rate : articleChartData?.summary.day.rate;
+  //증가했니? 불린 <카드용> (블로그, 아티클 구분)
+  const isIncrease =
+    statisticValue === 'visitant' ? res?.data.day.isIncrease : articleChartData?.summary.day.isIncrease;
+  //0할래?-할래 불린 <카드용> (블로그, 아티클 구분)
+  const isNoVisitYesterday =
+    statisticValue === 'visitant' ? res?.data.day.isNoVisitYesterday : articleChartData?.summary.day.isNoVisitYesterday;
 
+  //증가율 숫자 <카드용> 소수점 둘째자리에서 반올림 => 얘가 실제 렌더링 되는 rate 임
   const roundedRate =
     rate !== undefined && rate !== null
       ? Number.isInteger(parseFloat(rate.toFixed(1)))
         ? parseFloat(rate.toFixed(1)).toFixed(0)
         : parseFloat(rate.toFixed(1)).toFixed(1)
       : '0';
+
+  // roundedRate가 '0'일때 res?.data.day.isNoVisitYesterday가 true이면  "-"을 return하고 false면 "0"를 return
+  //0할래?-할래 불린 <카드용> (블로그, 아티클 구분) -> 렌더링을 위한 구분
+  const displayRate = roundedRate === '0' ? (isNoVisitYesterday ? '-' : '0') : roundedRate;
 
   const calendarRef = useRef<HTMLDivElement>(null);
 
@@ -97,19 +94,27 @@ const VisitantChart = (props: ChartProps) => {
           <PercentContainer>
             <Count>{views}</Count>
             <Wrapper>
-              {roundedRate === '0' ? (
-                <IsZero>&nbsp;-</IsZero>
+              {displayRate === '-' || displayRate === '0' ? (
+                <IsZero>&nbsp;{displayRate}</IsZero>
               ) : (
                 <>
                   &nbsp;
-                  {isIncrease}
-                  {isIncrease ? <Percent>{roundedRate}%</Percent> : <DePercent>{roundedRate}%</DePercent>}
+                  {isIncrease ? (
+                    <>
+                      <IncreaseArrow />
+                      <Percent>{displayRate}%</Percent>
+                    </>
+                  ) : (
+                    <>
+                      <DecreaseArrow />
+                      <DePercent>{displayRate}%</DePercent>
+                    </>
+                  )}
                 </>
               )}
             </Wrapper>
           </PercentContainer>
           <Chart statisticValue={statisticValue} blogData={blogData?.data} articleChartData={articleChartData} />
-          {/* <Chart statisticValue={statisticValue} articleChartData={articleChartData} /> */}
         </CardBorder>
       </CardContainer>
       {statisticValue === 'views' && <ArticleListMargin />}

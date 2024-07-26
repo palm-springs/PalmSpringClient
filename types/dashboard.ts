@@ -50,6 +50,7 @@ export interface BlogSummaryProps {
     views: number;
     rate: number;
     isIncrease: boolean;
+    isNoVisitYesterday: boolean;
   };
   month: {
     views: number;
@@ -70,6 +71,7 @@ export interface BlogPeriodProps {
       views: number;
       rate: number;
       isIncrease: boolean;
+      isNoVisitYesterday: boolean;
     },
   ];
 }
@@ -89,6 +91,7 @@ export interface ArticlePeriodProps {
       views: number;
       rate: number;
       isIncrease: boolean;
+      isNoVisitYesterday: boolean;
     };
     month: {
       views: number;
@@ -108,6 +111,7 @@ export interface ArticlePeriodProps {
         views: number;
         rate: number;
         isIncrease: boolean;
+        isNoVisitYesterday: boolean;
       },
     ];
   };
