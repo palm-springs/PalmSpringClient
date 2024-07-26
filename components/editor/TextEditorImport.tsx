@@ -104,7 +104,7 @@ const TextEditorImport = (props: TextEditorImportProps) => {
     level: number;
   }
 
-  // customInputRule 함수 정의
+  // heading 마크다운 재정립시 필요한 함수 #-> h2 , ##-> h3 ###-> h4
   const customInputRule = (regexp: RegExp, type: NodeType, getAttributes: (match: string[]) => HeadingAttributes) => {
     return new InputRule({
       find: regexp,
@@ -115,6 +115,7 @@ const TextEditorImport = (props: TextEditorImportProps) => {
     });
   };
 
+  // #-> h2 , ##-> h3 ###-> h4
   const CustomHeading = Heading.extend({
     addInputRules() {
       return [
