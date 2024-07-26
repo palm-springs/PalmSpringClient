@@ -1,6 +1,7 @@
 'use client';
 import React, { ChangeEvent, DragEvent, DragEventHandler, useCallback, useEffect, useState } from 'react';
 import Blockquote from '@tiptap/extension-blockquote';
+import { NodeType } from 'prosemirror-model';
 import Bold from '@tiptap/extension-bold';
 import BulletList from '@tiptap/extension-bullet-list';
 import Code from '@tiptap/extension-code';
@@ -20,7 +21,7 @@ import Placeholder from '@tiptap/extension-placeholder';
 import Strike from '@tiptap/extension-strike';
 import Text from '@tiptap/extension-text';
 import Underline from '@tiptap/extension-underline';
-import { Editor, Extension, useEditor } from '@tiptap/react';
+import { Editor, Extension, InputRule, useEditor } from '@tiptap/react';
 import javascript from 'highlight.js/lib/languages/javascript';
 import { debounce } from 'lodash-es';
 import { lowlight } from 'lowlight/lib/core';
@@ -99,27 +100,28 @@ const TextEditorImport = (props: TextEditorImportProps) => {
     message: '임시 저장에 실패했습니다. 인터넷 연결을 확인해주세요.',
     id: 'error on draftSave editor',
   });
+  interface HeadingAttributes {
+    level: number;
+  }
 
-  //heading custom( H1 -> H2, H2 -> H3, H3 -> H4)
+  // customInputRule 함수 정의
+  const customInputRule = (regexp: RegExp, type: NodeType, getAttributes: (match: string[]) => HeadingAttributes) => {
+    return new InputRule({
+      find: regexp,
+      handler: ({ range, match, chain }) => {
+        const attributes = getAttributes(match);
+        chain().focus().deleteRange(range).setNode(type, attributes).run();
+      },
+    });
+  };
+
   const CustomHeading = Heading.extend({
-    addCommands() {
-      return {
-        setHeading:
-          (attributes) =>
-          ({ commands }) => {
-            let newLevel = attributes.level;
-
-            if (newLevel === 1) {
-              newLevel = 2;
-            } else if (newLevel === 2) {
-              newLevel = 3;
-            } else if (newLevel === 3) {
-              newLevel = 4;
-            }
-
-            return commands.setNode('heading', { level: newLevel });
-          },
-      };
+    addInputRules() {
+      return [
+        customInputRule(/^#\s$/, this.type as NodeType, () => ({ level: 2 })), // # -> H2
+        customInputRule(/^##\s$/, this.type as NodeType, () => ({ level: 3 })), // ## -> H3
+        customInputRule(/^###\s$/, this.type as NodeType, () => ({ level: 4 })), // ### -> H4
+      ];
     },
   });
 
@@ -156,11 +158,9 @@ const TextEditorImport = (props: TextEditorImportProps) => {
   // tiptap 라이브러리 내장 에디터 관련 기능  extensions.
   const editor = useEditor({
     extensions: [
+      CustomHeading,
       Document,
       Paragraph,
-      CustomHeading.configure({
-        levels: [1, 2, 3], // CustomHeading에서 사용
-      }),
       Text,
       HardBreak,
       HorizontalRule,

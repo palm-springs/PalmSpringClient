@@ -220,7 +220,7 @@ const CalendarButton = styled.button`
   cursor: pointer;
 `;
 
-const CalendarTitle = styled.h1`
+const CalendarTitle = styled.h2`
   ${({ theme }) => theme.fonts.Body2_Semibold};
 `;
 
