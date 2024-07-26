@@ -99,7 +99,7 @@ const AuthRequired = ({ children }: { children: React.ReactNode }) => {
           }
         }
 
-        return error.response;
+        throw error;
       },
     );
 

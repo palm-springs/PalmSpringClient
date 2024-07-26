@@ -1,5 +1,6 @@
 import { useEffect } from 'react';
 import { useMutation, useQuery, useQueryClient } from '@tanstack/react-query';
+import { isAxiosError } from 'axios';
 import { useParams } from 'next/navigation';
 import { useRecoilState } from 'recoil';
 
@@ -29,6 +30,7 @@ import {
 import { deleteMember } from '@/api/user';
 import userState from '@/recoil/atom/user';
 import { UserBasicInfo } from '@/types/user';
+import { errorChangeUserInfo, successChangeUserInfo } from '@/utils/auth';
 
 import { QUERY_KEY_ARTICLE } from './editor';
 
@@ -209,13 +211,21 @@ export const useUpdateNavigation = (blogUrl: string, id: number, name: string, i
   return mutation;
 };
 
-export const useUpdateUserInfo = (blogUrl: string, userInfo: UserBasicInfo) => {
+export const useUpdateUserInfo = (blogUrl: string, userInfo: UserBasicInfo, handleButtonDisabled: () => void) => {
   const queryClient = useQueryClient();
 
   return useMutation([QUERY_KEY_DASHBOARD.updateUserInfo, blogUrl, userInfo], () => updateUserInfo(blogUrl, userInfo), {
     onSuccess: () => {
       queryClient.invalidateQueries([QUERY_KEY_DASHBOARD.getNavList]);
       queryClient.invalidateQueries([QUERY_KEY_DASHBOARD.getUserBasicInfo]);
+
+      successChangeUserInfo();
+      handleButtonDisabled();
+    },
+    onError: (error) => {
+      if (isAxiosError(error)) {
+        if (error.response?.status === 400) errorChangeUserInfo(error.response?.data.message);
+      }
     },
   });
 };
