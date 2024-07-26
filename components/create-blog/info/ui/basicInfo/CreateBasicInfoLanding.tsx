@@ -148,7 +148,7 @@ const InfoContainer = styled.div`
   width: 40.2rem;
 `;
 
-const Title = styled.h1`
+const Title = styled.h2`
   ${({ theme }) => theme.fonts.Heading1};
   color: ${({ theme }) => theme.colors.grey_900};
 `;

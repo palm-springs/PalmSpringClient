@@ -100,7 +100,7 @@ const UsersProfilesInput = styled(InputPlusButtonIcon)`
   bottom: 0;
 `;
 
-const ImageGuideTitle = styled.h1`
+const ImageGuideTitle = styled.h2`
   margin-right: 9.3rem;
   ${({ theme }) => theme.fonts.Body2_Semibold};
   height: 100%;

@@ -100,6 +100,29 @@ const TextEditorImport = (props: TextEditorImportProps) => {
     id: 'error on draftSave editor',
   });
 
+  //heading custom( H1 -> H2, H2 -> H3, H3 -> H4)
+  const CustomHeading = Heading.extend({
+    addCommands() {
+      return {
+        setHeading:
+          (attributes) =>
+          ({ commands }) => {
+            let newLevel = attributes.level;
+
+            if (newLevel === 1) {
+              newLevel = 2;
+            } else if (newLevel === 2) {
+              newLevel = 3;
+            } else if (newLevel === 3) {
+              newLevel = 4;
+            }
+
+            return commands.setNode('heading', { level: newLevel });
+          },
+      };
+    },
+  });
+
   //tap 공백 지정 커스텀 확장자
   const CustomTabSpace = Extension.create({
     name: 'customTabSpace',
@@ -135,12 +158,12 @@ const TextEditorImport = (props: TextEditorImportProps) => {
     extensions: [
       Document,
       Paragraph,
+      CustomHeading.configure({
+        levels: [1, 2, 3], // CustomHeading에서 사용
+      }),
       Text,
       HardBreak,
       HorizontalRule,
-      Heading.configure({
-        levels: [1, 2, 3],
-      }),
       Placeholder.configure({
         placeholder: '내용을 입력해주세요',
         showOnlyWhenEditable: false,

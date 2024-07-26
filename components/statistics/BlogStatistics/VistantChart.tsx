@@ -34,6 +34,7 @@ const VisitantChart = (props: ChartProps) => {
   const blogData = useGetBlogPeriod(String(team), String(startDate), String(endDate));
   // 통계 카드 정보 API
   const res = useGetBlogSummary(String(team));
+  console.log(blogData?.data);
 
   //방문자수 <카드용> (블로그, 아티클 구분)
   const views = statisticValue === 'visitant' ? res?.data.day.views : articleChartData?.summary.day.views;
@@ -56,6 +57,7 @@ const VisitantChart = (props: ChartProps) => {
 
   // roundedRate가 '0'일때 res?.data.day.isNoVisitYesterday가 true이면  "-"을 return하고 false면 "0"를 return
   //0할래?-할래 불린 <카드용> (블로그, 아티클 구분) -> 렌더링을 위한 구분
+
   const displayRate = roundedRate === '0' ? (isNoVisitYesterday ? '-' : '0') : roundedRate;
 
   const calendarRef = useRef<HTMLDivElement>(null);
