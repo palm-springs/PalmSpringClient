@@ -395,6 +395,7 @@ const TextEditorImport = (props: TextEditorImportProps) => {
             sessionStorage?.setItem(ARTICLE_DATA_ID, articleId);
             setIsDraftSave(true);
           }
+
         } catch (error) {
           console.error('실패 에러임', error);
         }
@@ -450,6 +451,7 @@ const TextEditorImport = (props: TextEditorImportProps) => {
         }));
 
         const dataArticleId = sessionStorage?.getItem(ARTICLE_DATA_ID);
+
 
         draftArticleMutation.mutate({
           ...articleData,
@@ -582,20 +584,54 @@ const TextEditorImport = (props: TextEditorImportProps) => {
     router.push(`/${team}/editor/${path}`);
   };
 
-  // article page 저장시 내용 가지고 발행하기 페이지로 이동-> article 최초 발행하기
-  const handleOnClickArticlePublish = async () => {
-    if (!document || !editor) return;
+  //article page 최초 발행하기 만약 자동임시저장되었다면 수정하기 api로 변환하기
+  const handleOnSavedArticlePublish = async () => {
+    const dataArticleId = sessionStorage?.getItem(ARTICLE_DATA_ID);
+
+
+    if (!editor) return;
     const { content, newImgArr } = await getEditorContent(String(team));
     setImageArr((prev) => [...prev, ...newImgArr]);
-    updateDataRouterChange(content, null, 'article/publish');
+    updateDataRouterChange(content, Number(dataArticleId), `article/${dataArticleId}/publish`);
+  };
+
+  // article page 저장시 내용 가지고 발행하기 페이지로 이동-> article 최초 발행하기
+  const handleOnClickArticlePublish = async () => {
+    const isFirstClick = sessionStorage?.getItem(IS_FIRST_DRAFT_CLICK);
+
+    if (isDraftSave || isFirstClick === 'false') {
+      await handleOnSavedArticlePublish();
+
+    } else {
+      if (!document || !editor) return;
+      const { content, newImgArr } = await getEditorContent(String(team));
+      setImageArr((prev) => [...prev, ...newImgArr]);
+      updateDataRouterChange(content, null, 'article/publish');
+
+    }
+  };
+
+  //페이지 page 최초 발행하기 만약 자동임시저장되었다면 수정하기 api로 변환하기
+  const handleOnSavedPagePublish = async () => {
+    const dataPageId = sessionStorage?.getItem(PAGE_DATA_ID);
+
+    if (!editor) return;
+    const { content, newImgArr } = await getEditorContent(String(team));
+    setImageArr((prev) => [...prev, ...newImgArr]);
+    updateDataRouterChange(content, Number(dataPageId), `page/${dataPageId}/publish`);
   };
 
   // page page 저장시 내용 가지고 발행하기 페이지로 이동 -> page 최초 발행
   const handleOnClickPagePublish = async () => {
-    if (!editor) return;
-    const { content, newImgArr } = await getEditorContent(String(team));
-    setImageArr((prev) => [...prev, ...newImgArr]);
-    updateDataRouterChange(content, null, 'page/publish');
+    const isFirstClick = sessionStorage?.getItem(IS_FIRST_DRAFT_CLICK);
+    if (isDraftSave || isFirstClick === 'false') {
+      handleOnSavedPagePublish();
+    } else {
+      if (!editor) return;
+      const { content, newImgArr } = await getEditorContent(String(team));
+      setImageArr((prev) => [...prev, ...newImgArr]);
+      updateDataRouterChange(content, null, 'page/publish');
+    }
   };
 
   //article 수정시 발행하기로 내용가지고 이동
@@ -604,19 +640,6 @@ const TextEditorImport = (props: TextEditorImportProps) => {
     const { content, newImgArr } = await getEditorContent(String(team));
     setImageArr((prev) => [...prev, ...newImgArr]);
     updateDataRouterChange(content, Number(articleId), `article/${articleId}/edit/publish`);
-  };
-
-  //article page 최초 발행하기 만약 자동임시저장되었다면 수정하기 api로 변환하기
-  const handleOnSavedArticlePublish = async () => {
-    if (isDraftSave) {
-      const dataArticleId = sessionStorage?.getItem(ARTICLE_DATA_ID);
-      if (!editor) return;
-      const { content, newImgArr } = await getEditorContent(String(team));
-      setImageArr((prev) => [...prev, ...newImgArr]);
-      updateDataRouterChange(content, Number(dataArticleId), `article/${dataArticleId}/publish`);
-    } else {
-      await handleOnClickArticlePublish();
-    }
   };
 
   // page 수정시 발행페이지 이동
@@ -643,22 +666,6 @@ const TextEditorImport = (props: TextEditorImportProps) => {
     updateDataRouterChange(content, Number(pageId), `page/${pageId}/draft/publish`);
   };
 
-  //페이지 page 최초 발행하기 만약 자동임시저장되었다면 수정하기 api로 변환하기
-  const handleOnSavedPagePublish = async () => {
-    if (isDraftSave) {
-      const dataPageId = sessionStorage?.getItem(PAGE_DATA_ID);
-      console.log(dataPageId);
-      if (!editor) return;
-      const { content, newImgArr } = await getEditorContent(String(team));
-      setImageArr((prev) => [...prev, ...newImgArr]);
-      updateDataRouterChange(content, Number(dataPageId), `page/${dataPageId}/publish`);
-      console.log('여기여기여기');
-    } else {
-      handleOnClickPagePublish();
-      console.log('여기면 안돼 찌바ㅠ');
-    }
-  };
-
   return (
     <>
       <ToolBox editor={editor} encodeFileToBase64={encodeFileToBase64} atTop={atTop} setAtTop={setAtTop} />
@@ -672,7 +679,7 @@ const TextEditorImport = (props: TextEditorImportProps) => {
               ? handleUpdateGoArticlePublish
               : currentState === 'draft'
                 ? handleUpdateDraftArticlePublish
-                : handleOnSavedArticlePublish
+                : handleOnClickArticlePublish
           }
           isEdit={currentState === 'edit' ? true : false}
           atTop={atTop}
@@ -689,7 +696,7 @@ const TextEditorImport = (props: TextEditorImportProps) => {
               ? handleUpdateGoPagePublish
               : currentState === 'draft'
                 ? handleUpdateDraftPagePublish
-                : handleOnSavedPagePublish
+                : handleOnClickPagePublish
           }
           isEdit={currentState === 'edit' ? true : false} // edit이 아닌 경우는 draft 경우임
           atTop={atTop}
