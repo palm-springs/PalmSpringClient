@@ -174,7 +174,7 @@ const ThumbnailTitleContainer = styled.div`
   cursor: pointer;
 `;
 
-const ThumbnailInputInfo = styled.h1`
+const ThumbnailInputInfo = styled.h2`
   margin-top: 1.6rem;
   text-align: center;
   color: ${({ theme }) => theme.colors.grey_700};

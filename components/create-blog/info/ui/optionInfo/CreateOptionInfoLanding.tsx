@@ -86,7 +86,9 @@ const CreateBasicInfoContainer = styled.div`
   &.fadeUpIn {
     transform: translateY(-30rem);
 
-    transition: transform 1s, opacity 0.3s;
+    transition:
+      transform 1s,
+      opacity 0.3s;
     opacity: 1;
     z-index: 100;
   }
@@ -94,14 +96,18 @@ const CreateBasicInfoContainer = styled.div`
   &.fadeDownIn {
     transform: translateY(-30rem);
 
-    transition: transform 1s, opacity 0.3s;
+    transition:
+      transform 1s,
+      opacity 0.3s;
     opacity: 1;
     z-index: 100;
   }
   &.fadeDownOut {
     transform: translateY(30rem);
 
-    transition: transform 1s, opacity 0.3s;
+    transition:
+      transform 1s,
+      opacity 0.3s;
     opacity: 0;
     z-index: 0;
   }
@@ -109,7 +115,9 @@ const CreateBasicInfoContainer = styled.div`
   &.fadeUpOut {
     transform: translateY(-60rem);
 
-    transition: transform 1s, opacity 0.3s;
+    transition:
+      transform 1s,
+      opacity 0.3s;
     opacity: 0;
     z-index: 0;
   }
@@ -126,7 +134,7 @@ const InfoContainer = styled.div`
   width: 40rem;
 `;
 
-const Title = styled.h1`
+const Title = styled.h2`
   position: relative;
   ${({ theme }) => theme.fonts.Heading1};
   margin: 0 auto;

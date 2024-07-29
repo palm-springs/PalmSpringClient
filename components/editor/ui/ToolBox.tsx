@@ -78,13 +78,13 @@ const EditorMenuBar = ({ editor, encodeFileToBase64, atTop, setAtTop }: editorPr
   return (
     <IconContainer atTop={atTop} tabIndex={-1}>
       <IconWrapper ref={iconWrapperRef} tabIndex={-1}>
-        <ToolButton tabIndex={-1} onClick={() => editor.chain().focus().toggleHeading({ level: 1 }).run()}>
+        <ToolButton tabIndex={-1} onClick={() => editor.chain().focus().toggleHeading({ level: 2 }).run()}>
           <H1Icon />
         </ToolButton>
-        <ToolButton tabIndex={-1} onClick={() => editor.chain().focus().toggleHeading({ level: 2 }).run()}>
+        <ToolButton tabIndex={-1} onClick={() => editor.chain().focus().toggleHeading({ level: 3 }).run()}>
           <H2Icon />
         </ToolButton>
-        <ToolButton tabIndex={-1} onClick={() => editor.chain().focus().toggleHeading({ level: 3 }).run()}>
+        <ToolButton tabIndex={-1} onClick={() => editor.chain().focus().toggleHeading({ level: 4 }).run()}>
           <H3Icon />
         </ToolButton>
         <ToolButton tabIndex={-1} onClick={() => editor.chain().focus().toggleBulletList().run()}>
