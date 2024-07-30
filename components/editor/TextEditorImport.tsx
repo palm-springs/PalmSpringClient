@@ -1,6 +1,7 @@
 'use client';
 import React, { ChangeEvent, DragEvent, DragEventHandler, useCallback, useEffect, useState } from 'react';
 import Blockquote from '@tiptap/extension-blockquote';
+import { NodeType } from 'prosemirror-model';
 import Bold from '@tiptap/extension-bold';
 import BulletList from '@tiptap/extension-bullet-list';
 import Code from '@tiptap/extension-code';
@@ -20,7 +21,7 @@ import Placeholder from '@tiptap/extension-placeholder';
 import Strike from '@tiptap/extension-strike';
 import Text from '@tiptap/extension-text';
 import Underline from '@tiptap/extension-underline';
-import { Editor, Extension, useEditor } from '@tiptap/react';
+import { Editor, Extension, InputRule, useEditor } from '@tiptap/react';
 import javascript from 'highlight.js/lib/languages/javascript';
 import { debounce } from 'lodash-es';
 import { lowlight } from 'lowlight/lib/core';
@@ -99,6 +100,31 @@ const TextEditorImport = (props: TextEditorImportProps) => {
     message: '임시 저장에 실패했습니다. 인터넷 연결을 확인해주세요.',
     id: 'error on draftSave editor',
   });
+  interface HeadingAttributes {
+    level: number;
+  }
+
+  // heading 마크다운 재정립시 필요한 함수 #-> h2 , ##-> h3 ###-> h4
+  const customInputRule = (regexp: RegExp, type: NodeType, getAttributes: (match: string[]) => HeadingAttributes) => {
+    return new InputRule({
+      find: regexp,
+      handler: ({ range, match, chain }) => {
+        const attributes = getAttributes(match);
+        chain().focus().deleteRange(range).setNode(type, attributes).run();
+      },
+    });
+  };
+
+  // #-> h2 , ##-> h3 ###-> h4
+  const CustomHeading = Heading.extend({
+    addInputRules() {
+      return [
+        customInputRule(/^#\s$/, this.type as NodeType, () => ({ level: 2 })), // # -> H2
+        customInputRule(/^##\s$/, this.type as NodeType, () => ({ level: 3 })), // ## -> H3
+        customInputRule(/^###\s$/, this.type as NodeType, () => ({ level: 4 })), // ### -> H4
+      ];
+    },
+  });
 
   //tap 공백 지정 커스텀 확장자
   const CustomTabSpace = Extension.create({
@@ -133,14 +159,12 @@ const TextEditorImport = (props: TextEditorImportProps) => {
   // tiptap 라이브러리 내장 에디터 관련 기능  extensions.
   const editor = useEditor({
     extensions: [
+      CustomHeading,
       Document,
       Paragraph,
       Text,
       HardBreak,
       HorizontalRule,
-      Heading.configure({
-        levels: [1, 2, 3],
-      }),
       Placeholder.configure({
         placeholder: '내용을 입력해주세요',
         showOnlyWhenEditable: false,
@@ -371,6 +395,7 @@ const TextEditorImport = (props: TextEditorImportProps) => {
             sessionStorage?.setItem(ARTICLE_DATA_ID, articleId);
             setIsDraftSave(true);
           }
+
         } catch (error) {
           console.error('실패 에러임', error);
         }
@@ -426,6 +451,7 @@ const TextEditorImport = (props: TextEditorImportProps) => {
         }));
 
         const dataArticleId = sessionStorage?.getItem(ARTICLE_DATA_ID);
+
 
         draftArticleMutation.mutate({
           ...articleData,
@@ -558,20 +584,54 @@ const TextEditorImport = (props: TextEditorImportProps) => {
     router.push(`/${team}/editor/${path}`);
   };
 
-  // article page 저장시 내용 가지고 발행하기 페이지로 이동-> article 최초 발행하기
-  const handleOnClickArticlePublish = async () => {
-    if (!document || !editor) return;
+  //article page 최초 발행하기 만약 자동임시저장되었다면 수정하기 api로 변환하기
+  const handleOnSavedArticlePublish = async () => {
+    const dataArticleId = sessionStorage?.getItem(ARTICLE_DATA_ID);
+
+
+    if (!editor) return;
     const { content, newImgArr } = await getEditorContent(String(team));
     setImageArr((prev) => [...prev, ...newImgArr]);
-    updateDataRouterChange(content, null, 'article/publish');
+    updateDataRouterChange(content, Number(dataArticleId), `article/${dataArticleId}/publish`);
+  };
+
+  // article page 저장시 내용 가지고 발행하기 페이지로 이동-> article 최초 발행하기
+  const handleOnClickArticlePublish = async () => {
+    const isFirstClick = sessionStorage?.getItem(IS_FIRST_DRAFT_CLICK);
+
+    if (isDraftSave || isFirstClick === 'false') {
+      await handleOnSavedArticlePublish();
+
+    } else {
+      if (!document || !editor) return;
+      const { content, newImgArr } = await getEditorContent(String(team));
+      setImageArr((prev) => [...prev, ...newImgArr]);
+      updateDataRouterChange(content, null, 'article/publish');
+
+    }
+  };
+
+  //페이지 page 최초 발행하기 만약 자동임시저장되었다면 수정하기 api로 변환하기
+  const handleOnSavedPagePublish = async () => {
+    const dataPageId = sessionStorage?.getItem(PAGE_DATA_ID);
+
+    if (!editor) return;
+    const { content, newImgArr } = await getEditorContent(String(team));
+    setImageArr((prev) => [...prev, ...newImgArr]);
+    updateDataRouterChange(content, Number(dataPageId), `page/${dataPageId}/publish`);
   };
 
   // page page 저장시 내용 가지고 발행하기 페이지로 이동 -> page 최초 발행
   const handleOnClickPagePublish = async () => {
-    if (!editor) return;
-    const { content, newImgArr } = await getEditorContent(String(team));
-    setImageArr((prev) => [...prev, ...newImgArr]);
-    updateDataRouterChange(content, null, 'page/publish');
+    const isFirstClick = sessionStorage?.getItem(IS_FIRST_DRAFT_CLICK);
+    if (isDraftSave || isFirstClick === 'false') {
+      handleOnSavedPagePublish();
+    } else {
+      if (!editor) return;
+      const { content, newImgArr } = await getEditorContent(String(team));
+      setImageArr((prev) => [...prev, ...newImgArr]);
+      updateDataRouterChange(content, null, 'page/publish');
+    }
   };
 
   //article 수정시 발행하기로 내용가지고 이동
@@ -580,19 +640,6 @@ const TextEditorImport = (props: TextEditorImportProps) => {
     const { content, newImgArr } = await getEditorContent(String(team));
     setImageArr((prev) => [...prev, ...newImgArr]);
     updateDataRouterChange(content, Number(articleId), `article/${articleId}/edit/publish`);
-  };
-
-  //article page 최초 발행하기 만약 자동임시저장되었다면 수정하기 api로 변환하기
-  const handleOnSavedArticlePublish = async () => {
-    if (isDraftSave) {
-      const dataArticleId = sessionStorage?.getItem(ARTICLE_DATA_ID);
-      if (!editor) return;
-      const { content, newImgArr } = await getEditorContent(String(team));
-      setImageArr((prev) => [...prev, ...newImgArr]);
-      updateDataRouterChange(content, Number(dataArticleId), `article/${dataArticleId}/publish`);
-    } else {
-      await handleOnClickArticlePublish();
-    }
   };
 
   // page 수정시 발행페이지 이동
@@ -619,22 +666,6 @@ const TextEditorImport = (props: TextEditorImportProps) => {
     updateDataRouterChange(content, Number(pageId), `page/${pageId}/draft/publish`);
   };
 
-  //페이지 page 최초 발행하기 만약 자동임시저장되었다면 수정하기 api로 변환하기
-  const handleOnSavedPagePublish = async () => {
-    if (isDraftSave) {
-      const dataPageId = sessionStorage?.getItem(PAGE_DATA_ID);
-      console.log(dataPageId);
-      if (!editor) return;
-      const { content, newImgArr } = await getEditorContent(String(team));
-      setImageArr((prev) => [...prev, ...newImgArr]);
-      updateDataRouterChange(content, Number(dataPageId), `page/${dataPageId}/publish`);
-      console.log('여기여기여기');
-    } else {
-      handleOnClickPagePublish();
-      console.log('여기면 안돼 찌바ㅠ');
-    }
-  };
-
   return (
     <>
       <ToolBox editor={editor} encodeFileToBase64={encodeFileToBase64} atTop={atTop} setAtTop={setAtTop} />
@@ -648,7 +679,7 @@ const TextEditorImport = (props: TextEditorImportProps) => {
               ? handleUpdateGoArticlePublish
               : currentState === 'draft'
                 ? handleUpdateDraftArticlePublish
-                : handleOnSavedArticlePublish
+                : handleOnClickArticlePublish
           }
           isEdit={currentState === 'edit' ? true : false}
           atTop={atTop}
@@ -665,7 +696,7 @@ const TextEditorImport = (props: TextEditorImportProps) => {
               ? handleUpdateGoPagePublish
               : currentState === 'draft'
                 ? handleUpdateDraftPagePublish
-                : handleOnSavedPagePublish
+                : handleOnClickPagePublish
           }
           isEdit={currentState === 'edit' ? true : false} // edit이 아닌 경우는 draft 경우임
           atTop={atTop}

@@ -9,7 +9,7 @@ const Title = ({ children }: { children: ReactNode }) => {
 
 export default Title;
 
-const H1 = styled.h1`
+const H1 = styled.h2`
   ${({ theme }) => theme.fonts.Heading1};
 
   margin-bottom: 4rem;

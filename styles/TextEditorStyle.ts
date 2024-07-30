@@ -16,19 +16,19 @@ export const TextEditorStyle = styled.div`
       width: 72rem;
     }
 
-    h1 {
+    h2 {
       ${({ theme }) => theme.editor.Edit_h1};
       padding: 5.6rem 0 0.4rem 0;
       width: 72rem;
     }
 
-    h2 {
+    h3 {
       ${({ theme }) => theme.editor.Edit_h2};
       padding: 4rem 0 0.4rem 0;
       width: 72rem;
     }
 
-    h3 {
+    h4 {
       ${({ theme }) => theme.editor.Edit_h3};
       padding: 2.4rem 0 0.4rem;
       width: 72rem;

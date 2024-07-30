@@ -14,19 +14,19 @@ export const MobileTextEditorStyle = styled.div`
       width: calc(100vw - 4rem);
     }
 
-    h1 {
+    h2 {
       ${({ theme }) => theme.mobileFonts.Markdown_H1};
       padding: 4rem 0 0.4rem;
       width: calc(100vw - 4rem);
     }
 
-    h2 {
+    h3 {
       ${({ theme }) => theme.mobileFonts.Markdown_H2};
       padding: 3.2 0 0.4rem;
       width: calc(100vw - 4rem);
     }
 
-    h3 {
+    h4 {
       ${({ theme }) => theme.mobileFonts.Markdown_H3};
       padding: 2.4rem 0 0.4rem;
       width: calc(100vw - 4rem);
