@@ -5,9 +5,11 @@ import { useParams } from 'next/navigation';
 import { useRecoilState } from 'recoil';
 import { styled } from 'styled-components';
 
+import { getCategoryDuplication } from '@/api/dashboard';
 import ModalPortal from '@/components/common/ModalPortal';
 import DashboardCreateModal from '@/components/common/ui/DashboardCreateModal';
 import { usePostCategory } from '@/hooks/dashboard';
+import { NotifyDuplicatedCategory } from '@/utils/dashboard';
 
 import DashBoardTemplateContainer from '../components/ui/DashBoardTemplateContainer';
 import Line from '../components/ui/Line';
@@ -45,9 +47,14 @@ const CategoryTemplate = () => {
           <DashboardCreateModal
             mainText="새 카테고리 만들기"
             buttonText="저장하기"
-            buttonHandler={() => {
-              mutate();
-              setModalState('');
+            buttonHandler={async () => {
+              const { data: isDuplicated } = await getCategoryDuplication(blogUrl as string, newCategoryName);
+              if (isDuplicated) {
+                NotifyDuplicatedCategory();
+              } else {
+                mutate();
+                setModalState('');
+              }
             }}
             onModalCloseBtnClick={() => {
               setModalState('');

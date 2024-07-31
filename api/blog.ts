@@ -1,23 +1,9 @@
 import { isAxiosError } from 'axios';
 
-import { createBlogData } from '@/types/blogInfo';
+import { BlogConfigRequestBodyProps, createBlogData } from '@/types/blogInfo';
 import { Response } from '@/types/common';
 
 import client from '.';
-
-interface BlogConfigRequestBodyProps {
-  name: string;
-  description: string | null;
-  thumbnail: string | null;
-  logo: string | null;
-  footerInfo: {
-    owner: string | null;
-    info: string | null;
-  };
-  metaThumbnail: string | null;
-  metaName: string | null;
-  metaDescription: string | null;
-}
 
 interface BlogInfoProps {
   name: string;

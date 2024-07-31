@@ -61,7 +61,21 @@ export const welcomeSignup = createToast({
   id: 'success on reset password',
   duration: 3000,
 });
+export const successChangeUserInfo = createToast({
+  type: 'NORMAL',
+  message: '변경 사항이 저장되었습니다',
+  id: 'success on changing user information',
+  duration: 3000,
+});
 
+export const errorChangeUserInfo = (message: string) => {
+  createToast({
+    type: 'ERROR',
+    message,
+    id: 'error on changing user information',
+    duration: 3000,
+  })();
+};
 // 회원가입 비밀번호 조건 검사
 export const capitalCheck = (password: string) => {
   return /[A-Z]/.test(password);

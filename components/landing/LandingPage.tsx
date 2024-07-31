@@ -4,6 +4,7 @@
 import { useCallback, useEffect, useState } from 'react';
 import { motion } from 'framer-motion';
 import Link from 'next/link';
+import { useRouter } from 'next/navigation';
 import Script from 'next/script';
 import styled from 'styled-components';
 
@@ -173,6 +174,7 @@ const LandingPage = ({ dashboardUrl }: { dashboardUrl: string }) => {
     }
   };
 
+  const router = useRouter();
   const isMobile = useCheckMobile();
   const [scrollThresholds, setScrollThresholds] = useState([2300, 2550, 2800, 3050, 3300]);
 
@@ -231,18 +233,18 @@ const LandingPage = ({ dashboardUrl }: { dashboardUrl: string }) => {
           </NavWrapper>
           {dashboardUrl ? (
             <LinksWrapper>
-              <LinkButton href={dashboardUrl} highlight={1}>
+              <StyledLink href={dashboardUrl} highlight={1}>
                 대시보드
-              </LinkButton>
+              </StyledLink>
             </LinksWrapper>
           ) : (
             <LinksWrapper>
-              <LinkButton href="/login" highlight={0}>
+              <StyledLink href="/login" highlight={0}>
                 로그인
-              </LinkButton>
-              <LinkButton href="/sign-up" highlight={1}>
+              </StyledLink>
+              <StyledLink href="/sign-up" highlight={1}>
                 무료로 시작하기
-              </LinkButton>
+              </StyledLink>
             </LinksWrapper>
           )}
         </HeaderWrapper>
@@ -266,27 +268,17 @@ const LandingPage = ({ dashboardUrl }: { dashboardUrl: string }) => {
             transition={{ duration: 0.6, ease: 'easeOut', delay: 0.25 }}>
             단언컨대, 가장 예쁘고 심플한 팀블로그 솔루션.
           </FirstImpressionDescription>
-          {dashboardUrl ? (
-            <FirstImpressionButton
-              initial={{ opacity: 0, transform: 'translateY(20px)' }}
-              viewport={{ once: true }}
-              whileInView={{ opacity: 1, transform: 'translateY(0)' }}
-              transition={{ duration: 0.6, ease: 'easeOut', delay: 0.5 }}
-              href={dashboardUrl}
-              highlight={1}>
-              대시보드
-            </FirstImpressionButton>
-          ) : (
-            <FirstImpressionButton
-              initial={{ opacity: 0, transform: 'translateY(20px)' }}
-              viewport={{ once: true }}
-              whileInView={{ opacity: 1, transform: 'translateY(0)' }}
-              transition={{ duration: 0.6, ease: 'easeOut', delay: 0.5 }}
-              href="/sign-up"
-              highlight={1}>
-              무료로 시작하기
-            </FirstImpressionButton>
-          )}
+          <FirstImpressionButton
+            initial={{ opacity: 0, transform: 'translateY(20px)' }}
+            viewport={{ once: true }}
+            whileInView={{ opacity: 1, transform: 'translateY(0)' }}
+            transition={{ duration: 0.6, ease: 'easeOut', delay: 0.5 }}
+            highlight={1}
+            onClick={() => {
+              router.push(dashboardUrl || '/sign-up');
+            }}>
+            {dashboardUrl ? '대시보드' : '무료로 시작하기'}
+          </FirstImpressionButton>
           <FirstImpressionImage
             initial={{ opacity: 0, transform: 'translateY(20px)', visibility: 'hidden' }}
             viewport={{ once: true }}
@@ -778,7 +770,20 @@ const LinksWrapper = styled.nav`
     display: none;
   }
 `;
-const LinkButton = styled(Link)<{ highlight: number }>`
+
+const StyledLink = styled(Link)<{ highlight: number }>`
+  ${flexDefaultSetting}
+  border-radius: 8px;
+  background: rgba(0, 0, 0, 0.05);
+  padding: 0 14px;
+  height: 40px;
+  color: rgba(0, 0, 0, 0.6);
+  font-size: 15px;
+  font-weight: 600;
+  ${(props) => props.highlight === 1 && 'background:#242428;color:#FFF;'};
+`;
+
+const LinkButton = styled.button<{ highlight: number }>`
   ${flexDefaultSetting}
   border-radius: 8px;
   background: rgba(0, 0, 0, 0.05);
@@ -821,6 +826,8 @@ const FirstImpressionDescription = styled(motion.div)`
 const FirstImpressionButton = styled(motion(LinkButton))`
   margin-top: 48px;
   border-radius: 18px;
+
+  cursor: pointer;
   padding: 16px 24px;
   height: unset;
   line-height: 1.4;
