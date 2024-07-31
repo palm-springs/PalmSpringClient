@@ -19,6 +19,21 @@ export interface createBlogData {
 
 export interface BlogListInfo {
   id: number;
-  blogUrl : string;
-  articleCount : number;
+  blogUrl: string;
+  articleCount: number;
+}
+
+export interface BlogConfigRequestBodyProps {
+  name: string;
+  description: string | null;
+  thumbnail: string | null;
+  logo: string | null;
+  footerInfo: {
+    owner: string | null;
+    info: string | null;
+  };
+  templateName: string;
+  metaThumbnail: string | null;
+  metaName: string | null;
+  metaDescription: string | null;
 }

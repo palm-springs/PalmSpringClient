@@ -21,7 +21,12 @@ const UserInfoSaveButton = (props: UserInfoSaveButtonProps) => {
 
   const { team } = useParams();
   const userInfoDataState = useRecoilValue(userInfoState);
-  const { mutate: updateUserInfo } = useUpdateUserInfo(team, userInfoDataState);
+
+  const handleButtonDisabled = () => {
+    setIsDisabled(true);
+  };
+
+  const { mutate: updateUserInfo } = useUpdateUserInfo(team as string, userInfoDataState, handleButtonDisabled);
 
   useEffect(() => {
     if (userPreviousData) {
@@ -44,26 +49,8 @@ const UserInfoSaveButton = (props: UserInfoSaveButtonProps) => {
     }
   }, [userInfoDataState]);
 
-  const notify = () =>
-    toast('변경 사항이 저장되었습니다', {
-      id: 'link copied',
-      style: {
-        padding: '1.6rem 2rem',
-        borderRadius: '3.2rem',
-        background: '#343A40',
-        color: '#fff',
-        fontSize: '1.4rem',
-        fontFamily: 'Pretendard',
-        fontStyle: 'normal',
-        fontWeight: '700',
-        letterSpacing: '-0.028rem',
-      },
-    });
-
   const handleOnClick = () => {
     updateUserInfo();
-    notify();
-    setIsDisabled(true);
   };
   return (
     <>

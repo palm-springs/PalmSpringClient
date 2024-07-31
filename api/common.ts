@@ -1,6 +1,7 @@
 import axios from 'axios';
 
 import { Response } from '@/types/common';
+import { imageSizeErrorNotify } from '@/utils/imageSizeErrorNotify';
 
 import client from '.';
 
@@ -17,17 +18,14 @@ export const uploadImage = async (formData: FormData) => {
 
 //article, page와 같은 Content 이미지 저장하기
 export const uploadContentImage = async (blogUrl: string, formData: FormData) => {
-  const { data } = await client.post<Response<string>>(`/api/v2/dashboard/image/add/article`, formData, {
-    headers: { 'Content-Type': 'multipart/form-data' },
-  });
-  return data;
-};
-
-export const postImage = async (formData: FormData) => {
-  const { data } = await axios.post(`${process.env.NEXT_PUBLIC_BASE_URL}/api/v2/dashboard/image/add`, formData, {
-    headers: { 'Content-Type': 'multipart/form-data' },
-  });
-  return data;
+  try {
+    const { data } = await client.post<Response<string>>(`/api/v2/dashboard/image/add/article`, formData, {
+      headers: { 'Content-Type': 'multipart/form-data' },
+    });
+    return data;
+  } catch (err) {
+    imageSizeErrorNotify();
+  }
 };
 
 export const postExternalImage = async (imageUrl: string) => {

@@ -1,8 +1,10 @@
 import { useEffect } from 'react';
 import { useMutation, useQuery, useQueryClient } from '@tanstack/react-query';
+import { isAxiosError } from 'axios';
 import { useParams } from 'next/navigation';
 import { useRecoilState } from 'recoil';
 
+import { putBlogConfig } from '@/api/blog';
 import {
   delegateUserRole,
   deleteArticle,
@@ -28,7 +30,9 @@ import {
 } from '@/api/dashboard';
 import { deleteMember } from '@/api/user';
 import userState from '@/recoil/atom/user';
+import { BlogConfigRequestBodyProps } from '@/types/blogInfo';
 import { UserBasicInfo } from '@/types/user';
+import { errorChangeUserInfo, successChangeUserInfo } from '@/utils/auth';
 
 import { QUERY_KEY_ARTICLE } from './editor';
 
@@ -56,6 +60,9 @@ export const QUERY_KEY_DASHBOARD = {
   updateUserInfo: 'updateUserInfo',
   deleteMember: 'deleteMember',
   delegateUserRole: 'delegateUserRole',
+  getBlogTemplateInfo: 'getBlogTemplateInfo',
+  getBlogInfo: 'getBlogInfo',
+  getBlogFooterInfo: 'getBlogFooterInfo',
 };
 
 export const useGetArticleStatisticsList = (blogUrl: string) => {
@@ -209,15 +216,46 @@ export const useUpdateNavigation = (blogUrl: string, id: number, name: string, i
   return mutation;
 };
 
-export const useUpdateUserInfo = (blogUrl: string, userInfo: UserBasicInfo) => {
+export const useUpdateUserInfo = (blogUrl: string, userInfo: UserBasicInfo, handleButtonDisabled: () => void) => {
   const queryClient = useQueryClient();
 
   return useMutation([QUERY_KEY_DASHBOARD.updateUserInfo, blogUrl, userInfo], () => updateUserInfo(blogUrl, userInfo), {
     onSuccess: () => {
       queryClient.invalidateQueries([QUERY_KEY_DASHBOARD.getNavList]);
       queryClient.invalidateQueries([QUERY_KEY_DASHBOARD.getUserBasicInfo]);
+
+      successChangeUserInfo();
+      handleButtonDisabled();
+    },
+    onError: (error) => {
+      if (isAxiosError(error)) {
+        if (error.response?.status === 400) errorChangeUserInfo(error.response?.data.message);
+      }
     },
   });
+};
+
+export const useUpdateBlogConfig = (blogUrl: string, blogConfig: BlogConfigRequestBodyProps) => {
+  const queryClient = useQueryClient();
+
+  return useMutation(
+    [QUERY_KEY_DASHBOARD.updateUserInfo, blogUrl, blogConfig],
+    () => putBlogConfig(blogUrl, blogConfig),
+    {
+      onSuccess: () => {
+        queryClient.invalidateQueries([QUERY_KEY_DASHBOARD.getBlogTemplateInfo]);
+        queryClient.invalidateQueries([QUERY_KEY_DASHBOARD.getBlogInfo]);
+        queryClient.invalidateQueries([QUERY_KEY_DASHBOARD.getBlogFooterInfo]);
+
+        successChangeUserInfo();
+      },
+      onError: (error) => {
+        if (isAxiosError(error)) {
+          if (error.response?.status === 400) errorChangeUserInfo(error.response?.data.message);
+        }
+      },
+    },
+  );
 };
 
 export const useDeleteCategory = (blogUrl: string, id: number) => {

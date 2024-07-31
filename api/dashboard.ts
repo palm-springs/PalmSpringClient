@@ -108,6 +108,11 @@ export const postCategory = async (blogUrl: string, name: string, description: s
   return data;
 };
 
+export const getCategoryDuplication = async (blogUrl: string, category: string) => {
+  const { data } = await client.get(`/api/v2/dashboard/category/admin/check/${blogUrl}?categoryName=${category}`);
+  return data;
+};
+
 export const postNavigation = async (blogUrl: string, name: string, isPage: boolean, navUrl: string) => {
   const { data } = await client.post<Response<null>>(`/api/v2/dashboard/nav/admin/create/${blogUrl}`, {
     name,

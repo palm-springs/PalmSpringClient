@@ -6,6 +6,7 @@ import client, { refreshAxiosInstance } from '@/api';
 import { getRefreshToken } from '@/api/auth';
 import { ACCESS_TOKEN_KEY, LoginUserState } from '@/constants/Auth';
 import { checkSessionStorage } from '@/utils/checkSessionStorage';
+import { imageSizeErrorNotify } from '@/utils/imageSizeErrorNotify';
 
 // 로그인이 필요한 페이지에 대해 로그인 검사
 const AuthRequired = ({ children }: { children: React.ReactNode }) => {
@@ -60,6 +61,7 @@ const AuthRequired = ({ children }: { children: React.ReactNode }) => {
         return response;
       },
       async (error) => {
+        console.log(error);
         const { config } = error;
 
         // 재시도 5회 제한
@@ -99,7 +101,7 @@ const AuthRequired = ({ children }: { children: React.ReactNode }) => {
           }
         }
 
-        return error.response;
+        throw error;
       },
     );
 
@@ -121,7 +123,7 @@ const AuthRequired = ({ children }: { children: React.ReactNode }) => {
 
     return () => {
       client.interceptors.response.eject(clientInterceptor);
-      refreshAxiosInstance.interceptors.request.eject(refreshInterceptor);
+      refreshAxiosInstance.interceptors.response.eject(refreshInterceptor);
     };
   }, []);
 

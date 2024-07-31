@@ -8,6 +8,7 @@ import { putBlogConfig } from '@/api/blog';
 import LoadingLottie from '@/components/common/ui/LoadingLottie';
 // import { imageErrorCase } from '@/constants/image';
 import { useGetBlogFooterInfo, useGetBlogInfo, useGetBlogTemplateInfo } from '@/hooks/blog';
+import { useUpdateBlogConfig } from '@/hooks/dashboard';
 import usePerMissionPolicy from '@/hooks/usePermissionPolicy';
 // import { getImageMultipartData } from '@/utils/getImageMultipartData';
 // import { imageSizeErrorNotify } from '@/utils/imageSizeErrorNotify';
@@ -43,11 +44,9 @@ interface BlogConfigProps {
 const BlogConfigTemplate = () => {
   const { team } = useParams();
 
-  const res = useGetBlogInfo(team);
-
-  const footerRes = useGetBlogFooterInfo(team);
-
-  const templateRes = useGetBlogTemplateInfo(team);
+  const res = useGetBlogInfo(team as string);
+  const footerRes = useGetBlogFooterInfo(team as string);
+  const templateRes = useGetBlogTemplateInfo(team as string);
 
   const { modifyBlogInfo, deleteBlog } = usePerMissionPolicy();
 
@@ -63,17 +62,6 @@ const BlogConfigTemplate = () => {
     templateName: '템플릿 내용을 불러오는 중입니다...',
   });
   const [blogMetaConfig, setBlogMetaConfig] = useRecoilState(blogMetaDataState);
-
-  const successNotify = createToast({
-    type: 'NORMAL',
-    message: '블로그 정보를 수정했습니다!',
-    id: 'error on blog config modified',
-  });
-  const errorNotify = createToast({
-    type: 'ERROR',
-    message: '블로그 정보 수정에 실패했습니다!',
-    id: 'error on modifying blog config',
-  });
 
   useEffect(() => {
     if (!res || !res.data || !footerRes || !footerRes.data || !templateRes || !templateRes.data) return;
@@ -97,6 +85,23 @@ const BlogConfigTemplate = () => {
     }));
   }, [res, footerRes, templateRes]);
 
+  const { mutate: updateBlogConfig } = useUpdateBlogConfig(team as string, {
+    name: blogConfig.blogName,
+    description: blogConfig.blogDescribeText,
+    logo: blogConfig.blogLogoImage,
+    thumbnail: blogConfig.blogMainImage,
+
+    footerInfo: {
+      owner: blogConfig.ownerName,
+      info: blogConfig.ownerDescription,
+    },
+    templateName: blogConfig.templateName,
+
+    metaThumbnail: blogMetaConfig.metaThumbnail,
+    metaName: blogMetaConfig.metaName,
+    metaDescription: blogMetaConfig.metaDescription,
+  });
+
   if (!res || !res.data || !footerRes || !footerRes.data || !templateRes || !templateRes.data) {
     return <LoadingLottie width={10} height={10} />;
   }
@@ -117,29 +122,8 @@ const BlogConfigTemplate = () => {
     metaDescription !== blogMetaConfig.metaDescription ||
     templateName !== blogConfig.templateName;
 
-  const postBlogConfig = async () => {
-    try {
-      // axios를 이용한 post 요청. 헤더를 multipart/form-data 로 한다.
-      await putBlogConfig(team, {
-        name: blogConfig.blogName,
-        description: blogConfig.blogDescribeText,
-        logo: blogConfig.blogLogoImage,
-        thumbnail: blogConfig.blogMainImage,
-
-        footerInfo: {
-          owner: blogConfig.ownerName,
-          info: blogConfig.ownerDescription,
-        },
-        templateName: blogConfig.templateName,
-
-        metaThumbnail: blogMetaConfig.metaThumbnail,
-        metaName: blogMetaConfig.metaName,
-        metaDescription: blogMetaConfig.metaDescription,
-      });
-      successNotify();
-    } catch (err) {
-      errorNotify();
-    }
+  const postBlogConfig = () => {
+    updateBlogConfig();
   };
   return (
     <>
