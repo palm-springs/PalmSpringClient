@@ -7,9 +7,6 @@
         <loc>https://palms.blog/sitemap/sitemap/duckduck.xml</loc>
     </sitemap>
     <sitemap>
-        <loc>https://palms.blog/sitemap/sitemap/hello.xml</loc>
-    </sitemap>
-    <sitemap>
         <loc>https://palms.blog/sitemap/sitemap/yoon.xml</loc>
     </sitemap>
     <sitemap>
@@ -17,6 +14,9 @@
     </sitemap>
     <sitemap>
         <loc>https://palms.blog/sitemap/sitemap/hi.xml</loc>
+    </sitemap>
+    <sitemap>
+        <loc>https://palms.blog/sitemap/sitemap/yummygyudon.xml</loc>
     </sitemap>
     <sitemap>
         <loc>https://palms.blog/sitemap/sitemap/pynm.xml</loc>
@@ -91,9 +91,6 @@
         <loc>https://palms.blog/sitemap/sitemap/rim.xml</loc>
     </sitemap>
     <sitemap>
-        <loc>https://palms.blog/sitemap/sitemap/cf.xml</loc>
-    </sitemap>
-    <sitemap>
         <loc>https://palms.blog/sitemap/sitemap/test.xml</loc>
     </sitemap>
     <sitemap>
@@ -101,6 +98,9 @@
     </sitemap>
     <sitemap>
         <loc>https://palms.blog/sitemap/sitemap/chaehyundev.xml</loc>
+    </sitemap>
+    <sitemap>
+        <loc>https://palms.blog/sitemap/sitemap/kmphone.xml</loc>
     </sitemap>
     <sitemap>
         <loc>https://palms.blog/sitemap/sitemap/hodoo.xml</loc>
@@ -127,9 +127,6 @@
         <loc>https://palms.blog/sitemap/sitemap/unan.xml</loc>
     </sitemap>
     <sitemap>
-        <loc>https://palms.blog/sitemap/sitemap/test123.xml</loc>
-    </sitemap>
-    <sitemap>
         <loc>https://palms.blog/sitemap/sitemap/publify.xml</loc>
     </sitemap>
     <sitemap>
@@ -140,9 +137,6 @@
     </sitemap>
     <sitemap>
         <loc>https://palms.blog/sitemap/sitemap/synthia-travels.xml</loc>
-    </sitemap>
-    <sitemap>
-        <loc>https://palms.blog/sitemap/sitemap/testblog.xml</loc>
     </sitemap>
     <sitemap>
         <loc>https://palms.blog/sitemap/sitemap/taco.xml</loc>
@@ -181,69 +175,78 @@
         <loc>https://palms.blog/sitemap/sitemap/softie.xml</loc>
     </sitemap>
     <sitemap>
-        <loc>https://palms.blog/sitemap/sitemap/haruundong.xml</loc>
-    </sitemap>
-    <sitemap>
         <loc>https://palms.blog/sitemap/sitemap/hello3.xml</loc>
-    </sitemap>
-    <sitemap>
-        <loc>https://palms.blog/sitemap/sitemap/sopt.xml</loc>
     </sitemap>
     <sitemap>
         <loc>https://palms.blog/sitemap/sitemap/eunduproject.xml</loc>
     </sitemap>
     <sitemap>
-        <loc>https://palms.blog/sitemap/sitemap/init.xml</loc>
+        <loc>https://palms.blog/sitemap/sitemap/sopt.xml</loc>
     </sitemap>
     <sitemap>
-        <loc>https://palms.blog/sitemap/sitemap/forweber.xml</loc>
+        <loc>https://palms.blog/sitemap/sitemap/d.xml</loc>
+    </sitemap>
+    <sitemap>
+        <loc>https://palms.blog/sitemap/sitemap/dd.xml</loc>
     </sitemap>
     <sitemap>
         <loc>https://palms.blog/sitemap/sitemap/da9dac.xml</loc>
     </sitemap>
     <sitemap>
-        <loc>https://palms.blog/sitemap/sitemap/bito.xml</loc>
+        <loc>https://palms.blog/sitemap/sitemap/forweber.xml</loc>
     </sitemap>
     <sitemap>
-        <loc>https://palms.blog/sitemap/sitemap/sopt-makers.xml</loc>
+        <loc>https://palms.blog/sitemap/sitemap/init.xml</loc>
     </sitemap>
     <sitemap>
-        <loc>https://palms.blog/sitemap/sitemap/alternative.xml</loc>
+        <loc>https://palms.blog/sitemap/sitemap/camptongforest.xml</loc>
+    </sitemap>
+    <sitemap>
+        <loc>https://palms.blog/sitemap/sitemap/pd.xml</loc>
     </sitemap>
     <sitemap>
         <loc>https://palms.blog/sitemap/sitemap/today-undong.xml</loc>
     </sitemap>
     <sitemap>
-        <loc>https://palms.blog/sitemap/sitemap/fire-people.xml</loc>
+        <loc>https://palms.blog/sitemap/sitemap/alternative.xml</loc>
     </sitemap>
-     <sitemap>
-        <loc>https://palms.blog/sitemap/sitemap/camptongforest.xml</loc>
+    <sitemap>
+        <loc>https://palms.blog/sitemap/sitemap/test-our-blog.xml</loc>
     </sitemap>
-     <sitemap>
-        <loc>https://palms.blog/sitemap/sitemap/teamy-room.xml</loc>
+    <sitemap>
+        <loc>https://palms.blog/sitemap/sitemap/withwalter.xml</loc>
     </sitemap>
-     <sitemap>
-        <loc>https://palms.blog/sitemap/sitemap/ddangkong.xml</loc>
+    <sitemap>
+        <loc>https://palms.blog/sitemap/sitemap/testPolla.xml</loc>
     </sitemap>
-     <sitemap>
+    <sitemap>
+        <loc>https://palms.blog/sitemap/sitemap/bito.xml</loc>
+    </sitemap>
+    <sitemap>
+        <loc>https://palms.blog/sitemap/sitemap/m.xml</loc>
+    </sitemap>
+    <sitemap>
+        <loc>https://palms.blog/sitemap/sitemap/testtest.xml</loc>
+    </sitemap>
+    <sitemap>
         <loc>https://palms.blog/sitemap/sitemap/wndtlr1024.xml</loc>
     </sitemap>
-     <sitemap>
+    <sitemap>
+        <loc>https://palms.blog/sitemap/sitemap/daangn.xml</loc>
+    </sitemap>
+    <sitemap>
         <loc>https://palms.blog/sitemap/sitemap/maro.xml</loc>
-    </sitemap>
-    <sitemap>
-        <loc>https://palms.blog/sitemap/sitemap/pollaz.xml</loc>
-    </sitemap>
-    <sitemap>
-        <loc>https://palms.blog/sitemap/sitemap/ihateflyingbugs.xml</loc>
     </sitemap>
     <sitemap>
         <loc>https://palms.blog/sitemap/sitemap/wooteco-temp.xml</loc>
     </sitemap>
     <sitemap>
-        <loc>https://palms.blog/sitemap/sitemap/momo.xml</loc>
+        <loc>https://palms.blog/sitemap/sitemap/ihateflyingbugs.xml</loc>
     </sitemap>
     <sitemap>
-        <loc>https://palms.blog/sitemap/sitemap/hoi.xml</loc>
+        <loc>https://palms.blog/sitemap/sitemap/howtolive.xml</loc>
+    </sitemap>
+    <sitemap>
+        <loc>https://palms.blog/sitemap/sitemap/drdiary-pd.xml</loc>
     </sitemap>
 </sitemapindex>
